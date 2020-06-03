@@ -1,0 +1,105 @@
+{
+    "Q": {
+        "damage": {
+            "type": "phys",
+            "system": "2Part",
+            "part1": {
+                "dmg": [
+                    55, 80, 105, 130, 155
+                ],
+                "bonusADRatio": 1
+            },
+            "part2": {
+                "system": "minMax",
+                "minDmg": [
+                    55, 80, 105, 130, 155
+                ],
+                "maxDmg": [
+                    110, 160, 210, 260, 310
+                ],
+                "minBonusADRatio": 1,
+                "maxBonusADRatio": 2
+            }
+        },
+        "coolDown": [
+            11, 10, 9, 8, 7
+        ]
+    },
+    "W": {
+        "allShield": {
+            "type":"all",
+            "shield": [
+                55, 110, 165, 220, 275
+            ],
+            "duration": 2,
+            "APRatio": 0.8
+        },
+        "bonusOmniVamp": {
+            "vamp": [
+                0.10, 0.15, 0.20, 0.25, 0.30
+            ],
+            "duration": 4
+        },
+        "coolDown": 12,
+        "minCoolDown": 6
+    },
+    "E": {
+        "damage": {
+                "type": "magic",
+                "system":"single",
+                "dmg": [
+                    80, 120, 160, 200, 240
+                ]
+        },
+        "coolDown": 10
+    },
+    "R": {
+        "damage": {
+            "type":"phys",
+            "system":"minMax",
+            "minDmg": [
+                175, 400, 625
+            ],
+            "maxDmg": [
+                175, 400, 625
+            ],
+            "minBonusADRatio": 2,
+            "maxBonusADRatio": 2,
+            "maxEnemyBonusHPRatio": [
+                0.12, 0.15, 0.18
+            ]
+        },
+        "interruptCC": 1,
+        "coolDown": [
+            110, 85, 60
+        ]
+    },
+    "passive": {
+            "bonusAttackSpeed": {
+                "attackSpeed": 0.4,
+                "durationAutos": 2,
+                "coolDown": "spellCast"
+            }
+    },
+    "stats": {
+        "baseHP": 575,
+        "hpPerLevel": 85,
+        "baseHPRegen": 7.5,
+        "hpRegenPerLevel": 0.7,
+        "mana": {
+            "base": 0,
+            "manaPerLevel": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLevel": 0
+        },
+        "baseDamage": 70,
+        "damagePerLevel": 3.2,
+        "baseArmor": 33,
+        "armorPerLevel": 3.7,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.651,
+        "attackSpeedRatio": 0.651,
+        "attackSpeedPerLevel": 0.03
+    }
+}

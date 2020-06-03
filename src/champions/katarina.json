@@ -1,0 +1,85 @@
+{
+    "Q": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                75, 105, 135, 165, 195
+            ],
+            "APRatio": 0.3
+        },
+        "coolDown": [
+            11, 10, 9, 8, 7
+        ]
+    },
+    "E": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                15, 30, 45, 60, 75
+            ],
+            "APRatio": 0.25,
+            "ADRatio": 0.5
+        },
+        "coolDown": [
+            14, 12.5, 11, 9.5, 8
+        ]
+    },
+    "R": {
+        "tickDamage": {
+            "type":"magic",
+            "interval":0.166,
+            "ticks": 15,
+            "dmg":[
+                25, 37.5, 50
+            ],
+            "bonusADRatio": 0.22,
+            "APRatio": 0.19
+        },
+        "coolDown": [
+            90, 60, 45
+        ]
+    },
+    "passive": {
+       "spellCoolDownReduxOnKill": 15,
+        "damage": {
+            "type":"magic",
+            "dmgByLvl": [
+                68,72,77,82,89,96,103,112,121,
+                131,142,154,166,180,194,208,224,240
+            ],
+            "bonusADRatio": 1,
+            "APRatioByLvl": [
+                0.55,0.55,0.55,0.55,0.55,0.66,0.66,0.66,0.66,
+                0.66,0.77,0.77,0.77,0.77,0.77,0.88,0.88,0.88
+            ],
+            "numberOfUses": "custom"
+        },
+        "QCoolDownReduxRatioByLvl": [
+            0.78, 0.78, 0.78, 0.78, 0.78, 0.84, 0.84, 0.84, 0.84,
+            0.84, 0.90, 0.90, 0.90, 0.90, 0.90, 0.96, 0.96, 0.96
+        ]
+    },
+    "stats": {
+        "baseHP": 602,
+        "hpPerLevel": 94,
+        "baseHPRegen": 7.5,
+        "hpRegenPerLevel": 0.7,
+        "mana": {
+            "base": 0,
+            "manaPerLevel": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLevel": 0
+        },
+        "baseDamage": 58,
+        "damagePerLevel": 3.2,
+        "baseArmor": 27.88,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.658,
+        "attackSpeedRatio": 0.658,
+        "attackSpeedPerLevel": 0.0274
+    }
+}

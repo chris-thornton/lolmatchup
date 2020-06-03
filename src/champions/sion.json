@@ -1,0 +1,125 @@
+{
+    "Q": {
+        "damage": {
+            "type":"phys",
+            "system":"minMax",
+            "minDmg": [
+                30, 50, 70, 90, 110
+            ],
+            "maxDmg": [
+                70, 135, 200, 265, 330
+            ],
+            "minADRatio": [
+                0.45, 0.525, 0.60, 0.675, 0.75
+            ],
+            "maxADRatio": [
+                1.35, 1.575, 1.80, 2.025, 2.25
+            ]
+        },
+        "minInterruptCC": 1.75,
+        "maxInterruptCC": 3.25,
+        "coolDown": [
+            10, 9, 8, 7, 6
+        ]
+    },
+    "W": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                40, 65, 90, 115, 140
+            ],
+            "APRatio": 0.4,
+            "enemyMaxHPRatio": [
+                0.1, 0.11, 0.12, 0.13, 0.14
+            ]
+        },
+        "selfShield": {
+            "type": "all",
+            "duration": 6,
+            "shield": [
+                50, 75, 100, 125, 150
+            ],
+            "APRatio": 0.4,
+            "maxHPRatio": [
+                0.08, 0.09, 0.1, 0.11, 0.12
+            ]
+        },
+        "passivePermanent": {
+            "bonusHealth": {
+                "healthPerStack": 4,
+                "healthPerTakeDown": 15,
+                "stacks": "custom",
+                "takedowns": "custom"
+            }
+        }
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                65, 100, 135, 170, 205
+            ],
+            "APRatio": 0.55
+        },
+        "resistRedux": {
+            "type": "armor",
+            "reduxRatio": 0.2,
+            "duration": 4 
+        },
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ]
+    },
+    "R": {
+        "damage": {
+            "type": "phys",
+            "system":"minMax",
+            "minDmg": [
+                150, 300, 450
+            ],
+            "maxDmg":[
+                400, 800, 1200
+            ],
+            "minBonusADRatio": 0.4,
+            "maxBonusADRatio": 0.8
+        },
+        "minInterruptCC": 0.75,
+        "maxInterruptCC": 2.25,
+        "coolDown": [
+            140, 100, 60
+        ]
+    },
+    "passive": {
+        "postDeath": {
+            "duration": "custom",
+            "attackSpeed": 1.75,
+            "onHit": {
+                "type":"phys",
+                "enemyMaxHPRatio": 0.1
+            }
+        }
+    },
+    "stats": {
+        "baseHP": 545,
+        "hpPerLevel": 73,
+        "baseHPRegen": 7.5,
+        "hpRegenPerLevel": 0.8,
+        "mana": {
+            "base": 330,
+            "manaPerLevel": 42,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.6
+        },
+        "baseDamage": 68,
+        "damagePerLevel": 4,
+        "baseArmor": 32,
+        "armorPerLevel": 3,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.679,
+        "attackSpeedRatio": 0.679,
+        "attackSpeedPerLevel": 0.013
+    }
+}

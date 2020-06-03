@@ -1,0 +1,96 @@
+{
+    "Q": {
+        "autoEmpower":{
+            "damage": {
+                "type":"phys",
+                "ADRatio": [
+                    0.6, 0.65, 0.7, 0.75, 0.8
+                ]
+            }
+        },
+        "coolDown": [
+            4, 3.5, 3, 2.5, 2
+        ]
+    },
+    "W": {
+        "onHitPermanent": {
+            "damage": {
+                "type": "true",
+                "system": "min",
+                "minDmg": [
+                    50, 65, 80, 95, 110
+                ],
+                "enemyMaxHPRatio": [
+                    0.04, 0.065, 0.09, 0.115, 0.14
+                ]
+            },
+            "autoCoolDown": 3
+        }
+    },
+    "E": {
+        "damage": {
+            "system":"minMax",
+            "type":"phys",
+            "minDmg": [
+               50, 85, 120, 155, 190
+            ],
+            "maxDmg": [
+                125, 212.5, 300, 387.5, 475
+            ],
+            "minBonusADRatio": 0.5,
+            "maxBonusADRatio": 1.25
+        },
+        "coolDown": [
+            20, 18, 16, 14, 12
+        ],
+        "interruptCC": 1.5
+    },
+    "R": {
+        "bonusAttackDamage": {
+            "minDuration":[
+                8, 10, 12
+            ],
+            "maxDuration": [
+                16, 20, 24
+            ],
+            "attackDamage": [
+                25, 40, 55
+            ]
+        },
+        "QEmpower": {
+            "coolDownReduxRatio": [
+                0.3, 0.4, 0.5
+            ],
+            "minDuration":[
+                8, 10, 12
+            ],
+            "maxDuration": [
+                16, 20, 24
+            ]
+        },
+        "coolDown": [
+            100, 85, 70
+        ]
+    },
+    "stats": {
+        "baseHP": 515,
+        "hpPerLevel": 89,
+        "baseHPRegen": 3.5,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 231.8,
+            "manaPerLevel": 35,
+            "manaBaseRegen": 6.972,
+            "manaRegenPerLevel": 0.4
+        },
+        "baseDamage": 60,
+        "damagePerLevel": 2.36,
+        "baseArmor": 23,
+        "armorPerLevel": 3.4,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.658,
+        "attackSpeedRatio": 0.658,
+        "attackSpeedPerLevel": 0.033
+    }
+}

@@ -1,0 +1,113 @@
+{
+    "Q": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+                "dmg": [
+                    40, 75, 110, 145, 180
+                ],
+                "enemyCurrentHPRatio": 0.04,
+                "enemyCurrentHPRatioPer100AP": 0.03
+        },
+        "coolDown": 6
+    },
+    "QTransform": {
+            "damage": {
+                "type": "magic",
+                "system": "single",
+                    "dmg": [
+                        70, 110, 150, 190, 230
+                    ],
+                    "enemyMissingHPRatio": 0.08,
+                    "enemyMissingHPRatioPer100AP": 0.03
+            },
+            "coolDown": 6     
+    },
+    "W": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+                "dmg": [
+                    60, 105, 150, 195, 240
+                ],
+                "APRatio": 0.95
+        },
+        "coolDown": 12
+    },
+    "WTransform": {
+        "passivePermanent": {
+            "attackSpeed": [
+                0.05, 0.1, 0.15, 0.2, 0.25
+            ]
+        },
+        "bonusAttackSpeed": {
+            "attackSpeed": [
+                0.6, 0.8, 1, 1.2, 1.4
+            ],
+            "duration": 3
+        },
+        "coolDown": 10
+    },
+    "E": {
+       "interruptCC": [
+        1.6, 1.7, 1.8, 1.9, 2
+       ],
+        "coolDown": [
+            12, 11.5, 11, 10.5, 10
+        ]
+    },
+    "ETransform": {
+        "passiveTransformBonus": {
+            "bonus": [
+                0.4, 0.5, 0.7, 0.85, 1
+            ],
+            "duration": 5
+        },
+        "coolDown": [
+            22, 21, 20, 19, 18
+        ]
+    },
+    "R": {
+        "coolDown": 4
+    },
+    "passiveTransform": {
+            "onHit": {
+                "duration":"infinite",
+                "damage": {
+                    "type":"magic",
+                    "system":"single",
+                    "dmgByRRank": [
+                        10, 20, 30, 40
+                    ],
+                    "APRatio": 0.3
+                },
+                "selfHeal": {
+                    "healByRRank": [
+                        4, 6, 8, 10
+                    ],
+                    "APRatio": 0.1
+                }
+            }
+    },
+    "stats": {
+        "baseHP": 534,
+        "hpPerLevel": 93,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLevel": 0.6,
+        "mana": {
+            "base": 324,
+            "manaPerLevel": 50,
+            "manaBaseRegen": 6,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 55,
+        "damagePerLevel": 3,
+        "baseArmor": 27,
+        "armorPerLevel": 3.35,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0175
+    }
+}

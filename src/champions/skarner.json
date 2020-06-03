@@ -1,0 +1,113 @@
+{
+    "Q": {
+        "damage": {
+            "type":"mixed",
+            "system":"2Part",
+            "part1": {
+                "type":"phys",
+                "ADRatio": [
+                    0.33, 0.36, 0.39, 0.42, 0.45
+                ]
+            },
+            "part2": {
+                "type": "magic",
+                "ADRatio": [
+                    0.33, 0.36, 0.39, 0.42, 0.45
+                ],
+                "APRatio": 0.3
+            }
+        },
+        "coolDown": [
+            3.5, 3.25, 3, 2.75, 2.5
+        ],
+        "coolDownRefundOnAuto": 1
+    },
+    "W": {
+        "selfShield": {
+            "type": "all",
+            "duration": 6,
+            "APRatio": 0.8,
+            "maxHPRatio": [
+               0.1, 0.11, 0.12, 0.13, 0.14
+            ]
+        },
+        "coolDown": [
+            13, 12.5, 12, 11.5, 11
+        ]
+    },
+    "E": {
+        "damage": {
+            "type":"mixed",
+            "system":"2Part",
+            "part1":{
+                "type": "magic",
+                "dmg": [
+                    40, 65, 90, 115, 140
+                ],
+                "APRatio": 0.2
+            },
+            "part2": {
+                "type":"phys",
+                "dmg": [
+                    30, 50, 70, 90, 110
+                ]
+            }
+        },
+        "interruptCC": 1.25,
+        "coolDown": [
+            14, 13.5, 13, 12.5, 12
+        ],
+        "coolDownReduxPerComboWithoutTenacity": 3
+    },
+    "R": {
+        "damage": {
+            "type": "mixed",
+            "system":"2Part",
+            "part1": {
+                "type":"phys",
+                "ADRatio": 1.2
+            },
+            "part2": {
+                "type":"magic",
+                "dmg": [
+                    40, 120, 200
+                ],
+                "APRatio": 1
+            }
+        },
+        "interruptCC": 1.75,
+        "coolDown": [
+            120, 100, 80
+        ]
+    },
+    "passive": {
+        "bonusAttackSpeed": {
+            "duration": "custom",
+            "attackSpeedByLvl": [
+                0.43,0.48,0.53,0.58,0.63,0.68,0.73,0.80,0.87,
+                0.94,1.01,1.08,1.15,1.24,1.33,1.42,1.51,1.60
+            ]
+        }
+    },
+    "stats": {
+        "baseHP": 601.28,
+        "hpPerLevel": 90,
+        "baseHPRegen": 9,
+        "hpRegenPerLevel": 0.85,
+        "mana": {
+            "base": 320,
+            "manaPerLevel": 40,
+            "manaBaseRegen": 7.206,
+            "manaRegenPerLevel": 0.45
+        },
+        "baseDamage": 65,
+        "damagePerLevel": 4.5,
+        "baseArmor": 38,
+        "armorPerLevel": 3.8,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.021
+    }
+}

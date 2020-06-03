@@ -1,0 +1,80 @@
+{
+    "Q": {  
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                60, 95, 130, 165, 200
+            ],
+            "APRatio": 0.6
+        },
+        "coolDown": [
+            7, 6.5, 6, 5.5, 5
+        ]
+    },
+    "W": {
+        "petStats": {
+            "duration": 8,
+            "placed": "custom",
+            "attackSpeed": 0.8,
+            "auto": {
+                "type":"magic",
+                "system": "empower",
+                "empowerDmgRatio": 1.5,
+                "dmgByLvl": [
+                    20,24.71,29.41,34.12,38.82,43.53,48.24,52.94,57.65,
+                    62.35,67.06,71.76,76.47,81.18,85.88,90.59,95.29,100
+                ],
+                "APRatio": 0.15,
+                "multiHitDmgRatio": 0.5
+            },
+            "empowerDuration": 8
+        }
+    },
+    "E": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                60, 105, 150, 195, 240
+            ],
+            "APRatio": 0.5
+        },
+        "coolDown": 12
+    },
+    "R": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                180, 265, 350
+            ],
+            "APRatio": 0.7
+        },
+        "interruptCC": 1,
+        "coolDown": [
+            110, 100, 90
+        ]
+    },
+    "stats": {
+        "baseHP": 504,
+        "hpPerLevel": 79,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLevel": 0.5,
+        "mana": {
+            "base": 418,
+            "manaPerLevel": 25,
+            "manaBaseRegen": 13,
+            "manaRegenPerLevel": 0.4
+        },
+        "baseDamage": 53.376,
+        "damagePerLevel": 3.2,
+        "baseArmor": 29,
+        "armorPerLevel": 3,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0211
+    }
+}

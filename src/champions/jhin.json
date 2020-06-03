@@ -1,0 +1,125 @@
+{
+    "Q": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "minDmg": [
+                45, 70, 95, 120, 145
+            ],
+            "maxDmg": [
+                92.25, 143.5, 194.75, 246, 297.25
+            ],
+            "minADRatio": [
+                0.45, 0.525, 0.60, 0.675, 0.75
+            ],
+            "maxADRatio": [
+                0.9225, 1.07625, 1.23, 1.38375, 1.5375
+            ],
+            "minAPRatio": 0.6,
+            "maxAPRatio": 1.23
+        },
+        "coolDown": [
+            7, 6.5, 6, 5.5, 5
+        ]
+    },
+    "W": {
+        "damage": {
+            "type": "phys",
+            "system": "single",
+            "dmg": [
+                50, 85, 120, 155, 190
+            ],
+            "ADRatio": 0.5
+        },
+        "coolDown": 12
+    },
+    "E": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                20, 80, 140, 200, 260
+            ],
+            "ADRatio": 1.2,
+            "APRatio": 1,
+            "multiHitDmgRatio": 0.65
+        },
+        "coolDown": "trap"
+    },
+    "R": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "minDmg": [
+                50, 125, 200
+            ],
+            "maxDmg": [
+                200, 500, 800
+            ],
+            "minADRatio": 0.2,
+            "maxADRatio": 0.8,
+            "repeat": 4,
+            "4thShotDmgRatio": 2,
+            "4thShotDmgRatioWithIE": 2.25
+        },
+        "coolDown": [
+            120, 105, 90
+        ]
+    },
+    "passive": {
+        "auto": {
+            "critDmg": 1.5,
+            "critDmgWithIE": 1.6875,
+            "reloadTime": 2.5,
+            "reloadPer": 4
+        },
+        "autoEmpower": {
+            "damage": {
+                "type":"phys",
+                "enemyMissingHPRatioByLvl": [
+                    0.15, 0.15, 0.15, 0.15, 0.15, 0.2, 0.2, 0.2, 0.2,
+                    0.2, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25
+                ],
+                "alwaysCrit": true,
+                "autoCoolDown": 4
+            }
+        },
+        "passivePermanent": {
+            "bonusAttackDamage": {
+                "ADRatioByLvl": [
+                   0.04,0.05,0.06,0.07,0.08,0.09,0.10,0.11,0.12,
+                   0.14,0.16,0.20,0.24,0.28,0.32,0.36,0.40,0.44
+                ],
+                "critChanceRatio": 0.4,
+                "bonusMoveSpeedRatio": 0.25
+            }
+        },
+        "bonusMoveSpeedOnCrit": {
+            "moveSpeedRatio": 0.1,
+            "moveSpeedRatioPer1BonusAttackSpeed": 0.4,
+            "duration": 2
+        }
+    },
+    "stats": {
+        "baseHP": 585,
+        "hpPerLevel": 93,
+        "baseHPRegen": 3.75,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 300,
+            "manaPerLevel": 50,
+            "manaBaseRegen": 6,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 59,
+        "damagePerLevel": 4.7,
+        "baseArmor": 24,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0,
+        "attackSpeedPerLevel": 0.03,
+        "moveSpeed": 330
+    }
+}

@@ -1,0 +1,102 @@
+{
+    "Q": {
+        "damage": {
+            "type": "phys",
+            "system": "single",
+            "dmg": [
+                20, 45, 70, 95, 120
+            ],
+            "ADRatio": 1,
+            "canCrit": true
+        },
+        "coolDown": 5
+    },
+    "W": {
+        "selfHeal": {
+            "heal": [
+                50, 75, 100, 125, 150
+            ],
+            "APRatio": 0.9,
+            "missingHPRatio": 0.15
+        },
+        "coolDown": [
+            22, 20, 18, 16, 14
+        ]
+    },
+    "E": {
+        "autoEmpower": {
+            "damage": {
+                "type": "true",
+                "system":"single",
+                "dmg": [
+                    80, 105, 130, 155, 180
+                ],
+                "armorIgnore": 0.4
+            },
+            "QEmpower": true
+        },
+        "recharge": [
+            18, 16, 14, 12, 10
+        ]
+    },
+    "R": {
+        "tickDamage": {
+            "type": "magic",
+            "interval": 2,
+            "ticks": 4,
+            "dmg": [
+                120, 210, 300
+            ],
+            "APRatio": 0.3
+        },
+        "deathsDaughter": {
+            "damage": {
+                "type":"true",
+                "dmg": [
+                    120, 210, 300
+                ],
+                "APRatio": 0.3
+            }
+        },
+        "fireAtWill": {
+            "damageRatio": 1.5
+        },
+        "coolDown": [
+            180, 160, 140
+        ]
+    },
+    "passive": {
+            "damage": {
+                "type": "true",
+                "dmgByLvl": [
+                    55,65,75,85,95,105,115,125,135,
+                    145,155,165,175,185,195,205,215,225
+                ],
+                "bonusADRatio": 1,
+                "ticks": 10,
+                "interval": 0.25
+            },
+            "staticCoolDown": 15
+    },
+    "stats": {
+        "baseHP": 540,
+        "hpPerLevel": 82,
+        "baseHPRegen": 6,
+        "hpRegenPerLevel": 0.6,
+        "mana": {
+            "base": 282,
+            "manaPerLevel": 40,
+            "manaBaseRegen": 7.5,
+            "manaRegenPerLevel": 0.7
+        },
+        "baseDamage": 64,
+        "damagePerLevel": 3,
+        "baseArmor": 35,
+        "armorPerLevel": 3,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.69,
+        "attackSpeedRatio": 0.69,
+        "attackSpeedPerLevel": 0.032
+    }
+}

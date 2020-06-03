@@ -1,0 +1,97 @@
+{
+    "Q": {
+        "damage": {
+            "type": "phys",
+            "system": "single",
+            "dmg": [
+                60, 80, 100, 120, 140
+            ],
+            "bonusADRatio": 0.65
+        },
+        "bonusAttackSpeed": {
+            "duration": 4,
+            "attackSpeed": 0.25,
+            "attackSpeedPerStack": 0.05
+        },
+        "coolDown": 9,
+        "staticCoolDown": [
+            4, 3.5, 3, 2.5, 2
+        ]
+    },
+    "W": {
+        "autoEmpower": {
+            "selfHeal": {
+                "maxHealByLvl": [
+                    49,52,55,58,61,64,67,70,73,
+                    76,79,82,85,88,91,94,97,100
+                ],
+                "coolDown": "energized",
+                "duration": "infinite"
+            }
+        },
+        "damage": {
+            "type": "magic",
+            "system": "wolf",
+            "dmg": [
+                25, 30, 35, 40, 45
+            ],
+            "bonusADRatio": 0.2,
+            "enemyCurrentHPRatio": 0.015,
+            "enemyCurrentHPRatioPerStack": 0.01,
+            "attackSpeedPerBonusAttackSpeed": 0.25
+        },
+        "coolDown": [
+            18, 17, 16, 15, 14
+        ]
+    },
+    "E": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "minDmg": [
+                80, 100, 120, 140, 160
+            ],
+            "minBonusADRatio": 0.8,
+            "minEnemyMissingHPRatio": 0.08,
+            "minEnemyMissingHPRatioPerStack": 0.005,
+            "maxDmgRatio": 1.5,
+            "maxDmgRatioWithIE": 1.875,
+            "enemyHPThreshold": 0.15,
+            "enemyHPThresholdPerCritChance": 0.005
+        },
+        "coolDown": [
+            16, 15, 14, 13, 12
+        ]
+    },
+    "R": {
+        "allHeal": {
+            "heal": [
+                250,325,400
+            ]
+        },
+        "coolDown": [
+            180, 150, 120
+        ]
+    },
+    "stats": {
+        "baseHP": 540,
+        "hpPerLevel": 85,
+        "baseHPRegen": 7,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 300,
+            "manaPerLevel": 35,
+            "manaBaseRegen": 7,
+            "manaRegenPerLevel": 0.4
+        },
+        "baseDamage": 65,
+        "damagePerLevel": 2.5,
+        "baseArmor": 29,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.035
+    }
+}

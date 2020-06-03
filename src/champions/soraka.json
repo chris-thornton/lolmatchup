@@ -1,0 +1,92 @@
+{
+    "Q": {
+       "damage": {
+           "type":"magic",
+           "system":"single",
+           "dmg": [
+                85,120,155,190,225
+           ],
+           "APRatio": 0.35
+       },
+       "selfHeal": {
+            "heal": [
+                50, 60, 70, 80, 90
+            ],
+            "APRatio": 0.3
+       },
+       "coolDown": [
+            8, 7, 6, 5, 4
+       ]
+    },
+    "W": {
+        "allyHeal": {
+            "system": "minMax",
+            "minHeal": [
+                80, 115, 150, 185, 220
+            ],
+            "maxHeal": [
+                130, 175, 220, 265, 310
+            ],
+            "minAPRatio": 0.6,
+            "maxAPRatio": 0.9
+        },
+        "maxMaxHealthCost": 0.1,
+        "minMaxHealthCost": [
+            0.02, 0.015, 0.01, 0.005, 0
+        ],
+        "coolDown": [
+            6, 5, 4, 3, 2
+        ]
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system":"minMax",
+            "repeat": 1,
+            "dmg": [
+                70, 95, 120, 145, 170
+            ],
+            "APRatio": 0.4
+        },
+        "coolDown": [
+            20, 19, 18, 17, 16
+        ]
+    },
+    "R": {
+        "allHeal": {
+            "system":"minMax",
+            "minHeal": [
+                150, 250, 350
+            ],
+            "maxHeal": [
+                225, 375, 525
+            ],
+            "minAPRatio": 0.55,
+            "maxAPRatio": 0.825
+        },
+        "coolDown": [
+            160, 145, 130
+        ]
+    },
+    "stats": {
+        "baseHP": 535,
+        "hpPerLevel": 74,
+        "baseHPRegen": 2.5,
+        "hpRegenPerLevel": 0.5,
+        "mana": {
+            "base": 425,
+            "manaPerLevel": 40,
+            "manaBaseRegen": 11.5,
+            "manaRegenPerLevel": 0.4
+        },
+        "baseDamage": 50,
+        "damagePerLevel": 3,
+        "baseArmor": 32,
+        "armorPerLevel": 3.8,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0187 
+    }
+}

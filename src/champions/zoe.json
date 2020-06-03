@@ -1,0 +1,99 @@
+{
+    "Q": { 
+        "damage":{
+            "type":"magic",
+            "system":"minMax",
+            "maxDmgRatio": 2.5,
+            "minDmgByLvl":[
+                7,8,10,12,14,16,18,20,22,
+                24,26,29,32,35,38,42,46,50
+            ],
+            "minDmg": [
+                50, 80, 110, 140, 170
+            ],
+            "minAPRatio": 0.6
+        },
+        "coolDown": [
+           8.5, 8, 7.5, 7, 6.5
+        ]
+    },
+    "W": {
+        "spellthief": true,
+        "damage":{
+            "type":"magic",
+            "system":"minMax",
+            "repeat": 2,
+            "minDmg":[
+                25, 35, 45, 55, 65
+            ],
+            "APRatio": 0.1333
+        },
+        "coolDown": 0.25,
+        "uses": "custom"
+    },
+    "E": {
+        "damage": {
+            "type":"mixed",
+            "system": "2Part",
+            "part1": {
+                "type":"magic",
+                "dmg": [
+                    60, 100, 140, 180, 220
+                ],
+                "APRatio": 0.4
+            },
+            "part2": {
+                "type": "true",
+                "postMitigation": "magic",
+                "dmg":[
+                    60, 100, 140, 180, 220
+                ],
+                "APRatio": 0.4
+            }
+        },
+        "interruptCC": 2.25,
+        "coolDown":[
+            20, 18.5, 17, 15.5, 14
+        ]
+    },
+    "passive": {
+        "autoEmpower": {
+            "damage": {
+                "type":"magic",
+                "dmgByLvl": [
+                    16,20,24,28,32,36,42,48,54,
+                    60,66,74,82,90,100,110,120,130
+                ],
+                "APRatio": 0.2
+            },
+            "uses": "custom",
+            "coolDown": "abilityCast"
+        },
+        "staticCoolDown": 12,
+        "coolDownReduxOnAbilityByLvl": [
+            4,4,4,4,4,4,5,5,5,
+            5,5,5,6,6,6,6,6,6
+        ]
+    },
+    "stats": {
+        "baseHP": 560,
+        "hpPerLevel": 92,
+        "baseHPRegen": 6.5,
+        "hpRegenPerLevel": 0.6,
+        "mana": {
+            "base": 425,
+            "manaPerLevel": 25,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.65
+        },
+        "baseDamage": 58,
+        "damagePerLevel": 3.3,
+        "baseArmor": 20.8,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.025
+    }
+}

@@ -1,0 +1,77 @@
+{
+    "Q": {
+        "damage": {
+            "type":"phys",
+            "system":"single",
+            "dmg": [
+                20, 85, 150, 215, 280
+            ],
+            "ADRatio": 1
+        },
+        "coolDown": 8
+    },
+    "W": {
+        "autoEmpower": {
+            "damage": {
+                "type": "magic",
+                "enemyMaxHPRatio": [
+                    0.14, 0.15, 0.16, 0.17, 0.18
+                ]
+            },
+            "staticCoolDown": 10
+        }
+    },
+    "E": {
+        "damage": {
+            "type": "phys",
+            "system": "stacking",
+            "dmg": [
+                20, 30, 40, 50, 60
+            ],
+            "ADRatio": 0.6,
+            "dmgPerStack": [
+                10, 14, 19, 25, 32
+            ],
+            "ADRatioPerStack": [
+              0.198, 0.23748, 0.27498, 0.31248, 0.34998
+            ]  
+        },
+        "coolDown": [
+            14, 12.5, 11, 9.5, 8
+        ]
+    },
+    "R": {
+        "interruptCC": [
+            1.5, 1.75, 2
+        ],
+        "coolDown": [
+            150, 120, 90
+        ]
+    },
+    "passive": {
+        "auto": {
+            "ADRatio": 0.9
+        }
+    },
+    "stats": {
+        "baseHP": 534,
+        "hpPerLevel": 100,
+        "baseHPRegen": 3.75,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 250,
+            "manaPerLevel": 45,
+            "manaBaseRegen": 6.3,
+            "manaRegenPerLevel": 0.4
+        },
+        "baseDamage": 69,
+        "damagePerLevel": 4,
+        "baseArmor": 21,
+        "armorPerLevel": 4,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.694,
+        "attackSpeedRatio": 0.694,
+        "attackSpeedPerLevel": 0.04
+    }
+}

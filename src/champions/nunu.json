@@ -1,0 +1,116 @@
+{
+    "Q": {
+        "damage":{
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                60, 100, 140, 180, 220
+            ],
+            "APRatio": 0.5,
+            "bonusHPRatio": 0.05
+        },
+        "selfHeal": {
+            "system": "minMax",
+            "minHeal":[
+                60, 88, 116, 144, 172
+            ],
+            "maxHeal": [
+                90, 132, 174, 216, 258
+            ],
+            "minAPRatio": 0.56,
+            "maxAPRatio": 0.84,
+            "minBonusHPRatio": 0.08,
+            "maxBonusHPRatio": 0.12,
+            "HPThreshold": 0.5
+        },
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ]
+    },
+    "W": {
+        "damage": {
+            "type":"magic",
+            "system":"minMax",
+            "minDmg": [
+                36, 45, 54, 63, 72
+            ],
+            "maxDmg": [
+                180, 225, 270, 315, 360
+            ],
+            "minAPRatio":0.3,
+            "maxAPRatio": 1.5
+        },
+        "minInterruptCC": 0.5,
+        "maxInterruptCC": 1.25,
+        "coolDown": 14
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system":"minMax",
+            "minDmg": [
+                16, 24, 32, 40, 48
+            ],
+            "maxDmg": [
+                144, 216, 288, 360, 432
+            ],
+            "minAPRatio": 0.06,
+            "maxAPRatio": 0.54
+        },
+        "coolDown": 14
+    },
+    "R": {
+        "damage": {
+            "type": "magic",
+            "system":"max",
+            "maxDmg": [
+                625, 950, 1275
+            ],
+            "maxAPRatio": 2.5
+        },
+        "selfShield": {
+            "maxDuration": 6,
+            "shield": [
+                65, 75, 85
+            ],
+            "bonusHPRatio": [
+                0.3, 0.4, 0.5
+            ]
+        },
+        "coolDown": [
+            110, 100, 90
+        ]
+    },
+    "passive": {
+        "onTargetStaticCoolDown": 10,
+        "allBonusAttackSpeed": {
+            "duration": 4,
+            "attackSpeed": 0.2
+        },
+        "autoSplash": {
+            "duration": 4,
+            "ADRatio": 0.3
+        }
+    },
+    "stats": {
+        "baseHP": 570,
+        "hpPerLevel": 82,
+        "baseHPRegen": 5,
+        "hpRegenPerLevel": 0.8,
+        "mana": {
+            "base": 280,
+            "manaPerLevel": 42,
+            "manaBaseRegen": 7,
+            "manaRegenPerLevel": 0.5
+        },
+        "baseDamage": 61,
+        "damagePerLevel": 3,
+        "baseArmor": 32,
+        "armorPerLevel": 3,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0225
+    }
+}

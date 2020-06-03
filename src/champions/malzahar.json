@@ -1,0 +1,125 @@
+{
+    "Q": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                70, 105, 140, 175, 210
+            ],
+            "APRatio": 0.65
+        },
+        "silence": [
+            1, 1.25, 1.5, 1.75, 2
+        ],
+        "coolDown": 6
+    },
+    "W": {
+        "petStats": {
+            "duration": [
+                8, 8, 9, 9, 10
+            ],
+            "coolDown": 8,
+            "maxSummon": 3,
+            "attackSpeedByLvl": [
+                0.665,0.675,0.685,0.695,0.706,0.718,0.729,0.742,0.755,
+                0.768,0.782,0.796,0.811,0.826,0.841,0.858,0.874,0.891
+            ],
+            "healthByLvl": [
+                65,70.76,76.8,83.12,89.72,96.6,103.76,111.2,118.92,
+                126.92,135.2,143.76,152.6,161.72,171.12,180.8,190.76,201
+            ],
+            "armorByLvl": [
+                16,17.44,18.95,20.53,22.18,23.9,25.69,27.55,29.48,
+                31.48,33.55,35.69,37.9,40.18,42.53,44.95,47.44,50
+            ],
+            "magicResistByLvl": [
+                8,8.72,9.48,10.27,11.09,11.95,12.85,13.78,14.74,
+                15.74,16.78,17.85,18.95,20.09,21.27,22.48,23.72,25
+            ],
+            "auto": {
+                "type":"magic",
+                "dmg": [
+                    12, 14, 16, 18, 20
+                ],
+                "dmgByLvl": [
+                    5,7.52,10.16,12.93,15.82,18.83,21.96,25.21,28.59,
+                    32.09,35.71,39.46,43.33,47.32,51.43,55.66,60.02,64.5
+                ],
+                "APRatio": 0.2,
+                "bonusADRatio": 0.4
+            }
+        }
+    },
+    "E": {
+        "tickDamage": {
+            "type":"magic",
+            "interval":0.5,
+            "ticks": 8,
+            "dmg": [
+                10, 14.375, 18.75, 23.125, 27.5
+            ],
+            "APRatio":0.1   
+        },
+        "coolDown": [
+            15, 13, 11, 9, 7
+        ]  
+    },
+    "R": {
+        "tickDamage": {
+            "type":"magic",
+            "system": "2Part",
+            "part1": {
+                "interval": 0.25,
+                "ticks": 10,
+                "dmg":[
+                    12.5, 20, 27.5
+                ],
+                "APRatio": 0.1
+            },
+            "part2": {
+                "interval": 0.5,
+                "ticks": 10,
+                "enemyMaxHPRatio": [
+                    0.01,0.015,0.02
+                ],
+                "enemyMaxHPRatioPer100AP": 0.0025
+            }
+        },
+        "coolDown": [
+            140, 110, 80
+        ]
+    },
+    "passive": {
+        "ccImmune": 0.25,
+        "damageRedux": {
+            "type": "all",
+            "duration": 0.25,
+            "dmgRatio": 0.1      
+        },
+        "combatReceivedCoolDownByLvl": [
+            30,30,30,30,30,24,24,24,24,
+            24,18,18,18,18,18,16,16,16
+        ]
+    },
+    "stats": {
+        "baseHP": 537,
+        "hpPerLevel": 87,
+        "baseHPRegen": 6,
+        "hpRegenPerLevel": 0.6,
+        "mana": {
+            "base": 375,
+            "manaPerLevel": 27.5,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 55,
+        "damagePerLevel": 3,
+        "baseArmor": 18,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.015
+    }
+}

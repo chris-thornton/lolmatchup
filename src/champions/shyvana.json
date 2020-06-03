@@ -1,0 +1,146 @@
+{
+    "Q": {
+        "autoEmpower": {
+            "damage": {
+                "type": "phys",
+                "system": "single",
+                "ADRatio": [
+                    0.2, 0.35, 0.5, 0.65, 0.8
+                ]
+            },
+            "onHitProc": 2
+        },
+        "coolDown": [
+            9, 8, 7, 6, 5
+        ]
+    },
+    "W": {
+        "tickDamage": {
+            "type": "magic",
+            "interval": 1,
+            "minTicks": 3,
+            "maxTicks": 7,
+            "dmg": [
+                20, 32.5, 45, 57.5, 70
+            ],
+            "bonusADRatio": 0.2
+        },
+        "onHit": {
+            "minDuration": 3,
+            "maxDuration": 7,
+            "damage": {
+                "type":"magic",
+                "dmg":[
+                    5, 8.125, 11.25, 14.375, 17.5
+                ],
+                "bonusADRatio": 0.05
+            }
+        },
+        "coolDown": 12
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                60, 100, 140, 180, 220
+            ],
+            "ADRatio": 0.3,
+            "APRatio": 0.7
+        },
+        "onHit": {
+            "duration": 5,
+            "damage": {
+                "type":"magic",
+                "enemyMaxHPRatio": 0.0375
+            }
+        },
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ]
+    },
+    "ETransform": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                60, 100, 140, 180, 220
+            ],
+            "dmgByLvl": [
+                100,105,110,115,120,125,
+                130,135,140,145,150,155,160
+            ],
+            "ADRatio": 0.6,
+            "APRatio": 1
+        },
+        "tickDamage": {
+            "type":"magic",
+            "interval": 1,
+            "ticks": 4,
+            "dmgByLvl": [
+                60,65,70,75,80,85,90,
+                95,100,105,110,115,120
+            ],
+            "ADRatio": 0.1,
+            "APRatio": 0.2
+        },
+        "onHit": {
+            "minDuration": 5,
+            "maxDuration": 9,
+            "damage": {
+                "type":"magic",
+                "enemyMaxHPRatio": 0.0375
+            }
+        },
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ]
+    },
+    "R": {
+        "damage":{
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                150, 250, 350
+            ],
+            "APRatio": 1
+        },
+        "bonusHealth": {
+            "minDuration": 20,
+            "health": [
+                150, 250, 350
+            ]
+        },
+        "uses": 1
+    },
+    "passive": {
+        "bonusResist": {
+            "type": "both",
+            "system": "stack",
+            "resistPerStack": 5,
+            "minStacks": 1,
+            "stacks": "custom"
+        }
+    },
+    "stats": {
+        "baseHP": 595,
+        "hpPerLevel": 95,
+        "baseHPRegen": 8.5,
+        "hpRegenPerLevel": 0.8,
+        "mana": {
+            "base": 0,
+            "manaPerLevel": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLevel": 0
+        },
+        "baseDamage": 66,
+        "damagePerLevel": 3.4,
+        "baseArmor": 38,
+        "armorPerLevel": 3.35,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.658,
+        "attackSpeedRatio": 0.658,
+        "attackSpeedPerLevel": 0.025
+    }
+}

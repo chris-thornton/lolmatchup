@@ -1,0 +1,75 @@
+{
+    "Q": { 
+        "damage":{
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                80, 120, 160, 200, 240
+            ],
+            "APRatio": 0.6
+        },
+        "coolDown": [
+            7, 6.5, 6, 5.5, 5
+        ]
+    },
+    "W": {
+        "damage":{
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                100, 150, 200, 250, 300
+            ],
+            "APRatio": 1
+        },
+        "coolDownFormula": "8*0.9^N. N = 50 stacks"
+    },
+    "E": {
+        "coolDown": [
+            18, 16.5, 15, 13.5, 12
+        ],
+        "interruptCC": [
+            1.5, 1.75, 2, 2.25, 2.5
+        ]
+    },
+    "R": {
+        "damage": {
+            "type": "magic",
+            "system":"minMax",
+            "minDmg": [
+                175, 250, 325
+            ],
+            "minAPRatio": 0.75,
+            "maxDmgRatio": 2
+        },
+        "coolDown": [
+            120, 100, 80
+        ]
+    },
+    "passive": {
+        "passivePermanent": {
+            "bonusAPPerStack": 1,
+            "stacks": "custom"
+        }
+    },
+    "stats": {
+        "baseHP": 505,
+        "hpPerLevel": 94,
+        "baseHPRegen": 6.5,
+        "hpRegenPerLevel": 0.6,
+        "mana": {
+            "base": 490,
+            "manaPerLevel": 26,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 52,
+        "damagePerLevel": 2.7,
+        "baseArmor": 23,
+        "armorPerLevel": 3.75,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0224
+    }
+}

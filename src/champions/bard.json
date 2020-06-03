@@ -1,0 +1,72 @@
+{
+    "Q": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                80 , 125 , 170 , 215 , 260
+            ],
+            "APRatio": 0.65
+        },
+        "interruptCC": [
+            1 , 1.2 , 1.4 , 1.6 , 1.8
+        ],
+        "coolDown": [
+            11 , 10 , 9 , 8 , 7
+        ]
+    },
+    "W": {
+        "allHeal": {
+            "system": "minMax",
+            "minHeal": [
+                30 , 60 , 90 , 120 , 150
+            ],
+            "maxHeal": [
+                70 , 110 , 150 , 190 , 230
+            ],
+            "minAPRatio": 0.3,
+            "maxAPRatio": 0.6
+        },
+        "coolDown": 14
+    },
+    "R": {
+        "stasis": 2.5,
+        "coolDown": [
+            110,
+            95,
+            80
+        ]
+    },
+    "passive": {
+        "autoEmpower": {
+            "damage": {
+            "type":"magic",
+            "system": "single",
+            "dmg": 40,
+            "dmgPer5Chimes": 12,
+            "APRatio": 0.3
+            }
+        }
+    },
+    "stats": {
+        "baseHP": 575,
+        "hpPerLevel": 89,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 350,
+            "manaPerLevel": 50,
+            "manaBaseRegen": 6,
+            "manaRegenPerLevel": 0.45
+        },
+        "baseDamage": 52,
+        "damagePerLevel": 3,
+        "baseArmor": 34,
+        "armorPerLevel": 4,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.02
+    }
+}

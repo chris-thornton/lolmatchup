@@ -1,0 +1,115 @@
+{
+    "Q": {
+       "damage": {
+           "type":"magic",
+           "system":"single",
+           "dmg": [
+            90, 135, 180, 225, 270
+           ],
+           "APRatio": 0.4
+       },
+       "coolDown": [
+            7, 6.5, 6, 5.5, 5
+       ]
+    },
+    "W": {
+        "damage": {
+            "type":"magic",
+            "system":"minMax",
+            "repeat": 1,
+            "minDmg": [
+                40, 65, 90, 115, 140
+            ],
+            "maxDmg": [
+                80, 130, 180, 230, 280
+            ],
+            "minAPRatio": 0.45,
+            "maxAPRatio": 0.9
+        },
+        "interruptCC": [
+            1.4, 1.55, 1.7, 1.85, 2
+        ],
+        "coolDown": 12
+    },
+    "E": {
+        "allShield": {
+            "type":"all",
+            "shield": [
+                80, 110, 140, 170, 200
+            ],
+            "APRatio":0.5,
+            "duration": 2.5   
+        },
+        "coolDown": [
+            10, 9.5, 9, 8.5, 8
+        ]  
+    },
+    "R": {
+        "empower": {
+            "Q": {
+                "bonusDamage": {
+                    "type":"magic",
+                    "system":"minMax",
+                    "minDmg": [
+                        25, 75, 125, 175 
+                    ],
+                    "minAPRatio": 0.3,
+                    "maxDmg": [
+                        60, 215, 370, 525
+                    ],
+                    "maxAPRatio": 0.9
+                }
+            },
+            "W": {
+                "bonusInterruptCC": [
+                    0.5, 0.75, 1, 1.25
+                ],
+                "selfHeal": {
+                    "system":"minMax",
+                    "repeat": 1,
+                    "minMissingHPRatio":0.2,
+                    "minMissingHPRatioPer100AP": 0.01
+                }
+            },
+            "E": {
+                "bonusAllShield": {
+                    "shield": [
+                        25, 80, 135, 190
+                    ],
+                    "APRatio":0.5
+                },
+                "multiShieldRatio": 0.3
+            }
+        },
+        "coolDown": [
+            45, 42, 39, 36
+        ],
+        "coolDownReduxOnSpellHitByLvl": [
+            2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4
+        ],
+        "coolDownReduxOnAuto": [
+            1,1,1,1,1,1,1.5,1.5,1.5,1.5,1.5,1.5,2,2,2,2,2,2
+        ]
+    },
+    "stats": {
+        "baseHP": 534,
+        "hpPerLevel": 95,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 374,
+            "manaPerLevel": 50,
+            "manaBaseRegen": 11.5,
+            "manaRegenPerLevel": 0.5
+        },
+        "baseDamage": 53.544,
+        "damagePerLevel": 3.3,
+        "baseArmor": 26,
+        "armorPerLevel": 3.8,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.023
+    }
+}

@@ -1,0 +1,95 @@
+{
+    "Q": {
+       "damage":{
+           "type":"phys",
+           "system":"single",
+           "dmg": [
+               20, 45, 70, 95, 120
+           ],
+           "ADRatio": 1,
+           "canCrit": true,
+           "critADRatio": 0.6,
+           "critADRatioWithIE": 0.8
+       },
+       "interruptCC": 1,
+       "staticCoolDownFormula": "4 * (1 - (0.01 per 0.00167 bonusAS))"
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system":"minMax",
+            "minDmg": [
+                60, 70, 80, 90, 100
+            ],
+            "maxDmg": [
+                90, 105, 120, 135, 150
+            ],
+            "APRatio": 0.6,
+            "bonusADRatio": 0.2
+        },
+        "coolDown": [
+            0.5, 0.4, 0.3, 0.2, 0.1
+        ],
+        "onTargetCoolDown": [
+            10, 9, 8, 7, 6
+        ]
+    },
+    "R": {
+        "damage": {
+            "type":"phys",
+            "system":"single",
+            "dmg": [
+                200, 300, 400
+            ],
+            "bonusADRatio": 1.5
+        },
+        "bonusArmorPenOnCrit": {
+            "duration": 15,
+            "bonusArmorPenRatio": 0.5
+        },
+        "interruptCC": 1,
+        "coolDown": [
+            80, 55, 30
+        ]
+    },
+    "passive": {
+        "passivePermanent": {
+            "bonusCritChance": {
+                "itemCritChanceMultiplier": 2
+            }
+        },
+        "auto": {
+            "critDmg": 1.8,
+            "critDmgWithIE": 2.0225
+        },
+        "selfShield": {
+            "shieldByLvl": [
+                100,105,110,115,120,130,140,150,165,
+                180,200,225,255,290,330,380,440,510
+            ],
+            "duration": 1,
+            "uses": "custom"
+        }
+    },
+    "stats": {
+        "baseHP": 523,
+        "hpPerLevel": 87,
+        "baseHPRegen": 6.5,
+        "hpRegenPerLevel": 0.9,
+        "mana": {
+            "base": 0,
+            "manaPerLevel": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLevel": 0
+        },
+        "baseDamage": 60,
+        "damagePerLevel": 3.2,
+        "baseArmor": 30,
+        "armorPerLevel": 3.4,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.697,
+        "attackSpeedRatio": 0.67,
+        "attackSpeedPerLevel": 0.025 
+    }
+}

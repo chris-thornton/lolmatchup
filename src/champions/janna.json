@@ -1,0 +1,111 @@
+{
+    "Q": {
+        "damage":{
+            "type":"magic",
+            "system":"minMax",
+            "minDmg":[
+                60, 85, 110, 135, 160
+            ],
+            "minAPRatio": 0.35,
+            "maxDmg":[
+                105, 145, 185, 225, 265
+            ],
+            "maxAPRatio": 0.65
+        },
+        "minInterruptCC": 0.5,
+        "maxInterruptCC": 1.25,
+        "coolDown": 12
+    },
+    "W": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                55,85,115,145,175
+            ],
+            "bonusMoveSpeedRatioByLvl": [
+                0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,
+                0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35
+            ],
+            "APRatio": 0.5
+        },
+        "passivePermanent": {
+           "bonusMoveSpeedRatio": [
+            0.06, 0.07, 0.08, 0.09, 0.10
+           ],
+           "bonusMoveSpeedRatioPer100AP": 0.02
+        },
+        "coolDown": [
+            8, 7.5, 7, 6.5, 6
+        ]
+    },
+    "E": {
+        "allShield": {
+            "type": "all",
+            "duration": 5,
+            "shield": [
+                80, 115, 150, 185, 220
+            ],
+            "APRatio": 0.7
+        },
+        "allyBonusAttackDamage": {
+            "attackDamage": [
+                10, 17.5, 25, 32.5, 40
+            ],
+            "attackDamagePerAPRatio": 0.1,
+            "duration": 5                   
+        },
+        "coolDown": [
+            16, 15, 14, 13, 12
+        ]
+    },
+    "R": {
+        "tickAllHeal": {
+            "interval":0.5,
+            "ticks": 6,
+            "heal":[
+                50, 75, 100
+            ],
+            "APRatio": 0.25
+        },
+        "coolDown": [
+            150, 135, 120
+        ]
+    },
+    "passive": {
+        "passivePermanent": {
+            "bonusMoveSpeedRatio": 0.08,
+            "onHit": {
+                "damage": {
+                    "type":"magic",
+                    "bonusMoveSpeedRatioByLvl": [
+                        0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,
+                        0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35
+                    ]
+                }
+            }
+        }
+    },
+    "stats": {
+        "baseHP": 500,
+        "hpPerLevel": 70,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 350,
+            "manaPerLevel": 64,
+            "manaBaseRegen": 11.5,
+            "manaRegenPerLevel": 0.4
+        },
+        "baseDamage": 46,
+        "damagePerLevel": 1.5,
+        "baseArmor": 28,
+        "armorPerLevel": 3.8,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0295,
+        "moveSpeed": 315
+    }
+}

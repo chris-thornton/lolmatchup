@@ -1,0 +1,82 @@
+{
+    "Q": { 
+        "damage":{
+            "type":"magic",
+            "system":"minMax",
+            "minDmg":[
+                70, 95, 120, 145, 170
+            ],
+            "maxDmg": [
+                210, 285, 360, 435, 510
+            ],
+            "minAPRatio": 0.45,
+            "maxAPRatio": 1.35
+        },
+        "coolDown": [
+            7, 6, 5, 4, 3
+        ]
+    },
+    "W": {
+        "damage":{
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                60, 80, 100, 120, 140
+            ],
+            "APRatio": 0.4
+        },
+        "interruptCC": 1,
+        "coolDown": [
+            16, 15, 14, 13, 12
+        ]
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system": "2Part",
+            "part1": {
+                "system":"minMax",
+                "repeat": 1,
+                "minDmg":[
+                    50, 75, 100, 125, 150
+                ],
+                "minAPRatio": 0.4
+            },
+            "part2": {
+                "system":"minMax",
+                "minDmg": [
+                    50, 60, 70, 80, 90
+                ],
+                "maxDmg": [
+                    155, 186, 217, 248, 279
+                ],
+                "minAPRatio": 0.3,
+                "maxAPRatio": 0.93
+            }
+        },
+        "coolDown": [
+            16, 14, 12, 10, 8
+        ]
+    },
+    "stats": {
+        "baseHP": 532,
+        "hpPerLevel": 90,
+        "baseHPRegen": 7,
+        "hpRegenPerLevel": 0.7,
+        "mana": {
+            "base": 425,
+            "manaPerLevel": 30,
+            "manaBaseRegen": 9.335,
+            "manaRegenPerLevel": 0.85
+        },
+        "baseDamage": 58,
+        "damagePerLevel": 3.3,
+        "baseArmor": 20,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0136
+    }
+}

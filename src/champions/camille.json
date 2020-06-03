@@ -1,0 +1,126 @@
+{
+    "Q": {
+        "autoEmpower": {
+            "damage": {
+                "type": "mixed",
+                "system": "2Part",
+                "part1": {
+                    "type": "phys",
+                    "ADRatio": [
+                        0.2, 0.25, 0.3, 0.35, 0.4
+                    ]
+                },
+                "part2": {
+                    "type": "mixed",
+                    "ADRatio": [
+                        0.4, 0.5, 0.6, 0.7, 0.8
+                    ],
+                    "trueDmgRatioByLvl": [
+                        0.4,0.44,0.48,0.52,0.56,0.6,0.64,0.68,0.72,
+                        0.76,0.8,0.84,0.88,0.92,0.96,1,1,1
+                    ],
+                    "otherDmgType": "phys"
+                }
+            }
+        },
+        "coolDown": [
+            9, 8.25, 7.5, 6.75, 6
+        ]
+    },
+    "W": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "minDmg": [
+                70, 100, 130, 160, 190
+            ],
+            "bonusADRatio": 0.6,
+            "maxEnemyMaxHPRatio": [
+                0.06, 0.065, 0.07, 0.075, 0.8
+            ],
+            "maxEnemyMaxHPRatioPer100BonusAD": 3.333
+        },
+        "selfHeal": {
+            "heal": "maxDmg - minDmg",
+            "system": "sweetSpot"
+        },
+        "coolDown": [
+            15, 13.5, 12, 10.5, 9
+        ]
+    },
+    "E": {
+        "bonusAttackSpeed": {
+            "duration": 5,
+            "bonusAttackSpeed": [
+                0.4, 0.5, 0.6, 0.7, 0.8
+            ]
+        },
+        "damage": {
+            "type": "phys",
+            "system": "single",
+            "dmg": [
+                60, 95, 130, 165, 200
+            ],
+            "bonusADRatio": 0.75
+        },
+        "interruptCC": 0.75,
+        "coolDown": [
+            16, 14.5, 13, 11.5, 10
+        ]
+    },
+    "R": {
+        "onHit": {
+            "damage": {
+                "type": "magic",
+                "dmg": [
+                    5,
+                    10,
+                    15
+                ],
+                "enemyCurrentHPRatio": [
+                    0.04, 0.06, 0.08
+                ]
+            },
+            "duration": [
+                2.5, 3.25, 4
+            ]
+    },
+        "coolDown": [
+            140,
+            115,
+            90
+        ]
+    },
+    "passive": {
+        "selfShield": {
+            "type": "adaptive",
+            "maxHPRatio": 0.2,
+            "duration": 2
+        },
+        "staticCoolDownByLvl": [
+            16, 16, 16, 16, 16, 16, 13, 13, 13, 
+            13, 13, 13, 10, 10, 10, 10, 10, 10 
+        ]
+    },
+    "stats": {
+        "baseHP": 575.6,
+        "hpPerLevel": 85,
+        "baseHPRegen": 8.5,
+        "hpRegenPerLevel": 0.8,
+        "mana": {
+            "base": 338.8,
+            "manaPerLevel": 32,
+            "manaBaseRegen": 8.15,
+            "manaRegenPerLevel": 0.75
+        },
+        "baseDamage": 68,
+        "damagePerLevel": 3.5,
+        "baseArmor": 35,
+        "armorPerLevel": 3.8,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.644,
+        "attackSpeedRatio": 0.644,
+        "attackSpeedPerLevel": 0.025
+    }
+}

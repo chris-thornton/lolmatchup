@@ -1,0 +1,86 @@
+{
+    "Q": {
+        "damage":{
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                80, 135, 190, 245, 300
+            ],
+            "APRatio": 0.9
+        },
+        "coolDown": 11
+    },
+    "W": {
+        "coolDown": 12,
+        "tickDamage": {
+            "type":"magic",
+            "system": "minMax",
+            "interval": 0.5,
+            "ticks": 10,
+            "minDmg": [
+                6, 12, 18, 24, 30
+            ],
+            "maxDmg": [
+                16.2, 32.4, 48.6, 64.8, 81
+            ],
+            "minAPRatio": 0.07,
+            "maxAPRatio": 0.189
+        },
+        "coolDownReduxRatio": 0.05
+    },
+    "E": {
+        "allShield": {
+            "type": "magic",
+            "duration": 5,
+            "shield": [
+                80,135,190,245,300
+            ],
+            "APRatio": 0.7,
+            "spellBlock": true
+        },
+        "coolDown": [
+            26, 24, 22, 20, 18
+        ]
+    },
+    "R": {
+        "damage": {
+            "type":"magic",
+            "system":"minMax",
+            "repeat": 1,
+            "minDmg": [
+                150, 225, 300
+            ],
+            "minAPRatio": 0.7
+        },
+        "interruptCC": 1.5,
+        "coolDown": [
+            120, 110, 100
+        ]
+    },
+    "passive": {
+        "passivePermanent": {
+           "spellVamp": 0.2
+        }
+    },
+    "stats": {
+        "baseHP": 560,
+        "hpPerLevel": 90,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLevel": 0.4,
+        "mana": {
+            "base": 340,
+            "manaPerLevel": 60,
+            "manaBaseRegen": 11,
+            "manaRegenPerLevel": 0.4
+        },
+        "baseDamage": 56,
+        "damagePerLevel": 3.5,
+        "baseArmor": 25,
+        "armorPerLevel": 3.8,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0153
+    }
+}

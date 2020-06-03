@@ -1,0 +1,112 @@
+{
+    "Q": {
+        "damage": {
+            "type": "phys",
+            "system": "2Part",
+            "part1": {
+                "dmg": [
+                    45, 60, 75, 90, 105
+                ],
+                "bonusADRatio": 0.8
+            },
+            "part2": {
+                "dmg": [
+                    85, 120, 155, 190, 225
+                ],
+                "bonusADRatio": [
+                    0.4, 0.7, 1, 1.3, 1.6
+                ]
+            }
+        },
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ]
+    },
+    "W": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                60, 110, 160, 210, 260
+            ],
+            "APRatio": 0.6
+        },
+        "coolDown": [
+            26, 24, 22, 20, 18
+        ]
+    },
+    "E": {
+       "bonusArmor":{
+        "duration": 4,
+        "system": "stacking",
+        "armorPerStack": [
+            8, 11, 14, 17, 20
+        ],
+        "maxArmor": [
+            64, 88, 112, 136, 160
+        ],
+        "refreshOnAuto": true
+       },
+        "coolDown": [
+            16, 15, 14, 13, 12
+        ]
+    },
+    "R": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "minDmg": [
+                200, 320, 440
+            ],
+            "maxDmg": [
+                250, 400, 550
+            ],
+            "minbonusADRatio": 1.2,
+            "maxBonusADRatio": 1.5
+        },
+        "coolDown": [
+            120,
+            90,
+            60
+        ]
+    },
+    "passive": {
+        "autoEmpower": {
+            "duration": "infinite",
+            "damage": {
+                "type": "phys",
+                "system": "minMax",
+                "minADRatioByLvl": [
+              0.7,0.7176,0.7353,0.7529,0.7706,0.7882,0.8059,0.8235,0.8412,
+              0.8588,0.8765,0.8941,0.9118,0.9294,0.9471,0.9647,0.9824,1
+                ],
+                "maxADRatioByLvl": [
+                  1.4,1.4353,1.4706,1.5059,1.5412,1.5765,1.6118,1.6471,1.6824,1.7176,1.7529,1.7882,1.8235,1.8588,1.8941,1.9294,1.9647,2
+                ],
+                "critDmg": 2.4,
+                "critDmgWithIE": 3
+            }
+        }
+    },
+    "stats": {
+        "baseHP": 555,
+        "hpPerLevel": 92,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.7,
+        "mana": {
+            "base": 325,
+            "manaPerLevel": 40,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.7
+        },
+        "baseDamage": 68,
+        "damagePerLevel": 3,
+        "baseArmor": 33,
+        "armorPerLevel": 3.4,
+        "baseMagicResist": 32,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.475,
+        "attackSpeedRatio": 0.49,
+        "attackSpeedPerLevel": 0.026
+    }
+}

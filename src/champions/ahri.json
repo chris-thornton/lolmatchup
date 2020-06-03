@@ -1,0 +1,133 @@
+{
+    "Q": {
+        "damage": {
+            "type": "mixed",
+            "system": "2Part",
+            "part1": {
+                "type": "magic",
+                "dmg": [
+                    40,
+                    65,
+                    90,
+                    115,
+                    140
+                ],
+                "APRatio": 0.35
+            },
+            "part2": {
+                "type": "true",
+                "dmg": [
+                    40,
+                    65,
+                    90,
+                    115,
+                    140
+                ],
+                "APRatio": 0.35
+            }
+        },
+        "coolDown": 7
+    },
+    "W": {
+        "damage": {
+            "type": "magic",
+            "system": "minMax",
+            "repeatRedux": 2,
+            "reduxRatio": 0.3,
+            "minDmg": [
+                40,
+                65,
+                90,
+                115,
+                140
+            ],
+            "maxDmg": [
+                64,
+                104,
+                144,
+                184,
+                224
+            ],
+            "minAPRatio": 0.3,
+            "maxAPRatio": 0.48
+        },
+        "coolDown": [
+            9,
+            8,
+            7,
+            6,
+            5
+        ]
+    },
+    "E": {
+        "spellAmp": {
+            "duration": 3,
+            "amp": 0.2
+        },
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                60,
+                90,
+                120,
+                150,
+                180
+            ],
+            "APRatio": 0.4
+        },
+        "interruptCC": [
+            1.4,
+            1.55,
+            1.7,
+            1.85,
+            2
+        ],
+        "coolDown": 12
+    },
+    "R": {
+        "damage": {
+            "type": "magic",
+            "system": "minMax",
+            "repeat": 2,
+            "minDmg": [
+                60,
+                90,
+                120
+            ],
+            "maxDmg": [
+                180,
+                270,
+                360
+            ],
+            "minAPRatio": 0.35,
+            "maxAPRatio": 1.05
+        },
+        "coolDown": [
+            130,
+            105,
+            80
+        ]
+    },
+    "stats": {
+        "baseHP": 526,
+        "hpPerLevel": 92,
+        "baseHPRegen": 6.5,
+        "hpRegenPerLevel": 0.6,
+        "mana": {
+            "base": 418,
+            "manaPerLevel": 25,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 53.04,
+        "damagePerLevel": 3,
+        "baseArmor": 20.88,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.668,
+        "attackSpeedRatio": 0.668,
+        "attackSpeedPerLevel": 0.02
+    }
+}

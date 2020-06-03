@@ -1,0 +1,93 @@
+{
+    "Q": {
+        "bonusAttackSpeed": {
+            "attackSpeed": [
+                0.30, 0.55, 0.80, 1.05, 1.30
+            ],
+            "duration": "toggle"
+        },
+        "onHit": {
+            "damage": {
+                "type":"phys",
+                "ADRatio":0.1
+            },
+            "duration": "toggle",
+            "attackSpeedPenalty": 0.25
+        }
+    },
+    "W": {
+        "damage": {
+            "type": "phys",
+            "system": "single",
+            "dmg": [
+                10, 60, 110, 160, 210
+            ],
+            "ADRatio": 1.6
+        },
+        "coolDown": [
+            8, 7, 6, 5, 4
+        ]
+    },
+    "E": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                70, 120, 170, 220, 270
+            ],
+            "APRatio": 1  
+        },
+        "coolDown": [
+            24, 20.5, 17, 13.5, 10
+        ]
+    },
+    "R": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "minDmg": [
+                25, 35, 45
+            ],
+            "maxDmg": [
+                250, 350, 450
+            ],
+            "minBonusADRatio": 0.15,
+            "maxBonusADRatio": 1.5,
+            "enemyMissingHPRatio": [
+                0.25,0.3,0.35
+            ],
+            "secondaryDmgRatio": 0.8
+        },
+        "coolDown": [
+            90, 75, 60
+        ]
+    },
+    "passive": {
+        "bonusAttackSpeedOnKill": {
+            "attackSpeed": 0.15,
+            "attackSpeedCap": "remove",
+            "duration": 6
+        }
+    },
+    "stats": {
+        "baseHP": 610,
+        "hpPerLevel": 86,
+        "baseHPRegen": 3.75,
+        "hpRegenPerLevel": 0.5,
+        "mana": {
+            "base": 245,
+            "manaPerLevel": 45,
+            "manaBaseRegen": 6.7,
+            "manaRegenPerLevel": 1
+        },
+        "baseDamage": 57,
+        "damagePerLevel": 3.4,
+        "baseArmor": 28,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.01
+    }
+}

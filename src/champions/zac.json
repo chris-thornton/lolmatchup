@@ -1,0 +1,114 @@
+{
+    "Q": {
+        "damage": {
+            "type": "magic",
+            "system": "minMax",
+            "repeat": 1,
+            "minDmg": [
+                40, 55, 70, 85, 100
+            ],
+            "minAPRatio": 0.3,
+            "minMaxHPRatio": 0.025
+        },
+        "currentHealthCost": 0.08,
+        "coolDown": [
+            15, 13.5, 12, 10.5, 9
+        ]
+    },
+    "W": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                25, 40, 55, 70, 85
+            ],
+            "enemyMaxHPRatio": [
+                0.04, 0.05, 0.06, 0.07, 0.08
+            ],
+            "enemyMaxHPRatioPer100AP": 0.02
+        },
+        "currentHealthCost": 0.04,
+        "coolDown": 5,
+        "coolDownRedux": 1
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                60, 110, 160, 210, 260
+            ],
+            "APRatio": 0.9
+        },
+        "minInterruptCC": 0.5,
+        "maxInterruptCC": 1,
+        "coolDown": [
+            24, 21, 18, 15, 12
+        ],
+        "currentHealthCost": 0.04
+    },
+    "R": {
+        "damage": {
+            "type":"magic",
+            "system": "minMax",
+            "minDmg": [
+                140, 210, 280
+            ],
+            "maxDmg": [
+                350, 525, 700
+            ],
+            "minAPRatio": 0.4,
+            "maxAPRatio": 1
+        },
+        "interruptCC": 1,
+        "coolDown": [
+            130, 115, 100
+        ]
+    },
+    "passive": {
+        "selfHeal": {           
+            "type": "stacking",
+            "maxHPRatioPerStackByUltRank": [
+                0.04, 0.05, 0.06, 0.07
+            ],
+            "stacks": "custom"
+       },
+       "selfRevive": {
+           "minHPRestore": 0.1,
+           "maxHPRestore": 0.5,
+           "staticCoolDown": 300
+       },
+       "bloblets": {
+           "bloblets": 4,
+           "maxHPRatio": 0.12,
+           "armorRatio": 0.5,
+           "magicResistRatio": 0.5,
+           "aoeResist": 0.33,
+           "durationByLvl": [
+               8, 8, 8, 8, 8, 7, 7, 7, 7,
+               6, 6, 6, 5, 5, 5, 5, 4, 4
+           ]
+       }
+    },
+    "stats": {
+        "baseHP": 615,
+        "hpPerLevel": 95,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.5,
+        "mana": {
+            "base": 0,
+            "manaPerLevel": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLevel": 0
+        },
+        "baseDamage": 60,
+        "damagePerLevel": 3.4,
+        "baseArmor": 33,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 32,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.736,
+        "attackSpeedRatio": 0.638,
+        "attackSpeedPerLevel": 0.016
+    }
+}

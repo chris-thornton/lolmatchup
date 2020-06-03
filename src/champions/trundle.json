@@ -1,0 +1,87 @@
+{
+    "Q": {
+        "autoEmpower": {
+            "damage": {
+                "type":"phys",
+                "system":"single",
+                "dmg": [
+                    20, 40, 60, 80, 100
+                ],
+                "ADRatio": [
+                    0.1, 0.2, 0.3, 0.4, 0.5
+                ]
+            }
+        },
+        "ADSteal": {
+            "duration": 5,
+            "gained": [
+                20, 25, 30, 35, 40
+            ],
+            "removed": [
+                10, 12.5, 15, 17.5, 20
+            ]
+        },
+        "coolDown": 4
+    },
+    "W": {
+        "bonusAttackSpeed": {
+            "duration": 8,
+            "attackSpeed": [
+                0.3, 0.475, 0.65, 0.825, 1
+            ]
+        },
+        "healIncrease": {
+            "duration": 8,
+            "ratio": 0.25
+        },
+        "coolDown": 15
+    },
+    "R": {
+        "damage": {
+            "type": "magic",
+            "system":"single",
+            "duration": 4,
+            "enemyMaxHPRatio": [
+                0.2, 0.275, 0.35
+            ],
+            "enemyMaxHPRatioPer100AP": 0.02
+        },
+        "resistSteal": {
+            "type": "both",
+            "resistRatio": 0.4,
+            "duration": 8
+        },
+        "coolDown": [
+            120, 100, 80
+        ]
+    },
+    "passive": {
+        "selfHeal": {
+            "enemyMaxHPRatio": [
+                0.02, 0.03, 0.04, 0.05, 0.06
+            ],
+            "totalEnemyMaxHP": "custom"
+        }
+    },
+    "stats": {
+        "baseHP": 616.28,
+        "hpPerLevel": 96,
+        "baseHPRegen": 6,
+        "hpRegenPerLevel": 0.75,
+        "mana": {
+            "base": 281.6,
+            "manaPerLevel": 45,
+            "manaBaseRegen": 7.508,
+            "manaRegenPerLevel": 0.6
+        },
+        "baseDamage": 68,
+        "damagePerLevel": 3,
+        "baseArmor": 37,
+        "armorPerLevel": 2.7,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.67,
+        "attackSpeedRatio": 0.67,
+        "attackSpeedPerLevel": 0.029
+    }
+}

@@ -1,0 +1,112 @@
+{
+    "Q": {
+        "damage": {
+            "type":"phys",
+            "system":"minMax",
+            "minDmg": [
+                10, 46.67, 83.33, 120, 156.67
+            ],
+            "maxDmg": [
+                15, 70, 125, 180, 235
+            ],
+            "minADRatio": 1.1,
+            "maxADRatio": 1.65,
+            "multiHitMinRatio": 0.33
+        },
+        "coolDown": [
+            18, 16, 14, 12, 10
+        ],
+        "coolDownRedux": 3
+    },
+    "W": {
+        "onHitPermanent": {
+                "damage": {
+                    "type":"magic",
+                    "dmg": [
+                        7, 10.5, 14, 17.5, 21
+                    ],
+                    "APRatio": 0.25
+                }
+        },
+        "damage": {
+            "type":"magic",
+            "system":"stacking",
+            "maxStacks": 3,
+            "enemyMaxHPRatioPerStack": [
+                0.03, 0.035, 0.04, 0.045, 0.05
+            ],
+            "enemyMaxHPRatioPer100APPerStack": 0.02,
+            "uses": "custom"
+        },
+        "QEmpower": {
+            "damage":{
+                "type":"magic",
+                "system":"minMax",
+                "minEnemyMissingHPRatioByLvl": [
+                    0.06, 0.06, 0.06, 0.08, 0.08, 0.08, 0.1, 0.1, 0.1,
+                    0.12, 0.12, 0.12, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14
+                ],
+                "maxDmgRatio": 1.5
+            },
+            "coolDown": 40
+        }
+    },
+    "E": {
+        "damage": {
+            "type":"phys",
+            "system":"single",
+            "dmg": [
+                70, 105, 140, 175, 210
+            ],
+            "bonusADRatio": 0.6
+        },
+        "coolDown": [
+            18, 16, 14, 12, 10
+        ]
+    },
+    "R": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                150, 200, 250
+            ],
+            "APRatio": 1
+        },
+        "coolDown": [
+            110, 90, 70
+        ]
+    },
+    "passive": {
+        "bonusAttackSpeed": {
+            "duration": 5,
+            "system": "minMax",
+            "minAttackSpeed": 0.2,
+            "minBonusAttackSpeedRatio": 0.15,
+            "maxAttackSpeed": 0.4,
+            "maxBonusAttackSpeedRatio": 0.3
+        },
+        "uses": "custom"
+    },
+    "stats": {
+        "baseHP": 530,
+        "hpPerLevel": 91,
+        "baseHPRegen": 3.5,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 360,
+            "manaPerLevel": 33,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 61,
+        "damagePerLevel": 3.11,
+        "baseArmor": 27,
+        "armorPerLevel": 3.4,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.658,
+        "attackSpeedRatio": 0.658,
+        "attackSpeedPerLevel": 0.03
+    }
+}

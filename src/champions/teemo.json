@@ -1,0 +1,79 @@
+{
+    "Q": { 
+        "damage":{
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                80, 125, 170, 215, 260
+            ],
+            "APRatio": 0.8
+        },
+        "blind": [
+            1.5, 1.75, 2, 2.25, 2.5
+        ],
+        "coolDown": 8
+    },
+    "E": {
+        "onHitPermanent": {
+            "damage": {
+                "type":"magic",
+                "dmg": [
+                    10, 20, 30, 40, 50
+                ],
+                "APRatio": 0.3
+            },
+            "tickDamage": {
+                "type":"magic",
+                "interval": 1,
+                "ticks": 4,
+                "dmg": [
+                    6, 12, 18, 24, 30
+                ],
+                "APRatio": 0.1
+            }
+        }
+    },
+    "R": {
+        "tickDamage": {
+            "type": "magic",
+            "interval": 1,
+            "ticks": 4,
+            "dmg": [
+                50, 81.25, 112.5
+            ],
+            "APRatio": 0.125
+        },
+        "uses": "custom"
+    },
+    "passive": {
+        "bonusAttackSpeed": {
+            "attackSpeedByLvl":[
+                0.2, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4, 0.4,
+                0.6, 0.6, 0.6, 0.6, 0.6, 0.8, 0.8, 0.8, 0.8
+            ],
+            "duration": 3,
+            "uses": "custom"
+        }
+    },
+    "stats": {
+        "baseHP": 528,
+        "hpPerLevel": 90,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLevel": 0.65,
+        "mana": {
+            "base": 334,
+            "manaPerLevel": 20,
+            "manaBaseRegen": 9.6,
+            "manaRegenPerLevel": 0.45
+        },
+        "baseDamage": 54,
+        "damagePerLevel": 3,
+        "baseArmor": 24.3,
+        "armorPerLevel": 3.75,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.69,
+        "attackSpeedRatio": 0.69,
+        "attackSpeedPerLevel": 0.0338
+    }
+}

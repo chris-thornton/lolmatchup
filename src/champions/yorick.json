@@ -1,0 +1,111 @@
+{
+    "Q": {  
+        "petStats": {
+            "duration": "infinite",
+            "maxPlaced": 4,
+            "attackSpeedByLvl": [
+                0.5,0.54,0.58,0.62,0.66,0.7,0.74,0.78,0.82,
+                0.86,0.9,0.94,0.98,1.02,1.06,1.1,1.14,1.18
+            ],
+            "healthByLvl": [
+                100,105,110,115,120,125,130,135,140,
+                145,150,155,160,165,170,175,180,185
+            ],
+            "healthPerMaxHPRatio": 0.15,
+            "armor": 0,
+            "magicResist": 0,
+            "auto": {
+                "type":"phys",
+                "dmgByLvl": [
+                    2,3,4,5,6,7,8,14,20,
+                    26,32,38,44,55,66,77,88,99
+                ],
+                "ADRatio": 0.3
+            }
+        },
+        "autoEmpower": {
+            "damage": {
+                "type": "phys",
+                "system": "single",
+                "dmg": [
+                    30, 55, 80, 105, 130
+                ],
+                "ADRatio": 0.4
+            }
+        },
+        "selfHeal": {
+            "system":"minMax",
+            "minHealByLvl": [
+                12,14,16,18,20,22,26,30,34,
+                38,42,46,52,58,64,70,76,82
+            ],
+            "maxHealRatio": 2
+        },
+        "coolDown": [
+            7, 6.25, 5.5, 4.75, 4
+        ]
+    },
+    "E": {
+        "damage": {
+            "type": "magic",
+            "system": "min",
+            "enemyCurrentHPRatio": 0.15,
+            "minDmg": [
+                70, 105, 140, 175, 210
+            ],
+            "minDmgAPRatio": 0.7
+        },
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ]
+    },
+    "R": {
+        "petStats": {
+            "duration": "infinite",
+            "coolDown": [
+                160, 130, 100
+            ],
+            "auto": {
+                "type":"magic",
+                "dmg": [
+                    0, 10, 40
+                ],
+                "ADRatio": 0.5
+            },
+            "spell": {
+                "enemyMaxHPRatio": [
+                    0.03, 0.06, 0.09
+                ],
+                "coolDown": 2
+            },
+            "attackSpeed": 1,
+            "health": [
+                300, 1000, 3000
+            ],
+            "healthPerMaxHPRatio": 0.7,
+            "armor": 0,
+            "magicResist": 0
+        }
+    },
+    "stats": {
+        "baseHP": 580,
+        "hpPerLevel": 100,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.8,
+        "mana": {
+            "base": 300,
+            "manaPerLevel": 40,
+            "manaBaseRegen": 7.5,
+            "manaRegenPerLevel": 0.75
+        },
+        "baseDamage": 62,
+        "damagePerLevel": 5,
+        "baseArmor": 39,
+        "armorPerLevel": 4,
+        "baseMagicResist": 32,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.02
+    }
+}

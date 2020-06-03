@@ -1,0 +1,76 @@
+{
+    "Q": {
+        "bonusAttackSpeed":{
+            "duration": 5,
+            "attackSpeed":[
+                0.3, 0.35, 0.4, 0.45, 0.5
+            ]
+        },
+        "coolDown": 16,
+        "canReset": true
+    },
+    "E": {
+        "damage": {
+            "system":"minMax",
+            "type":"phys",
+            "minDmg": [
+                35, 50, 65, 80, 95
+            ],
+            "maxDmg": [
+                110, 150, 190, 230, 270
+            ],
+            "minBonusADRatio": 0.35,
+            "maxBonusADRatio": 2.1,
+            "minAPRatio": 0.2,
+            "maxAPRatio": 1.2
+        },
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ]
+    },
+    "R": {
+        "bonusAttackDamage": {
+            "duration":5,
+            "attackDamage": [
+                20, 30, 40
+            ]
+        },
+        "coolDown": 90
+    },
+    "passive": {
+        "onHitPermanent": {
+            "tickDamage": {
+                "type":"true",
+                "interval": 1,
+                "system": "stacking",
+                "ticks": "custom",
+                "dmgPerStackByLvl": [
+                    1, 1, 1, 1, 2, 2, 2, 2, 3,
+                    3, 3, 3, 4, 4, 4, 4, 5, 5
+                ],
+                "maxStacks": 6
+            }
+        }
+    },
+    "stats": {
+        "baseHP": 612,
+        "hpPerLevel": 86,
+        "baseHPRegen": 3.75,
+        "hpRegenPerLevel": 0.6,
+        "mana": {
+            "base": 287.2,
+            "manaPerLevel": 40,
+            "manaBaseRegen": 7.256,
+            "manaRegenPerLevel": 0.45
+        },
+        "baseDamage": 59,
+        "damagePerLevel": 3.11,
+        "baseArmor": 27,
+        "armorPerLevel": 3,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.679,
+        "attackSpeedRatio": 0.679,
+        "attackSpeedPerLevel": 0.0338
+    }
+}

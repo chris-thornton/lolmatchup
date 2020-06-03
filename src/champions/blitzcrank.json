@@ -1,0 +1,88 @@
+{
+    "Q": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                70 , 120 , 170 , 220 , 270
+            ],
+            "APRatio": 1
+        },
+        "interruptCC": 0.5,
+        "coolDown": [
+            20 , 19 , 18 , 17 , 16
+        ]
+    },
+    "W": {
+        "bonusAttackSpeed": [
+            0.3, 0.38, 0.46, 0.54, 0.62
+        ],
+        "coolDown": 15
+    },
+    "E": {
+        "autoEmpower": {
+            "damage": {
+                "type": "phys",
+                "system":"single",
+                "ADRatio": 1
+            },
+            "interruptCC": 1
+        },
+        "coolDown": [
+            9, 8, 7, 6, 5
+        ]
+    },
+    "R": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                250, 375, 500
+            ],
+            "APRatio": 1
+        },
+        "tickDamage": {
+            "type": "magic",
+            "interval": 1,
+            "repeat": "onAuto",
+            "dmg": [
+                50, 100, 150
+            ],
+            "APRatio": 0.3
+        },
+        "coolDown": [
+            60,
+            40,
+            20
+        ]
+    },
+    "passive": {
+        "selfShield": {
+            "maxManaRatio": 0.3,
+            "type":"all",
+            "duration": 10
+        },
+        "staticCoolDown": 90
+    },
+    "stats": {
+        "baseHP": 582.6,
+        "hpPerLevel": 95,
+        "baseHPRegen": 8.5,
+        "hpRegenPerLevel": 0.75,
+        "mana": {
+            "base": 267.2,
+            "manaPerLevel": 40,
+            "manaBaseRegen": 8.5,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 61.54,
+        "damagePerLevel": 3.5,
+        "baseArmor": 37,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0113
+    }
+}

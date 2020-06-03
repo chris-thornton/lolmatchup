@@ -1,0 +1,125 @@
+{
+    "Q": {
+        "autoEmpower": {
+            "damage": {
+                "type":"phys",
+                "dmg": [
+                    20, 40, 60, 80, 100
+                ],
+                "bonusADRatio": 1.2,
+                "canCrit": true
+            }
+        },
+        "interruptCC": 1,
+        "coolDown": [
+            14, 13, 12, 11, 10
+        ]
+    },
+    "W": {
+        "damage": {
+            "type":"phys",
+            "system": "minMax",
+            "minDmg": [
+                10, 35, 60, 85, 110
+            ],
+            "maxDmg": [
+                15, 52.5, 90, 127.5, 165
+            ],
+            "minADRAtio": 1,
+            "maxADRatio": 1.5,
+            "minBonusHPRatio": 0.06,
+            "maxBonusHPRatio": 0.09,
+            "canLifesteal": true
+        },
+        "selfHeal": {
+            "min": 0,
+            "heal": [
+                20, 35, 50, 65, 80
+            ],
+            "missingHPRatio": [
+                0.08, 0.1, 0.12, 0.14, 0.16
+            ]
+        },
+        "coolDown": 5
+    },
+    "E": {
+        "selfShield": {
+            "type": "all",
+            "maxHPRatio": 0.15,
+            "APRatio": 0.8,
+            "duration": 3
+        },
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                60, 90, 120, 150, 180
+            ],
+            "APRatio": 0.8,
+            "enemyMaxHPRatio": [
+                0.07, 0.085, 0.1, 0.115, 0.13
+            ]
+        },
+        "coolDown": 15
+    },
+    "R": {
+        "bonusHealth": {
+            "health": [
+                200, 400, 600
+            ],
+            "duration": 12
+        },
+        "damage": {
+            "type": "phys",
+            "system":"single",
+            "APRatio": 1.25,
+            "bonusADRatio": 2.5,
+            "dmg": [
+                250, 475, 700
+            ]
+        },
+        "coolDown": [
+            140, 130, 120
+        ]
+    },
+    "passive": {
+        "bonusAttackSpeed": {
+            "system": "stacking",
+            "bonusAttackSpeedPerStack": 0.05,
+            "maxStacks": 5,
+            "duration": "custom",
+            "minDuration": 6
+        },
+        "autoEmpower": {
+            "type":"magic",
+            "dmgByLvl": [
+                11, 12, 13, 15, 17, 19, 22, 25, 28,
+                31, 34, 37, 40, 44, 48, 52, 56, 60
+            ],
+            "APRatio": 0.4,
+            "duration": "custom",
+            "minDuration": 6
+        }
+    },
+    "stats": {
+        "baseHP": 580,
+        "hpPerLevel": 85,
+        "baseHPRegen": 9,
+        "hpRegenPerLevel": 0.65,
+        "mana": {
+            "base": 350,
+            "manaPerLevel": 40,
+            "manaBaseRegen": 6.25,
+            "manaRegenPerLevel": 0.5
+        },
+        "baseDamage": 57,
+        "damagePerLevel": 3,
+        "baseArmor": 31,
+        "armorPerLevel": 4,
+        "baseMagicResist": 32,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.66,
+        "attackSpeedRatio": 0.7,
+        "attackSpeedPerLevel": 0.02
+    }
+}

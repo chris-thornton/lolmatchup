@@ -1,0 +1,116 @@
+{
+    "Q": { 
+        "damage": {
+            "type": "phys",
+            "system": "single",
+            "dmg": [
+                65, 105, 145, 185, 225
+            ],
+            "bonusADRatio": 1,
+            "APRatio": 0.6
+        },
+        "coolDown": [
+            8, 7.5, 7, 6.5, 6
+        ]
+    },
+    "W": {
+        "autoEmpower": {
+            "damage": {
+                "type":"magic",
+                "system":"single",
+                "dmg": [
+                    40, 75, 110, 145, 180
+                ],
+                "APRatio":0.6
+            },
+            "coolDown": [
+                7, 6, 5, 4, 3
+            ]
+        }
+    },
+    "E": {
+        "damage": {
+            "type":"phys",
+            "system": "minMax",
+            "minDmg": [
+                55, 80, 105, 130, 155
+            ],
+            "maxDmg": [
+                110, 160, 210, 260, 310
+            ],
+            "minBonusADRatio": 0.5,
+            "maxBonusADRatio": 1
+        },
+        "damageRedux": {
+            "maxDuration": 2,
+            "aoeDmgReduxRatio": 0.25,
+            "autoDmgReduxRatio": 1
+        },
+        "interruptCC": 1,
+        "coolDown": [
+            16, 14, 12, 10, 8
+        ]
+    },
+    "R": {
+        "autoEmpower": {
+            "damage": {
+                "type":"magic",
+                "system": "single",
+                "dmg": [
+                    100, 140, 180
+                ],
+                "APRatio": 0.7,
+                "autoCoolDown": 3
+            }
+        },
+        "bonusResist": {
+            "duration": 8,
+            "bonusArmor": {
+                "armor": [
+                    30, 50, 70
+                ],
+                "bonusADRatio": 0.5
+            },
+            "bonusMagicResist": {
+                "magicResist": [
+                    30, 50, 70
+                ],
+                "APRatio": 0.2
+            }
+        },
+        "coolDown": 80
+    },
+    "passive": {
+        "bonusAttackSpeed": {
+            "staticCoolDown": 6,
+            "system": "stacking",
+            "attackSpeedPerStackByLvl": [
+                0.035,0.035,0.035,0.05,0.05,0.05,0.065,0.065,0.065,
+                0.08,0.08,0.08,0.095,0.095,0.095,0.11,0.11,0.11
+            ],
+            "maxStacks": 8,
+            "stackOnAuto": true
+        }
+    },
+    "stats": {
+        "baseHP": 592.8,
+        "hpPerLevel": 85,
+        "baseHPRegen": 8.5,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 338.8,
+            "manaPerLevel": 32,
+            "manaBaseRegen": 7.576,
+            "manaRegenPerLevel": 0.7
+        },
+        "baseDamage": 68,
+        "damagePerLevel": 3.375,
+        "baseArmor": 36,
+        "armorPerLevel": 3,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.638,
+        "attackSpeedRatio": 0.638,
+        "attackSpeedPerLevel": 0.034
+    }
+}

@@ -1,0 +1,124 @@
+{
+    "Q": {
+        "damage": {
+            "type": "magic",
+            "system": "minMax",
+                "minDmg": [
+                    70, 85, 100, 115, 130
+                ],
+                "maxDmg":[
+                    210, 255, 300, 345, 390
+                ],
+                "minAPRatio": 0.5,
+                "maxAPRatio": 1.5
+        },
+        "coolDown": 6
+    },
+    "QTransform": {
+        "autoEmpower": {
+            "damage": {
+                "type": "magic",
+                "convertAuto": "magic",
+                "system": "minMax",
+                    "minDmg": [
+                        5, 30, 55, 80
+                    ],
+                    "maxDmg":[
+                        14, 94.5, 192.5, 308
+                    ],
+                    "minADRatio": 0.75,
+                    "maxADRatio": [
+                        2.10, 2.3625, 2.625, 2.8875
+                    ],
+                    "minAPRatio": 0.4,
+                    "maxAPRatio": [
+                        1.12, 1.26, 1.40, 1.54
+                    ],
+                    "dmgRatioPerMissingHP": [
+                        0.01, 0.0125, 0.015, 0.0175
+                    ]
+                }
+        },
+        "coolDown": 6
+    },
+    "W": {
+        "tickDamage": {
+            "type": "magic",
+            "interval": 1,
+            "ticks": 4,
+            "dmg": [
+                10, 20, 30, 40, 50
+            ],
+            "APRatio": 0.05
+        },
+        "coolDown": [
+            13, 12, 11, 10, 9
+        ]
+    },
+    "WTransform": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                60, 110, 160, 210
+            ],
+            "APRatio": 0.3
+        },
+        "coolDown": 6,
+        "reducedCoolDown": [
+            3, 2.5, 2, 1.5
+        ]
+    },
+    "E": {
+        "allHeal": {
+            "system":"minMax",
+            "minHeal": [
+                35, 55, 75, 95, 115
+            ],
+            "maxHeal": [
+                70, 110, 150, 190, 230
+            ],
+            "minAPRatio": 0.325,
+            "maxAPRatio": 0.65
+        },
+        "allBonusAttackSpeed": {
+            "duration": 7,
+            "attackSpeed": [
+                0.2,0.3,0.4,0.5,0.6
+            ]
+        },
+        "coolDown": 12
+    },
+    "ETransform": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                80, 140, 200, 260
+            ],
+            "APRatio": 0.45
+        },
+        "coolDown": 6
+    },
+    "stats": {
+        "baseHP": 545,
+        "hpPerLevel": 85,
+        "baseHPRegen": 6,
+        "hpRegenPerLevel": 0.6,
+        "mana": {
+            "base": 295.6,
+            "manaPerLevel": 45,
+            "manaBaseRegen": 6,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 61,
+        "damagePerLevel": 3.5,
+        "baseArmor": 28,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.638,
+        "attackSpeedRatio": 0.638,
+        "attackSpeedPerLevel": 0.0322
+    }
+}

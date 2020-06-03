@@ -1,0 +1,113 @@
+{
+    "Q": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                80 , 115 , 150 , 185 , 220
+            ],
+            "APRatio": 0.8
+        },
+        "coolDown": 4
+    },
+    "W": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                70 , 115 , 160 , 205 , 250
+            ],
+            "APRatio": 0.85
+        },
+        "coolDown": 8
+    },
+    "E": {
+        "damageRedux": {
+            "type": "all",
+            "dmgReceived": [0.87, 0.83, 0.79, 0.75, 0.71]
+        },
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                20, 30, 40, 50, 60
+            ],
+            "APRatio": 0.2
+        },
+        "duration": 3,
+        "coolDown": [
+            14,
+            13,
+            12,
+            11,
+            10
+        ]
+    },
+    "R": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                150 , 275 , 400
+            ],
+            "APRatio": 0.65
+        },
+        "coolDown": [
+            120,
+            100,
+            80
+        ],
+        "petStats": {
+            "duration": 45,
+            "tickDamage": {
+                "interval": 1,
+                "type": "magic",
+                "dmg": [
+                    20, 30, 40
+                ],
+                "APRatio": 0.12
+            },
+            "auto": {
+                "type":"magic",
+                "dmg": [
+                    50, 75, 100
+                ],
+                "APRatio": 0.15
+            },
+            "attackSpeed": 0.625,
+            "enragedTimeToAuto5Times": 4.3,
+            "health": [1200 , 2100 , 3000],
+            "armor": [30, 50, 70],
+            "magicResist": [30, 50, 70]
+        }
+    },
+    "passive": {
+            "interruptCC": [
+                1.25 , 1.5 , 1.75
+            ],
+            "maxUsesPerFullCombo": [
+                1
+            ]
+    },
+    "stats": {
+        "baseHP": 524,
+        "hpPerLevel": 88,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 418,
+            "manaPerLevel": 25,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 50.41,
+        "damagePerLevel": 2.625,
+        "baseArmor": 19.22,
+        "armorPerLevel": 4,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.579,
+        "attackSpeedRatio": 0.579,
+        "attackSpeedPerLevel": 0.0136
+    }
+}

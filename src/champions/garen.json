@@ -1,0 +1,114 @@
+{
+    "Q": {
+        "autoEmpower": {
+            "damage": {
+                "type": "phys",
+                "system": "single",
+                "dmg": [
+                    30, 60, 90, 120, 150
+                ],
+                "ADRatio": 0.5
+            }
+        },
+        "coolDown": 8
+    },
+    "W": {
+        "passivePermanent": {
+            "magicResist": 30,
+            "armor": 30,
+            "bonusResistsPerStack": 0.25,
+            "maxStacks": 120,
+            "bonusMagicResistRatio": 0.1,
+            "bonusArmorRatio": 0.1
+        },
+        "damageRedux": {
+            "type": "all",
+            "dmgReceived": 0.75,
+            "duration": [
+                2, 2.75, 3.5, 4.25, 5
+            ]
+        },
+        "selfShield": {
+            "type":"all",
+            "shield": [
+                70,95,120,145,170
+            ],
+            "duration": 0.75,
+            "bonusHPRatio": 0.2,
+            "tenacity": 0.6
+        },
+        "coolDown": [
+            23, 21, 19, 17, 15
+        ]
+    },
+    "E": {
+        "tickDamage": {
+            "type": "phys",
+            "system":"single",
+            "dmg": [
+                4, 8, 12, 16, 20
+            ],
+            "dmgByLvl": [
+                0, 0.8, 1.6, 2.4, 3.2, 4, 4.8, 5.6, 6.4,
+                    6.6, 6.8, 7, 7.2, 7.4, 7.6, 7.8, 8, 8.2
+            ],
+            "ADRatio": [
+                0.32, 0.34, 0.36, 0.38, 0.4
+            ],
+            "minTicks": 7,
+            "ASForBonusTick": 0.25,
+            "duration": 3,
+            "nearestEnemyDamageRatio": 1.25,
+            "canCrit": true,
+            "critDmg": 1.33,
+            "critDmgWithIE": 1.58
+        },
+        "armorRedux": 0.25,
+        "coolDown": 9
+    },
+    "R": {
+            "damage": {
+                "type":"true",
+                "system":"single",
+                "dmg": [
+                    150, 300, 450
+                ],
+                "enemyMissingHPRatio": [
+                    0.2, 0.25, 0.3
+                ]
+            },
+        "coolDown": [
+            120, 100, 80
+        ]
+    },
+    "passive": {
+            "passivePermanent": {
+                "maxHPRegenByLvl": [
+                    0.015, 0.017, 0.019, 0.021, 0.023, 0.025, 0.033, 0.041, 0.049,
+                     0.057, 0.065, 0.073, 0.081, 0.085, 0.089, 0.093, 0.097, 0.101
+                ],
+                "combatCoolDown": 8
+            }
+    },
+    "stats": {
+        "baseHP": 620,
+        "hpPerLevel": 84,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.5,
+        "mana": {
+            "base": 0,
+            "manaPerLevel": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLevel": 0
+        },
+        "baseDamage": 66,
+        "damagePerLevel": 4.5,
+        "baseArmor": 36,
+        "armorPerLevel": 3,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 0.75,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.0365
+    }
+}

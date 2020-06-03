@@ -1,0 +1,80 @@
+{
+    "Q": {
+        "damage": {
+            "type":"phys",
+            "system":"single",
+            "dmg": [
+                75, 125, 175, 225, 275
+            ],
+            "bonusADRatio": 0.6
+        },
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ]
+    },
+    "E": {
+        "damage": {
+            "type":"phys",
+            "system":"single",
+            "dmg": [
+                95, 125, 155, 185, 215
+            ],
+            "bonusADRatio": 1
+        },
+        "interruptCC": 1.25,
+        "interruptCCPer10Lethality": 0.1,
+        "coolDown": 15
+    },
+    "R": {
+        "damage": {
+            "type": "phys",
+            "system":"single",
+            "executeDmgRatio": 0.5
+        },
+        "execute": {
+            "HPThresholdByLvl": [
+                250,290,330,370,400,430,
+                450,470,490,510,530,540,550
+            ],
+            "bonusADRatio": 0.8,
+            "HPPerLethality": 1.5
+        },
+        "coolDown": [
+            120, 100, 80
+        ]
+    },
+    "passive": {
+        "passivePermanent": {
+            "bonusADPerBonusHPRatio": 0.07143
+        },
+        "selfRegen": {
+            "damageRatioTakenByLvl": [
+                25,26.47,27.94,29.41,30.88,32.35,33.82,35.29,36.76,
+                38.24,39.71,41.18,42.65,44.12,45.59,47.06,48.53,50
+            ],
+            "maxHPRatio": 0.6,
+            "use": "custom"
+        }
+    },
+    "stats": {
+        "baseHP": 600,
+        "hpPerLevel": 90,
+        "baseHPRegen": 7,
+        "hpRegenPerLevel": 0.5,
+        "mana": {
+            "base": 415,
+            "manaPerLevel": 50,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 1
+        },
+        "baseDamage": 62,
+        "damagePerLevel": 2,
+        "baseArmor": 45,
+        "armorPerLevel": 5,
+        "baseMagicResist": 32,
+        "magicResistPerLevel": 1.5,
+        "attackSpeed": 0.667,
+        "attackSpeedRatio": 0.667,
+        "attackSpeedPerLevel": 0.025
+    }
+}

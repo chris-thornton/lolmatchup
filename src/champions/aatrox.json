@@ -1,0 +1,170 @@
+{
+    "Q": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "repeatRamp": 2,
+            "rampRatio": 0.5,
+            "minDmg": [
+                10,
+                30,
+                50,
+                70,
+                90
+            ],
+            "maxDmg": [
+                15,
+                45,
+                75,
+                105,
+                135
+            ],
+            "minADRatio": [
+                0.60,
+                0.65,
+                0.70,
+                0.75,
+                0.80
+            ],
+            "maxADRatio": [
+                0.90,
+                0.975,
+                1.05,
+                1.125,
+                1.20
+            ]
+        },
+        "minInterruptCC": 0.25,
+        "maxInterruptCC": 0.75,
+        "coolDown": [
+            14,
+            12,
+            10,
+            8,
+            6
+        ]
+    },
+    "W": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "minDmg": [
+                30,
+                40,
+                50,
+                60,
+                70
+            ],
+            "maxDmg": [
+                60,
+                80,
+                100,
+                120,
+                140
+            ],
+            "minADRatio": 0.4,
+            "maxADRatio": 0.8
+        },
+        "coolDown": [
+            26,
+            23,
+            20,
+            17,
+            14
+        ]
+    },
+    "E": {
+        "passivePermanent": {
+            "vamp": {
+                "type": "omni",
+                "vamp": [
+                    0.2,
+                    0.225,
+                    0.25,
+                    0.275,
+                    0.3
+                ]
+            }
+        }
+    },
+    "R": {
+        "bonusAD": [
+            0.2,
+            0.25,
+            0.3
+        ],
+        "coolDown": [
+            120,
+            100,
+            80
+        ]
+    },
+    "passive": {
+        "cdReduxOnHit": 2.0,
+        "autoEmpower": {
+            "damage": {
+                "enemyMaxHPRatioByLvl": [
+                    0.05,
+                    0.0541,
+                    0.0582,
+                    0.0624,
+                    0.0665,
+                    0.0706,
+                    0.0747,
+                    0.0788,
+                    0.0829,
+                    0.0871,
+                    0.0912,
+                    0.0953,
+                    0.0994,
+                    0.1035,
+                    0.1076,
+                    0.1118,
+                    0.1159,
+                    0.12
+                ]
+            }
+        },
+        "coolDownByLvl": [
+            24,
+            23.29,
+            22.59,
+            21.88,
+            21.18,
+            20.47,
+            19.76,
+            19.06,
+            18.35,
+            17.65,
+            16.94,
+            16.24,
+            15.53,
+            14.82,
+            14.12,
+            13.41,
+            12.71,
+            12
+        ]
+    },
+    "stats": {
+        "baseHP": 580,
+        "hpPerLevel": 90,
+        "baseHPRegen": 3,
+        "hpRegenPerLevel": 1,
+        "mana": {
+            "base": 0,
+            "manaPerLevel": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLevel": 0
+        },
+        "baseDamage": 60,
+        "damagePerLevel": 5,
+        "baseArmor": 38,
+        "armorPerLevel": 3.25,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.651,
+        "attackSpeedRatio": 0.651,
+        "attackSpeedPerLevel": 0.025
+    }
+}

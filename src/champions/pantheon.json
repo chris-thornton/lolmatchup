@@ -1,0 +1,106 @@
+{
+    "Q": {
+        "damage": {
+            "type":"phys",
+            "system":"minMaxEmpower",
+            "minDmg": [
+                75, 110, 145, 180, 215
+            ],
+            "maxDmg": [
+                155, 240, 325, 410, 495
+            ],
+            "empowerDmgByLvl": [
+                20,32.94,45.88,58.82,71.76,84.71,97.65,110.59,123.53,
+                136.47,149.41,162.35,175.29,188.24,201.18,214.12,227.06,240
+            ],
+            "minBonusADRatio": 1,
+            "maxBonusADRatio": 2,
+            "empowerBonusADRatio": 1,
+            "multiHitDmgRatio": 0.5
+        },
+        "coolDown": [
+            10, 9.5, 9, 8.5, 8
+        ]
+    },
+    "W": {
+        "damage": {
+            "type": "phys",
+            "system": "empower",
+            "dmg": [
+                60, 80, 100, 120, 140
+            ],
+            "APRatio": 1,
+            "empowerADRatioByLvl": [
+              1.35,1.3676,1.3853,1.4029,1.4206,1.4382,1.4559,1.4735,1.4912,
+              1.5088,1.5265,1.5441,1.5618,1.5794,1.5971,1.6147,1.6324,1.65
+            ],
+            "empowerCanCrit": true
+        },
+        "interruptCC": 1,
+        "coolDown": [
+            13, 12, 11, 10, 9
+        ]
+    },
+    "E": {
+        "damage": {
+            "type":"phys",
+            "system":"2PartEmpower",
+            "part1": {
+                "system": "tick",
+                "ADRatio": 1,
+                "duration": 1.5,
+                "empowerDuration": 2.5,
+                "interval": 0.125
+            },
+            "part2": {
+                "dmg": [
+                    55, 105, 155, 205, 255
+                ],
+                "bonusADRatio": 1.5
+            }
+        },
+        "dmgImmune": 1.5,
+        "empowerDmgImmune": 2.5,
+        "coolDown": [
+            22, 20.5, 19, 17.5, 16
+        ]
+    },
+    "R": {
+        "damage": {
+            "type": "magic",
+            "system":"minMax",
+            "minDmg": [
+                150, 250, 350
+            ],
+            "maxDmg": [
+                300, 500, 700
+            ],
+            "minAPRatio": 0.5,
+            "maxAPRatio": 1
+        },
+        "coolDown": [
+            180, 165, 150
+        ]
+    },
+    "stats": {
+        "baseHP": 580,
+        "hpPerLevel": 95,
+        "baseHPRegen": 10,
+        "hpRegenPerLevel": 0.65,
+        "mana": {
+            "base": 317.12,
+            "manaPerLevel": 31,
+            "manaBaseRegen": 7.356,
+            "manaRegenPerLevel": 0.45
+        },
+        "baseDamage": 64,
+        "damagePerLevel": 3.3,
+        "baseArmor": 40,
+        "armorPerLevel": 3.75,
+        "baseMagicResist": 28,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.644,
+        "attackSpeedRatio": 0.644,
+        "attackSpeedPerLevel": 0.0295
+    }
+}

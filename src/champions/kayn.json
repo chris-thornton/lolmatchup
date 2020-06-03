@@ -1,0 +1,132 @@
+{
+    "Q": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+                "minDmg": [
+                    75, 95, 115, 135, 155
+                ],
+                "maxDmg":[
+                    150, 190, 230, 270, 310
+                ],
+                "minBonusADRatio": 0.65,
+                "maxBonusADRatio": 1.3
+        },
+        "coolDown": [
+            6,5.5,5,4.5,4
+        ]
+    },
+    "QRhaast": {
+            "damage": {
+                "type": "phys",
+                "system": "minMax",
+                    "minADRatio": 0.55,
+                    "minEnemyMaxHPRatio": 0.05,
+                    "minEnemyMaxHPRatioPer100BonusAD": 0.04,
+                    "maxADRatio": 1.1,
+                    "maxEnemyMaxHPRatio": 0.1,
+                    "maxEnemyMaxHPRatioPer100BonusAD": 0.08
+            },
+            "coolDown": [
+                7, 6.5, 6, 5.5, 5
+            ]
+    },
+    "W": {
+        "damage": {
+            "type": "phys",
+            "system": "single",
+            "dmg": [
+                90, 135, 180, 225, 270
+            ],
+            "bonusADRatio": 1.3
+        },
+        "coolDown": [
+            13, 12, 11, 10, 9
+        ]
+    },
+    "WRhaast": {
+        "interruptCC": 1
+    },
+    "E": {
+        "selfHeal": {
+            "heal": [
+                100, 115, 130, 145, 160
+            ],
+            "bonusADRatio": 0.4
+        },
+        "coolDown": [
+            21, 19, 17, 15, 13
+        ]
+    },
+    "EShadow": {
+        "coolDown": 8
+    },
+    "R": {
+        "damage": {
+            "type":"phys",
+            "system":"single",
+            "dmg": [
+                150, 250, 350
+            ],
+            "bonusADRatio": 1.75
+        },
+        "coolDown": [
+            120, 100, 80
+        ],
+        "resetShadowPassive": true
+    },
+    "RRhaast": {
+        "damage": {
+            "type":"phys",
+            "system":"single",
+            "enemyMaxHPRatio": 0.1,
+            "enemyMaxHPRatioPer100BonusAD": 0.13
+        },
+        "selfHeal": {
+            "preMitigationRDmgRatio": 0.7
+        }
+    },
+    "passive": {
+        "shadow": {
+            "damageEmpower": {
+                "duration": 3,
+                "dealtAs": "magic",
+                "empowerRatioByLvl": [
+                    0.12,0.1388,0.1576,0.1765,0.1953,0.2141,0.2329,0.2518,0.2706,
+                    0.2894,0.3082,0.3271,0.3459,0.3647,0.3835,0.4024,0.4212,44
+                ],
+                "postMitigation": true
+            }
+        },
+        "rhaast": {
+            "spellVamp": {
+                "vampByLvl": [
+                    30,30.59,31.18,31.76,32.35,32.94,33.53,34.12,34.71,
+                    35.29,35.88,36.47,37.06,37.65,38.24,38.82,39.41,40
+                ],
+                "postMitigation": true
+            }
+        }
+    },
+    "stats": {
+        "baseHP": 585,
+        "hpPerLevel": 85,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.75,
+        "mana": {
+            "base": 410,
+            "manaPerLevel": 50,
+            "manaBaseRegen": 11.5,
+            "manaRegenPerLevel": 0.95
+        },
+        "baseDamage": 68,
+        "damagePerLevel": 3.3,
+        "baseArmor": 38,
+        "armorPerLevel": 3.3,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.669,
+        "attackSpeedRatio": 0.669,
+        "attackSpeedPerLevel": 0.027
+    }
+}

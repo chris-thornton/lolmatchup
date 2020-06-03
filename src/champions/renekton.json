@@ -1,0 +1,135 @@
+{
+    "Q": { 
+        "damage":{
+            "type":"phys",
+            "system":"empower",
+            "dmg":[
+                65, 100, 135, 170, 205
+            ],
+            "empowerDmg": [
+                100, 150, 200, 250, 300
+            ],
+            "bonusADRatio": 0.8,
+            "empowerBonusADRatio": 1.2
+        },
+        "selfHeal": {
+            "system": "minMaxEmpower",
+            "minHeal": [
+                12, 18, 24, 30, 36
+            ],
+            "maxHeal": [
+                50, 75, 100, 125, 150
+            ],
+            "empowerMinHeal": [
+                36, 54, 72, 90, 108
+            ],
+            "empowerMaxHeal": [
+                200, 300, 400, 500, 600
+            ],
+            "bonusADRatio": 0.16,
+            "empowerBonusADRatio": 0.48
+        },
+        "coolDown": 8
+    },
+    "W": {
+        "autoEmpower": {
+            "damage":{
+                "type":"phys",
+                "system":"empower",
+                "dmg":[
+                    10, 30, 50, 70, 90
+                ],
+                "ADRatio": 1.5,
+                "empowerRatio": 1.5
+            },
+            "shieldDestroy": "empower"
+        },
+        "minInterruptCC": 0.75,
+        "maxInterruptCC": 1.5,
+        "coolDown": [
+            13, 12, 11, 10, 9
+        ]
+    },
+    "E": {
+        "damage": {
+            "type":"phys",
+            "system": "2Part",
+            "part1": {
+                "system": "single",
+                "dmg":[
+                    40, 70, 100, 130, 160
+                ],
+                "bonusADRatio": 0.9
+            },
+            "part2": {
+                "system":"empower",
+                "dmg":[
+                    40, 70, 100, 130, 160
+                ],
+                "empowerDmg": [
+                    70, 115, 160, 205, 250
+                ],
+                "bonusADRatio": 0.9,
+                "empowerBonusADRatio": 1.35
+            }       
+        },
+        "empowerArmorRedux": {
+            "armorRatio": [
+                0.25, 0.275, 0.30, 0.325, 0.35
+            ],
+            "duration": 4
+        },
+        "coolDown": [
+            18, 17, 16, 15, 14
+        ]
+    },
+    "R": {
+        "bonusHealth": {
+            "duration": 15,
+            "health": [
+                250, 500, 750
+            ]
+        },
+        "bonusResist": {
+            "type": "both",
+            "resist": [
+                15, 35, 55
+            ],
+            "resistPerSecond": [
+                1, 2, 3
+            ],
+            "duration": 15
+        },
+        "tickDamage": {
+            "type":"magic",
+            "interval": 0.5,
+            "ticks": 30,
+            "dmg": [
+                20, 40, 60
+            ],
+            "APRatio": 0.1
+        },
+        "coolDown": 120
+    },
+    "stats": {
+        "baseHP": 575,
+        "hpPerLevel": 87,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.75,
+        "mana": {
+            "base": 0,
+            "manaPerLevel": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLevel": 0
+        },
+        "baseDamage": 69,
+        "damagePerLevel": 3.75,
+        "baseArmor": 35,
+        "armorPerLevel": 4,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.665,
+        "attackSpeedRatio": 0.665,
+        "attackSpeedPerLevel": 0.0275
+    }
+}

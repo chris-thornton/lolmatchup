@@ -1,0 +1,72 @@
+{
+    "Q": {
+        "damage":{
+            "type":"magic",
+            "system":"empower",
+            "dmg":[
+                65, 90, 115, 140, 165
+            ],
+            "APRatio": 0.45,
+            "bonusManaRatio": 0.03,
+            "empowerRatioByRRank": [
+                1.1, 1.4, 1.7, 2
+            ]
+        },
+        "coolDown": 6,
+        "coolDownRefund": "onSpell"
+    },
+    "W": {
+        "coolDown": [
+            13, 12, 11, 10, 9
+        ],
+        "damage": {
+            "type":"magic",
+            "system": "single",
+            "dmg": [
+                80, 110, 140, 170, 200
+            ],
+            "APRatio": 0.6,
+            "bonusManaRatio": 0.04
+        }
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg": [
+                60, 80, 100, 120, 140
+            ],
+            "APRatio": 0.3,
+            "bonusManaRatio":0.02
+        },
+        "coolDown": [
+            3.25, 3, 2.75, 2.5, 2.25
+        ]
+    },
+    "passive": {
+        "passivePermanent": {
+            "bonusManaPer100AP": 0.05
+        }
+    },
+    "stats": {
+        "baseHP": 575,
+        "hpPerLevel": 98,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.8,
+        "mana": {
+            "base": 300,
+            "manaPerLevel": 50,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 1
+        },
+        "baseDamage": 56,
+        "damagePerLevel": 3,
+        "baseArmor": 22,
+        "armorPerLevel": 3,
+        "baseMagicResist": 34,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.02112
+    }
+}

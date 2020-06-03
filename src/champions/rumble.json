@@ -1,0 +1,94 @@
+{
+    "Q": {
+        "tickDamage":{
+            "type":"magic",
+            "system": "empower",
+            "interval":0.25,
+            "ticks": 12,
+            "dmg":[
+                14.583, 17.5, 20.417, 23.333, 26.25
+            ],
+            "APRatio": 0.0917,
+            "empoweRatio": 1.5
+        },
+        "coolDown": [
+            10,9,8,7,6
+        ]
+    },
+    "W": {
+        "coolDown": 6,
+        "selfShield": {
+            "type":"all",
+            "system": "empower",
+            "duration": 1.5,
+            "shield": [
+                60, 95, 130, 165, 200
+            ],
+            "APRatio": 0.5,
+            "empowerRatio": 1.5
+        }
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system":"empower",
+            "empowerRatio": 1.5,
+            "dmg": [
+                60, 85, 110, 135, 160
+            ],
+            "APRatio": 0.4
+        },
+        "recharge": 6,
+        "maxCharge": 2
+    },
+    "R": {
+        "tickDamage": {
+            "type":"magic",
+            "system":"single",
+            "interval": 0.5,
+            "ticks": 12,
+            "dmg": [
+                70, 105, 140
+            ],
+            "APRatio": 0.175
+        },
+        "coolDown": [
+            100, 85, 70
+        ]
+    },
+    "passive": {
+        "onHit": {
+          "damage": {
+              "type":"magic",
+              "dmgByLvl":[
+                25,30,35,40,45,50,55,60,65,
+                70,75,80,85,90,95,100,105,110
+              ],
+              "APRatio": 0.3
+          },
+          "duration": 6,
+          "selfSilence": 6
+        }
+    },
+    "stats": {
+        "baseHP": 589,
+        "hpPerLevel": 85,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.6,
+        "mana": {
+            "base": 0,
+            "manaPerLevel": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLevel": 0
+        },
+        "baseDamage": 61,
+        "damagePerLevel": 3.2,
+        "baseArmor": 31,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.644,
+        "attackSpeedRatio": 0.644,
+        "attackSpeedPerLevel": 0.0185
+    }
+}

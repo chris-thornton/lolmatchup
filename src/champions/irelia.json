@@ -1,0 +1,127 @@
+{
+    "Q": { 
+        "damage": {
+            "type": "phys",
+            "system": "multi",
+            "dmg": [
+                5, 25, 45, 65, 85
+            ],
+            "ADRatio": 0.6,
+            "applyOnHit": true
+        },
+        "selfHeal": {
+            "system":"multi",
+            "ADRatio": [
+                0.12, 0.14, 0.16, 0.18, 0.20
+            ]
+        },
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ],
+        "coolDownReduxOnHit": 0.6
+    },
+    "W": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "minDmg": [
+                10, 25, 40, 55, 70
+            ],
+            "maxDmg": [
+                20, 50, 80, 110, 140
+            ],
+            "minADRatio": 0.5,
+            "maxADRatio": 1,
+            "minAPRatio": 0.4,
+            "maxAPRatio": 0.8
+        },
+        "damageRedux": {
+            "type":"phys",
+            "reduxRatio": 0.5,
+            "reduxRatioPer100AP": 0.07,
+            "maxDuration": 1.5
+        },
+        "coolDown": [
+            20, 18, 16, 14, 12
+        ]
+    },
+    "E": {
+        "damage": {
+            "type":"magic",
+            "system": "single",
+            "dmg": [
+                80,125,170,215,260
+            ],
+            "APRatio": 0.8
+        },
+        "interruptCC": 0.75,
+        "coolDown": [
+            18, 16.5, 15, 13.5, 12
+        ]
+    },
+    "R": {
+       "damage": {
+        "type":"magic",
+        "system": "2Part",
+        "part1": {
+            "dmg": [
+                125, 225, 325
+            ],
+            "APRatio": 0.7
+        },
+        "part2": {
+            "dmg": [
+                125, 200, 275
+            ],
+            "APRatio": 0.7
+        }
+       },
+        "coolDown": [
+            140, 120, 100
+        ]
+    },
+    "passive": {
+        "bonusAttackSpeed": {
+            "system": "stacking",
+            "minDuration": 6,
+            "maxStacks": 5,
+            "attackSpeedByLvlPerStack": [
+                0.08,0.08,0.08,0.08,0.08,0.08,0.1,0.1,0.1,
+                0.1,0.1,0.1,0.12,0.12,0.12,0.12,0.12,0.12 
+            ]
+        },
+        "onHit": {
+            "system": "atMaxStacks",
+            "minDuration": 6,
+            "damage":{
+                "type":"magic",
+                "dmgByLvl": [
+                    15,18,21,24,27,30,33,36,39,
+                    42,45,48,51,54,57,60,63,66
+                ],
+                "bonusADRatio": 0.25
+            }
+        }
+    },
+    "stats": {
+        "baseHP": 580,
+        "hpPerLevel": 95,
+        "baseHPRegen": 8.5,
+        "hpRegenPerLevel": 0.85,
+        "mana": {
+            "base": 350,
+            "manaPerLevel": 30,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 63,
+        "damagePerLevel": 4,
+        "baseArmor": 36,
+        "armorPerLevel": 3,
+        "baseMagicResist": 32,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.656,
+        "attackSpeedRatio": 0.656,
+        "attackSpeedPerLevel": 0.025
+    }
+}

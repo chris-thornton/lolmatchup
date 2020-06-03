@@ -1,0 +1,121 @@
+{
+    "Q": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                10, 25, 40, 55, 70
+            ],
+            "APRatio": 0.55
+        },
+        "coolDown": [
+            8, 7.5, 7, 6.5, 6
+        ]
+    },
+    "W": {
+        "onHitPermanent": {
+            "tickDamage": {
+                "damage": {
+                    "type":"magic",
+                    "interval":0.5,
+                    "ticks": 6,
+                    "dmg":[
+                        3.33, 5, 6.67, 8.33, 10
+                    ],
+                    "APRatio": 0.0667
+                }
+            }
+        },
+        "autoEmpower": {
+            "damage": {
+                "type":"magic",
+                "system": "single",
+                "dmg": [
+                    50, 70, 90, 110, 130
+                ],
+                "APRatio": 0.5
+            }
+        },
+        "onHit": {
+            "damage": {
+                "type":"magic",
+                "system":"single",
+                "dmg": [
+                    10, 15, 20, 25, 30
+                ],
+                "APRatio": 0.35
+            },
+            "duration": 5
+        },
+        "coolDown": [
+            7, 6.5, 6, 5.5, 5
+        ]
+    },
+    "E": {
+        "damage": {
+            "type": "magic",
+            "system": "single",
+            "dmg": [
+                70, 120, 170, 220, 270
+            ],
+            "APRatio": 0.75
+        },
+        "coolDown": [
+            16, 14.5, 13, 11.5, 10
+        ]
+    },
+    "R": {
+        "damage": {
+            "type":"magic",
+            "system":"minMedMax",
+            "minDmg":[
+                150, 250, 350
+            ],
+            "minAPRatio": 0.8,
+            "medDmg": [
+                225, 325, 425
+            ],
+            "medAPRatio": 1,
+            "maxDmg": [
+                300, 400, 500
+            ],
+            "maxAPRatio": 1.2
+        },
+        "coolDown": [
+            100,
+            85,
+            70
+        ]
+    },
+    "passive": {
+        "damageRedux": {
+            "type": "all",
+            "system": "preMitigate",
+            "dmg": 4,
+            "APRatio": 0.01,
+            "maxReduxRatio": 0.5,
+            "duration": "infinite"
+        }
+    },
+    "stats": {
+        "baseHP": 570,
+        "hpPerLevel": 98,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.7,
+        "mana": {
+            "base": 317.2,
+            "manaPerLevel": 37,
+            "manaBaseRegen": 6,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 58.04,
+        "damagePerLevel": 3,
+        "baseArmor": 22.412,
+        "armorPerLevel": 3.4,
+        "baseMagicResist": 32.1,
+        "magicResistPerLevel": 1.25,
+        "attackSpeed": 0.658,
+        "attackSpeedRatio": 0.658,
+        "attackSpeedPerLevel": 0.031
+    }
+}

@@ -1,0 +1,86 @@
+{
+    "Q": {
+        "tickDamage": {
+            "type": "magic",
+            "interval": 1,
+            "ticks": 3,
+            "dmg": [
+                25, 36.67, 48.33, 60, 71.67
+            ],
+            "APRatio": 0.3
+        },
+        "coolDown": 3.5
+    },
+    "W": {
+        "tickDamage": {
+            "type": "magic",
+            "interval": 1,
+            "ticks": 5,
+            "dmg": [
+                20, 25, 30, 35, 40
+            ],
+            "APRatio": 0.15
+        },
+        "coolDown": [
+            24, 22, 20, 18, 16
+        ]
+    },
+    "E": {
+        "damage": {
+            "type": "magic",
+            "system": "minMax",
+            "minDmgByLvl": [
+                52,56,60,64,68,72,76,80,84,88,92,96,100,104,108,112,116,120
+            ],
+            "minAPRatio": 0.1,
+            "bonusDmg": [
+                10, 30, 50, 70, 90
+            ],
+            "bonusAPRatio": 0.6
+        },
+        "selfHeal": {
+            "system": "poisoned",
+            "APRatio": [
+                0.12, 0.14, 0.16, 0.18, 0.2
+            ] 
+        },
+        "coolDown": 0.75
+    },
+    "R": {
+        "damage": {
+            "type":"magic",
+            "system":"single",
+            "dmg":[
+                150, 250, 350
+            ],
+            "APRatio": 0.5
+        },
+        "coolDown": [
+            120,
+            100,
+            80
+        ],
+        "interruptCC": 2
+    },
+    "stats": {
+        "baseHP": 575,
+        "hpPerLevel": 90,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLevel": 0.5,
+        "mana": {
+            "base": 350,
+            "manaPerLevel": 40,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.8
+        },
+        "baseDamage": 53,
+        "damagePerLevel": 3,
+        "baseArmor": 20,
+        "armorPerLevel": 3.5,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.647,
+        "attackSpeedRatio": 0.647,
+        "attackSpeedPerLevel": 0.015
+    }
+}

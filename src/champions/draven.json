@@ -1,0 +1,78 @@
+{
+    "Q": {
+        "autoEmpower": {
+            "type": "phys",
+            "system": "single",
+            "dmg": [
+                35, 40, 45, 50, 55
+            ],
+            "bonusADRatio": [0.65, 0.75, 0.85, 0.95, 1.05],
+            "duration": "infinite"
+        }
+    },
+    "W": {
+        "bonusAttackSpeed": {
+            "attackSpeed": [
+                0.2, 0.25, 0.3, 0.35, 0.5
+            ],
+            "duration": 3
+        },
+        "coolDown": 12
+    },
+    "E": {
+        "damage": {
+            "type": "phys",
+            "system": "single",
+            "dmg": [
+                75, 110, 145, 180, 215
+            ],
+            "bonusADRatio": 0.5
+        },
+        "coolDown": [
+            18, 17, 16, 15, 14
+        ]
+    },
+    "R": {
+        "damage": {
+            "type": "phys",
+            "system": "minMax",
+            "repeat": 1,
+            "minDmg": [
+                70, 110, 150
+            ],
+            "maxDmg": [
+                175, 275, 375
+            ],
+            "minBonusADRatio": 0.44,
+            "maxBonusADRatio": 1.1
+        },
+        "minInterruptCC": 1,
+        "maxInterruptCC": 3.5,
+        "coolDown": [
+            120,
+            100,
+            80
+        ]
+    },
+    "stats": {
+        "baseHP": 605,
+        "hpPerLevel": 90,
+        "baseHPRegen": 3.75,
+        "hpRegenPerLevel": 0.7,
+        "mana": {
+            "base": 360.56,
+            "manaPerLevel": 39,
+            "manaBaseRegen": 8.042,
+            "manaRegenPerLevel": 0.65
+        },
+        "baseDamage": 60,
+        "damagePerLevel": 3.61,
+        "baseArmor": 29,
+        "armorPerLevel": 3.3,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.679,
+        "attackSpeedRatio": 0.679,
+        "attackSpeedPerLevel": 0.027
+    }
+}
