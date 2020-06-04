@@ -392,7 +392,7 @@ class App extends Component {
         </div>
 
         <footer style={{position: "absolute", bottom: "0px", width: "100%", textAlign: "right"}}>
-        Icons made by <a href="https://www.flaticon.com/authors/vectors-market" 
+        Icon made by <a href="https://www.flaticon.com/authors/vectors-market" 
         title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" 
         title="Flaticon"> www.flaticon.com</a>
         </footer>
