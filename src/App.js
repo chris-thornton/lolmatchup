@@ -61,15 +61,16 @@ class App extends Component {
         manaRegen: 0,
         manaRegenPL: 0
       },
-      Q1: {
-        damage: {
-          type: '',
-          system: ''
-        }
-      },
-      Q2: {
-
-      },
+      passive1: {},
+      passive2: {},
+      Q1: {},
+      Q2: {},
+      W1: {},
+      W2: {},
+      E1: {},
+      E2: {},
+      R1: {},
+      R2: {},
       qRankLeft: 0,
       qRankRight: 0,
       wRankLeft: 0,
@@ -97,6 +98,8 @@ class App extends Component {
     });
   }
 
+  abilities = ["passive", "Q", "W", "E", "R"]
+
   onChampClick = (event) => {
 
     document.getElementsByTagName("input")[0].value = '';
@@ -121,9 +124,22 @@ class App extends Component {
         const statsPath = champLeftFile[`stats`]
         const champLevel = this.state.levelLeft - 1
 
-        var qDmg = {};
-        if (champLeftFile.Q["damage"]) {
-          qDmg = champLeftFile.Q["damage"]
+        var passiveDetails = {};
+        var QDetails = {};
+        var WDetails = {};
+        var EDetails = {};
+        var RDetails = {};
+
+        for (i = 0; i < this.abilities.length; i++) {
+          var ability = this.abilities[i];
+          console.log(ability);
+          if (champLeftFile[ability]) {
+            this[`${ability}Details`] = champLeftFile[ability]
+            console.log(this[`${ability}Details`])
+          } else {
+            this[`${ability}Details`] = "No combat stats for this ability."
+            console.log(this[`${ability}Details`])
+          }
         }
 
         this.setState(prevState => ({
@@ -146,12 +162,13 @@ class App extends Component {
               mr: statsPath["baseMagicResist"] + statsPath["magicResistPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel),
               mana: statsPath.mana["base"] + statsPath.mana["manaPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)
           },
-          Q1: {
-            damage: qDmg 
-          }
+          passive1: passiveDetails,
+          Q1: QDetails,
+          W1: WDetails,
+          E1: EDetails,
+          R1: RDetails
         }))
       });
-      console.log(this.state.Q1.damage);
       return this.setState({ champIconUrlLeft: `http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/${champName}.png`})
   }
 
