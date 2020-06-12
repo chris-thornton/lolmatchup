@@ -75,7 +75,7 @@
             "APRatio": 1.25,
             "bonusADRatio": 2.5,
             "dmg": [
-                250, 475, 700
+                300, 500, 700
             ]
         },
         "coolDown": [
@@ -103,12 +103,12 @@
     },
     "stats": {
         "baseHP": 580,
-        "hpPerLevel": 85,
+        "hpPerLevel": 90,
         "baseHPRegen": 9,
         "hpRegenPerLevel": 0.65,
         "mana": {
             "base": 350,
-            "manaPerLevel": 40,
+            "manaPerLevel": 50,
             "manaBaseRegen": 6.25,
             "manaRegenPerLevel": 0.5
         },

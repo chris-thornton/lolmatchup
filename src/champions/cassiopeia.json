@@ -63,7 +63,7 @@
         "interruptCC": 2
     },
     "stats": {
-        "baseHP": 575,
+        "baseHP": 560,
         "hpPerLevel": 90,
         "baseHPRegen": 5.5,
         "hpRegenPerLevel": 0.5,
@@ -75,9 +75,9 @@
         },
         "baseDamage": 53,
         "damagePerLevel": 3,
-        "baseArmor": 20,
+        "baseArmor": 18,
         "armorPerLevel": 3.5,
-        "baseMagicResist": 30,
+        "baseMagicResist": 34,
         "magicResistPerLevel": 0.5,
         "attackSpeed": 0.647,
         "attackSpeedRatio": 0.647,

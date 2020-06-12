@@ -9,8 +9,8 @@
             "maxDmg": [
                 15, 70, 125, 180, 235
             ],
-            "minADRatio": 1.1,
-            "maxADRatio": 1.65,
+            "minADRatio": 1,
+            "maxADRatio": 1.5,
             "multiHitMinRatio": 0.33
         },
         "coolDown": [
@@ -100,7 +100,7 @@
             "manaRegenPerLevel": 0.8
         },
         "baseDamage": 61,
-        "damagePerLevel": 3.11,
+        "damagePerLevel": 3,
         "baseArmor": 27,
         "armorPerLevel": 3.4,
         "baseMagicResist": 30,

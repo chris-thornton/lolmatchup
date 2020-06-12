@@ -6,6 +6,8 @@ import ChampDropDownRight from './components/ChampDropDownRight';
 import logo from './logo.png';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
+import ChampAbilitiesLeft from './components/ChampAbilitiesLeft';
+import ChampAbilitiesRight from './components/ChampAbilitiesRight';
 
 class App extends Component {
   constructor() {
@@ -61,16 +63,20 @@ class App extends Component {
         manaRegen: 0,
         manaRegenPL: 0
       },
-      passive1: {},
-      passive2: {},
-      Q1: {},
-      Q2: {},
-      W1: {},
-      W2: {},
-      E1: {},
-      E2: {},
-      R1: {},
-      R2: {},
+      abilities1: {
+        passive: {},
+        Q: {},
+        W: {},
+        E: {},
+        R: {}
+      },
+      abilities2: {
+        passive: {},
+        Q: {},
+        W: {},
+        E: {},
+        R: {}
+      },
       qRankLeft: 0,
       qRankRight: 0,
       wRankLeft: 0,
@@ -108,7 +114,8 @@ class App extends Component {
     document.getElementById("levelBoxLeft").value = 1;
     };
     var hiddenArray = document.getElementsByClassName("hidden");
-    for (var i = 0; i < hiddenArray.length; i = i+2) {
+    hiddenArray[0].style.visibility = 'visible';
+    for (var i = 2; i < 10; i++) {
       hiddenArray[i].style.visibility = 'visible';
     }
 
@@ -162,13 +169,16 @@ class App extends Component {
               mr: statsPath["baseMagicResist"] + statsPath["magicResistPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel),
               mana: statsPath.mana["base"] + statsPath.mana["manaPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)
           },
-          passive1: passiveDetails,
-          Q1: QDetails,
-          W1: WDetails,
-          E1: EDetails,
-          R1: RDetails
+          abilities1: {
+            passive: this.passiveDetails,
+            Q: this.QDetails,
+            W: this.WDetails,
+            E: this.EDetails,
+            R: this.RDetails
+          }
         }))
       });
+      console.log(this.state.Q1);
       return this.setState({ champIconUrlLeft: `http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/${champName}.png`})
   }
 
@@ -180,7 +190,8 @@ class App extends Component {
     };
     document.getElementsByClassName("hidden")[1].style.visibility = 'visible';
     var hiddenArray = document.getElementsByClassName("hidden");
-    for (var i = 1; i < hiddenArray.length; i = i+2) {
+    hiddenArray[1].style.visibility = 'visible';
+    for (var i = 10; i < 18; i++) {
       hiddenArray[i].style.visibility = 'visible'
     };
     if (event.target.textContent !== "Wukong") {
@@ -258,6 +269,13 @@ class App extends Component {
               mana: statsPath.mana["base"] + statsPath.mana["manaPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel),
               manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel),
               hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)
+          },
+          abilities2: {
+            passive: this.passiveDetails,
+            Q: this.QDetails,
+            W: this.WDetails,
+            E: this.EDetails,
+            R: this.RDetails
           }
         }))
       })
@@ -303,10 +321,10 @@ class App extends Component {
 
         <div className="flexDisplay">
           <img className='champIcon' src={ this.state.champIconUrlLeft } height="120px" width="120px"
-          alt='Champion Icon' style={{position: 'relative', zIndex: -2}} />
+          alt='Champion Icon' style={{position: 'relative', zIndex: -2, marginBottom: 10}} />
           <img src={versus} alt='Versus Icon' height="64px" width="64px"/>
           <img className='champIcon' src={ `${this.state.champIconUrlRight}` } height="120px" width="120px"
-          alt='Champion Icon' />
+          alt='Champion Icon' style={{marginBottom: 10}}/>
         </div>
 
         <div className="flexDisplay">
@@ -357,58 +375,13 @@ class App extends Component {
         </div>
 
         <div className="flexDisplay">
-          <div className="hidden">
-            <span><b><u>Q </u></b></span><span>- rank: </span>
-            <input id="qRankLeft" type="number" placeholder="0" min="0" max="5" style={{width: "40px"}} 
-            onKeyDown={this.preventKeyPress} />
-          </div>
-          <div className="hidden">
-            <span><b><u>Q </u></b></span><span>- rank: </span>
-            <input id="qRankRight" type="number" placeholder="0" min="0" max="5" style={{width: "40px"}} 
-              onKeyDown={this.preventKeyPress} />
-          </div>
+          <ChampAbilitiesLeft abilities1={this.state.abilities1} 
+          preventKeyPress={this.preventKeyPress}/>
+          <ChampAbilitiesRight abilities2={this.state.abilities2} 
+          preventKeyPress={this.preventKeyPress}/>
         </div>
 
-        <div className="flexDisplay">
-          <div className="hidden">
-            <span><b><u>W </u></b></span><span>- rank: </span>
-            <input id="wRankLeft" type="number" placeholder="0" min="0" max="5" style={{width: "40px"}} 
-            onKeyDown={this.preventKeyPress} />
-          </div>
-          <div className="hidden">
-            <span><b><u>W </u></b></span><span>- rank: </span>
-            <input id="wRankRight" type="number" placeholder="0" min="0" max="5" style={{width: "40px"}} 
-              onKeyDown={this.preventKeyPress} />
-          </div>
-        </div>
-
-        <div className="flexDisplay">
-          <div className="hidden">
-            <span><b><u>E </u></b></span><span>- rank: </span>
-            <input id="eRankLeft" type="number" placeholder="0" min="0" max="5" style={{width: "40px"}} 
-            onKeyDown={this.preventKeyPress} />
-          </div>
-          <div className="hidden">
-            <span><b><u>E </u></b></span><span>- rank: </span>
-            <input id="eRankRight" type="number" placeholder="0" min="0" max="5" style={{width: "40px"}} 
-              onKeyDown={this.preventKeyPress} />
-          </div>
-        </div>
-
-        <div className="flexDisplay">
-          <div className="hidden">
-            <span><b><u>R </u></b></span><span>- rank: </span>
-            <input id="rRankLeft" type="number" placeholder="0" min="0" max="3" style={{width: "40px"}} 
-            onKeyDown={this.preventKeyPress} />
-          </div>
-          <div className="hidden">
-            <span><b><u>R </u></b></span><span>- rank: </span>
-            <input id="rRankRight" type="number" placeholder="0" min="0" max="3" style={{width: "40px"}} 
-              onKeyDown={this.preventKeyPress} />
-          </div>
-        </div>
-
-        <footer style={{position: "absolute", bottom: "0px", width: "100%", textAlign: "right"}}>
+        <footer style={{bottom: "0px", width: "100%", textAlign: "right"}}>
         Icon made by <a href="https://www.flaticon.com/authors/vectors-market" 
         title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" 
         title="Flaticon"> www.flaticon.com</a>

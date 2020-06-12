@@ -20,6 +20,14 @@
   column-count: 4;
 }
 
+.abilityBox {
+  border-top: 5px solid grey;
+  padding: 0px 1em;
+  margin-top: 1px;
+  background-color: lightblue;
+  column-count: 2;
+}
+
 .navHeader {
   max-height: 10vh;
   color: black;
