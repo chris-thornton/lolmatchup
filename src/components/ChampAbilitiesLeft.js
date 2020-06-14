@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ChampAbilitiesLeft = ( {abilities1, preventKeyPress} ) => {
+const ChampAbilitiesLeft = ( {abilities1, abilities2, preventKeyPress} ) => {
     return (
         <div>
 

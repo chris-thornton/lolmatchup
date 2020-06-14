@@ -179,7 +179,8 @@ class App extends Component {
         }))
       });
       console.log(this.state.Q1);
-      return this.setState({ champIconUrlLeft: `http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/${champName}.png`})
+      return this.setState({ champIconUrlLeft: 
+      `http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/${champName}.png`})
   }
 
   onChampClick2 = (event) => {
@@ -376,9 +377,9 @@ class App extends Component {
 
         <div className="flexDisplay">
           <ChampAbilitiesLeft abilities1={this.state.abilities1} 
-          preventKeyPress={this.preventKeyPress}/>
+          abilities2={this.state.abilities2} preventKeyPress={this.preventKeyPress}/>
           <ChampAbilitiesRight abilities2={this.state.abilities2} 
-          preventKeyPress={this.preventKeyPress}/>
+          abilities1={this.state.abilities1} preventKeyPress={this.preventKeyPress}/>
         </div>
 
         <footer style={{bottom: "0px", width: "100%", textAlign: "right"}}>
