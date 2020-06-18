@@ -6,8 +6,6 @@ import ChampDropDownRight from './components/ChampDropDownRight';
 import logo from './logo.png';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
-import ChampAbilitiesLeft from './components/ChampAbilitiesLeft';
-import ChampAbilitiesRight from './components/ChampAbilitiesRight';
 
 class App extends Component {
   constructor() {
@@ -19,6 +17,8 @@ class App extends Component {
       filteredChampsRight: [],
       champNameLeft: '',
       champNameRight: '',
+      prevChampLeft: '',
+      prevChampRight: '',
       champIconUrlLeft: defaultChampIcon,
       champIconUrlRight: defaultChampIcon,
       stats1: {
@@ -90,6 +90,12 @@ class App extends Component {
     }
   };
 
+  shouldComponentUpdate() {
+    console.log("prevChamp: " + this.state.prevChampLeft);
+    console.log("currentChamp: " + this.state.champNameLeft);
+    return true
+  }
+
   onSearchChange = (event) => {
     this.setState({ searchField1: event.target.value });
     this.setState({ filteredChampsLeft: champList.filter(champ => {
@@ -125,6 +131,7 @@ class App extends Component {
       champName = 'MonkeyKing'
     };
 
+    this.setState({ prevChampLeft: this.state.champNameLeft })
     this.setState({ champNameLeft: champName });
     import (`./champions/${champName.toLowerCase()}`)
       .then(({default: champLeftFile}) => {
@@ -148,6 +155,27 @@ class App extends Component {
             console.log(this[`${ability}Details`])
           }
         }
+
+        if (typeof this.QDetails === 'string') {
+          var qDiv = document.getElementsByClassName('abilityBox')[0];
+          var qCombatText = document.createTextNode("No combat stats for this ability.");
+          qDiv.appendChild(qCombatText);
+        };
+        if (typeof this.WDetails === 'string') {
+          var wDiv = document.getElementsByClassName('abilityBox')[1];
+          var wCombatText = document.createTextNode("No combat stats for this ability.");
+          wDiv.appendChild(wCombatText);
+        };
+        if (typeof this.EDetails === 'string') {
+          var eDiv = document.getElementsByClassName('abilityBox')[2];
+          var eCombatText = document.createTextNode("No combat stats for this ability.");
+          eDiv.appendChild(eCombatText);
+        };
+        if (typeof this.RDetails === 'string') {
+          var rDiv = document.getElementsByClassName('abilityBox')[3];
+          var rCombatText = document.createTextNode("No combat stats for this ability.");
+          rDiv.appendChild(rCombatText);
+        };
 
         this.setState(prevState => ({
           stats1: {                   
@@ -376,10 +404,118 @@ class App extends Component {
         </div>
 
         <div className="flexDisplay">
-          <ChampAbilitiesLeft abilities1={this.state.abilities1} 
-          abilities2={this.state.abilities2} preventKeyPress={this.preventKeyPress}/>
-          <ChampAbilitiesRight abilities2={this.state.abilities2} 
-          abilities1={this.state.abilities1} preventKeyPress={this.preventKeyPress}/>
+        <div>
+
+          <div className="hidden">
+              <span><b><u>Q </u></b></span><span>- rank: </span>
+              <input id="qRankLeft" type="number" placeholder="0" min="0" max="5" 
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+          </div>
+          <div className="hidden abilityBox">
+          </div>
+
+          <div className="hidden">
+              <span><b><u>W </u></b></span><span>- rank: </span>
+              <input id="wRankLeft" type="number" placeholder="0" min="0" max="5" 
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+          </div>
+          <div className="hidden abilityBox">
+          </div>
+
+          <div className="hidden">
+              <span><b><u>E </u></b></span><span>- rank: </span>
+              <input id="eRankLeft" type="number" placeholder="0" min="0" max="5" 
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+          </div>
+          <div className="hidden abilityBox">
+          </div>
+
+          <div className="hidden">
+              <span><b><u>R </u></b></span><span>- rank: </span>
+              <input id="rRankLeft" type="number" placeholder="0" min="0" max="5"
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+          </div>
+          <div className="hidden abilityBox">
+              Damage: <br />
+              Shield: for seconds<br />
+              Heal: <br />
+              Bonus stats: <br />
+              Cooldown: <br />
+              Dmg / Cooldown: <br />
+              Shield / Cooldown: <br />
+              Heal / Cooldown: 
+          </div>
+
+          </div>
+          
+          <div>
+
+            <div className="hidden">
+                <span><b><u>Q </u></b></span><span>- rank: </span>
+                <input id="qRankRight" type="number" placeholder="0" min="0" max="5" 
+                style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+            </div>
+            <div className="hidden abilityBox">
+                Damage: <br />
+                Shield: for seconds<br />
+                Heal: <br />
+                Bonus stats: <br />
+                Cooldown: <br />
+                Dmg / Cooldown: <br />
+                Shield / Cooldown: <br />
+                Heal / Cooldown: 
+            </div>
+
+            <div className="hidden">
+                <span><b><u>W </u></b></span><span>- rank: </span>
+                <input id="wRankRight" type="number" placeholder="0" min="0" max="5" 
+                style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+            </div>
+            <div className="hidden abilityBox">
+                Damage: <br />
+                Shield: for seconds<br />
+                Heal: <br />
+                Bonus stats: <br />
+                Cooldown: <br />
+                Dmg / Cooldown: <br />
+                Shield / Cooldown: <br />
+                Heal / Cooldown: 
+            </div>
+
+            <div className="hidden">
+                <span><b><u>E </u></b></span><span>- rank: </span>
+                <input id="eRankRight" type="number" placeholder="0" min="0" max="5" 
+                style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+            </div>
+            <div className="hidden abilityBox">
+                Damage: <br />
+                Shield: for seconds<br />
+                Heal: <br />
+                Bonus stats: <br />
+                Cooldown: <br />
+                Dmg / Cooldown: <br />
+                Shield / Cooldown: <br />
+                Heal / Cooldown: 
+            </div>
+
+            <div className="hidden">
+                <span><b><u>R </u></b></span><span>- rank: </span>
+                <input id="rRankRight" type="number" placeholder="0" min="0" max="5"
+                style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+            </div>
+            <div className="hidden abilityBox">
+                Damage: <br />
+                Shield: for seconds<br />
+                Heal: <br />
+                Bonus stats: <br />
+                Cooldown: <br />
+                Dmg / Cooldown: <br />
+                Shield / Cooldown: <br />
+                Heal / Cooldown: 
+            </div>
+
+            </div>
+
         </div>
 
         <footer style={{bottom: "0px", width: "100%", textAlign: "right"}}>
