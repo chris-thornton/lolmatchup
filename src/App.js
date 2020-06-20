@@ -212,7 +212,7 @@ class App extends Component {
     document.getElementsByClassName("hidden")[1].style.visibility = 'visible';
     var hiddenArray = document.getElementsByClassName("hidden");
     hiddenArray[1].style.visibility = 'visible';
-    for (var i = 10; i < 18; i++) {
+    for (var i = 12; i < 22; i++) {
       hiddenArray[i].style.visibility = 'visible'
     };
     if (event.target.textContent !== "Wukong") {
@@ -459,6 +459,12 @@ class App extends Component {
           <div>
 
             <div className="hidden">
+              <span><b><u>Passive </u></b></span> 
+            </div>
+            <div className="hidden abilityBox">
+            </div>
+
+            <div className="hidden">
               <span><b><u>Q </u></b></span><span>- rank: </span>
               <input id="qRankRight" type="number" placeholder="0" min="0" max="5" 
               style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
@@ -510,7 +516,7 @@ class App extends Component {
 
         </div>
 
-        <footer style={{bottom: "0px", width: "100%", textAlign: "right"}}>
+        <footer style={{bottom: "0px", position: "absolute", width: "100%", textAlign: "right"}}>
         Icon made by <a href="https://www.flaticon.com/authors/vectors-market" 
         title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" 
         title="Flaticon"> www.flaticon.com</a>
