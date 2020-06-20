@@ -24,7 +24,7 @@
             11,10,9,8,7
         ]
     },
-    "QUnmounted": {
+    "QTransform": {
             "damage": {
                 "type": "phys",
                 "system": "minMax",
@@ -65,7 +65,7 @@
             14, 12.5, 11, 9.5, 8
         ]
     },
-    "WUnmounted": {
+    "WTransform": {
         "W": true
     },
     "E": {
@@ -111,7 +111,7 @@
             160, 140, 120
         ]
     },
-    "passiveUnmounted": {
+    "passiveTransform": {
         "remountHPRatioByLvl": [
             0.5,0.5,0.5,0.5,0.5,0.6,0.6,0.6,0.6,
             0.6,0.7,0.7,0.7,0.7,0.7,0.8,0.8,0.8
@@ -138,7 +138,7 @@
         "attackSpeedRatio": 0.625,
         "attackSpeedPerLevel": 0.035
     },
-    "statsUnmounted": {
+    "statsTransform": {
         "baseHP": 340,
         "hpPerLevel": 70,
         "baseHPRegen": 6,

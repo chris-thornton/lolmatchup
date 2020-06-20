@@ -17,8 +17,6 @@ class App extends Component {
       filteredChampsRight: [],
       champNameLeft: '',
       champNameRight: '',
-      prevChampLeft: '',
-      prevChampRight: '',
       champIconUrlLeft: defaultChampIcon,
       champIconUrlRight: defaultChampIcon,
       stats1: {
@@ -42,6 +40,8 @@ class App extends Component {
         manaRegen: 0,
         manaRegenPL: 0
       },
+      transformStats1: {},
+      transformStats2: {},
       stats2: {
         ad: 0,
         adPL: 0,
@@ -90,12 +90,6 @@ class App extends Component {
     }
   };
 
-  shouldComponentUpdate() {
-    console.log("prevChamp: " + this.state.prevChampLeft);
-    console.log("currentChamp: " + this.state.champNameLeft);
-    return true
-  }
-
   onSearchChange = (event) => {
     this.setState({ searchField1: event.target.value });
     this.setState({ filteredChampsLeft: champList.filter(champ => {
@@ -111,6 +105,8 @@ class App extends Component {
   }
 
   abilities = ["passive", "Q", "W", "E", "R"]
+  transformAbilities = ["passive", "Q", "W", "E", "R", "passiveTransform",
+   "QTransform", "WTransform", "ETransform", "RTransform"]
 
   onChampClick = (event) => {
 
@@ -121,7 +117,7 @@ class App extends Component {
     };
     var hiddenArray = document.getElementsByClassName("hidden");
     hiddenArray[0].style.visibility = 'visible';
-    for (var i = 2; i < 10; i++) {
+    for (var i = 2; i < 12; i++) {
       hiddenArray[i].style.visibility = 'visible';
     }
 
@@ -131,17 +127,29 @@ class App extends Component {
       champName = 'MonkeyKing'
     };
 
-    this.setState({ prevChampLeft: this.state.champNameLeft })
+    var abilitiesLength = document.getElementsByClassName('abilityBox').length
+    for (i = 0; i < abilitiesLength; i++) {
+      var divToEmpty = document.getElementsByClassName('abilityBox')[i];
+      while (divToEmpty.firstChild) {
+        divToEmpty.removeChild(divToEmpty.firstChild)
+      }
+    }
+
     this.setState({ champNameLeft: champName });
     import (`./champions/${champName.toLowerCase()}`)
       .then(({default: champLeftFile}) => {
         const statsPath = champLeftFile[`stats`]
         const champLevel = this.state.levelLeft - 1
 
+        // eslint-disable-next-line
         var passiveDetails = {};
+        // eslint-disable-next-line
         var QDetails = {};
+        // eslint-disable-next-line
         var WDetails = {};
+        // eslint-disable-next-line
         var EDetails = {};
+        // eslint-disable-next-line
         var RDetails = {};
 
         for (i = 0; i < this.abilities.length; i++) {
@@ -151,31 +159,13 @@ class App extends Component {
             this[`${ability}Details`] = champLeftFile[ability]
             console.log(this[`${ability}Details`])
           } else {
-            this[`${ability}Details`] = "No combat stats for this ability."
+            this[`${ability}Details`] = "No combat stats for this ability.";
+            var abilityDiv = document.getElementsByClassName('abilityBox')[i];
+            var abilityText = document.createTextNode("No combat stats for this ability.");
+            abilityDiv.appendChild(abilityText)
             console.log(this[`${ability}Details`])
           }
         }
-
-        if (typeof this.QDetails === 'string') {
-          var qDiv = document.getElementsByClassName('abilityBox')[0];
-          var qCombatText = document.createTextNode("No combat stats for this ability.");
-          qDiv.appendChild(qCombatText);
-        };
-        if (typeof this.WDetails === 'string') {
-          var wDiv = document.getElementsByClassName('abilityBox')[1];
-          var wCombatText = document.createTextNode("No combat stats for this ability.");
-          wDiv.appendChild(wCombatText);
-        };
-        if (typeof this.EDetails === 'string') {
-          var eDiv = document.getElementsByClassName('abilityBox')[2];
-          var eCombatText = document.createTextNode("No combat stats for this ability.");
-          eDiv.appendChild(eCombatText);
-        };
-        if (typeof this.RDetails === 'string') {
-          var rDiv = document.getElementsByClassName('abilityBox')[3];
-          var rCombatText = document.createTextNode("No combat stats for this ability.");
-          rDiv.appendChild(rCombatText);
-        };
 
         this.setState(prevState => ({
           stats1: {                   
@@ -206,7 +196,9 @@ class App extends Component {
           }
         }))
       });
-      console.log(this.state.Q1);
+      if (this.state.champNameLeft.length > 2) {
+      console.log('state Q1: ' + JSON.stringify(this.state.abilities1.Q))
+      }
       return this.setState({ champIconUrlLeft: 
       `http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/${champName}.png`})
   }
@@ -231,8 +223,26 @@ class App extends Component {
     this.setState({ champNameRight: champName });
     import (`./champions/${champName.toLowerCase()}`)
     .then(({default: champRightFile}) => {
-      const statsPath = champRightFile[`stats`]
-      const champLevel = this.state.levelRight - 1 
+      const statsPath = champRightFile[`stats`];
+      const champLevel = this.state.levelRight - 1;
+
+      var qDivToEmpty = document.getElementsByClassName('abilityBoxRight')[0];
+      while (qDivToEmpty.firstChild) {
+        qDivToEmpty.removeChild(qDivToEmpty.firstChild)
+      }
+      var wDivToEmpty = document.getElementsByClassName('abilityBoxRight')[1];
+      while (wDivToEmpty.firstChild) {
+        wDivToEmpty.removeChild(wDivToEmpty.firstChild)
+      }
+      var eDivToEmpty = document.getElementsByClassName('abilityBoxRight')[2];
+      while (eDivToEmpty.firstChild) {
+        eDivToEmpty.removeChild(eDivToEmpty.firstChild)
+      }
+      var rDivToEmpty = document.getElementsByClassName('abilityBoxRight')[3];
+      while (rDivToEmpty.firstChild) {
+        rDivToEmpty.removeChild(rDivToEmpty.firstChild)
+      }
+
       this.setState(prevState => ({
         stats2: {                   
             ...prevState.stats2,   
@@ -407,6 +417,12 @@ class App extends Component {
         <div>
 
           <div className="hidden">
+            <span><b><u>Passive </u></b></span> 
+          </div>
+          <div className="hidden abilityBox">
+          </div>
+
+          <div className="hidden">
               <span><b><u>Q </u></b></span><span>- rank: </span>
               <input id="qRankLeft" type="number" placeholder="0" min="0" max="5" 
               style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
@@ -451,35 +467,19 @@ class App extends Component {
           <div>
 
             <div className="hidden">
-                <span><b><u>Q </u></b></span><span>- rank: </span>
-                <input id="qRankRight" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+              <span><b><u>Q </u></b></span><span>- rank: </span>
+              <input id="qRankRight" type="number" placeholder="0" min="0" max="5" 
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
             </div>
-            <div className="hidden abilityBox">
-                Damage: <br />
-                Shield: for seconds<br />
-                Heal: <br />
-                Bonus stats: <br />
-                Cooldown: <br />
-                Dmg / Cooldown: <br />
-                Shield / Cooldown: <br />
-                Heal / Cooldown: 
+            <div className="hidden abilityBoxRight">
             </div>
 
             <div className="hidden">
-                <span><b><u>W </u></b></span><span>- rank: </span>
-                <input id="wRankRight" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+              <span><b><u>W </u></b></span><span>- rank: </span>
+              <input id="wRankRight" type="number" placeholder="0" min="0" max="5" 
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
             </div>
-            <div className="hidden abilityBox">
-                Damage: <br />
-                Shield: for seconds<br />
-                Heal: <br />
-                Bonus stats: <br />
-                Cooldown: <br />
-                Dmg / Cooldown: <br />
-                Shield / Cooldown: <br />
-                Heal / Cooldown: 
+            <div className="hidden abilityBoxRight">
             </div>
 
             <div className="hidden">
@@ -487,7 +487,7 @@ class App extends Component {
                 <input id="eRankRight" type="number" placeholder="0" min="0" max="5" 
                 style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
             </div>
-            <div className="hidden abilityBox">
+            <div className="hidden abilityBoxRight">
                 Damage: <br />
                 Shield: for seconds<br />
                 Heal: <br />
@@ -503,7 +503,7 @@ class App extends Component {
                 <input id="rRankRight" type="number" placeholder="0" min="0" max="5"
                 style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
             </div>
-            <div className="hidden abilityBox">
+            <div className="hidden abilityBoxRight">
                 Damage: <br />
                 Shield: for seconds<br />
                 Heal: <br />
