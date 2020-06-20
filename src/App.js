@@ -220,28 +220,20 @@ class App extends Component {
     } else {
       champName = 'MonkeyKing'
     }
+
+    var abilitiesLength = document.getElementsByClassName('abilityBoxRight').length
+    for (i = 0; i < abilitiesLength; i++) {
+      var divToEmpty = document.getElementsByClassName('abilityBoxRight')[i];
+      while (divToEmpty.firstChild) {
+        divToEmpty.removeChild(divToEmpty.firstChild)
+      }
+    }
+
     this.setState({ champNameRight: champName });
     import (`./champions/${champName.toLowerCase()}`)
     .then(({default: champRightFile}) => {
       const statsPath = champRightFile[`stats`];
       const champLevel = this.state.levelRight - 1;
-
-      var qDivToEmpty = document.getElementsByClassName('abilityBoxRight')[0];
-      while (qDivToEmpty.firstChild) {
-        qDivToEmpty.removeChild(qDivToEmpty.firstChild)
-      }
-      var wDivToEmpty = document.getElementsByClassName('abilityBoxRight')[1];
-      while (wDivToEmpty.firstChild) {
-        wDivToEmpty.removeChild(wDivToEmpty.firstChild)
-      }
-      var eDivToEmpty = document.getElementsByClassName('abilityBoxRight')[2];
-      while (eDivToEmpty.firstChild) {
-        eDivToEmpty.removeChild(eDivToEmpty.firstChild)
-      }
-      var rDivToEmpty = document.getElementsByClassName('abilityBoxRight')[3];
-      while (rDivToEmpty.firstChild) {
-        rDivToEmpty.removeChild(rDivToEmpty.firstChild)
-      }
 
       this.setState(prevState => ({
         stats2: {                   
