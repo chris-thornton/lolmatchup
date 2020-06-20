@@ -200,7 +200,7 @@ class App extends Component {
       console.log('state Q1: ' + JSON.stringify(this.state.abilities1.Q))
       }
       return this.setState({ champIconUrlLeft: 
-      `http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/${champName}.png`})
+      `http://ddragon.leagueoflegends.com/cdn/10.12.1/img/champion/${champName}.png`})
   }
 
   onChampClick2 = (event) => {
@@ -266,7 +266,7 @@ class App extends Component {
       }))
     })
     return this.setState({ champIconUrlRight: 
-      `http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/${champName}.png`})
+      `http://ddragon.leagueoflegends.com/cdn/10.12.1/img/champion/${champName}.png`})
   }
 
   onLevelChange = (event) => {
