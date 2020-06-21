@@ -77,14 +77,14 @@ class App extends Component {
         E: {},
         R: {}
       },
-      qRankLeft: 0,
-      qRankRight: 0,
-      wRankLeft: 0,
-      wRankRight: 0,
-      eRankLeft: 0,
-      eRankRight: 0,
-      rRankLeft: 0,
-      rRankRight: 0,
+      QRankLeft: 0,
+      QRankRight: 0,
+      WRankLeft: 0,
+      WRankRight: 0,
+      ERankLeft: 0,
+      ERankRight: 0,
+      RRankLeft: 0,
+      RRankRight: 0,
       levelLeft: 1,
       levelRight: 1
     }
@@ -156,7 +156,48 @@ class App extends Component {
           var ability = this.abilities[i];
           console.log(ability);
           if (champLeftFile[ability]) {
+            console.log("ability rank left: " + this.state[`${ability}RankLeft`])
             this[`${ability}Details`] = champLeftFile[ability]
+            if (this.state[`${ability}RankLeft`] === 0) {
+              if (champLeftFile[ability]["damage"]) {
+                if (champLeftFile[ability]["damage"]["type"]) {
+                  var dmgType = champLeftFile[ability]["damage"]["type"]
+                  console.log(dmgType + " damage:")
+                };
+                if (champLeftFile[ability]["damage"]["dmg"]) {
+                  var dmgArray = champLeftFile[ability]["damage"]["dmg"]
+                  console.log(dmgArray)
+                };
+                if (champLeftFile[ability]["damage"]["system"] === "minMax" ) {
+                  if (champLeftFile[ability]["damage"]["minDmg"]) {
+                    var minDmgArray = champLeftFile[ability]["damage"]["minDmg"]
+                    console.log(minDmgArray)
+                  }
+                }
+              }
+            } else {
+              /* COPY PASTE RANK 0 NESTED IFS BUT REPLACE ARRAYS WITH INDIVIDUAL VALUES */
+              /* Place non-rank related variables outside of the rank nesting (ex: dmgType) */
+              if (champLeftFile[ability]["damage"]) {
+                if (champLeftFile[ability]["damage"]["type"]) {
+                  var dmgType = champLeftFile[ability]["damage"]["type"]
+                  console.log(dmgType + " damage:")
+                };
+                if (champLeftFile[ability]["damage"]["dmg"]) {
+                  var dmgArray = champLeftFile[ability]["damage"]["dmg"]
+                  console.log(dmgArray)
+                };
+                if (champLeftFile[ability]["damage"]["dmg"] && this.state[`${ability}RankLeft`] > 0) {
+                  var dmgValue = champLeftFile[ability]["damage"]["dmg"][this.state[`${ability}RankLeft`]]
+                  console.log("dmg value: " + dmgValue)
+                };
+                if (champLeftFile[ability]["damage"]["system"] === "minMax" ) {
+                  if (champLeftFile[ability]["damage"]["minDmg"]) {
+
+                  }
+                }
+              }
+            }
             console.log(this[`${ability}Details`])
           } else {
             this[`${ability}Details`] = "No combat stats for this ability.";
@@ -254,6 +295,13 @@ class App extends Component {
             ad: statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel),
             mr: statsPath["baseMagicResist"] + statsPath["magicResistPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel),
             mana: statsPath.mana["base"] + statsPath.mana["manaPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)
+        },
+        abilities2: {
+          passive: this.passiveDetails,
+          Q: this.QDetails,
+          W: this.WDetails,
+          E: this.EDetails,
+          R: this.RDetails
         }
       }))
     })
@@ -300,13 +348,6 @@ class App extends Component {
               mana: statsPath.mana["base"] + statsPath.mana["manaPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel),
               manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel),
               hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)
-          },
-          abilities2: {
-            passive: this.passiveDetails,
-            Q: this.QDetails,
-            W: this.WDetails,
-            E: this.EDetails,
-            R: this.RDetails
           }
         }))
       })
@@ -416,7 +457,7 @@ class App extends Component {
 
           <div className="hidden">
               <span><b><u>Q </u></b></span><span>- rank: </span>
-              <input id="qRankLeft" type="number" placeholder="0" min="0" max="5" 
+              <input id="QRankLeft" type="number" placeholder="0" min="0" max="5" 
               style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
           </div>
           <div className="hidden abilityBox">
@@ -424,7 +465,7 @@ class App extends Component {
 
           <div className="hidden">
               <span><b><u>W </u></b></span><span>- rank: </span>
-              <input id="wRankLeft" type="number" placeholder="0" min="0" max="5" 
+              <input id="WRankLeft" type="number" placeholder="0" min="0" max="5" 
               style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
           </div>
           <div className="hidden abilityBox">
@@ -432,7 +473,7 @@ class App extends Component {
 
           <div className="hidden">
               <span><b><u>E </u></b></span><span>- rank: </span>
-              <input id="eRankLeft" type="number" placeholder="0" min="0" max="5" 
+              <input id="ERankLeft" type="number" placeholder="0" min="0" max="5" 
               style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
           </div>
           <div className="hidden abilityBox">
@@ -440,7 +481,7 @@ class App extends Component {
 
           <div className="hidden">
               <span><b><u>R </u></b></span><span>- rank: </span>
-              <input id="rRankLeft" type="number" placeholder="0" min="0" max="5"
+              <input id="RRankLeft" type="number" placeholder="0" min="0" max="5"
               style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
           </div>
           <div className="hidden abilityBox">
@@ -466,7 +507,7 @@ class App extends Component {
 
             <div className="hidden">
               <span><b><u>Q </u></b></span><span>- rank: </span>
-              <input id="qRankRight" type="number" placeholder="0" min="0" max="5" 
+              <input id="QRankRight" type="number" placeholder="0" min="0" max="5" 
               style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
             </div>
             <div className="hidden abilityBoxRight">
@@ -474,7 +515,7 @@ class App extends Component {
 
             <div className="hidden">
               <span><b><u>W </u></b></span><span>- rank: </span>
-              <input id="wRankRight" type="number" placeholder="0" min="0" max="5" 
+              <input id="WRankRight" type="number" placeholder="0" min="0" max="5" 
               style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
             </div>
             <div className="hidden abilityBoxRight">
@@ -482,7 +523,7 @@ class App extends Component {
 
             <div className="hidden">
                 <span><b><u>E </u></b></span><span>- rank: </span>
-                <input id="eRankRight" type="number" placeholder="0" min="0" max="5" 
+                <input id="ERankRight" type="number" placeholder="0" min="0" max="5" 
                 style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
             </div>
             <div className="hidden abilityBoxRight">
@@ -498,7 +539,7 @@ class App extends Component {
 
             <div className="hidden">
                 <span><b><u>R </u></b></span><span>- rank: </span>
-                <input id="rRankRight" type="number" placeholder="0" min="0" max="5"
+                <input id="RRankRight" type="number" placeholder="0" min="0" max="5"
                 style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
             </div>
             <div className="hidden abilityBoxRight">
