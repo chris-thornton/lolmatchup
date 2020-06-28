@@ -154,45 +154,102 @@ class App extends Component {
 
         for (i = 0; i < this.abilities.length; i++) {
           var ability = this.abilities[i];
+          var abilityDiv = document.getElementsByClassName('abilityBox')[i];
           console.log(ability);
           if (champLeftFile[ability]) {
             console.log("ability rank left: " + this.state[`${ability}RankLeft`])
             this[`${ability}Details`] = champLeftFile[ability]
             if (this.state[`${ability}RankLeft`] === 0) {
               if (champLeftFile[ability]["damage"]) {
-                if (champLeftFile[ability]["damage"]["type"]) {
-                  var dmgType = champLeftFile[ability]["damage"]["type"]
+                var damage = champLeftFile[ability]["damage"]
+                if (damage["type"]) {
+                  var dmgType = damage["type"];
+                  dmgType = dmgType.toUpperCase();
+                  if (dmgType === 'PHYS') {
+                    dmgType = 'PHYSICAL'
+                  }
+                  var abilityText = document.createTextNode(dmgType + " DAMAGE: ");
+                  abilityDiv.appendChild(abilityText);
                   console.log(dmgType + " damage:")
                 };
-                if (champLeftFile[ability]["damage"]["dmg"]) {
-                  var dmgArray = champLeftFile[ability]["damage"]["dmg"]
+                if (damage["dmg"]) {
+                  var dmgArray = JSON.stringify(damage["dmg"]).replace(/,/g, ', ')
+                  var abilityText = document.createTextNode(dmgArray);
+                  abilityDiv.appendChild(abilityText);
                   console.log(dmgArray)
                 };
-                if (champLeftFile[ability]["damage"]["system"] === "minMax" ) {
-                  if (champLeftFile[ability]["damage"]["minDmg"]) {
-                    var minDmgArray = champLeftFile[ability]["damage"]["minDmg"]
-                    console.log(minDmgArray)
+                if (damage["dmgByLvl"]) {
+                  var dmgByLvlArray = JSON.stringify(damage["dmgByLvl"]).replace(/,/g, ', ')
+                  var abilityText = document.createTextNode(dmgByLvlArray);
+                  abilityDiv.appendChild(abilityText);
+                  console.log(dmgByLvlArray)
+                };
+                if (damage["system"] === "minMax" ) {
+                  if (damage["minDmg"]) {
+                    var minDmgArray = JSON.stringify(damage["minDmg"]).replace(/,/g, ', ')
+                    var minDmgText = document.createTextNode("Min - " + minDmgArray)
+                    abilityDiv.appendChild(minDmgText)
+                    if (damage["minAPRatio"]) {
+                      var minAPRatioValue = JSON.stringify(damage["minAPRatio"]).replace(/,/g, ', ')
+                      var minAPRatioText = document.createTextNode(" (+" + minAPRatioValue + " AP)")
+                      abilityDiv.appendChild(minAPRatioText)
+                    }
+                    if (damage["maxDmgRatio"]) {
+                      function multiplyByRatio(x) {
+                        return x * damage["maxDmgRatio"]
+                      }
+                      var maxDmgArray = JSON.stringify(damage["minDmg"].map(x => 
+                        x * damage["maxDmgRatio"])).replace(/,/g, ', ')
+                      var maxDmgText = document.createTextNode(" Max - " + maxDmgArray)
+                      abilityDiv.appendChild(maxDmgText)
+                      if (typeof damage["minAPRatio"] === 'array') {
+                        var maxAPRatioValue = JSON.stringify(damage["minAPRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
+                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                        abilityDiv.appendChild(maxAPRatioText)
+                      } else if (damage["minAPRatio"]) {
+                        var maxAPRatioValue = damage["minAPRatio"] * damage["maxDmgRatio"]
+                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                        abilityDiv.appendChild(maxAPRatioText)
+                      }
+                    }
+                  }
+                  if (damage["maxDmg"]) {
+                    var maxDmgArray = JSON.stringify(damage["maxDmg"]).replace(/,/g, ', ')
+                    var maxDmgText = document.createTextNode(" Max - " + maxDmgArray)
+                    abilityDiv.appendChild(maxDmgText)
                   }
                 }
+                if (damage["APRatio"]) {
+                  var APRatioText = document.createTextNode(" (+" + damage["APRatio"] + " AP)")
+                  abilityDiv.appendChild(APRatioText)
+                }
               }
+              if (champLeftFile[ability]["coolDown"]) {
+                var coolDownArray = JSON.stringify(champLeftFile[ability]["coolDown"]).replace(/,/g, ', ')
+                var abilityText = document.createTextNode("Cooldown: " + coolDownArray);
+                var br = document.createElement("br");
+                abilityDiv.appendChild(br);
+                abilityDiv.appendChild(abilityText)
+                console.log("cooldown: " + coolDownArray)
+              };
             } else {
               /* COPY PASTE RANK 0 NESTED IFS BUT REPLACE ARRAYS WITH INDIVIDUAL VALUES */
               /* Place non-rank related variables outside of the rank nesting (ex: dmgType) */
-              if (champLeftFile[ability]["damage"]) {
-                if (champLeftFile[ability]["damage"]["type"]) {
-                  var dmgType = champLeftFile[ability]["damage"]["type"]
+              if (champLeftFile[ability]["coolDown"]) {
+                var coolDown = champLeftFile[ability]["coolDown"][this.state[`${ability}RankLeft`]]
+                console.log("cooldown: " + coolDown)
+              };
+              if (damage) {
+                if (damage["type"]) {
+                  var dmgType = damage["type"]
                   console.log(dmgType + " damage:")
                 };
-                if (champLeftFile[ability]["damage"]["dmg"]) {
-                  var dmgArray = champLeftFile[ability]["damage"]["dmg"]
-                  console.log(dmgArray)
-                };
-                if (champLeftFile[ability]["damage"]["dmg"] && this.state[`${ability}RankLeft`] > 0) {
-                  var dmgValue = champLeftFile[ability]["damage"]["dmg"][this.state[`${ability}RankLeft`]]
+                if (damage["dmg"]) {
+                  var dmgValue = damage["dmg"][this.state[`${ability}RankLeft`]]
                   console.log("dmg value: " + dmgValue)
                 };
-                if (champLeftFile[ability]["damage"]["system"] === "minMax" ) {
-                  if (champLeftFile[ability]["damage"]["minDmg"]) {
+                if (damage["system"] === "minMax" ) {
+                  if (damage["minDmg"]) {
 
                   }
                 }
@@ -201,7 +258,6 @@ class App extends Component {
             console.log(this[`${ability}Details`])
           } else {
             this[`${ability}Details`] = "No combat stats for this ability.";
-            var abilityDiv = document.getElementsByClassName('abilityBox')[i];
             var abilityText = document.createTextNode("No combat stats for this ability.");
             abilityDiv.appendChild(abilityText)
             console.log(this[`${ability}Details`])
@@ -355,6 +411,16 @@ class App extends Component {
     return this.setState({ levelRight: event.target.value })
   }
 
+  onRankChange = (event) => {
+    var abilityFirstChar = event.currentTarget.id.charAt(0)
+    this.setState({ [`${abilityFirstChar}RankLeft`]: event.target.value })              
+  }
+
+  onRankChange2 = (event) => {
+    var abilityFirstChar2 = event.currentTarget.id.charAt(0)
+    this.setState({ [`${abilityFirstChar2}RankRight`]: event.target.value })              
+  }
+
   preventKeyPress = (event) => {
     event.preventDefault()
   }
@@ -458,7 +524,7 @@ class App extends Component {
           <div className="hidden">
               <span><b><u>Q </u></b></span><span>- rank: </span>
               <input id="QRankLeft" type="number" placeholder="0" min="0" max="5" 
-              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
           </div>
           <div className="hidden abilityBox">
           </div>
@@ -466,7 +532,7 @@ class App extends Component {
           <div className="hidden">
               <span><b><u>W </u></b></span><span>- rank: </span>
               <input id="WRankLeft" type="number" placeholder="0" min="0" max="5" 
-              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
           </div>
           <div className="hidden abilityBox">
           </div>
@@ -474,7 +540,7 @@ class App extends Component {
           <div className="hidden">
               <span><b><u>E </u></b></span><span>- rank: </span>
               <input id="ERankLeft" type="number" placeholder="0" min="0" max="5" 
-              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
           </div>
           <div className="hidden abilityBox">
           </div>
@@ -482,7 +548,7 @@ class App extends Component {
           <div className="hidden">
               <span><b><u>R </u></b></span><span>- rank: </span>
               <input id="RRankLeft" type="number" placeholder="0" min="0" max="5"
-              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
           </div>
           <div className="hidden abilityBox">
               Damage: <br />
@@ -508,7 +574,7 @@ class App extends Component {
             <div className="hidden">
               <span><b><u>Q </u></b></span><span>- rank: </span>
               <input id="QRankRight" type="number" placeholder="0" min="0" max="5" 
-              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange2}/>
             </div>
             <div className="hidden abilityBoxRight">
             </div>
@@ -516,7 +582,7 @@ class App extends Component {
             <div className="hidden">
               <span><b><u>W </u></b></span><span>- rank: </span>
               <input id="WRankRight" type="number" placeholder="0" min="0" max="5" 
-              style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+              style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange2}/>
             </div>
             <div className="hidden abilityBoxRight">
             </div>
@@ -524,7 +590,7 @@ class App extends Component {
             <div className="hidden">
                 <span><b><u>E </u></b></span><span>- rank: </span>
                 <input id="ERankRight" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+                style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange2}/>
             </div>
             <div className="hidden abilityBoxRight">
                 Damage: <br />
@@ -540,7 +606,7 @@ class App extends Component {
             <div className="hidden">
                 <span><b><u>R </u></b></span><span>- rank: </span>
                 <input id="RRankRight" type="number" placeholder="0" min="0" max="5"
-                style={{width: "40px"}} onKeyDown={this.preventKeyPress} />
+                style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange2}/>
             </div>
             <div className="hidden abilityBoxRight">
                 Damage: <br />

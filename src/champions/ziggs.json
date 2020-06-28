@@ -39,7 +39,7 @@
         "coolDown":16
     },
     "R": {
-        "dmg": {
+        "damage": {
             "type": "magic",
             "system":"minMax",
             "minDmg": [

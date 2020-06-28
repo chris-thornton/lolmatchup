@@ -32,7 +32,7 @@
             "type": "magic",
             "system": "minMax",
             "minDmg": [
-                100 , 200 , 300
+                100, 200, 300
             ],
             "minAPRatio": 0.5,
             "maxDmg": [
