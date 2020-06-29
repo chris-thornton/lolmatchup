@@ -197,14 +197,13 @@ class App extends Component {
                     if (damage["maxDmgRatio"]) {
                       function multiplyByRatio(x) {
                         return x * damage["maxDmgRatio"]
-                      }
-                      var maxDmgArray = JSON.stringify(damage["minDmg"].map(x => 
-                        x * damage["maxDmgRatio"])).replace(/,/g, ', ')
+                      };
+                      var maxDmgArray = JSON.stringify(damage["minDmg"].map(multiplyByRatio)).replace(/,/g, ', ')
                       var maxDmgText = document.createTextNode(" Max - " + maxDmgArray)
                       abilityDiv.appendChild(maxDmgText)
-                      if (typeof damage["minAPRatio"] === 'array') {
+                      if (typeof damage["minAPRatio"] === 'object') {
                         var maxAPRatioValue = JSON.stringify(damage["minAPRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
-                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                        var maxAPRatioText = document.createTextNode(" (+"+ maxAPRatioValue + " AP)")
                         abilityDiv.appendChild(maxAPRatioText)
                       } else if (damage["minAPRatio"]) {
                         var maxAPRatioValue = damage["minAPRatio"] * damage["maxDmgRatio"]
@@ -212,11 +211,38 @@ class App extends Component {
                         abilityDiv.appendChild(maxAPRatioText)
                       }
                     }
+                    if (damage["repeat"]) {
+                      function multiplyByRepeat(x, i) {
+                        if (typeof damage["repeat"] === 'object') {
+                          return x * damage["repeat"][i]
+                        } else {
+                          return x * damage["repeat"]
+                        }
+                      };
+                      var maxDmgArray = JSON.stringify(damage["minDmg"].map(multiplyByRepeat)).replace(/,/g, ', ')
+                      var maxDmgText = document.createTextNode(" Max - " + maxDmgArray)
+                      abilityDiv.appendChild(maxDmgText)
+                      if (damage["minAPRatio"] && typeof damage["minAPRatio"] === 'number') {
+                        var maxAPRatioValue = JSON.stringify(damage["repeat"].map(x => x * damage["minAPRatio"])).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                        abilityDiv.appendChild(maxAPRatioText)
+                      }
+                      if (damage["minAPRatio"] && typeof damage["minAPRatio"] === 'object') {
+                        var maxAPRatioValue = JSON.stringify(damage["minAPRatio"].map(multiplyByRepeat)).replace(/,/g, ', ')
+                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                        abilityDiv.appendChild(maxAPRatioText)
+                      } 
+                    }
                   }
                   if (damage["maxDmg"]) {
                     var maxDmgArray = JSON.stringify(damage["maxDmg"]).replace(/,/g, ', ')
                     var maxDmgText = document.createTextNode(" Max - " + maxDmgArray)
                     abilityDiv.appendChild(maxDmgText)
+                  }
+                  if (damage["maxAPRatio"]) {
+                    var maxAPRatioValue = damage["maxAPRatio"]
+                    var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                    abilityDiv.appendChild(maxAPRatioText)
                   }
                 }
                 if (damage["APRatio"]) {
@@ -226,7 +252,7 @@ class App extends Component {
               }
               if (champLeftFile[ability]["coolDown"]) {
                 var coolDownArray = JSON.stringify(champLeftFile[ability]["coolDown"]).replace(/,/g, ', ')
-                var abilityText = document.createTextNode("Cooldown: " + coolDownArray);
+                var abilityText = document.createTextNode("COOLDOWN: " + coolDownArray);
                 var br = document.createElement("br");
                 abilityDiv.appendChild(br);
                 abilityDiv.appendChild(abilityText)

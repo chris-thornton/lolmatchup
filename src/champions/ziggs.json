@@ -45,8 +45,11 @@
             "minDmg": [
                 200, 300, 400
             ],
+            "maxDmg": [
+                300, 450, 600
+            ],
             "minAPRatio": 0.7333,
-            "maxDmgRatio": 1.5
+            "maxAPRatio": 1.1
         },
         "coolDown": [
             120, 95, 70

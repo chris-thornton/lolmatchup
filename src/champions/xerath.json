@@ -19,9 +19,11 @@
             "minDmg":[
                 60, 90, 120, 150, 180
             ],
+            "maxDmg": [
+                100, 150, 200, 250, 300
+            ],
             "minAPRatio": 0.6,
-            "maxDmgRatio": 1.667
-            
+            "maxAPRatio": 1 
         },
         "coolDown": [
             14, 13, 12, 11, 10
@@ -43,7 +45,7 @@
         "maxInterruptCC": 2
     },
     "R": {
-        "dmg": {
+        "damage": {
             "type": "magic",
             "system":"minMax",
             "repeat": [
