@@ -184,6 +184,18 @@ class App extends Component {
                   abilityDiv.appendChild(abilityText);
                   console.log(dmgByLvlArray)
                 };
+                if (damage["APRatio"]) {
+                  var APRatioText = document.createTextNode(" (+" + damage["APRatio"] + " AP Ratio)")
+                  abilityDiv.appendChild(APRatioText)
+                };
+                if (damage["ADRatio"]) {
+                  var ADRatioText = document.createTextNode(" (+" + damage["ADRatio"] + " AD Ratio)")
+                  abilityDiv.appendChild(ADRatioText)
+                };
+                if (damage["bonusADRatio"]) {
+                  var bonusADRatioText = document.createTextNode(" (+" + damage["bonusADRatio"] + " Bonus AD Ratio)")
+                  abilityDiv.appendChild(bonusADRatioText)
+                };
                 if (damage["system"] === "minMax" ) {
                   if (damage["minDmg"]) {
                     var minDmgArray = JSON.stringify(damage["minDmg"]).replace(/,/g, ', ')
@@ -191,8 +203,18 @@ class App extends Component {
                     abilityDiv.appendChild(minDmgText)
                     if (damage["minAPRatio"]) {
                       var minAPRatioValue = JSON.stringify(damage["minAPRatio"]).replace(/,/g, ', ')
-                      var minAPRatioText = document.createTextNode(" (+" + minAPRatioValue + " AP)")
+                      var minAPRatioText = document.createTextNode(" (+" + minAPRatioValue + " AP Ratio)")
                       abilityDiv.appendChild(minAPRatioText)
+                    }
+                    if (damage["minADRatio"]) {
+                      var minADRatioValue = JSON.stringify(damage["minADRatio"]).replace(/,/g, ', ')
+                      var minADRatioText = document.createTextNode(" (+" + minADRatioValue + " AD Ratio)")
+                      abilityDiv.appendChild(minADRatioText)
+                    }
+                    if (damage["minBonusADRatio"]) {
+                      var minBonusADRatioValue = JSON.stringify(damage["minBonusADRatio"]).replace(/,/g, ', ')
+                      var minBonusADRatioText = document.createTextNode(" (+" + minBonusADRatioValue + " Bonus AD Ratio)")
+                      abilityDiv.appendChild(minBonusADRatioText)
                     }
                     if (damage["maxDmgRatio"]) {
                       function multiplyByRatio(x) {
@@ -203,12 +225,30 @@ class App extends Component {
                       abilityDiv.appendChild(maxDmgText)
                       if (typeof damage["minAPRatio"] === 'object') {
                         var maxAPRatioValue = JSON.stringify(damage["minAPRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
-                        var maxAPRatioText = document.createTextNode(" (+"+ maxAPRatioValue + " AP)")
+                        var maxAPRatioText = document.createTextNode(" (+"+ maxAPRatioValue + " AP Ratio)")
                         abilityDiv.appendChild(maxAPRatioText)
                       } else if (damage["minAPRatio"]) {
                         var maxAPRatioValue = damage["minAPRatio"] * damage["maxDmgRatio"]
-                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
                         abilityDiv.appendChild(maxAPRatioText)
+                      }
+                      if (typeof damage["minADRatio"] === 'object') {
+                        var maxADRatioValue = JSON.stringify(damage["minADRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
+                        var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
+                        abilityDiv.appendChild(maxADRatioText)
+                      } else if (damage["minADRatio"]) {
+                        var maxADRatioValue = damage["minADRatio"] * damage["maxDmgRatio"]
+                        var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
+                        abilityDiv.appendChild(maxADRatioText)
+                      }
+                      if (typeof damage["minBonusADRatio"] === 'object') {
+                        var maxBonusADRatioValue = JSON.stringify(damage["minBonusADRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
+                        var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
+                        abilityDiv.appendChild(maxBonusADRatioText)
+                      } else if (damage["minBonusADRatio"]) {
+                        var maxBonusADRatioValue = damage["minBonusADRatio"] * damage["maxDmgRatio"]
+                        var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
+                        abilityDiv.appendChild(maxBonusADRatioText)
                       }
                     }
                     if (damage["repeat"]) {
@@ -222,14 +262,14 @@ class App extends Component {
                       var maxDmgArray = JSON.stringify(damage["minDmg"].map(multiplyByRepeat)).replace(/,/g, ', ')
                       var maxDmgText = document.createTextNode(" Max - " + maxDmgArray)
                       abilityDiv.appendChild(maxDmgText)
-                      if (damage["minAPRatio"] && typeof damage["minAPRatio"] === 'number') {
+                      if (typeof damage["minAPRatio"] === 'number') {
                         var maxAPRatioValue = JSON.stringify(damage["repeat"].map(x => x * damage["minAPRatio"])).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
                         abilityDiv.appendChild(maxAPRatioText)
                       }
-                      if (damage["minAPRatio"] && typeof damage["minAPRatio"] === 'object') {
+                      if (typeof damage["minAPRatio"] === 'object') {
                         var maxAPRatioValue = JSON.stringify(damage["minAPRatio"].map(multiplyByRepeat)).replace(/,/g, ', ')
-                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
                         abilityDiv.appendChild(maxAPRatioText)
                       } 
                     }
@@ -241,20 +281,28 @@ class App extends Component {
                   }
                   if (damage["maxAPRatio"]) {
                     var maxAPRatioValue = damage["maxAPRatio"]
-                    var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP)")
+                    var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
                     abilityDiv.appendChild(maxAPRatioText)
                   }
-                }
-                if (damage["APRatio"]) {
-                  var APRatioText = document.createTextNode(" (+" + damage["APRatio"] + " AP)")
-                  abilityDiv.appendChild(APRatioText)
+                  if (damage["maxADRatio"]) {
+                    var maxADRatioValue = damage["maxADRatio"]
+                    var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
+                    abilityDiv.appendChild(maxADRatioText)
+                  }
+                  if (damage["maxBonusADRatio"]) {
+                    var maxBonusADRatioValue = damage["maxBonusADRatio"]
+                    var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
+                    abilityDiv.appendChild(maxBonusADRatioText)
+                  }
                 }
               }
               if (champLeftFile[ability]["coolDown"]) {
                 var coolDownArray = JSON.stringify(champLeftFile[ability]["coolDown"]).replace(/,/g, ', ')
                 var abilityText = document.createTextNode("COOLDOWN: " + coolDownArray);
                 var br = document.createElement("br");
+                var br2 = document.createElement("br");
                 abilityDiv.appendChild(br);
+                abilityDiv.appendChild(br2);
                 abilityDiv.appendChild(abilityText)
                 console.log("cooldown: " + coolDownArray)
               };
