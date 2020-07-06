@@ -26,6 +26,8 @@
             "bonusADRatio": 0.2,
             "APRatio": 1
         },
+        "critADRatio": 0.2,
+        "critADRatioWithIE": 0.325,
         "calibrum": {
             "bonusMarkDamage": [
                 20,
@@ -223,7 +225,7 @@
             "manaRegenPerLevel": 0.4
         },
         "baseDamage": 57,
-        "damagePerLevel": 2.2,
+        "damagePerLevel": 2,
         "baseArmor": 28,
         "armorPerLevel": 3,
         "baseMagicResist": 26,

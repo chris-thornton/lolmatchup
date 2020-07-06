@@ -59,11 +59,11 @@
             "manaBaseRegen": 8,
             "manaRegenPerLevel": 1
         },
-        "baseDamage": 56,
+        "baseDamage": 58,
         "damagePerLevel": 3,
         "baseArmor": 22,
         "armorPerLevel": 3,
-        "baseMagicResist": 34,
+        "baseMagicResist": 36,
         "magicResistPerLevel": 0.5,
         "attackSpeed": 0.625,
         "attackSpeedRatio": 0.625,

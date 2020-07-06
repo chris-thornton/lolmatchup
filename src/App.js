@@ -110,6 +110,8 @@ class App extends Component {
 
   onChampClick = (event) => {
 
+    var one=new Date();
+
     document.getElementsByTagName("input")[0].value = '';
     this.setState({ filteredChampsLeft: [] });
     if (this.state.levelLeft === 1) {
@@ -195,6 +197,18 @@ class App extends Component {
                 if (damage["bonusADRatio"]) {
                   var bonusADRatioText = document.createTextNode(" (+" + damage["bonusADRatio"] + " Bonus AD Ratio)")
                   abilityDiv.appendChild(bonusADRatioText)
+                };
+                if (damage["enemyMaxHPRatio"]) {
+                  var enemyMaxHPRatioText = document.createTextNode(" (+" + damage["enemyMaxHPRatio"] + " Enemy Max HP Ratio)")
+                  abilityDiv.appendChild(enemyMaxHPRatioText)
+                };
+                if (damage["maxHPRatio"]) {
+                  var maxHPRatioText = document.createTextNode(" (+" + damage["maxHPRatio"] + " Max HP Ratio)")
+                  abilityDiv.appendChild(maxHPRatioText)
+                };
+                if (damage["enemyCurrentHPRatio"]) {
+                  var enemyCurrentHPRatioText = document.createTextNode(" (+" + damage["enemyCurrentHPRatio"] + " Enemy Current HP Ratio)")
+                  abilityDiv.appendChild(enemyCurrentHPRatioText)
                 };
                 if (damage["system"] === "minMax" ) {
                   if (damage["minDmg"]) {
@@ -296,6 +310,25 @@ class App extends Component {
                   }
                 }
               }
+              var heal = false;
+              var heal2 = false;
+              if (champLeftFile[ability]["selfHeal"]) {
+                heal = champLeftFile[ability]["selfHeal"]
+              };
+              if (champLeftFile[ability]["allHeal"]) {
+                heal = champLeftFile[ability]["selfHeal"]
+              };
+              if (champLeftFile[ability]["allyHeal"] && !champLeftFile[ability]["selfHeal"]) {
+                heal = champLeftFile[ability]["allyHeal"]
+              };
+              if (champLeftFile[ability]["allyHeal"] && champLeftFile[ability]["selfHeal"]) {
+                heal2 = champLeftFile[ability]["allyHeal"]
+              };
+              if (heal) {
+                console.log("heal: " + heal)
+              }
+              console.log("heal: " + JSON.stringify(heal))
+
               if (champLeftFile[ability]["coolDown"]) {
                 var coolDownArray = JSON.stringify(champLeftFile[ability]["coolDown"]).replace(/,/g, ', ')
                 var abilityText = document.createTextNode("COOLDOWN: " + coolDownArray);
@@ -370,6 +403,8 @@ class App extends Component {
       if (this.state.champNameLeft.length > 2) {
       console.log('state Q1: ' + JSON.stringify(this.state.abilities1.Q))
       }
+      var two = new Date();
+      alert(two.getMilliseconds()-one.getMilliseconds());
       return this.setState({ champIconUrlLeft: 
       `http://ddragon.leagueoflegends.com/cdn/10.12.1/img/champion/${champName}.png`})
   }

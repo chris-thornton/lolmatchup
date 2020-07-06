@@ -11,7 +11,7 @@
             "dmg": [
                 90, 140, 190, 240, 290
             ],
-            "APRatio": 0.5
+            "APRatio": 0.7
         },
         "resistRedux": {
             "type": "both",
@@ -62,9 +62,9 @@
             "minBonusADRatio": 0.65,
             "medBonusADRatio": 0.975,
             "maxBonusADRatio": 1.3,
-            "minAPRatio": 0.25,
-            "medAPRatio": 0.375,
-            "maxAPRatio": 0.5
+            "minAPRatio": 0.35,
+            "medAPRatio": 0.525,
+            "maxAPRatio": 0.7
         },
         "coolDown": [
             2, 1.5, 1
