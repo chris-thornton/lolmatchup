@@ -172,19 +172,16 @@ class App extends Component {
                   }
                   var abilityText = document.createTextNode(dmgType + " DAMAGE: ");
                   abilityDiv.appendChild(abilityText);
-                  console.log(dmgType + " damage:")
                 };
                 if (damage["dmg"]) {
                   var dmgArray = JSON.stringify(damage["dmg"]).replace(/,/g, ', ')
                   var abilityText = document.createTextNode(dmgArray);
                   abilityDiv.appendChild(abilityText);
-                  console.log(dmgArray)
                 };
                 if (damage["dmgByLvl"]) {
-                  var dmgByLvlArray = JSON.stringify(damage["dmgByLvl"]).replace(/,/g, ', ')
-                  var abilityText = document.createTextNode(dmgByLvlArray);
+                  var abilityText = document.createTextNode(damage["dmgByLvl"][0] + " - " + damage["dmgByLvl"][17]
+                  + ", based on lvl. Currently: " + damage["dmgByLvl"][champLevel]);
                   abilityDiv.appendChild(abilityText);
-                  console.log(dmgByLvlArray)
                 };
                 if (damage["APRatio"]) {
                   var APRatioText = document.createTextNode(" (+" + damage["APRatio"] + " AP Ratio)")
@@ -346,14 +343,24 @@ class App extends Component {
                 var coolDown = champLeftFile[ability]["coolDown"][this.state[`${ability}RankLeft`]]
                 console.log("cooldown: " + coolDown)
               };
-              if (damage) {
+              if (champLeftFile[ability]["damage"]) {
+                var damage = champLeftFile[ability]["damage"]
                 if (damage["type"]) {
-                  var dmgType = damage["type"]
-                  console.log(dmgType + " damage:")
+                  var dmgType = damage["type"];
+                  dmgType = dmgType.toUpperCase();
+                  if (dmgType === 'PHYS') {
+                    dmgType = 'PHYSICAL'
+                  }
+                  var abilityText = document.createTextNode(dmgType + " DAMAGE: ");
+                  abilityDiv.appendChild(abilityText);
                 };
                 if (damage["dmg"]) {
                   var dmgValue = damage["dmg"][this.state[`${ability}RankLeft`]]
-                  console.log("dmg value: " + dmgValue)
+                };
+                if (damage["dmgByLvl"]) {
+                  var abilityText = document.createTextNode(damage["dmgByLvl"][0] + " - " + damage["dmgByLvl"][17]
+                  + ", based on lvl. Currently: " + damage["dmgByLvl"][champLevel]);
+                  abilityDiv.appendChild(abilityText);
                 };
                 if (damage["system"] === "minMax" ) {
                   if (damage["minDmg"]) {
@@ -400,11 +407,8 @@ class App extends Component {
           }
         }))
       });
-      if (this.state.champNameLeft.length > 2) {
-      console.log('state Q1: ' + JSON.stringify(this.state.abilities1.Q))
-      }
       var two = new Date();
-      alert(two.getMilliseconds()-one.getMilliseconds());
+      /* alert(two.getMilliseconds()-one.getMilliseconds()); */
       return this.setState({ champIconUrlLeft: 
       `http://ddragon.leagueoflegends.com/cdn/10.12.1/img/champion/${champName}.png`})
   }
