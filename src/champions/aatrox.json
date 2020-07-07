@@ -2,46 +2,45 @@
     "Q": {
         "damage": {
             "type": "phys",
+            "system": "3Part",
+            "part1": {
+                "type": "phys",
+                "system": "minMax",
+                "minDmg": [
+                  10, 30, 50, 70, 90   
+                ],
+                "minADRatio": [
+                  0.60, 0.65, 0.70, 0.75, 0.80
+                ],
+                "maxDmgRatio": 1.5
+            },
+            "part2": {
+              "type": "phys",
+              "system": "minMax",
+              "minDmg": [
+                12.5, 37.5, 62.5, 87.5, 112.5  
+              ],
+              "minADRatio": [
+                0.75, 0.8125, 0.875, 0.9375, 0.1
+              ],
+              "maxDmgRatio": 1.5
+          },
+          "part3": {
+            "type": "phys",
             "system": "minMax",
-            "repeatRamp": 2,
-            "rampRatio": 0.5,
             "minDmg": [
-                10,
-                30,
-                50,
-                70,
-                90
-            ],
-            "maxDmg": [
-                15,
-                45,
-                75,
-                105,
-                135
+              15, 45, 75, 105, 135  
             ],
             "minADRatio": [
-                0.60,
-                0.65,
-                0.70,
-                0.75,
-                0.80
+              0.90, 0.975, 1.05, 1.125, 1.20
             ],
-            "maxADRatio": [
-                0.90,
-                0.975,
-                1.05,
-                1.125,
-                1.20
-            ]
+            "maxDmgRatio": 1.5
+          }
         },
         "minInterruptCC": 0.25,
         "maxInterruptCC": 0.75,
         "coolDown": [
-            14,
-            12,
-            10,
-            8,
-            6
+            14, 12, 10, 8, 6
         ]
     },
     "W": {
