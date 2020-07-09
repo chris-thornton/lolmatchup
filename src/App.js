@@ -170,18 +170,18 @@ class App extends Component {
                   if (dmgType === 'PHYS') {
                     dmgType = 'PHYSICAL'
                   }
-                  var abilityText = document.createTextNode(dmgType + " DAMAGE: ");
-                  abilityDiv.appendChild(abilityText);
+                  var dmgTypeText = document.createTextNode(dmgType + " DAMAGE: ");
+                  abilityDiv.appendChild(dmgTypeText);
                 };
                 if (damage["dmg"]) {
                   var dmgArray = JSON.stringify(damage["dmg"]).replace(/,/g, ', ')
-                  var abilityText = document.createTextNode(dmgArray);
-                  abilityDiv.appendChild(abilityText);
+                  var dmgArrayText = document.createTextNode(dmgArray);
+                  abilityDiv.appendChild(dmgArrayText);
                 };
                 if (damage["dmgByLvl"]) {
-                  var abilityText = document.createTextNode(damage["dmgByLvl"][0] + " - " + damage["dmgByLvl"][17]
+                  var dmgByLvlText = document.createTextNode(damage["dmgByLvl"][0] + " - " + damage["dmgByLvl"][17]
                   + ", based on lvl. Currently: " + damage["dmgByLvl"][champLevel]);
-                  abilityDiv.appendChild(abilityText);
+                  abilityDiv.appendChild(dmgByLvlText);
                 };
                 if (damage["APRatio"]) {
                   var APRatioText = document.createTextNode(" (+" + damage["APRatio"] + " AP Ratio)")
@@ -227,6 +227,8 @@ class App extends Component {
                       var minBonusADRatioText = document.createTextNode(" (+" + minBonusADRatioValue + " Bonus AD Ratio)")
                       abilityDiv.appendChild(minBonusADRatioText)
                     }
+                    var br = document.createElement("br");
+                    abilityDiv.appendChild(br);
                     if (damage["maxDmgRatio"]) {
                       function multiplyByRatio(x) {
                         return x * damage["maxDmgRatio"]
@@ -291,19 +293,23 @@ class App extends Component {
                     abilityDiv.appendChild(maxDmgText)
                   }
                   if (damage["maxAPRatio"]) {
-                    var maxAPRatioValue = damage["maxAPRatio"]
-                    var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
+                    var maxAPRatioText = document.createTextNode(" (+" + damage["maxAPRatio"] + " AP Ratio)")
                     abilityDiv.appendChild(maxAPRatioText)
                   }
                   if (damage["maxADRatio"]) {
-                    var maxADRatioValue = damage["maxADRatio"]
-                    var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
+                    var maxADRatioText = document.createTextNode(" (+" + damage["maxADRatio"] + " AD Ratio)")
                     abilityDiv.appendChild(maxADRatioText)
                   }
                   if (damage["maxBonusADRatio"]) {
-                    var maxBonusADRatioValue = damage["maxBonusADRatio"]
-                    var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
+                    var maxBonusADRatioText = document.createTextNode(" (+" + damage["maxBonusADRatio"] + 
+                    " Bonus AD Ratio)")
                     abilityDiv.appendChild(maxBonusADRatioText)
+                  }
+                }
+                if (damage["system"] === "2Part") {
+                  if (damage["type"] !== 'mixed') {
+                    var part1Text = document.createTextNode("Part 1: ")
+                    abilityDiv.appendChild(part1Text)
                   }
                 }
               }

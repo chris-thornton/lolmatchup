@@ -61,6 +61,8 @@
             ],
             "ADRatio": 0.55
         },
+        "minInterruptCC": 0.6,
+        "maxInterruptCC": 1.2,
         "coolDown": [
             120, 105, 90
         ]

@@ -4,13 +4,13 @@
             "type": "magic",
             "system": "minMax",
             "minDmg": [
-                45, 65, 85, 105, 125
+                50,70,90,110,130
             ],
             "maxDmg": [
-                90, 130, 170, 210, 250
+                100, 140, 180, 220, 260
             ],
-            "minAPRatio": 0.3,
-            "maxAPRatio": 0.6
+            "minAPRatio": 0.35,
+            "maxAPRatio": 0.7
         },
         "coolDown": [
             8, 7.5, 7, 6.5, 6
@@ -48,7 +48,7 @@
         ]
     },
     "stats": {
-        "baseHP": 528,
+        "baseHP": 550,
         "hpPerLevel": 87,
         "baseHPRegen": 8,
         "hpRegenPerLevel": 0.8,

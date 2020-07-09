@@ -4,12 +4,12 @@
             "type":"phys",
             "system":"single",
             "dmg": [
-                75, 125, 175, 225, 275
+                85,135,185,235,285
             ],
             "bonusADRatio": 0.6
         },
         "coolDown": [
-            12, 11, 10, 9, 8
+            10,9.5,9,8.5,8
         ]
     },
     "E": {
@@ -17,7 +17,7 @@
             "type":"phys",
             "system":"single",
             "dmg": [
-                95, 125, 155, 185, 215
+                105,135,165,195,225
             ],
             "bonusADRatio": 1
         },
@@ -70,9 +70,9 @@
         "baseDamage": 62,
         "damagePerLevel": 2,
         "baseArmor": 45,
-        "armorPerLevel": 5,
+        "armorPerLevel": 3.5,
         "baseMagicResist": 32,
-        "magicResistPerLevel": 1.5,
+        "magicResistPerLevel": 1.25,
         "attackSpeed": 0.667,
         "attackSpeedRatio": 0.667,
         "attackSpeedPerLevel": 0.025
