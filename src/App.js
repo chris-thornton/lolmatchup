@@ -188,23 +188,28 @@ class App extends Component {
                   abilityDiv.appendChild(APRatioText)
                 };
                 if (damage["ADRatio"]) {
-                  var ADRatioText = document.createTextNode(" (+" + damage["ADRatio"] + " AD Ratio)")
+                  var ADRatioValue = JSON.stringify(damage["ADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var ADRatioText = document.createTextNode(" (+" + ADRatioValue + " AD Ratio)")
                   abilityDiv.appendChild(ADRatioText)
                 };
                 if (damage["bonusADRatio"]) {
-                  var bonusADRatioText = document.createTextNode(" (+" + damage["bonusADRatio"] + " Bonus AD Ratio)")
+                  var bonusADRatioValue = JSON.stringify(damage["bonusADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var bonusADRatioText = document.createTextNode(" (+" + bonusADRatioValue + " Bonus AD Ratio)")
                   abilityDiv.appendChild(bonusADRatioText)
                 };
                 if (damage["enemyMaxHPRatio"]) {
-                  var enemyMaxHPRatioText = document.createTextNode(" (+" + damage["enemyMaxHPRatio"] + " Enemy Max HP Ratio)")
+                  var enemyMaxHPRatioValue = JSON.stringify(damage["enemyMaxHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var enemyMaxHPRatioText = document.createTextNode(" (+" + enemyMaxHPRatioValue + " Enemy Max HP Ratio)")
                   abilityDiv.appendChild(enemyMaxHPRatioText)
                 };
                 if (damage["maxHPRatio"]) {
-                  var maxHPRatioText = document.createTextNode(" (+" + damage["maxHPRatio"] + " Max HP Ratio)")
+                  var maxHPRatioValue = JSON.stringify(damage["maxHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var maxHPRatioText = document.createTextNode(" (+" + maxHPRatioValue + " Max HP Ratio)")
                   abilityDiv.appendChild(maxHPRatioText)
                 };
                 if (damage["enemyCurrentHPRatio"]) {
-                  var enemyCurrentHPRatioText = document.createTextNode(" (+" + damage["enemyCurrentHPRatio"] + " Enemy Current HP Ratio)")
+                  var enemyCurrentHPRatioValue = JSON.stringify(damage["enemyCurrentHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var enemyCurrentHPRatioText = document.createTextNode(" (+" + enemyCurrentHPRatioValue + " Enemy Current HP Ratio)")
                   abilityDiv.appendChild(enemyCurrentHPRatioText)
                 };
                 if (damage["system"] === "minMax" ) {
@@ -276,9 +281,14 @@ class App extends Component {
                       var maxDmgText = document.createTextNode(" Max - " + maxDmgArray)
                       abilityDiv.appendChild(maxDmgText)
                       if (typeof damage["minAPRatio"] === 'number') {
-                        var maxAPRatioValue = JSON.stringify(damage["repeat"].map(x => x * damage["minAPRatio"])).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
-                        abilityDiv.appendChild(maxAPRatioText)
+                        if (typeof damage["repeat"] === 'object') {
+                          var maxAPRatioValue = JSON.stringify(damage["repeat"].map(x => x * damage["minAPRatio"])).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                          var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
+                          abilityDiv.appendChild(maxAPRatioText)
+                        } else {
+                          var maxAPRatioText = document.createTextNode(" (+" + damage["minAPRatio"]*(damage["repeat"]+1) + " AP Ratio)")
+                          abilityDiv.appendChild(maxAPRatioText)
+                        }
                       }
                       if (typeof damage["minAPRatio"] === 'object') {
                         var maxAPRatioValue = JSON.stringify(damage["minAPRatio"].map(multiplyByRepeat)).replace(/,/g, ', ')
@@ -293,16 +303,18 @@ class App extends Component {
                     abilityDiv.appendChild(maxDmgText)
                   }
                   if (damage["maxAPRatio"]) {
-                    var maxAPRatioText = document.createTextNode(" (+" + damage["maxAPRatio"] + " AP Ratio)")
+                    var maxAPRatioValue = JSON.stringify(damage["maxAPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                    var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
                     abilityDiv.appendChild(maxAPRatioText)
                   }
                   if (damage["maxADRatio"]) {
-                    var maxADRatioText = document.createTextNode(" (+" + damage["maxADRatio"] + " AD Ratio)")
+                    var maxADRatioValue = JSON.stringify(damage["maxADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                    var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
                     abilityDiv.appendChild(maxADRatioText)
                   }
                   if (damage["maxBonusADRatio"]) {
-                    var maxBonusADRatioText = document.createTextNode(" (+" + damage["maxBonusADRatio"] + 
-                    " Bonus AD Ratio)")
+                    var maxBonusADRatioValue = JSON.stringify(damage["maxBonusADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                    var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
                     abilityDiv.appendChild(maxBonusADRatioText)
                   }
                 }
@@ -315,16 +327,14 @@ class App extends Component {
               }
               var heal = false;
               var heal2 = false;
-              if (champLeftFile[ability]["selfHeal"]) {
-                heal = champLeftFile[ability]["selfHeal"]
-              };
               if (champLeftFile[ability]["allHeal"]) {
-                heal = champLeftFile[ability]["selfHeal"]
+                heal = champLeftFile[ability]["allHeal"]
               };
               if (champLeftFile[ability]["allyHeal"] && !champLeftFile[ability]["selfHeal"]) {
                 heal = champLeftFile[ability]["allyHeal"]
               };
               if (champLeftFile[ability]["allyHeal"] && champLeftFile[ability]["selfHeal"]) {
+                heal = champLeftFile[ability]["selfHeal"]
                 heal2 = champLeftFile[ability]["allyHeal"]
               };
               if (heal) {

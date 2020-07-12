@@ -54,12 +54,12 @@
     "R": {
         "tickDamage": {
             "type": "phys",
-            "interval": 0.5,
-            "ticks": 8,
-            "dmg": [
-                10, 55, 100
+            "interval": 0.25,
+            "ticks": 16,
+            "enemyMaxHPRatio": [
+                0.01, 0.015, 0.02
             ],
-            "ADRatio": 0.55
+            "ADRatio": 0.275
         },
         "minInterruptCC": 0.6,
         "maxInterruptCC": 1.2,
