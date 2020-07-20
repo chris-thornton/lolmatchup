@@ -9,9 +9,9 @@ const ChampDropDownLeft = ( {filteredChamps, onChampClick} ) => {
     )
   })
   return ( filteredChamps === "" || filteredChamps.split(',').length > 100 ) ? ( 
-  <ul style={{width: '120px', visibility: 'hidden', paddingLeft: 0, marginTop: 0}}></ul> )
+  <ul style={{width: '120px', visibility: 'hidden', paddingLeft: 0, marginTop: 0, marginLeft: 10}}></ul> )
     : ( 
-      <ul style={{listStyleType: 'none', width: '120px', paddingLeft: 0, position: 'absolute', left: 0, marginTop: 0}}>
+      <ul style={{listStyleType: 'none', width: '120px', paddingLeft: 0, marginTop: 0, position: "absolute", left: '15vw'}}>
         { dropDown }
       </ul>
     )

@@ -12,9 +12,16 @@
   justify-content: space-between;
 }
 
+.flexAround {
+  display: flex;
+  justify-content: space-around;
+}
+
 .statsBox {
-  width: 40vw;
+  text-align: center;
+  width: 45vw;
   border-top: 5px solid grey;
+  border-radius: 5px;
   padding: 0px 1em;
   margin-top: 1px;
   background-color: lightblue;
@@ -22,8 +29,9 @@
 }
 
 .abilityBox {
-  width: 40vw;
+  width: 45vw;
   border-top: 5px solid grey;
+  border-radius: 5px;
   padding: 0px 1em;
   margin-top: 1px;
   background-color: lightblue;
@@ -38,7 +46,7 @@
 }
 
 .navHeader {
-  max-height: 10vh;
+  max-height: 15vh;
   color: black;
   border-style: solid;
   border-width: 0px 0px 1px 0px;
@@ -72,10 +80,6 @@ h2 {
 
 .navRight {
   margin-left: auto; 
-}
-
-.Logo {
-  padding-top: 10px;
 }
 
 .leftAlign {

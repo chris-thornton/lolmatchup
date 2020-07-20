@@ -15,11 +15,8 @@
        "coolDown": 6
     },
     "W": {
-        "QMimic": {
-            "duration": 5
-        },
         "coolDown": [
-            22, 20, 18, 16, 14
+            20, 18.5, 17, 15.5, 14
         ],
         "coolDownRedux": 2
     },

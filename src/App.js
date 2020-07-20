@@ -3,9 +3,17 @@ import './App.css';
 import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
 import ChampDropDownRight from './components/ChampDropDownRight';
-import logo from './logo.png';
+import logo from './logo2.png';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
+import healthIcon from './staticons/healthscaling.png';
+import armorIcon from './staticons/armor.png';
+import magicResIcon from './staticons/magicres.png';
+import attackDamageIcon from './staticons/attackdamage.png';
+import attackSpeedIcon from './staticons/attackspeed.png';
+import critChanceIcon from './staticons/critchance.png';
+import abilityPowerIcon from './staticons/abilitypower.png';
+import cdrIcon from './staticons/cdr.png';
 
 class App extends Component {
   constructor() {
@@ -345,10 +353,12 @@ class App extends Component {
               if (champLeftFile[ability]["coolDown"]) {
                 var coolDownArray = JSON.stringify(champLeftFile[ability]["coolDown"]).replace(/,/g, ', ')
                 var abilityText = document.createTextNode("COOLDOWN: " + coolDownArray);
-                var br = document.createElement("br");
-                var br2 = document.createElement("br");
-                abilityDiv.appendChild(br);
-                abilityDiv.appendChild(br2);
+                if (abilityDiv.firstChild) {
+                  var br = document.createElement("br");
+                  var br2 = document.createElement("br");
+                  abilityDiv.appendChild(br);
+                  abilityDiv.appendChild(br2);
+                }
                 abilityDiv.appendChild(abilityText)
                 console.log("cooldown: " + coolDownArray)
               };
@@ -554,12 +564,13 @@ class App extends Component {
     event.preventDefault()
   }
 
-
   render() {
     return (
       <div>
 
         <header className="navHeader">
+          <h2 style={{marginBottom: 0, textDecoration: "underline"}}>LoL MatchUp</h2>
+          <img style={{marginBottom: -60}} className="center" src={logo} alt='Logo'/>
           <div className="navLeft">
             <h2>Home</h2>
             <h2>Saved Builds</h2>
@@ -568,25 +579,23 @@ class App extends Component {
           </div>
         </header>
 
-        <div className="Logo">
-          <img className="center" src={logo} alt='Logo' height="100px" width="100px"/>
-        </div>
-
-        <div className="flexDisplay">
+        <div className="flexAround" style={{marginTop: 10}}>
           <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} style={{width: 120}}
           />
+          <span style={{width: 64}}></span>
           <input type="search" placeholder='Champion Name' onChange={this.onSearchChange2} style={{width: 120}}
           />
         </div>
 
-        <div className="flexDisplay">
+        <div className="flexAround">
           <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } 
           onChampClick={this.onChampClick} />
+          <span style={{width: 64}}></span>
           <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } 
           onChampClick2={this.onChampClick2} />
         </div>
 
-        <div className="flexDisplay">
+        <div className="flexAround">
           <img className='champIcon' src={ this.state.champIconUrlLeft } height="120px" width="120px"
           alt='Champion Icon' style={{position: 'relative', zIndex: -2, marginBottom: 10}} />
           <img src={versus} alt='Versus Icon' height="64px" width="64px"/>
@@ -614,16 +623,24 @@ class App extends Component {
 
         <div className="flexDisplay">        
           <div className="statsBox">
+            <img src={healthIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Health Icon' height="25px" width="25px"/>
             Health: {Math.round(this.state.stats1.hp)}<br />
+            <img src={armorIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Armor Icon' height="25px" width="25px"/>
             Armor: {Math.round(this.state.stats1.arm)}<br />
+            <img src={magicResIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Magic Resist Icon' height="25px" width="25px"/>
             Magic Resist: {Math.round(this.state.stats1.mr)}<br />
+            <img src={attackDamageIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Damage Icon' height="25px" width="25px"/>
             Attack Damage: {Math.round(this.state.stats1.ad)}<br />
+            <img src={attackSpeedIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Speed Icon' height="25px" width="25px"/>
             Attack Speed: {this.state.stats1.as.toFixed(3)}<br />
+            <img src={critChanceIcon} style={{verticalAlign: "middle", padding: "0px 5px 5px 0px"}} alt='Crit Chance Icon' height="16px" width="16px"/>
             Crit Chance: {Math.round(this.state.stats1.cc)}%<br />
             Mana: {Math.round(this.state.stats1.mana)}<br />
             Mana Per 5: {this.state.stats1.manaRegen.toFixed(3)}<br />
             Health Per 5: {this.state.stats1.hpRegen.toFixed(3)}<br />
+            <img src={abilityPowerIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Ability Power Icon' height="25px" width="25px"/>
             Ability Power: {this.state.stats1.ap}<br />
+            <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Cooldown Reduction Icon' height="25px" width="25px"/>
             Cooldown Reduction: {Math.round(this.state.stats1.cdr)}%
           </div>
           <div className="statsBox">

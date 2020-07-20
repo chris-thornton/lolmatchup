@@ -11,7 +11,7 @@ const ChampDropDownRight = ({filteredChamps2, onChampClick2}) => {
   return ( filteredChamps2 === "" || filteredChamps2.split(',').length > 100 ) ? ( 
   <ul style={{width: '120px', visibility: 'hidden', marginTop: 0}}></ul> )
     : ( 
-      <ul style={{listStyleType: 'none', width: '120px', position: 'absolute', right: 0, marginTop: 0}}>
+      <ul style={{listStyleType: 'none', width: '120px', right: 0, marginTop: 0, marginRight: 10, zIndex: 100}}>
         { dropDown2 }
       </ul>
     )
