@@ -28,7 +28,7 @@
             "coolDownRefundRatio": 0.7    
     },
     "W": {
-        "autoEmpower": {
+        "onHitPermanent": {
             "damage": {
                 "type": "magic",
                 "system": "single",

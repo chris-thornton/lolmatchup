@@ -16,7 +16,7 @@
         ]
     },
     "W": {
-        "onHit": {
+        "onHitPermanent": {
             "damage": {
                 "type": "magic",
                 "system": "single",
@@ -24,8 +24,7 @@
                     30, 37.5, 45, 52.5, 60
                 ],
                 "APRatio": 0.3
-            },
-            "duration": "infinite"
+            }
         }
     },
     "E": {

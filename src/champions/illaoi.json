@@ -25,13 +25,12 @@
         "coolDown": 4
     },
     "E": {
-        "damageTransmit": {
-            "system": "preMitigate",
-            "ratio": [
+        "damage": {
+            "system": "max",
+            "enemyCurrentHPRatio": [
                 0.25, 0.30, 0.35, 0.40, 0.45
             ],
-            "ratioPer100AD": 0.08,
-            "maxDuration": 7
+            "enemyCurrentHPRatioPer100AD": 0.08
         },
         "coolDown": [
             16, 15, 14, 13, 12

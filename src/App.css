@@ -97,3 +97,29 @@ h2 {
 .hidden {
   visibility: hidden;
 }
+
+.spriteContainer {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.passiveMargin {
+  margin-left: -50px;
+}
+
+.qMargin {
+  margin-left: -100px;
+}
+
+.wMargin {
+  margin-left: -150px;
+}
+
+.eMargin {
+  margin-left: -200px;
+}
+
+.rMargin {
+  margin-left: -250px;
+}

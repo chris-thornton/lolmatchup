@@ -3,7 +3,7 @@ import './App.css';
 import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
 import ChampDropDownRight from './components/ChampDropDownRight';
-import logo from './logo2.png';
+import logo from './logo.jpg';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
 import healthIcon from './staticons/healthscaling.png';
@@ -23,6 +23,8 @@ class App extends Component {
       searchField2: '',
       filteredChampsLeft: [],
       filteredChampsRight: [],
+      filteredChampPairsLeft: [],
+      filteredChampPairsRight: [],
       champNameLeft: '',
       champNameRight: '',
       champIconUrlLeft: defaultChampIcon,
@@ -101,20 +103,31 @@ class App extends Component {
   onSearchChange = (event) => {
     this.setState({ searchField1: event.target.value });
     this.setState({ filteredChampsLeft: champList.filter(champ => {
-      return champ.toLowerCase().startsWith(event.target.value.toLowerCase()) })
-    }); 
+      return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) }).map(champ => {
+        return champ.name
+      })
+    });
+    this.setState({ filteredChampPairsLeft: champList.filter(champ => {
+      return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) })
+    })
   };
 
   onSearchChange2 = (event) => {
     this.setState({ searchField2: event.target.value });
     this.setState({ filteredChampsRight: champList.filter(champ => {
-      return champ.toLowerCase().startsWith(event.target.value.toLowerCase()) })
+      return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) }).map(champ => {
+        return champ.name
+      })
     });
+    this.setState({ filteredChampPairsRight: champList.filter(champ => {
+      return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) })
+    })
   }
 
   abilities = ["passive", "Q", "W", "E", "R"]
   transformAbilities = ["passive", "Q", "W", "E", "R", "passiveTransform",
    "QTransform", "WTransform", "ETransform", "RTransform"]
+  images = {}
 
   onChampClick = (event) => {
 
@@ -142,8 +155,14 @@ class App extends Component {
       var divToEmpty = document.getElementsByClassName('abilityBox')[i];
       while (divToEmpty.firstChild) {
         divToEmpty.removeChild(divToEmpty.firstChild)
-      }
+      };
+      var imageIcon = document.createElement("img");
+      imageIcon.setAttribute('src', `${this.images[0]}`)
+      divToEmpty.appendChild(imageIcon)
     }
+
+    var champNumber = event.currentTarget.id
+    console.log("champion number: " + champNumber)
 
     this.setState({ champNameLeft: champName });
     import (`./champions/${champName.toLowerCase()}`)
@@ -170,15 +189,66 @@ class App extends Component {
             console.log("ability rank left: " + this.state[`${ability}RankLeft`])
             this[`${ability}Details`] = champLeftFile[ability]
             if (this.state[`${ability}RankLeft`] === 0) {
+              if (champLeftFile[ability]["autoEmpower"]) {
+                var damage = champLeftFile[ability]["autoEmpower"]["damage"]
+                var dmgType = damage["type"];
+                if (dmgType === 'phys') {
+                  dmgType = 'Physical'
+                } else {
+                  dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
+                }
+                var dmgTypeText = document.createTextNode("Auto Empower: " + dmgType + " Damage - ");
+                abilityDiv.appendChild(dmgTypeText);
+                if (damage["dmg"]) {
+                  var dmgArray = JSON.stringify(damage["dmg"]).replace(/,/g, ', ')
+                  var dmgArrayText = document.createTextNode(dmgArray);
+                  abilityDiv.appendChild(dmgArrayText);
+                };
+                if (damage["dmgByLvl"]) {
+                  var dmgByLvlText = document.createTextNode(damage["dmgByLvl"][0] + " - " + damage["dmgByLvl"][17]
+                  + ", based on lvl. Currently: " + damage["dmgByLvl"][champLevel]);
+                  abilityDiv.appendChild(dmgByLvlText);
+                };
+                if (damage["APRatio"]) {
+                  var APRatioText = document.createTextNode(" (+" + damage["APRatio"] + " AP Ratio)")
+                  abilityDiv.appendChild(APRatioText)
+                };
+                if (damage["ADRatio"]) {
+                  var ADRatioValue = JSON.stringify(damage["ADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var ADRatioText = document.createTextNode(" (+" + ADRatioValue + " AD Ratio)")
+                  abilityDiv.appendChild(ADRatioText)
+                };
+                if (damage["bonusADRatio"]) {
+                  var bonusADRatioValue = JSON.stringify(damage["bonusADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var bonusADRatioText = document.createTextNode(" (+" + bonusADRatioValue + " Bonus AD Ratio)")
+                  abilityDiv.appendChild(bonusADRatioText)
+                };
+                if (damage["enemyMaxHPRatio"]) {
+                  var enemyMaxHPRatioValue = JSON.stringify(damage["enemyMaxHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var enemyMaxHPRatioText = document.createTextNode(" (+" + enemyMaxHPRatioValue + " Enemy Max HP Ratio)")
+                  abilityDiv.appendChild(enemyMaxHPRatioText)
+                };
+                if (damage["maxHPRatio"]) {
+                  var maxHPRatioValue = JSON.stringify(damage["maxHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var maxHPRatioText = document.createTextNode(" (+" + maxHPRatioValue + " Max HP Ratio)")
+                  abilityDiv.appendChild(maxHPRatioText)
+                };
+                if (damage["enemyCurrentHPRatio"]) {
+                  var enemyCurrentHPRatioValue = JSON.stringify(damage["enemyCurrentHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  var enemyCurrentHPRatioText = document.createTextNode(" (+" + enemyCurrentHPRatioValue + " Enemy Current HP Ratio)")
+                  abilityDiv.appendChild(enemyCurrentHPRatioText)
+                };
+              }
               if (champLeftFile[ability]["damage"]) {
                 var damage = champLeftFile[ability]["damage"]
                 if (damage["type"]) {
                   var dmgType = damage["type"];
-                  dmgType = dmgType.toUpperCase();
-                  if (dmgType === 'PHYS') {
-                    dmgType = 'PHYSICAL'
+                  if (dmgType === 'phys') {
+                    dmgType = 'Physical'
+                  } else {
+                    dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
                   }
-                  var dmgTypeText = document.createTextNode(dmgType + " DAMAGE: ");
+                  var dmgTypeText = document.createTextNode(dmgType + " Damage: ");
                   abilityDiv.appendChild(dmgTypeText);
                 };
                 if (damage["dmg"]) {
@@ -352,7 +422,7 @@ class App extends Component {
 
               if (champLeftFile[ability]["coolDown"]) {
                 var coolDownArray = JSON.stringify(champLeftFile[ability]["coolDown"]).replace(/,/g, ', ')
-                var abilityText = document.createTextNode("COOLDOWN: " + coolDownArray);
+                var abilityText = document.createTextNode("Cooldown: " + coolDownArray);
                 if (abilityDiv.firstChild) {
                   var br = document.createElement("br");
                   var br2 = document.createElement("br");
@@ -373,11 +443,10 @@ class App extends Component {
                 var damage = champLeftFile[ability]["damage"]
                 if (damage["type"]) {
                   var dmgType = damage["type"];
-                  dmgType = dmgType.toUpperCase();
-                  if (dmgType === 'PHYS') {
-                    dmgType = 'PHYSICAL'
+                  if (dmgType === 'Phys') {
+                    dmgType = 'Physical'
                   }
-                  var abilityText = document.createTextNode(dmgType + " DAMAGE: ");
+                  var abilityText = document.createTextNode(dmgType + " Damage: ");
                   abilityDiv.appendChild(abilityText);
                 };
                 if (damage["dmg"]) {
@@ -562,6 +631,16 @@ class App extends Component {
 
   preventKeyPress = (event) => {
     event.preventDefault()
+  }
+
+  componentDidMount() {
+    function importAll(r) {
+      return r.keys().map(r);
+    }
+    this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
+    console.log("images: " + this.images[0])
+    console.log("length: " + this.images.length)
+    // document.getElementById('blahblah').setAttribute('src', `${this.images[0]}`)
   }
 
   render() {
@@ -767,6 +846,10 @@ class App extends Component {
 
             </div>
 
+        </div>
+
+        <div className="spriteContainer">
+          <img className='qMargin' src={ this.images[6] } alt='Ability icon'/>
         </div>
 
         <footer style={{bottom: "0px", position: "absolute", width: "100%", textAlign: "right"}}>

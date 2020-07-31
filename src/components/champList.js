@@ -99,6 +99,7 @@ Rumble
 Ryze
 Sejuani
 Senna
+Sett
 Shaco
 Shen
 Shyvana
@@ -147,7 +148,9 @@ Zilean
 Zoe
 Zyra`;
 
-const champList = champListLineBreak.split('\n');
+const champList = champListLineBreak.split('\n').map((champ, i) => {
+  return {name: champ, value: i}
+})
 
 /*{console.log(champList.map(champ => {
     return champ.toLowerCase().replace("'","").replace(/\s/g, '');

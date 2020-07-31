@@ -52,7 +52,7 @@
         ]
     },
     "R": {
-        "autoEmpower": {
+        "onHitPermanent": {
             "damage": {
                 "type":"magic",
                 "system": "single",
