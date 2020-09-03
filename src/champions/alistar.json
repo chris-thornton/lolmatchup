@@ -77,14 +77,14 @@
                 0.45,
                 0.35,
                 0.25
-            ]
+            ],
+            "duration": 7
         },
         "coolDown": [
             120,
             100,
             80
-        ],
-        "duration": 7
+        ]
     },
     "passive": {
         "selfHeal": {

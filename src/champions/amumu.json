@@ -20,15 +20,14 @@
             "dmg": [
                 5 , 7.5 , 10 , 12.5 , 15
             ],
-            "enemyMaxHPDmgPer100AP": 0.005,
-            "enemyMaxHPDmg": [0.005 , 0.00625 , 0.0075 , 0.00875 , 0.01]
+            "enemyMaxHPRatioPer100AP": 0.005,
+            "enemyMaxHPRatio": [0.005 , 0.00625 , 0.0075 , 0.00875 , 0.01]
         }
     },
     "E": {
         "damageRedux": {
-            "type": "phys",
-            "duration": "passivePermanent",
-            "calculateFrom": "postMitigationPhysDmg",
+            "type": "Physical",
+            "calculateFrom": "post-mitigation",
             "dmg": [2 , 4 , 6 , 8 , 10],
             "bonusArmorRatio": 0.03,
             "bonusMagicResistRatio": 0.03
@@ -68,12 +67,7 @@
         "interruptCC": 2
     },
     "passive": {
-        "bonusDmg": {
-            "type": "true",
-            "calculateFrom": "unMitigatedMagicDmg",
-            "bonus": 0.1
-        },
-        "duration": 3
+        "text": "Targets receive 10% bonus true damage from all incoming pre-mitigation magic damage."
     },
     "stats": {
         "baseHP": 613.12,
