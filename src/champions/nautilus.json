@@ -14,8 +14,9 @@
         "coolDownReduxRatio": 0.5
     },
     "W": {
-        "selfShield": {
+        "shield": {
             "type": "all",
+            "targets": "Self",
             "shield": [
                 60, 70, 80, 90, 100
             ],

@@ -12,7 +12,8 @@
             "bonusADRatio": 0.8,
             "empowerBonusADRatio": 1.2
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system": "minMaxEmpower",
             "minHeal": [
                 12, 18, 24, 30, 36

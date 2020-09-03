@@ -67,7 +67,8 @@
         ]
     },
     "passive": {
-            "selfHeal": {
+            "heal": {
+                "targets": "Self",
                 "maxHPRatio": 0.06,
                 "staticCoolDown": 8
             }

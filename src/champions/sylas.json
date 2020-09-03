@@ -25,7 +25,8 @@
             ],
             "APRatio": 0.85
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system":"minMax",
             "minHeal": [
                 30, 60, 90, 120, 150

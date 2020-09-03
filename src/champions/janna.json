@@ -40,8 +40,9 @@
         ]
     },
     "E": {
-        "allShield": {
+        "shield": {
             "type": "all",
+            "targets": "all",
             "duration": 5,
             "shield": [
                 80, 115, 150, 185, 220
@@ -60,7 +61,8 @@
         ]
     },
     "R": {
-        "tickAllHeal": {
+        "tickHeal": {
+            "targets": "all",
             "interval":0.5,
             "ticks": 6,
             "heal":[

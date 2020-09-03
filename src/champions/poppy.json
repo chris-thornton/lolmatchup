@@ -78,8 +78,9 @@
                 ]
             }
         },
-        "selfShield": {
+        "shield": {
             "duration": 3,
+            "targets": "Self",
             "type": "all",
             "maxHPRatioByLvl": [
                 0.15,0.15,0.15,0.15,0.15,0.15,0.175,0.175,0.175,

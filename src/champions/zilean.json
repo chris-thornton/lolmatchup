@@ -22,7 +22,8 @@
         ]
     },
     "R": {
-        "allRevive": {
+        "revive": {
+            "targets": "all",
             "health": [
                 600, 850, 1100
             ],

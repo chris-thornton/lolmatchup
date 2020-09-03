@@ -42,8 +42,10 @@
         ]
     },
     "E": {
-        "selfShield": {
-            "type":"spell"
+        "shield": {
+            "type":"Spell",
+            "targets": "Self",
+            "duration": 1.5
         },
         "coolDown": [
             22, 19, 16, 13, 10

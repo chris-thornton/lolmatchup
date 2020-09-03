@@ -17,7 +17,9 @@
                 "ADRatio": 1
             }
         },
-        "selfShield": {
+        "shield": {
+            "type": "all",
+            "targets": "Self",
             "system": "empower",
             "duration": 2.5,
             "shieldByLvl": [

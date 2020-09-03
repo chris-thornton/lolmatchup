@@ -71,7 +71,9 @@
         ]
     },
     "passive": {
-       "selfShield": {
+       "shield": {
+           "type": "all",
+           "targets": "Self",
            "maxHPRatio": 0.15,
            "duration": 3,
            "staticCoolDownByLvl": [

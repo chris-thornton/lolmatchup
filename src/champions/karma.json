@@ -32,8 +32,9 @@
         "coolDown": 12
     },
     "E": {
-        "allShield": {
+        "shield": {
             "type":"all",
+            "targets": "all",
             "shield": [
                 80, 110, 140, 170, 200
             ],
@@ -64,11 +65,13 @@
                 "bonusInterruptCC": [
                     0.5, 0.75, 1, 1.25
                 ],
-                "selfHeal": {
+                "heal": {
+                    "targets": "Self",
                     "system":"minMax",
-                    "repeat": 1,
                     "minMissingHPRatio":0.2,
-                    "minMissingHPRatioPer100AP": 0.01
+                    "maxMissingHPRatio": 0.4,
+                    "minMissingHPRatioPer100AP": 0.01,
+                    "maxMissingHPRatioPer100AP": 0.02
                 }
             },
             "E": {

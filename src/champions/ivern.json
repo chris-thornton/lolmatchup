@@ -28,8 +28,9 @@
         }
     },
     "E": {
-        "allShield": {
+        "shield": {
             "type": "all",
+            "targets": "all",
             "shield": [
                 80, 115, 150, 185, 220
             ],

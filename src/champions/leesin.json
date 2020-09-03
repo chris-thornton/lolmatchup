@@ -26,8 +26,9 @@
         ]
     },
     "W": {
-        "allShield": {
+        "shield": {
             "type":"all",
+            "targets": "all",
             "shield": [
                 55, 110, 165, 220, 275
             ],

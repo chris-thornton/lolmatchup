@@ -59,6 +59,7 @@
             70
         ],
         "tickHeal": {
+            "targets": "Self",
             "interval": 1,
             "minTicks": 2,
             "maxTicks": 5,
@@ -74,7 +75,8 @@
             "enemyMaxHPRatio": 0.025,
             "enemyMaxHPRatioPer100BonusAD": 0.045
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "healByLvl": [
                 40,44.41,48.82,53.24,57.65,62.06,66.47,70.88,75.29,
                 79.71,84.12,88.53,92.94,97.35,101.76,106.18,110.59,115

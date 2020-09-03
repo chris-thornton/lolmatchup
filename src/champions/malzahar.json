@@ -96,7 +96,7 @@
             "duration": 0.25,
             "dmgRatio": 0.1      
         },
-        "combatReceivedCoolDownByLvl": [
+        "coolDownByLvl": [
             30,30,30,30,30,24,24,24,24,
             24,18,18,18,18,18,16,16,16
         ]

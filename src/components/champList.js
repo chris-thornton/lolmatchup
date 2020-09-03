@@ -39,8 +39,8 @@ Graves
 Hecarim
 Heimerdinger
 Illaoi
-Ivern
 Irelia
+Ivern
 Janna
 Jarvan IV
 Jax
@@ -63,6 +63,7 @@ Kog'Maw
 Leblanc
 Lee Sin
 Leona
+Lillia
 Lissandra
 Lucian
 Lulu
@@ -151,6 +152,8 @@ Zyra`;
 const champList = champListLineBreak.split('\n').map((champ, i) => {
   return {name: champ, value: i}
 })
+
+console.log(champList.length)
 
 /*{console.log(champList.map(champ => {
     return champ.toLowerCase().replace("'","").replace(/\s/g, '');

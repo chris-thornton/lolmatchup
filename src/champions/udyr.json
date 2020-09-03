@@ -24,15 +24,18 @@
     },
     "W": {
         "onHit": {
-            "selfHeal": {
+            "heal": {
+                "targets": "Self",
                 "system": "minMax",
                 "minMaxHPRatio": 0.025,
                 "maxMaxHPRatio": 0.05
             },
             "autoCoolDown": 4
         },
-        "selfShield": {
+        "shield": {
             "duration": 5,
+            "targets": "Self",
+            "type": "all",
             "shield": [
                 60, 95, 130, 165, 200, 235
             ],

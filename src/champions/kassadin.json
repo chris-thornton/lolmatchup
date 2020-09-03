@@ -8,8 +8,9 @@
             ],
             "APRatio": 0.7
         },
-        "selfShield": {
-            "type":"magic",
+        "shield": {
+            "type":"Magic",
+            "targets": "Self",
             "duration": 1.5,
             "shield": [
                 60, 85, 110, 135, 160

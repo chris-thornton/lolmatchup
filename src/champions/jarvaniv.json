@@ -20,8 +20,9 @@
         "interruptCC": 0.75
     },
     "W": {
-        "selfShield": {
+        "shield": {
             "type": "all",
+            "targets": "Self",
             "shield": [
                 60, 85, 110, 135, 160
             ],

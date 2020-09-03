@@ -12,7 +12,8 @@
         "coolDown": 5
     },
     "W": {
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "heal": [
                 50, 75, 100, 125, 150
             ],

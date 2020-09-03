@@ -32,15 +32,17 @@
        ]
     },
     "W": {
-        "allShield": {
+        "shield": {
             "type": "all",
+            "targets": "all",
             "duration": 1.5,
             "shield": [
                 25, 50, 75, 100, 125
             ],
             "APRatio": 0.3
         },
-        "allHeal": {
+        "heal": {
+            "targets": "all",
             "heal": [
                 30, 50, 70, 90, 110
             ],

@@ -15,8 +15,9 @@
         "coolDownRefund": 3
     },
     "W": {
-        "allShield": {
+        "shield": {
             "type": "all",
+            "targets": "all",
             "duration": 4,
             "shield": [
                 60, 100, 140, 180, 220

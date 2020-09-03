@@ -17,7 +17,6 @@
         "tickDamage": {
             "type": "magic",
             "interval": 0.5,
-            "repeat": "infinite",
             "dmg": [
                 5 , 7.5 , 10 , 12.5 , 15
             ],

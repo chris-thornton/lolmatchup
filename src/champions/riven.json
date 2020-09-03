@@ -29,8 +29,9 @@
         ]
     },
     "E": {
-        "selfShield": {
+        "shield": {
             "type":"all",
+            "targets": "Self",
             "shield": [
                 95, 125, 155, 185, 215
             ],

@@ -34,15 +34,25 @@
             "minDmg": [
                 70, 100, 130, 160, 190
             ],
-            "bonusADRatio": 0.6,
+            "maxDmg": [
+                70, 100, 130, 160, 190
+            ],
+            "minBonusADRatio": 0.6,
+            "maxBonusADRatio": 0.6,
+            "minEnemyMaxHPRatio": 0,
             "maxEnemyMaxHPRatio": [
                 0.06, 0.065, 0.07, 0.075, 0.8
             ],
-            "maxEnemyMaxHPRatioPer100BonusAD": 3.333
+            "minEnemyMaxHPRatioPer100BonusAD": 0,
+            "maxEnemyMaxHPRatioPer100BonusAD": 0.03333
         },
-        "selfHeal": {
-            "heal": "maxDmg - minDmg",
-            "system": "sweetSpot"
+        "heal": {
+            "targets": "Self",
+            "enemyMaxHPRatio": [
+                0.06, 0.065, 0.07, 0.075, 0.8
+            ],
+            "enemyMaxHPRatioPer100BonusAD": 0.03333
+            
         },
         "coolDown": [
             15, 13.5, 12, 10.5, 9
@@ -92,8 +102,9 @@
         ]
     },
     "passive": {
-        "selfShield": {
-            "type": "adaptive",
+        "shield": {
+            "type": "Adaptive",
+            "targets": "Self",
             "maxHPRatio": 0.2,
             "duration": 2
         },

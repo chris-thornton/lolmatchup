@@ -28,8 +28,9 @@
             "maxMaxHPRatioPer100BonusAD": 0.05,
             "bonusADRatio": 1
         },
-        "selfShield": {
+        "shield": {
             "type":"all",
+            "targets": "Self",
             "maxHPRatio": 0.5,
             "duration": 3
         },

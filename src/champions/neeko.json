@@ -48,8 +48,9 @@
             ],
             "APRatio": 1.3
         },
-        "selfShield": {
+        "shield": {
             "type": "all",
+            "targets": "Self",
             "duration": 2,
             "shield": [
                 75, 100, 125

@@ -70,7 +70,8 @@
         ]
     },
     "E": {
-        "allHeal": {
+        "heal": {
+            "targets": "Self",
             "system":"minMax",
             "minHeal": [
                 35, 55, 75, 95, 115

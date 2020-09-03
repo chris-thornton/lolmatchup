@@ -13,18 +13,18 @@
     },
     "E": {
         "damage": {
-            "type": "phys",
+            "type": "magic",
             "system": "minMax",
-            "repeat": 1,
             "minDmg": [
-                40,
-                70,
-                100,
-                130,
-                160
+                50, 85, 120, 155, 190
+            ],
+            "maxDmg": [
+                100, 170, 240, 310, 380
             ],
             "minADRatio": 0.35,
-            "minAPRatio": 0.5
+            "maxADRatio": 0.7,
+            "minAPRatio": 0.5,
+            "maxAPRatio": 1
         },
         "coolDown": [
             16,

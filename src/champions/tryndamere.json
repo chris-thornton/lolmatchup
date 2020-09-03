@@ -1,6 +1,7 @@
 {
     "Q": {
-       "selfHeal": {
+       "heal": {
+            "targets": "Self",
             "system": "minMax",
             "minHeal": [
                 30, 40, 50, 60, 70

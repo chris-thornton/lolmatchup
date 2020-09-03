@@ -17,8 +17,9 @@
     },
     "W": {
         "coolDown": 6,
-        "selfShield": {
+        "shield": {
             "type":"all",
+            "targets": "Self",
             "system": "empower",
             "duration": 1.5,
             "shield": [

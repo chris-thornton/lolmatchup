@@ -38,8 +38,9 @@
             ],
             "bonusAPRatio": 0.6
         },
-        "selfHeal": {
+        "heal": {
             "system": "poisoned",
+            "targets": "Self",
             "APRatio": [
                 0.12, 0.14, 0.16, 0.18, 0.2
             ] 

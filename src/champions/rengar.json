@@ -39,7 +39,8 @@
             ],
             "empowerAPRatio": 0.8
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system": "grey",
             "timeFrame": 1.5,
             "dmgRatio": 0.5

@@ -22,7 +22,8 @@
         "coolDownReduxOnAuto": 1
     },
     "W": {
-        "tickSelfHeal": {
+        "tickHeal": {
+            "targets": "Self",
             "interval": 0.5,
             "ticks": 8,
             "system":"minMax",

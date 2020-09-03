@@ -20,14 +20,16 @@
         ]
     },
     "W": {
-        "selfShield": {
+        "shield": {
             "type": "all",
+            "targets": "Self",
             "duration": 4,
             "maxHPRatio": 0.3
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "shieldRatio": [
-                40, 42.5, 45, 47.5, 50
+                0.4, 0.425, 0.45, 0.475, 0.5
             ]
         },
         "coolDown": [

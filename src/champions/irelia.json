@@ -9,7 +9,8 @@
             "ADRatio": 0.6,
             "applyOnHit": true
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system":"multi",
             "ADRatio": [
                 0.12, 0.14, 0.16, 0.18, 0.20

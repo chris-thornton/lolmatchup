@@ -36,7 +36,8 @@
                 0.12, 0.145, 0.17, 0.195, 0.22
             ]
         },
-        "tickSelfHeal": {
+        "tickHeal": {
+            "targets": "Self",
             "tickDmgRatio": [
                 0.3, 0.35, 0.4, 0.45, 0.5
             ],

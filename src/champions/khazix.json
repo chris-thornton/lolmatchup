@@ -23,7 +23,8 @@
             ],
             "bonusADRatio": 1
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "heal": [
                 60, 85, 110, 135, 160
             ],

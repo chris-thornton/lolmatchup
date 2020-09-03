@@ -26,6 +26,15 @@
                 "APRatio": 0.35
             }
         },
+        "heal": {
+            "targets": "Self",
+            "system": "perTarget",
+            "healByLvl": [
+                3, 3, 3, 3, 3, 5, 5, 5, 5, 
+                5, 9, 9, 9, 9, 9, 18, 18, 18
+            ],
+            "APRatio": 0.09
+        },
         "coolDown": 7
     },
     "W": {
@@ -89,7 +98,6 @@
         "damage": {
             "type": "magic",
             "system": "minMax",
-            "repeat": 2,
             "minDmg": [
                 60,
                 90,

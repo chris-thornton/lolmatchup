@@ -23,8 +23,9 @@
         "coolDownRefundOnAuto": 1
     },
     "W": {
-        "selfShield": {
+        "shield": {
             "type": "all",
+            "targets": "Self",
             "duration": 6,
             "APRatio": 0.8,
             "maxHPRatio": [

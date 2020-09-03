@@ -9,7 +9,8 @@
             "APRatio": 0.65,
             "bonusHPRatio": 0.05
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system": "minMax",
             "minHeal":[
                 60, 88, 116, 144, 172

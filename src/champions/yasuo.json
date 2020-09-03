@@ -62,13 +62,14 @@
             "critDmg": 1.8,
             "critDmgWithIE": 2.0225
         },
-        "selfShield": {
+        "shield": {
+            "type": "all",
+            "targets": "Self",
             "shieldByLvl": [
                 115,139.12,163.24,187.35,211.47,235.59,259.71,283.82,307.94,
                 332.06,356.18,380.29,404.41,428.53,452.65,476.76,500.88,525
             ],
-            "duration": 1,
-            "uses": "custom"
+            "duration": 1
         }
     },
     "stats": {

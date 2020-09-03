@@ -33,7 +33,8 @@
                 "ADRatio": 0.4
             }
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system":"minMax",
             "minHealByLvl": [
                 12,14,16,18,20,22,26,30,34,

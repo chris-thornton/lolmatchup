@@ -29,8 +29,9 @@
         "coolDownReduxRatio": 0.05
     },
     "E": {
-        "allShield": {
-            "type": "magic",
+        "shield": {
+            "type": "Magic",
+            "targets": "all",
             "duration": 5,
             "shield": [
                 80,135,190,245,300

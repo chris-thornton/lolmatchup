@@ -70,14 +70,15 @@
             ],
             "APRatio": 0.14167
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system": "perTarget",
             "heal": [
                 240, 420, 600
             ],
             "APRatio": 1.92,
             "duration": 12,
-            "targets": "custom"
+            "numberOfTargets": "custom"
         },
         "coolDown": 120
     },
@@ -95,7 +96,8 @@
                 9,6,6,6,6,6,6,6,6
             ]
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system": "stacking",
             "maxHPRatioByLvl": [
                 0.04,0.04,0.04,0.04,0.04,0.055,0.055,0.055,0.055,

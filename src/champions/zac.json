@@ -66,28 +66,27 @@
         ]
     },
     "passive": {
-        "selfHeal": {           
-            "type": "stacking",
-            "maxHPRatioPerStackByUltRank": [
+        "heal": {        
+            "targets": "Self",   
+            "maxHPRatioByUltRank": [
                 0.04, 0.05, 0.06, 0.07
-            ],
-            "stacks": "custom"
+            ]
        },
-       "selfRevive": {
-           "minHPRestore": 0.1,
-           "maxHPRestore": 0.5,
-           "staticCoolDown": 300
-       },
-       "bloblets": {
-           "bloblets": 4,
-           "maxHPRatio": 0.12,
-           "armorRatio": 0.5,
-           "magicResistRatio": 0.5,
-           "aoeResist": 0.33,
-           "durationByLvl": [
-               8, 8, 8, 8, 8, 7, 7, 7, 7,
-               6, 6, 6, 5, 5, 5, 5, 4, 4
-           ]
+       "revive": {
+            "targets": "Self",
+            "reviveTransform": {
+                "HPRatio": 0.48,
+                "armorRatio": 0.5,
+                "magicResistRatio": 0.5,
+                "aoeResist": 0.33,
+                "durationByLvl": [
+                    8, 8, 8, 8, 8, 7, 7, 7, 7,
+                    6, 6, 6, 5, 5, 5, 5, 4, 4
+                ]
+            },
+            "minHPRestoreRatio": 0.1,
+            "maxHPRestoreRatio": 0.5,
+            "staticCoolDown": 300
        }
     },
     "stats": {

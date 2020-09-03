@@ -27,7 +27,8 @@
                 "part1RatioFormula": "(1 + ((0.00075 * AP) - 0.15))^2" 
             }
         },
-        "allHeal": {
+        "heal": {
+            "targets": "all",
             "system":"2Part",
             "part2": {
                 "part1RatioFormula": "(1 + ((0.00075 * AP) - 0.15))^2"

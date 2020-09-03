@@ -44,7 +44,8 @@
             "enemyMaxHPRatio": [
                 0.2, 0.275, 0.35
             ],
-            "enemyMaxHPRatioPer100AP": 0.02
+            "enemyMaxHPRatioPer100AP": 0.02,
+            "healRatio": 1
         },
         "resistSteal": {
             "type": "both",
@@ -56,11 +57,11 @@
         ]
     },
     "passive": {
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "enemyMaxHPRatio": [
                 0.02, 0.03, 0.04, 0.05, 0.06
-            ],
-            "totalEnemyMaxHP": "custom"
+            ]
         }
     },
     "stats": {

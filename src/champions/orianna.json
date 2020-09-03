@@ -35,8 +35,9 @@
                 10, 15, 20, 25, 30
             ]
         },
-        "allShield": {
+        "shield": {
             "type": "all",
+            "targets": "all",
             "duration": 2.5,
             "shield": [
                 60, 100, 140, 180, 220

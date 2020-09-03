@@ -19,7 +19,8 @@
         ]
     },
     "W": {
-        "allHeal": {
+        "heal": {
+            "targets": "Self",
             "heal": [
                 60, 90, 120, 150, 180
             ],

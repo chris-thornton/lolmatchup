@@ -12,7 +12,8 @@
             ],
             "empowerAPRatio": 1.11
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system":"empower",
             "heal": [
                 20, 25, 30, 35, 40
@@ -37,10 +38,8 @@
             "dmg": [
                 20, 33.75, 47.5, 61.25, 75
             ],
-            "bonusHPRatio": 0.025
-        },
-        "selfHeal": {
-            "dmgRatio": 0.15
+            "bonusHPRatio": 0.025,
+            "healRatio": 0.15
         },
         "coolDown": [
             28, 25, 22, 19, 16
@@ -80,7 +79,8 @@
             ],
             "APRatio": 0.7
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system":"minMax",
             "minHeal": [
                 150, 250, 350

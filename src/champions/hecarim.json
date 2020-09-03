@@ -25,7 +25,7 @@
             ],
             "APRatio": 0.2
         },
-        "selfHeal": {
+        "heal": {
             "duration": 4,
             "dmgTakenRatio": 0.3
         },

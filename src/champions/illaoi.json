@@ -66,7 +66,8 @@
             "attackSpeed": 1,
             "multiHitDmgRatio": 0.5,
             "minDmgRatio": 0.25,
-            "selfHeal": {
+            "heal": {
+                "targets": "Self",
                 "missingHPRatio": 0.05,
                 "multiHitFormula": "(maxHealth − currentHealth) * (1 − 0.95n)"
             }

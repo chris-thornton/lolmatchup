@@ -48,7 +48,8 @@
         "interruptCC": 1
     },
     "E": {
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "heal": [
                 100, 115, 130, 145, 160
             ],
@@ -82,7 +83,8 @@
             "enemyMaxHPRatio": 0.1,
             "enemyMaxHPRatioPer100BonusAD": 0.13
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "preMitigationRDmgRatio": 0.7
         }
     },

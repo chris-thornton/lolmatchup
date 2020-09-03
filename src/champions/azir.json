@@ -37,7 +37,7 @@
     "E": {
         "shield": {
             "type": "all",
-            "system": "self",
+            "targets": "Self",
             "shield": [
                 80 , 120 , 160 , 200 , 240
             ],

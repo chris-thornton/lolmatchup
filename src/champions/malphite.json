@@ -79,15 +79,16 @@
         "interruptCC": 1.5
     },
     "passive": {
-       "selfShield": {
+       "shield": {
            "type":"all",
-           "duration":"infinite",
-           "maxHPRatio": 0.1
-       },
-       "combatCoolDownByLvl": [
-           10,10,10,10,10,10,8,8,8,
-           8,8,8,6,6,6,6,6,6
-       ]
+           "targets": "Self",
+           "duration":"Until Broken",
+           "maxHPRatio": 0.1,
+           "combatCoolDownByLvl": [
+            10,10,10,10,10,10,8,8,8,
+            8,8,8,6,6,6,6,6,6
+        ]
+       }
     },
     "stats": {
         "baseHP": 574.2,

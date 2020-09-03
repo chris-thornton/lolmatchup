@@ -32,7 +32,7 @@
                 "bonusADRatio": 0.2,
                 "APRatio": 0.3
             },
-            "duration": "custom"
+            "uses": "Custom"
         },
         "coolDown": 7
     },

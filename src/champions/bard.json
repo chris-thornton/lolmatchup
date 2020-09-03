@@ -16,8 +16,9 @@
         ]
     },
     "W": {
-        "allHeal": {
+        "heal": {
             "system": "minMax",
+            "targets": "all",
             "minHeal": [
                 30 , 60 , 90 , 120 , 150
             ],

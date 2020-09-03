@@ -49,14 +49,18 @@
     },
     "passive": {
         "revive": {
-            "reviveHP": "1",
-            "bonusArmorByLevel": [
-                -40, -40, -40, -40, -25, -25, -25, -10, -10, -10, -10, 5, 5, 5, 20, 20, 20, 20
-            ],
-            "bonusMagicResistByLevel": [
-                -40, -40, -40, -40, -25, -25, -25, -10, -10, -10, -10, 5, 5, 5, 20, 20, 20, 20
-            ],
-            "duration": 3
+            "targets": "Self",
+            "reviveTransform": {
+                "HPRatio": "1",
+                "bonusArmorByLevel": [
+                    -40, -40, -40, -40, -25, -25, -25, -10, -10, -10, -10, 5, 5, 5, 20, 20, 20, 20
+                ],
+                "bonusMagicResistByLevel": [
+                    -40, -40, -40, -40, -25, -25, -25, -10, -10, -10, -10, 5, 5, 5, 20, 20, 20, 20
+                ],
+                "duration": 6
+            },
+            "staticCoolDown": 240
         }
     },
     "stats": {

@@ -42,7 +42,8 @@
         ]  
     },
     "R": {
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "system": "minMax",
             "minHeal": [
                 100, 150, 200

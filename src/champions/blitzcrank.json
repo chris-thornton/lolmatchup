@@ -57,9 +57,10 @@
         ]
     },
     "passive": {
-        "selfShield": {
+        "shield": {
             "maxManaRatio": 0.3,
             "type":"all",
+            "targets": "Self",
             "duration": 10
         },
         "staticCoolDown": 90

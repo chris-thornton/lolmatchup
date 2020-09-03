@@ -13,8 +13,9 @@
        ]
     },
     "W": {
-        "allShield": {
+        "shield": {
             "type": "all",
+            "targets": "all",
             "system":"minMax",
             "duration": 2.5,
             "minShield": [
@@ -67,8 +68,7 @@
                 ],
                 "APRatio": 0.2
             }
-        },
-        "coolDown": "spellHit"
+        }
     },
     "stats": {
         "baseHP": 490,

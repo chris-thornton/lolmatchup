@@ -81,7 +81,8 @@
                     ],
                     "APRatio": 0.3
                 },
-                "selfHeal": {
+                "heal": {
+                    "targets": "Self",
                     "healByRRank": [
                         4, 6, 8, 10
                     ],
