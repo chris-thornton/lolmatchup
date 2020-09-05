@@ -85,9 +85,9 @@
                 ]
             },
             "minHPRestoreRatio": 0.1,
-            "maxHPRestoreRatio": 0.5,
-            "staticCoolDown": 300
-       }
+            "maxHPRestoreRatio": 0.5
+       },
+       "staticCoolDown": 300
     },
     "stats": {
         "baseHP": 615,

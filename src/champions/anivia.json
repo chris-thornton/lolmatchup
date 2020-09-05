@@ -18,7 +18,6 @@
         "damage": {
             "type": "magic",
             "system": "minMax",
-            "repeat": 1,
             "minDmg": [
                 50 , 75 , 100 , 125 , 150
             ],
@@ -35,7 +34,6 @@
             "type": "magic",
             "system": "minMax",
             "interval": 1,
-            "duration": "infinite",
             "minDmg": [
                 40 , 60 , 80
             ],
@@ -52,16 +50,16 @@
             "targets": "Self",
             "reviveTransform": {
                 "HPRatio": "1",
-                "bonusArmorByLevel": [
+                "bonusArmorByLvl": [
                     -40, -40, -40, -40, -25, -25, -25, -10, -10, -10, -10, 5, 5, 5, 20, 20, 20, 20
                 ],
-                "bonusMagicResistByLevel": [
+                "bonusMagicResistByLvl": [
                     -40, -40, -40, -40, -25, -25, -25, -10, -10, -10, -10, 5, 5, 5, 20, 20, 20, 20
                 ],
                 "duration": 6
-            },
-            "staticCoolDown": 240
-        }
+            }
+        },
+        "staticCoolDown": 240
     },
     "stats": {
         "baseHP": 480,

@@ -71,24 +71,26 @@
     },
     "E": {
         "passivePermanent": {
-            "vamp": {
-                "type": "omni",
-                "vamp": [
-                    0.2,
-                    0.225,
-                    0.25,
-                    0.275,
-                    0.3
-                ]
-            }
+            "omniVamp": [
+                0.2,
+                0.225,
+                0.25,
+                0.275,
+                0.3
+            ]
         }
     },
     "R": {
-        "bonusAD": [
-            0.2,
-            0.25,
-            0.3
-        ],
+        "bonusStats": {
+            "ADRatio": [
+                0.2, 0.25, 0.3
+            ],
+            "healingRatio": [
+                0.5, 0.6, 0.7
+            ],
+            "duration": 10,
+            "durationExtend": 5
+        },
         "coolDown": [
             120,
             100,

@@ -140,6 +140,7 @@ Xayah
 Xerath
 Xin Zhao
 Yasuo
+Yone
 Yorick
 Yuumi
 Zac

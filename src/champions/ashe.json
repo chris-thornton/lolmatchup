@@ -1,18 +1,18 @@
 {
     "Q": {
         "bonusAttackSpeed": {
-            "attackspeed": [0.2, 0.3, 0.4, 0.5, 0.6],
+            "attackSpeed": [0.2, 0.3, 0.4, 0.5, 0.6],
             "duration": 4
         },
-        "onHit": {
+        "autoEmpower": {
             "damage": {
                 "type": "phys",
                 "system": "single",
-                "ADRatio": [0.05, 0.1, 0.15, 0.2, 0.25]
-            },
-            "duration": 4
+                "ADRatio": [0.05, 0.1, 0.15, 0.2, 0.25],
+                "duration": 4
+            }
         },
-        "autosRequired": 4
+        "autoCoolDown": 4
     },
     "W": {
         "damage": {
@@ -49,8 +49,10 @@
         ]
     },
     "passive": {
-            "bonusAutoDamageBase":0.1,
-            "bonusAutoDamageCritChance": "critChance"
+        "auto": {
+            "dmgRatio":1.1,
+            "dmgRatioPerCritChance": 1
+        }
     },
     "stats": {
         "baseHP": 570,

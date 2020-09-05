@@ -24,7 +24,8 @@
     "E": {
         "damageRedux": {
             "type": "all",
-            "dmgReceived": [0.87, 0.83, 0.79, 0.75, 0.71]
+            "dmgRatio": [0.87, 0.83, 0.79, 0.75, 0.71],
+            "duration": 3
         },
         "damage": {
             "type": "magic",
@@ -34,7 +35,6 @@
             ],
             "APRatio": 0.2
         },
-        "duration": 3,
         "coolDown": [
             14,
             13,
@@ -84,9 +84,6 @@
     "passive": {
             "interruptCC": [
                 1.25 , 1.5 , 1.75
-            ],
-            "maxUsesPerFullCombo": [
-                1
             ]
     },
     "stats": {

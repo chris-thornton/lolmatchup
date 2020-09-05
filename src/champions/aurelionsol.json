@@ -61,12 +61,9 @@
            "dmgByWRank": [
                5, 10, 15, 20, 25
            ],
-           "APRatio": 0.25,
-           "maxUsesPerOrbit": [
-            3
-            ],
-            "orbitInterval": 5.25
-    }
+           "APRatio": 0.25
+        },
+        "coolDown": 1.75
     },
     "stats": {
         "baseHP": 575,
