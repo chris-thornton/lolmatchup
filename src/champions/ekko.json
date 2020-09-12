@@ -25,7 +25,7 @@
         ]
     },
     "W": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "enemyHPThreshold": 0.3,
             "damage": {
                 "type": "magic",
@@ -73,7 +73,8 @@
             ],
             "APRatio": 1.5
         },
-        "selfHeal": {
+        "heal": {
+            "targets": "Self",
             "heal": [
                 100, 150, 200
             ],

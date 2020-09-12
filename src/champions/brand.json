@@ -22,16 +22,12 @@
             ],
             "minAPRatio": 0.6,
             "maxDmg": [
-                93.75, 150, 206.25, 262.5, 318.75
+                94, 150, 206, 263, 319
             ],
             "maxAPRatio": 0.75
         },
         "coolDown": [
-            10,
-            9.5,
-            9,
-            8.5,
-            8
+            10, 9.5, 9, 8.5, 8
         ]
     },
     "E": {
@@ -69,7 +65,7 @@
     "passive": {
         "tickDamage": {
             "type": "magic",
-            "interval": 1.08333,
+            "interval": 1.083,
             "ticks": 3,
             "refresh": "onSpellHit",
             "enemyMaxHPRatio": 0.01
@@ -80,8 +76,7 @@
                 0.12,0.125,0.13,0.135,0.14,0.145,0.15,0.155,0.16,0.16,0.16,0.16,0.16,
                 0.16,0.16,0.16,0.16,0.16
             ],
-            "enemyMaxHPRatioPer100AP": 0.015,
-            "maxUsesPerFullCombo": 1
+            "enemyMaxHPRatioPer100AP": 0.015
         }
     },
     "stats": {

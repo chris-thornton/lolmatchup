@@ -6,7 +6,7 @@
             "minDmg": [
                 80, 130, 180, 230, 280
             ],
-            "enemyHPDmgRatio": [
+            "enemyCurrentHPRatio": [
                 0.2, 0.225, 0.25, 0.275, 0.3
             ]
         },
@@ -22,16 +22,13 @@
         "tickDamage": {
             "type": "magic",
             "interval": 0.5,
-            "ticks": "infinite",
             "dmg": [
                 20, 27.5, 35, 42.5, 50
             ],
             "APRatio": 0.1
         },
-        "passivePermanent": {
-            "bonusTenacity": {
-                "tenacity": 0.3
-            }
+        "passivePermanent": {    
+            "tenacity": 0.3
         },
         "healthCostPerSecond": [
             10, 15, 20, 25, 30

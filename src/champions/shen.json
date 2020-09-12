@@ -1,8 +1,6 @@
 {
     "Q": {
-        "onHit": {
-            "durationAutos": 3,
-            "bonusAttackSpeed": 0.5,
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "system":"minMax",
@@ -17,7 +15,9 @@
                 "maxEnemyMaxHPRatio": [
                     0.05, 0.055, 0.06, 0.065, 0.07
                 ],
-                "maxEnemyMaxHPRatioPer100AP": 0.02
+                "maxEnemyMaxHPRatioPer100AP": 0.02,
+                "durationAutos": 3,
+                "bonusAttackSpeed": 0.5
             }
         },
         "coolDown": [
@@ -75,10 +75,10 @@
             ],
             "bonusHPRatio": 0.14,
             "duration": 2.5,
-            "staticCoolDown": 10,
             "minCoolDownRefund": 4,
             "maxCoolDownRefund": 7.5
-        }
+        },
+        "staticCoolDown": 10
     },
     "stats": {
         "baseHP": 540,

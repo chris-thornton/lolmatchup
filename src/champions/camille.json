@@ -44,14 +44,14 @@
                 0.06, 0.065, 0.07, 0.075, 0.8
             ],
             "minEnemyMaxHPRatioPer100BonusAD": 0,
-            "maxEnemyMaxHPRatioPer100BonusAD": 0.03333
+            "maxEnemyMaxHPRatioPer100BonusAD": 0.033
         },
         "heal": {
             "targets": "Self",
             "enemyMaxHPRatio": [
                 0.06, 0.065, 0.07, 0.075, 0.8
             ],
-            "enemyMaxHPRatioPer100BonusAD": 0.03333
+            "enemyMaxHPRatioPer100BonusAD": 0.033
             
         },
         "coolDown": [
@@ -61,7 +61,7 @@
     "E": {
         "bonusAttackSpeed": {
             "duration": 5,
-            "bonusAttackSpeed": [
+            "attackSpeed": [
                 0.4, 0.5, 0.6, 0.7, 0.8
             ]
         },
@@ -79,7 +79,7 @@
         ]
     },
     "R": {
-        "onHit": {
+        "autoEmpower": {
             "damage": {
                 "type": "magic",
                 "dmg": [
@@ -90,11 +90,11 @@
                 "enemyCurrentHPRatio": [
                     0.04, 0.06, 0.08
                 ]
-            },
-            "duration": [
-                2.5, 3.25, 4
-            ]
-    },
+            }
+        },
+        "duration": [
+            2.5, 3.25, 4
+        ],
         "coolDown": [
             140,
             115,

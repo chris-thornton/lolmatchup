@@ -14,9 +14,12 @@
         ]
     },
     "W": {
-        "bonusAttackSpeed": [
-            0.3, 0.38, 0.46, 0.54, 0.62
-        ],
+        "bonusAttackSpeed": {
+            "attackSpeed": [
+                0.3, 0.38, 0.46, 0.54, 0.62
+            ],
+            "duration": 5
+        },
         "coolDown": 15
     },
     "E": {
@@ -25,9 +28,9 @@
                 "type": "phys",
                 "system":"single",
                 "ADRatio": 1
-            },
-            "interruptCC": 1
+            }
         },
+        "interruptCC": 1,
         "coolDown": [
             9, 8, 7, 6, 5
         ]

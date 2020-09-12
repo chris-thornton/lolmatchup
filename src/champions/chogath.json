@@ -25,16 +25,18 @@
         ]
     },
     "E": {
-        "onHit": {
-            "type": "magic",
-            "system": "single",
-            "dmg": [
-                22, 37, 52, 67, 82
-            ],
-            "APRatio": 0.3,
-            "enemyMaxHPRatio": 0.03,
-            "enemyMaxHPRatioPerStack": 0.005,
-            "durationAutos": 3
+        "autoEmpower": {
+            "damage": {
+                "type": "magic",
+                "system": "single",
+                "dmg": [
+                    22, 37, 52, 67, 82
+                ],
+                "APRatio": 0.3,
+                "enemyMaxHPRatio": 0.03,
+                "enemyMaxHPRatioPerStack": 0.005,
+                "durationAutos": 3
+            }
         },
         "coolDown": [
             8, 7, 6, 5, 4
@@ -52,12 +54,10 @@
         },
         "coolDown": 80,
         "bonusHealth": {
-            "health": [
+            "healthPerStack": [
                 80, 120, 160
-            ],
-            "duration": "permanent",
-            "system": "perStack"
-            }
+            ]
+        }
     },
     "passive": {
             "heal": {

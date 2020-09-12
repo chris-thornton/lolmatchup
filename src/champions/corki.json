@@ -28,7 +28,7 @@
             "tickDamage": {
                 "type":"magic",
                 "interval":0.25,
-                "ticks": 20,
+                "ticks": 28,
                 "dmgByLvl": [
                     7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 8.75, 10, 11.25, 12.5,
                      13.75, 15, 16.25, 17.5, 20, 22.5, 25
@@ -48,15 +48,16 @@
             ],
             "bonusADRatio": 0.1
         },
-        "tickResistRedux": {
-            "interval": 0.25,
-            "ticks": 16,
-            "tickCap": 8,
+        "resistRedux": {
             "type": "both",
-            "resistRedux": [
+            "system": "minMax",
+            "minResistRedux": [
                 1, 1.375, 1.75, 2.125, 2.5
             ],
-            "linger": 2
+            "maxResistRedux": [
+                8, 11, 14, 17, 20
+            ],
+            "duration": 6
         },
         "coolDown": 16
     },
@@ -77,10 +78,7 @@
         "maxCharges": 7
     },
     "passive": {
-            "autoDmgTypeSplit": {
-                "phys": 0.2,
-                "magic": 0.8
-            }
+            "text": "Corki's auto attacks deal 20% physical and 80% magic damage."
     },
     "stats": {
         "baseHP": 518,

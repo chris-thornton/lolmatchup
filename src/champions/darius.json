@@ -18,6 +18,7 @@
         },
         "heal": {
             "targets": "Self",
+            "system":"minMax",
             "minMissingHPRatio": 0.15,
             "maxMissingHPRatio": 0.45
         },
@@ -49,44 +50,43 @@
     "R": {
         "damage": {
             "type": "true",
-            "system": "single",
-            "dmg": [
+            "system": "minMax",
+            "minDmg": [
                 100, 200, 300
             ],
-            "bonusADRatio": 0.75,
-            "dmgPerStack": [
-                20, 40, 60
+            "maxDmg": [
+                200, 400, 600
             ],
-            "bonusADRatioPerStack": 0.15
+            "minBonusADRatio": 0.75,
+            "maxBonusADRatio": 1.5
         },
         "coolDown": [
             120, 100, 80
         ]
     },
     "passive": {
-            "damage": {
-                "type": "phys",
-                "interval": 1.25,
-                "ticks": 4,
-                "dmgByLvlPerStack": [
-                    13,14,15,16,17,18,19,20,21,
-                    22,23,24,25,26,27,28,29,30
-                ],
-                "bonusADRatioPerStack": 0.3,
-                "manaByLvl": [
-                    3.5,3.75,4,4.25,4.5,4.75,5,5.25,5.5,
-                    5.75,6,6.25,6.5,6.75,7,7.25,7.5,7.75
-                ],
-                "maxStacks": 5,
-                "refresh": "onSpellHitOnAuto"
-            },
-            "fullStack": {
-                "bonusADByLvl": [
-                    30,35,40,45,50,55,60,65,70,75,
-                    85,95,105,130,155,180,205,230
-                ],
-                "minDuration": 5 
-            }
+        "damage": {
+            "type": "phys",
+            "system":"minMax",
+            "duration": 5,
+            "minDmgByLvl": [
+                13,14,15,16,17,18,19,20,21,
+                22,23,24,25,26,27,28,29,30
+            ],
+            "maxDmgByLvl": [
+                65,70,75,80,85,90,95,100,105,
+                110,115,120,125,130,135,140,145,150
+            ],
+            "minBonusADRatio": 0.3,
+            "maxBonusADRatio": 1.5
+        },
+        "bonusStats": {
+            "attackDamageByLvl": [
+                30,35,40,45,50,55,60,65,70,75,
+                85,95,105,130,155,180,205,230
+            ],
+            "duration": 5 
+        }
     },
     "stats": {
         "baseHP": 582.24,

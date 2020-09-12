@@ -29,6 +29,7 @@
             "system":"minMax",
             "type": "all",
             "targets": "Self",
+            "duration": 5,
             "minShield": [
                 30, 45, 60, 75, 90
             ],
@@ -76,24 +77,25 @@
     },
     "passive": {
             "passivePermanent": {
-                "bonusAttackSpeedByLvl": [
+                "minBonusAttackSpeedByLvl": [
                     0.1, 0.1, 0.15, 0.15, 0.15, 0.2, 0.2, 0.2, 0.25,
                     0.25, 0.25, 0.3, 0.3, 0.3, 0.35, 0.35, 0.35, 0.4
                 ],
-                "bonusAttackSpeedMultiplier": {
-                    "multiplier": 3,
-                    "system": "onSpellCast",
-                    "duration": 3
-                }
+                "maxBonusAttackSpeedByLvl": [
+                    0.3, 0.3, 0.45, 0.45, 0.45, 0.6, 0.6, 0.6, 0.75,
+                    0.75, 0.75, 0.9, 0.9, 0.9, 1.05, 1.05, 1.05, 1.2
+                ]
             },
             "autoEmpower": {
-                "type": "magic",
-                "dmgByLvl": [
-                    20, 25, 30, 35, 40, 55, 65, 75, 85,
-                     95, 120, 135, 150, 165, 180, 210, 230, 250
-                ],
-                "APRatio": 0.4,
-                "autosToProc": 3
+                "damage": {
+                    "type": "magic",
+                    "dmgByLvl": [
+                        20, 25, 30, 35, 40, 55, 65, 75, 85,
+                        95, 120, 135, 150, 165, 180, 210, 230, 250
+                    ],
+                    "APRatio": 0.4,
+                    "autoCoolDown": 3
+                }
             }
     },
     "stats": {

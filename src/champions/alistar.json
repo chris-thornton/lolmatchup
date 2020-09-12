@@ -73,7 +73,7 @@
     "R": {
         "damageRedux": {
             "type": "all",
-            "dmgRatio": [
+            "dmgReceived": [
                 0.45,
                 0.35,
                 0.25
