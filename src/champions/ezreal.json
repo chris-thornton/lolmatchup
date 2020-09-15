@@ -55,11 +55,9 @@
     },
     "passive": {
         "bonusAttackSpeed": {
-            "system": "stacking",
-            "attackSpeedPerStack": 0.1,
-            "maxStacks": 5,
-            "duration": 6,
-            "refreshOnSpellHit": true
+            "minAttackSpeed": 0.1,
+            "maxAttackSpeed": 0.5,
+            "duration": 6
         }
     },
     "stats": {

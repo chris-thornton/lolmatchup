@@ -36,31 +36,31 @@
             },
             "QEmpower": true
         },
-        "recharge": [
+        "coolDown": [
             18, 16, 14, 12, 10
         ]
     },
     "R": {
         "tickDamage": {
             "type": "magic",
+            "system": "minMax",
             "interval": 2,
             "ticks": 4,
+            "minDmg": [
+                120, 210, 300
+            ],
+            "maxDmg": [
+                180, 315, 450
+            ],
+            "minAPRatio": 0.3,
+            "maxAPRatio": 0.45
+        },
+        "damage": {
+            "type":"true",
             "dmg": [
                 120, 210, 300
             ],
             "APRatio": 0.3
-        },
-        "deathsDaughter": {
-            "damage": {
-                "type":"true",
-                "dmg": [
-                    120, 210, 300
-                ],
-                "APRatio": 0.3
-            }
-        },
-        "fireAtWill": {
-            "damageRatio": 1.5
         },
         "coolDown": [
             180, 160, 140

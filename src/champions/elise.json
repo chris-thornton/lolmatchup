@@ -71,8 +71,7 @@
         "coolDown": 4
     },
     "passiveTransform": {
-            "onHit": {
-                "duration":"infinite",
+            "autoEmpower": {
                 "damage": {
                     "type":"magic",
                     "system":"single",

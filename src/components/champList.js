@@ -7,6 +7,7 @@ Alistar
 Amumu
 Anivia
 Annie
+Aphelios
 Ashe
 Aurelion Sol
 Azir

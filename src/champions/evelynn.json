@@ -4,7 +4,6 @@
             "type": "magic",
             "system": "3Part",
             "part1": {
-                "type": "magic",
                 "system": "single",
                 "dmg": [
                     30, 35, 40, 45, 50
@@ -12,7 +11,6 @@
                 "APRatio": 0.3
             },
             "part2": {
-                "type": "magic",
                 "system":"minMax",
                 "minDmg": [
                     10, 20, 30, 40, 50
@@ -24,7 +22,6 @@
                 "maxAPRatio": 0.75
             },
             "part3": {
-                "type": "magic",
                 "system":"minMax",
                 "minDmg": [
                     30, 35, 40, 45, 50
@@ -42,7 +39,7 @@
         "resistRedux": {
             "type": "magicResist",
             "duration": 4,
-            "resistReduxRatio": [
+            "reduxRatio": [
                 0.25, 0.275, 0.3, 0.325, 0.35
             ]
         },
@@ -98,9 +95,7 @@
                 430,450,470,490,510,530,550,570,590
             ],
             "HPThresholdAPRatio": 2.5
-        },
-        "selfCommandCoolDown": 4,
-        "damageReceivedStaticCoolDown": 1.5
+        }
     },
     "stats": {
         "baseHP": 572,

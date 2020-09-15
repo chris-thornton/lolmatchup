@@ -13,7 +13,7 @@
         "coolDown": [
             16, 14, 12, 10, 8
         ],
-        "coolDownReduxOnHit": 0.6
+        "coolDownReduxRatio": 0.5
     },
     "W": {
         "damage": {
@@ -32,7 +32,7 @@
     "E": {
         "bonusAttackSpeed": {
             "durationAutos": 2,
-            "bonusAttackSpeed": [
+            "attackSpeed": [
                 0.5, 0.6, 0.7, 0.8, 0.9
             ]
         },
@@ -50,23 +50,27 @@
         ]
     },
     "R": {
-       "procPassive": {
-           "procs": 4
+        "damage": {
+            "type": "true",
+            "enemyMaxHPRatio": 0.1,
+            "enemyMaxHPRatioPer100BonusAD": 0.18
         },
         "coolDown": [
             110,
             90,
             70
         ],
-        "tickHeal": {
+        "heal": {
             "targets": "Self",
-            "interval": 1,
-            "minTicks": 2,
-            "maxTicks": 5,
-            "heal": [
+            "system": "minMax",
+            "minHeal": [
                 80, 110, 140
             ],
-            "bonusADRatio": 0.6
+            "maxHeal": [
+                400, 550, 700
+            ],
+            "minBonusADRatio": 0.6,
+            "maxBonusADRatio": 3
         }
     },
     "passive": {

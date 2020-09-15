@@ -14,8 +14,8 @@
     },
     "W": {
         "passivePermanent": {
-            "magicResist": 30,
-            "armor": 30,
+            "bonusMagicResist": 30,
+            "bonusArmor": 30,
             "bonusResistsPerStack": 0.25,
             "maxStacks": 120,
             "bonusMagicResistRatio": 0.1,
@@ -83,13 +83,14 @@
         ]
     },
     "passive": {
-            "passivePermanent": {
-                "maxHPRegenByLvl": [
-                    0.015, 0.017, 0.019, 0.021, 0.023, 0.025, 0.033, 0.041, 0.049,
-                     0.057, 0.065, 0.073, 0.081, 0.085, 0.089, 0.093, 0.097, 0.101
-                ],
-                "combatCoolDown": 8
-            }
+        "passivePermanent": {
+            "maxHPRegenByLvl": [
+                0.015, 0.017, 0.019, 0.021, 0.023, 0.025, 0.033, 0.041, 0.049,
+                    0.057, 0.065, 0.073, 0.081, 0.085, 0.089, 0.093, 0.097, 0.101
+            ],
+            "combatCoolDown": 8
+        },
+        "combatCoolDown": 8
     },
     "stats": {
         "baseHP": 620,

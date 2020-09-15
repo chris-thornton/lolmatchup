@@ -13,39 +13,33 @@
         ]
     },
     "W": {
-        "onHitPermanent": {
-            "tickDamage": {
-                "damage": {
-                    "type":"magic",
-                    "interval":0.5,
-                    "ticks": 6,
-                    "dmg":[
-                        3.33, 5, 6.67, 8.33, 10
-                    ],
-                    "APRatio": 0.0667
-                }
-            }
+        "tickDamage": {
+            "type":"magic",
+            "interval":0.5,
+            "ticks": 6,
+            "dmg":[
+                3.33, 5, 6.67, 8.33, 10
+            ],
+            "APRatio": 0.0667
+        },
+        "damage": {
+            "type":"magic",
+            "system": "single",
+            "dmg": [
+                50, 70, 90, 110, 130
+            ],
+            "APRatio": 0.5
         },
         "autoEmpower": {
-            "damage": {
-                "type":"magic",
-                "system": "single",
-                "dmg": [
-                    50, 70, 90, 110, 130
-                ],
-                "APRatio": 0.5
-            }
-        },
-        "onHit": {
             "damage": {
                 "type":"magic",
                 "system":"single",
                 "dmg": [
                     10, 15, 20, 25, 30
                 ],
-                "APRatio": 0.35
-            },
-            "duration": 5
+                "APRatio": 0.35,
+                "duration": 5
+            }
         },
         "coolDown": [
             7, 6.5, 6, 5.5, 5
@@ -67,7 +61,7 @@
     "R": {
         "damage": {
             "type":"magic",
-            "system":"minMedMax",
+            "system":"minMax",
             "minDmg":[
                 150, 250, 350
             ],
@@ -90,11 +84,10 @@
     "passive": {
         "damageRedux": {
             "type": "all",
-            "system": "preMitigate",
             "dmg": 4,
             "APRatio": 0.01,
             "maxReduxRatio": 0.5,
-            "duration": "infinite"
+            "calculateFrom": "pre-mitigation"
         }
     },
     "stats": {

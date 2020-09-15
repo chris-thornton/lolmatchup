@@ -82,7 +82,6 @@
        "shield": {
            "type":"all",
            "targets": "Self",
-           "duration":"Until Broken",
            "maxHPRatio": 0.1,
            "combatCoolDownByLvl": [
             10,10,10,10,10,10,8,8,8,

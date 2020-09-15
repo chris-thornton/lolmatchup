@@ -101,6 +101,9 @@
         },
         "coolDown": 6
     },
+    "R": {
+        "coolDown": 3
+    },
     "stats": {
         "baseHP": 545,
         "hpPerLevel": 85,
