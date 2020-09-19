@@ -23,7 +23,7 @@
         },
         "damageRedux": {
             "type": "all",
-            "dmgReceived": 0.75,
+            "reduxRatio": 0.3,
             "duration": [
                 2, 2.75, 3.5, 4.25, 5
             ]
@@ -45,26 +45,39 @@
     "E": {
         "tickDamage": {
             "type": "phys",
-            "system":"single",
-            "dmg": [
+            "system":"minMax",
+            "minDmg": [
                 4, 8, 12, 16, 20
             ],
-            "dmgByLvl": [
+            "maxDmg": [
+                5, 10, 15, 20, 25
+            ],
+            "minDmgByLvl": [
                 0, 0.8, 1.6, 2.4, 3.2, 4, 4.8, 5.6, 6.4,
                     6.6, 6.8, 7, 7.2, 7.4, 7.6, 7.8, 8, 8.2
             ],
-            "ADRatio": [
+            "maxDmgByLvl": [
+                0, 1, 2, 3, 4, 5, 6, 7, 8,
+                 8.25, 8.5, 8.75, 9, 9.25, 9.5, 9.75, 10, 10.25
+            ],
+            "minADRatio": [
                 0.32, 0.34, 0.36, 0.38, 0.4
             ],
-            "minTicks": 7,
+            "maxADRatio": [
+                0.4, 0.425, 0.45, 0.475, 0.5
+            ],
+            "ticks": 7,
             "ASForBonusTick": 0.25,
             "duration": 3,
-            "nearestEnemyDamageRatio": 1.25,
             "canCrit": true,
             "critDmg": 1.33,
             "critDmgWithIE": 1.58
         },
-        "armorRedux": 0.25,
+        "resistRedux": {
+            "type": "armor",
+            "reduxRatio": 0.25,
+            "duration": 6
+        },
         "coolDown": 9
     },
     "R": {
@@ -87,8 +100,7 @@
             "maxHPRegenByLvl": [
                 0.015, 0.017, 0.019, 0.021, 0.023, 0.025, 0.033, 0.041, 0.049,
                     0.057, 0.065, 0.073, 0.081, 0.085, 0.089, 0.093, 0.097, 0.101
-            ],
-            "combatCoolDown": 8
+            ]
         },
         "combatCoolDown": 8
     },

@@ -24,7 +24,7 @@
     "E": {
         "damageRedux": {
             "type": "all",
-            "dmgRatio": [0.87, 0.83, 0.79, 0.75, 0.71],
+            "reduxRatio": [0.13, 0.17, 0.21, 0.25, 0.29],
             "duration": 3
         },
         "damage": {

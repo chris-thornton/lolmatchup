@@ -37,16 +37,16 @@
     },
     "E": {
        "bonusArmor":{
-        "duration": 4,
-        "system": "stacking",
-        "armorPerStack": [
-            8, 11, 14, 17, 20
-        ],
-        "maxArmor": [
-            64, 88, 112, 136, 160
-        ],
-        "refreshOnAuto": true
+            "system": "minMax",
+            "minArmor": [
+                8, 11, 14, 17, 20
+            ],
+            "maxArmor": [
+                64, 88, 112, 136, 160
+            ],
+            "refreshOnAuto": true
        },
+        "duration": 4,
         "coolDown": [
             16, 15, 14, 13, 12
         ]
@@ -61,7 +61,7 @@
             "maxDmg": [
                 250, 400, 550
             ],
-            "minbonusADRatio": 1.2,
+            "minBonusADRatio": 1.2,
             "maxBonusADRatio": 1.5
         },
         "coolDown": [
@@ -71,21 +71,18 @@
         ]
     },
     "passive": {
-        "autoEmpower": {
-            "duration": "infinite",
-            "damage": {
-                "type": "phys",
-                "system": "minMax",
-                "minADRatioByLvl": [
-              0.7,0.7176,0.7353,0.7529,0.7706,0.7882,0.8059,0.8235,0.8412,
-              0.8588,0.8765,0.8941,0.9118,0.9294,0.9471,0.9647,0.9824,1
-                ],
-                "maxADRatioByLvl": [
-                  1.4,1.4353,1.4706,1.5059,1.5412,1.5765,1.6118,1.6471,1.6824,1.7176,1.7529,1.7882,1.8235,1.8588,1.8941,1.9294,1.9647,2
-                ],
-                "critDmg": 2.4,
-                "critDmgWithIE": 3
-            }
+        "auto": {
+            "system": "minMax",
+            "minADRatioByLvl": [
+                0.7,0.7176,0.7353,0.7529,0.7706,0.7882,0.8059,0.8235,0.8412,
+                0.8588,0.8765,0.8941,0.9118,0.9294,0.9471,0.9647,0.9824,1
+            ],
+            "maxADRatioByLvl": [
+                1.4,1.4353,1.4706,1.5059,1.5412,1.5765,1.6118,1.6471,1.6824,
+                1.7176,1.7529,1.7882,1.8235,1.8588,1.8941,1.9294,1.9647,2
+            ],
+            "critDmg": 1.4,
+            "critDmgWithIE": 1.5
         }
     },
     "stats": {

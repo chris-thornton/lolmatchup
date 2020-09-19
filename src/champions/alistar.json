@@ -73,10 +73,10 @@
     "R": {
         "damageRedux": {
             "type": "all",
-            "dmgReceived": [
-                0.45,
-                0.35,
-                0.25
+            "reduxRatio": [
+                0.55,
+                0.65,
+                0.75
             ],
             "duration": 7
         },

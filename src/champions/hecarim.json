@@ -12,8 +12,8 @@
             "minBonusADRatio": 0.7,
             "maxBonusADRatio": 0.77
         },
-        "maxCoolDown": 4,
-        "minCoolDown": 2
+        "coolDown": 4,
+        "coolDownRefund": 2
     },
     "W": {
         "tickDamage": {

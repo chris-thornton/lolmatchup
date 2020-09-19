@@ -13,7 +13,7 @@
         "coolDown": [
             16, 14, 12, 10, 8
         ],
-        "coolDownReduxRatio": 0.5
+        "coolDownRefundRatio": 0.5
     },
     "W": {
         "damage": {
