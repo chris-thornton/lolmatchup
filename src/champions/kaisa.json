@@ -2,15 +2,15 @@
     "Q": {
         "damage": {
             "type": "phys",
-            "system": "evolveMinMax",
+            "system": "minMax",
             "minDmg": [
-                45, 61.25, 77.5, 93.75, 110
+                45, 61, 78, 94, 110
             ],
             "maxDmg": [
-                101.25, 137.8125, 174.375, 210.9375, 247.5
+                101, 138, 174, 211, 248
             ],
             "evolveMaxDmg": [
-                168.75, 229.6875, 290.625, 351.5625, 412.5
+                169, 230, 291, 352, 413
             ],
             "minBonusADRatio": 0.4,
             "maxBonusADRatio": 0.9,
@@ -36,7 +36,7 @@
         "coolDown": [
             22, 20, 18, 16, 14
         ],
-        "evolveCoolDownRatioRefundOnHit": 0.7
+        "coolDownRefundRatio": 0.7
     },
     "E": {
         "bonusAttackSpeed": {
@@ -68,11 +68,17 @@
         ]
     },
     "passive": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage": {
-                "dmgByLvl": [
+                "type":"magic",
+                "system": "minMax",
+                "minDmgByLvl": [
                     4, 4, 5, 5, 5, 6, 6, 6, 7,
                     7, 8, 8, 8, 9, 9, 9, 10, 10
+                ],
+                "maxDmgByLvl": [
+                    8, 8, 9, 13, 13, 14, 14, 18, 19,
+                    19, 20, 24, 24, 25, 25, 29, 30, 30
                 ],
                 "dmgPerStackByLvl": [
                     1, 1, 1, 2, 2, 2, 2, 3, 3,
@@ -80,17 +86,17 @@
                 ],
                 "APRatioByStack": [
                     0.1, 0.125, 0.15, 0.175, 0.2
-                ]
+                ],
+                "minAPRatio": 0.1,
+                "maxAPRatio": 0.2
             }
         },
-        "autoEmpower": {
-            "damage": {
-                "type":"magic",
-                "enemyMissingHPRatio": 0.15,
-                "enemyMissingHPRatioPer100AP": 0.025
-            },
-            "autoCoolDown": 5
-        }
+        "damage": {
+            "type":"magic",
+            "enemyMissingHPRatio": 0.15,
+            "enemyMissingHPRatioPer100AP": 0.025
+        },
+        "autoCoolDown": 5
     },
     "stats": {
         "baseHP": 600,

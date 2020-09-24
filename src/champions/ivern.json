@@ -8,15 +8,12 @@
             ],
             "APRatio": 0.7
         },
-        "interruptCC": [
-            1.2, 1.4, 1.6, 1.8, 2
-        ],
         "coolDown": [
             14, 13, 12, 11, 10
         ]
     },
     "W": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage": {
                 "type": "magic",
                 "system": "single",
@@ -51,12 +48,8 @@
     },
     "R": {
         "petStats": {
-            "duration": 60,
-            "coolDown": [
-                140, 130, 120
-            ],
             "auto": {
-                "type":"magic",
+                "type":"Magic",
                 "dmg": [
                     70, 100, 170
                 ],
@@ -66,9 +59,12 @@
                 "interruptCC": 1,
                 "coolDown": 3
             },
-            "attackSpeed": 0.613,
+            "interruptCC": 1,
             "bonusAttackSpeedByRank": [
                 0.3, 0.5, 0.7
+            ],
+            "attackSpeed": [
+                0.797, 0.920, 1.042
             ],
             "health": [1250, 2500, 3750],
             "healthPerAPRatio": 0.5,
@@ -76,7 +72,11 @@
             "armorPerAPRatio": 0.05,
             "magicResist": [15, 40, 90],
             "magicResistPerAPRatio": 0.05
-        }
+        },
+        "duration": 60,
+        "coolDown": [
+            140, 130, 120
+        ]
     },
     "stats": {
         "baseHP": 585,

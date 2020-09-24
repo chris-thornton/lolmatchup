@@ -74,9 +74,8 @@
     },
     "passive": {
         "damageRedux": {
-            "type": "magic",
-            "damageReceived": 0.85,
-            "duration": "infinite"
+            "type": "Magic",
+            "reduxRatio": 0.15
         }
     },
     "stats": {

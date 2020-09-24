@@ -1,8 +1,9 @@
 {
     "Q": {
-        "tentacleDmgIncrease": [
+        "passiveDmgIncrease": [
             0.1, 0.15, 0.2, 0.25, 0.3
         ],
+        "text": "Passive Damage Increase Ratio: (0.1, 0.15, 0.2, 0.25, 0.3)",
         "coolDown": [
             10, 9, 8, 7, 6
         ],
@@ -22,7 +23,8 @@
                 ]
             }     
         },
-        "coolDown": 4
+        "coolDown": 4,
+        "coolDownRefundRatio": 0.5
     },
     "E": {
         "damage": {
@@ -46,32 +48,33 @@
             "bonusADRatio": 0.5
         },
         "maxTentacles": 6,
+        "text": "Max Tentacles Summoned: 6",
         "duration": 8,
-        "WCoolDownReduxRatio": 0.5,
+        "WCoolDownRefundRatio": 0.5,
         "coolDown": [
             120, 95, 70
         ]
     },
     "passive": {
-        "tentacle": {
-            "damage": {
-                "type": "phys",
-                "dmgByLvl": [
-                    10,20,30,40,50,60,70,80,90,100,
-                    110,120,130,140,150,160,170,180
-                ],
-                "ADRatio": 1.2,
-                "APRatio": 0.4
-            },
-            "attackSpeed": 1,
-            "multiHitDmgRatio": 0.5,
-            "minDmgRatio": 0.25,
-            "heal": {
-                "targets": "Self",
-                "missingHPRatio": 0.05,
-                "multiHitFormula": "(maxHealth − currentHealth) * (1 − 0.95n)"
-            }
-        }
+        "damage": {
+            "type": "phys",
+            "dmgByLvl": [
+                10,20,30,40,50,60,70,80,90,100,
+                110,120,130,140,150,160,170,180
+            ],
+            "dmgRatioByQRank": [1.1, 1.15, 1.2, 1.25, 1.3],
+            "ADRatio": 1.2,
+            "APRatio": 0.4
+        },
+        "attackSpeed": 1,
+        "multiHitDmgRatio": 0.5,
+        "minDmgRatio": 0.25,
+        "heal": {
+            "targets": "Self",
+            "missingHPRatio": 0.05,
+            "multiHitFormula": "(maxHealth − currentHealth) * (1 − 0.95n)"
+        },
+        "text": "Multiple tentacle hit Heal formula: (Maximum Health − Current Health) × (1 − 0.95n)"
     },
     "stats": {
         "baseHP": 585.6,

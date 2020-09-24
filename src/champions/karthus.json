@@ -18,9 +18,10 @@
     },
     "W": {
        "resistRedux": {
-        "magicResistRatio": 0.15,
-        "duration": 4
-       },
+            "type": "magicResist",
+            "reduxRatio": 0.15,
+            "duration": 4
+        },
         "coolDown":15
     },
     "E": {
@@ -30,7 +31,6 @@
                 30, 50, 70, 90, 110
             ],
             "interval": 1,
-            "duration": "toggle",
             "APRatio": 0.2
         }
     },
@@ -46,6 +46,9 @@
         "coolDown": [
             200, 180, 160
         ]
+    },
+    "passive": {
+        "duration": 7
     },
     "stats": {
         "baseHP": 550,

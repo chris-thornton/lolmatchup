@@ -43,28 +43,29 @@
         "shield": {
             "type": "all",
             "targets": "all",
-            "duration": 5,
             "shield": [
                 80, 115, 150, 185, 220
             ],
             "APRatio": 0.7
         },
-        "allyBonusAttackDamage": {
+        "bonusAttackDamage": {
             "attackDamage": [
                 10, 17.5, 25, 32.5, 40
             ],
-            "attackDamagePerAPRatio": 0.1,
-            "duration": 5                   
+            "attackDamagePerAPRatio": 0.1                   
         },
+        "duration": 5,
         "coolDown": [
             16, 15, 14, 13, 12
         ]
     },
     "R": {
-        "tickHeal": {
+        "heal": {
             "targets": "all",
-            "interval":0.5,
+            "system": "tick",
+            "interval": 0.5,
             "ticks": 6,
+            "duration": 3,
             "heal":[
                 50, 75, 100
             ],
@@ -76,15 +77,15 @@
     },
     "passive": {
         "passivePermanent": {
-            "bonusMoveSpeedRatio": 0.08,
-            "onHit": {
-                "damage": {
-                    "type":"magic",
-                    "bonusMoveSpeedRatioByLvl": [
-                        0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,
-                        0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35
-                    ]
-                }
+            "bonusMoveSpeedRatio": 0.08
+        },
+        "autoEmpower": {
+            "damage": {
+                "type":"magic",
+                "bonusMoveSpeedRatioByLvl": [
+                    0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,
+                    0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35
+                ]
             }
         }
     },

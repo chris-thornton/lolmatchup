@@ -3,13 +3,13 @@
         "autoEmpower": {
             "damage": {
                 "type":"phys",
-                "system":"empower",
-                "dmg": [
+                "system":"minMax",
+                "minDmg": [
                     25, 35, 45, 55, 65
                 ],
-                "bonusADRatio": 0.25,
-                "empowerRatio": 1.3,
-                "empowerRatioWithIE": 1.55,
+                "minBonusADRatio": 0.25,
+                "maxDmgRatio": 1.3,
+                "maxDmgRatioWithIE": 1.55,
                 "canCrit": true
             }
         },

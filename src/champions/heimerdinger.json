@@ -1,8 +1,6 @@
 {
     "Q": {
         "petStats": {
-            "duration": "infinite",
-            "recharge": 20,
             "maxPlaced": 3,
             "attackSpeed": 1.75,
             "healthByLvl": [
@@ -20,20 +18,21 @@
                 25,25,25,25,25,25,25,25,30,30,35,35,40,45,50,55,60,65
             ],
             "auto": {
-                "type":"magic",
+                "type":"Magic",
                 "dmg": [
                     6, 9, 12, 15, 18
                 ],
                 "APRatio": 0.35
-            },
-            "spell": {
-                "type":"magic",
-                "dmg": [
-                    40, 60, 80, 100, 120 
-                ],
-                "APRatio": 0.55
             }
-        }
+        },
+        "damage": {
+            "type":"magic",
+            "dmg": [
+                40, 60, 80, 100, 120 
+            ],
+            "APRatio": 0.55
+        },
+        "recharge": 20
     },
     "W": {
         "damage": {
@@ -70,37 +69,41 @@
                 "petStats": {
                     "duration": 8,
                     "attackSpeed": 1.05,
-                    "healthFromLvl6": [
-                        850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450
+                    "healthByLvl": [
+                        850,850,850,850,850,850,900,950,1000,
+                        1050,1100,1150,1200,1250,1300,1350,1400,1450
                     ],
-                    "healthPerAPRatioFromLvl6": [
-                        0.25,0.25,0.25,0.425,0.6,0.775,0.95,1.125,1.3,1.475,1.65,1.825,2
+                    "healthPerAPRatioByLvl": [
+                        0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.425,
+                        0.6,0.775,0.95,1.125,1.3,1.475,1.65,1.825,2
                     ],
-                    "armorFromLvl6": [
-                        10,15,15,20,20,25,30,35,40,50,60,70,80
+                    "armorByLvl": [
+                        10,10,10,10,10,10,15,15,20,
+                        20,25,30,35,40,50,60,70,80
                     ],
-                    "magicResistFromLvl6": [
-                        25,25,25,30,30,35,35,40,45,50,55,60,65
+                    "magicResistByLvl": [
+                        25,25,25,25,25,25,25,25,30,
+                        30,35,35,40,45,50,55,60,65
                     ],
                     "auto": {
-                        "type":"magic",
+                        "type":"Magic",
                         "dmg": [
                             80, 100, 120
                         ],
                         "APRatio": 0.35
-                    },
-                    "spell": {
-                        "type":"magic",
-                        "dmg": [
-                            100, 140, 180
-                        ],
-                        "APRatio": 0.7
                     }
+                },
+                "damage": {
+                    "type":"Magic",
+                    "dmg": [
+                        100, 140, 180
+                    ],
+                    "APRatio": 0.7
                 }
             },
             "W": {
                 "damage": {
-                    "type":"magic",
+                    "type":"Magic",
                     "system":"minMax",
                     "minDmg": [
                         135, 180, 225
@@ -114,7 +117,7 @@
             },
             "E": {
                 "damage": {
-                    "type":"magic",
+                    "type":"Magic",
                     "system":"single",
                     "dmg": [
                         100, 200, 300

@@ -58,28 +58,28 @@
             80
         ],
         "petStats": {
-            "duration": 45,
             "tickDamage": {
                 "interval": 1,
-                "type": "magic",
+                "type": "Magic",
                 "dmg": [
                     20, 30, 40
                 ],
                 "APRatio": 0.12
             },
             "auto": {
-                "type":"magic",
+                "type":"Magic",
                 "dmg": [
                     50, 75, 100
                 ],
                 "APRatio": 0.15
             },
-            "attackSpeed": 0.625,
-            "enragedTimeToAuto5Times": 4.3,
+            "minAttackSpeed": 0.625,
+            "maxAttackSpeed": 1.736,
             "health": [1200 , 2100 , 3000],
             "armor": [30, 50, 70],
             "magicResist": [30, 50, 70]
-        }
+        },
+        "duration": 45
     },
     "passive": {
             "interruptCC": [

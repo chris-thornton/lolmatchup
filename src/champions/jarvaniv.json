@@ -8,9 +8,10 @@
             ],
             "bonusADRatio": 1.2
         },
-        "armorRedux": {
+        "resistRedux": {
+            "type": "armor",
             "duration":3,
-            "armorRatio": [
+            "reduxRatio": [
                 0.10, 0.14, 0.18, 0.22, 0.26
             ]
         },
@@ -26,7 +27,7 @@
             "shield": [
                 60, 85, 110, 135, 160
             ],
-            "maxHPRatioPerEnemyHit": 0.015,
+            "maxHPRatioPerStack": 0.015,
             "duration": 5
         },
         "coolDown": 12
@@ -40,7 +41,7 @@
             ],
             "APRatio": 0.8
         },
-        "allyBonusAttackSpeed": {
+        "bonusAttackSpeed": {
             "attackSpeed": [
                 0.20, 0.225, 0.25, 0.275, 0.30
             ],
@@ -69,14 +70,14 @@
     },
     "passive": {
         "autoEmpower": {
-            "staticCoolDown": 6,
             "damage":{
                 "type":"phys",
                 "system": "min",
                 "enemyCurrentHPRatio": 0.08,
                 "minDmg": 20
             }
-        }
+        },
+        "staticCoolDown": 6
     },
     "stats": {
         "baseHP": 570,

@@ -38,8 +38,7 @@
         "bonusMagicResist": {
             "magicResistRatio": [
                 0.06, 0.15, 0.24, 0.33, 0.44
-            ],
-            "duration": "infinite"
+            ]
         },
         "bonusAttackDamage": {
             "system": "minMax",

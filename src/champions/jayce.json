@@ -28,20 +28,23 @@
             ]
     },
     "W": {
-        "onHit": {
-            "bonusAttackSpeed": 3,
-            "durationAutos": 3,
+        "autoEmpower": {
             "damage": {
                 "type": "phys",
                 "system": "single",
                 "ADRatio": [
                     -0.3,-0.22,-0.14,-0.06,0.02,0.1
-                ]
-            },
-            "coolDown": [
-                13, 11.4, 9.8, 8.2, 6.6, 5
-            ]
-        }
+                ],
+                "durationAutos": 3
+            }
+        },
+        "bonusAttackSpeed": {
+            "attackSpeed": 3,
+            "durationAutos": 3
+        },
+        "coolDown": [
+            13, 11.4, 9.8, 8.2, 6.6, 5
+        ]
     },
     "WTransform": {
         "tickDamage": {
@@ -80,7 +83,6 @@
             }
         },
         "bonusResist": {
-            "duration": "transform",
             "type": "both",
             "bonusResistByLvl": [
                 5,5,5,5,5,15,15,15,15,
@@ -90,17 +92,15 @@
         "coolDown": 6
     },
     "RTransform": {
-        "autoEmpower": {
-            "resistRedux": {
-                "type": "both",
-                "duration": 5,
-                "reduxRatioByLvl": [
-                    0.10,0.10,0.10,0.10,0.10,0.15,0.15,0.15,0.15,
-                    0.15,0.20,0.20,0.20,0.20,0.20,0.25,0.25,0.25
-                ]
-            },
-            "coolDown": 6
-        }
+        "resistRedux": {
+            "type": "both",
+            "duration": 5,
+            "reduxRatioByLvl": [
+                0.10,0.10,0.10,0.10,0.10,0.15,0.15,0.15,0.15,
+                0.15,0.20,0.20,0.20,0.20,0.20,0.25,0.25,0.25
+            ]
+        },
+        "coolDown": 6  
     },
     "stats": {
         "baseHP": 560,

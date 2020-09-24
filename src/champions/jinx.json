@@ -3,16 +3,14 @@
         "bonusAttackSpeed": {
             "attackSpeed": [
                 0.30, 0.55, 0.80, 1.05, 1.30
-            ],
-            "duration": "toggle"
+            ]
         },
-        "onHit": {
+        "autoEmpower": {
             "damage": {
                 "type":"phys",
-                "ADRatio":0.1
-            },
-            "duration": "toggle",
-            "attackSpeedPenalty": 0.25
+                "ADRatio":0.1,
+                "attackSpeedPenalty": 0.25
+            }
         }
     },
     "W": {
@@ -53,7 +51,10 @@
             ],
             "minBonusADRatio": 0.15,
             "maxBonusADRatio": 1.5,
-            "enemyMissingHPRatio": [
+            "minEnemyMissingHPRatio": [
+                0.25,0.3,0.35
+            ],
+            "maxEnemyMissingHPRatio": [
                 0.25,0.3,0.35
             ],
             "secondaryDmgRatio": 0.8
@@ -63,8 +64,8 @@
         ]
     },
     "passive": {
-        "bonusAttackSpeedOnKill": {
-            "attackSpeed": 0.15,
+        "bonusAttackSpeed": {
+            "totalAttackSpeed": 0.15,
             "attackSpeedCap": "remove",
             "duration": 6
         }

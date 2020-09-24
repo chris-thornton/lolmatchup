@@ -18,8 +18,7 @@
         },
         "coolDown": [
             12, 11, 10, 9, 8
-        ],
-        "coolDownReduxOnHit": 0.6
+        ]
     },
     "W": {
         "damage": {
@@ -37,10 +36,10 @@
             "maxAPRatio": 0.8
         },
         "damageRedux": {
-            "type":"phys",
+            "type":"Physical",
             "reduxRatio": 0.5,
             "reduxRatioPer100AP": 0.07,
-            "maxDuration": 1.5
+            "duration": 1.5
         },
         "coolDown": [
             20, 18, 16, 14, 12
@@ -83,17 +82,18 @@
     },
     "passive": {
         "bonusAttackSpeed": {
-            "system": "stacking",
-            "minDuration": 6,
-            "maxStacks": 5,
-            "attackSpeedByLvlPerStack": [
-                0.08,0.08,0.08,0.08,0.08,0.08,0.1,0.1,0.1,
-                0.1,0.1,0.1,0.12,0.12,0.12,0.12,0.12,0.12 
+            "system": "minMax",
+            "minAttackSpeedByLvl": [
+                0.08,0.08,0.08,0.08,0.08,0.08,0.12,0.12,0.12,
+                0.12,0.12,0.12,0.16,0.16,0.16,0.16,0.16,0.16 
+            ],
+            "maxAttackSpeedByLvl": [
+                0.4,0.4,0.4,0.4,0.4,0.4,0.6,0.6,0.6,
+                0.6,0.6,0.6,0.8,0.8,0.8,0.8,0.8,0.8
             ]
         },
         "autoEmpower": {
             "system": "atMaxStacks",
-            "minDuration": 6,
             "damage":{
                 "type":"magic",
                 "dmgByLvl": [
@@ -102,7 +102,8 @@
                 ],
                 "bonusADRatio": 0.25
             }
-        }
+        },
+        "duration": 6
     },
     "stats": {
         "baseHP": 580,

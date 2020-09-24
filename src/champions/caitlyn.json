@@ -40,8 +40,9 @@
         "maxTraps": [
             3, 3, 4, 4, 5
         ],
-        "procPassive": true,
-        "uses": "custom"
+        "recharge": [
+            30, 25.5, 21, 16.5, 12
+        ]
     },
     "E": {
         "damage": {
