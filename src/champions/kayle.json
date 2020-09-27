@@ -20,7 +20,7 @@
     },
     "W": {
         "heal": {
-            "targets": "Self",
+            "targets": "all",
             "heal": [
                 60, 90, 120, 150, 180
             ],
@@ -60,19 +60,19 @@
     },
     "passive": {
         "bonusAttackSpeed": {
-            "type": "stacking",
-            "attackSpeedPerStack": 0.6,
-            "maxStacks": 5,
-            "duration": "infinite"
+            "system": "minMax",
+            "minAttackSpeed": 0.06,
+            "maxAttackSpeed": 0.3
         },
-        "onHitPermanent": {
-            "lvlRequired": 11,
+        "autoEmpower": {
             "damage": {
+                "type": "magic",
                 "dmgByERank": [
                     15, 20, 25, 30, 35
                 ],
                 "bonusADRatio": 0.1,
                 "APRatio": 0.25,
+                "lvlRequired": 11,
                 "canCrit": true
             }
         }

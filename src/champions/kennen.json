@@ -13,8 +13,7 @@
         ]
     },
     "W": {
-        "onHitPermanent": {
-            "autoCoolDown": 4,
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "dmg": [
@@ -23,7 +22,8 @@
                 "bonusADRatio": [
                     0.6, 0.7, 0.8, 0.9, 1
                 ],
-                "APRatio": 0.2
+                "APRatio": 0.2,
+                "autoCoolDown": 4
             }
         },
         "damage": {
@@ -72,17 +72,16 @@
         },
         "bonusResist": {
             "type": "both",
-            "duration": 3,
             "resist": [
                 20, 40, 60
             ]
         },
+        "duration": 3,
         "coolDown": 120
     },
     "passive": {
-       "interruptCC": 1.25,
-       "multiInterruptCC": 0.5,
-       "spellsRequired": 3
+       "maxInterruptCC": 1.25,
+       "minInterruptCC": 0.5
     },
     "stats": {
         "baseHP": 541,
