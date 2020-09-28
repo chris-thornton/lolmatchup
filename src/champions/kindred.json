@@ -19,17 +19,13 @@
         ]
     },
     "W": {
-        "autoEmpower": {
-            "heal": {
-                "targets": "Self",
-                "system": "max",
-                "maxHealByLvl": [
-                    49,52,55,58,61,64,67,70,73,
-                    76,79,82,85,88,91,94,97,100
-                ],
-                "coolDown": "Energized",
-                "duration": "Permanent"
-            }
+        "heal": {
+            "targets": "Self",
+            "system": "max",
+            "maxHealByLvl": [
+                49,52,55,58,61,64,67,70,73,
+                76,79,82,85,88,91,94,97,100
+            ]
         },
         "damage": {
             "type": "magic",
@@ -49,15 +45,15 @@
     "E": {
         "damage": {
             "type": "phys",
-            "system": "minMax",
-            "minDmg": [
+            "system": "single",
+            "dmg": [
                 80, 100, 120, 140, 160
             ],
-            "minBonusADRatio": 0.8,
-            "minEnemyMissingHPRatio": 0.08,
-            "minEnemyMissingHPRatioPerStack": 0.005,
-            "maxDmgRatio": 1.5,
-            "maxDmgRatioWithIE": 1.875,
+            "bonusADRatio": 0.8,
+            "enemyMissingHPRatio": 0.08,
+            "enemyMissingHPRatioPerStack": 0.005,
+            "critDmg": 1.5,
+            "critDmgWithIE": 1.875,
             "enemyHPThreshold": 0.15,
             "enemyHPThresholdPerCritChance": 0.005
         },
@@ -66,11 +62,13 @@
         ]
     },
     "R": {
-        "allHeal": {
+        "heal": {
+            "targets": "all",
             "heal": [
                 250,325,400
             ]
         },
+        "duration": 4,
         "coolDown": [
             180, 150, 120
         ]

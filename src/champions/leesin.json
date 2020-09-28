@@ -78,8 +78,7 @@
     "passive": {
             "bonusAttackSpeed": {
                 "attackSpeed": 0.4,
-                "durationAutos": 2,
-                "coolDown": "spellCast"
+                "durationAutos": 2
             }
     },
     "stats": {

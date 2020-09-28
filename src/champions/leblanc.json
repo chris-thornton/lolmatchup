@@ -50,18 +50,21 @@
         "empower": {
             "Q": {
                "damage": {
-                   "type":"magic",
+                   "type":"Magic",
                    "system":"minMax",
-                   "repeat": 1,
                    "minDmg": [
                         70, 140, 210
                    ],
-                   "minAPRatio": 0.4
+                   "maxDmg": [
+                       140, 280, 420
+                   ],
+                   "minAPRatio": 0.4,
+                   "maxAPRatio": 0.8
                }
             },
             "W": {
                 "damage": {
-                    "type":"magic",
+                    "type":"Magic",
                     "system":"single",
                     "dmg": [
                         150, 300, 450
@@ -71,7 +74,7 @@
             },
             "E": {
                 "damage": {
-                    "type":"magic",
+                    "type":"Magic",
                     "system":"2Part",
                     "part1": {
                         "dmg": [
@@ -85,8 +88,7 @@
                         ],
                         "APRatio": 0.8
                     }
-                },
-                "interruptCC": 1.5
+                }
             }
         },
         "coolDown": [

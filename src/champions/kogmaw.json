@@ -23,15 +23,15 @@
         "coolDown": 8
     },
     "W": {
-        "onHit": {
+        "autoEmpower": {
             "damage": {
                 "type": "magic",
                 "enemyMaxHPRatio": [
                     0.03, 0.0375, 0.045, 0.0525, 0.06
                 ],
-                "enemyMaxHPRatioPer100AP": 0.01
-            },
-            "duration": 8
+                "enemyMaxHPRatioPer100AP": 0.01,
+                "duration": 8
+            }
         },
         "coolDown": 17
     },
@@ -49,7 +49,7 @@
     "R": {
         "damage": {
             "type": "phys",
-            "system": "minMedMax",
+            "system": "minMax",
             "minDmg": [
                 100, 140, 180
             ],
@@ -76,8 +76,7 @@
             "dmgByLvl": [
                 125,150,175,200,225,250,275,300,325,
                 350,375,400,425,450,475,500,525,550
-            ],
-            "coolDown": "death"
+            ]
         }
     },
     "stats": {

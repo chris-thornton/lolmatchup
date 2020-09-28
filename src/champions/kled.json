@@ -72,11 +72,14 @@
         "damage": {
             "type":"phys",
             "system":"minMax",
-            "repeat": 1,
             "minDmg": [
                 35, 60, 85, 110, 135
             ],
-            "minBonusADRatio": 0.6
+            "maxDmg": [
+                70, 120, 170, 220, 270
+            ],
+            "minBonusADRatio": 0.6,
+            "maxBonusADRatio": 1.2
         },
         "coolDown": [
             14, 13, 12, 11, 10
@@ -95,8 +98,10 @@
             "minEnemyMaxHPRatioPer100BonusAD": 0.04,
             "maxEnemyMaxHPRatioPer100BonusAD": 0.12
         },
-        "selfShield": {
+        "shield": {
             "system": "minMax",
+            "type": "all",
+            "targets": "Self",
             "duration": 2,
             "minShield": [
                 20, 30, 40
