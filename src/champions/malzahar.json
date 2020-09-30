@@ -15,11 +15,6 @@
     },
     "W": {
         "petStats": {
-            "duration": [
-                8, 8, 9, 9, 10
-            ],
-            "coolDown": 8,
-            "maxSummon": 3,
             "attackSpeedByLvl": [
                 0.665,0.675,0.685,0.695,0.706,0.718,0.729,0.742,0.755,
                 0.768,0.782,0.796,0.811,0.826,0.841,0.858,0.874,0.891
@@ -37,7 +32,7 @@
                 15.74,16.78,17.85,18.95,20.09,21.27,22.48,23.72,25
             ],
             "auto": {
-                "type":"magic",
+                "type":"Magic",
                 "dmg": [
                     12, 14, 16, 18, 20
                 ],
@@ -48,7 +43,12 @@
                 "APRatio": 0.2,
                 "bonusADRatio": 0.4
             }
-        }
+        },
+        "duration": [
+            8, 8, 9, 9, 10
+        ],
+        "coolDown": 8,
+        "maxSummon": 3
     },
     "E": {
         "tickDamage": {
@@ -85,6 +85,7 @@
                 "enemyMaxHPRatioPer100AP": 0.0025
             }
         },
+        "interruptCC": 2.5,
         "coolDown": [
             140, 110, 80
         ]
@@ -94,7 +95,7 @@
         "damageRedux": {
             "type": "all",
             "duration": 0.25,
-            "dmgRatio": 0.1      
+            "reduxRatio": 0.9      
         },
         "coolDownByLvl": [
             30,30,30,30,30,24,24,24,24,

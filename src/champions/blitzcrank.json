@@ -53,10 +53,9 @@
             ],
             "APRatio": 0.3
         },
+        "silence": 0.5,
         "coolDown": [
-            60,
-            40,
-            20
+            60, 40, 20
         ]
     },
     "passive": {

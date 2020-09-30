@@ -13,13 +13,11 @@
         "coolDown": 8
     },
     "W": {
-        "passivePermanent": {
-            "bonusMagicResist": 30,
-            "bonusArmor": 30,
+        "bonusResist": {
+            "resist": 30,
             "bonusResistsPerStack": 0.25,
             "maxStacks": 120,
-            "bonusMagicResistRatio": 0.1,
-            "bonusArmorRatio": 0.1
+            "bonusResistRatio": 0.1
         },
         "damageRedux": {
             "type": "all",

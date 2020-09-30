@@ -13,16 +13,13 @@
     "W": {
         "passivePermanent": {
             "bonusArmor": {
-                "armorRatio": [
+                "minArmorRatio": [
                     0.10, 0.15, 0.20, 0.25, 0.30
+                ],
+                "maxArmorRatio": [
+                    0.30, 0.45, 0.60, 0.75, 0.90
                 ]
             }
-        },
-        "bonusResist": {
-            "armorRatio": [
-                0.30, 0.45, 0.60, 0.75, 0.90
-            ],
-            "duration": "shield"
         },
         "autoEmpower": {
             "damage": {

@@ -19,17 +19,14 @@
             "resist": [
                 20, 25, 30, 35, 40
             ],
-            "bonusResistRatio": 0.2,
-            "minDuration": 3,
-            "maxDuration": 6
+            "bonusResistRatio": 0.2
         },
         "damageRedux": {
-            "minDuration": 3,
-            "maxDuration": 6,
+            "type": "all",
             "dmg": [
                 8, 12, 16, 20, 24
             ],
-            "minDmgRatio": 0.5
+            "maxReduxRatio": 0.5
         },
         "damage": {
             "type":"magic",
@@ -39,6 +36,8 @@
             ],
             "APRatio": 0.4
         },
+        "minDuration": 3,
+        "maxDuration": 6,
         "coolDown": [
             14, 13, 12, 11, 10
         ]
@@ -79,9 +78,7 @@
             25,32,39,46,53,60,67,74,81,
             88,95,102,109,116,123,130,137,144
            ]
-       },
-       "coolDown": "spellHit",
-       "uses": "custom"
+       }
     },
     "stats": {
         "baseHP": 576.16,

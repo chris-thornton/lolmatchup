@@ -19,13 +19,14 @@
         "coolDown": [
             18, 17, 16, 15, 14
         ],
-        "coolDownReduxOnAuto": 1
+        "coolDownRefund": 1
     },
     "W": {
-        "tickHeal": {
+        "heal": {
             "targets": "Self",
             "interval": 0.5,
             "ticks": 8,
+            "duration": 4,
             "system":"minMax",
             "minHeal": [
                 15, 25, 35, 45, 55
@@ -39,21 +40,21 @@
         "damageRedux": {
             "duration": 4,
             "type": "all",
-            "dmgRatio": [
-                0.4, 0.375, 0.35, 0.325, 0.3
+            "reduxRatio": [
+                0.6, 0.625, 0.65, 0.675, 0.7
             ]
         },
         "coolDown": 28
     },
     "E": {
-        "onHit": {
-            "duration": 5,
+        "autoEmpower": {
             "damage": {
                 "type":"true",
                 "dmg": [
                     18, 26, 34, 42, 50
                 ],
-                "bonusADRatio": 0.35
+                "bonusADRatio": 0.35,
+                "duration": 5
             }
         },
         "coolDown": [
@@ -68,16 +69,16 @@
             ],
             "durationExtendOnTakeDown": 7
         },
-        "spellCoolDownReduxRatio": 0.7,
+        "coolDownRefundRatio": 0.7,
         "coolDown": 85
     },
     "passive": {
         "autoEmpower": {
-            "autoCoolDown": 4,
             "damage": {
                 "type":"phys",
                 "ADRatio": 0.5,
-                "canCrit": true
+                "canCrit": true,
+                "autoCoolDown": 4
             }
         }
     },

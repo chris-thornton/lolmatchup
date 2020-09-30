@@ -41,7 +41,7 @@
             "minEnemyMaxHPRatio": [
                 0.07, 0.0725, 0.075, 0.0775, 0.08
             ],
-            "maxEnemyHPRatio": [
+            "maxEnemyMaxHPRatio": [
                 0.14, 0.145, 0.15, 0.155, 0.16
             ],
             "minEnemyMaxHPRatioPer100AP": 0.01,
@@ -80,8 +80,7 @@
            30,30,30,30,30,25,25,25,25,
            25,20,20,20,20,20,20,20,20
        ],
-       "coolDownRedux": 4,
-       "uses": "custom"
+       "coolDownRefund": 4
     },
     "stats": {
         "baseHP": 565,

@@ -18,7 +18,7 @@
         "interruptCC": [
             1.25, 1.5, 1.75, 2, 2.25
         ],
-        "allBonusAttackSpeed": {
+        "bonusAttackSpeed": {
             "duration": [
                 3, 3.25, 3.5, 3.75, 4
             ],
@@ -48,21 +48,10 @@
             ],
             "APRatio": 0.4
         },
-        "allyOnHit": {
-            "damage": {
-                "type":"magic",
-                "dmgByLvl": [
-                    15,21,27,33,39,45,51,57,63,
-                    69,75,81,87,93,99,105,111,117
-                ],
-                "APRatio": 0.15
-            },
-            "duration": 6                   
-        },
         "coolDown": 8
     },
     "R": {
-        "allBonusHealth": {
+        "bonusHealth": {
             "duration": 7,
             "health": [
                 300, 450, 600
@@ -75,7 +64,7 @@
         ]
     },
     "passive": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "dmgByLvl": [

@@ -31,7 +31,7 @@
         "tickDamage": {
             "type": "phys",
             "ticks": [
-                20, 25, 30
+                22, 28, 34
             ],
             "duration": 3,
             "dmg": [
@@ -56,9 +56,7 @@
                 "critDmg": 2,
                 "critDmgWithIE": 2.25
             }
-        },
-        "coolDown": "spellCast",
-        "uses": "custom"
+        }
     },
     "stats": {
         "baseHP": 571,
