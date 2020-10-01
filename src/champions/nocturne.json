@@ -9,11 +9,11 @@
             "bonusADRatio": 0.75
         },
         "bonusAttackDamage": {
-            "maxDuration": 5,
             "attackDamage":[
                 20,30,40,50,60
             ]
         },
+        "maxDuration": 5,
         "coolDown": 10
     },
     "W": {
@@ -69,20 +69,21 @@
     },
     "passive": {
         "staticCoolDown": 10,
-        "coolDownReduxOnAuto": 2,
+        "coolDownRefund": 3,
         "autoEmpower": {
             "damage": {
                 "type":"phys",
                 "ADRatio": 0.2,
-                "ADRatioWithIE": 0.225
-            },
-            "selfHeal": {
-                "APRatio": 0.15,
-                "healByLvl": [
-                    15,16.47,17.94,19.41,20.88,22.35,23.82,25.29,26.76,
-                    28.24,29.71,31.18,32.65,34.12,35.59,37.06,38.53,40
-                ]
+                "critADRatioWithIE": 1.225
             }
+        },
+        "heal": {
+            "targets":"Self",
+            "APRatio": 0.15,
+            "healByLvl": [
+                15,16.47,17.94,19.41,20.88,22.35,23.82,25.29,26.76,
+                28.24,29.71,31.18,32.65,34.12,35.59,37.06,38.53,40
+            ]
         }
     },
     "stats": {

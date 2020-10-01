@@ -15,15 +15,15 @@
         "coolDown": 7
     },
     "W": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "dmg": [
                     50, 70, 90, 110, 130
                 ],
-                "APRatio": 0.6
-            },
-            "autoCoolDown": 3
+                "APRatio": 0.6,
+                "autoCoolDown": 3
+            }
         }
     },
     "E": {

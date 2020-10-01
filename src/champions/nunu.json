@@ -72,8 +72,10 @@
             "maxAPRatio": 2.5,
             "minAPRatio": 0
         },
-        "selfShield": {
-            "maxDuration": 6,
+        "shield": {
+            "type": "all",
+            "targets":"Self",
+            "duration": 6,
             "shield": [
                 65, 75, 85
             ],
@@ -87,8 +89,8 @@
         ]
     },
     "passive": {
-        "onTargetStaticCoolDown": 10,
-        "allBonusAttackSpeed": {
+        "staticCoolDown": 10,
+        "bonusAttackSpeed": {
             "duration": 4,
             "attackSpeed": 0.2
         },

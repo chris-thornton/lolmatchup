@@ -3,17 +3,24 @@
         "damage": {
             "type": "magic",
             "system": "minMax",
-            "maxDmgRatio": [
-                1.2, 1.25, 1.3, 1.35, 1.4
-            ],
             "minDmgByLvl": [
+                5, 9, 13, 17, 21, 25, 29, 33, 37,
+                41, 51, 61, 71, 81, 91, 107, 123, 139
+            ],
+            "maxDmgByLvl": [
                 5, 9, 13, 17, 21, 25, 29, 33, 37,
                 41, 51, 61, 71, 81, 91, 107, 123, 139
             ],
             "minDmg": [
                 75, 95, 115, 135, 155
             ],
-            "minAPRatio": 0.6
+            "maxDmg": [
+                90, 118.75, 149.5, 182.25, 217
+            ],
+            "minAPRatio": 0.6,
+            "maxAPRatio": [
+                0.72, 0.75, 0.78, 0.81, 0.84
+            ]
         },
         "coolDown": [
             9, 7.75, 6.5, 5.25, 4
@@ -28,8 +35,8 @@
         },
         "heal": {
             "targets": "Self",
-            "shieldRatio": [
-                0.4, 0.425, 0.45, 0.475, 0.5
+            "maxHPRatio": [
+                0.12, 0.1275, 0.135, 0.1425, 0.15
             ]
         },
         "coolDown": [
@@ -63,13 +70,18 @@
             ],
             "ratio": 0.1
         },
+        "text": "Steals 10% of enemy AD, AP, Attack Speed, Armor, Magic Resist, and Max HP.",
+        "duration": 7,
         "coolDown": [
             140, 120, 100
         ]
     },
     "passive": {
-       "onHitPermanent": {
-            "APRatio": 0.4
+       "autoEmpower": {
+           "damage": {
+               "type":"magic",
+                "APRatio": 0.4
+           }
        },
        "tickDamage": {
            "type":"magic",

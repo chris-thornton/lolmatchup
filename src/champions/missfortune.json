@@ -22,7 +22,7 @@
             ]
         },
         "coolDown": 12,
-        "coolDownReduxOnPassive": 2
+        "coolDownRefund": 2
     },
     "E": {
         "tickDamage": {
@@ -63,8 +63,7 @@
                     0.8,0.9,0.9,1,1,1,1,1,1
                 ]
             }
-        },
-        "uses": "custom"
+        }
     },
     "stats": {
         "baseHP": 570,

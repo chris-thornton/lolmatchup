@@ -11,7 +11,7 @@
         "coolDown": [
             14, 13, 12, 11, 10
         ],
-        "coolDownReduxRatio": 0.5
+        "coolDownRefundRatio": 0.5
     },
     "W": {
         "shield": {
@@ -22,19 +22,18 @@
             ],
             "maxHPRatio": [
                 0.09,0.1,0.11,0.12,0.13
-            ],
-            "duration": 6
+            ]
         },
-        "onHit": {
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "dmg":[
                     30, 40, 50, 60, 70
                 ],
                 "APRatio": 0.4
-            },
-            "maxDuration": 6
+            }
         },
+        "duration": 6,
         "coolDown": 12
     },
     "E": {
@@ -83,7 +82,7 @@
                     62,68,74,80,86,92,98,104,110
                 ]
             },
-            "interruptCCByLvl": [
+            "rootCCByLvl": [
                 0.75,0.75,0.75,0.75,0.75,1,1,1,1,
                 1,1.25,1.25,1.25,1.25,1.25,1.5,1.5,1.5
             ]

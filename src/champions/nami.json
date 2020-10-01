@@ -24,14 +24,14 @@
                 "APRatio": 0.5
             },
             "part2": {
-                "part1RatioFormula": "(1 + ((0.00075 * AP) - 0.15))^2" 
+                "part1RatioFormula": "Part 1 Dmg * (1 + ((0.00075 * AP) - 0.15))^2" 
             }
         },
         "heal": {
             "targets": "all",
             "system":"2Part",
             "part2": {
-                "part1RatioFormula": "(1 + ((0.00075 * AP) - 0.15))^2"
+                "part1RatioFormula": "Part 1 Heal * (1 + ((0.00075 * AP) - 0.15))^2"
             },
             "part1": {
                 "heal": [
@@ -43,15 +43,15 @@
         "coolDown": 10
     },
     "E": {
-        "allOnHit": {
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "dmg": [
                     25, 40, 55, 70, 85
                 ],
-                "APRatio": 0.2
-            },
-            "autoDuration": 3                   
+                "APRatio": 0.2,
+                "durationAutos": 3
+            }                   
         },
         "coolDown": 11
     },
