@@ -37,7 +37,7 @@
                 80, 125, 170, 215, 260
             ],
             "bonusArmorRatio": 0.4,
-            "bonusMagicResistRatio": 0.4
+            "bonusMRRatio": 0.4
         },
         "coolDown": [
             16, 15, 14, 13, 12
@@ -47,11 +47,14 @@
         "damage": {
             "type": "magic",
             "system":"minMax",
-            "repeat": 1,
             "minDmg": [
                 125, 175, 225
             ],
-            "APRatio": 0.2
+            "maxDmg": [
+                250, 350, 450
+            ],
+            "minAPRatio": 0.2,
+            "maxAPRatio": 0.4
         },
         "coolDown": [
             140, 120, 100
@@ -61,18 +64,14 @@
     },
     "passive": {
         "passivePermanent": {
-            "bonusResist": {
-                "type": "both",
-                "bonusResistRatio": 0.1
-            }
+            "bonusResistRatio": 0.1
        },
         "damage": {
             "type":"magic",
             "enemyMaxHPRatioByLvl": [
                 0.10,0.1047,0.1094,0.1141,0.1188,0.1235,0.1282,0.1329,0.1376,
                 0.1424,0.1471,0.1518,0.1565,0.1612,0.1659,0.1706,0.1753,0.18
-            ],
-            "uses": "custom"
+            ]
         }    
     },
     "stats": {

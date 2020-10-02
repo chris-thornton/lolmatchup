@@ -28,9 +28,8 @@
         }
     },
     "E": {
-        "allBonusResist": {
+        "bonusResist": {
             "type": "both",
-            "duration": "custom",
             "resist": [
                 10, 15, 20, 25, 30
             ]
@@ -68,7 +67,7 @@
         ]
     },
     "passive": {
-        "onHitPermanent": {
+        "autoEmpower": {
           "damage": {
               "type":"magic",
               "system":"minMax",
@@ -77,7 +76,11 @@
                 34,34,34,42,42,42,50,50,50
               ],
               "minAPRatio": 0.15,
-              "maxDmgRatio": 0.4
+              "maxDmgByLvl": [
+                14,14,14,25.2,25.2,25.2,36.4,36.4,36.4,
+                47.6,47.6,47.6,58.8,58.8,58.8,70,70,70
+              ],
+              "maxAPRatio": 0.21
           }
         }
     },

@@ -3,12 +3,16 @@
         "damage": {
             "type": "phys",
             "system": "minMax",
-            "repeat": 1,
             "minDmg": [
                 40, 60, 80, 100, 120
             ],
+            "maxDmg": [
+                80, 120, 160, 200, 240
+            ],
             "minBonusADRatio": 0.9,
-            "minEnemyMaxHPRatio": 0.08
+            "maxBonusADRatio": 1.8,
+            "minEnemyMaxHPRatio": 0.08,
+            "maxEnemyMaxHPRatio": 0.16
         },
         "coolDown": [
             8, 7, 6, 5, 4
@@ -24,13 +28,9 @@
             ]
         },
         "passivePermanent": {
-            "bonusResist": {
-                "type": "both",
-                "system": "minMax",
-                "minResistRatio": 0.1,
-                "maxResistRatio": 0.2,
-                "HPThreshold": 0.4
-            }
+            "minResistRatio": 0.1,
+            "maxResistRatio": 0.2,
+            "HPThreshold": 0.4
         },
         "coolDown": [
             24, 22, 20, 18, 16
@@ -40,11 +40,14 @@
         "damage": {
             "type": "phys",
             "system":"minMax",
-            "repeat":1,
-            "dmg": [
+            "minDmg": [
                 60, 80, 100, 120, 140
             ],
-            "bonusADRatio": 0.5
+            "maxDmg": [
+                120, 160, 200, 240, 280
+            ],
+            "minBonusADRatio": 0.5,
+            "maxBonusADRatio": 1
         },
         "interruptCC": [
             1.6, 1.7, 1.8, 1.9, 2
@@ -57,11 +60,14 @@
         "damage": {
             "type": "phys",
             "system":"minMax",
-            "repeat": 1,
             "minDmg": [
                 100, 150, 200
             ],
-            "bonusADRatio": 0.45
+            "maxDmg": [
+                200, 300, 400
+            ],
+            "minBonusADRatio": 0.45,
+            "maxBonusADRatio": 0.9
         },
         "coolDown": [
             140, 120, 100

@@ -55,7 +55,7 @@
         }
     },
     "passive": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "maxHPRatio": 0.04

@@ -21,8 +21,7 @@
             "attackSpeed": [
                 0.20, 0.35, 0.50, 0.65, 0.80
             ]
-        },
-        "uses": "custom"
+        }
     },
     "E": {
         "damage": {
@@ -41,9 +40,7 @@
             "type": "phys",
             "system":"single",
             "ADRatio": 0.4
-        },
-        "uses": 1,
-        "channel": 2
+        }
     },
     "passive": {
         "autoEmpower": {
@@ -59,7 +56,8 @@
                 ]
             }
         },
-        "procBy": "Q, W, R",
+        "maxCoolDown": 8,
+        "minCoolDown": 2.93,
         "staticCoolDownFormula": "8*Math.pow(0.99, critChance)"
     },
     "stats": {

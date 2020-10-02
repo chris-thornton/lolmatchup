@@ -10,29 +10,23 @@
                 96, 136, 176, 216, 256
             ],
             "minBonusADRatio": 0.9,
-            "maxBonusADRatio": 1.44,
-            "multiHitDmgRatio": 0.75
+            "maxBonusADRatio": 1.44
         },
-        "coolDown": 7,
-        "uses": 2
+        "coolDown": 7
     },
     "W": {
         "bonusAttackSpeed": {
             "attackSpeed": [
                0.05, 0.10, 0.15, 0.20, 0.25
-            ],
-            "duration": "custom"
+            ]
         },
-        "spellAutoEmpower": {
-            "damage": {
-                "type": "magic",
-                "dmg": [
-                    8, 16, 24, 32, 40
-                ],
-                "bonusADRatio": 0.2,
-                "APRatio": 0.3
-            },
-            "uses": "Custom"
+        "damage": {
+            "type": "magic",
+            "dmg": [
+                8, 16, 24, 32, 40
+            ],
+            "bonusADRatio": 0.2,
+            "APRatio": 0.3
         },
         "coolDown": 7
     },
@@ -74,8 +68,7 @@
             "bonusADRatio": 0.55,
             "APRatio": 0.3
         },
-        "onTargetStaticCoolDown": 25,
-        "resetCoolDown": 7
+        "staticCoolDown": 25
     },
     "stats": {
         "baseHP": 590,

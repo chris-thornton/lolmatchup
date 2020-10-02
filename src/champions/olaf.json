@@ -9,24 +9,18 @@
             "bonusADRatio": 1
         },
         "coolDown": 7,
-        "coolDownRedux": 4.5
+        "coolDownRefund": 4.5
     },
     "W": {
-        "bonusAttackSpeed": {
+        "bonusStats": {
             "duration": 6,
             "attackSpeed": [
                 0.55, 0.65, 0.75, 0.85, 0.95
-            ]
-        },
-        "bonusLifeSteal": {
-            "duration": 6,
+            ],
             "lifeSteal": [
                 0.14, 0.16, 0.18, 0.20, 0.22
-            ]
-        },
-        "bonusOmniHeal": {
-            "duration": 6,
-            "omniHealPerMissingHPRatio": 0.5
+            ],
+            "healingPerMissingHPRatio": 0.5
         },
         "coolDown": 16
     },
@@ -48,7 +42,7 @@
             ],
             "ADRatio": 0.15
         },
-        "coolDownReduxOnAuto": 1
+        "coolDownRefund": 1
     },
     "R": {
         "passivePermanent": {
@@ -57,19 +51,18 @@
             ]
         },
         "bonusAttackDamage": {
-            "duration": 6,
             "attackDamage": [
                 15, 20, 25
             ],
             "ADRatio": 0.3
         },
         "bonusResist": {
-            "duration": 6,
             "type": "both",
             "resist": [
                 -20, -30, -40
             ]
         },
+        "duration": 6,
         "coolDown": [
             100, 90, 80
         ]
