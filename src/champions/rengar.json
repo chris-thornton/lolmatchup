@@ -3,23 +3,26 @@
         "autoEmpower": {
             "damage":{
                 "type":"phys",
-                "system":"empower",
-                "dmg":[
+                "system":"minMax",
+                "minDmg":[
                     30, 60, 90, 120, 150
                 ],
-                "empowerDmgByLvl": [
+                "maxDmgByLvl": [
                     30,45,60,75,90,105,120,135,150,
                     160,170,180,190,200,210,220,230,240
                 ],
-                "ADRatio": [
+                "minADRatio": [
                     0, 0.05, 0.10, 0.15, 0.20
                 ],
-                "empowerADRatio": 0.4
+                "maxADRatio": 0.4
             }
         },
         "bonusAttackSpeed": {
-            "durationAutos": 2,
-            "attackSpeed": 0.4
+            "duration": 5,
+            "attackSpeedByLvl": [
+                0.50,0.53,0.56,0.59,0.62,0.65,0.68,0.71,0.74,
+                0.77,0.80,0.83,0.86,0.89,0.92,0.95,0.98,1.01
+            ]
         },
         "coolDown": [
             6, 5.5, 5, 4.5, 4
@@ -28,22 +31,22 @@
     "W": {
         "damage":{
             "type":"magic",
-            "system":"empower",
-            "dmg":[
+            "system":"minMax",
+            "minDmg":[
                 50, 80, 110, 140, 170
             ],
-            "APRatio": 0.8,
-            "empowerDmgByLvl": [
+            "minAPRatio": 0.8,
+            "maxDmgByLvl": [
                 50,60,70,80,90,100,110,120,130,
                 140,150,160,170,180,190,200,210,220
             ],
-            "empowerAPRatio": 0.8
+            "maxAPRatio": 0.8
         },
         "heal": {
             "targets": "Self",
             "system": "grey",
             "timeFrame": 1.5,
-            "dmgRatio": 0.5
+            "dmgTakenRatio": 0.5
         },
         "cleanse": "empower",
         "coolDown": [
@@ -53,16 +56,16 @@
     "E": {
         "damage": {
             "type":"phys",
-            "system": "empower",
-            "dmg": [
+            "system": "minMax",
+            "minDmg": [
                 55, 100, 145, 190, 235
             ],
-            "empowerDmgByLvl":[
+            "maxDmgByLvl":[
                 50,65,80,95,110,125,140,155,170,
                 185,200,215,230,245,260,275,290,305
             ],
-            "bonusADRatio": 0.8,
-            "empowerBonusADRatio": 0.8
+            "minBonusADRatio": 0.8,
+            "maxBonusADRatio": 0.8
         },
         "coolDown": 10
     },
@@ -71,13 +74,14 @@
             "damage": {
                 "type":"phys",
                 "ADRatio": 0.5
-            },
-            "armorRedux": {
-                "duration": 4,
-                "armor": [
-                    12, 18, 24
-                ]
             }
+        },
+        "resistRedux": {
+            "duration": 4,
+            "type": "armor",
+            "resist": [
+                12, 18, 24
+            ]
         },
         "coolDown": [
             110, 90, 70
@@ -87,7 +91,7 @@
         "passivePermanent": {
             "bonusAttackDamage": {
                 "system": "stacking",
-                "ADRatioByStack": [
+                "bonusADRatio": [
                     0.01,0.04,0.09,0.16,0.25,0.36
                 ]
             }

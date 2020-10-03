@@ -14,22 +14,20 @@
         ]
     },
     "W": {
-        "bonusResist": {
-            "bonusArmor": {
-                "armor": 30,
-                "armorRatio": [
-                    0.6, 0.7, 0.8, 0.9, 1
-                ]
-            },
-            "bonusMagicResist": {
-                "magicResist": 10,
-                "magicResistRatio": [
-                    0.3, 0.35, 0.4, 0.45, 0.5
-                ]
-            }
+        "bonusArmor": {
+            "armor": 30,
+            "armorRatio": [
+                0.6, 0.7, 0.8, 0.9, 1
+            ]
+        },
+        "bonusMagicResist": {
+            "magicResist": 10,
+            "magicResistRatio": [
+                0.3, 0.35, 0.4, 0.45, 0.5
+            ]
         },
         "coolDown": 6,
-        "maxDuration": 6
+        "duration": 6
     },
     "E": {
         "bonusAttackSpeed": {
@@ -65,13 +63,14 @@
         ]
     },
     "passive": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage": {
                 "type": "magic",
-                "armorRatio": 0.1,
-                "dmg": 10,
-                "dmgRatioDuringW": 1.5,
-                "autoReturnDuringW": true
+                "system": "minMax",
+                "minArmorRatio": 0.1,
+                "minDmg": 10,
+                "maxDmg": 15,
+                "maxArmorRatio": 0.15
             }
        }
     },

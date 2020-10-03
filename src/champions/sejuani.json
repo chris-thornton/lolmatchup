@@ -24,7 +24,7 @@
                 "APRatio": 0.2,
                 "maxHPRatio": 0.02
             },
-            "Part2": {
+            "part2": {
                 "dmg": [
                     30, 70, 110, 150, 190
                 ],
@@ -47,7 +47,7 @@
         },
         "interruptCC": 1,
         "coolDown": 1.5,
-        "targetCoolDown": 8
+        "staticCoolDown": 8
     },
     "R": {
         "damage": {
@@ -90,8 +90,7 @@
            "damage": {
                "type":"magic",
                "enemyMaxHPRatio": 0.1
-           },
-           "uses": "custom"
+           }
        }
     },
     "stats": {

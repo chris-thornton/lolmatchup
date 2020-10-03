@@ -1,13 +1,13 @@
 {
     "Q": {
-        "onHit": {
-            "durationAutos": 3,
+        "autoEmpower": {
             "damage": {
                 "type": "phys",
                 "dmg": [
                     20, 25, 30, 35, 40
                 ],
                 "bonusADRatio": 0.5,
+                "durationAutos": 3,
                 "canCrit": true
             }
         },
@@ -40,16 +40,21 @@
     },
     "E": {
         "damage": {
-            "type":"physTrue",
-            "system":"minMax",
-            "minDmg": [
-                50, 60, 70, 80, 90
-            ],
-            "maxDmg": [
-                100, 120, 140, 160, 180
-            ],
-            "minBonusADRatio": 0.85,
-            "maxBonusADRatio": 1.7
+            "system":"2Part",
+            "part1": {
+                "type":"phys",
+                "dmg": [
+                    50, 60, 70, 80, 90
+                ],
+                "bonusADRatio": 0.85
+            },
+            "part2": {
+                "type": "true",
+                "dmg": [
+                    100, 120, 140, 160, 180
+                ],
+                "bonusADRatio": 1.7
+            }
         },
         "coolDown": 12
     },

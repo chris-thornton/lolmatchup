@@ -8,12 +8,12 @@
             ],
             "APRatio": 0.45,
             "bonusManaRatio": 0.03,
-            "empowerRatioByRRank": [
+            "dmgRatioByRRank": [
                 1.1, 1.4, 1.7, 2
             ]
         },
         "coolDown": 6,
-        "coolDownRefund": "onSpell"
+        "coolDownRefundRatio": 1
     },
     "W": {
         "coolDown": [

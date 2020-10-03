@@ -2,14 +2,17 @@
     "Q": {
         "tickDamage":{
             "type":"magic",
-            "system": "empower",
+            "system": "minMax",
             "interval":0.25,
             "ticks": 12,
-            "dmg":[
+            "minDmg":[
                 14.583, 17.5, 20.417, 23.333, 26.25
             ],
-            "APRatio": 0.0917,
-            "empoweRatio": 1.5
+            "maxDmg": [
+                22.5, 27.5, 32.5, 37.5, 42.5
+            ],
+            "minAPRatio": 0.0917,
+            "maxAPRatio": 0.1375
         },
         "coolDown": [
             10,9,8,7,6
@@ -20,24 +23,30 @@
         "shield": {
             "type":"all",
             "targets": "Self",
-            "system": "empower",
+            "system": "minMax",
             "duration": 1.5,
-            "shield": [
+            "minShield": [
                 60, 95, 130, 165, 200
             ],
-            "APRatio": 0.5,
-            "empowerRatio": 1.5
+            "maxShield": [
+                90, 142.5, 195, 247.5, 300
+            ],
+            "minAPRatio": 0.5,
+            "maxAPRatio": 0.75
         }
     },
     "E": {
         "damage": {
             "type":"magic",
-            "system":"empower",
-            "empowerRatio": 1.5,
-            "dmg": [
+            "system":"minMax",
+            "minDmg": [
                 60, 85, 110, 135, 160
             ],
-            "APRatio": 0.4
+            "maxDmg":[
+                90, 127.5, 165, 202.5, 240
+            ],
+            "minAPRatio": 0.4,
+            "maxAPRatio": 0.6
         },
         "recharge": 6,
         "maxCharge": 2
@@ -58,16 +67,16 @@
         ]
     },
     "passive": {
-        "onHit": {
+        "autoEmpower": {
           "damage": {
               "type":"magic",
               "dmgByLvl":[
                 25,30,35,40,45,50,55,60,65,
                 70,75,80,85,90,95,100,105,110
               ],
-              "APRatio": 0.3
+              "APRatio": 0.3,
+              "duration": 6
           },
-          "duration": 6,
           "selfSilence": 6
         }
     },
