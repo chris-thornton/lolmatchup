@@ -77,8 +77,7 @@
                 240, 420, 600
             ],
             "APRatio": 1.92,
-            "duration": 12,
-            "numberOfTargets": "custom"
+            "duration": 12
         },
         "coolDown": 120
     },
@@ -90,11 +89,7 @@
                 20,25,30,35,40,45,50,55,60,
                 65,70,75,80,85,90,95,100,105
             ],
-            "APRatio": 0.3,
-            "staticCoolDownByLvl": [
-                12,12,12,12,12,9,9,9,9,
-                9,6,6,6,6,6,6,6,6
-            ]
+            "APRatio": 0.3
         },
         "heal": {
             "targets": "Self",
@@ -102,10 +97,17 @@
             "maxHPRatioByLvl": [
                 0.04,0.04,0.04,0.04,0.04,0.055,0.055,0.055,0.055,
                 0.055,0.07,0.07,0.07,0.07,0.07,0.07,0.07,0.07
-            ],
-            "healthPermanentPerStack": 5,
-            "stacks": "custom"
-        }
+            ]
+        },
+        "passivePermanent": {
+            "bonusHealth": {
+                "healthPerStack": 5
+            }
+        },
+        "staticCoolDownByLvl": [
+            12,12,12,12,12,9,9,9,9,
+            9,6,6,6,6,6,6,6,6
+        ]
     },
     "stats": {
         "baseHP": 525,

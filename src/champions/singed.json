@@ -10,7 +10,7 @@
             ],
             "APRatio": 0.1
         },
-        "coolDown": "toggle"
+        "staticCoolDown": 1
     },
     "E": {
         "damage": {
@@ -28,21 +28,14 @@
         "coolDown": 10
     },
     "R": {
-        "bonusAP": {
-            "AP": [
-                30, 60, 90
-            ]
-        },
-        "bonusResist": {
-            "type": "both",
+        "bonusStats": {
             "resist": [
                 30, 60, 90
-            ]
-        },
-        "bonusRegen": {
-            "type":"both",
-            "interval": 1,
-            "regen": [
+            ],
+            "abilityPower": [
+                30, 60, 90
+            ],
+            "healthRegen": [
                 6, 12, 18
             ]
         },

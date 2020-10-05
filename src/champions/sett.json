@@ -19,19 +19,21 @@
     },
     "W": {
         "damage": {
-            "type":"physOrTrue",
+            "type":"physical, True",
             "system":"minMax",
-            "dmg": [
+            "minDmg": [
+                80, 105, 130, 155, 180
+            ],
+            "maxDmg": [
                 80, 105, 130, 155, 180
             ],
             "maxMaxHPRatio": 0.125,
-            "maxMaxHPRatioPer100BonusAD": 0.05,
-            "bonusADRatio": 1
+            "maxMaxHPRatioPer100BonusAD": 0.05
         },
         "shield": {
             "type":"all",
             "targets": "Self",
-            "maxHPRatio": 0.5,
+            "maxMaxHPRatio": 0.5,
             "duration": 3
         },
         "coolDown": [
@@ -56,11 +58,17 @@
         "damage": {
             "type": "phys",
             "system":"minMax",
+            "minDmg":[
+                50, 75, 100
+            ],
             "maxDmg": [
                 200, 300, 400
             ],
-            "minDmgRatio": 0.6,
+            "minBonusADRatio": 0.25,
             "maxBonusADRatio": 1,
+            "minEnemyBonusHPRatio": [
+               0.1, 0.125, 0.15 
+            ],
             "maxEnemyBonusHPRatio": [
                 0.4, 0.5, 0.6
             ]
@@ -83,7 +91,7 @@
             "autoCoolDown": 2
         },
         "passivePermanent": {
-            "HPRegenByLvlPer5MissHP": [
+            "HPRegenPer5MissHPByLvl": [
                 0.25,0.25,0.25,0.25,0.25,0.5,0.5,0.5,0.5,
                 0.5,1,1,1,1,1,2,2,2
             ]

@@ -45,11 +45,14 @@
         "damage": {
             "type":"magic",
             "system":"minMax",
-            "repeat": 1,
-            "dmg": [
+            "minDmg": [
                 70, 95, 120, 145, 170
             ],
-            "APRatio": 0.4
+            "maxDmg": [
+                140, 190, 240, 290, 340
+            ],
+            "minAPRatio": 0.4,
+            "maxAPRatio": 0.8
         },
         "coolDown": [
             20, 19, 18, 17, 16

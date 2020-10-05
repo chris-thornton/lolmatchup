@@ -25,9 +25,7 @@
             ],
             "bonusADRatio": 0.2
         },
-        "onHit": {
-            "minDuration": 3,
-            "maxDuration": 7,
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "dmg":[
@@ -36,6 +34,8 @@
                 "bonusADRatio": 0.05
             }
         },
+        "minDuration": 3,
+        "maxDuration": 7,
         "coolDown": 12
     },
     "E": {
@@ -48,11 +48,11 @@
             "ADRatio": 0.3,
             "APRatio": 0.7
         },
-        "onHit": {
-            "duration": 5,
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
-                "enemyMaxHPRatio": 0.0375
+                "enemyMaxHPRatio": 0.0375,
+                "duration": 5
             }
         },
         "coolDown": [
@@ -106,20 +106,16 @@
             "APRatio": 1
         },
         "bonusHealth": {
-            "minDuration": 20,
+            "duration": 20,
             "health": [
                 150, 250, 350
             ]
-        },
-        "uses": 1
+        }
     },
     "passive": {
-        "bonusResist": {
-            "type": "both",
-            "system": "stack",
-            "resistPerStack": 5,
-            "minStacks": 1,
-            "stacks": "custom"
+        "passivePermanent": {
+            "bonusResist": 5,
+            "bonusResistPerStack": 5
         }
     },
     "stats": {

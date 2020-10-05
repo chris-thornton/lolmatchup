@@ -5,22 +5,24 @@
             "system":"2Part",
             "part1": {
                 "type":"phys",
-                "ADRatio": [
-                    0.33, 0.36, 0.39, 0.42, 0.45
-                ]
+                "enemyMaxHPRatio": [
+                    0.01, 0.015, 0.02, 0.025, 0.03
+                ],
+                "ADRatio": 0.2
             },
             "part2": {
                 "type": "magic",
-                "ADRatio": [
-                    0.33, 0.36, 0.39, 0.42, 0.45
+                "enemyMaxHPRatio": [
+                    0.01, 0.015, 0.02, 0.025, 0.03
                 ],
+                "ADRatio": 0.2,
                 "APRatio": 0.3
             }
         },
         "coolDown": [
             3.5, 3.25, 3, 2.75, 2.5
         ],
-        "coolDownRefundOnAuto": 1
+        "coolDownRefund": 1
     },
     "W": {
         "shield": {
@@ -58,7 +60,8 @@
         "coolDown": [
             14, 13.5, 13, 12.5, 12
         ],
-        "coolDownReduxPerComboWithoutTenacity": 3
+        "minCoolDownRefund": 1.25,
+        "maxCoolDownRefund": 1.75
     },
     "R": {
         "damage": {
@@ -83,7 +86,6 @@
     },
     "passive": {
         "bonusAttackSpeed": {
-            "duration": "custom",
             "attackSpeedByLvl": [
                 0.43,0.48,0.53,0.58,0.63,0.68,0.73,0.80,0.87,
                 0.94,1.01,1.08,1.15,1.24,1.33,1.42,1.51,1.60

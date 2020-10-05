@@ -49,9 +49,7 @@
         "passivePermanent": {
             "bonusHealth": {
                 "healthPerStack": 4,
-                "healthPerTakeDown": 15,
-                "stacks": "custom",
-                "takedowns": "custom"
+                "healthPerTakedown": 15
             }
         }
     },
@@ -93,11 +91,11 @@
         ]
     },
     "passive": {
-        "postDeath": {
-            "duration": "custom",
+        "petStats": {
             "attackSpeed": 1.75,
-            "onHit": {
-                "type":"phys",
+            "auto": {
+                "type":"Physical",
+                "ADRatio": 1,
                 "enemyMaxHPRatio": 0.1
             }
         }

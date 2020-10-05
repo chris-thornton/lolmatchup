@@ -2,22 +2,21 @@
     "Q": {
         "damage": {
             "type":"phys",
-            "system":"minMaxRepeat",
-            "repeat": 1,
+            "system":"minMax",
             "minDmg": [
                 14, 20, 26, 32, 38
             ],
             "maxDmg": [
-                35, 50, 65, 80, 95
+                70, 100, 130, 160, 190
             ],
             "minADRatio": [
                 0.28, 0.34, 0.40, 0.46, 0.52
             ],
             "maxADRatio": [
-                0.70, 0.85, 1, 1.15, 1.30
+                1.4, 1.7, 2, 2.3, 2.6
             ],
             "minAPRatio":0.2,
-            "maxAPRatio": 0.5
+            "maxAPRatio": 1
         },
         "coolDown": 7
     },
@@ -25,7 +24,7 @@
         "bonusAttackSpeed": {
             "durationAutos": 3,
             "lvlRequirement": 6,
-            "attackSpeed": [
+            "attackSpeedByRRank": [
                 0.3, 0.45, 0.60
             ]
         },
