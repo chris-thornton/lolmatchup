@@ -36,11 +36,14 @@
             "system": "2Part",
             "part1": {
                 "system":"minMax",
-                "repeat": 1,
                 "minDmg":[
                     50, 75, 100, 125, 150
                 ],
-                "minAPRatio": 0.4
+                "maxDmg": [
+                    100, 150, 200, 250, 300
+                ],
+                "minAPRatio": 0.4,
+                "maxAPRatio": 0.8
             },
             "part2": {
                 "system":"minMax",

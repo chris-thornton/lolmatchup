@@ -29,7 +29,7 @@
         ]
     },
     "E": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "system": "minMax",
@@ -49,6 +49,7 @@
             ],
             "APRatio": 0.4
         },
+        "interruptCC": 0.3889,
         "coolDown": 9
     },
     "R": {
@@ -67,7 +68,6 @@
     "passive": {
         "passivePermanent": {
             "bonusAPPerStack": 0.75,
-            "stacks": "custom",
             "bonusArmorPerStack": 0.75
         }
     },

@@ -2,12 +2,18 @@
     "Q": {
        "heal": {
             "targets": "all",
-            "system": "charges",
-            "healPerCharge": 30,
-            "APRatioPerCharge": 0.2,
-            "maxHPRatioPerCharge": 0.01,
-            "maxCharges": [
-                1, 2, 3, 4, 5
+            "system": "minMax",
+            "minHeal": 30,
+            "maxHeal": [
+                30, 60, 90, 120, 150
+            ],
+            "minAPRatio": 0.2,
+            "maxAPRatio": [
+                0.2, 0.4, 0.6, 0.8, 1
+            ],
+            "minMaxHPRatio": 0.01,
+            "maxMaxHPRatio": [
+                0.01, 0.02, 0.03, 0.04, 0.05
             ]
        },
        "coolDown": 3,
@@ -19,16 +25,11 @@
                 0.1, 0.11, 0.12, 0.13, 0.14
             ]
         },
-        "allyBonusArmor": {
-            "armorRatio": [
-                0.1, 0.11, 0.12, 0.13, 0.14
-            ]
-        },
         "shield": {
             "duration": 2.5,
             "type": "all",
             "targets": "all",
-            "targetMaxHPRatio": [
+            "maxHPRatio": [
                 0.08, 0.09, 0.1, 0.11, 0.12
             ]
         },
@@ -56,19 +57,20 @@
         ]
     },
     "passive": {
-        "onHit": {
-            "duration": "custom",
-            "bonusAttackSpeed": 1,
+        "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "dmgByLvl": [
                     25,29,33,37,41,45,49,53,57,
                     61,65,69,73,77,81,85,89,93
                 ],
-                "bonusArmorRatio": 0.15,
-                "abilityCoolDownRedux": 1
+                "bonusArmorRatio": 0.15
             }
-        }
+        },
+        "bonusAttackSpeed": {
+            "attackSpeed": 1
+        },
+        "allCDRefund": 1
     },
     "stats": {
         "baseHP": 575,

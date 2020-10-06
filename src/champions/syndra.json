@@ -14,13 +14,16 @@
     },
     "W": {
         "damage":{
-            "type":"magic",
-            "system":"single",
-            "dmg":[
-                70, 110, 150, 190, 230
-            ],
-            "APRatio": 0.7,
-            "rank5Bonus": {
+            "type":"mixed",
+            "system":"2Part",
+            "part1": {
+                "type":"magic",
+                "dmg":[
+                    70, 110, 150, 190, 230
+                ],
+                "APRatio": 0.7
+            },
+            "part2": {
                 "type": "true",
                 "dmg": 46,
                 "APRatio": 0.14
@@ -45,7 +48,7 @@
         "interruptCC": 1.5
     },
     "R": {
-        "dmg": {
+        "damage": {
             "type": "magic",
             "system":"minMax",
             "minDmg": [

@@ -31,8 +31,11 @@
             "minHeal": [
                 30, 60, 90, 120, 150
             ],
+            "maxHeal": [
+                60, 120, 180, 240, 300
+            ],
             "minAPRatio": 0.5,
-            "maxRatio": 2
+            "maxAPRatio": 1
         },
         "coolDown": [
             13, 11.5, 10, 8.5, 7
@@ -57,22 +60,21 @@
             "APRatioPerTotalAD": 0.6,
             "APRatioPerBonusAD": 0.4
         },
+        "text": "Steals enemy ult. If no AP Ratios convert 60% of Total AD Ratio to AP, and 40% of Bonus AD Ratio to AP.",
         "coolDown": [
-            100, 80, 60
+            100, 70, 40
         ]
     },
     "passive": {
         "bonusAttackSpeed": {
-            "attackSpeed": 0.8,
-            "durationAutos": "custom"
+            "attackSpeed": 0.8
         },
         "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "system":"single",
                 "ADRatio": 0.3,
-                "APRatio": 0.25,
-                "uses": "custom"
+                "APRatio": 0.25
             }
         }
     },

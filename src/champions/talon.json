@@ -2,13 +2,13 @@
     "Q": {
         "damage": {
             "type":"phys",
-            "system":"minMax",
-            "minDmg": [
+            "system":"single",
+            "dmg": [
                 65, 90, 115, 140, 165
             ],
-            "minBonusADRatio": 1.1,
-            "maxDmgRatio": 1.5,
-            "maxDmgRatioWithIE": 1.75
+            "bonusADRatio": 1.1,
+            "critDmg": 1.5,
+            "critDmgWithIE": 1.75
         },
         "heal": {
             "targets": "Self",
@@ -44,8 +44,11 @@
             "minDmg": [
                 90, 135, 180
             ],
+            "maxDmg": [
+                180, 270, 360
+            ],
             "minBonusADRatio": 1,
-            "repeat": 1
+            "maxBonusADRatio": 2
         },
         "coolDown": [
             100, 80, 60
@@ -60,8 +63,7 @@
                 10.3125, 10.9375, 11.5625, 12.1875, 12.8125, 13.4375, 14.0625, 14.6875, 15.3125
             ],
             "bonusADRatio": 0.125,
-            "minTicks": 16,
-            "maxTicks": "custom"
+            "ticks": 16
         }
     },
     "stats": {
