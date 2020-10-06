@@ -7,7 +7,7 @@
             ]
         },
         "coolDown": 16,
-        "canReset": true
+        "coolDownRefundRatio": 1
     },
     "E": {
         "damage": {
@@ -21,8 +21,8 @@
             ],
             "minBonusADRatio": 0.35,
             "maxBonusADRatio": 2.1,
-            "minAPRatio": 0.2,
-            "maxAPRatio": 1.2
+            "minAPRatio": 0.333,
+            "maxAPRatio": 2
         },
         "coolDown": [
             12, 11, 10, 9, 8
@@ -38,18 +38,18 @@
         "coolDown": 90
     },
     "passive": {
-        "onHitPermanent": {
-            "tickDamage": {
-                "type":"true",
-                "interval": 1,
-                "system": "stacking",
-                "ticks": "custom",
-                "dmgPerStackByLvl": [
-                    1, 1, 1, 1, 2, 2, 2, 2, 3,
-                    3, 3, 3, 4, 4, 4, 4, 5, 5
-                ],
-                "maxStacks": 6
-            }
+        "tickDamage": {
+            "type":"true",
+            "system":"minMax",
+            "interval": 1,
+            "minDmgByLvl": [
+                1, 1, 1, 1, 2, 2, 2, 2, 3,
+                3, 3, 3, 4, 4, 4, 4, 5, 5
+            ],
+            "maxDmgByLvl": [
+                6, 6, 6, 6, 12, 12, 12, 12, 18,
+                18, 18, 18, 24, 24, 24, 24, 30, 30
+            ]
         }
     },
     "stats": {

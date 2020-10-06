@@ -12,28 +12,27 @@
                 ]
             }
         },
-        "ADSteal": {
+        "statSteal": {
             "duration": 5,
             "gained": [
                 20, 25, 30, 35, 40
             ],
             "removed": [
                 10, 12.5, 15, 17.5, 20
-            ]
+            ],
+            "statType": "attackDamage"
         },
+        "text":"Gains [20, 25, 30, 35, 40] Attack Damage, and reduces half that amount from his enemy, for 5 seconds.",
         "coolDown": 4
     },
     "W": {
-        "bonusAttackSpeed": {
-            "duration": 8,
+        "bonusStats": {
+            "healingRatio": 0.25,
             "attackSpeed": [
                 0.2, 0.4, 0.6, 0.8, 1
             ]
         },
-        "healIncrease": {
-            "duration": 8,
-            "ratio": 0.25
-        },
+        "duration": 8,
         "coolDown": 15
     },
     "R": {
@@ -44,14 +43,24 @@
             "enemyMaxHPRatio": [
                 0.2, 0.275, 0.35
             ],
+            "enemyMaxHPRatioPer100AP": 0.02
+        },
+        "heal": {
+            "targets":"Self",
+            "enemyMaxHPRatio": [
+                0.2, 0.275, 0.35
+            ],
             "enemyMaxHPRatioPer100AP": 0.02,
-            "healRatio": 1
+            "duration": 4
         },
-        "resistSteal": {
-            "type": "both",
-            "resistRatio": 0.4,
-            "duration": 8
+        "statSteal": {
+            "duration": 8,
+            "statType": [
+                "armor","magicResist"
+            ],
+            "ratio": 0.4
         },
+        "text": "Steals 40% of enemy Armor and Magic Resist for 8 seconds.",
         "coolDown": [
             120, 100, 80
         ]

@@ -21,36 +21,37 @@
         },
         "coolDown": [
             22, 20, 18, 16, 14
-        ],
-        "uses": "custom"
+        ]
     },
     "E": {
         "damage": {
-            "system":"minMax",
-            "type":"phys",
-            "minDmg": [
-                70, 80, 90, 100, 110
-            ],
-            "maxDmg": [
-                154, 176, 198, 220, 242
-            ],
-            "minBonusADRatio": [
-                0.5, 0.75, 1, 1.25, 1.5
-            ],
-            "maxBonusADRatio": [
-                1.1, 1.65, 2.2, 2.75, 3.3
-            ],
-            "minAPRatio": 0.5,
-            "maxAPRatio": 1.1
-        },
-        "passiveDmg": {
-            "type":"magic",
-            "system":"single",
-            "dmg": [
-                55, 80, 105, 130, 155
-            ],
-            "APRatio": 0.25,
-            "uses":"custom"
+            "system": "2Part",
+            "part1": {
+                "system":"minMax",
+                "type":"phys",
+                "minDmg": [
+                    70, 80, 90, 100, 110
+                ],
+                "maxDmg": [
+                    154, 176, 198, 220, 242
+                ],
+                "minBonusADRatio": [
+                    0.5, 0.75, 1, 1.25, 1.5
+                ],
+                "maxBonusADRatio": [
+                    1.1, 1.65, 2.2, 2.75, 3.3
+                ],
+                "minAPRatio": 0.5,
+                "maxAPRatio": 1.1
+            },
+            "part2": {
+                "type":"magic",
+                "system":"single",
+                "dmg": [
+                    55, 80, 105, 130, 155
+                ],
+                "APRatio": 0.25
+            }
         },
         "coolDown": [
             16, 15.5, 15, 14.5, 14

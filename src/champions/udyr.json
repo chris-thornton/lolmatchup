@@ -1,18 +1,15 @@
 {
     "Q": {
-        "onHit": {
-            "tickDamage": {
-                "type":"phys",
-                "interval":0.5,
-                "ticks": 4,
-                "dmg": [
-                    7.5, 15, 22.5, 30, 37.5, 45
-                ],
-                "ADRatio": [
-                    0.275, 0.3125, 0.35, 0.3875, 0.425, 0.4625
-                ]
-            },
-            "autoCoolDown": 4
+        "tickDamage": {
+            "type":"phys",
+            "interval":0.5,
+            "ticks": 4,
+            "dmg": [
+                7.5, 15, 22.5, 30, 37.5, 45
+            ],
+            "ADRatio": [
+                0.275, 0.3125, 0.35, 0.3875, 0.425, 0.4625
+            ]
         },
         "bonusAttackSpeed": {
             "duration": 5,
@@ -23,14 +20,11 @@
         "coolDown": 6
     },
     "W": {
-        "onHit": {
-            "heal": {
-                "targets": "Self",
-                "system": "minMax",
-                "minMaxHPRatio": 0.025,
-                "maxMaxHPRatio": 0.05
-            },
-            "autoCoolDown": 4
+        "heal": {
+            "targets": "Self",
+            "system": "minMax",
+            "minMaxHPRatio": 0.025,
+            "maxMaxHPRatio": 0.05
         },
         "shield": {
             "duration": 5,
@@ -46,21 +40,21 @@
     "E": {
         "interruptCC": 1,
         "coolDown": 6,
-        "onTargetCoolDown": 5
+        "staticCoolDown": 5
     },
     "R": {
-        "onHit": {
+        "autoEmpower": {
             "damage": {
                 "type": "magic",
                 "system":"single",
                 "APRatio": 0.6,
                 "dmg": [
                     50, 95, 140, 185, 230, 275
-                ]
-            },
-            "autoCoolDown": 4
+                ],
+                "autoCoolDown": 4
+            }
         },
-        "tickDmg": {
+        "tickDamage": {
             "type": "magic",
             "interval": 1,
             "ticks": 4,
@@ -73,8 +67,8 @@
     },
     "passive": {
         "passivePermanent": {
-            "bonusAttackSpeedPerStack": 0.1,
-            "maxStacks": 3
+            "minBonusAttackSpeed": 0.1,
+            "maxBonusAttackSpeed": 0.3
         }
     },
     "stats": {
