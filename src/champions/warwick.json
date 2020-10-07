@@ -7,17 +7,17 @@
             "APRatio": 1,
             "enemyMaxHPRatio": [
                 0.06, 0.07, 0.08, 0.09, 0.1
-            ],
-            "healRatio": [
+            ]
+        },
+        "heal": {
+            "dmgRatio": [
                 0.3, 0.45, 0.6, 0.75, 0.9
-            ],
-            "healPostMitigation": true
+            ]
         },
         "coolDown": 6
     },
     "W": {
        "bonusAttackSpeed": {
-           "duration": "custom",
            "system": "minMax",
            "minAttackSpeed": [
                0.7, 0.8, 0.9, 1, 1.1
@@ -31,8 +31,8 @@
         "damageRedux": {
             "type": "all",
             "duration": 2.5,
-            "dmgReceived": [
-                0.65, 0.6, 0.55, 0.5, 0.45
+            "reduxRatio": [
+                0.35, 0.4, 0.45, 0.5, 0.55
             ]
         },
         "interruptCC": 1,
@@ -48,9 +48,10 @@
                 175, 350, 525
             ],
             "bonusADRatio": 1.67,
-            "duration": 1.5,
-            "healRatio": 1,
-            "healPostMitigation":true
+            "duration": 1.5
+        },
+        "heal": {
+            "dmgRatio": 1
         },
         "interruptCC": 1.5,
         "coolDown": [
@@ -58,17 +59,19 @@
         ]
     },
     "passive": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage":{
                 "type":"magic",
                 "dmgByLvl": [
                     10,12,14,16,18,20,22,24,26,
                     28,30,32,34,36,38,40,42,44
-                ],
-                "minHealRatio": 1,
-                "maxHealRatio": 2.5,
-                "healPostMitigation": true
+                ]
             }
+        },
+        "heal": {
+            "minDmgRatio": 1,
+            "maxDmgRatio": 2.5,
+            "postMitigation": true
         }
     },
     "stats": {

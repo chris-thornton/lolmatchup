@@ -10,7 +10,8 @@
                 "bonusADRatio": 0.5
             }
         },
-        "armorRedux": {
+        "resistRedux": {
+            "type": "armor",
             "duration": 3,
             "reduxRatio":[
                 0.10, 0.15, 0.20, 0.25, 0.30
@@ -19,7 +20,7 @@
         "coolDown": [
             9, 8.5, 8, 7.5, 7
         ],
-        "coolDownRedux": 0.5
+        "coolDownRefund": 0.5
     },
     "W": {
         "damage": {

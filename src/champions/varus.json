@@ -20,7 +20,7 @@
         "coolDown": [
             18, 16, 14, 12, 10
         ],
-        "coolDownRedux": 3
+        "coolDownRefund": 3
     },
     "W": {
         "autoEmpower": {
@@ -34,26 +34,31 @@
         },
         "damage": {
             "type":"magic",
-            "system":"stacking",
-            "maxStacks": 3,
-            "enemyMaxHPRatioPerStack": [
-                0.03, 0.035, 0.04, 0.045, 0.05
-            ],
-            "enemyMaxHPRatioPer100APPerStack": 0.02,
-            "uses": "custom"
-        },
-        "QEmpower": {
-            "damage":{
-                "type":"magic",
+            "system":"2Part",
+            "part1": {
+                "system":"minMax",
+                "minEnemyMaxHPRatio": [
+                    0.03, 0.035, 0.04, 0.045, 0.05
+                ],
+                "maxEnemyMaxHPRatio": [
+                    0.09, 0.105, 0.12, 0.135, 0.15
+                ],
+                "minEnemyMaxHPRatioPer100AP": 0.02,
+                "maxEnemyMaxHPRatioPer100AP": 0.06
+            },
+            "part2": {
                 "system":"minMax",
                 "minEnemyMissingHPRatioByLvl": [
                     0.06, 0.06, 0.06, 0.08, 0.08, 0.08, 0.1, 0.1, 0.1,
                     0.12, 0.12, 0.12, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14
                 ],
-                "maxDmgRatio": 1.5
-            },
-            "coolDown": 40
-        }
+                "maxEnemyMissingHPRatioByLvl": [
+                    0.09, 0.09, 0.09, 0.12, 0.12, 0.12, 0.15, 0.15, 0.15,
+                    0.18, 0.18, 0.18, 0.21, 0.21, 0.21, 0.21, 0.21, 0.21
+                ]
+            }
+        },
+        "coolDown": 40
     },
     "E": {
         "damage": {

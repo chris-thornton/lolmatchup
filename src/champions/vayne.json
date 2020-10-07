@@ -10,10 +10,13 @@
         },
         "coolDown": [
             4, 3.5, 3, 2.5, 2
+        ],
+        "coolDownRefundRatio": [
+            0.3, 0.4, 0.5
         ]
     },
     "W": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage": {
                 "type": "true",
                 "system": "min",
@@ -22,9 +25,9 @@
                 ],
                 "enemyMaxHPRatio": [
                     0.04, 0.065, 0.09, 0.115, 0.14
-                ]
-            },
-            "autoCoolDown": 3
+                ],
+                "autoCoolDown": 3
+            }
         }
     },
     "E": {
@@ -47,27 +50,16 @@
     },
     "R": {
         "bonusAttackDamage": {
-            "minDuration":[
-                8, 10, 12
-            ],
-            "maxDuration": [
-                16, 20, 24
-            ],
             "attackDamage": [
                 25, 40, 55
             ]
         },
-        "QEmpower": {
-            "coolDownReduxRatio": [
-                0.3, 0.4, 0.5
-            ],
-            "minDuration":[
-                8, 10, 12
-            ],
-            "maxDuration": [
-                16, 20, 24
-            ]
-        },
+        "minDuration":[
+            8, 10, 12
+        ],
+        "maxDuration": [
+            16, 20, 24
+        ],
         "coolDown": [
             100, 85, 70
         ]

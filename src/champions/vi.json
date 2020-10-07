@@ -14,47 +14,42 @@
         ]
     },
     "W": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage": {
                 "type":"phys",
                 "enemyMaxHPRatio": [
                     0.04, 0.055, 0.07, 0.085, 0.1
                 ],
-                "enemyMaxHPRatioPer35BonusAD": 0.01
-            },
-            "bonusAttackSpeed": {
-                "duration": 4,
-                "attackSpeed": [
-                    0.3, 0.375, 0.45, 0.525, 0.6
-                ]
-            },
-            "armorRedux": {
-                "reduxRatio": 0.2,
-                "duration": 4
-            },
-            "autoCoolDown": 3
+                "enemyMaxHPRatioPer100BonusAD": 0.0286,
+                "autoCoolDown": 3
+            }
+        },
+        "bonusAttackSpeed": {
+            "duration": 4,
+            "attackSpeed": [
+                0.3, 0.375, 0.45, 0.525, 0.6
+            ]
+        },
+        "resistRedux": {
+            "type": "armor",
+            "reduxRatio": 0.2,
+            "duration": 4
         }
     },
     "E": {
-        "autoEmpower": {
-            "damage": {
-                "type":"phys",
-                "system":"single",
-                "dmg":[
-                    10, 30, 50, 70, 90
-                ],
-                "ADRatio": 0.1,
-                "APRatio": 0.9,
-                "canCrit": true,
-                "critADRatio": 1,
-                "critADRatioWithIE": 1.25
-            },
-            "staticCoolDown": 1,
-            "maxCharges": 2,
-            "recharge": [
-                14, 12.5, 11, 9.5, 8
-            ]
-        }  
+        "damage": {
+            "type":"phys",
+            "system":"single",
+            "dmg":[
+                10, 30, 50, 70, 90
+            ],
+            "ADRatio": 1.1,
+            "APRatio": 0.9
+        },
+        "staticCoolDown": 1,
+        "recharge": [
+            14, 12.5, 11, 9.5, 8
+        ]
     },
     "R": {
         "damage": {
@@ -75,13 +70,13 @@
            "type": "all",
            "targets": "Self",
            "maxHPRatio": 0.15,
-           "duration": 3,
-           "staticCoolDownByLvl": [
-                16,15.5,15,14.5,14,13.5,13,12.5,12,
-                12,12,12,12,12,12,12,12,12
-           ],
-           "coolDownRedux": 3
-       }
+           "duration": 3
+       },
+       "staticCoolDownByLvl": [
+        16,15.5,15,14.5,14,13.5,13,12.5,12,
+        12,12,12,12,12,12,12,12,12
+        ],
+        "coolDownRefund": 3
     },
     "stats": {
         "baseHP": 585,

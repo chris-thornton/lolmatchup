@@ -25,7 +25,7 @@
             "maxDmg": [
                 15, 52.5, 90, 127.5, 165
             ],
-            "minADRAtio": 1,
+            "minADRatio": 1,
             "maxADRatio": 1.5,
             "minBonusHPRatio": 0.06,
             "maxBonusHPRatio": 0.09,
@@ -33,7 +33,6 @@
         },
         "heal": {
             "targets": "Self",
-            "min": 0,
             "heal": [
                 20, 35, 50, 65, 80
             ],
@@ -86,11 +85,8 @@
     },
     "passive": {
         "bonusAttackSpeed": {
-            "system": "stacking",
-            "bonusAttackSpeedPerStack": 0.05,
-            "maxStacks": 5,
-            "duration": "custom",
-            "minDuration": 6
+            "minAttackSpeed": 0.05,
+            "maxAttackSpeed": 0.25
         },
         "autoEmpower": {
             "damage": {
@@ -99,11 +95,10 @@
                     11, 12, 13, 15, 17, 19, 22, 25, 28,
                     31, 34, 37, 40, 44, 48, 52, 56, 60
                 ],
-                "APRatio": 0.4,
-                "maxDuration": "Refresh",
-                "minDuration": 6
+                "APRatio": 0.4
             }
-        }
+        },
+        "duration": 6
     },
     "stats": {
         "baseHP": 580,

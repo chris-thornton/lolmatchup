@@ -21,7 +21,9 @@
             ],
             "APRatio": 1
         },
-        "coolDownFormula": "8*0.9^N. N = 50 stacks"
+        "text": "Cooldown Formula: 8 * (0.9^N). N = 50 stacks",
+        "coolDownFormula": "8*0.9^N. N = 50 stacks",
+        "maxCoolDown": 8
     },
     "E": {
         "coolDown": [
@@ -38,8 +40,11 @@
             "minDmg": [
                 175, 250, 325
             ],
+            "maxDmg": [
+                350, 500, 650
+            ],
             "minAPRatio": 0.75,
-            "maxDmgRatio": 2
+            "maxAPRatio": 1.5
         },
         "coolDown": [
             120, 100, 80

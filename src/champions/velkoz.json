@@ -26,8 +26,7 @@
         "staticCoolDown": 1.5,
         "recharge": [
             19, 18, 17, 16, 15
-        ],
-        "maxCharges": 2
+        ]
     },
     "E": {
         "damage": {
@@ -45,7 +44,7 @@
     },
     "R": {
         "tickDamage": {
-            "type": "magicOrTrue",
+            "type": "Magic / True",
             "interval": 0.2,
             "ticks": 13,
             "dmg": [
@@ -61,13 +60,12 @@
         "damage": {
             "type": "true",
             "system":"single",
-            "dmyByLvl": [
+            "dmgByLvl": [
                 33,41,49,57,65,73,81,89,97,
                 105,113,121,129,137,145,153,161,169
             ],
             "APRatio": 0.5
-        },
-        "uses": "custom"
+        }
     },
     "stats": {
         "baseHP": 520,
