@@ -24,7 +24,7 @@
                 "dmg": [
                     20, 50, 80, 110, 140
                 ],
-                "APRatio": 0.5,
+                "APRatio": 0.6,
                 "enemyMaxHPRatio": 0.07
             }
         },
@@ -60,7 +60,7 @@
             "dmg": [
                 200, 300, 400
             ],
-            "APRatio": 0.7
+            "APRatio": 0.8
         },
         "coolDown": [
             120, 100, 80
