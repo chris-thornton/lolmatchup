@@ -7,11 +7,11 @@
                     20, 28, 36, 44, 52
                 ],
                 "bonusADRatio": 0.4,
+                "durationAutos": 3,
                 "canCrit": true
-            },
-            "durationAutos": 3,
-            "abilityCoolDownRedux": 1
+            }
         },
+        "allCDRefund": 1,
         "interruptCC": 0.75,
         "coolDown": [
             7, 6.5, 6, 5.5, 5
@@ -28,8 +28,10 @@
              "maxDmg":[
                  60, 105, 150, 195, 240
              ],
-             "maxADRatio": 1.05,
-             "healPerLifeSteal": 0.333
+             "maxADRatio": 1.05
+         },
+         "heal": {
+            "lifeStealRatio": 0.333
          },
          "coolDown": [
              12, 11, 10, 9, 8
@@ -67,24 +69,24 @@
         ]
     },
     "passive": {
-        "onHitPermanent": {
+        "autoEmpower": {
             "damage":{
                 "type":"phys",
                 "ADRatioByLvl": [
                     0.15, 0.15, 0.15, 0.15, 0.15, 0.25, 0.25, 0.25, 0.25,
                     0.25, 0.35, 0.35, 0.35, 0.35, 0.35, 0.45, 0.45, 0.45
-                ]
-            },
-            "heal": {
-                "targets": "Self",
-                "healByLvl": [
-                    10,16,22,28,34,40,46,52,58,
-                    64,70,76,82,88,94,100,106,112
                 ],
-                "ADRatio": 0.1,
-                "APRatio": 0.4
-            },
-            "autoCoolDown": 3
+                "autoCoolDown": 3
+            }
+        },
+        "heal": {
+            "targets": "Self",
+            "healByLvl": [
+                10,16,22,28,34,40,46,52,58,
+                64,70,76,82,88,94,100,106,112
+            ],
+            "ADRatio": 0.1,
+            "APRatio": 0.4
         }
     },
     "stats": {

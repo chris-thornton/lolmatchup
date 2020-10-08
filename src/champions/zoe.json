@@ -3,15 +3,22 @@
         "damage":{
             "type":"magic",
             "system":"minMax",
-            "maxDmgRatio": 2.5,
             "minDmgByLvl":[
                 7,8,10,12,14,16,18,20,22,
                 24,26,29,32,35,38,42,46,50
             ],
+            "maxDmgByLvl": [
+                17.5,20,25,30,35,40,45,50,55,
+                60,65,72.5,80,87.5,95,105,115,125
+            ],
             "minDmg": [
                 50, 80, 110, 140, 170
             ],
-            "minAPRatio": 0.6
+            "maxDmg": [
+                125, 200, 275, 350, 425
+            ],
+            "minAPRatio": 0.6,
+            "maxAPRatio": 1.5
         },
         "coolDown": [
            8.5, 8, 7.5, 7, 6.5
@@ -22,14 +29,16 @@
         "damage":{
             "type":"magic",
             "system":"minMax",
-            "repeat": 2,
             "minDmg":[
                 25, 35, 45, 55, 65
             ],
-            "APRatio": 0.1333
+            "maxDmg":[
+                75, 105, 135, 165, 195
+            ],
+            "minAPRatio": 0.133,
+            "maxAPRatio": 0.4
         },
-        "coolDown": 0.25,
-        "uses": "custom"
+        "coolDown": 0.25
     },
     "E": {
         "damage": {
@@ -65,15 +74,8 @@
                     60,66,74,82,90,100,110,120,130
                 ],
                 "APRatio": 0.2
-            },
-            "uses": "custom",
-            "coolDown": "abilityCast"
-        },
-        "staticCoolDown": 12,
-        "coolDownReduxOnAbilityByLvl": [
-            4,4,4,4,4,4,5,5,5,
-            5,5,5,6,6,6,6,6,6
-        ]
+            }
+        }
     },
     "stats": {
         "baseHP": 560,

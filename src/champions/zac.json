@@ -3,12 +3,16 @@
         "damage": {
             "type": "magic",
             "system": "minMax",
-            "repeat": 1,
             "minDmg": [
                 40, 55, 70, 85, 100
             ],
+            "maxDmg":[
+                80, 110, 140, 170, 200
+            ],
             "minAPRatio": 0.3,
-            "minMaxHPRatio": 0.025
+            "maxAPRatio": 0.6,
+            "minMaxHPRatio": 0.025,
+            "maxMaxHPRatio": 0.05
         },
         "currentHealthCost": 0.08,
         "coolDown": [
@@ -29,7 +33,7 @@
         },
         "currentHealthCost": 0.04,
         "coolDown": 5,
-        "coolDownRedux": 1
+        "coolDownRefund": 1
     },
     "E": {
         "damage": {

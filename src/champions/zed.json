@@ -18,7 +18,7 @@
         "coolDown": [
             20, 18.5, 17, 15.5, 14
         ],
-        "coolDownRedux": 2
+        "coolDownRefund": 2
     },
     "E": {
         "damage": {
@@ -58,9 +58,9 @@
                     0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.1, 0.1
                 ],
                 "enemyHPThreshold": 0.5
-            },
-            "onTargetStaticCoolDown": 10
-        }
+            }
+        },
+        "staticCoolDown": 10
     },
     "stats": {
         "baseHP": 584,

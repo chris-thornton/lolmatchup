@@ -12,7 +12,10 @@
            "critADRatioWithIE": 0.8
        },
        "interruptCC": 1,
-       "staticCoolDownFormula": "4 * (1 - (0.01 per 0.00167 bonusAS))"
+       "staticCoolDownFormula": "4 * (1 - (0.01 per 0.0167 bonusAS))",
+       "text": "Cooldown Formula: 4 * (1 - (0.01 per 0.0167 Bonus Attack Speed))",
+       "maxCoolDown": 4,
+       "minCoolDown": 1.33
     },
     "E": {
         "damage": {
@@ -24,13 +27,15 @@
             "maxDmg": [
                 90, 105, 120, 135, 150
             ],
-            "APRatio": 0.6,
-            "bonusADRatio": 0.2
+            "minAPRatio": 0.6,
+            "maxAPRatio": 0.6,
+            "minBonusADRatio": 0.2,
+            "maxBonusADRatio": 0.2
         },
         "coolDown": [
             0.5, 0.4, 0.3, 0.2, 0.1
         ],
-        "onTargetCoolDown": [
+        "staticCoolDown": [
             10, 9, 8, 7, 6
         ]
     },
@@ -45,7 +50,7 @@
         },
         "bonusArmorPenOnCrit": {
             "duration": 15,
-            "bonusArmorPenRatio": 0.5
+            "penRatio": 0.5
         },
         "interruptCC": 1,
         "coolDown": [
@@ -54,9 +59,7 @@
     },
     "passive": {
         "passivePermanent": {
-            "bonusCritChance": {
-                "itemCritChanceMultiplier": 2
-            }
+            "itemCritChanceMultiplier": 2
         },
         "auto": {
             "critDmg": 1.8,

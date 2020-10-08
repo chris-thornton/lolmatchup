@@ -1,7 +1,6 @@
 {
     "Q": {  
         "petStats": {
-            "duration": "infinite",
             "maxPlaced": 4,
             "attackSpeedByLvl": [
                 0.5,0.54,0.58,0.62,0.66,0.7,0.74,0.78,0.82,
@@ -11,11 +10,11 @@
                 100,105,110,115,120,125,130,135,140,
                 145,150,155,160,165,170,175,180,185
             ],
-            "healthPerMaxHPRatio": 0.15,
-            "armor": 0,
-            "magicResist": 0,
+            "maxHPRatio": 0.15,
+            "armor": "0",
+            "magicResist": "0",
             "auto": {
-                "type":"phys",
+                "type":"Physical",
                 "dmgByLvl": [
                     2,3,4,5,6,7,8,14,20,
                     26,32,38,44,55,66,77,88,99
@@ -40,7 +39,10 @@
                 12,14,16,18,20,22,26,30,34,
                 38,42,46,52,58,64,70,76,82
             ],
-            "maxHealRatio": 2
+            "maxHealByLvl": [
+                24,28,32,36,40,44,52,60,68,
+                76,84,92,104,116,128,140,152,164
+            ]
         },
         "coolDown": [
             7, 6.25, 5.5, 4.75, 4
@@ -62,31 +64,31 @@
     },
     "R": {
         "petStats": {
-            "duration": "infinite",
-            "coolDown": [
-                160, 130, 100
-            ],
             "auto": {
-                "type":"magic",
+                "type":"Magic",
                 "dmg": [
                     0, 10, 40
                 ],
                 "ADRatio": 0.5
             },
-            "spell": {
-                "enemyMaxHPRatio": [
-                    0.03, 0.06, 0.09
-                ],
-                "coolDown": 2
-            },
             "attackSpeed": 1,
             "health": [
                 300, 1000, 3000
             ],
-            "healthPerMaxHPRatio": 0.7,
-            "armor": 0,
-            "magicResist": 0
-        }
+            "maxHPRatio": 0.7,
+            "armor": "0",
+            "magicResist": "0"
+        },
+        "damage": {
+            "type":"magic",
+            "enemyMaxHPRatio": [
+                0.03, 0.06, 0.09
+            ],
+            "coolDown": 2
+        },
+        "coolDown": [
+            160, 130, 100
+        ]
     },
     "stats": {
         "baseHP": 580,

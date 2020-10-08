@@ -14,22 +14,27 @@
     },
     "W": {
         "petStats": {
-            "duration": 8,
-            "placed": "custom",
             "attackSpeed": 0.8,
             "auto": {
-                "type":"magic",
-                "system": "empower",
-                "empowerDmgRatio": 1.5,
-                "dmgByLvl": [
-                    20,24.71,29.41,34.12,38.82,43.53,48.24,52.94,57.65,
-                    62.35,67.06,71.76,76.47,81.18,85.88,90.59,95.29,100
+                "type":"Magic",
+                "system": "minMax",
+                "minDmgByLvl": [
+                    20,25,29,34,39,44,48,53,58,
+                    62,67,72,76,81,86,91,95,100
                 ],
-                "APRatio": 0.15,
+                "maxDmgByLvl": [
+                    30, 37, 44, 51, 58, 65, 72, 79, 86,
+                    94, 101, 108, 115, 122, 129, 136, 143, 150
+                ],
+                "minAPRatio": 0.15,
+                "maxAPRatio": 0.225,
                 "multiHitDmgRatio": 0.5
-            },
-            "empowerDuration": 8
-        }
+            }
+        },
+        "duration": 8,
+        "recharge": [
+            20, 18, 16, 14, 12
+        ]
     },
     "E": {
         "damage": {
