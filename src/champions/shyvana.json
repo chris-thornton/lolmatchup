@@ -75,14 +75,14 @@
         },
         "tickDamage": {
             "type":"magic",
-            "interval": 1,
-            "ticks": 4,
+            "interval": 0.5,
+            "ticks": 8,
             "dmgByLvl": [
-                60,65,70,75,80,85,90,
-                95,100,105,110,115,120
+                30,30,30,30,30,30,32.5,35,37.5,
+                40,42.5,45,47.5,50,52.5,55,57.5,60
             ],
-            "ADRatio": 0.1,
-            "APRatio": 0.2
+            "ADRatio": 0.05,
+            "APRatio": 0.1
         },
         "onHit": {
             "minDuration": 5,

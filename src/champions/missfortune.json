@@ -84,6 +84,6 @@
         "magicResistPerLevel": 0.5,
         "attackSpeed": 0.656,
         "attackSpeedRatio": 0.656,
-        "attackSpeedPerLevel": 0.0225
+        "attackSpeedPerLevel": 0.03
     }
 }

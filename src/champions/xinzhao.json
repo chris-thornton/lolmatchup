@@ -26,9 +26,9 @@
              ],
              "minADRatio": 0.3,
              "maxDmg":[
-                 60, 105, 150, 195, 240
+                 70, 115, 160, 205, 250
              ],
-             "maxADRatio": 1.05
+             "maxADRatio": 1.1
          },
          "heal": {
             "lifeStealRatio": 0.333

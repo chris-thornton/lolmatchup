@@ -39,7 +39,9 @@
                 "enemyMissingHPRatioPer100AP": 0.02
             }
         },
-        "coolDown": 8
+        "coolDown": [
+            8,7.5,7,6.5,6
+        ]
     },
     "R": {
         "damage": {

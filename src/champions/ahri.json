@@ -26,15 +26,6 @@
                 "APRatio": 0.35
             }
         },
-        "heal": {
-            "targets": "Self",
-            "system": "perTarget",
-            "healByLvl": [
-                3, 3, 3, 3, 3, 5, 5, 5, 5, 
-                5, 9, 9, 9, 9, 9, 18, 18, 18
-            ],
-            "APRatio": 0.09
-        },
         "coolDown": 7
     },
     "W": {
@@ -61,11 +52,7 @@
             "maxAPRatio": 0.48
         },
         "coolDown": [
-            9,
-            8,
-            7,
-            6,
-            5
+            10,9,8,7,6
         ]
     },
     "E": {
@@ -117,10 +104,21 @@
             80
         ]
     },
+    "passive": {
+        "heal": {
+            "targets": "Self",
+            "system": "perTarget",
+            "healByLvl": [
+                3, 3, 3, 3, 3, 5, 5, 5, 5, 
+                5, 9, 9, 9, 9, 9, 18, 18, 18
+            ],
+            "APRatio": 0.09
+        }
+    },
     "stats": {
         "baseHP": 526,
         "hpPerLevel": 92,
-        "baseHPRegen": 6.5,
+        "baseHPRegen": 5.5,
         "hpRegenPerLevel": 0.6,
         "mana": {
             "base": 418,
