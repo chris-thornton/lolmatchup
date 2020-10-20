@@ -51,7 +51,7 @@
     "R": {
         "bonusAttackDamage": {
             "attackDamage": [
-                25, 40, 55
+                35, 50, 65
             ]
         },
         "minDuration":[

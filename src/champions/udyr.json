@@ -47,9 +47,9 @@
             "damage": {
                 "type": "magic",
                 "system":"single",
-                "APRatio": 0.6,
+                "APRatio": 0.7,
                 "dmg": [
-                    50, 95, 140, 185, 230, 275
+                    60,110,160,210,260,310
                 ],
                 "autoCoolDown": 4
             }

@@ -1,0 +1,74 @@
+{
+    "Q": {
+        "damage": {
+            "type":"phys",
+            "system":"minMax",
+            "minDmg": [
+                14, 20, 26, 32, 38
+            ],
+            "maxDmg": [
+                70, 100, 130, 160, 190
+            ],
+            "minADRatio": [
+                0.28, 0.34, 0.40, 0.46, 0.52
+            ],
+            "maxADRatio": [
+                1.4, 1.7, 2, 2.3, 2.6
+            ],
+            "minAPRatio":0.2,
+            "maxAPRatio": 1
+        },
+        "coolDown": 7
+    },
+    "W": {
+        "bonusAttackSpeed": {
+            "durationAutos": 3,
+            "lvlRequirement": 6,
+            "attackSpeedByRRank": [
+                0.3, 0.45, 0.60
+            ]
+        },
+        "damage": {
+            "type":"phys",
+            "system":"single",
+            "ADRatio": [
+                0.30, 0.40, 0.50, 0.60, 0.70
+            ],
+            "canCrit": true
+        },
+        "coolDown": [
+            12, 10.5, 9, 7.5, 6
+        ]
+    },
+    "E": {
+        "shield": {
+            "type":"Spell",
+            "targets": "Self",
+            "duration": 1.5
+        },
+        "coolDown": [
+            22, 19, 16, 13, 10
+        ]
+    },
+    "stats": {
+        "baseHP": 562,
+        "hpPerLevel": 90,
+        "baseHPRegen": 3.25,
+        "hpRegenPerLevel": 0.55,
+        "mana": {
+            "base": 284,
+            "manaPerLevel": 50,
+            "manaBaseRegen": 8,
+            "manaRegenPerLevel": 0.9
+        },
+        "baseDamage": 63,
+        "damagePerLevel": 3,
+        "baseArmor": 26,
+        "armorPerLevel": 3.25,
+        "baseMagicResist": 30,
+        "magicResistPerLevel": 0.5,
+        "attackSpeed": 0.625,
+        "attackSpeedRatio": 0.625,
+        "attackSpeedPerLevel": 0.016
+    }
+}

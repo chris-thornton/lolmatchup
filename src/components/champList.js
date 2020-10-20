@@ -99,6 +99,7 @@ Rengar
 Riven
 Rumble
 Ryze
+Samira
 Sejuani
 Senna
 Sett

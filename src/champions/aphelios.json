@@ -225,7 +225,7 @@
             "manaRegenPerLevel": 0.4
         },
         "baseDamage": 57,
-        "damagePerLevel": 2,
+        "damagePerLevel": 2.4,
         "baseArmor": 28,
         "armorPerLevel": 3,
         "baseMagicResist": 26,
