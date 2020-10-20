@@ -51,7 +51,7 @@
         "bonusMoveSpeed": {
             "duration": 4,
             "minBonusMSRatio": 0.25,
-            "maxBonusMSRatio": 1
+            "maxBonusMSRatio": 0.85
         },
         "coolDown": [
             20, 19, 18, 17, 16

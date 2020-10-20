@@ -86,7 +86,7 @@
         },
         "baseDamage": 64,
         "damagePerLevel": 3.5,
-        "baseArmor": 35,
+        "baseArmor": 38,
         "armorPerLevel": 3.6,
         "baseMagicResist": 32.1,
         "magicResistPerLevel": 1.25,

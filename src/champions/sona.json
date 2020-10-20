@@ -6,7 +6,7 @@
            "dmg": [
                 40, 70, 100, 130, 160
            ],
-           "APRatio": 0.5
+           "APRatio": 0.4
        },
        "autoEmpower": {
             "damage":{
@@ -36,7 +36,7 @@
             "heal": [
                 30, 50, 70, 90, 110
             ],
-            "APRatio": 0.25
+            "APRatio": 0.2
         },
         "coolDown": [
             10, 9, 7.5, 6
@@ -80,12 +80,12 @@
         }
     },
     "stats": {
-        "baseHP": 482.36,
+        "baseHP": 480,
         "hpPerLevel": 77,
         "baseHPRegen": 5.5,
         "hpRegenPerLevel": 0.55,
         "mana": {
-            "base": 340.6,
+            "base": 340,
             "manaPerLevel": 45,
             "manaBaseRegen": 11.5,
             "manaRegenPerLevel": 0.4
