@@ -11,9 +11,11 @@
                 ]
             },
         "coolDown": [
-            16, 14, 12, 10, 8
+            13,11.25,9.5,7.75,6
         ],
-        "coolDownRefundRatio": 0.5
+        "coolDownRefund": [
+            6.5,5.625,4.75,3.875,3 
+        ]
     },
     "W": {
         "damage": {

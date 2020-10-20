@@ -9,8 +9,8 @@
             "maxDmg": [
                 100, 140, 180, 220, 260
             ],
-            "minAPRatio": 0.35,
-            "maxAPRatio": 0.7
+            "minAPRatio": 0.3,
+            "maxAPRatio": 0.6
         },
         "coolDown": [
             8, 7.5, 7, 6.5, 6

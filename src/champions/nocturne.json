@@ -68,13 +68,13 @@
         ]
     },
     "passive": {
-        "staticCoolDown": 10,
+        "staticCoolDown": 14,
         "coolDownRefund": 3,
         "autoEmpower": {
             "damage": {
                 "type":"phys",
                 "ADRatio": 0.2,
-                "critADRatioWithIE": 1.225
+                "critADRatioWithIE": 0.025
             }
         },
         "heal": {

@@ -44,7 +44,7 @@
             "type":"phys",
             "system":"single",
             "dmg": [
-                200, 300, 400
+                200, 350, 500
             ],
             "bonusADRatio": 1.5
         },
@@ -90,7 +90,7 @@
         "damagePerLevel": 3.2,
         "baseArmor": 30,
         "armorPerLevel": 3.4,
-        "baseMagicResist": 30,
+        "baseMagicResist": 32,
         "magicResistPerLevel": 1.25,
         "attackSpeed": 0.697,
         "attackSpeedRatio": 0.67,

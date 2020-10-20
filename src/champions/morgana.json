@@ -8,7 +8,7 @@
             ],
             "APRatio": 0.9
         },
-        "coolDown": 11
+        "coolDown": 10
     },
     "W": {
         "coolDown": 12,

@@ -33,7 +33,7 @@
                 "maxAPRatio": 0.9
             }
         },
-        "coolDown": 8
+        "coolDown": 4
     },
     "W": {
         "resistRedux": {

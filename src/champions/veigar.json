@@ -71,7 +71,7 @@
         "damagePerLevel": 2.7,
         "baseArmor": 23,
         "armorPerLevel": 3.75,
-        "baseMagicResist": 30,
+        "baseMagicResist": 32,
         "magicResistPerLevel": 0.5,
         "attackSpeed": 0.625,
         "attackSpeedRatio": 0.625,

@@ -23,7 +23,7 @@
                 30 , 60 , 90 , 120 , 150
             ],
             "maxHeal": [
-                70 , 110 , 150 , 190 , 230
+                55,95,135,175,215
             ],
             "minAPRatio": 0.3,
             "maxAPRatio": 0.6
@@ -50,7 +50,7 @@
         }
     },
     "stats": {
-        "baseHP": 575,
+        "baseHP": 560,
         "hpPerLevel": 89,
         "baseHPRegen": 5.5,
         "hpRegenPerLevel": 0.55,

@@ -3,7 +3,7 @@
         "damage": {
             "type": "phys",
             "system": "minMax",
-            "maxDmgRatio": 2.2,
+            "maxDmgRatio": 2.1,
             "minDmg": [
                 60, 85, 110, 135, 160
             ],

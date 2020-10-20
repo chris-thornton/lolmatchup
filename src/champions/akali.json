@@ -4,7 +4,7 @@
             "type": "magic",
             "system": "single",
             "dmg": [
-                30,55,80,105,130
+                35,60,85,110,135
             ],
             "APRatio": 0.65,
             "ADRatio": 0.65
