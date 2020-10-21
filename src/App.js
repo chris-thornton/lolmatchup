@@ -2935,6 +2935,16 @@ class App extends Component {
                   var enemyMaxHPRatioText = document.createTextNode(" (+" + enemyMaxHPRatioValue + " Enemy Max HP Ratio)")
                   abilityDiv.appendChild(enemyMaxHPRatioText)
                 };
+                if (healPath["enemyMaxHPRatioByLvl"]) {
+                  var healByLvlText = document.createTextNode(' (+' + healPath["enemyMaxHPRatioByLvl"][0] + " to " 
+                  + healPath["enemyMaxHPRatioByLvl"][17] + " Enemy Max HP Ratio, based on lvl. ");
+                  var currentlyU = document.createElement('u');
+                  currentlyU.innerText = "Currently";
+                  var healByLvlText2 = document.createTextNode(': ' + healPath["enemyMaxHPRatioByLvl"][champLevel] + ')')
+                  abilityDiv.appendChild(healByLvlText);
+                  abilityDiv.appendChild(currentlyU);
+                  abilityDiv.appendChild(healByLvlText2)
+                };
                 if (healPath["enemyMaxHPRatioPer100AP"]) {
                   var enemyMaxHPRatioText = document.createTextNode(" (+" + healPath["enemyMaxHPRatioPer100AP"] 
                   + " Enemy Max HP Ratio Per 100 AP)")
@@ -6208,26 +6218,36 @@ class App extends Component {
                   }
                   ratio *= ( statsPath["mana"]["manaPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
                   totalDmgCount += ratio;
-                }
-                if (damage["enemyMaxHPRatio"]) {
-                  var enemyMaxHPRatioValue = JSON.stringify(damage["enemyMaxHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                  var enemyMaxHPRatioText = document.createTextNode(" (+" + enemyMaxHPRatioValue + " Enemy Max HP Ratio)")
-                  abilityDiv.appendChild(enemyMaxHPRatioText)
+                };
+                if (damage["enemyMaxHPRatio"] && enemyStats.hp) {
+                  var ratio = damage["enemyMaxHPRatio"]
+                  if (typeof ratio !== 'number') {
+                    ratio = damage["enemyMaxHPRatio"][rankIndex]
+                  }
+                  totalDmgCount += ratio * enemyStats.hp
+                };
+                if (damage["maxHPRatio"]) {
+                  var ratio = damage["maxHPRatio"]
+                  if (typeof ratio !== 'number') {
+                    ratio = damage["maxHPRatio"][rankIndex]
+                  }
+                  totalDmgCount += ratio * (statsPath["baseHP"] + statsPath["hpPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel))
                 };
                 if (damage["bonusHPRatio"]) {
-                  var bonusHPRatioValue = JSON.stringify(damage["bonusHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                  var bonusHPRatioText = document.createTextNode(" (+" + bonusHPRatioValue + " Bonus HP Ratio)")
-                  abilityDiv.appendChild(bonusHPRatioText)
-                }
-                if (damage["maxHPRatio"]) {
-                  var maxHPRatioValue = JSON.stringify(damage["maxHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                  var maxHPRatioText = document.createTextNode(" (+" + maxHPRatioValue + " Max HP Ratio)")
-                  abilityDiv.appendChild(maxHPRatioText)
+                  var ratio = damage["bonusHPRatio"]
+                  if (typeof ratio !== 'number') {
+                    ratio = damage["bonusHPRatio"][rankIndex]
+                  }
+                  totalDmgCount += ratio * (statsPath["hpPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel))
                 };
-                if (damage["enemyCurrentHPRatio"]) {
-                  var enemyCurrentHPRatioValue = JSON.stringify(damage["enemyCurrentHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                  var enemyCurrentHPRatioText = document.createTextNode(" (+" + enemyCurrentHPRatioValue + " Enemy Current HP Ratio)")
-                  abilityDiv.appendChild(enemyCurrentHPRatioText)
+                if (damage["enemyCurrentHPRatio"] && enemyStats.hp) {
+                  var ratio = damage["enemyCurrentHPRatio"]
+                  if (typeof ratio !== 'number') {
+                    ratio = damage["enemyCurrentHPRatio"][rankIndex]
+                  }
+                  var text = document.createTextNode(' when enemy is full HP: ');
+                  abilityDiv.appendChild(text);
+                  totalDmgCount += ratio * enemyStats.hp
                 };
                 if (damage["enemyCurrentHPRatioPerStack"]) {
                   var ratioText = document.createTextNode(' (+' + damage["enemyCurrentHPRatioPerStack"] + 
@@ -6243,6 +6263,21 @@ class App extends Component {
                   var enemyCurrentHPRatioValue = JSON.stringify(damage["enemyCurrentHPRatioPer100AD"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                   var enemyCurrentHPRatioText = document.createTextNode(" (+" + enemyCurrentHPRatioValue + " Enemy Current HP Ratio Per 100 AD)")
                   abilityDiv.appendChild(enemyCurrentHPRatioText)
+                }
+                if (damage["enemyCurrentHPRatioPer100AD"] && enemyStats.hp) {
+                  var ratio = damage["enemyCurrentHPRatioPer100AD"]
+                  if (typeof ratio !== 'number') {
+                    ratio = damage["enemyCurrentHPRatioPer100AD"][rankIndex]
+                  }
+                  totalDmgCount += ratio * enemyStats.hp  
+                  * (statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)) / 100
+                }
+                if (damage["enemyCurrentHPRatioPer100AP"] && enemyStats.hp) {
+                  var ratio = damage["enemyCurrentHPRatioPer100AP"]
+                  if (typeof ratio !== 'number') {
+                    ratio = damage["enemyCurrentHPRatioPer100AP"][rankIndex]
+                  }
+                  totalDmgCount += ratio * enemyStats.hp * selectedStats.ap / 100
                 }
                 if (damage["enemyMissingHPRatio"]) {
                   var enemyMissingHPRatioValue = JSON.stringify(damage["enemyMissingHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
@@ -6305,6 +6340,14 @@ class App extends Component {
                 if (damage["dmgPerLethality"]) {
                   var lethalRatioText = document.createTextNode(" (+" + damage["dmgPerLethality"] + " Lethality Ratio)")
                   abilityDiv.appendChild(lethalRatioText)
+                };
+                if (totalDmgCount !== 0) {
+                  var totalDmgCountText = document.createTextNode(Math.round(totalDmgCount));
+                  abilityDiv.appendChild(totalDmgCountText);
+                  if (IEDmgCount !== 0) {
+                    var dmgText = document.createTextNode(' (' + Math.round(totalDmgCount + IEDmgCount) + 'with IE)');
+                    abilityDiv.appendChild(dmgText);
+                  }
                 }
                 if (damage["bonusDmgRatioPerCritChance"]) {
                   var br = document.createElement('br');

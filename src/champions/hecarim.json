@@ -39,10 +39,10 @@
                 "type": "phys",
                 "system":"minMax",
                 "minDmg": [
-                    45, 75, 105, 135, 165
+                    35,65,95,125,155
                 ],
                 "maxDmg": [
-                    90, 150, 210, 270, 330
+                    70,130,190,250,310
                 ],
                 "minBonusADRatio": 0.5,
                 "maxBonusADRatio": 1

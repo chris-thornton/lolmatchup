@@ -115,7 +115,7 @@
             "manaBaseRegen": 6,
             "manaRegenPerLevel": 0.8
         },
-        "baseDamage": 61,
+        "baseDamage": 58,
         "damagePerLevel": 3.5,
         "baseArmor": 28,
         "armorPerLevel": 3.5,

@@ -11,7 +11,7 @@
     },
     "E": {
         "passivePermanent": {
-            "lethality": [2,4,6,8,10,12]
+            "lethality": [3,6,9,12,15,18]
         }
     },
     "R": {
@@ -30,16 +30,12 @@
         "critADRatioWithIE": 0.325,
         "calibrum": {
             "bonusMarkDamage": [
-                20,
-                45,
-                70
+                40,70,100
             ]
         },
         "severum": {
             "selfHeal": [
-                200,
-                300,
-                400
+                250,375,500
             ]
         },
         "infernum": {
@@ -50,7 +46,7 @@
                     150
                 ],
                 "bonusADRatio": 0.25,
-                "autoSplashDmg": 0.75
+                "autoSplashDmg": 0.85
             }
         },
         "crescendum": {

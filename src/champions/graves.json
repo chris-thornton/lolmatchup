@@ -39,10 +39,10 @@
        "bonusArmor":{
             "system": "minMax",
             "minArmor": [
-                8, 11, 14, 17, 20
+                6,9,12,15,18
             ],
             "maxArmor": [
-                64, 88, 112, 136, 160
+                48, 72, 96, 120, 144
             ],
             "refreshOnAuto": true
        },

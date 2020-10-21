@@ -62,7 +62,7 @@
         "bonusAttackSpeed": {
             "duration": 5,
             "attackSpeed": [
-                0.4, 0.5, 0.6, 0.7, 0.8
+                0.4, 0.45, 0.5, 0.55, 0.6
             ]
         },
         "damage": {

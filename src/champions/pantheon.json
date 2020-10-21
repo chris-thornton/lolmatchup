@@ -4,10 +4,10 @@
             "type":"phys",
             "system":"minMax",
             "minDmg": [
-                75, 110, 145, 180, 215
+                70,100,130,160,190
             ],
             "maxDmg": [
-                155, 240, 325, 410, 495
+                155,230,305,380,455
             ],
             "empowerBonus": {
                 "dmgByLvl": [
@@ -16,8 +16,8 @@
                 ],
                 "bonusADRatio": 1
             },
-            "minBonusADRatio": 1,
-            "maxBonusADRatio": 2
+            "minBonusADRatio": 1.15,
+            "maxBonusADRatio": 2.3
         },
         "coolDown": [
             10, 9.5, 9, 8.5, 8

@@ -6,7 +6,7 @@
             "dmg": [
                 75, 120, 165, 210, 255
             ],
-            "bonusADRatio": 0.5,
+            "bonusADRatio": 0.7,
             "APRatio": 0.5
         },
         "coolDown": 8
