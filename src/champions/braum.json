@@ -4,7 +4,7 @@
             "type": "magic",
             "system": "single",
             "dmg": [
-                60, 110, 160, 210, 260
+                75,125,175,225,275
             ],
             "maxHPRatio": 0.025
         },

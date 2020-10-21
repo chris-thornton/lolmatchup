@@ -4,7 +4,7 @@
             "type":"magic",
             "system":"empower",
             "dmg":[
-                65, 90, 115, 140, 165
+                75,100,125,150,175
             ],
             "APRatio": 0.45,
             "bonusManaRatio": 0.03,

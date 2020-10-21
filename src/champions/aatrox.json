@@ -86,7 +86,7 @@
                 0.2, 0.3, 0.4
             ],
             "healingRatio": [
-                0.5, 0.6, 0.7
+                0.5, 0.75, 1
             ],
             "duration": 10,
             "durationExtend": 5

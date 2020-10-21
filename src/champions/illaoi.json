@@ -74,6 +74,10 @@
             "missingHPRatio": 0.05,
             "multiHitFormula": "(maxHealth − currentHealth) * (1 − 0.95n)"
         },
+        "rechargeByLvl": [
+            20,19.25,18.5,17.75,17,16.25,15.5,14.75,14,
+            13.25,12.5,11.75,11,10.25,9.5,8.75,8,7.25
+        ],
         "text": "Multiple tentacle hit Heal formula: (Maximum Health − Current Health) × (1 − 0.95n)"
     },
     "stats": {

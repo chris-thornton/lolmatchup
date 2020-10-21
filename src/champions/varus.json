@@ -65,7 +65,7 @@
             "type":"phys",
             "system":"single",
             "dmg": [
-                50,90,130,170,210
+                60,100,140,180,220
             ],
             "bonusADRatio": 0.6
         },
@@ -83,7 +83,7 @@
             "APRatio": 1
         },
         "coolDown": [
-            110, 90, 70
+            120, 90, 60
         ]
     },
     "passive": {
