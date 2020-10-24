@@ -32,8 +32,6 @@
         "damage": {
             "type": "magic",
             "system": "minMax",
-            "repeatRedux": 2,
-            "reduxRatio": 0.3,
             "minDmg": [
                 40,
                 65,

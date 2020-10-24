@@ -95,8 +95,6 @@
         "active": {
             "damage": {
                 "type": "phys",
-                "repeat": 6,
-                "repeatBonusPer100AS": 3,
                 "dmgByLvl": [
                     10, 10, 15, 15, 20, 20, 25, 25, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30
                 ],
@@ -106,6 +104,7 @@
                     0.27, 0.285, 0.285, 0.3,0.3,0.3,0.3,0.3,0.3
                 ]
             },
+            "text": "Attacks 7 times (+1 per 0.3 Bonus Attack Speed",
             "duration": 1.75,
             "coolDownByLvl": [
                 10, 10, 9.67, 9.67, 9.33, 9.33, 9, 9, 8.67,

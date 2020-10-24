@@ -3,11 +3,14 @@
         "damage": {
             "type": "phys",
             "system": "minMax",
-            "maxDmgRatio": 2.1,
             "minDmg": [
                 60, 85, 110, 135, 160
             ],
-            "minBonusADRatio": 1.3
+            "maxDmg": [
+                126, 178.5, 231, 283.5, 336
+            ],
+            "minBonusADRatio": 1.3,
+            "maxBonusADRatio": 2.73
         },
         "coolDown": 4,
         "coolDownRefundRatio": 0.45

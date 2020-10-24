@@ -47,11 +47,14 @@
         "damage": {
             "type":"magic",
             "system":"minMax",
-            "repeat": 1,
             "minDmg": [
                 150, 225, 300
             ],
-            "minAPRatio": 0.7
+            "maxDmg":[
+                300, 450, 600
+            ],
+            "minAPRatio": 0.7,
+            "maxAPRatio": 1.4
         },
         "interruptCC": 1.5,
         "coolDown": [

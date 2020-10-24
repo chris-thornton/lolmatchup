@@ -33,8 +33,11 @@
             "minDmg": [
                 40, 75, 110, 145, 180
             ],
+            "maxDmg": [
+                200, 375, 550, 725, 900
+            ],
             "minAPRatio": 0.3,
-            "maxDmgRatio": 5
+            "maxAPRatio": 1.5
         },
         "coolDown":16
     },

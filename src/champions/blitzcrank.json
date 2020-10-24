@@ -47,7 +47,6 @@
         "tickDamage": {
             "type": "magic",
             "interval": 1,
-            "repeat": "onAuto",
             "dmg": [
                 50, 100, 150
             ],

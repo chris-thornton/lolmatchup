@@ -6,8 +6,11 @@
             "minDmg": [
                 55, 80, 105, 130, 155
             ],
+            "maxDmg": [
+                110, 160, 210, 260, 310
+            ],
             "minBonusADRatio": 0.7,
-            "maxDmgRatio": 2
+            "maxBonusADRatio": 1.4
         },
         "coolDown": [
             12, 10.5, 9, 7.5, 6

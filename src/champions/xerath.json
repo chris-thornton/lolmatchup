@@ -48,13 +48,16 @@
         "damage": {
             "type": "magic",
             "system":"minMax",
-            "repeat": [
-                2, 3, 4
-            ],
             "minDmg": [
                 200, 250, 300
             ],
-            "minAPRatio": 0.45
+            "maxDmg":[
+                600, 1000, 1500
+            ],
+            "minAPRatio": 0.45,
+            "maxAPRatio": [
+                1.35, 1.8, 2.25
+            ]
         },
         "coolDown": [
             130, 115, 100
