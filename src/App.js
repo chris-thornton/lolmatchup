@@ -114,6 +114,8 @@ class App extends Component {
         mana: 0,
         manaRegen: 0
       },
+      baseChampStatsLeft: {},
+      baseChampStatsRight: {},
       abilities1: {
         passive: {},
         Q: {},
@@ -202,6 +204,7 @@ class App extends Component {
     this.testing('Left', event);
     var itemStats = this.state.itemStatsLeft;
     var enemyItemStats = this.state.itemStatsRight;
+    var enemyBaseStats = this.state.baseChampStatsRight;
     var side = 'Left';
 
     document.getElementsByTagName("input")[0].value = '';
@@ -934,41 +937,6 @@ class App extends Component {
                       abilityDiv.appendChild(br);
                       var maxU = document.createTextNode('Max - ');
                       abilityDiv.appendChild(maxU)
-                      if (part["maxDmgRatio"]) {
-                        function multiplyByRatio(x) {
-                          return (x * part["maxDmgRatio"]).toFixed(countDecimals(x) + countDecimals(part["maxDmgRatio"]))
-                        };
-                        var maxDmgArray = JSON.stringify(part["minDmg"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/"/g,"")
-                        var maxDmgText = document.createTextNode(maxDmgArray)
-                        abilityDiv.appendChild(maxDmgText)
-                        if (typeof part["minAPRatio"] === 'object') {
-                          var maxAPRatioValue = JSON.stringify(part["minAPRatio"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                          var maxAPRatioText = document.createTextNode(" (+"+ maxAPRatioValue + " AP Ratio)")
-                          abilityDiv.appendChild(maxAPRatioText)
-                        } else if (part["minAPRatio"]) {
-                          var maxAPRatioValue = (part["minAPRatio"] * part["maxDmgRatio"]).toFixed(countDecimals(part["minAPRatio"]) + countDecimals(part["maxDmgRatio"]))
-                          var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
-                          abilityDiv.appendChild(maxAPRatioText)
-                        }
-                        if (typeof part["minADRatio"] === 'object') {
-                          var maxADRatioValue = JSON.stringify(part["minADRatio"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                          var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                          abilityDiv.appendChild(maxADRatioText)
-                        } else if (part["minADRatio"]) {
-                          var maxADRatioValue = (part["minADRatio"] * part["maxDmgRatio"]).toFixed(countDecimals(part["minADRatio"]) + countDecimals(part["maxDmgRatio"]))
-                          var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                          abilityDiv.appendChild(maxADRatioText)
-                        }
-                        if (typeof part["minBonusADRatio"] === 'object') {
-                        var maxBonusADRatioValue = JSON.stringify(part["minBonusADRatio"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                        var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                        abilityDiv.appendChild(maxBonusADRatioText)
-                        } else if (part["minBonusADRatio"]) {
-                        var maxBonusADRatioValue = (part["minBonusADRatio"] * part["maxDmgRatio"]).toFixed(countDecimals(part["minBonusADRatio"]) + countDecimals(part["maxDmgRatio"]))
-                        var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                        abilityDiv.appendChild(maxBonusADRatioText)
-                        }
-                      }
                       if (part["maxDmg"]) {
                         var maxDmgText = document.createTextNode(JSON.stringify(part["maxDmg"]).replace(/,/g, ', '))
                         abilityDiv.appendChild(maxDmgText)
@@ -1394,89 +1362,6 @@ class App extends Component {
                   var dash2 = document.createTextNode(" - ");
                   abilityDiv.appendChild(dash2);
 
-                  if (damage["maxDmgRatio"]) {
-                    function multiplyByRatio(x) {
-                      return (x * damage["maxDmgRatio"]).toFixed(countDecimals(x) + countDecimals(damage["maxDmgRatio"]))
-                    };
-                    function roundedMultiplyByRatio(x) {
-                      return Math.round(x * damage["maxDmgRatio"])
-                    }
-                    if (damage["minDmg"]) {
-                      var maxDmgArray = JSON.stringify(damage["minDmg"].map(roundedMultiplyByRatio)).replace(/,/g, ', ')
-                      var maxDmgText = document.createTextNode(maxDmgArray)
-                      abilityDiv.appendChild(maxDmgText)
-                    }
-                    if (damage["minDmgByLvl"]) {
-                      var dmgByLvlText = document.createTextNode('[' + Math.round(damage["minDmgByLvl"][0]*damage["maxDmgRatio"]) 
-                      + " to " + Math.round(damage["minDmgByLvl"][17] * damage["maxDmgRatio"]) + ", based on lvl. ");
-                      var currentlyU = document.createElement('u');
-                      currentlyU.innerText = "Currently";
-                      var dmgByLvlText2 = document.createTextNode(': ' + Math.round(damage["minDmgByLvl"][champLevel] * damage["maxDmgRatio"]) + '] ')
-                      abilityDiv.appendChild(dmgByLvlText);
-                      abilityDiv.appendChild(currentlyU);
-                      abilityDiv.appendChild(dmgByLvlText2)
-                    }
-                    if (typeof damage["minAPRatio"] === 'object') {
-                      var maxAPRatioValue = JSON.stringify(damage["minAPRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
-                      var maxAPRatioText = document.createTextNode(" (+"+ maxAPRatioValue + " AP Ratio)")
-                      abilityDiv.appendChild(maxAPRatioText)
-                    } else if (damage["minAPRatio"]) {
-                      var maxAPRatioValue = (damage["minAPRatio"] * damage["maxDmgRatio"]).toFixed(countDecimals(damage["minAPRatio"]) + countDecimals(damage["maxDmgRatio"]))
-                      var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
-                      abilityDiv.appendChild(maxAPRatioText)
-                    }
-                    if (typeof damage["minADRatio"] === 'object') {
-                      var maxADRatioValue = JSON.stringify(damage["minADRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
-                      var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                      abilityDiv.appendChild(maxADRatioText)
-                    } else if (damage["minADRatio"]) {
-                      var maxADRatioValue = (damage["minADRatio"] * damage["maxDmgRatio"]).toFixed(countDecimals(damage["minADRatio"]) + countDecimals(damage["maxDmgRatio"]))
-                      var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                      abilityDiv.appendChild(maxADRatioText)
-                    }
-                    if (typeof damage["minBonusADRatio"] === 'object') {
-                      var maxBonusADRatioValue = JSON.stringify(damage["minBonusADRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
-                      var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                      abilityDiv.appendChild(maxBonusADRatioText)
-                    } else if (damage["minBonusADRatio"]) {
-                      var maxBonusADRatioValue = (damage["minBonusADRatio"] * damage["maxDmgRatio"]).toFixed(countDecimals(damage["minBonusADRatio"]) + countDecimals(damage["maxDmgRatio"]))
-                      var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                      abilityDiv.appendChild(maxBonusADRatioText)
-                    }
-                  }
-
-                  if (damage["repeat"]) {
-                    function multiplyByRepeat(x, i) {
-                      if (typeof damage["repeat"] === 'object') {
-                        return (x * (damage["repeat"][i]+1)).toFixed(countDecimals(x) + countDecimals(damage["repeat"][i]))
-                      } else {
-                        return (x * (damage["repeat"]+1)).toFixed(countDecimals(x) + countDecimals(damage["repeat"]))
-                      }
-                    };
-                    if (damage["minDmg"]) {
-                      var maxDmgArray = JSON.stringify(damage["minDmg"].map(multiplyByRepeat)).replace(/,/g, ', ').replace(/"/g,"")
-                      var maxDmgText = document.createTextNode(maxDmgArray)
-                      abilityDiv.appendChild(maxDmgText)
-                    }
-                    if (typeof damage["minAPRatio"] === 'number') {
-                      if (typeof damage["repeat"] === 'object') {
-                        var maxAPRatioValue = JSON.stringify(damage["repeat"].map(x => ((x+1) * damage["minAPRatio"]).toFixed(countDecimals(x) + countDecimals(damage["minAPRatio"])))).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
-                        abilityDiv.appendChild(maxAPRatioText)
-                      } else {
-                        var maxAPRatioText = document.createTextNode(" (+" + (damage["minAPRatio"]*(damage["repeat"]+1)).toFixed(countDecimals(damage["minAPRatio"]) + countDecimals(damage["repeat"])) + " AP Ratio)")
-                        abilityDiv.appendChild(maxAPRatioText)
-                      }
-                    }
-                    if (typeof damage["minAPRatio"] === 'object') {
-                      if (typeof damage['repeat'] === 'number') {
-                        var maxAPRatioValue = JSON.stringify(damage["minAPRatio"].map(multiplyByRepeat)).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                        var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
-                        abilityDiv.appendChild(maxAPRatioText)
-                      }
-                    } 
-                  }
-
                   if (damage["maxDmg"]) {
                     var maxDmgArray = JSON.stringify(damage["maxDmg"]).replace(/,/g, ', ')
                     var maxDmgText = document.createTextNode(maxDmgArray)
@@ -1830,43 +1715,6 @@ class App extends Component {
                       abilityDiv.appendChild(br);
                       var maxU = document.createTextNode('Max - ');
                       abilityDiv.appendChild(maxU)
-                      if (part["maxDmgRatio"]) {
-                        function multiplyByRatio(x) {
-                          return (x * part["maxDmgRatio"]).toFixed(countDecimals(x) + countDecimals(part["maxDmgRatio"]))
-                        };
-                        if (part["minDmg"]) {
-                          var maxDmgArray = JSON.stringify(part["minDmg"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/"/g,"")
-                          var maxDmgText = document.createTextNode(maxDmgArray)
-                          abilityDiv.appendChild(maxDmgText)
-                        }
-                        if (typeof part["minAPRatio"] === 'object') {
-                          var maxAPRatioValue = JSON.stringify(part["minAPRatio"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                          var maxAPRatioText = document.createTextNode(" (+"+ maxAPRatioValue + " AP Ratio)")
-                          abilityDiv.appendChild(maxAPRatioText)
-                        } else if (part["minAPRatio"]) {
-                          var maxAPRatioValue = (part["minAPRatio"] * part["maxDmgRatio"]).toFixed(countDecimals(part["minAPRatio"]) + countDecimals(part["maxDmgRatio"]))
-                          var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
-                          abilityDiv.appendChild(maxAPRatioText)
-                        }
-                        if (typeof part["minADRatio"] === 'object') {
-                          var maxADRatioValue = JSON.stringify(part["minADRatio"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                          var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                          abilityDiv.appendChild(maxADRatioText)
-                        } else if (part["minADRatio"]) {
-                          var maxADRatioValue = (part["minADRatio"] * part["maxDmgRatio"]).toFixed(countDecimals(part["minADRatio"]) + countDecimals(part["maxDmgRatio"]))
-                          var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                          abilityDiv.appendChild(maxADRatioText)
-                        }
-                        if (typeof part["minBonusADRatio"] === 'object') {
-                        var maxBonusADRatioValue = JSON.stringify(part["minBonusADRatio"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                        var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                        abilityDiv.appendChild(maxBonusADRatioText)
-                        } else if (part["minBonusADRatio"]) {
-                        var maxBonusADRatioValue = (part["minBonusADRatio"] * part["maxDmgRatio"]).toFixed(countDecimals(part["minBonusADRatio"]) + countDecimals(part["maxDmgRatio"]))
-                        var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                        abilityDiv.appendChild(maxBonusADRatioText)
-                        }
-                      }
                       if (part["maxDmg"]) {
                         var maxDmgArray = JSON.stringify(part["maxDmg"]).replace(/,/g, ', ')
                         var maxDmgText = document.createTextNode(maxDmgArray)
@@ -6599,25 +6447,108 @@ class App extends Component {
                     minDmgCount += ratio * enemyStats.hp  
                     * (statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel) + itemStats.ad) / 100
                   }
-                  if (damage["minEnemyBonusHPRatio"]) {
-                    var HPRatioValue = JSON.stringify(damage["minEnemyBonusHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                    var HPRatioText = document.createTextNode(" (+" + HPRatioValue + " Enemy Bonus HP Ratio)")
-                    abilityDiv.appendChild(HPRatioText)
+                  if (damage["minEnemyBonusHPRatio"] && enemyStats.hp) {
+                    var ratio = damage["minEnemyBonusHPRatio"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyBonusHPRatio"][rankIndex]
+                    }
+                    minDmgCount += ratio * (enemyStats.hp - enemyBaseStats.baseHP)
                   }
-                  if (damage["minEnemyCurrentHPRatio"]) {
-                    var currentHPRatioValue = JSON.stringify(damage["minEnemyCurrentHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                    var currentHPRatioText = document.createTextNode(" (+" + currentHPRatioValue + " Enemy Current HP Ratio)")
-                    abilityDiv.appendChild(currentHPRatioText)
+                  if (damage["minEnemyCurrentHPRatio"] && enemyStats.hp) {
+                    var ratio = damage["minEnemyCurrentHPRatio"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyCurrentHPRatio"][rankIndex]
+                    }
+                    var text = document.createTextNode(' when enemy is full HP: ');
+                    abilityDiv.appendChild(text);
+                    minDmgCount += ratio * enemyStats.hp
+                  };
+                  if (damage["minEnemyCurrentHPRatioPer100AP"] && enemyStats.hp) {
+                    if (!damage["minEnemyCurrentHPRatio"]) {
+                      var text = document.createTextNode(' when enemy is full HP: ');
+                      abilityDiv.appendChild(text);
+                    }
+                    var ratio = damage["minEnemyCurrentHPRatioPer100AP"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyCurrentHPRatioPer100AP"][rankIndex]
+                    }
+                    minDmgCount += ratio * enemyStats.hp * (selectedStats.ap + ItemStats.ap) / 100
+                  };
+                  if (minDmgCount !== 0) {
+                    var text = document.createTextNode(' - ' + Math.round(minDmgCount));
+                    abilityDiv.appendChild(text);
                   }
-                  if (damage["minEnemyCurrentHPRatioPer100AP"]) {
-                    var currentHPRatioValue = JSON.stringify(damage["minEnemyCurrentHPRatioPer100AP"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                    var currentHPRatioText = document.createTextNode(" (+" + currentHPRatioValue + " Enemy Current HP Ratio per 100 AP)")
-                    abilityDiv.appendChild(currentHPRatioText)
+                  var minMaxHPRatioCounter = 0;
+                  if (damage["minEnemyMaxHPRatio"] && !enemyStats.hp) {
+                    var ratio = damage["minEnemyMaxHPRatio"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyMaxHPRatio"][rankIndex]
+                    }
+                    minMaxHPRatioCounter += ratio
+                  };
+                  if (damage["minEnemyMaxHPRatioPer100AD"] && !enemyStats.hp) {
+                    var ratio = damage["minEnemyMaxHPRatioPer100AD"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyMaxHPRatioPer100AD"][rankIndex]
+                    }
+                    minMaxHPRatioCounter += ratio * (statsPath["baseDamage"] + 
+                    statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)) / 100 
+                  }
+                  if (damage["minEnemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp) {
+                    var ratio = damage["minEnemyMaxHPRatioPer100BonusAD"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyMaxHPRatioPer100BonusAD"][rankIndex]
+                    }
+                    minMaxHPRatioCounter += ratio * (statsPath["damagePerLevel"] 
+                    * champLevel * (0.7025 + 0.0175 * champLevel)) / 100
+                  }
+                  if (damage["minEnemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+                    var ratio = damage["minEnemyMaxHPRatioPer100AP"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyMaxHPRatioPer100AP"][rankIndex]
+                    }
+                    minMaxHPRatioCounter += ratio * (selectedStats.ap + itemStats.ap) / 100
+                  }
+                  if (damage["minEnemyMaxHPRatioByLvl"] && !enemyStats.hp) {
+                    minMaxHPRatioCounter += damage["minEnemyMaxHPRatioByLvl"][champLevel]
+                  }
+                  if (minMaxHPRatioCounter !== 0) {
+                    var text = document.createTextNode(' (+' + minMaxHPRatioCounter + ' Enemy Max HP Ratio)');
+                    abilityDiv.appendChild(text);
+                  }
+                  if (damage["minEnemyBonusHPRatio"] && !enemyStats.hp) {
+                    var ratio = damage["minEnemyBonusHPRatio"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyBonusHPRatio"][rankIndex]
+                    }
+                    var text = document.createTextNode(' (+' + ratio + ' Enemy Bonus HP Ratio');
+                    abilityDiv.appendChild(text);
+                  }
+                  var minCurrentHPCounter = 0;
+                  if (damage["minEnemyCurrentHPRatio"] && !enemyStats.hp) {
+                    var ratio = damage["minEnemyCurrentHPRatio"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyCurrentHPRatio"][rankIndex]
+                    }
+                    minCurrentHPCounter += ratio;
+                  };
+                  if (damage["minEnemyCurrentHPRatioPer100AP"] && !enemyStats.hp) {
+                    var ratio = damage["minEnemyCurrentHPRatioPer100AP"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyCurrentHPRatioPer100AP"][rankIndex]
+                    }
+                    minCurrentHPCounter += ratio * (selectedStats.ap + ItemStats.ap) / 100
+                  };
+                  if (minCurrentHPCounter !== 0) {
+                    var text = document.createTextNode(' (+' + minCurrentHPCounter + ' Enemy Current HP Ratio');
                   }
                   if (damage["minEnemyMissingHPRatio"]) {
-                    var enemyMissingHPRatioValue = JSON.stringify(damage["minEnemyMissingHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                    var enemyMissingHPRatioText = document.createTextNode(" (+" + enemyMissingHPRatioValue + " Enemy Missing HP Ratio)")
-                    abilityDiv.appendChild(enemyMissingHPRatioText)
+                    var ratio = damage["minEnemyMissingHPRatio"]
+                    if (typeof ratio !== 'number') {
+                      ratio = damage["minEnemyMissingHPRatio"][rankIndex]
+                    }
+                    var text = document.createTextNode(" (+" + ratio + " Enemy Missing HP Ratio)")
+                    abilityDiv.appendChild(text)
                   };  
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
@@ -6647,57 +6578,6 @@ class App extends Component {
                   abilityDiv.appendChild(maxDmgU)
                   var dash2 = document.createTextNode(" - ");
                   abilityDiv.appendChild(dash2);
-
-                  if (damage["maxDmgRatio"]) {
-                    function multiplyByRatio(x) {
-                      return (x * damage["maxDmgRatio"]).toFixed(countDecimals(x) + countDecimals(damage["maxDmgRatio"]))
-                    };
-                    function roundedMultiplyByRatio(x) {
-                      return Math.round(x * damage["maxDmgRatio"])
-                    }
-                    if (damage["minDmg"]) {
-                      var maxDmgArray = JSON.stringify(damage["minDmg"].map(roundedMultiplyByRatio)).replace(/,/g, ', ')
-                      var maxDmgText = document.createTextNode(maxDmgArray)
-                      abilityDiv.appendChild(maxDmgText)
-                    }
-                    if (damage["minDmgByLvl"]) {
-                      var dmgByLvlText = document.createTextNode('[' + Math.round(damage["minDmgByLvl"][0]*damage["maxDmgRatio"]) 
-                      + " to " + Math.round(damage["minDmgByLvl"][17] * damage["maxDmgRatio"]) + ", based on lvl. ");
-                      var currentlyU = document.createElement('u');
-                      currentlyU.innerText = "Currently";
-                      var dmgByLvlText2 = document.createTextNode(': ' + Math.round(damage["minDmgByLvl"][champLevel] * damage["maxDmgRatio"]) + '] ')
-                      abilityDiv.appendChild(dmgByLvlText);
-                      abilityDiv.appendChild(currentlyU);
-                      abilityDiv.appendChild(dmgByLvlText2)
-                    }
-                    if (typeof damage["minAPRatio"] === 'object') {
-                      var maxAPRatioValue = JSON.stringify(damage["minAPRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
-                      var maxAPRatioText = document.createTextNode(" (+"+ maxAPRatioValue + " AP Ratio)")
-                      abilityDiv.appendChild(maxAPRatioText)
-                    } else if (damage["minAPRatio"]) {
-                      var maxAPRatioValue = (damage["minAPRatio"] * damage["maxDmgRatio"]).toFixed(countDecimals(damage["minAPRatio"]) + countDecimals(damage["maxDmgRatio"]))
-                      var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
-                      abilityDiv.appendChild(maxAPRatioText)
-                    }
-                    if (typeof damage["minADRatio"] === 'object') {
-                      var maxADRatioValue = JSON.stringify(damage["minADRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
-                      var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                      abilityDiv.appendChild(maxADRatioText)
-                    } else if (damage["minADRatio"]) {
-                      var maxADRatioValue = (damage["minADRatio"] * damage["maxDmgRatio"]).toFixed(countDecimals(damage["minADRatio"]) + countDecimals(damage["maxDmgRatio"]))
-                      var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                      abilityDiv.appendChild(maxADRatioText)
-                    }
-                    if (typeof damage["minBonusADRatio"] === 'object') {
-                      var maxBonusADRatioValue = JSON.stringify(damage["minBonusADRatio"].map(multiplyByRatio)).replace(/,/g, ', ')
-                      var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                      abilityDiv.appendChild(maxBonusADRatioText)
-                    } else if (damage["minBonusADRatio"]) {
-                      var maxBonusADRatioValue = (damage["minBonusADRatio"] * damage["maxDmgRatio"]).toFixed(countDecimals(damage["minBonusADRatio"]) + countDecimals(damage["maxDmgRatio"]))
-                      var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                      abilityDiv.appendChild(maxBonusADRatioText)
-                    }
-                  }
 
                   if (damage["maxDmg"]) {
                     var maxDmgArray = JSON.stringify(damage["maxDmg"]).replace(/,/g, ', ')
@@ -7113,43 +6993,6 @@ class App extends Component {
                       abilityDiv.appendChild(br);
                       var maxU = document.createTextNode('Max - ');
                       abilityDiv.appendChild(maxU)
-                      if (part["maxDmgRatio"]) {
-                        function multiplyByRatio(x) {
-                          return (x * part["maxDmgRatio"]).toFixed(countDecimals(x) + countDecimals(part["maxDmgRatio"]))
-                        };
-                        if (part["minDmg"]) {
-                          var maxDmgArray = JSON.stringify(part["minDmg"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/"/g,"")
-                          var maxDmgText = document.createTextNode(maxDmgArray)
-                          abilityDiv.appendChild(maxDmgText)
-                        }
-                        if (typeof part["minAPRatio"] === 'object') {
-                          var maxAPRatioValue = JSON.stringify(part["minAPRatio"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                          var maxAPRatioText = document.createTextNode(" (+"+ maxAPRatioValue + " AP Ratio)")
-                          abilityDiv.appendChild(maxAPRatioText)
-                        } else if (part["minAPRatio"]) {
-                          var maxAPRatioValue = (part["minAPRatio"] * part["maxDmgRatio"]).toFixed(countDecimals(part["minAPRatio"]) + countDecimals(part["maxDmgRatio"]))
-                          var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
-                          abilityDiv.appendChild(maxAPRatioText)
-                        }
-                        if (typeof part["minADRatio"] === 'object') {
-                          var maxADRatioValue = JSON.stringify(part["minADRatio"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                          var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                          abilityDiv.appendChild(maxADRatioText)
-                        } else if (part["minADRatio"]) {
-                          var maxADRatioValue = (part["minADRatio"] * part["maxDmgRatio"]).toFixed(countDecimals(part["minADRatio"]) + countDecimals(part["maxDmgRatio"]))
-                          var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
-                          abilityDiv.appendChild(maxADRatioText)
-                        }
-                        if (typeof part["minBonusADRatio"] === 'object') {
-                        var maxBonusADRatioValue = JSON.stringify(part["minBonusADRatio"].map(multiplyByRatio)).replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"")
-                        var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                        abilityDiv.appendChild(maxBonusADRatioText)
-                        } else if (part["minBonusADRatio"]) {
-                        var maxBonusADRatioValue = (part["minBonusADRatio"] * part["maxDmgRatio"]).toFixed(countDecimals(part["minBonusADRatio"]) + countDecimals(part["maxDmgRatio"]))
-                        var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
-                        abilityDiv.appendChild(maxBonusADRatioText)
-                        }
-                      }
                       if (part["maxDmg"]) {
                         var maxDmgArray = JSON.stringify(part["maxDmg"]).replace(/,/g, ', ')
                         var maxDmgText = document.createTextNode(maxDmgArray)
