@@ -11,10 +11,10 @@
             ],
             "minADRatio": 1,
             "maxADRatio": 1.75,
-            "minCritDmg": 1.6,
-            "minCritDmgWithIE": 1.75,
-            "maxCritDmg": 2.05,
-            "maxCritDmgWithIE": 2.3125
+            "minCritADRatio": 0.6,
+            "minCritADRatioWithIE": 0.75,
+            "maxCritADRatio": 1.05,
+            "maxCritADRatioWithIE": 1.3125
         },
         "coolDown": [
             18, 17, 16, 15, 14
