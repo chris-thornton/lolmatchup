@@ -113,7 +113,7 @@
         ]
     },
     "passive": {
-        "cdReduxOnHit": 2.0,
+        "coolDownRefund": 2.0,
         "autoEmpower": {
             "damage": {
                 "type": "phys",

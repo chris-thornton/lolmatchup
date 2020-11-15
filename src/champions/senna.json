@@ -72,7 +72,9 @@
             }
         },
         "passivePermanent": {
-            "bonusADPerStack": 0.75,
+            "bonusAttackDamage": {
+                "ADPerStack": 0.75
+            },
             "stacks": "custom",
             "critChancePer20Stacks": 0.15,
             "lifestealPerOverCrit": 0.35

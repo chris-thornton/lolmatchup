@@ -51,7 +51,9 @@
     },
     "passive": {
         "passivePermanent": {
-            "bonusADPerBonusHPRatio": 0.07143
+            "bonusAttackDamage": {
+                "ADPerBonusHPRatio": 0.07143
+            }
         },
         "healthRegen": {
             "dmgTakenRatioByLvl": [
