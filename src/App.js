@@ -3445,35 +3445,54 @@ class App extends Component {
                 reviveBold.innerText = 'Revive: '
                 abilityDiv.appendChild(reviveBold);
                 if (revivePath["reviveTransform"]) {
-                  var transformBold = document.createElement('b')
-                  transformBold.innerText = 'Transform Stats - '
-                  abilityDiv.appendChild(transformBold);
-                  var HPRatioText = document.createTextNode('(HP Ratio: ' + revivePath["reviveTransform"]["HPRatio"] + '), ')
+                  var transformU = document.createElement('u')
+                  transformU.innerText = 'Transform Stats'
+                  abilityDiv.appendChild(transformU);
+                  var HPRatioText = document.createTextNode(': HP Ratio: ' + revivePath["reviveTransform"]["HPRatio"] 
+                  + ', Value: ' + Math.round(revivePath["reviveTransform"]["HPRatio"] 
+                  * (itemStats.hp + statsPath["baseHP"] + statsPath["hpPerLevel"] * champLevel * 
+                  (0.7025 + 0.0175 * champLevel))))
                   abilityDiv.appendChild(HPRatioText)
                   if (revivePath["reviveTransform"]["bonusArmorByLvl"]) {
-                    var bonusArmorByLvlText = document.createTextNode('(Bonus Armor: ' + revivePath["reviveTransform"]["bonusArmorByLvl"][0] 
+                    var br = document.createElement("br");
+                    abilityDiv.appendChild(br);
+                    var bonusArmorByLvlText = document.createTextNode('Bonus Armor: ' + revivePath["reviveTransform"]["bonusArmorByLvl"][0] 
                     + " to " + revivePath["reviveTransform"]["bonusArmorByLvl"][17] + ", based on lvl. ")
-                    var currentlyText = document.createTextNode('Currently: ' + revivePath["reviveTransform"]["bonusArmorByLvl"][champLevel] + '), ')
+                    var currentlyText = document.createTextNode('Currently: ' + revivePath["reviveTransform"]["bonusArmorByLvl"][champLevel])
                     abilityDiv.appendChild(bonusArmorByLvlText);
                     abilityDiv.appendChild(currentlyText);
                   };
                   if (revivePath["reviveTransform"]["bonusMagicResistByLvl"]) {
-                    var bonusMagicResistByLvlText = document.createTextNode('(Bonus Magic Resist: ' + revivePath["reviveTransform"]["bonusMagicResistByLvl"][0] 
-                    + " to " + revivePath["reviveTransform"]["bonusMagicResistByLvl"][17] + ", based on lvl. ")
-                    var currentlyText = document.createTextNode('Currently: ' + revivePath["reviveTransform"]["bonusMagicResistByLvl"][champLevel] + ')')
-                    abilityDiv.appendChild(bonusMagicResistByLvlText);
-                    abilityDiv.appendChild(currentlyText);
+                    var br = document.createElement("br");
+                    abilityDiv.appendChild(br);
+                    var bonusText = document.createTextNode('Bonus Magic Resist: ' + revivePath["reviveTransform"]
+                    ["bonusMagicResistByLvl"][0] + " to " + revivePath["reviveTransform"]["bonusMagicResistByLvl"][17] + ", based on lvl. ")
+                    var text = document.createTextNode('Currently: ' + revivePath["reviveTransform"]["bonusMagicResistByLvl"][champLevel])
+                    abilityDiv.appendChild(bonusText);
+                    abilityDiv.appendChild(text);
                   }
                   if (revivePath["reviveTransform"]["armorRatio"]) {
-                    var armorRatioText = document.createTextNode('(Armor Ratio: ' + revivePath["reviveTransform"]["armorRatio"] + '), ')
-                    abilityDiv.appendChild(armorRatioText)
+                    var br = document.createElement("br");
+                    abilityDiv.appendChild(br);
+                    var text = document.createTextNode('Armor Ratio: ' + revivePath["reviveTransform"]["armorRatio"]
+                    + ', Value: ' + Math.round(revivePath["reviveTransform"]["armorRatio"] 
+                    * (itemStats.arm + statsPath["baseArmor"] + statsPath["armorPerLevel"] * champLevel * 
+                    (0.7025 + 0.0175 * champLevel))) );
+                    abilityDiv.appendChild(text);
                   };
                   if (revivePath["reviveTransform"]["magicResistRatio"]) {
-                    var magicResistRatioText = document.createTextNode('(Magic Resist Ratio: ' + revivePath["reviveTransform"]["magicResistRatio"] + '), ')
-                    abilityDiv.appendChild(magicResistRatioText)
+                    var br = document.createElement("br");
+                    abilityDiv.appendChild(br);
+                    var text = document.createTextNode('Magic Resist Ratio: ' + revivePath["reviveTransform"]["magicResistRatio"]
+                    + ', Value: ' + Math.round(revivePath["reviveTransform"]["magicResistRatio"] 
+                    * (itemStats.mr + statsPath["baseMagicResist"] + statsPath["magicResistPerLevel"] * champLevel * 
+                    (0.7025 + 0.0175 * champLevel))) )
+                    abilityDiv.appendChild(text)
                   };
                   if (revivePath["reviveTransform"]["aoeResist"]) {
-                    var aoeResistText = document.createTextNode('(AOE Resist Ratio: ' + revivePath["reviveTransform"]["aoeResist"] + ')')
+                    var br = document.createElement("br");
+                    abilityDiv.appendChild(br);
+                    var aoeResistText = document.createTextNode('AOE Resist Ratio: ' + revivePath["reviveTransform"]["aoeResist"])
                     abilityDiv.appendChild(aoeResistText)
                   }
                   var br = document.createElement("br");
@@ -3482,11 +3501,11 @@ class App extends Component {
                   durationU.innerText = "Duration"
                   abilityDiv.appendChild(durationU)
                   if (revivePath["reviveTransform"]["duration"]) {
-                    var durationText = document.createTextNode(' - ' + revivePath["reviveTransform"]["duration"])
+                    var durationText = document.createTextNode(': ' + revivePath["reviveTransform"]["duration"])
                     abilityDiv.appendChild(durationText);
                   }
                   if (revivePath["reviveTransform"]["durationByLvl"]) {
-                    var durationByLvlText = document.createTextNode(' - [' + revivePath["reviveTransform"]["durationByLvl"][0] 
+                    var durationByLvlText = document.createTextNode(': [' + revivePath["reviveTransform"]["durationByLvl"][0] 
                     + " to " + revivePath["reviveTransform"]["durationByLvl"][17] + "], based on lvl. ")
                     var currentlyText = document.createTextNode('Currently: ' + revivePath["reviveTransform"]["durationByLvl"][champLevel])
                     abilityDiv.appendChild(durationByLvlText);
@@ -3510,9 +3529,12 @@ class App extends Component {
                   var healthU = document.createElement('u');
                   healthU.innerText = 'Health Restored';
                   abilityDiv.appendChild(healthU)
-                  var minText = document.createTextNode(': Min - (' + revivePath["minHPRestoreRatio"] + ' Max Health Ratio), Max - ('
-                  + revivePath["maxHPRestoreRatio"] + ' Max Health Ratio)');
-                  abilityDiv.appendChild(minText);
+                  var text = document.createTextNode(': Min - (' + revivePath["minHPRestoreRatio"] + ' Max Health Ratio, Value: ' 
+                  + Math.round(revivePath["minHPRestoreRatio"] * (itemStats.hp + statsPath["baseHP"] + statsPath["hpPerLevel"] 
+                  * champLevel * (0.7025 + 0.0175 * champLevel))) + '), Max - (' + revivePath["maxHPRestoreRatio"] 
+                  + ' Max Health Ratio, Value: ' + Math.round(revivePath["maxHPRestoreRatio"] * (itemStats.hp +
+                   statsPath["baseHP"] + statsPath["hpPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel))) + ')');
+                  abilityDiv.appendChild(text);
                 }
                 doubleBreak();
               }
@@ -8568,74 +8590,20 @@ class App extends Component {
                 var reviveBold = document.createElement('b');
                 reviveBold.innerText = 'Revive: '
                 abilityDiv.appendChild(reviveBold);
-                if (revivePath["reviveTransform"]) {
-                  var transformBold = document.createElement('b')
-                  transformBold.innerText = 'Transform Stats - '
-                  abilityDiv.appendChild(transformBold);
-                  var HPRatioText = document.createTextNode('(Health: ' + Math.round(revivePath["reviveTransform"]["HPRatio"] 
-                  * (itemStats.ad + statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLevel * 
-                  (0.7025 + 0.0175 * champLevel))) + '), ');
-                  abilityDiv.appendChild(HPRatioText)
-                  if (revivePath["reviveTransform"]["bonusArmorByLvl"]) {
-                    var text = document.createTextNode('(Bonus Armor: ' 
-                    + revivePath["reviveTransform"]["bonusArmorByLvl"][champLevel] + '), ')
-                    abilityDiv.appendChild(text);
-                  };
-                  if (revivePath["reviveTransform"]["bonusMagicResistByLvl"]) {
-                    var text = document.createTextNode('(Bonus Magic Resist: ' 
-                    + revivePath["reviveTransform"]["bonusMagicResistByLvl"][champLevel] + ')')
-                    abilityDiv.appendChild(text);
-                  }
-                  if (revivePath["reviveTransform"]["armorRatio"]) {
-                    var armorRatioText = document.createTextNode('(Armor Ratio: ' + revivePath["reviveTransform"]["armorRatio"] + '), ')
-                    abilityDiv.appendChild(armorRatioText)
-                  };
-                  if (revivePath["reviveTransform"]["magicResistRatio"]) {
-                    var magicResistRatioText = document.createTextNode('(Magic Resist Ratio: ' + revivePath["reviveTransform"]["magicResistRatio"] + '), ')
-                    abilityDiv.appendChild(magicResistRatioText)
-                  };
-                  if (revivePath["reviveTransform"]["aoeResist"]) {
-                    var aoeResistText = document.createTextNode('(AOE Resist Ratio: ' + revivePath["reviveTransform"]["aoeResist"] + ')')
-                    abilityDiv.appendChild(aoeResistText)
-                  }
-                  var br = document.createElement("br");
-                  abilityDiv.appendChild(br);
-                  var durationU = document.createElement('u')
-                  durationU.innerText = "Duration"
-                  abilityDiv.appendChild(durationU)
-                  if (revivePath["reviveTransform"]["duration"]) {
-                    var durationText = document.createTextNode(' - ' + revivePath["reviveTransform"]["duration"])
-                    abilityDiv.appendChild(durationText);
-                  }
-                  if (revivePath["reviveTransform"]["durationByLvl"]) {
-                    var durationByLvlText = document.createTextNode(' - [' + revivePath["reviveTransform"]["durationByLvl"][0] 
-                    + " to " + revivePath["reviveTransform"]["durationByLvl"][17] + "], based on lvl. ")
-                    var currentlyText = document.createTextNode('Currently: ' + revivePath["reviveTransform"]["durationByLvl"][champLevel])
-                    abilityDiv.appendChild(durationByLvlText);
-                    abilityDiv.appendChild(currentlyText);
-                  }
-                }
+                var hpCounter = 0;
                 if (revivePath["health"]) {
                   var healthU = document.createElement('u');
                   healthU.innerText = 'Health Restored';
                   abilityDiv.appendChild(healthU)
-                  var healthText = document.createTextNode(' - ' + JSON.stringify(revivePath["health"]).replace(/,/g, ', '))
-                  abilityDiv.appendChild(healthText);
+                  hpCounter += revivePath["health"][rankIndex]
                 }
                 if (revivePath["healthPerAP"]) {
-                  var healthPerAPText = document.createTextNode(' (+' + revivePath["healthPerAP"] + ' per AP)')
-                  abilityDiv.appendChild(healthPerAPText);
+                  hpCounter += revivePath["healthPerAP"] * (itemStats.ap + selectedStats.ap);
                 }
-                if (revivePath["minHPRestoreRatio"]) {
-                  var br = document.createElement('br');
-                  abilityDiv.appendChild(br);
-                  var healthU = document.createElement('u');
-                  healthU.innerText = 'Health Restored';
-                  abilityDiv.appendChild(healthU)
-                  var minText = document.createTextNode(': Min - (' + revivePath["minHPRestoreRatio"] + ' Max Health Ratio), Max - ('
-                  + revivePath["maxHPRestoreRatio"] + ' Max Health Ratio)');
-                  abilityDiv.appendChild(minText);
-                }
+                if (hpCounter !== 0) {
+                  var text = document.createTextNode(': ' + Math.round(hpCounter));
+                  abilityDiv.appendChild(text);
+                };
                 doubleBreak();
               }
 
