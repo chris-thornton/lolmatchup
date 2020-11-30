@@ -5575,6 +5575,13 @@ class App extends Component {
               /* COPY PASTE RANK 0 NESTED IFS BUT REPLACE ARRAYS WITH INDIVIDUAL VALUES */
               /* Place non-rank related variables outside of the rank nesting (ex: dmgType) */
               /* BEGIN RANK 1-5 SECTION */
+              function arrayCheck(value) {
+                if (typeof value !== 'number') {
+                  return value[rankIndex]
+                } else {
+                  return value
+                }
+              };
               if (champLeftFile[ability]["text"]) {
                 var text = document.createTextNode(champLeftFile[ability]["text"])
                 abilityDiv.appendChild(text)
@@ -8772,9 +8779,7 @@ class App extends Component {
                 immuneB.innerText = 'Damage Immune Duration: '
                 abilityDiv.appendChild(immuneB);
                 var dur = champLeftFile[ability]["dmgImmune"];
-                if (typeof dur !== 'number') {
-                  dur = dur[rankIndex]
-                }
+                dur = arrayCheck(dur);
                 var immuneValue = document.createTextNode(dur);
                 abilityDiv.appendChild(immuneValue);
                 doubleBreak();
@@ -8817,9 +8822,7 @@ class App extends Component {
                 silenceBold.innerText = 'Silence Duration: '
                 abilityDiv.appendChild(silenceBold);
                 var dur = champLeftFile[ability]["silence"]
-                if (typeof dur !== 'number') {
-                  dur = dur[rankIndex]
-                };
+                dur = arrayCheck(dur);
                 var silenceText = document.createTextNode(dur);
                 abilityDiv.appendChild(silenceText);
                 doubleBreak();
@@ -8830,9 +8833,7 @@ class App extends Component {
                 blindB.innerText = 'Blind Duration: '
                 abilityDiv.appendChild(blindB);
                 var dur = champLeftFile[ability]["blind"]
-                if (typeof dur !== 'number') {
-                  dur = dur[rankIndex]
-                };
+                dur = arrayCheck(dur);
                 var blindText = document.createTextNode(dur);
                 abilityDiv.appendChild(blindText);
                 doubleBreak();
@@ -8846,24 +8847,25 @@ class App extends Component {
               }
 
               if (champLeftFile[ability]["interruptCC"]) {
-                var interruptCCArray = JSON.stringify(champLeftFile[ability]["interruptCC"]).replace(/,/g, ', ')
-                var interruptCCText = document.createTextNode(interruptCCArray)
-                abilityDiv.appendChild(interruptCCText)
+                var intCounter = 0;
+                var intCC = champLeftFile[ability]["interruptCC"];
+                intCC = arrayCheck(intCC);
+                intCounter += intCC
                 if (champLeftFile[ability]["interruptCCPer10Lethality"]) {
-                  var perValue = document.createTextNode(' (+' + champLeftFile[ability]["interruptCCPer10Lethality"]
-                  + ' per 10 Lethality)');
-                  abilityDiv.appendChild(perValue);
+                  intCounter += champLeftFile[ability]["interruptCCPer10Lethality"] * (itemStats.lethality)/10
                 }
+                if (intCounter.toString().length > 4) {
+                  intCounter = intCounter.toFixed(2);
+                };
+                var text = document.createTextNode(intCounter)
+                abilityDiv.appendChild(text)
                 doubleBreak();
               };
 
               if (champLeftFile[ability]["interruptCCByLvl"]) {
                 var ccPath = champLeftFile[ability]["interruptCCByLvl"]
-                var ccByLvlText = document.createTextNode('[' + ccPath[0] 
-                + " to " + ccPath[17] + "], based on lvl. ")
-                var currentlyText = document.createTextNode('Currently: ' + ccPath[champLevel])
-                abilityDiv.appendChild(ccByLvlText);
-                abilityDiv.appendChild(currentlyText);
+                var text = document.createTextNode(ccPath[champLevel])
+                abilityDiv.appendChild(text);
                 doubleBreak();
               }
 
@@ -8871,15 +8873,19 @@ class App extends Component {
                 var minInterruptU = document.createElement('u');
                 minInterruptU.innerText = 'Min'
                 abilityDiv.appendChild(minInterruptU)
-                var minInterruptText = document.createTextNode(' - ' + JSON.stringify(champLeftFile[ability]["minInterruptCC"]).replace(/,/g, ', '))
-                abilityDiv.appendChild(minInterruptText);
+                var minInt = champLeftFile[ability]["minInterruptCC"]
+                minInt = arrayCheck(minInt);
+                var minText = document.createTextNode(' - ' + minInt)
+                abilityDiv.appendChild(minText);
                 var br = document.createElement("br");
                 abilityDiv.appendChild(br);
                 var maxInterruptU = document.createElement('u');
                 maxInterruptU.innerText = 'Max'
                 abilityDiv.appendChild(maxInterruptU)
-                var maxInterruptText = document.createTextNode(' - ' + JSON.stringify(champLeftFile[ability]["maxInterruptCC"]).replace(/,/g, ', '))
-                abilityDiv.appendChild(maxInterruptText);
+                var maxInt = champLeftFile[ability]["maxInterruptCC"]
+                maxInt = arrayCheck(maxInt);
+                var maxText = document.createTextNode(' - ' + maxInt)
+                abilityDiv.appendChild(maxText);
                 doubleBreak();
               };
               
@@ -8906,7 +8912,9 @@ class App extends Component {
                 reduxBold.innerText = 'Attack Damage Reduction: ';
                 abilityDiv.appendChild(reduxBold);
                 if (reduxPath["redux"]) {
-                  var reduxText = document.createTextNode(JSON.stringify(reduxPath["redux"]).replace(/,/g, ', '));
+                  var reduxValue = reduxPath["redux"]
+                  reduxValue = arrayCheck(reduxValue);
+                  var reduxText = document.createTextNode(reduxValue);
                   abilityDiv.appendChild(reduxText);
                 }
                 doubleBreak();
@@ -8930,14 +8938,18 @@ class App extends Component {
                   abilityDiv.appendChild(reduxBold);
                 };
                 if (reduxPath["resist"]) {
-                  var resistText = document.createTextNode(JSON.stringify(reduxPath["resist"]).replace(/,/g, ', '));
+                  var res = reduxPath["resist"];
+                  res = arrayCheck(res);
+                  var resistText = document.createTextNode(res);
                   abilityDiv.appendChild(resistText);
                 }
                 if (reduxPath["reduxRatio"]) {
                   var ratioU = document.createElement('u');
                   ratioU.innerText = 'Ratio';
                   abilityDiv.appendChild(ratioU);
-                  var reduxRatioText = document.createTextNode(' - ' + JSON.stringify(reduxPath["reduxRatio"]).replace(/,/g, ', '))
+                  var ratio = reduxPath["reduxRatio"];
+                  ratio = arrayCheck(ratio);
+                  var reduxRatioText = document.createTextNode(' - ' + ratio)
                   abilityDiv.appendChild(reduxRatioText);
                 }
                 if (reduxPath["system"] === 'minMax') {
@@ -8945,7 +8957,9 @@ class App extends Component {
                   minU.innerText = 'Min'
                   abilityDiv.appendChild(minU);
                   if (reduxPath["minResistRedux"]) {
-                    var minReduxText = document.createTextNode(' - ' + JSON.stringify(reduxPath["minResistRedux"]).replace(/,/g, ', '))
+                    var redux = reduxPath["minResistRedux"];
+                    redux = arrayCheck(redux);
+                    var minReduxText = document.createTextNode(' - ' + redux)
                     abilityDiv.appendChild(minReduxText)
                   };
                   var br = document.createElement('br');
@@ -8954,7 +8968,9 @@ class App extends Component {
                   maxU.innerText = 'Max'
                   abilityDiv.appendChild(maxU);
                   if (reduxPath["maxResistRedux"]) {
-                    var maxReduxText = document.createTextNode(' - ' + JSON.stringify(reduxPath["maxResistRedux"]).replace(/,/g, ', '))
+                    var redux = reduxPath["maxResistRedux"];
+                    redux = arrayCheck(redux);
+                    var maxReduxText = document.createTextNode(' - ' + redux)
                     abilityDiv.appendChild(maxReduxText)
                   };
                 }
@@ -8964,7 +8980,9 @@ class App extends Component {
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Duration'
                   abilityDiv.appendChild(durationU);
-                  var durationText = document.createTextNode(' - ' + JSON.stringify(reduxPath["duration"]).replace(/,/g, ', '))
+                  var dur = reduxPath["duration"];
+                  dur = arrayCheck(dur);
+                  var durationText = document.createTextNode(' - ' + dur)
                   abilityDiv.appendChild(durationText);
                 };
                 if (reduxPath["maxDuration"]) {
@@ -8973,7 +8991,9 @@ class App extends Component {
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Max Duration'
                   abilityDiv.appendChild(durationU);
-                  var durationText = document.createTextNode(' - ' + JSON.stringify(reduxPath["maxDuration"]).replace(/,/g, ', '))
+                  var dur = reduxPath["maxDuration"];
+                  dur = arrayCheck(dur);
+                  var durationText = document.createTextNode(' - ' + dur)
                   abilityDiv.appendChild(durationText);
                 };
                 doubleBreak();
