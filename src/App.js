@@ -7891,6 +7891,23 @@ class App extends Component {
                 doubleBreak();
               }
 
+              if (champLeftFile[ability]["passivePermanent"]) {
+                var passivePath = champLeftFile[ability]["passivePermanent"]
+                var passiveBold = document.createElement('b');
+                passiveBold.innerText = 'Passive: ';
+                abilityDiv.appendChild(passiveBold);
+                if (passivePath["bonusResist"]) {
+                  var resU = document.createElement('u');
+                  resU.innerText = 'Bonus Armor and Magic Resist';
+                  abilityDiv.appendChild(resU);
+                  var value = passivePath["bonusResist"];
+                  value = arrayCheck(value);
+                  var text = document.createTextNode(': ' + value);
+                  abilityDiv.appendChild(text);
+                };
+              doubleBreak();
+              }
+
               if (champLeftFile[ability]["selfHeal"]) {
                 var healPath = champLeftFile[ability]["selfHeal"]
                 var healBold = document.createElement('b');
@@ -9008,9 +9025,8 @@ class App extends Component {
                   var ADByLvlU = document.createElement('u');
                   ADByLvlU.innerText = 'Attack Damage';
                   abilityDiv.appendChild(ADByLvlU);
-                  var ADByLvlText = document.createTextNode(' - [' + bonusStatsPath["attackDamageByLvl"][0] + " to " + 
-                  bonusStatsPath["attackDamageByLvl"][17] + "], based on lvl. Currently: " + bonusStatsPath["attackDamageByLvl"][champLevel]);
-                  abilityDiv.appendChild(ADByLvlText);
+                  var text = document.createTextNode(': ' + bonusStatsPath["attackDamageByLvl"][champLevel]);
+                  abilityDiv.appendChild(text);
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
@@ -9018,9 +9034,10 @@ class App extends Component {
                   var asRatioU = document.createElement('u');
                   asRatioU.innerText = 'Attack Speed Ratio';
                   abilityDiv.appendChild(asRatioU);
-                  var asRatioText = document.createTextNode(' - (' + JSON.stringify(bonusStatsPath["attackSpeed"])
-                  .replace(/,/g, ', ').replace(/^\[|]$/g, '') + ')')
-                  abilityDiv.appendChild(asRatioText);
+                  var asRatio = bonusStatsPath["attackSpeed"];
+                  asRatio = arrayCheck(asRatio);
+                  var text = document.createTextNode(': ' + asRatio)
+                  abilityDiv.appendChild(text);
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
@@ -9028,9 +9045,10 @@ class App extends Component {
                   var bonusADRatioU = document.createElement('u');
                   bonusADRatioU.innerText = 'Attack Damage Ratio';
                   abilityDiv.appendChild(bonusADRatioU);
-                  var bonusADRatioText = document.createTextNode(' - (' + JSON.stringify(bonusStatsPath["ADRatio"])
-                  .replace(/,/g, ', ').replace(/^\[|]$/g, '') + ')')
-                  abilityDiv.appendChild(bonusADRatioText);
+                  var ratio = bonusStatsPath["ADRatio"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(': ' + ratio)
+                  abilityDiv.appendChild(text);
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
@@ -9038,9 +9056,10 @@ class App extends Component {
                   var lsRatioU = document.createElement('u');
                   lsRatioU.innerText = 'Life Steal Ratio';
                   abilityDiv.appendChild(lsRatioU);
-                  var lsRatioText = document.createTextNode(' - (' + JSON.stringify(bonusStatsPath["lifeSteal"])
-                  .replace(/,/g, ', ').replace(/^\[|]$/g, '') + ')')
-                  abilityDiv.appendChild(lsRatioText);
+                  var ratio = bonusStatsPath["lifeSteal"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(': ' + ratio)
+                  abilityDiv.appendChild(text);
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
@@ -9048,9 +9067,10 @@ class App extends Component {
                   var healingRatioU = document.createElement('u');
                   healingRatioU.innerText = 'Increased Healing Ratio';
                   abilityDiv.appendChild(healingRatioU);
-                  var healingRatioText = document.createTextNode(' - (' + JSON.stringify(bonusStatsPath["healingRatio"])
-                  .replace(/,/g, ', ').replace(/^\[|]$/g, '') + ')')
-                  abilityDiv.appendChild(healingRatioText);
+                  var ratio = bonusStatsPath["healingRatio"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(': ' + ratio)
+                  abilityDiv.appendChild(text);
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
@@ -9058,9 +9078,9 @@ class App extends Component {
                   var healingRatioU = document.createElement('u');
                   healingRatioU.innerText = 'Increased Healing';
                   abilityDiv.appendChild(healingRatioU);
-                  var healingRatioText = document.createTextNode(': (' + bonusStatsPath["healingPerMissingHPRatio"]
+                  var text = document.createTextNode(': (' + bonusStatsPath["healingPerMissingHPRatio"]
                   + ' per Missing HP Ratio)')
-                  abilityDiv.appendChild(healingRatioText);
+                  abilityDiv.appendChild(text);
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
@@ -9068,17 +9088,21 @@ class App extends Component {
                   var resU = document.createElement('u');
                   resU.innerText = 'Armor and Magic Resist';
                   abilityDiv.appendChild(resU);
-                  var resText = document.createTextNode(': ' + JSON.stringify(bonusStatsPath["resist"]).replace(/,/g, ', '));
-                  abilityDiv.appendChild(resText);
+                  var ratio = bonusStatsPath["resist"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(': ' + ratio)
+                  abilityDiv.appendChild(text);
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
                 if (bonusStatsPath["abilityPower"]) {
                   var apU = document.createElement('u');
                   apU.innerText = 'Ability Power';
-                  abilityDiv.appendChild(apU);
-                  var apText = document.createTextNode(': ' + JSON.stringify(bonusStatsPath["abilityPower"]).replace(/,/g, ', '));
-                  abilityDiv.appendChild(apText);
+                  abilityDiv.appendChild(apU);                 
+                  var ratio = bonusStatsPath["abilityPower"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(': ' + ratio)
+                  abilityDiv.appendChild(text);
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
@@ -9086,9 +9110,10 @@ class App extends Component {
                   var hpU = document.createElement('u');
                   hpU.innerText = 'Health Regen';
                   abilityDiv.appendChild(hpU);
-                  var hpText = document.createTextNode(': ' + JSON.stringify(bonusStatsPath["healthRegen"]).replace(/,/g, ', ')
-                  + ' per second');
-                  abilityDiv.appendChild(hpText);
+                  var ratio = bonusStatsPath["healthRegen"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(': ' + ratio)
+                  abilityDiv.appendChild(text);
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
@@ -9096,11 +9121,13 @@ class App extends Component {
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Duration';
                   abilityDiv.appendChild(durationU);
-                  var durationText = document.createTextNode(' - ' + JSON.stringify(bonusStatsPath["duration"]).replace(/,/g, ', ').replace(/^\[|]$/g, ''))
-                  abilityDiv.appendChild(durationText);
+                  var ratio = bonusStatsPath["duration"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(': ' + ratio)
+                  abilityDiv.appendChild(text);
                   if (bonusStatsPath["durationExtend"]) {
-                    var durationExtendText = document.createTextNode(', extends by ' + bonusStatsPath["durationExtend"] + ' seconds.')
-                    abilityDiv.appendChild(durationExtendText);
+                    var text2 = document.createTextNode(', extends by ' + bonusStatsPath["durationExtend"] + ' seconds.')
+                    abilityDiv.appendChild(text2);
                   }
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
@@ -9114,39 +9141,46 @@ class App extends Component {
                 var healthBold = document.createElement('b');
                 healthBold.innerText = 'Bonus Health: '
                 abilityDiv.appendChild(healthBold);
+                var healthCounter = 0;
                 if (bonusHealthPath["health"]) {
-                  var healthText = document.createTextNode(JSON.stringify(bonusHealthPath["health"]).replace(/,/g, ', '))
-                  abilityDiv.appendChild(healthText);
-                };
-                if (bonusHealthPath["healthPerStack"]) {
-                  var healthText = document.createTextNode(JSON.stringify(bonusHealthPath["healthPerStack"])
-                  .replace(/,/g, ', ') + ' per Stack')
-                  abilityDiv.appendChild(healthText);
-                  doubleBreak();
+                  var health = bonusHealthPath["health"];
+                  health = arrayCheck(health);
+                  healthCounter += health
                 };
                 if (bonusHealthPath["APRatio"]) {
-                  var APText = document.createTextNode(' (+' + JSON.stringify(bonusHealthPath["APRatio"])
-                  .replace(/,/g, ', ') + ' AP Ratio)');
-                  abilityDiv.appendChild(APText);
-                }
+                  var ratio = bonusHealthPath["APRatio"];
+                  ratio = arrayCheck(ratio);
+                  healthCounter += ratio * (selectedStats.ap + itemStats.ap);
+                };
+                if (bonusHealthPath["healthPerStack"]) {
+                  var health = bonusHealthPath["healthPerStack"];
+                  health = arrayCheck(health);
+                  var text = document.createTextNode(health + ' per Stack')
+                  abilityDiv.appendChild(text);
+                  doubleBreak();
+                };
                 if (bonusHealthPath["duration"]) {
                   var br = document.createElement('br');
                   abilityDiv.appendChild(br);
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Duration';
                   abilityDiv.appendChild(durationU);
-                  var durationText = document.createTextNode(' - ' + JSON.stringify(bonusHealthPath["duration"]).replace(/,/g, ', ').replace(/^\[|]$/g, ''))
-                  abilityDiv.appendChild(durationText);
+                  var value = bonusHealthPath["duration"];
+                  value = arrayCheck(value);
+                  var text = document.createTextNode(': ' + value)
+                  abilityDiv.appendChild(text);
                 }
                 doubleBreak();
               }
 
               if (champLeftFile[ability]["maxHPRegen"]) {
-                var HPRegenBold = document.createElement('b');
-                HPRegenBold.innerText = 'Max HP Ratio Regenerated: ';
-                abilityDiv.appendChild(HPRegenBold);
-                var HPRegenText = document.createTextNode(JSON.stringify(champLeftFile[ability]["maxHPRegen"]).replace(/,/g, ', '));
-                abilityDiv.appendChild(HPRegenText);
+                var bold = document.createElement('b');
+                bold.innerText = 'Max HP Ratio Regenerated: ';
+                abilityDiv.appendChild(bold);
+                var ratio = champLeftFile[ability]["maxHPRegen"];
+                ratio = arrayCheck(ratio);
+                var text = document.createTextNode(ratio);
+                abilityDiv.appendChild(text);
                 doubleBreak();
               }
 
@@ -9161,18 +9195,17 @@ class App extends Component {
                   var dmgRatioU = document.createElement('u');
                   dmgRatioU.innerText = 'Damage Taken Ratio';
                   abilityDiv.appendChild(dmgRatioU);
-                  var dmgRatioText = document.createTextNode(' - ' + JSON.stringify(regenPath["dmgTakenRatio"]).replace(/,/g, ', '));
-                  abilityDiv.appendChild(dmgRatioText);
+                  var ratio = regenPath["dmgTakenRatio"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(': ' + ratio);
+                  abilityDiv.appendChild(text);
                 }
                 if (regenPath["dmgTakenRatioByLvl"]) {
-                  var regenByLvlText = document.createTextNode('[' + regenPath["dmgTakenRatioByLvl"][0] 
-                  + " to " + regenPath["dmgTakenRatioByLvl"][17] + " Damage Taken Ratio, based on lvl. ");
-                  var currentlyU = document.createElement('u');
-                  currentlyU.innerText = "Currently";
-                  var regenByLvlText2 = document.createTextNode(': ' + regenPath["dmgTakenRatioByLvl"][champLevel] + '] ')
-                  abilityDiv.appendChild(regenByLvlText);
-                  abilityDiv.appendChild(currentlyU);
-                  abilityDiv.appendChild(regenByLvlText2)
+                  var ratioU = document.createElement('u');
+                  ratioU.innerText = "Damage Taken Ratio";
+                  abilityDiv.appendChild(ratioU);
+                  var text = document.createTextNode(': ' + regenPath["dmgTakenRatioByLvl"][champLevel])
+                  abilityDiv.appendChild(text);
                 }
                 if (regenPath["greyHealthRatioByLvl"]) {
                   var br = document.createElement('br');
@@ -9180,14 +9213,8 @@ class App extends Component {
                   var dmgRatioU = document.createElement('u');
                   dmgRatioU.innerText = 'Grey Health Ratio';
                   abilityDiv.appendChild(dmgRatioU);
-                  var regenByLvlText = document.createTextNode(' - [' + regenPath["greyHealthRatioByLvl"][0] 
-                  + " to " + regenPath["greyHealthRatioByLvl"][17] + ", based on lvl. ");
-                  var currentlyU = document.createElement('u');
-                  currentlyU.innerText = "Currently";
-                  var regenByLvlText2 = document.createTextNode(': ' + regenPath["greyHealthRatioByLvl"][champLevel] + '] ')
-                  abilityDiv.appendChild(regenByLvlText);
-                  abilityDiv.appendChild(currentlyU);
-                  abilityDiv.appendChild(regenByLvlText2)
+                  var text = document.createTextNode(': ' + regenPath["greyHealthRatioByLvl"][champLevel])
+                  abilityDiv.appendChild(text);
                 }
                 if (regenPath["maxHPRatio"]) {
                   var br = document.createElement('br');
@@ -9195,7 +9222,7 @@ class App extends Component {
                   var maxU = document.createElement('u');
                   maxU.innerText = 'Max';
                   abilityDiv.appendChild(maxU);
-                  var ratioText = document.createTextNode(' - ' + regenPath["maxHPRatio"] + ' Max HP Ratio');
+                  var ratioText = document.createTextNode(': ' + regenPath["maxHPRatio"] + ' Max HP Ratio');
                   abilityDiv.appendChild(ratioText);
                 }
                 doubleBreak();
@@ -9203,27 +9230,34 @@ class App extends Component {
 
               if (champLeftFile[ability]["bonusAttackDamage"]) {
                 var bonusADPath = champLeftFile[ability]["bonusAttackDamage"]
-                var bonusADBold = document.createElement('b');
-                bonusADBold.innerText = 'Bonus Attack Damage: '
-                abilityDiv.appendChild(bonusADBold);
+                var bold = document.createElement('b');
+                bold.innerText = 'Bonus Attack Damage: '
+                abilityDiv.appendChild(bold);
+                var adCounter = 0;
                 if (bonusADPath['attackDamage']) {
-                  var adText = document.createTextNode(JSON.stringify(bonusADPath['attackDamage']).replace(/,/g, ', '));
-                  abilityDiv.appendChild(adText);
+                  var ad = bonusADPath['attackDamage'];
+                  ad = arrayCheck(ad);
+                  adCounter += ad;
                 }
                 if (bonusADPath["ADRatio"]) {
-                  var ratioText = document.createTextNode(' (+' + bonusADPath["ADRatio"] + ' AD Ratio)');
-                  abilityDiv.appendChild(ratioText);
+                  adCounter += bonusADPath["ADRatio"] * (itemStats.ad + statsPath["baseDamage"] 
+                    + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
                 }
                 if (bonusADPath["attackDamagePerAPRatio"]) {
-                  var adPerAPText = document.createTextNode(' (+' + bonusADPath["attackDamagePerAPRatio"] + ' per Abiliy Power)');
-                  abilityDiv.appendChild(adPerAPText);
+                  adCounter += bonusADPath["attackDamagePerAPRatio"] * (selectedStats.ap + itemStats.ap);
+                }
+                if (adCounter !== 0) {
+                  var text = document.createTextNode(Math.round(adCounter));
+                  abilityDiv.appendChild(text);
                 }
                 if (bonusADPath['minAttackDamage']) {
                   var minU = document.createElement('u');
                   minU.innerText = 'Min'
                   abilityDiv.appendChild(minU)
-                  var minADText = document.createTextNode(' - ' + JSON.stringify(bonusADPath['minAttackDamage']).replace(/,/g, ', '))
-                  abilityDiv.appendChild(minADText);
+                  var ad = bonusADPath['minAttackDamage'];
+                  ad = arrayCheck(ad);
+                  var text = document.createTextNode(' - ' + ad)
+                  abilityDiv.appendChild(text);
                 };
                 if (bonusADPath['maxAttackDamage']) {
                   var br = document.createElement('br');
@@ -9231,8 +9265,10 @@ class App extends Component {
                   var maxU = document.createElement('u');
                   maxU.innerText = 'Max'
                   abilityDiv.appendChild(maxU)
-                  var maxADText = document.createTextNode(' - ' + JSON.stringify(bonusADPath['maxAttackDamage']).replace(/,/g, ', '))
-                  abilityDiv.appendChild(maxADText);
+                  var ad = bonusADPath['maxAttackDamage'];
+                  ad = arrayCheck(ad);
+                  var text = document.createTextNode(' - ' + ad)
+                  abilityDiv.appendChild(text);
                 };
                 if (bonusADPath["duration"]) {
                   var br = document.createElement('br');
@@ -9240,21 +9276,8 @@ class App extends Component {
                   var durU = document.createElement('u');
                   durU.innerText = 'Duration'
                   abilityDiv.appendChild(durU)
-                  var durText = document.createTextNode(': ' + bonusADPath['duration'])
-                  abilityDiv.appendChild(durText);
-                }
-                doubleBreak();
-              }
-
-              if (champLeftFile[ability]["bonusHPRegen"]) {
-                var regenPath = champLeftFile[ability]["bonusHPRegen"];
-                var regenBold = document.createElement('b');
-                regenBold.innerText = 'Bonus Health Regen: ';
-                abilityDiv.appendChild(regenBold);
-                if (regenPath["HPRegenPerSecondByLvl"]) {
-                  var regenByLvlText = document.createTextNode(' - [' + regenPath["HPRegenPerSecondByLvl"][0] + " to " + 
-                  regenPath["HPRegenPerSecondByLvl"][17] + "] per second, based on lvl. Currently: " + regenPath["HPRegenPerSecondByLvl"][champLevel]);
-                  abilityDiv.appendChild(regenByLvlText);
+                  var text = document.createTextNode(': ' + bonusADPath['duration'])
+                  abilityDiv.appendChild(text);
                 }
                 doubleBreak();
               }
@@ -9265,18 +9288,22 @@ class App extends Component {
                 forceB.innerText = 'Self Bonus Adaptive Force: ';
                 abilityDiv.appendChild(forceB);
                 if (forcePath["adaptiveForce"]) {
-                  var forceText = document.createTextNode(JSON.stringify(forcePath["adaptiveForce"]).replace(/,/g, ', '));
-                  abilityDiv.appendChild(forceText);
+                  var force = forcePath["adaptiveForce"];
+                  force = arrayCheck(force);
+                  var text = document.createTextNode(force);
+                  abilityDiv.appendChild(text);
                 }
                 if (forcePath["allyBonusADRatio"]) {
-                  var forceText = document.createTextNode(' (+' + JSON.stringify(forcePath["allyBonusADRatio"])
-                  .replace(/,/g, ', ').replace(/^\[|]$/g, '') + ' Ally Bonus AD Ratio');
-                  abilityDiv.appendChild(forceText);
+                  var ratio = forcePath["allyBonusADRatio"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(' (+' + ratio + ' Ally Bonus AD Ratio');
+                  abilityDiv.appendChild(text);
                 }
                 if (forcePath["allyAPRatio"]) {
-                  var forceText = document.createTextNode(' OR +' + JSON.stringify(forcePath["allyAPRatio"])
-                  .replace(/,/g, ', ').replace(/^\[|]$/g, '') + ' Ally AP Ratio)');
-                  abilityDiv.appendChild(forceText);
+                  var ratio = forcePath["allyAPRatio"];
+                  ratio = arrayCheck(ratio);
+                  var text = document.createTextNode(' OR +' + ratio + ' Ally AP Ratio)');
+                  abilityDiv.appendChild(text);
                 }
                 doubleBreak();
               }
@@ -9287,24 +9314,28 @@ class App extends Component {
                 forceB.innerText = 'Ally Bonus Adaptive Force: ';
                 abilityDiv.appendChild(forceB);
                 if (forcePath["adaptiveAD"]) {
-                  var forceText = document.createTextNode('[' + JSON.stringify(forcePath["adaptiveAD"]).replace(/,/g, ', ')
-                  .replace(/^\[|]$/g, '') + ' Attack Damage]');
-                  abilityDiv.appendChild(forceText);
+                  var ad = forcePath["adaptiveAD"];
+                  ad = arrayCheck(ad);
+                  var text = document.createTextNode('[' + ad + ' Attack Damage]');
+                  abilityDiv.appendChild(text);
                 }
                 if (forcePath["allyAdaptiveBonusADRatio"]) {
-                  var forceText = document.createTextNode(' (+' + JSON.stringify(forcePath["allyAdaptiveBonusADRatio"])
-                  .replace(/,/g, ', ').replace(/^\[|]$/g, '') + ' Ally Bonus AD Ratio)');
-                  abilityDiv.appendChild(forceText);
+                  var value = forcePath["allyAdaptiveBonusADRatio"];
+                  value = arrayCheck(value);
+                  var text = document.createTextNode(' (+' + value + ' Ally Bonus AD Ratio)');
+                  abilityDiv.appendChild(text);
                 }
                 if (forcePath["adaptiveAP"]) {
-                  var forceText = document.createTextNode(' OR [' + JSON.stringify(forcePath["adaptiveAP"]).replace(/,/g, ', ')
-                  .replace(/^\[|]$/g, '') + ' Ability Power]');
-                  abilityDiv.appendChild(forceText);
+                  var value = forcePath["adaptiveAP"];
+                  value = arrayCheck(value);
+                  var text = document.createTextNode(' OR [' + value + ' Ability Power]');
+                  abilityDiv.appendChild(text);
                 }
                 if (forcePath["allyAdaptiveAPRatio"]) {
-                  var forceText = document.createTextNode(' (+' + JSON.stringify(forcePath["allyAdaptiveAPRatio"])
-                  .replace(/,/g, ', ').replace(/^\[|]$/g, '') + ' Ally AP Ratio)');
-                  abilityDiv.appendChild(forceText);
+                  var value = forcePath["allyAdaptiveAPRatio"];
+                  value = arrayCheck(value);
+                  var text = document.createTextNode(' (+' + value + ' Ally AP Ratio)');
+                  abilityDiv.appendChild(text);
                 }
                 doubleBreak();
               }
@@ -9315,13 +9346,14 @@ class App extends Component {
                 bonusResistB.innerText = 'Bonus Armor & Magic Resist: ';
                 abilityDiv.appendChild(bonusResistB);
                 if (resistPath["resist"]) {
-                  var resistText = document.createTextNode(JSON.stringify(resistPath["resist"]).replace(/,/g, ', '));
-                  abilityDiv.appendChild(resistText);
+                  var value = resistPath["resist"];
+                  value = arrayCheck(value);
+                  var text = document.createTextNode(value);
+                  abilityDiv.appendChild(text);
                 }
                 if (resistPath["bonusResistByLvl"]) {
-                  var resistByLvlText = document.createTextNode(' - [' + resistPath["bonusResistByLvl"][0] + " to " + 
-                  resistPath["bonusResistByLvl"][17] + "], based on lvl. Currently: " + resistPath["bonusResistByLvl"][champLevel]);
-                  abilityDiv.appendChild(resistByLvlText);
+                  var text = document.createTextNode(resistPath["bonusResistByLvl"][champLevel]);
+                  abilityDiv.appendChild(text);
                 };
                 if (resistPath["minResistByLvl"]) {
                   var minU = document.createElement('u');
