@@ -12,8 +12,7 @@
            "critADRatioWithIE": 0.8
        },
        "interruptCC": 1,
-       "staticCoolDownFormula": "4 * (1 - (0.01 per 0.0167 bonusAS))",
-       "text": "Cooldown Formula: 4 * (1 - (0.01 per 0.0167 Bonus Attack Speed))",
+       "staticCoolDownFormula": "4 * (1 - (0.01 per 0.0167 Bonus Attack Speed))",
        "maxCoolDown": 4,
        "minCoolDown": 1.33
     },
