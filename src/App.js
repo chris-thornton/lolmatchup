@@ -9951,126 +9951,108 @@ class App extends Component {
                   var br = document.createElement('br');
                   abilityDiv.appendChild(br);
                   var asU = document.createElement('u');
-                  asU.innerText = 'Health Ratio';
+                  asU.innerText = 'Health';
                   abilityDiv.appendChild(asU);
-                  var asText = document.createTextNode(': ' + petPath["healthRatio"]);
-                  abilityDiv.appendChild(asText);
+                  var text = document.createTextNode(': ' + Math.round( petPath["healthRatio"] * (statsPath["baseHP"] 
+                  + itemStats.hp + statsPath["hpPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)) ));
+                  abilityDiv.appendChild(text);
                 };
                 if (petPath["armorRatio"]) {
                   var br = document.createElement('br');
                   abilityDiv.appendChild(br);
                   var asU = document.createElement('u');
-                  asU.innerText = 'Armor Ratio';
+                  asU.innerText = 'Armor';
                   abilityDiv.appendChild(asU);
-                  var asText = document.createTextNode(': ' + petPath["armorRatio"]);
-                  abilityDiv.appendChild(asText);
+                  var text = document.createTextNode(': ' + Math.round( petPath["armorRatio"] * (statsPath["baseArmor"] 
+                  + itemStats.arm + statsPath["armorPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)) ));
+                  abilityDiv.appendChild(text);
                 };
                 if (petPath["magicResistRatio"]) {
                   var br = document.createElement('br');
                   abilityDiv.appendChild(br);
                   var asU = document.createElement('u');
-                  asU.innerText = 'Magic Resist Ratio';
+                  asU.innerText = 'Magic Resist';
                   abilityDiv.appendChild(asU);
-                  var asText = document.createTextNode(': ' + petPath["magicResistRatio"]);
-                  abilityDiv.appendChild(asText);
+                  var text = document.createTextNode(': ' + Math.round( petPath["magicResistRatio"] 
+                  * (statsPath["baseMagicResist"] + itemStats.mr + statsPath["magicResistPerLevel"] * champLevel 
+                  * (0.7025 + 0.0175 * champLevel)) ));
+                  abilityDiv.appendChild(text);
                 };
-                if (petPath["health"]) {
+                var hpCounter = 0;
+                if (petPath["health"] || petPath["healthByLvl"] || petPath["maxHPRatio"]) {
                   var br = document.createElement('br');
                   abilityDiv.appendChild(br);
                   var healthU = document.createElement('u');
                   healthU.innerText = 'Health';
                   abilityDiv.appendChild(healthU);
-                  var healthText = document.createTextNode(': ' + JSON.stringify(petPath["health"]).replace(/,/g, ', '));
-                  abilityDiv.appendChild(healthText);
+                }
+                if (petPath["health"]) {
+                  var value = petPath["health"];
+                  value = arrayCheck(value);
+                  hpCounter += value;
                 };
                 if (petPath["healthByLvl"]) {
-                  var br = document.createElement('br');
-                  abilityDiv.appendChild(br);
-                  var healthU = document.createElement('u');
-                  healthU.innerText = 'Health';
-                  abilityDiv.appendChild(healthU);
-                  var healthByLvlText = document.createTextNode(': [' + petPath["healthByLvl"][0] + " to " + petPath["healthByLvl"][17]
-                  + ", based on lvl. ");
-                  var currentlyU = document.createElement('u');
-                  currentlyU.innerText = "Currently";
-                  var healthBylvlText2 = document.createTextNode(': ' + petPath["healthByLvl"][champLevel] + ']')
-                  abilityDiv.appendChild(healthByLvlText);
-                  abilityDiv.appendChild(currentlyU)
-                  abilityDiv.appendChild(healthBylvlText2)
+                  hpCounter += petPath["healthByLvl"][champLevel];
                   if (petPath["healthPerAPRatioByLvl"]) {
-                    var healthByLvlText = document.createTextNode(' (+' + petPath["healthPerAPRatioByLvl"][0] + " to " 
-                    + petPath["healthPerAPRatioByLvl"][17] + " per Ability Power, based on lvl. ");
-                    var currentlyU = document.createElement('u');
-                    currentlyU.innerText = "Currently";
-                    var healthBylvlText2 = document.createTextNode(': ' + petPath["healthPerAPRatioByLvl"][champLevel] + ')')
-                    abilityDiv.appendChild(healthByLvlText);
-                    abilityDiv.appendChild(currentlyU)
-                    abilityDiv.appendChild(healthBylvlText2)
+                    hpCounter += petPath["healthPerAPRatioByLvl"][champLevel] * (itemStats.ap + selectedStats.ap);
                   }
                 };
                 if (petPath["maxHPRatio"]) {
-                  var hpText = document.createTextNode(' (+' + petPath["maxHPRatio"] + ' Max HP Ratio)');
-                  abilityDiv.appendChild(hpText);
-                }
+                  hpCounter += petPath["maxHPRatio"] * (statsPath["baseHP"] 
+                  + itemStats.hp + statsPath["hpPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)) 
+                };
                 if (petPath["healthPerAPRatio"]) {
-                  var healthPerAPText = document.createTextNode(' (+' + petPath["healthPerAPRatio"] + ' per AP)');
-                  abilityDiv.appendChild(healthPerAPText);
-                }
-                if (petPath["armor"]) {
+                  hpCounter += petPath["healthPerAPRatio"] * (itemStats.ap + selectedStats.ap);
+                };
+                if (hpCounter !== 0) {
+                  var text = document.createTextNode(': ' + Math.round(hpCounter));
+                  abilityDiv.appendChild(text);
+                };
+                if (petPath["armor"] || petPath["armorByLvl"]) {
                   var br = document.createElement('br');
                   abilityDiv.appendChild(br);
                   var armorU = document.createElement('u');
                   armorU.innerText = 'Armor';
                   abilityDiv.appendChild(armorU);
-                  var armorText = document.createTextNode(': ' + JSON.stringify(petPath["armor"]).replace(/,/g, ', ').replace(/"/g,""));
-                  abilityDiv.appendChild(armorText);
+                };
+                var armorCounter = 0;
+                if (petPath["armor"]) {
+                  var value = petPath["armor"];
+                  value = arrayCheck(value);
+                  armorCounter += value;
                 };
                 if (petPath["armorByLvl"]) {
-                  var br = document.createElement('br');
-                  abilityDiv.appendChild(br);
-                  var armorU = document.createElement('u');
-                  armorU.innerText = 'Armor';
-                  abilityDiv.appendChild(armorU);
-                  var armorByLvlText = document.createTextNode(': [' + petPath["armorByLvl"][0] + " to " + petPath["armorByLvl"][17]
-                  + ", based on lvl. ");
-                  var currentlyU = document.createElement('u');
-                  currentlyU.innerText = "Currently";
-                  var armorBylvlText2 = document.createTextNode(': ' + petPath["armorByLvl"][champLevel] + ']')
-                  abilityDiv.appendChild(armorByLvlText);
-                  abilityDiv.appendChild(currentlyU)
-                  abilityDiv.appendChild(armorBylvlText2)
+                  armorCounter += petPath["armorByLvl"][champLevel]
                 };
                 if (petPath["armorPerAPRatio"]) {
-                  var armorPerAPText = document.createTextNode(' (+' + petPath["armorPerAPRatio"] + ' per AP)');
-                  abilityDiv.appendChild(armorPerAPText);
+                  armorCounter += petPath["armorPerAPRatio"] * (itemStats.ap + selectedStats.ap);
+                };
+                if (armorCounter !== 0) {
+                  var text = document.createTextNode(': ' + Math.round(armorCounter));
+                  abilityDiv.appendChild(text);
                 }
-                if (petPath["magicResist"]) {
+                if (petPath["magicResist"] || petPath["magicResistByLvl"]) {
                   var br = document.createElement('br');
                   abilityDiv.appendChild(br);
-                  var magicResistU = document.createElement('u');
-                  magicResistU.innerText = 'Magic Resist';
-                  abilityDiv.appendChild(magicResistU);
-                  var magicResistText = document.createTextNode(': ' + JSON.stringify(petPath["magicResist"]).replace(/,/g, ', ').replace(/"/g,""));
-                  abilityDiv.appendChild(magicResistText);
+                  var mrU = document.createElement('u');
+                  mrU.innerText = 'Magic Resist';
+                  abilityDiv.appendChild(mrU);
+                };
+                var mrCounter = 0;
+                if (petPath["magicResist"]) {
+                  var value = petPath["magicResist"];
+                  value = arrayCheck(value);
+                  mrCounter += value;
                 };
                 if (petPath["magicResistByLvl"]) {
-                  var br = document.createElement('br');
-                  abilityDiv.appendChild(br);
-                  var magicResistU = document.createElement('u');
-                  magicResistU.innerText = 'Magic Resist';
-                  abilityDiv.appendChild(magicResistU);
-                  var magicResistByLvlText = document.createTextNode(': [' + petPath["magicResistByLvl"][0] + " to " + petPath["magicResistByLvl"][17]
-                  + ", based on lvl. ");
-                  var currentlyU = document.createElement('u');
-                  currentlyU.innerText = "Currently";
-                  var magicResistBylvlText2 = document.createTextNode(': ' + petPath["magicResistByLvl"][champLevel] + ']')
-                  abilityDiv.appendChild(magicResistByLvlText);
-                  abilityDiv.appendChild(currentlyU)
-                  abilityDiv.appendChild(magicResistBylvlText2)
+                  mrCounter += petPath["magicResistByLvl"][champLevel]
                 };
                 if (petPath["magicResistPerAPRatio"]) {
-                  var magicResistPerAPText = document.createTextNode(' (+' + petPath["magicResistPerAPRatio"] + ' per AP)');
-                  abilityDiv.appendChild(magicResistPerAPText);
+                  mrCounter += petPath["magicResistPerAPRatio"] * (itemStats.ap + selectedStats.ap);
+                };
+                if (mrCounter !== 0) {
+                  var text = document.createTextNode(': ' + Math.round(mrCounter));
+                  abilityDiv.appendChild(text);
                 }
                 if (petPath["interruptCC"]) {
                   var br = document.createElement('br');
