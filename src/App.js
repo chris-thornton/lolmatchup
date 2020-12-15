@@ -7072,9 +7072,9 @@ class App extends Component {
                   statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel))));
                   abilityDiv.appendChild(critText);
                   if (damage["critADRatioWithIE"]) {
-                    var IEText = document.createTextNode(' (' + damage["critADRatioWithIE"] * (itemStats.ad 
+                    var IEText = document.createTextNode(' (' + Math.round(damage["critADRatioWithIE"] * (itemStats.ad 
                     + statsPath["baseDamage"] + 
-                    statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)) + ' with Infinity Edge)');
+                    statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel))) + ' with Infinity Edge)');
                     abilityDiv.appendChild(IEText);
                   }
                 }
@@ -10522,7 +10522,7 @@ class App extends Component {
                 var text = document.createTextNode(value);
                 abilityDiv.appendChild(text);
               };
-              if (champLeftFile[ability]["minCoolDown"]) {
+              if (champLeftFile[ability]["minCoolDown"] && !champLeftFile[ability]["staticCoolDownFormula"]) {
                 var bold = document.createElement('b');
                 bold.innerText = "Cooldown: ";
                 abilityDiv.appendChild(bold);
@@ -10609,14 +10609,8 @@ class App extends Component {
                 var refundU = document.createElement('u');
                 refundU.innerText = 'Cooldown Refund'
                 abilityDiv.appendChild(refundU);
-                var coolDownByLvlText = document.createTextNode(': [' + champLeftFile[ability]["coolDownRefundByLvl"][0]
-                + " to " + champLeftFile[ability]["coolDownRefundByLvl"][17] + "], based on lvl. ");
-               var currentlyU = document.createElement('u');
-               currentlyU.innerText = "Currently";
-               var coolDownBylvlText2 = document.createTextNode(': ' + champLeftFile[ability]["coolDownRefundByLvl"][champLevel])
-               abilityDiv.appendChild(coolDownByLvlText);
-               abilityDiv.appendChild(currentlyU)
-               abilityDiv.appendChild(coolDownBylvlText2)
+                var text = document.createTextNode(': ' + champLeftFile[ability]["coolDownRefundByLvl"][champLevel])
+                abilityDiv.appendChild(text);
               }
               if (champLeftFile[ability]["minCoolDownRefund"]) {
                 var br = document.createElement('br');
@@ -10634,14 +10628,8 @@ class App extends Component {
                 var refundU = document.createElement('u');
                 refundU.innerText = 'Min Cooldown Refund'
                 abilityDiv.appendChild(refundU);
-                var coolDownByLvlText = document.createTextNode(' - [' + champLeftFile[ability]["minCoolDownRefundByLvl"][0]
-                 + " to " + champLeftFile[ability]["minCoolDownRefundByLvl"][17] + "], based on lvl. ");
-                var currentlyU = document.createElement('u');
-                currentlyU.innerText = "Currently";
-                var coolDownBylvlText2 = document.createTextNode(': ' + champLeftFile[ability]["minCoolDownRefundByLvl"][champLevel])
-                abilityDiv.appendChild(coolDownByLvlText);
-                abilityDiv.appendChild(currentlyU)
-                abilityDiv.appendChild(coolDownBylvlText2)
+                var text = document.createTextNode(': ' + champLeftFile[ability]["minCoolDownRefundByLvl"][champLevel])
+                abilityDiv.appendChild(text);
               }
               if (champLeftFile[ability]["maxCoolDownRefundByLvl"]) {
                 var br = document.createElement('br');
@@ -10649,14 +10637,8 @@ class App extends Component {
                 var refundU = document.createElement('u');
                 refundU.innerText = 'Max Cooldown Refund'
                 abilityDiv.appendChild(refundU);
-                var coolDownByLvlText = document.createTextNode(' - [' + champLeftFile[ability]["maxCoolDownRefundByLvl"][0]
-                 + " to " + champLeftFile[ability]["maxCoolDownRefundByLvl"][17] + "], based on lvl. ");
-                var currentlyU = document.createElement('u');
-                currentlyU.innerText = "Currently";
-                var coolDownBylvlText2 = document.createTextNode(': ' + champLeftFile[ability]["maxCoolDownRefundByLvl"][champLevel])
-                abilityDiv.appendChild(coolDownByLvlText);
-                abilityDiv.appendChild(currentlyU)
-                abilityDiv.appendChild(coolDownBylvlText2)
+                var text = document.createTextNode(': ' + champLeftFile[ability]["maxCoolDownRefundByLvl"][champLevel])
+                abilityDiv.appendChild(text);
               }
               if (champLeftFile[ability]["coolDownRefundRatio"]) {
                 var br = document.createElement('br');
@@ -10664,9 +10646,10 @@ class App extends Component {
                 var refundU = document.createElement('u');
                 refundU.innerText = 'Cooldown Refund Ratio'
                 abilityDiv.appendChild(refundU);
-                var refundText = document.createTextNode(': ' + JSON.stringify(champLeftFile[ability]
-                  ["coolDownRefundRatio"]).replace(/,/g, ', '));
-                abilityDiv.appendChild(refundText);
+                var value = champLeftFile[ability]["coolDownRefundRatio"];
+                value = arrayCheck(value);
+                var text = document.createTextNode(': ' + value);
+                abilityDiv.appendChild(text);
               }
               if (champLeftFile[ability]["coolDownRefundRatioByLvl"]) {
                 var br = document.createElement('br');
@@ -10674,14 +10657,8 @@ class App extends Component {
                 var refundU = document.createElement('u');
                 refundU.innerText = 'Cooldown Refund Ratio'
                 abilityDiv.appendChild(refundU);
-                var refundByLvlText = document.createTextNode(' - [' + champLeftFile[ability]["coolDownRefundRatioByLvl"][0]
-                 + " to " + champLeftFile[ability]["coolDownRefundRatioByLvl"][17] + "], based on lvl. ");
-                var currentlyU = document.createElement('u');
-                currentlyU.innerText = "Currently";
-                var refundBylvlText2 = document.createTextNode(': ' + champLeftFile[ability]["coolDownRefundRatioByLvl"][champLevel])
-                abilityDiv.appendChild(refundByLvlText);
-                abilityDiv.appendChild(currentlyU)
-                abilityDiv.appendChild(refundBylvlText2)
+                var text = document.createTextNode(': ' + champLeftFile[ability]["coolDownRefundRatioByLvl"][champLevel])
+                abilityDiv.appendChild(text);
               }
               if (champLeftFile[ability]["maxCoolDownRefundRatio"]) {
                 var br = document.createElement('br');
@@ -10699,8 +10676,10 @@ class App extends Component {
                 }
                 var rechargeBold = document.createElement('b');
                 rechargeBold.innerText = "Recharge: ";
-                abilityDiv.appendChild(rechargeBold)
-                var rechargeText = document.createTextNode(JSON.stringify(champLeftFile[ability]["recharge"]).replace(/,/g, ', '));
+                abilityDiv.appendChild(rechargeBold);
+                var value = champLeftFile[ability]["recharge"];
+                value = arrayCheck(value);
+                var rechargeText = document.createTextNode(value);
                 abilityDiv.appendChild(rechargeText)
               };
               if (champLeftFile[ability]["staticCoolDownFormula"]) {
@@ -10714,7 +10693,7 @@ class App extends Component {
                 };
                 var text = document.createTextNode(value);
                 abilityDiv.appendChild(text);
-              }
+              };
 
               if (champLeftFile[ability]["Rhaast"]) {
                 var rhaastPath = champLeftFile[ability]["Rhaast"];
