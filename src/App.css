@@ -32,6 +32,18 @@
   column-count: 4;
 }
 
+.transformLeft {
+  visibility: hidden;
+}
+
+.transformRight {
+  display: block;
+}
+
+#transform {
+  display: none;
+}
+
 .abilityBox {
   width: 45vw;
   border: 1px solid black;

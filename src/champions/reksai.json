@@ -15,7 +15,7 @@
     },
     "QTransform": {
             "damage": {
-                "type": "phys",
+                "type": "Physical",
                 "system": "single",
                     "dmg": [
                         60, 90, 120, 150, 180
@@ -29,14 +29,14 @@
     },
     "WTransform": {
         "damage": {
-            "type":"phys",
+            "type":"Physical",
             "dmg": [
                 55, 70, 85, 100, 115
             ],
             "bonusADRatio": 0.8
         },
         "interruptCC": 1,
-        "staticOnTargetCoolDown": 10
+        "staticCoolDown": 10
     },
     "E": {
         "damage": {

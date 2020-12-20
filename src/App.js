@@ -208,6 +208,7 @@ class App extends Component {
     var enemyStats = this.state.stats2
     var selectedStats = this.state.stats1
     var side = 'Left';
+    var otherSide = 'Right';
 
     document.getElementsByTagName("input")[0].value = '';
     this.setState({ filteredChampsLeft: [] });
@@ -225,6 +226,22 @@ class App extends Component {
     } else {
       champName = 'MonkeyKing'
     };
+
+    if (champName === ('Gnar' || 'Kled') ) {
+      var transformSection = document.getElementById('transform');
+      transformSection.style.display = 'block';
+      var transformSide = document.getElementsByClassName(`transform${side}`);
+      transformSide[0].style.visibility = 'visible';
+      transformSide[1].style.visibility = 'visible';
+    } else {
+      var transformSide = document.getElementsByClassName(`transform${side}`);
+      transformSide[0].style.visibility = 'hidden';
+      transformSide[1].style.visibility = 'hidden';
+      if (this.state[`champName${otherSide}`] !== ('Gnar' || 'Kled')) {
+        var transformSection = document.getElementById('transform');
+        transformSection.style.display = 'none';
+      }
+    }
 
     this.setState({ champIndexLeft: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value
@@ -11224,8 +11241,8 @@ class App extends Component {
         </div>
 
         <div className="flexDisplay">
-          <span><u><b>stats</b></u></span>
-          <span><u>stats</u></span>
+          <span><u><b>Stats</b></u></span>
+          <span><u><b>Stats</b></u></span>
         </div>
 
         <div className="flexDisplay">        
@@ -11263,6 +11280,49 @@ class App extends Component {
             Health Per 5: {this.state.stats2.hpRegen.toFixed(3)}<br />
             Ability Power: {this.state.stats2.ap}<br />
             Cooldown Reduction: {Math.round(this.state.stats2.cdr)}%
+          </div>
+        </div>
+        <div id='transform'>
+          <div className="flexDisplay">
+            <span className="transformLeft"><u><b>Transform Stats</b></u></span>
+            <span className="transformRight"><u><b>Transform Stats</b></u></span>
+          </div>
+          <div className="flexDisplay">    
+            <div className="statsBox transformLeft">
+              <img src={healthIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Health Icon' height="25px" width="25px"/>
+              Health: {Math.round(this.state.stats1.hp)}<br />
+              <img src={armorIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Armor Icon' height="25px" width="25px"/>
+              Armor: {Math.round(this.state.stats1.arm)}<br />
+              <img src={magicResIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Magic Resist Icon' height="25px" width="25px"/>
+              Magic Resist: {Math.round(this.state.stats1.mr)}<br />
+              <img src={attackDamageIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Damage Icon' height="25px" width="25px"/>
+              Attack Damage: {Math.round(this.state.stats1.ad)}<br />
+              <img src={attackSpeedIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Speed Icon' height="25px" width="25px"/>
+              Attack Speed: {this.state.stats1.as.toFixed(3)}<br />
+              <img src={critChanceIcon} style={{verticalAlign: "middle", padding: "0px 5px 5px 0px"}} alt='Crit Chance Icon' height="16px" width="16px"/>
+              Crit Chance: {Math.round(this.state.stats1.critChance)}%<br />
+              <img src={manaIcon} style={{verticalAlign: "middle", paddingBottom: "0px 5px 5px 0px"}} alt='Mana Icon' height="16px" width="16px"/>
+              Mana: {Math.round(this.state.stats1.mana)}<br />
+              Mana Per 5: {this.state.stats1.manaRegen.toFixed(3)}<br />
+              Health Per 5: {this.state.stats1.hpRegen.toFixed(3)}<br />
+              <img src={abilityPowerIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Ability Power Icon' height="25px" width="25px"/>
+              Ability Power: {this.state.stats1.ap}<br />
+              <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Cooldown Reduction Icon' height="25px" width="25px"/>
+              Cooldown Reduction: {Math.round(this.state.stats1.cdr)}%
+            </div>
+            <div className="statsBox transformRight">
+              Health: {Math.round(this.state.stats2.hp)}<br />
+              Armor: {Math.round(this.state.stats2.arm)}<br />
+              Magic Resist: {Math.round(this.state.stats2.mr)}<br />
+              Attack Damage: {Math.round(this.state.stats2.ad)}<br />
+              Attack Speed: {this.state.stats2.as.toFixed(3)}<br />
+              Crit Chance: {Math.round(this.state.stats2.critChance)}%<br />
+              Mana: {Math.round(this.state.stats2.mana)}<br />
+              Mana Per 5: {this.state.stats2.manaRegen.toFixed(3)}<br />
+              Health Per 5: {this.state.stats2.hpRegen.toFixed(3)}<br />
+              Ability Power: {this.state.stats2.ap}<br />
+              Cooldown Reduction: {Math.round(this.state.stats2.cdr)}%
+            </div>
           </div>
         </div>
 
