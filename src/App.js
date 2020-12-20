@@ -269,6 +269,10 @@ class App extends Component {
             return value.toString().split(".")[1].length || 0; 
             }
           };
+          function singleBreak() {
+            var br = document.createElement('br');
+            abilityDiv.appendChild(br);
+          };
           function doubleBreak() {
             var br = document.createElement('br');
             abilityDiv.appendChild(br)
@@ -10866,13 +10870,6 @@ class App extends Component {
             var tfAbility = this.transformAbilities[i];
             var hr = document.createElement('hr');
             abilityDiv.appendChild(hr);
-            /*var transformU = document.createElement('u');
-            var transformB = document.createElement('b');
-            transformU.appendChild(transformB);
-            transformB.innerText = 'Transformed ' + ability
-            if (ability === 'passive') {
-              transformB.innerText = 'Transformed Passive'
-            };*/
             var transformU = document.createElement('u');
             transformU.innerText = 'Transform ' + ability;
             if (ability === 'passive') {
@@ -10881,7 +10878,115 @@ class App extends Component {
             abilityDiv.appendChild(transformU);
             var hr2 = document.createElement('hr');
             abilityDiv.appendChild(hr2);
-            doubleBreak();
+
+            if (this.state[`${ability}RankLeft`] == 0 || ability === 'passive') {
+
+              if (champLeftFile[tfAbility]['autoEmpower']) {
+                var path = champLeftFile[tfAbility]['autoEmpower']['damage'];
+                var bold = document.createElement('b');
+                bold.innerText = 'Auto Attack Empower: ';
+                abilityDiv.appendChild(bold);
+                var dmgType = document.createElement('u');
+                dmgType.innerText = path['type'] + ' Damage';
+                abilityDiv.appendChild(dmgType);
+                if (path['dmgByRRank']) {
+                  var text = document.createTextNode(': ' + JSON.stringify(path["dmgByRRank"])
+                  .replace(/,/g, ', ') + ' (based on R rank)');
+                  abilityDiv.appendChild(text);
+                };
+                if (path['APRatio']) {
+                  var text = document.createTextNode(' (+' + path['APRatio'] + ' AP Ratio)');
+                  abilityDiv.appendChild(text);
+                };
+                if (champLeftFile[tfAbility]['autoEmpower']['heal']) {
+                  var healPath = champLeftFile[tfAbility]['autoEmpower']['heal'];
+                  var br = document.createElement('br');
+                  abilityDiv.appendChild(br);
+                  var healU = document.createElement('u');
+                  healU.innerText = 'Heal';
+                  abilityDiv.appendChild(healU);
+                  if (healPath['healByRRank']) {
+                    var text = document.createTextNode(': ' + JSON.stringify(healPath["healByRRank"])
+                    .replace(/,/g, ', ') + ' (based on R rank)');
+                    abilityDiv.appendChild(text);
+                  };
+                  if (healPath['APRatio']) {
+                    var text = document.createTextNode(' (+' + healPath['APRatio'] + ' AP Ratio)');
+                    abilityDiv.appendChild(text);
+                  }
+                }
+              }
+
+              if (champLeftFile[tfAbility]['damage']) {
+                var path = champLeftFile[tfAbility]['damage'];
+                var bold = document.createElement('b');
+                bold.innerText = path['type'] + ' Damage: ';
+                abilityDiv.appendChild(bold);
+                if (path['dmg']) {
+                  var text = document.createTextNode(JSON.stringify(path['dmg']).replace(/,/g, ', '));
+                  abilityDiv.appendChild(text);
+                };
+                if (path['enemyMissingHPRatio']) {
+                  var text = document.createTextNode(' (+' + path['enemyMissingHPRatio'] + ' Enemy Missing HP Ratio)');
+                  abilityDiv.appendChild(text);
+                };
+                if (path['enemyMissingHPRatioPer100AP']) {
+                  var text = document.createTextNode(' (+' + path['enemyMissingHPRatioPer100AP'] 
+                  + ' Enemy Missing HP Ratio per 100 AP)');
+                  abilityDiv.appendChild(text);
+                };
+                doubleBreak();
+              };
+
+              if (champLeftFile[tfAbility]['bonusAttackSpeed']) {
+                var path = champLeftFile[tfAbility]['bonusAttackSpeed'];
+                var bold = document.createElement('b');
+                bold.innerText = 'Bonus Attack Speed: ';
+                abilityDiv.appendChild(bold);
+                if (path['attackSpeed']) {
+                  var text = document.createTextNode(JSON.stringify(path['attackSpeed']).replace(/,/g, ', '));
+                  abilityDiv.appendChild(text);
+                };
+                if (path['duration']) {
+                  singleBreak();
+                  var underL = document.createElement('u');
+                  underL.innerText = 'Duration';
+                  abilityDiv.appendChild(underL);
+                  var text = document.createTextNode(': ' + path['duration']);
+                  abilityDiv.appendChild(text);
+                };
+                doubleBreak();
+              };
+
+              if (champLeftFile[tfAbility]["passiveTransformBonus"]) {
+                var path = champLeftFile[tfAbility]["passiveTransformBonus"];
+                var bold = document.createElement('b');
+                bold.innerText = `Passive's Auto Empower Increase Ratio: `;
+                abilityDiv.appendChild(bold);
+                var text = document.createTextNode(JSON.stringify(path['bonus']).replace(/,/g, ', '));
+                abilityDiv.appendChild(text);
+                singleBreak();
+                var underL = document.createElement('u');
+                underL.innerText = 'Duration';
+                abilityDiv.appendChild(underL);
+                var dur = document.createTextNode(': ' + path['duration']);
+                abilityDiv.appendChild(dur);
+                doubleBreak();
+              }
+
+              if (champLeftFile[tfAbility]['coolDown']) {
+                var bold = document.createElement('b');
+                bold.innerText = 'Cooldown: ';
+                abilityDiv.appendChild(bold);
+                var text = document.createTextNode(JSON.stringify(champLeftFile[tfAbility]['coolDown'])
+                .replace(/,/g, ', '));
+                abilityDiv.appendChild(text);
+              }
+            }
+
+            if (this.state[`${ability}RankLeft`] > 0 ) {
+
+            }
           }
         }
 
@@ -11260,11 +11365,11 @@ class App extends Component {
 
         </div>
 
-        <footer style={{bottom: "0px", position: "absolute", width: "100%", textAlign: "right"}}>
+        {/*<footer style={{bottom: "0px", position: "absolute", width: "100%", textAlign: "right"}}>
         Icon made by <a href="https://www.flaticon.com/authors/vectors-market" 
         title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" 
         title="Flaticon"> www.flaticon.com</a>
-        </footer>
+        </footer>*/}
 
       </div>
     );

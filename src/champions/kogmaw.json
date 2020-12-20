@@ -2,7 +2,7 @@
     "Q": {
         "passivePermanent": {
             "bonusAttackSpeed": [
-                0.15, 0.20, 0.25, 0.30, 35
+                0.15, 0.20, 0.25, 0.30, 0.35
             ]
         },
         "damage": {
