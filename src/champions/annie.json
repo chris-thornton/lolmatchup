@@ -22,9 +22,11 @@
         "coolDown": 8
     },
     "E": {
-        "damageRedux": {
+        "shield": {
             "type": "all",
-            "reduxRatio": [0.13, 0.17, 0.21, 0.25, 0.29],
+            "targets": "all",
+            "shield": [40, 90, 140, 190, 240],
+            "APRatio": 0.4,
             "duration": 3
         },
         "damage": {
@@ -36,11 +38,7 @@
             "APRatio": 0.2
         },
         "coolDown": [
-            14,
-            13,
-            12,
-            11,
-            10
+            14, 13, 12, 11, 10
         ]
     },
     "R": {

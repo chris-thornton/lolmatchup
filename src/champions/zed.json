@@ -25,7 +25,7 @@
             "type":"phys",
             "system":"single",
             "dmg": [
-                70, 95, 120, 145, 170
+                70,90,110,130,150
             ],
             "bonusADRatio": 0.8
         },

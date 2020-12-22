@@ -55,14 +55,8 @@
         },
         "bonusResist": {
             "type": "both",
-            "minResist": [
-                15, 35, 55
-            ],
-            "resistPerSecond": [
-                1, 2, 3
-            ],
-            "maxResist": [
-                30, 65, 100
+            "resist": [
+                40, 55, 70
             ]
         },
         "tickDamage": {
