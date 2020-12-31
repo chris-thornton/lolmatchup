@@ -77,12 +77,12 @@
     },
     "stats": {
         "baseHP": 576,
-        "hpPerLevel": 90,
+        "hpPerLevel": 105,
         "baseHPRegen": 6,
         "hpRegenPerLevel": 0.5,
         "mana": {
             "base": 397.6,
-            "manaPerLevel": 67,
+            "manaPerLevel": 87,
             "manaBaseRegen": 6,
             "manaRegenPerLevel": 0.8
         },

@@ -55,7 +55,7 @@
     },
     "passive": {
         "auto": {
-            "critDmg": 1.3,
+            "critDmg": 1.5,
             "critDmgWithIE": 1.4625
         },
         "autoEmpower": {
@@ -76,7 +76,7 @@
                 "ADPerStack": 0.75
             },
             "stacks": "custom",
-            "critChancePer20Stacks": 0.15,
+            "critChancePer20Stacks": 0.1,
             "lifestealPerOverCrit": 0.35
         }
     },

@@ -93,7 +93,7 @@
                     0.75, 0.75, 0.75, 1, 1, 1, 1, 1, 1
                 ],
                 "ADRatioPerCritChance": 1.25,
-                "ADRatioPerCritChanceWithIE": 1.4625,
+                "ADRatioPerCritChanceWithIE": 1.46875,
                 "autoCoolDown": 7
             }
         }

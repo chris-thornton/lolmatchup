@@ -64,7 +64,9 @@
         "bonusAttackSpeed": {
             "system": "minMax",
             "minAttackSpeed": 0.06,
-            "maxAttackSpeed": 0.3
+            "minAttackSpeedPer100AP": 0.01,
+            "maxAttackSpeed": 0.3,
+            "maxAttackSpeedPer100AP": 0.05
         },
         "autoEmpower": {
             "damage": {

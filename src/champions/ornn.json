@@ -64,7 +64,8 @@
     },
     "passive": {
         "passivePermanent": {
-            "bonusResistRatio": 0.1
+            "bonusBonusResistHPRatio": 0.1,
+            "bonusBonusPerStack": 0.04
        },
         "damage": {
             "type":"magic",
@@ -81,7 +82,7 @@
         "hpRegenPerLevel": 0.9,
         "mana": {
             "base": 340.6,
-            "manaPerLevel": 45,
+            "manaPerLevel": 65,
             "manaBaseRegen": 8.01,
             "manaRegenPerLevel": 0.6
         },

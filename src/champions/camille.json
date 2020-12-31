@@ -2,16 +2,16 @@
     "Q": {
         "autoEmpower": {
             "damage": {
-                "type": "mixed",
+                "type": "Mixed",
                 "system": "2Part",
                 "part1": {
-                    "type": "phys",
+                    "type": "Physical",
                     "ADRatio": [
                         0.2, 0.25, 0.3, 0.35, 0.4
                     ]
                 },
                 "part2": {
-                    "type": "mixed",
+                    "type": "Mixed",
                     "ADRatio": [
                         0.4, 0.5, 0.6, 0.7, 0.8
                     ],
@@ -120,7 +120,7 @@
         "hpRegenPerLevel": 0.8,
         "mana": {
             "base": 338.8,
-            "manaPerLevel": 32,
+            "manaPerLevel": 52,
             "manaBaseRegen": 8.15,
             "manaRegenPerLevel": 0.75
         },

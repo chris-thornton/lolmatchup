@@ -31,15 +31,29 @@
         ]
     },
     "R": {
-        "tickDamage": {
-            "type":"magic",
-            "interval":0.166,
-            "ticks": 15,
-            "dmg":[
+        "damage": {
+            "type":"Mixed",
+            "system": "2Part",
+            "part1": {
+              "type":"magic",
+              "system": "minMax",
+              "minDmg":[
                 25, 37.5, 50
-            ],
-            "bonusADRatio": 0.22,
-            "APRatio": 0.19
+              ],
+              "minAPRatio": 0.19,
+              "maxDmg": [
+                375, 562.5, 750
+              ],
+              "maxAPRatio": 2.85
+            },
+            "part2": {
+              "type": "phys",
+              "system":"minMax",
+              "minBonusADRatio": 0.15,
+              "minBonusADPerAttackSpeedRatio": 0.099,
+              "maxBonusADRatio": 2.25,
+              "maxBonusADPerAttackSpeedRatio": 1.485
+            }
         },
         "coolDown": [
             90, 60, 45

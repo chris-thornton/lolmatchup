@@ -78,7 +78,7 @@
         "hpRegenPerLevel": 0.75,
         "mana": {
             "base": 271,
-            "manaPerLevel": 30,
+            "manaPerLevel": 50,
             "manaBaseRegen": 7.5,
             "manaRegenPerLevel": 0.45
         },

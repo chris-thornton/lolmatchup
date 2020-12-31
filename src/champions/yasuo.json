@@ -58,11 +58,14 @@
     },
     "passive": {
         "passivePermanent": {
-            "itemCritChanceMultiplier": 2
+            "itemCritChanceMultiplier": 2,
+            "bonusAttackDamage": {
+                "ADPerOverCrit": 0.5
+            }
         },
         "auto": {
-            "critDmg": 1.8,
-            "critDmgWithIE": 2.0225
+            "critDmg": 1.575,
+            "critDmgWithIE": 1.850625
         },
         "shield": {
             "type": "all",

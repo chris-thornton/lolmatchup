@@ -50,11 +50,11 @@
             "minDmg": [
                 70, 110, 150, 190, 230
             ],
-            "minAPRatio": 0.6,
+            "minAPRatio": 0.5,
             "maxDmg": [
-                90, 170, 250, 330, 410
+                90, 160, 230, 290, 370
             ],
-            "maxAPRatio": 1.3 
+            "maxAPRatio": 1.3
         },
         "coolDown": [
             12, 11, 10, 9, 8
@@ -89,7 +89,7 @@
         "hpRegenPerLevel": 0.65,
         "mana": {
             "base": 405,
-            "manaPerLevel": 25,
+            "manaPerLevel": 45,
             "manaBaseRegen": 8,
             "manaRegenPerLevel": 0.8
         },
