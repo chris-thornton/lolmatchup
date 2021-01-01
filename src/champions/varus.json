@@ -19,15 +19,15 @@
         },
         "coolDown": [
             18, 16, 14, 12, 10
-        ],
-        "coolDownRefund": 3
+        ]
     },
     "W": {
+        "text": "Detonation damage increased by up to 50% on Q",
         "autoEmpower": {
             "damage": {
                 "type":"magic",
                 "dmg": [
-                    7, 10.5, 14, 17.5, 21
+                    7,8,9,10,11
                 ],
                 "APRatio": 0.25
             }
@@ -58,7 +58,8 @@
                 ]
             }
         },
-        "coolDown": 40
+        "coolDown": 40,
+        "basicCDMaxRefundRatioPerStack": 0.12
     },
     "E": {
         "damage": {

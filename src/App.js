@@ -5297,10 +5297,18 @@ class App extends Component {
                 abilityDiv.appendChild(refundU);
                 var refundText = document.createTextNode(': ' + champLeftFile[ability]["allCDRefund"]);
                 abilityDiv.appendChild(refundText);
-              }
+              };
+              if (champLeftFile[ability]["basicCDMaxRefundRatioPerStack"]) {
+                singleBreak();
+                var refundU = document.createElement('u');
+                refundU.innerText = 'Basic Abilities Max Cooldown Refund Ratio';
+                abilityDiv.appendChild(refundU);
+                var text = document.createTextNode(': ' + champLeftFile[ability]["basicCDMaxRefundRatioPerStack"]
+                + ' per Stack');
+                abilityDiv.appendChild(text);
+              };
               if (champLeftFile[ability]["coolDownRefundByLvl"]) {
-                var br = document.createElement('br');
-                abilityDiv.appendChild(br);
+                singleBreak();
                 var refundU = document.createElement('u');
                 refundU.innerText = 'Cooldown Refund'
                 abilityDiv.appendChild(refundU);
@@ -5314,8 +5322,7 @@ class App extends Component {
                abilityDiv.appendChild(coolDownBylvlText2)
               }
               if (champLeftFile[ability]["minCoolDownRefund"]) {
-                var br = document.createElement('br');
-                abilityDiv.appendChild(br);
+                singleBreak();
                 var refundU = document.createElement('u');
                 refundU.innerText = 'Cooldown Refund'
                 abilityDiv.appendChild(refundU);
@@ -10567,8 +10574,7 @@ class App extends Component {
               if (champLeftFile[ability]["coolDownRefund"]) {
                 if (champLeftFile[ability]["coolDownByLvl"] || champLeftFile[ability]["coolDown"] 
                 || champLeftFile[ability]["staticCoolDownByLvl"] || champLeftFile[ability]["staticCoolDown"]) {
-                  var br = document.createElement('br');
-                  abilityDiv.appendChild(br);
+                  singleBreak();
                 }
                 var refundU = document.createElement('u');
                 refundU.innerText = 'Cooldown Refund'
@@ -10578,18 +10584,25 @@ class App extends Component {
               }
               if (champLeftFile[ability]["allCDRefund"]) {
                 if (champLeftFile[ability]["coolDown"]) {
-                  var br = document.createElement('br');
-                  abilityDiv.appendChild(br)
+                  singleBreak();
                 };
                 var refundU = document.createElement('u');
                 refundU.innerText = 'All Abilities Cooldown Refund'
                 abilityDiv.appendChild(refundU);
                 var refundText = document.createTextNode(': ' + champLeftFile[ability]["allCDRefund"]);
                 abilityDiv.appendChild(refundText);
-              }
+              };
+              if (champLeftFile[ability]["basicCDMaxRefundRatioPerStack"]) {
+                singleBreak();
+                var refundU = document.createElement('u');
+                refundU.innerText = 'Basic Abilities Max Cooldown Refund Ratio';
+                abilityDiv.appendChild(refundU);
+                var text = document.createTextNode(': ' + champLeftFile[ability]["basicCDMaxRefundRatioPerStack"]
+                + ' per Stack');
+                abilityDiv.appendChild(text);
+              };
               if (champLeftFile[ability]["coolDownRefundByLvl"]) {
-                var br = document.createElement('br');
-                abilityDiv.appendChild(br);
+                singleBreak();
                 var refundU = document.createElement('u');
                 refundU.innerText = 'Cooldown Refund'
                 abilityDiv.appendChild(refundU);

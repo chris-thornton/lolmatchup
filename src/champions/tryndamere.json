@@ -15,10 +15,10 @@
        "passivePermanent": {
            "bonusAttackDamage": {
                 "minBonusAD": [
-                    5, 10, 15, 20, 25
+                    10, 15, 20, 25, 30
                 ],
                 "maxBonusAD": [
-                    20, 30, 40, 50, 60
+                    25, 40, 55, 70, 85
                 ]
             }
        },

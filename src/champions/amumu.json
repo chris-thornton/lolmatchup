@@ -18,9 +18,9 @@
             "type": "magic",
             "interval": 0.5,
             "dmg": [
-                5 , 7.5 , 10 , 12.5 , 15
+                4,6,8,10,12
             ],
-            "enemyMaxHPRatioPer100AP": 0.005,
+            "enemyMaxHPRatioPer100AP": 0.0025,
             "enemyMaxHPRatio": [0.005 , 0.00625 , 0.0075 , 0.00875 , 0.01]
         }
     },
@@ -36,7 +36,7 @@
             "type": "magic",
             "system": "single",
             "dmg": [
-                75 , 100 , 125 , 150 , 175
+                75,95,115,135,155
             ],
             "APRatio": 0.5
         },
@@ -64,7 +64,9 @@
             125,
             100
         ],
-        "interruptCC": 2
+        "interruptCC": [
+            1.5, 1.75, 2
+        ]
     },
     "passive": {
         "text": "Targets receive 10% bonus true damage from all incoming pre-mitigation magic damage."
