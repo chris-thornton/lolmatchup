@@ -86,7 +86,9 @@
     "passive": {
         "bonusAttackSpeed": {
             "minAttackSpeed": 0.05,
-            "maxAttackSpeed": 0.25
+            "minAttackSpeedPer100AP": 0.04,
+            "maxAttackSpeed": 0.25,
+            "maxAttackSpeedPer100AP": 0.20
         },
         "autoEmpower": {
             "damage": {

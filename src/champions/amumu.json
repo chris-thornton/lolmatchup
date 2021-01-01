@@ -71,7 +71,7 @@
     },
     "stats": {
         "baseHP": 613.12,
-        "hpPerLevel": 84,
+        "hpPerLevel": 80,
         "baseHPRegen": 9,
         "hpRegenPerLevel": 0.85,
         "mana": {
@@ -82,7 +82,7 @@
         },
         "baseDamage": 53.38,
         "damagePerLevel": 3.8,
-        "baseArmor": 33,
+        "baseArmor": 30,
         "armorPerLevel": 3.8,
         "baseMagicResist": 32.1,
         "magicResistPerLevel": 1.25,
