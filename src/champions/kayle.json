@@ -75,7 +75,7 @@
                     15, 20, 25, 30, 35
                 ],
                 "bonusADRatio": 0.1,
-                "APRatio": 0.25,
+                "APRatio": 0.2,
                 "lvlRequired": 11,
                 "canCrit": true
             }
@@ -96,7 +96,7 @@
         "damagePerLevel": 2.5,
         "baseArmor": 26,
         "armorPerLevel": 3,
-        "baseMagicResist": 34,
+        "baseMagicResist": 30,
         "magicResistPerLevel": 0.5,
         "attackSpeed": 0.625,
         "attackSpeedRatio": 0.667,

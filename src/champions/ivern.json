@@ -9,7 +9,7 @@
             "APRatio": 0.7
         },
         "coolDown": [
-            14, 13, 12, 11, 10
+            12, 11, 10, 9, 8
         ]
     },
     "W": {
@@ -40,10 +40,10 @@
             "dmg": [
                 70,95,120,145,170
             ],
-            "APRatio": 0.8
+            "APRatio": 0.9
         },
         "coolDown": [
-            12, 11, 10, 9, 8
+            11, 10, 9, 8, 7
         ]
     },
     "R": {
@@ -60,12 +60,10 @@
                 "coolDown": 3
             },
             "interruptCC": 1,
-            "bonusAttackSpeedByRank": [
+            "bonusAttackSpeed": [
                 0.3, 0.5, 0.7
             ],
-            "attackSpeed": [
-                0.797, 0.920, 1.042
-            ],
+            "attackSpeed": 0.7,
             "health": [1250, 2500, 3750],
             "healthPerAPRatio": 0.5,
             "armor": [15, 40, 90],

@@ -41,7 +41,7 @@
             ],
             "duration": 4
         },
-        "coolDown": 14,
+        "coolDown": 12,
         "minCoolDown": 6
     },
     "E": {
@@ -49,7 +49,7 @@
                 "type": "magic",
                 "system":"single",
                 "dmg": [
-                    80, 120, 160, 200, 240
+                    100,140,180,220,260
                 ]
         },
         "coolDown": 10
@@ -94,7 +94,7 @@
         },
         "baseDamage": 70,
         "damagePerLevel": 3.7,
-        "baseArmor": 33,
+        "baseArmor": 36,
         "armorPerLevel": 3.7,
         "baseMagicResist": 32.1,
         "magicResistPerLevel": 1.25,

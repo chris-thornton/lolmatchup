@@ -36,7 +36,7 @@
             "reduxRatioPer100AP": 0.04,
             "duration": 2.5
         },
-        "coolDown": 6
+        "coolDown": 5
     },
     "E": {
         "damage": {
@@ -69,7 +69,7 @@
     "passive": {
         "heal": {
             "targets": "Self",
-            "maxHPRatio": 0.06
+            "maxHPRatio": 0.08
         },
         "staticCoolDown": 8
     },
