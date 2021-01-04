@@ -213,12 +213,15 @@ class App extends Component {
     document.getElementsByTagName("input")[0].value = '';
     this.setState({ filteredChampsLeft: [] });
     if (this.state.levelLeft === 1) {
-    document.getElementById("levelBoxLeft").value = 1;
+      document.getElementById("levelBoxLeft").value = 1;
     };
-    var hiddenArray = document.getElementsByClassName("hidden");
-    hiddenArray[0].style.visibility = 'visible';
-    for (var i = 2; i < 12; i++) {
-      hiddenArray[i].style.visibility = 'visible';
+
+    if (this.state[`champName${side}`] === '') {
+      var hiddenArray = document.getElementsByClassName("hidden");
+      hiddenArray[0].style.visibility = 'visible';
+      for (var i = 2; i < 12; i++) {
+        hiddenArray[i].style.visibility = 'visible';
+      }
     }
 
     if (event.target.textContent !== "Wukong") {
@@ -243,12 +246,30 @@ class App extends Component {
       }
     }
 
+    if (champName === 'Jayce') {
+      document.getElementById(`RRank${side}`).value = 0;
+      document.getElementById(`QRank${side}`).max = 6;
+      document.getElementById(`WRank${side}`).max = 6;
+      document.getElementById(`ERank${side}`).max = 6;
+      document.getElementById(`RRank${side}`).max = 0;
+    };
+    if (this.state[`champName${side}`] === 'Jayce' && champName !== 'Jayce') {
+      document.getElementById(`QRank${side}`).value = 0;
+      document.getElementById(`WRank${side}`).value = 0;
+      document.getElementById(`ERank${side}`).value = 0;
+      document.getElementById(`RRank${side}`).value = 0;
+      document.getElementById(`QRank${side}`).max = 5;
+      document.getElementById(`WRank${side}`).max = 5;
+      document.getElementById(`ERank${side}`).max = 5;
+      document.getElementById(`RRank${side}`).max = 3;
+    };
+
     this.setState({ champIndexLeft: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value
-    })
+    });
     
     document.getElementsByClassName('champIcon')[0].setAttribute('src', `${this.portraits[`${champList.filter(champ => {
-    return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`)
+    return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
 
     var abilitiesLength = document.getElementsByClassName('abilityBox').length
     for (i = 0; i < abilitiesLength; i++) {
@@ -278,7 +299,9 @@ class App extends Component {
         for (i = 0; i < this.abilities.length; i++) {
           var ability = this.abilities[i];
           var abilityDiv = document.getElementsByClassName('abilityBox')[i];
-          var rankIndex = this.state[`${ability}RankLeft`] - 1
+          if (i !== 0) {
+            var rankIndex = document.getElementById(`${ability}Rank${side}`).value - 1
+          }
           function countDecimals(value) {
             if(Math.floor(value) === value){ 
               return 0
@@ -349,9 +372,8 @@ class App extends Component {
           }
 
           if (champLeftFile[ability]) {
-            console.log("ability rank left: " + this.state[`${ability}RankLeft`])
             this[`${ability}Details`] = champLeftFile[ability]
-            if (this.state[`${ability}RankLeft`] == 0 || ability === 'passive') {
+            if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value == 0) {
 
               if (champLeftFile[ability]["text"]) {
                 var text = document.createTextNode(champLeftFile[ability]["text"])
@@ -5480,7 +5502,7 @@ class App extends Component {
               }
 
             } 
-            if (this.state[`${ability}RankLeft`] > 0 ) {
+            if (ability !== 'passive' && document.getElementById(`${ability}Rank${side}`).value > 0 ) {
               /* COPY PASTE RANK 0 NESTED IFS BUT REPLACE ARRAYS WITH INDIVIDUAL VALUES */
               /* Place non-rank related variables outside of the rank nesting (ex: dmgType) */
               /* BEGIN RANK 1-5 SECTION */
@@ -10755,7 +10777,7 @@ class App extends Component {
             var hr2 = document.createElement('hr');
             abilityDiv.appendChild(hr2);
 
-            if (this.state[`${ability}RankLeft`] == 0 || ability === 'passive') {
+            if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value == 0) {
 
               if (champLeftFile[tfAbility]['autoEmpower']) {
                 var path = champLeftFile[tfAbility]['autoEmpower']['damage'];
@@ -10860,7 +10882,7 @@ class App extends Component {
             }
 
             if (this.state[`${ability}RankLeft`] > 0 ) {
-
+              
             }
           }
         }
@@ -11233,7 +11255,7 @@ class App extends Component {
             <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>R </u></b>- rank: </p>
-                <input id="RRankLeft" type="number" placeholder="0" min="0" max="5" 
+                <input id="RRankLeft" type="number" placeholder="0" min="0" max="3" 
                 style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
               </div>
               <div className="spriteContainer">
@@ -11275,7 +11297,7 @@ class App extends Component {
 
             <div className="hidden">
                 <span><b><u>R </u></b></span><span>- rank: </span>
-                <input id="RRankRight" type="number" placeholder="0" min="0" max="5"
+                <input id="RRankRight" type="number" placeholder="0" min="0" max="3"
                 style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange2}/>
             </div>
             <div className="hidden abilityBoxRight"></div>
