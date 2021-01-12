@@ -723,14 +723,36 @@ class App extends Component {
                   abilityDiv.appendChild(armorRatioText)
                 }
                 if (damage["ADRatioPerCritChance"]) {
-                  var ADRatioPerCritText = document.createTextNode(" (+" + damage["ADRatioPerCritChance"] + " AD Ratio per Crit Chance")
-                  abilityDiv.appendChild(ADRatioPerCritText);
+                  var text = document.createTextNode(" (+" + damage["ADRatioPerCritChance"] + " AD Ratio per Crit Chance")
+                  abilityDiv.appendChild(text);
                   if (damage["ADRatioPerCritChanceWithIE"]) {
-                    var ADRatioIEText = document.createTextNode('. With Infinity Edge: ' + damage["ADRatioPerCritChanceWithIE"] + ')')
-                    abilityDiv.appendChild(ADRatioIEText);
+                    var IEText = document.createTextNode('. With Infinity Edge: ' + damage["ADRatioPerCritChanceWithIE"] + ')')
+                    abilityDiv.appendChild(IEText);
                   } else {
                     var closeParen = document.createTextNode(')')
                     abilityDiv.appendChild(closeParen)
+                  };
+                  if (ability === 'passive') {
+                    var dmgCounter = 0;
+                    var IECounter = 0;
+                    dmgCounter += damage["ADRatioPerCritChance"] * itemStats.critChance * (itemStats.ad + 
+                    statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
+                    if (damage["ADRatioByLvl"]) {
+                      dmgCounter += damage["ADRatioByLvl"][champLevel] * (itemStats.ad + statsPath["baseDamage"] 
+                      + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
+                    };
+                    doubleBreak();
+                    var underL = document.createElement('u');
+                    underL.innerText = 'Current Damage';
+                    abilityDiv.appendChild(underL);
+                    var text = document.createTextNode(': ' + Math.round(dmgCounter));
+                    abilityDiv.appendChild(text);
+                    if (damage["ADRatioPerCritChanceWithIE"]) {
+                      IECounter += damage["ADRatioPerCritChanceWithIE"] * itemStats.critChance * (itemStats.ad + 
+                      statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
+                      var text = document.createTextNode(' (' + Math.round(IECounter + dmgCounter) + ' with IE)');
+                      abilityDiv.appendChild(text);
+                    };
                   }
                 };
                 if (damage["armorIgnore"]) {
@@ -5906,8 +5928,8 @@ class App extends Component {
                     abilityDiv.appendChild(critText);
                   }
                   if (minDmgCount !== 0) {
-                    var text = document.createTextNode(': Min - ' + Math.round(damage["critDmg"] * minDmgCount)
-                    + ', Max - ' + Math.round(damage["critDmg"] * maxDmgCount));
+                    var text = document.createTextNode(': Min: ' + Math.round(damage["critDmg"] * minDmgCount)
+                    + ', Max: ' + Math.round(damage["critDmg"] * maxDmgCount));
                     abilityDiv.appendChild(text);
                   }
                   if (damage["critDmgWithIE"]) {
@@ -5932,7 +5954,8 @@ class App extends Component {
                   var critU = document.createElement('u');
                   critU.innerText = 'Crit Bonus Dmg with Infinity Edge';
                   abilityDiv.appendChild(critU);
-                  var critText = document.createTextNode(': ' + damage["critADRatioWithIE"]);
+                  var critText = document.createTextNode(': ' + Math.round(damage["critADRatioWithIE"]) * (itemStats.ad 
+                  + statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel)));
                   abilityDiv.appendChild(critText);
                 }
                 if (damage["duration"]) {
@@ -5941,8 +5964,8 @@ class App extends Component {
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Duration'
                   abilityDiv.appendChild(durationU)
-                  var durationText = document.createTextNode(': ' + damage["duration"])
-                  abilityDiv.appendChild(durationText)
+                  var text = document.createTextNode(': ' + arrayCheck(damage["duration"]))
+                  abilityDiv.appendChild(text)
                 }
                 if (damage["minDuration"]) {
                   var br = document.createElement("br");
@@ -5950,13 +5973,13 @@ class App extends Component {
                   var minDurationU = document.createElement('u');
                   minDurationU.innerText = 'Min Duration'
                   abilityDiv.appendChild(minDurationU)
-                  var minDurationText = document.createTextNode(': ' + damage["minDuration"] + ', ')
-                  abilityDiv.appendChild(minDurationText)
+                  var minText = document.createTextNode(': ' + damage["minDuration"] + ', ')
+                  abilityDiv.appendChild(minText)
                   var maxDurationU = document.createElement('u');
                   maxDurationU.innerText = 'Max Duration'
                   abilityDiv.appendChild(maxDurationU)
-                  var maxDurationText = document.createTextNode(': ' + damage["maxDuration"])
-                  abilityDiv.appendChild(maxDurationText)
+                  var maxText = document.createTextNode(': ' + damage["maxDuration"])
+                  abilityDiv.appendChild(maxText)
                 }
                
                 if (damage["system"] === "2Part" || damage["system"] === "3Part") {
@@ -5979,23 +6002,22 @@ class App extends Component {
                       } else {
                         dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
                       }
-                      var dmgTypeText = document.createTextNode(dmgType + " Damage - ");
-                      abilityDiv.appendChild(dmgTypeText);
+                      var text = document.createTextNode(dmgType + " Damage: ");
+                      abilityDiv.appendChild(text);
                     };
                     if (part["ADRatio"]) {
-                      var ADRatio = part["ADRatio"][rankIndex]
-                      ADRatio *= ( statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
-                      partDmgCount += ADRatio;
+                      partDmgCount += arrayCheck(part["ADRatio"]) * (itemStats.ad + statsPath["baseDamage"] 
+                      + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
                     };
-                    var dmgCountText = document.createTextNode(Math.round(partDmgCount));
-                    abilityDiv.appendChild(dmgCountText);
+                    var text = document.createTextNode(Math.round(partDmgCount));
+                    abilityDiv.appendChild(text);
                     if (part["trueDmgRatioByLvl"]) {
                       var br = document.createElement('br')
                       abilityDiv.appendChild(br);
-                      var ratioText = document.createTextNode('Physical - ' + Math.round((1 - part["trueDmgRatioByLvl"][champLevel]) 
-                      * partDmgCount) + ', True - ' + Math.round(part["trueDmgRatioByLvl"][champLevel] * partDmgCount));
-                      abilityDiv.appendChild(ratioText);
-                    }
+                      var text2 = document.createTextNode('Physical: ' + Math.round((1 - part["trueDmgRatioByLvl"][champLevel]) 
+                      * partDmgCount) + ', True: ' + Math.round(part["trueDmgRatioByLvl"][champLevel] * partDmgCount));
+                      abilityDiv.appendChild(text2);
+                    };
                     var next = array[i+1]
                     if (damage[next]) {
                       doubleBreak();
@@ -6008,8 +6030,8 @@ class App extends Component {
                   var coolDownU = document.createElement('u');
                   coolDownU.innerText = "Static Cooldown";
                   abilityDiv.appendChild(coolDownU)
-                  var coolDownByLvlText = document.createTextNode(': ' + damage["staticCoolDownByLvl"][champLevel])
-                  abilityDiv.appendChild(coolDownByLvlText);
+                  var text = document.createTextNode(': ' + damage["staticCoolDownByLvl"][champLevel])
+                  abilityDiv.appendChild(text);
                 }
                 doubleBreak();
               }
@@ -6037,7 +6059,7 @@ class App extends Component {
                   abilityDiv.appendChild(dmgTypeBold);
                 };                                  
                 if (damage["dmg"]) {
-                  totalDmgCount += damage["dmg"][rankIndex];
+                  totalDmgCount += arrayCheck(damage["dmg"]);
                 };
                 if (damage["dmgByLvl"]) {
                   totalDmgCount += damage["dmgByLvl"][champLevel]
@@ -6046,53 +6068,30 @@ class App extends Component {
                   var dmgU = document.createElement('u');
                   dmgU.innerText = 'Total Damage Ratio';
                   abilityDiv.appendChild(dmgU);
-                  var ratioText = document.createTextNode(' - ' + JSON.stringify(damage["totalDmgRatio"]).replace(/,/g, ', '));
+                  var ratioText = document.createTextNode(': ' + JSON.stringify(damage["totalDmgRatio"]).replace(/,/g, ', '));
                   abilityDiv.appendChild(ratioText);
                 }
                 if (damage["dmgByWRank"]) {
-                  totalDmgCount += dmgByWRankPath[this.state["WRankLeft"]]
+                  totalDmgCount += damage["dmgByWRank"][document.getElementById(`WRank${side}`).value]
                 }
                 if (damage["APRatio"]) {
-                  var APRatio = damage["APRatio"]
-                  if (typeof APRatio !== 'number') {
-                    APRatio = damage["APRatio"][rankIndex]
-                  }
-                  APRatio *= selectedStats["ap"];
-                  totalDmgCount += APRatio;
+                  totalDmgCount += arrayCheck(damage["APRatio"]) * (itemStats.ap + selectedStats.ap);
                 };
                 if (damage["APRatioByLvl"]) {
-                  totalDmgCount += damage["APRatioByLvl"][champLevel] * selectedStats["ap"]
+                  totalDmgCount += damage["APRatioByLvl"][champLevel] * (selectedStats.ap + itemStats.ap);
                 };
                 if (damage["ADRatio"]) {
-                  var ADRatio = damage["ADRatio"]
-                  if (typeof ADRatio !== 'number') {
-                    ADRatio = damage["ADRatio"][rankIndex]
-                  }
-                  ADRatio *= ( statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
-                  totalDmgCount += ADRatio;
+                  totalDmgCount += arrayCheck(damage["ADRatio"]) * (itemStats.ad + statsPath["baseDamage"] 
+                  + statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
                 };
                 if (damage["bonusADRatio"]) {
-                  var bonusADRatio = damage["bonusADRatio"]
-                  if (typeof bonusADRatio !== 'number') {
-                    bonusADRatio = damage["bonusADRatio"][rankIndex]
-                  }
-                  bonusADRatio *= ( statsPath["damagePerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
-                  totalDmgCount += bonusADRatio;
+                  totalDmgCount += arrayCheck(damage["bonusADRatio"]) * itemStats.ad;
                 };
                 if (damage["bonusManaRatio"]) {
-                  var ratio = damage["bonusManaRatio"]
-                  if (typeof ratio !== 'number') {
-                    ratio = damage["bonusManaRatio"][rankIndex]
-                  }
-                  ratio *= ( statsPath["mana"]["manaPerLevel"] * champLevel * (0.7025 + 0.0175 * champLevel));
-                  totalDmgCount += ratio;
+                  totalDmgCount += arrayCheck(damage["bonusManaRatio"]) * itemStats.mana
                 };
                 if (damage["enemyMaxHPRatio"] && enemyStats.hp) {
-                  var ratio = damage["enemyMaxHPRatio"]
-                  if (typeof ratio !== 'number') {
-                    ratio = damage["enemyMaxHPRatio"][rankIndex]
-                  }
-                  totalDmgCount += ratio * enemyStats.hp
+                  totalDmgCount += arrayCheck(damage["enemyMaxHPRatio"]) * enemyStats.hp
                 };
                 if (damage["enemyMaxHPRatioPer100AD"] && enemyStats.hp) {
                   var ratio = damage["enemyMaxHPRatioPer100AD"]
