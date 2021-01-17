@@ -36,7 +36,7 @@
             "bonusADRatio": 0.2,
             "enemyCurrentHPRatio": 0.015,
             "enemyCurrentHPRatioPerStack": 0.01,
-            "attackSpeedPerBonusAttackSpeed": 0.25
+            "asPerBonusAS": 0.25
         },
         "coolDown": [
             18, 17, 16, 15, 14
