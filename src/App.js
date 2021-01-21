@@ -6476,38 +6476,25 @@ class App extends Component {
                     abilityDiv.appendChild(text);
                   }
                   if (damage["maxEnemyBonusHPRatio"] && !enemyStats.hp) {
-                    var ratio = damage["maxEnemyBonusHPRatio"]
-                    if (typeof ratio !== 'number') {
-                      ratio = damage["maxEnemyBonusHPRatio"][rankIndex]
-                    }
-                    var text = document.createTextNode(' (+' + ratio + ' Enemy Bonus HP Ratio');
+                    var text = document.createTextNode(' (+' + arrayCheck(damage["maxEnemyBonusHPRatio"]) 
+                    + ' Enemy Bonus HP Ratio');
                     abilityDiv.appendChild(text);
                   }
                   var maxCurrentHPCounter = 0;
                   if (damage["maxEnemyCurrentHPRatio"] && !enemyStats.hp) {
-                    var ratio = damage["maxEnemyCurrentHPRatio"]
-                    if (typeof ratio !== 'number') {
-                      ratio = damage["maxEnemyCurrentHPRatio"][rankIndex]
-                    }
-                    maxCurrentHPCounter += ratio;
+                    maxCurrentHPCounter += arrayCheck(damage["maxEnemyCurrentHPRatio"]);
                   };
                   if (damage["maxEnemyCurrentHPRatioPer100AP"] && !enemyStats.hp) {
-                    var ratio = damage["maxEnemyCurrentHPRatioPer100AP"]
-                    if (typeof ratio !== 'number') {
-                      ratio = damage["maxEnemyCurrentHPRatioPer100AP"][rankIndex]
-                    }
-                    maxCurrentHPCounter += ratio * (selectedStats.ap + ItemStats.ap) / 100
+                    maxCurrentHPCounter += arrayCheck(damage["maxEnemyCurrentHPRatioPer100AP"]) 
+                    * (selectedStats.ap + ItemStats.ap) / 100
                   };
                   if (maxCurrentHPCounter !== 0) {
-                    var text = document.createTextNode(' (+' + maxCurrentHPCounter + ' Enemy Current HP Ratio');
+                    var text = document.createTextNode(' (+' + lengthCheck(maxCurrentHPCounter) + ' Enemy Current HP Ratio');
                   }
                   if (damage["maxEnemyMissingHPRatio"]) {
-                    var ratio = damage["maxEnemyMissingHPRatio"]
-                    if (typeof ratio !== 'number') {
-                      ratio = damage["maxEnemyMissingHPRatio"][rankIndex]
-                    }
-                    var text = document.createTextNode(" (+" + ratio + " Enemy Missing HP Ratio)")
-                    abilityDiv.appendChild(text)
+                    var text = document.createTextNode(" (+" + arrayCheck(damage["maxEnemyMissingHPRatio"]) 
+                    + " Enemy Missing HP Ratio)");
+                    abilityDiv.appendChild(text);
                   };
                 };
 
@@ -6517,27 +6504,18 @@ class App extends Component {
                   var evolveU = document.createElement('u');
                   evolveU.innerText = 'Evolve Max Damage';
                   abilityDiv.appendChild(evolveU);
-                  evolveDmgCounter += damage["evolveMaxDmg"][rankIndex];
+                  evolveDmgCounter += arrayCheck(damage["evolveMaxDmg"]);
                 }
                 if (damage["evolveMaxBonusADRatio"]) {
-                  var ratio = damage["evolveMaxBonusADRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = damage["evolveMaxBonusADRatio"][rankIndex]
-                  }
-                  evolveDmgCounter += ratio * (itemStats.ad + statsPath["damagePerLevel"] 
-                  * champLvlRatio)
+                  evolveDmgCounter += arrayCheck(damage["evolveMaxBonusADRatio"]) * itemStats.ad;
                 };
                 if (damage["evolveMaxAPRatio"]) {
-                  var ratio = damage["evolveMaxAPRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = damage["evolveMaxAPRatio"][rankIndex]
-                  }
-                  evolveDmgCounter += ratio * (itemStats.ap + selectedStats.ap);
+                  evolveDmgCounter += arrayCheck(damage["evolveMaxAPRatio"]) * (itemStats.ap + selectedStats.ap);
                 };
                 if (evolveDmgCounter !== 0) {
-                  var text = document.createTextNode(' - ' + Math.round(evolveDmgCounter));
+                  var text = document.createTextNode(': ' + Math.round(evolveDmgCounter));
                   abilityDiv.appendChild(text);
-                }
+                };
 
                 if (damage["system"] === 'stacking') {
                   var stackDmgCounter = 0;
@@ -6546,19 +6524,11 @@ class App extends Component {
                   stackU.innerText = 'Damage per Stack';
                   abilityDiv.appendChild(stackU);
                   if (damage["dmgPerStack"]) {
-                    var dmg = damage["dmgPerStack"];
-                    if (typeof dmg !== 'number') {
-                      dmg = damage["dmgPerStack"][rankIndex]
-                    };
-                    stackDmgCounter += dmg;
+                    stackDmgCounter += arrayCheck(damage["dmgPerStack"]);
                   }
                   if (damage["ADRatioPerStack"]) {
-                    var ratio = damage["ADRatioPerStack"];
-                    if (typeof ratio !== 'number') {
-                      ratio = damage["ADRatioPerStack"][rankIndex]
-                    };
-                    stackDmgCounter += ratio * (itemStats.ad + statsPath["baseDamage"] + statsPath["damagePerLevel"] 
-                    * champLvlRatio);
+                    stackDmgCounter += arrayCheck(damage["ADRatioPerStack"]) 
+                    * (itemStats.ad + statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLvlRatio);
                   }
                   var text = document.createTextNode(': ' + Math.round(stackDmgCounter));
                 }
@@ -6568,43 +6538,36 @@ class App extends Component {
                   var dmgU = document.createElement('u');
                   dmgU.innerText = '4th Shot Damage';
                   abilityDiv.appendChild(dmgU);
-                  var minText = document.createTextNode(': Min - ' + Math.round(damage["4thShotDmgRatio"] * minDmgCount) 
+                  var minText = document.createTextNode(': Min: ' + Math.round(damage["4thShotDmgRatio"] * minDmgCount) 
                   + ' (' + Math.round(damage["4thShotDmgRatioWithIE"] * minDmgCount) + ' with Infinity Edge)');
                   abilityDiv.appendChild(minText);
                   var br2 = document.createElement('br');
                   abilityDiv.appendChild(br2);
-                  var maxText = document.createTextNode('Max - ' + Math.round(damage["4thShotDmgRatio"] * maxDmgCount) 
+                  var maxText = document.createTextNode('Max: ' + Math.round(damage["4thShotDmgRatio"] * maxDmgCount) 
                   + ' (' + Math.round(damage["4thShotDmgRatioWithIE"] * maxDmgCount) + ' with Infinity Edge)');
                   abilityDiv.appendChild(maxText);
-                }
+                };
 
                 if (damage["multiHitDmgRatio"]) {
                   singleBreak();
-                  var ratio = damage["multiHitDmgRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = damage["multiHitDmgRatio"][rankIndex]
-                  }
-                  var text = document.createTextNode('Additional hits deal ' + ratio + ' damage ratio.');
+                  var text = document.createTextNode('Additional hits deal ' + arrayCheck(damage["multiHitDmgRatio"]) 
+                  + ' damage ratio.');
                   abilityDiv.appendChild(text);
-                }
+                };
 
                 if (damage["minMinDmg"]) {
                   singleBreak();
                   var minDmgU = document.createElement('u');
                   minDmgU.innerText = 'Minimum Damage';
                   abilityDiv.appendChild(minDmgU);
-                  var dmg = damage["minMinDmg"];
-                  if (typeof dmg !== 'number') {
-                    dmg = damage["minMinDmg"][rankIndex]
-                  }
-                  var text = document.createTextNode(': ' + dmg)
+                  var text = document.createTextNode(': ' + arrayCheck(damage["minMinDmg"]));
                   abilityDiv.appendChild(text);
-                }
+                };
 
                 if (damage["canCrit"]) {
-                  var canCritText = document.createTextNode(', can crit.');
-                  abilityDiv.appendChild(canCritText);
-                }
+                  var text = document.createTextNode(', can crit.');
+                  abilityDiv.appendChild(text);
+                };
                 
                 if (damage["critDmg"]) {
                   singleBreak();
