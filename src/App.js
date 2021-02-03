@@ -6735,111 +6735,75 @@ class App extends Component {
                         minPartDmgCount += arrayCheck(part["minBonusADRatio"]) * bonusAD;
                       };
                       if (part["minBonusADPerAttackSpeedRatio"]) {
-                        minPartDmgCount += part["minBonusADPerAttackSpeedRatio"] * totalAS * itemStats.ad;
+                        minPartDmgCount += part["minBonusADPerAttackSpeedRatio"] * totalAS * bonusAD;
                       };
                       if (part["minEnemyMaxHPRatio"] && enemyStats.hp) {
-                        var ratio = part["minEnemyMaxHPRatio"];
-                        if (typeof ratio !== 'number') {
-                          ratio = part["minEnemyMaxHPRatio"][rankIndex]
-                        };
-                        minPartDmgCount += ratio * (enemyItemStats.hp + enemyStats.hp);
-                      }
+                        minPartDmgCount += arrayCheck(part["minEnemyMaxHPRatio"]) * enemyTotalHP;
+                      };
                       if (part["minEnemyMaxHPRatioPer100AP"]) {
-                        var ratio = part["minEnemyMaxHPRatioPer100AP"];
-                        if (typeof ratio !== 'number') {
-                          ratio = part["minEnemyMaxHPRatioPer100AP"][rankIndex]
-                        };
-                        minPartDmgCount += ratio * (enemyItemStats.hp + enemyStats.hp) * (selectedStats.ap 
-                          + itemStats.ap) / 100;
-                      }
+                        minPartDmgCount += arrayCheck(part["minEnemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
+                      };
                       if (part["bonusDmgRatioPerCritChance"]) {
-                        minPartDmgCount *= (1 + part["bonusDmgRatioPerCritChance"] * 
-                          selectedStats.critChance + itemStats.critChance)
-                      }
-                      var text = document.createTextNode(Math.round(minPartDmgCount));
-                      abilityDiv.appendChild(text);
+                        minPartDmgCount *= (1 + part["bonusDmgRatioPerCritChance"] * totalCritChance);
+                      };
+                      var minText = document.createTextNode(Math.round(minPartDmgCount));
+                      abilityDiv.appendChild(minText);
                       if (part["minEnemyMissingHPRatioByLvl"]) {
                         var text = document.createTextNode(' (+' + part["minEnemyMissingHPRatioByLvl"][champLevel] 
                         + " Enemy Missing HP Ratio)");
                         abilityDiv.appendChild(text);
                       }
-                      var br = document.createElement("br");
-                      abilityDiv.appendChild(br);
+                      singleBreak();
                       var maxU = document.createTextNode('Max: ');
-                      abilityDiv.appendChild(maxU)
+                      abilityDiv.appendChild(maxU);
                       if (part["maxDmg"]) {
-                        maxPartDmgCount += part["maxDmg"][rankIndex]
-                      }
+                        maxPartDmgCount += arrayCheck(part["maxDmg"]);
+                      };
                       if (part["maxAPRatio"]) {
-                        var ratio = part["maxAPRatio"];
-                        if (typeof ratio !== 'number') {
-                          ratio = part["maxAPRatio"][rankIndex]
-                        };
-                        maxPartDmgCount += ratio * (itemStats.ap + selectedStats.ap);
-                      }
+                        maxPartDmgCount += arrayCheck(part["maxAPRatio"]) * totalAP;
+                      };
                       if (part["maxADRatio"]) {
-                        var ratio = part["maxADRatio"];
-                        if (typeof ratio !== 'number') {
-                          ratio = part["maxADRatio"][rankIndex]
-                        };
-                        maxPartDmgCount += ratio * (itemStats.ad + statsPath["baseDamage"] 
-                        + statsPath["damagePerLevel"] * champLvlRatio);
-                      }
+                        maxPartDmgCount += arrayCheck(part["maxADRatio"]) * totalAD;
+                      };
                       if (part["maxBonusADRatio"]) {
-                        var ratio = part["maxBonusADRatio"];
-                        if (typeof ratio !== 'number') {
-                          ratio = part["maxBonusADRatio"][rankIndex]
-                        };
-                        maxPartDmgCount += ratio * (itemStats.ad);
+                        maxPartDmgCount += arrayCheck(part["maxBonusADRatio"]) * bonusAD;
                       };
                       if (part["maxBonusADPerAttackSpeedRatio"]) {
-                        maxPartDmgCount += part["maxBonusADPerAttackSpeedRatio"] * (statsPath["attackSpeed"] + 
-                        statsPath["attackSpeedRatio"] * (statsPath["attackSpeedPerLevel"] * champLevel * 
-                        (0.7025 + 0.0175 * champLevel) + itemStats.as)) * itemStats.ad;
+                        maxPartDmgCount += part["maxBonusADPerAttackSpeedRatio"] * totalAS * bonusAD;
                       };
                       if (part["maxEnemyMaxHPRatio"] && enemyStats.hp) {
-                        var ratio = part["maxEnemyMaxHPRatio"];
-                        if (typeof ratio !== 'number') {
-                          ratio = part["maxEnemyMaxHPRatio"][rankIndex]
-                        };
-                        maxPartDmgCount += ratio * (enemyItemStats.hp + enemyStats.hp);
-                      }
+                        maxPartDmgCount += arrayCheck(part["maxEnemyMaxHPRatio"]) * enemyTotalHP;
+                      };
                       if (part["maxEnemyMaxHPRatioPer100AP"]) {
-                        var ratio = part["maxEnemyMaxHPRatioPer100AP"];
-                        if (typeof ratio !== 'number') {
-                          ratio = part["maxEnemyMaxHPRatioPer100AP"][rankIndex]
-                        };
-                        maxPartDmgCount += ratio * (enemyItemStats.hp + enemyStats.hp) * (selectedStats.ap 
-                          + itemStats.ap) / 100;
-                      }
+                        maxPartDmgCount += arrayCheck(part["maxEnemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
+                      };
                       if (part["bonusDmgRatioPerCritChance"]) {
-                        maxPartDmgCount *= (1 + part["bonusDmgRatioPerCritChance"] * 
-                          selectedStats.critChance + itemStats.critChance)
-                      }
-                      var text = document.createTextNode(Math.round(maxPartDmgCount));
-                      abilityDiv.appendChild(text);
+                        maxPartDmgCount *= (1 + part["bonusDmgRatioPerCritChance"] * totalCritChance);
+                      };
+                      var maxText = document.createTextNode(Math.round(maxPartDmgCount));
+                      abilityDiv.appendChild(maxText);
                       if (part["maxEnemyMissingHPRatioByLvl"]) {
                         var text = document.createTextNode(' (+' + part["maxEnemyMissingHPRatioByLvl"][champLevel] 
                         + " Enemy Missing HP Ratio)");
                         abilityDiv.appendChild(text);
                       }
-                    }
-                    var next = array[i+1]
+                    };
+                    var next = array[i+1];
                     if (champLeftFile[ability]['damage'][next]) {
                       doubleBreak();
                     }
-                  }
-                  this.partNumberArray.map(partDamageMap)
-                }
+                  };
+                  this.partNumberArray.map(partDamageMap);
+                };
                 if (damage["storedDmg"]) {
                   singleBreak();
                   var storedU = document.createElement('u');
                   storedU.innerText = 'Stored Damage Ratio';
                   abilityDiv.appendChild(storedU);
-                  var storedText = document.createTextNode(': ' + damage["storedDmg"]["dmgRatio"][rankIndex]  
+                  var text = document.createTextNode(': ' + arrayCheck(damage["storedDmg"]["dmgRatio"])  
                   + ' of pre-mitigated damage dealt over the past ' + damage["storedDmg"]["duration"] + ' seconds.');
-                  abilityDiv.appendChild(storedText);
-                }
+                  abilityDiv.appendChild(text);
+                };
                 if (damage["duration"]) {
                   var text = document.createTextNode(' over ' + damage["duration"] + ' seconds.');
                   abilityDiv.appendChild(text);
@@ -6853,7 +6817,7 @@ class App extends Component {
                   abilityDiv.appendChild(cdText);
                 }
                 doubleBreak();
-              }
+              };
 
               if (champLeftFile[ability]["tickDamage"]) {
                 var tickDamage = champLeftFile[ability]["tickDamage"]
