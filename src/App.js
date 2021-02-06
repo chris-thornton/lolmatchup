@@ -3582,96 +3582,96 @@ class App extends Component {
               }
 
               if (champLeftFile[ability]["damageRedux"]) {
-                var reduxPath = champLeftFile[ability]["damageRedux"]
+                var path = champLeftFile[ability]["damageRedux"]
                 var reducedDmgBold = document.createElement('b');
-                if (reduxPath["type"] !== 'all') {
-                  reducedDmgBold.innerText = 'Reduced ' + reduxPath["type"] + ' Damage Taken: '
+                if (path["type"] !== 'all') {
+                  reducedDmgBold.innerText = 'Reduced ' + path["type"] + ' Damage Taken: '
                 } else {
                   reducedDmgBold.innerText = 'Reduced Damage Taken: '
                 }
                 abilityDiv.appendChild(reducedDmgBold)
-                if (reduxPath["reduxRatio"]) {
-                  var reduxRatioText = document.createTextNode('Reduced by ratio of ' + JSON.stringify(reduxPath["reduxRatio"]).replace(/,/g, ', '))
+                if (path["reduxRatio"]) {
+                  var reduxRatioText = document.createTextNode('Reduced by ratio of ' + JSON.stringify(path["reduxRatio"]).replace(/,/g, ', '))
                   abilityDiv.appendChild(reduxRatioText)
                 }
-                if (reduxPath["dmg"]) {
-                  var reducedDmgText = document.createTextNode('Reduced by ' + JSON.stringify(reduxPath["dmg"]).replace(/,/g, ', ')
+                if (path["dmg"]) {
+                  var reducedDmgText = document.createTextNode('Reduced by ' + JSON.stringify(path["dmg"]).replace(/,/g, ', ')
                   );
                   abilityDiv.appendChild(reducedDmgText)
                 }
-                if (reduxPath["APRatio"]) {
-                  var APRatioText = document.createTextNode(' (+' + reduxPath["APRatio"] + ' AP Ratio)')
+                if (path["APRatio"]) {
+                  var APRatioText = document.createTextNode(' (+' + path["APRatio"] + ' AP Ratio)')
                   abilityDiv.appendChild(APRatioText)
                 }
-                if (reduxPath["bonusArmorRatio"]) {
-                  var bonusArmorRatioText = document.createTextNode(' (+' + reduxPath["bonusArmorRatio"] + ' Bonus Armor Ratio)')
+                if (path["bonusArmorRatio"]) {
+                  var bonusArmorRatioText = document.createTextNode(' (+' + path["bonusArmorRatio"] + ' Bonus Armor Ratio)')
                   abilityDiv.appendChild(bonusArmorRatioText)
                 }
-                if (reduxPath["bonusMagicResistRatio"]) {
-                  var bonusMagicResistRatioText = document.createTextNode(' (+' + reduxPath["bonusMagicResistRatio"] + ' Bonus Magic Resist Ratio)')
+                if (path["bonusMagicResistRatio"]) {
+                  var bonusMagicResistRatioText = document.createTextNode(' (+' + path["bonusMagicResistRatio"] + ' Bonus Magic Resist Ratio)')
                   abilityDiv.appendChild(bonusMagicResistRatioText)
                 }
-                if (reduxPath['maxReduxRatio']) {
-                  var maxReduxText = document.createTextNode(', up to a maximum reduction ratio of ' + reduxPath["maxReduxRatio"]);
+                if (path['maxReduxRatio']) {
+                  var maxReduxText = document.createTextNode(', up to a maximum reduction ratio of ' + path["maxReduxRatio"]);
                   abilityDiv.appendChild(maxReduxText);
                 }
-                if (reduxPath["reduxRatioPer100AP"]) {
-                  var reduxRatioText = document.createTextNode(' (+' + reduxPath["reduxRatioPer100AP"] + ' per 100 Ability Power)');
+                if (path["reduxRatioPer100AP"]) {
+                  var reduxRatioText = document.createTextNode(' (+' + path["reduxRatioPer100AP"] + ' per 100 Ability Power)');
                   abilityDiv.appendChild(reduxRatioText);
                 }
-                if (reduxPath["aoeDmgReduxRatio"]) {
-                  var reduxRatioText = document.createTextNode('AOE Damage reduced by ratio of ' + JSON.stringify(reduxPath["aoeDmgReduxRatio"]).replace(/,/g, ', '))
+                if (path["aoeDmgReduxRatio"]) {
+                  var reduxRatioText = document.createTextNode('AOE Damage reduced by ratio of ' + JSON.stringify(path["aoeDmgReduxRatio"]).replace(/,/g, ', '))
                   abilityDiv.appendChild(reduxRatioText)
                 };
-                if (reduxPath["autoBlock"]) {
+                if (path["autoBlock"]) {
                   singleBreak();
                   var blockText = document.createTextNode('Blocks auto attacks.');
                   abilityDiv.appendChild(blockText);
                 }
-                if (reduxPath["duration"] || reduxPath["minDuration"]) {
+                if (path["duration"] || path["minDuration"]) {
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Duration'
                   abilityDiv.appendChild(durationU);
                 }
-                if (reduxPath["duration"]) {
-                  var durationText = document.createTextNode(': ' + JSON.stringify(reduxPath["duration"]).replace(/,/g, ', '))
+                if (path["duration"]) {
+                  var durationText = document.createTextNode(': ' + JSON.stringify(path["duration"]).replace(/,/g, ', '))
                   abilityDiv.appendChild(durationText)
                 };
-                if (reduxPath["minDuration"]) {
-                  var durationText = document.createTextNode(': Min - ' + reduxPath["minDuration"] + ', Max - '
-                  + reduxPath["maxDuration"]);
+                if (path["minDuration"]) {
+                  var durationText = document.createTextNode(': Min - ' + path["minDuration"] + ', Max - '
+                  + path["maxDuration"]);
                   abilityDiv.appendChild(durationText);
                 }
-                if (reduxPath["calculateFrom"]) {
+                if (path["calculateFrom"]) {
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
-                  var mitigationText = document.createTextNode('Applies ' + reduxPath["calculateFrom"] + '.')
+                  var mitigationText = document.createTextNode('Applies ' + path["calculateFrom"] + '.')
                   abilityDiv.appendChild(mitigationText)
                 }
                 doubleBreak();
               };
 
               if (champLeftFile[ability]["magicDamageRedux"]) {
-                var reduxPath = champLeftFile[ability]["magicDamageRedux"]
+                var path = champLeftFile[ability]["magicDamageRedux"]
                 var reducedDmgBold = document.createElement('b');
                 reducedDmgBold.innerText = 'Reduced Magic Damage Taken: '
                 abilityDiv.appendChild(reducedDmgBold)
-                if (reduxPath["reduxRatio"]) {
-                  var reduxRatioText = document.createTextNode('Reduced by ratio of ' + JSON.stringify(reduxPath["reduxRatio"]).replace(/,/g, ', '))
+                if (path["reduxRatio"]) {
+                  var reduxRatioText = document.createTextNode('Reduced by ratio of ' + JSON.stringify(path["reduxRatio"]).replace(/,/g, ', '))
                   abilityDiv.appendChild(reduxRatioText)
                 }
-                if (reduxPath["reduxRatioPer100AP"]) {
-                  var ratioText = document.createTextNode(' (+' + reduxPath["reduxRatioPer100AP"] + ' per 100 Ability Power)')
+                if (path["reduxRatioPer100AP"]) {
+                  var ratioText = document.createTextNode(' (+' + path["reduxRatioPer100AP"] + ' per 100 Ability Power)')
                   abilityDiv.appendChild(ratioText)
                 }
-                if (reduxPath["reduxRatioPer100BonusMR"]) {
-                  var ratioText = document.createTextNode(' (+' + reduxPath["reduxRatioPer100BonusMR"] + ' per 100 Bonus Magic Resist)')
+                if (path["reduxRatioPer100BonusMR"]) {
+                  var ratioText = document.createTextNode(' (+' + path["reduxRatioPer100BonusMR"] + ' per 100 Bonus Magic Resist)')
                   abilityDiv.appendChild(ratioText)
                 }
-                if (reduxPath["duration"]) {
-                  var durationText = document.createTextNode(' for ' + reduxPath["duration"] + ' seconds.')
+                if (path["duration"]) {
+                  var durationText = document.createTextNode(' for ' + path["duration"] + ' seconds.')
                   abilityDiv.appendChild(durationText)
                 }
                 var br = document.createElement("br");
@@ -3679,24 +3679,24 @@ class App extends Component {
               }
 
               if (champLeftFile[ability]["physDamageRedux"]) {
-                var reduxPath = champLeftFile[ability]["physDamageRedux"]
+                var path = champLeftFile[ability]["physDamageRedux"]
                 var reducedDmgBold = document.createElement('b');
                 reducedDmgBold.innerText = 'Reduced Physical Damage Taken: '
                 abilityDiv.appendChild(reducedDmgBold)
-                if (reduxPath["reduxRatio"]) {
-                  var reduxRatioText = document.createTextNode('Reduced by ratio of ' + JSON.stringify(reduxPath["reduxRatio"]).replace(/,/g, ', '))
+                if (path["reduxRatio"]) {
+                  var reduxRatioText = document.createTextNode('Reduced by ratio of ' + JSON.stringify(path["reduxRatio"]).replace(/,/g, ', '))
                   abilityDiv.appendChild(reduxRatioText)
                 }
-                if (reduxPath["reduxRatioPer100AP"]) {
-                  var ratioText = document.createTextNode(' (+' + reduxPath["reduxRatioPer100AP"] + ' per 100 Ability Power)')
+                if (path["reduxRatioPer100AP"]) {
+                  var ratioText = document.createTextNode(' (+' + path["reduxRatioPer100AP"] + ' per 100 Ability Power)')
                   abilityDiv.appendChild(ratioText)
                 }
-                if (reduxPath["reduxRatioPer100BonusMR"]) {
-                  var ratioText = document.createTextNode(' (+' + reduxPath["reduxRatioPer100BonusMR"] + ' per 100 Bonus Magic Resist)')
+                if (path["reduxRatioPer100BonusMR"]) {
+                  var ratioText = document.createTextNode(' (+' + path["reduxRatioPer100BonusMR"] + ' per 100 Bonus Magic Resist)')
                   abilityDiv.appendChild(ratioText)
                 }
-                if (reduxPath["duration"]) {
-                  var durationText = document.createTextNode(' for ' + reduxPath["duration"] + ' seconds.')
+                if (path["duration"]) {
+                  var durationText = document.createTextNode(' for ' + path["duration"] + ' seconds.')
                   abilityDiv.appendChild(durationText)
                 }
                 doubleBreak();
@@ -3824,76 +3824,76 @@ class App extends Component {
               }
 
               if (champLeftFile[ability]["ADRedux"]) {
-                var reduxPath = champLeftFile[ability]["ADRedux"]
+                var path = champLeftFile[ability]["ADRedux"]
                 var reduxBold = document.createElement('b');
                 reduxBold.innerText = 'Attack Damage Reduction: ';
                 abilityDiv.appendChild(reduxBold);
-                if (reduxPath["redux"]) {
-                  var reduxText = document.createTextNode(JSON.stringify(reduxPath["redux"]).replace(/,/g, ', '));
+                if (path["redux"]) {
+                  var reduxText = document.createTextNode(JSON.stringify(path["redux"]).replace(/,/g, ', '));
                   abilityDiv.appendChild(reduxText);
                 }
                 doubleBreak();
               }
 
               if (champLeftFile[ability]["resistRedux"]) {
-                var reduxPath = champLeftFile[ability]["resistRedux"]
-                if (reduxPath["type"] === 'both') {
+                var path = champLeftFile[ability]["resistRedux"]
+                if (path["type"] === 'both') {
                   var reduxBold = document.createElement('b');
                   reduxBold.innerText = 'Armor and Magic Resist Reduction: ';
                   abilityDiv.appendChild(reduxBold);
                 };
-                if (reduxPath["type"] === 'magicResist') {
+                if (path["type"] === 'magicResist') {
                   var reduxBold = document.createElement('b');
                   reduxBold.innerText = 'Magic Resist Reduction: ';
                   abilityDiv.appendChild(reduxBold);
                 };
-                if (reduxPath["type"] === 'armor') {
+                if (path["type"] === 'armor') {
                   var reduxBold = document.createElement('b');
                   reduxBold.innerText = 'Armor Reduction: ';
                   abilityDiv.appendChild(reduxBold);
                 };
-                if (reduxPath["resist"]) {
-                  var resistText = document.createTextNode(JSON.stringify(reduxPath["resist"]).replace(/,/g, ', '));
+                if (path["resist"]) {
+                  var resistText = document.createTextNode(JSON.stringify(path["resist"]).replace(/,/g, ', '));
                   abilityDiv.appendChild(resistText);
                 }
-                if (reduxPath["reduxRatio"]) {
+                if (path["reduxRatio"]) {
                   var ratioU = document.createElement('u');
                   ratioU.innerText = 'Ratio';
                   abilityDiv.appendChild(ratioU);
-                  var reduxRatioText = document.createTextNode(' - ' + JSON.stringify(reduxPath["reduxRatio"]).replace(/,/g, ', '))
+                  var reduxRatioText = document.createTextNode(' - ' + JSON.stringify(path["reduxRatio"]).replace(/,/g, ', '))
                   abilityDiv.appendChild(reduxRatioText);
                 }
-                if (reduxPath["system"] === 'minMax') {
+                if (path["system"] === 'minMax') {
                   var minU = document.createElement('u')
                   minU.innerText = 'Min'
                   abilityDiv.appendChild(minU);
-                  if (reduxPath["minResistRedux"]) {
-                    var minReduxText = document.createTextNode(' - ' + JSON.stringify(reduxPath["minResistRedux"]).replace(/,/g, ', '))
+                  if (path["minResistRedux"]) {
+                    var minReduxText = document.createTextNode(' - ' + JSON.stringify(path["minResistRedux"]).replace(/,/g, ', '))
                     abilityDiv.appendChild(minReduxText)
                   };
                   singleBreak();
                   var maxU = document.createElement('u')
                   maxU.innerText = 'Max'
                   abilityDiv.appendChild(maxU);
-                  if (reduxPath["maxResistRedux"]) {
-                    var maxReduxText = document.createTextNode(' - ' + JSON.stringify(reduxPath["maxResistRedux"]).replace(/,/g, ', '))
+                  if (path["maxResistRedux"]) {
+                    var maxReduxText = document.createTextNode(' - ' + JSON.stringify(path["maxResistRedux"]).replace(/,/g, ', '))
                     abilityDiv.appendChild(maxReduxText)
                   };
                 }
-                if (reduxPath["duration"]) {
+                if (path["duration"]) {
                   singleBreak();
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Duration'
                   abilityDiv.appendChild(durationU);
-                  var durationText = document.createTextNode(' - ' + JSON.stringify(reduxPath["duration"]).replace(/,/g, ', '))
+                  var durationText = document.createTextNode(' - ' + JSON.stringify(path["duration"]).replace(/,/g, ', '))
                   abilityDiv.appendChild(durationText);
                 };
-                if (reduxPath["maxDuration"]) {
+                if (path["maxDuration"]) {
                   singleBreak();
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Max Duration'
                   abilityDiv.appendChild(durationU);
-                  var durationText = document.createTextNode(' - ' + JSON.stringify(reduxPath["maxDuration"]).replace(/,/g, ', '))
+                  var durationText = document.createTextNode(' - ' + JSON.stringify(path["maxDuration"]).replace(/,/g, ', '))
                   abilityDiv.appendChild(durationText);
                 };
                 doubleBreak();
@@ -7737,126 +7737,98 @@ class App extends Component {
               };
 
               if (champLeftFile[ability]["damageRedux"]) {
-                var reduxPath = champLeftFile[ability]["damageRedux"]
-                var reducedDmgBold = document.createElement('b');
-                if (reduxPath["type"] !== 'all') {
-                  reducedDmgBold.innerText = 'Reduced ' + reduxPath["type"] + ' Damage Taken: '
+                var path = champLeftFile[ability]["damageRedux"];
+                var bold = document.createElement('b');
+                if (path["type"] !== 'all') {
+                  bold.innerText = 'Reduced ' + path["type"] + ' Damage Taken: '
                 } else {
-                  reducedDmgBold.innerText = 'Reduced Damage Taken: '
-                }
-                abilityDiv.appendChild(reducedDmgBold)
+                  bold.innerText = 'Reduced Damage Taken: '
+                };
+                abilityDiv.appendChild(bold);
                 var reduxCounter = 0;
                 var ratioCounter = 0;
-                if (reduxPath["reduxRatio"]) {
-                  var ratio = reduxPath["reduxRatio"]
-                  if (typeof ratio !== 'number') {
-                    ratio = reduxPath["reduxRatio"][rankIndex]
-                  }
-                  ratioCounter += ratio
-                }
-                if (reduxPath["dmg"]) {
-                  var redux = reduxPath["dmg"];
-                  if (typeof redux !== 'number') {
-                    redux = reduxPath["dmg"][rankIndex]
-                  };
-                  reduxCounter += redux
-                }
-                if (reduxPath["APRatio"]) {
-                  var ratio = reduxPath["APRatio"]
-                  if (typeof ratio !== 'number') {
-                    ratio = reduxPath["APRatio"][rankIndex]
-                  };
-                  reduxCounter += ratio * (itemStats.ap + selectedStats.ap)
-                }
-                if (reduxPath["bonusArmorRatio"]) {
-                  var ratio = reduxPath["bonusArmorRatio"]
-                  if (typeof ratio !== 'number') {
-                    ratio = reduxPath["bonusArmorRatio"][rankIndex]
-                  };
-                  reduxCounter += ratio * (itemStats.arm 
-                    + statsPath["armorPerLevel"] * champLvlRatio);
-                }
-                if (reduxPath["bonusMagicResistRatio"]) {
-                  var ratio = reduxPath["bonusMagicResistRatio"]
-                  if (typeof ratio !== 'number') {
-                    ratio = reduxPath["bonusMagicResistRatio"][rankIndex]
-                  };
-                  reduxCounter += ratio * (itemStats.mr 
-                    + statsPath["magicResistPerLevel"] * champLvlRatio);
-                }
+                if (path["reduxRatio"]) {
+                  ratioCounter += arrayCheck(path["reduxRatio"]);
+                };
+                if (path["dmg"]) {
+                  reduxCounter += arrayCheck(path["dmg"]);
+                };
+                if (path["APRatio"]) {
+                  reduxCounter += arrayCheck(path["APRatio"]) * totalAP;
+                };
+                if (path["bonusArmorRatio"]) {
+                  reduxCounter += arrayCheck(path["bonusArmorRatio"]) * bonusArmor;
+                };
+                if (path["bonusMagicResistRatio"]) {
+                  reduxCounter += arrayCheck(path["bonusMagicResistRatio"]) * bonusMR;
+                };
                 if (reduxCounter !== 0) {
                   var text = document.createTextNode('Reduced by ' + Math.round(reduxCounter));
                   abilityDiv.appendChild(text);
-                }
-                if (reduxPath['maxReduxRatio']) {
-                  var text = document.createTextNode(', up to a maximum reduction ratio of ' + reduxPath["maxReduxRatio"]);
+                };
+                if (path['maxReduxRatio']) {
+                  var text = document.createTextNode(', up to a maximum reduction ratio of ' + path["maxReduxRatio"]);
                   abilityDiv.appendChild(text);
-                }
-                if (reduxPath["reduxRatioPer100AP"]) {
-                  ratioCounter += reduxPath["reduxRatioPer100AP"] * (itemStats.ap + selectedStats.ap)/100;
-                }
+                };
+                if (path["reduxRatioPer100AP"]) {
+                  ratioCounter += arrayCheck(path["reduxRatioPer100AP"]) * totalAP/100;
+                };
                 if (ratioCounter !== 0) {
-                  var text = document.createTextNode('Reduced by ratio of ' + ratioCounter);
+                  var text = document.createTextNode('Reduced by ratio of ' + lengthCheck(ratioCounter));
                   abilityDiv.appendChild(text);
-                }
-                if (reduxPath["aoeDmgReduxRatio"]) {
-                  var reduxRatioText = document.createTextNode('AOE Damage reduced by ratio of ' + JSON.stringify(reduxPath["aoeDmgReduxRatio"]).replace(/,/g, ', '))
-                  abilityDiv.appendChild(reduxRatioText)
                 };
-                if (reduxPath["autoBlock"]) {
+                if (path["aoeDmgReduxRatio"]) {
+                  var text = document.createTextNode('AOE Damage reduced by ratio of ' + arrayCheck(path["aoeDmgReduxRatio"]));
+                  abilityDiv.appendChild(text);
+                };
+                if (path["autoBlock"]) {
                   singleBreak();
-                  var blockText = document.createTextNode('Blocks auto attacks.');
-                  abilityDiv.appendChild(blockText);
-                }
-                if (reduxPath["duration"] || reduxPath["minDuration"]) {
-                  var br = document.createElement("br");
-                  abilityDiv.appendChild(br);
-                  var durationU = document.createElement('u');
-                  durationU.innerText = 'Duration'
-                  abilityDiv.appendChild(durationU);
-                }
-                if (reduxPath["duration"]) {
-                  var dur = reduxPath["duration"];
-                  if (typeof dur !== 'number') {
-                    dur = reduxPath["duration"][rankIndex]
-                  };
-                  var text = document.createTextNode(': ' + dur)
-                  abilityDiv.appendChild(text)
+                  var text = document.createTextNode('Blocks auto attacks.');
+                  abilityDiv.appendChild(text);
                 };
-                if (reduxPath["minDuration"]) {
-                  var durationText = document.createTextNode(': Min - ' + reduxPath["minDuration"] + ', Max - '
-                  + reduxPath["maxDuration"]);
-                  abilityDiv.appendChild(durationText);
-                }
-                if (reduxPath["calculateFrom"]) {
-                  var br = document.createElement("br");
-                  abilityDiv.appendChild(br);
-                  var mitigationText = document.createTextNode('Applies ' + reduxPath["calculateFrom"] + '.')
-                  abilityDiv.appendChild(mitigationText)
-                }
+                if (path["duration"] || path["minDuration"]) {
+                  singleBreak();
+                  var durationU = document.createElement('u');
+                  durationU.innerText = 'Duration';
+                  abilityDiv.appendChild(durationU);
+                };
+                if (path["duration"]) {
+                  var text = document.createTextNode(': ' + arrayCheck(path["duration"]));
+                  abilityDiv.appendChild(text);
+                };
+                if (path["minDuration"]) {
+                  var text = document.createTextNode(': Min: ' + path["minDuration"] + ', Max: '
+                  + path["maxDuration"]);
+                  abilityDiv.appendChild(text);
+                };
+                if (path["calculateFrom"]) {
+                  singleBreak();
+                  var text = document.createTextNode('Applies ' + path["calculateFrom"] + '.');
+                  abilityDiv.appendChild(text);
+                };
                 doubleBreak();
               };
 
               if (champLeftFile[ability]["magicDamageRedux"]) {
-                var reduxPath = champLeftFile[ability]["magicDamageRedux"]
+                var path = champLeftFile[ability]["magicDamageRedux"]
                 var reducedDmgBold = document.createElement('b');
                 reducedDmgBold.innerText = 'Reduced Magic Damage Taken: '
                 abilityDiv.appendChild(reducedDmgBold)
                 var ratioCount = 0;
-                if (reduxPath["reduxRatio"]) {
-                  ratioCount += reduxPath["reduxRatio"][rankIndex]
+                if (path["reduxRatio"]) {
+                  ratioCount += path["reduxRatio"][rankIndex]
                 };
-                if (reduxPath["reduxRatioPer100AP"]) {
-                  ratioCount += reduxPath["reduxRatioPer100AP"] * (selectedStats.ap + itemStats.ap)/100
+                if (path["reduxRatioPer100AP"]) {
+                  ratioCount += path["reduxRatioPer100AP"] * (selectedStats.ap + itemStats.ap)/100
                 };
-                if (reduxPath["reduxRatioPer100BonusMR"]) {
-                  ratioCount += reduxPath["reduxRatioPer100BonusMR"] * (itemStats.mr 
+                if (path["reduxRatioPer100BonusMR"]) {
+                  ratioCount += path["reduxRatioPer100BonusMR"] * (itemStats.mr 
                     + statsPath["magicResistPerLevel"] * champLvlRatio)/100
                 };
                 var reduxRatioText = document.createTextNode('Reduced by ratio of ' + lengthCheck(ratioCount))
                 abilityDiv.appendChild(reduxRatioText)
-                if (reduxPath["duration"]) {
-                  var durationText = document.createTextNode(' for ' + reduxPath["duration"] + ' seconds.')
+                if (path["duration"]) {
+                  var durationText = document.createTextNode(' for ' + path["duration"] + ' seconds.')
                   abilityDiv.appendChild(durationText)
                 };
                 var br = document.createElement("br");
@@ -7864,25 +7836,25 @@ class App extends Component {
               }
 
               if (champLeftFile[ability]["physDamageRedux"]) {
-                var reduxPath = champLeftFile[ability]["physDamageRedux"]
+                var path = champLeftFile[ability]["physDamageRedux"]
                 var reducedDmgBold = document.createElement('b');
                 reducedDmgBold.innerText = 'Reduced Physical Damage Taken: '
                 abilityDiv.appendChild(reducedDmgBold)
                 var ratioCount = 0;
-                if (reduxPath["reduxRatio"]) {
-                  ratioCount += reduxPath["reduxRatio"][rankIndex]
+                if (path["reduxRatio"]) {
+                  ratioCount += path["reduxRatio"][rankIndex]
                 };
-                if (reduxPath["reduxRatioPer100AP"]) {
-                  ratioCount += reduxPath["reduxRatioPer100AP"] * (selectedStats.ap + itemStats.ap)/100
+                if (path["reduxRatioPer100AP"]) {
+                  ratioCount += path["reduxRatioPer100AP"] * (selectedStats.ap + itemStats.ap)/100
                 };
-                if (reduxPath["reduxRatioPer100BonusMR"]) {
-                  ratioCount += reduxPath["reduxRatioPer100BonusMR"] * (itemStats.mr 
+                if (path["reduxRatioPer100BonusMR"]) {
+                  ratioCount += path["reduxRatioPer100BonusMR"] * (itemStats.mr 
                     + statsPath["magicResistPerLevel"] * champLvlRatio)/100
                 };
                 var reduxRatioText = document.createTextNode('Reduced by ratio of ' + lengthCheck(ratioCount))
                 abilityDiv.appendChild(reduxRatioText)
-                if (reduxPath["duration"]) {
-                  var durationText = document.createTextNode(' for ' + reduxPath["duration"] + ' seconds.')
+                if (path["duration"]) {
+                  var durationText = document.createTextNode(' for ' + path["duration"] + ' seconds.')
                   abilityDiv.appendChild(durationText)
                 };
                 doubleBreak();
@@ -8021,12 +7993,12 @@ class App extends Component {
               }
 
               if (champLeftFile[ability]["ADRedux"]) {
-                var reduxPath = champLeftFile[ability]["ADRedux"]
+                var path = champLeftFile[ability]["ADRedux"]
                 var reduxBold = document.createElement('b');
                 reduxBold.innerText = 'Attack Damage Reduction: ';
                 abilityDiv.appendChild(reduxBold);
-                if (reduxPath["redux"]) {
-                  var reduxValue = reduxPath["redux"]
+                if (path["redux"]) {
+                  var reduxValue = path["redux"]
                   reduxValue = arrayCheck(reduxValue);
                   var reduxText = document.createTextNode(reduxValue);
                   abilityDiv.appendChild(reduxText);
@@ -8035,43 +8007,43 @@ class App extends Component {
               }
 
               if (champLeftFile[ability]["resistRedux"]) {
-                var reduxPath = champLeftFile[ability]["resistRedux"]
-                if (reduxPath["type"] === 'both') {
+                var path = champLeftFile[ability]["resistRedux"]
+                if (path["type"] === 'both') {
                   var reduxBold = document.createElement('b');
                   reduxBold.innerText = 'Armor and Magic Resist Reduction: ';
                   abilityDiv.appendChild(reduxBold);
                 };
-                if (reduxPath["type"] === 'magicResist') {
+                if (path["type"] === 'magicResist') {
                   var reduxBold = document.createElement('b');
                   reduxBold.innerText = 'Magic Resist Reduction: ';
                   abilityDiv.appendChild(reduxBold);
                 };
-                if (reduxPath["type"] === 'armor') {
+                if (path["type"] === 'armor') {
                   var reduxBold = document.createElement('b');
                   reduxBold.innerText = 'Armor Reduction: ';
                   abilityDiv.appendChild(reduxBold);
                 };
-                if (reduxPath["resist"]) {
-                  var res = reduxPath["resist"];
+                if (path["resist"]) {
+                  var res = path["resist"];
                   res = arrayCheck(res);
                   var resistText = document.createTextNode(res);
                   abilityDiv.appendChild(resistText);
                 }
-                if (reduxPath["reduxRatio"]) {
+                if (path["reduxRatio"]) {
                   var ratioU = document.createElement('u');
                   ratioU.innerText = 'Ratio';
                   abilityDiv.appendChild(ratioU);
-                  var ratio = reduxPath["reduxRatio"];
+                  var ratio = path["reduxRatio"];
                   ratio = arrayCheck(ratio);
                   var reduxRatioText = document.createTextNode(' - ' + ratio)
                   abilityDiv.appendChild(reduxRatioText);
                 }
-                if (reduxPath["system"] === 'minMax') {
+                if (path["system"] === 'minMax') {
                   var minU = document.createElement('u')
                   minU.innerText = 'Min'
                   abilityDiv.appendChild(minU);
-                  if (reduxPath["minResistRedux"]) {
-                    var redux = reduxPath["minResistRedux"];
+                  if (path["minResistRedux"]) {
+                    var redux = path["minResistRedux"];
                     redux = arrayCheck(redux);
                     var minReduxText = document.createTextNode(' - ' + redux)
                     abilityDiv.appendChild(minReduxText)
@@ -8080,29 +8052,29 @@ class App extends Component {
                   var maxU = document.createElement('u')
                   maxU.innerText = 'Max'
                   abilityDiv.appendChild(maxU);
-                  if (reduxPath["maxResistRedux"]) {
-                    var redux = reduxPath["maxResistRedux"];
+                  if (path["maxResistRedux"]) {
+                    var redux = path["maxResistRedux"];
                     redux = arrayCheck(redux);
                     var maxReduxText = document.createTextNode(' - ' + redux)
                     abilityDiv.appendChild(maxReduxText)
                   };
                 }
-                if (reduxPath["duration"]) {
+                if (path["duration"]) {
                   singleBreak();
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Duration'
                   abilityDiv.appendChild(durationU);
-                  var dur = reduxPath["duration"];
+                  var dur = path["duration"];
                   dur = arrayCheck(dur);
                   var durationText = document.createTextNode(' - ' + dur)
                   abilityDiv.appendChild(durationText);
                 };
-                if (reduxPath["maxDuration"]) {
+                if (path["maxDuration"]) {
                   singleBreak();
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Max Duration'
                   abilityDiv.appendChild(durationU);
-                  var dur = reduxPath["maxDuration"];
+                  var dur = path["maxDuration"];
                   dur = arrayCheck(dur);
                   var durationText = document.createTextNode(' - ' + dur)
                   abilityDiv.appendChild(durationText);
