@@ -3287,124 +3287,124 @@ class App extends Component {
               }
 
               if (champLeftFile[ability]["shield"]) {
-                var shieldPath = champLeftFile[ability]["shield"]
+                var path = champLeftFile[ability]["shield"]
                 var shieldBold = document.createElement('b');
-                if (shieldPath["type"] !== 'all') {
-                  shieldBold.innerText = shieldPath["type"] + ' Shield: '
+                if (path["type"] !== 'all') {
+                  shieldBold.innerText = path["type"] + ' Shield: '
                 } else {
                   shieldBold.innerText = ' Shield: '
                 }
                 abilityDiv.appendChild(shieldBold)
-                if (shieldPath["shield"]) {
-                  var shieldArray = JSON.stringify(shieldPath["shield"]).replace(/,/g, ', ')
+                if (path["shield"]) {
+                  var shieldArray = JSON.stringify(path["shield"]).replace(/,/g, ', ')
                   var shieldArrayText = document.createTextNode(shieldArray)
                   abilityDiv.appendChild(shieldArrayText)
                 }
-                if (shieldPath["shieldByLvl"]) {
-                  var shieldByLvlText = document.createTextNode('[' + shieldPath["shieldByLvl"][0] + " to " + shieldPath["shieldByLvl"][17]
+                if (path["shieldByLvl"]) {
+                  var shieldByLvlText = document.createTextNode('[' + path["shieldByLvl"][0] + " to " + path["shieldByLvl"][17]
                   + ", based on lvl. ");
                   var currentlyU = document.createElement('u');
                   currentlyU.innerText = "Currently";
-                  var shieldByLvlText2 = document.createTextNode(': ' + shieldPath["shieldByLvl"][champLevel] + '] ')
+                  var shieldByLvlText2 = document.createTextNode(': ' + path["shieldByLvl"][champLevel] + '] ')
                   abilityDiv.appendChild(shieldByLvlText);
                   abilityDiv.appendChild(currentlyU);
                   abilityDiv.appendChild(shieldByLvlText2)
                 };
-                if (shieldPath["shieldPerStack"]) {
-                  var stackText = document.createTextNode(" (+" + shieldPath["shieldPerStack"] + " per Stack)")
+                if (path["shieldPerStack"]) {
+                  var stackText = document.createTextNode(" (+" + path["shieldPerStack"] + " per Stack)")
                   abilityDiv.appendChild(stackText)
                 }
-                if (shieldPath["dmgTakenRatio"]) {
+                if (path["dmgTakenRatio"]) {
                   var dmgRatioU = document.createElement('u');
                   dmgRatioU.innerText = 'Damage Taken Ratio';
                   abilityDiv.appendChild(dmgRatioU);
-                  var dmgRatioText = document.createTextNode(' - ' + JSON.stringify(shieldPath["dmgTakenRatio"]).replace(/,/g, ', '));
+                  var dmgRatioText = document.createTextNode(' - ' + JSON.stringify(path["dmgTakenRatio"]).replace(/,/g, ', '));
                   abilityDiv.appendChild(dmgRatioText);
                 }
-                if (shieldPath["APRatio"]) {
-                  var APRatioText = document.createTextNode(" (+" + shieldPath["APRatio"] + " AP Ratio)")
+                if (path["APRatio"]) {
+                  var APRatioText = document.createTextNode(" (+" + path["APRatio"] + " AP Ratio)")
                   abilityDiv.appendChild(APRatioText)
                 };
-                if (shieldPath["ADRatio"]) {
-                  var ADRatioValue = JSON.stringify(shieldPath["ADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                if (path["ADRatio"]) {
+                  var ADRatioValue = JSON.stringify(path["ADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                   var ADRatioText = document.createTextNode(" (+" + ADRatioValue + " AD Ratio)")
                   abilityDiv.appendChild(ADRatioText)
                 };
-                if (shieldPath["bonusADRatio"]) {
-                  var bonusADRatioValue = JSON.stringify(shieldPath["bonusADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                if (path["bonusADRatio"]) {
+                  var bonusADRatioValue = JSON.stringify(path["bonusADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                   var bonusADRatioText = document.createTextNode(" (+" + bonusADRatioValue + " Bonus AD Ratio)")
                   abilityDiv.appendChild(bonusADRatioText)
                 };
-                if (shieldPath["bonusHPRatio"]) {
-                  var bonusHPRatioValue = JSON.stringify(shieldPath["bonusHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                if (path["bonusHPRatio"]) {
+                  var bonusHPRatioValue = JSON.stringify(path["bonusHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                   var bonusHPRatioText = document.createTextNode(" (+" + bonusHPRatioValue + " Bonus HP Ratio)")
                   abilityDiv.appendChild(bonusHPRatioText)
                 };
-                if (shieldPath["maxHPRatio"]) {
-                  var maxHPRatioValue = JSON.stringify(shieldPath["maxHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                if (path["maxHPRatio"]) {
+                  var maxHPRatioValue = JSON.stringify(path["maxHPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                   var maxHPRatioText = document.createTextNode(" (+" + maxHPRatioValue + " Max HP Ratio)")
                   abilityDiv.appendChild(maxHPRatioText)
                 };
-                if (shieldPath["maxHPRatioByLvl"]) {
-                  var shieldByLvlText = document.createTextNode('[' + shieldPath["maxHPRatioByLvl"][0] 
-                  + " to " + shieldPath["maxHPRatioByLvl"][17] + " Max HP Ratio, based on lvl. ");
+                if (path["maxHPRatioByLvl"]) {
+                  var shieldByLvlText = document.createTextNode('[' + path["maxHPRatioByLvl"][0] 
+                  + " to " + path["maxHPRatioByLvl"][17] + " Max HP Ratio, based on lvl. ");
                   var currentlyU = document.createElement('u');
                   currentlyU.innerText = "Currently";
-                  var shieldByLvlText2 = document.createTextNode(': ' + shieldPath["maxHPRatioByLvl"][champLevel] + '] ')
+                  var shieldByLvlText2 = document.createTextNode(': ' + path["maxHPRatioByLvl"][champLevel] + '] ')
                   abilityDiv.appendChild(shieldByLvlText);
                   abilityDiv.appendChild(currentlyU);
                   abilityDiv.appendChild(shieldByLvlText2)
                 }
-                if (shieldPath["maxHPRatioPerStack"]) {
-                  var maxHPRatioValue = JSON.stringify(shieldPath["maxHPRatioPerStack"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                if (path["maxHPRatioPerStack"]) {
+                  var maxHPRatioValue = JSON.stringify(path["maxHPRatioPerStack"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                   var maxHPRatioText = document.createTextNode(" (+" + maxHPRatioValue + " Max HP Ratio per stack)")
                   abilityDiv.appendChild(maxHPRatioText)
                 };
-                if (shieldPath["maxManaRatio"]) {
-                  var maxManaRatioValue = JSON.stringify(shieldPath["maxManaRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                if (path["maxManaRatio"]) {
+                  var maxManaRatioValue = JSON.stringify(path["maxManaRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                   var maxManaRatioText = document.createTextNode(" (+" + maxManaRatioValue + " Max Mana Ratio)")
                   abilityDiv.appendChild(maxManaRatioText)
                 };
-                if (shieldPath["maxMaxHPRatio"]) {
+                if (path["maxMaxHPRatio"]) {
                   var maxU = document.createElement('u');
                   maxU.innerText = 'Max'
                   abilityDiv.appendChild(maxU);
-                  var maxText = document.createTextNode(' - (' + shieldPath["maxMaxHPRatio"] + ' Max HP Ratio)');
+                  var maxText = document.createTextNode(' - (' + path["maxMaxHPRatio"] + ' Max HP Ratio)');
                   abilityDiv.appendChild(maxText);
                 }
-                if (shieldPath["system"] === "minMax" ) {
+                if (path["system"] === "minMax" ) {
                   var minU = document.createElement('u');
                   minU.innerText = 'Min'
                   abilityDiv.appendChild(minU)
                   var dash = document.createTextNode(' - ');
                   abilityDiv.appendChild(dash);
-                  if (shieldPath["minShield"]) {
-                    var minShieldArray = JSON.stringify(shieldPath["minShield"]).replace(/,/g, ', ')
+                  if (path["minShield"]) {
+                    var minShieldArray = JSON.stringify(path["minShield"]).replace(/,/g, ', ')
                     var minShieldText = document.createTextNode(minShieldArray)
                     abilityDiv.appendChild(minShieldText)
                   }
-                  if (shieldPath["minShieldByLvl"]) {
-                    var shieldByLvlText = document.createTextNode(' [' + shieldPath["minShieldByLvl"][0] 
-                    + " to " + shieldPath["minShieldByLvl"][17] + ", based on lvl. ");
+                  if (path["minShieldByLvl"]) {
+                    var shieldByLvlText = document.createTextNode(' [' + path["minShieldByLvl"][0] 
+                    + " to " + path["minShieldByLvl"][17] + ", based on lvl. ");
                     var currentlyU = document.createElement('u');
                     currentlyU.innerText = "Currently";
-                    var shieldByLvlText2 = document.createTextNode(': ' + shieldPath["minShieldByLvl"][champLevel] + '] ')
+                    var shieldByLvlText2 = document.createTextNode(': ' + path["minShieldByLvl"][champLevel] + '] ')
                     abilityDiv.appendChild(shieldByLvlText);
                     abilityDiv.appendChild(currentlyU);
                     abilityDiv.appendChild(shieldByLvlText2)
                   }
-                  if (shieldPath["minAPRatio"]) {
-                    var minAPRatioValue = JSON.stringify(shieldPath["minAPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  if (path["minAPRatio"]) {
+                    var minAPRatioValue = JSON.stringify(path["minAPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                     var minAPRatioText = document.createTextNode(" (+" + minAPRatioValue + " AP Ratio)")
                     abilityDiv.appendChild(minAPRatioText)
                   }
-                  if (shieldPath["minADRatio"]) {
-                    var minADRatioValue = JSON.stringify(shieldPath["minADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  if (path["minADRatio"]) {
+                    var minADRatioValue = JSON.stringify(path["minADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                     var minADRatioText = document.createTextNode(" (+" + minADRatioValue + " AD Ratio)")
                     abilityDiv.appendChild(minADRatioText)
                   }
-                  if (shieldPath["minBonusADRatio"]) {
-                    var minBonusADRatioValue = JSON.stringify(shieldPath["minBonusADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  if (path["minBonusADRatio"]) {
+                    var minBonusADRatioValue = JSON.stringify(path["minBonusADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                     var minBonusADRatioText = document.createTextNode(" (+" + minBonusADRatioValue + " Bonus AD Ratio)")
                     abilityDiv.appendChild(minBonusADRatioText)
                   }
@@ -3416,66 +3416,66 @@ class App extends Component {
                   var dash = document.createTextNode(' - ')
                   abilityDiv.appendChild(dash)
                   
-                  if (shieldPath["maxShield"]) {
-                    var maxShieldArray = JSON.stringify(shieldPath["maxShield"]).replace(/,/g, ', ')
+                  if (path["maxShield"]) {
+                    var maxShieldArray = JSON.stringify(path["maxShield"]).replace(/,/g, ', ')
                     var maxShieldText = document.createTextNode(maxShieldArray)
                     abilityDiv.appendChild(maxShieldText)
                   }
-                  if (shieldPath["maxShieldByLvl"]) {
-                    var shieldByLvlText = document.createTextNode(' [' + shieldPath["maxShieldByLvl"][0] 
-                    + " to " + shieldPath["maxShieldByLvl"][17] + ", based on lvl. ");
+                  if (path["maxShieldByLvl"]) {
+                    var shieldByLvlText = document.createTextNode(' [' + path["maxShieldByLvl"][0] 
+                    + " to " + path["maxShieldByLvl"][17] + ", based on lvl. ");
                     var currentlyU = document.createElement('u');
                     currentlyU.innerText = "Currently";
-                    var shieldByLvlText2 = document.createTextNode(': ' + shieldPath["maxShieldByLvl"][champLevel] + '] ')
+                    var shieldByLvlText2 = document.createTextNode(': ' + path["maxShieldByLvl"][champLevel] + '] ')
                     abilityDiv.appendChild(shieldByLvlText);
                     abilityDiv.appendChild(currentlyU);
                     abilityDiv.appendChild(shieldByLvlText2)
                   }
-                  if (shieldPath["maxAPRatio"]) {
-                    var maxAPRatioValue = JSON.stringify(shieldPath["maxAPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  if (path["maxAPRatio"]) {
+                    var maxAPRatioValue = JSON.stringify(path["maxAPRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                     var maxAPRatioText = document.createTextNode(" (+" + maxAPRatioValue + " AP Ratio)")
                     abilityDiv.appendChild(maxAPRatioText)
                   }
-                  if (shieldPath["maxADRatio"]) {
-                    var maxADRatioValue = JSON.stringify(shieldPath["maxADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  if (path["maxADRatio"]) {
+                    var maxADRatioValue = JSON.stringify(path["maxADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                     var maxADRatioText = document.createTextNode(" (+" + maxADRatioValue + " AD Ratio)")
                     abilityDiv.appendChild(maxADRatioText)
                   }
-                  if (shieldPath["maxBonusADRatio"]) {
-                    var maxBonusADRatioValue = JSON.stringify(shieldPath["maxBonusADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
+                  if (path["maxBonusADRatio"]) {
+                    var maxBonusADRatioValue = JSON.stringify(path["maxBonusADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
                     var maxBonusADRatioText = document.createTextNode(" (+" + maxBonusADRatioValue + " Bonus AD Ratio)")
                     abilityDiv.appendChild(maxBonusADRatioText)
                   }
                 }
-                if (shieldPath["type"] !== 'Spell' && shieldPath["duration"]) {
+                if (path["type"] !== 'Spell' && path["duration"]) {
                   var br = document.createElement("br");
                   abilityDiv.appendChild(br);
                 }
-                if (shieldPath["duration"]) {
+                if (path["duration"]) {
                   var durationU = document.createElement('u');
                   durationU.innerText = 'Duration'
                   abilityDiv.appendChild(durationU)
-                  var durationText = document.createTextNode(': ' + shieldPath["duration"])
+                  var durationText = document.createTextNode(': ' + path["duration"])
                   abilityDiv.appendChild(durationText)
                 }
-                if (shieldPath["combatCoolDown"]) {
+                if (path["combatCoolDown"]) {
                   var br4 = document.createElement('br');
                   abilityDiv.appendChild(br4);
                   var combatU = document.createElement('u')
                   combatU.innerText = 'Combat Cooldown';
                   abilityDiv.appendChild(combatU)
-                  var combatCD = document.createTextNode(': ' + shieldPath["combatCoolDown"])
+                  var combatCD = document.createTextNode(': ' + path["combatCoolDown"])
                   abilityDiv.appendChild(combatCD)
                 }
-                if (shieldPath["combatCoolDownByLvl"]) {
+                if (path["combatCoolDownByLvl"]) {
                   var br4 = document.createElement('br');
                   abilityDiv.appendChild(br4);
                   var combatU = document.createElement('u')
                   combatU.innerText = 'Combat Cooldown';
                   abilityDiv.appendChild(combatU)
-                  var combatCDByLvlText = document.createTextNode(': [' + shieldPath["combatCoolDownByLvl"][0] + " to " + shieldPath["combatCoolDownByLvl"][17]
+                  var combatCDByLvlText = document.createTextNode(': [' + path["combatCoolDownByLvl"][0] + " to " + path["combatCoolDownByLvl"][17]
                   + "], based on lvl. ");
-                  var combatCDByLvlText2 = document.createTextNode('Currently: ' + shieldPath["combatCoolDownByLvl"][champLevel])
+                  var combatCDByLvlText2 = document.createTextNode('Currently: ' + path["combatCoolDownByLvl"][champLevel])
                   abilityDiv.appendChild(combatCDByLvlText);
                   abilityDiv.appendChild(combatCDByLvlText2)
                 }
@@ -3483,59 +3483,59 @@ class App extends Component {
               }
 
               if (champLeftFile[ability]["revive"]) {
-                var revivePath = champLeftFile[ability]["revive"]
+                var path = champLeftFile[ability]["revive"]
                 var reviveBold = document.createElement('b');
                 reviveBold.innerText = 'Revive: '
                 abilityDiv.appendChild(reviveBold);
-                if (revivePath["reviveTransform"]) {
+                if (path["reviveTransform"]) {
                   var transformU = document.createElement('u')
                   transformU.innerText = 'Transform Stats'
                   abilityDiv.appendChild(transformU);
-                  var HPRatioText = document.createTextNode(': HP Ratio: ' + revivePath["reviveTransform"]["HPRatio"] 
-                  + ', Value: ' + Math.round(revivePath["reviveTransform"]["HPRatio"] 
+                  var HPRatioText = document.createTextNode(': HP Ratio: ' + path["reviveTransform"]["HPRatio"] 
+                  + ', Value: ' + Math.round(path["reviveTransform"]["HPRatio"] 
                   * (itemStats.hp + statsPath["baseHP"] + statsPath["hpPerLevel"] * champLevel * 
                   (0.7025 + 0.0175 * champLevel))))
                   abilityDiv.appendChild(HPRatioText)
-                  if (revivePath["reviveTransform"]["bonusArmorByLvl"]) {
+                  if (path["reviveTransform"]["bonusArmorByLvl"]) {
                     var br = document.createElement("br");
                     abilityDiv.appendChild(br);
-                    var bonusArmorByLvlText = document.createTextNode('Bonus Armor: ' + revivePath["reviveTransform"]["bonusArmorByLvl"][0] 
-                    + " to " + revivePath["reviveTransform"]["bonusArmorByLvl"][17] + ", based on lvl. ")
-                    var currentlyText = document.createTextNode('Currently: ' + revivePath["reviveTransform"]["bonusArmorByLvl"][champLevel])
+                    var bonusArmorByLvlText = document.createTextNode('Bonus Armor: ' + path["reviveTransform"]["bonusArmorByLvl"][0] 
+                    + " to " + path["reviveTransform"]["bonusArmorByLvl"][17] + ", based on lvl. ")
+                    var currentlyText = document.createTextNode('Currently: ' + path["reviveTransform"]["bonusArmorByLvl"][champLevel])
                     abilityDiv.appendChild(bonusArmorByLvlText);
                     abilityDiv.appendChild(currentlyText);
                   };
-                  if (revivePath["reviveTransform"]["bonusMagicResistByLvl"]) {
+                  if (path["reviveTransform"]["bonusMagicResistByLvl"]) {
                     var br = document.createElement("br");
                     abilityDiv.appendChild(br);
-                    var bonusText = document.createTextNode('Bonus Magic Resist: ' + revivePath["reviveTransform"]
-                    ["bonusMagicResistByLvl"][0] + " to " + revivePath["reviveTransform"]["bonusMagicResistByLvl"][17] + ", based on lvl. ")
-                    var text = document.createTextNode('Currently: ' + revivePath["reviveTransform"]["bonusMagicResistByLvl"][champLevel])
+                    var bonusText = document.createTextNode('Bonus Magic Resist: ' + path["reviveTransform"]
+                    ["bonusMagicResistByLvl"][0] + " to " + path["reviveTransform"]["bonusMagicResistByLvl"][17] + ", based on lvl. ")
+                    var text = document.createTextNode('Currently: ' + path["reviveTransform"]["bonusMagicResistByLvl"][champLevel])
                     abilityDiv.appendChild(bonusText);
                     abilityDiv.appendChild(text);
                   }
-                  if (revivePath["reviveTransform"]["armorRatio"]) {
+                  if (path["reviveTransform"]["armorRatio"]) {
                     var br = document.createElement("br");
                     abilityDiv.appendChild(br);
-                    var text = document.createTextNode('Armor Ratio: ' + revivePath["reviveTransform"]["armorRatio"]
-                    + ', Value: ' + Math.round(revivePath["reviveTransform"]["armorRatio"] 
+                    var text = document.createTextNode('Armor Ratio: ' + path["reviveTransform"]["armorRatio"]
+                    + ', Value: ' + Math.round(path["reviveTransform"]["armorRatio"] 
                     * (itemStats.arm + statsPath["baseArmor"] + statsPath["armorPerLevel"] * champLevel * 
                     (0.7025 + 0.0175 * champLevel))) );
                     abilityDiv.appendChild(text);
                   };
-                  if (revivePath["reviveTransform"]["magicResistRatio"]) {
+                  if (path["reviveTransform"]["magicResistRatio"]) {
                     var br = document.createElement("br");
                     abilityDiv.appendChild(br);
-                    var text = document.createTextNode('Magic Resist Ratio: ' + revivePath["reviveTransform"]["magicResistRatio"]
-                    + ', Value: ' + Math.round(revivePath["reviveTransform"]["magicResistRatio"] 
+                    var text = document.createTextNode('Magic Resist Ratio: ' + path["reviveTransform"]["magicResistRatio"]
+                    + ', Value: ' + Math.round(path["reviveTransform"]["magicResistRatio"] 
                     * (itemStats.mr + statsPath["baseMagicResist"] + statsPath["magicResistPerLevel"] * champLevel * 
                     (0.7025 + 0.0175 * champLevel))) )
                     abilityDiv.appendChild(text)
                   };
-                  if (revivePath["reviveTransform"]["aoeResist"]) {
+                  if (path["reviveTransform"]["aoeResist"]) {
                     var br = document.createElement("br");
                     abilityDiv.appendChild(br);
-                    var aoeResistText = document.createTextNode('AOE Resist Ratio: ' + revivePath["reviveTransform"]["aoeResist"])
+                    var aoeResistText = document.createTextNode('AOE Resist Ratio: ' + path["reviveTransform"]["aoeResist"])
                     abilityDiv.appendChild(aoeResistText)
                   }
                   var br = document.createElement("br");
@@ -3543,38 +3543,38 @@ class App extends Component {
                   var durationU = document.createElement('u')
                   durationU.innerText = "Duration"
                   abilityDiv.appendChild(durationU)
-                  if (revivePath["reviveTransform"]["duration"]) {
-                    var durationText = document.createTextNode(': ' + revivePath["reviveTransform"]["duration"])
+                  if (path["reviveTransform"]["duration"]) {
+                    var durationText = document.createTextNode(': ' + path["reviveTransform"]["duration"])
                     abilityDiv.appendChild(durationText);
                   }
-                  if (revivePath["reviveTransform"]["durationByLvl"]) {
-                    var durationByLvlText = document.createTextNode(': [' + revivePath["reviveTransform"]["durationByLvl"][0] 
-                    + " to " + revivePath["reviveTransform"]["durationByLvl"][17] + "], based on lvl. ")
-                    var currentlyText = document.createTextNode('Currently: ' + revivePath["reviveTransform"]["durationByLvl"][champLevel])
+                  if (path["reviveTransform"]["durationByLvl"]) {
+                    var durationByLvlText = document.createTextNode(': [' + path["reviveTransform"]["durationByLvl"][0] 
+                    + " to " + path["reviveTransform"]["durationByLvl"][17] + "], based on lvl. ")
+                    var currentlyText = document.createTextNode('Currently: ' + path["reviveTransform"]["durationByLvl"][champLevel])
                     abilityDiv.appendChild(durationByLvlText);
                     abilityDiv.appendChild(currentlyText);
                   }
                 }
-                if (revivePath["health"]) {
+                if (path["health"]) {
                   var healthU = document.createElement('u');
                   healthU.innerText = 'Health Restored';
                   abilityDiv.appendChild(healthU)
-                  var healthText = document.createTextNode(' - ' + JSON.stringify(revivePath["health"]).replace(/,/g, ', '))
+                  var healthText = document.createTextNode(' - ' + JSON.stringify(path["health"]).replace(/,/g, ', '))
                   abilityDiv.appendChild(healthText);
                 }
-                if (revivePath["healthPerAP"]) {
-                  var healthPerAPText = document.createTextNode(' (+' + revivePath["healthPerAP"] + ' per AP)')
+                if (path["healthPerAP"]) {
+                  var healthPerAPText = document.createTextNode(' (+' + path["healthPerAP"] + ' per AP)')
                   abilityDiv.appendChild(healthPerAPText);
                 }
-                if (revivePath["minHPRestoreRatio"]) {
+                if (path["minHPRestoreRatio"]) {
                   singleBreak();
                   var healthU = document.createElement('u');
                   healthU.innerText = 'Health Restored';
                   abilityDiv.appendChild(healthU)
-                  var text = document.createTextNode(': Min - (' + revivePath["minHPRestoreRatio"] + ' Max Health Ratio, Value: ' 
-                  + Math.round(revivePath["minHPRestoreRatio"] * (itemStats.hp + statsPath["baseHP"] + statsPath["hpPerLevel"] 
-                  * champLvlRatio)) + '), Max - (' + revivePath["maxHPRestoreRatio"] 
-                  + ' Max Health Ratio, Value: ' + Math.round(revivePath["maxHPRestoreRatio"] * (itemStats.hp +
+                  var text = document.createTextNode(': Min - (' + path["minHPRestoreRatio"] + ' Max Health Ratio, Value: ' 
+                  + Math.round(path["minHPRestoreRatio"] * (itemStats.hp + statsPath["baseHP"] + statsPath["hpPerLevel"] 
+                  * champLvlRatio)) + '), Max - (' + path["maxHPRestoreRatio"] 
+                  + ' Max Health Ratio, Value: ' + Math.round(path["maxHPRestoreRatio"] * (itemStats.hp +
                    statsPath["baseHP"] + statsPath["hpPerLevel"] * champLvlRatio)) + ')');
                   abilityDiv.appendChild(text);
                 }
@@ -7536,7 +7536,7 @@ class App extends Component {
                     maxU.innerText = 'Max';
                     abilityDiv.appendChild(maxU);
                     if (empPath["maxHeal"]) {
-                      empMaxHeal += arrayCheck(empPath["maxHeal"])
+                      empMaxHeal += arrayCheck(empPath["maxHeal"]);
                     };
                     var maxValue = document.createTextNode(': ' + Math.round(empMaxHeal));
                     abilityDiv.appendChild(maxValue);
@@ -7561,248 +7561,180 @@ class App extends Component {
                    empMissHPCounter += empPath["missingHPRatio"];
                   };
                   if (empPath["missingHPRatioPer100AP"]) {
-                    empMissHPCounter += empPath["missingHPRatioPer100AP"] * (itemStats.ap + selectedStats.ap) / 100
+                    empMissHPCounter += empPath["missingHPRatioPer100AP"] * totalAP/100;
                   };
                   if (empMissHPCounter !== 0) {
-                    var text = document.createTextNode(' (+' + empMissHPCounter + ' Enemy Missing HP Ratio)');
+                    var text = document.createTextNode(' (+' + lengthCheck(empMissHPCounter) + ' Enemy Missing HP Ratio)');
                     abilityDiv.appendChild(text);
                   };
                 }
                 doubleBreak();
-              }
+              };
 
               if (champLeftFile[ability]["shield"]) {
-                var shieldPath = champLeftFile[ability]["shield"]
+                var path = champLeftFile[ability]["shield"];
                 var shieldBold = document.createElement('b');
-                if (shieldPath["type"] !== 'all') {
-                  shieldBold.innerText = shieldPath["type"] + ' Shield: '
+                if (path["type"] !== 'all') {
+                  shieldBold.innerText = path["type"] + ' Shield: '
                 } else {
                   shieldBold.innerText = ' Shield: '
-                }
-                abilityDiv.appendChild(shieldBold)
+                };
+                abilityDiv.appendChild(shieldBold);
                 var shieldCounter = 0;
-                if (shieldPath["shield"]) {
-                  shieldCounter += shieldPath["shield"][rankIndex];
+                if (path["shield"]) {
+                  shieldCounter += arrayCheck(path["shield"]);
                 };
-                if (shieldPath["shieldByLvl"]) {
-                  shieldCounter += shieldPath["shieldByLvl"][champLevel]
+                if (path["shieldByLvl"]) {
+                  shieldCounter += path["shieldByLvl"][champLevel];
                 };
-                if (shieldPath["APRatio"]) {
-                  var ratio = shieldPath["APRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = shieldPath["APRatio"][rankIndex];
-                  };
-                  shieldCounter += ratio * (selectedStats.ap + itemStats.ap);
+                if (path["APRatio"]) {
+                  shieldCounter += arrayCheck(path["APRatio"]) * totalAP;
                 };
-                if (shieldPath["ADRatio"]) {
-                  var ratio = shieldPath["ADRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = shieldPath["ADRatio"][rankIndex];
-                  };
-                  shieldCounter += ratio * (itemStats.ad + statsPath["baseDamage"]
-                    + statsPath["damagePerLevel"] * champLvlRatio);
+                if (path["ADRatio"]) {
+                  shieldCounter += arrayCheck(path["ADRatio"]) * totalAD;
                 };
-                if (shieldPath["bonusADRatio"]) {
-                  var ratio = shieldPath["bonusADRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = shieldPath["bonusADRatio"][rankIndex];
-                  };
-                  shieldCounter += ratio * (itemStats.ad 
-                    + statsPath["damagePerLevel"] * champLvlRatio);
+                if (path["bonusADRatio"]) {
+                  shieldCounter += arrayCheck(path["bonusADRatio"]) * bonusAD;
                 };
-                if (shieldPath["bonusHPRatio"]) {
-                  var ratio = shieldPath["bonusHPRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = shieldPath["bonusHPRatio"][rankIndex];
-                  };
-                  shieldCounter += ratio * (itemStats.hp 
-                    + statsPath["hpPerLevel"] * champLvlRatio);
+                if (path["bonusHPRatio"]) {
+                  shieldCounter += arrayCheck(path["bonusHPRatio"]) * bonusHP;
                 };
-                if (shieldPath["maxHPRatio"]) {
-                  var ratio = shieldPath["maxHPRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = shieldPath["maxHPRatio"][rankIndex];
-                  };
-                  shieldCounter += ratio * (itemStats.hp + statsPath["baseHP"]
-                    + statsPath["hpPerLevel"] * champLvlRatio);
+                if (path["maxHPRatio"]) {
+                  shieldCounter += arrayCheck(path["maxHPRatio"]) * totalHP;
                 };
-                if (shieldPath["maxHPRatioByLvl"]) {
-                  shieldCounter += shieldPath["maxHPRatioByLvl"][champLevel] * (itemStats.hp + statsPath["baseHP"]
-                  + statsPath["hpPerLevel"] * champLvlRatio);
-                }
-                if (shieldPath["maxManaRatio"]) {
-                  var ratio = shieldPath["maxManaRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = shieldPath["maxManaRatio"][rankIndex];
-                  };
-                  shieldCounter += ratio * (itemStats.mana + statsPath["mana"]["base"]
-                    + statsPath["mana"]["manaPerLevel"] * champLvlRatio);
+                if (path["maxHPRatioByLvl"]) {
+                  shieldCounter += path["maxHPRatioByLvl"][champLevel] * totalHP;
+                };
+                if (path["maxManaRatio"]) {
+                  shieldCounter += arrayCheck(path["maxManaRatio"]) * totalMana;
                 };
                 if (shieldCounter !== 0) {
                   var text = document.createTextNode(Math.round(shieldCounter));
                   abilityDiv.appendChild(text);
-                }
-                if (shieldPath["maxMaxHPRatio"]) {
+                };
+                if (path["maxMaxHPRatio"]) {
                   var maxU = document.createElement('u');
                   maxU.innerText = 'Max'
                   abilityDiv.appendChild(maxU);
-                  var text = document.createTextNode(' - ' + Math.round(shieldPath["maxMaxHPRatio"] * (itemStats.hp 
-                    + statsPath["baseHP"] + statsPath["hpPerLevel"] * champLvlRatio)));
-                  abilityDiv.appendChild(text);
-                }
-                if (shieldPath["shieldPerStack"]) {
-                  var stackText = document.createTextNode(" (+" + shieldPath["shieldPerStack"] + " per Stack)")
-                  abilityDiv.appendChild(stackText)
-                }
-                if (shieldPath["maxHPRatioPerStack"]) {
-                  var text = document.createTextNode(" (+" + Math.round(shieldPath["maxHPRatioPerStack"] * 
-                  (itemStats.hp + statsPath["baseHP"] + statsPath["hpPerLevel"] * champLevel * 
-                  (0.7025 + 0.0175 * champLevel))) + " per stack)");
+                  var text = document.createTextNode(': ' + Math.round(path["maxMaxHPRatio"] * totalHP));
                   abilityDiv.appendChild(text);
                 };
-                if (shieldPath["dmgTakenRatio"]) {
+                if (path["shieldPerStack"]) {
+                  var text = document.createTextNode(" (+" + path["shieldPerStack"] + " per Stack)");
+                  abilityDiv.appendChild(text);
+                };
+                if (path["maxHPRatioPerStack"]) {
+                  var text = document.createTextNode(" (+" + Math.round(path["maxHPRatioPerStack"] * 
+                  totalHP) + " per stack)");
+                  abilityDiv.appendChild(text);
+                };
+                if (path["dmgTakenRatio"]) {
                   var dmgRatioU = document.createElement('u');
                   dmgRatioU.innerText = 'Damage Taken Ratio';
                   abilityDiv.appendChild(dmgRatioU);
-                  var ratio = shieldPath["dmgTakenRatio"];
-                  if (typeof ratio !== 'number') {
-                    ratio = shieldPath["dmgTakenRatio"][rankIndex]
-                  };
-                  var text = document.createTextNode(': ' + ratio);
+                  var text = document.createTextNode(': ' + arrayCheck(path["dmgTakenRatio"]));
                   abilityDiv.appendChild(text);
                 };
-                if (shieldPath["system"] === "minMax" ) {
+                if (path["system"] === "minMax" ) {
                   var minU = document.createElement('u');
                   minU.innerText = 'Min';
                   abilityDiv.appendChild(minU);
                   var minShieldCounter = 0;
                   var maxShieldCounter = 0;
-                  if (shieldPath["minShield"]) {
-                    minShieldCounter += shieldPath["minShield"][rankIndex]
+                  if (path["minShield"]) {
+                    minShieldCounter += arrayCheck(path["minShield"])
                   };
-                  if (shieldPath["minShieldByLvl"]) {
-                    minShieldCounter += shieldPath["minShieldByLvl"][champLevel]
+                  if (path["minShieldByLvl"]) {
+                    minShieldCounter += path["minShieldByLvl"][champLevel];
                   };
-                  if (shieldPath["minAPRatio"]) {
-                    var ratio = shieldPath["minAPRatio"];
-                    if (typeof ratio !== 'number') {
-                      ratio = shieldPath["minAPRatio"][rankIndex];
-                    };
-                    minShieldCounter += ratio * (selectedStats.ap + itemStats.ap);
-                  }
-                  if (shieldPath["minADRatio"]) {
-                    var ratio = shieldPath["minADRatio"];
-                    if (typeof ratio !== 'number') {
-                      ratio = shieldPath["minADRatio"][rankIndex];
-                    };
-                    minShieldCounter += ratio * (itemStats.ad + statsPath["baseDamage"]
-                      + statsPath["damagePerLevel"] * champLvlRatio);
-                  }
-                  if (shieldPath["minBonusADRatio"]) {
-                    var ratio = shieldPath["minBonusADRatio"];
-                    if (typeof ratio !== 'number') {
-                      ratio = shieldPath["minBonusADRatio"][rankIndex];
-                    };
-                    minShieldCounter += ratio * (itemStats.ad 
-                      + statsPath["damagePerLevel"] * champLvlRatio);
-                  }
+                  if (path["minAPRatio"]) {
+                    minShieldCounter += arrayCheck(path["minAPRatio"]) * totalAP;
+                  };
+                  if (path["minADRatio"]) {
+                    minShieldCounter += arrayCheck(path["minADRatio"]) * totalAD;
+                  };
+                  if (path["minBonusADRatio"]) {
+                    minShieldCounter += arrayCheck(path["minBonusADRatio"]) * bonusAD;
+                  };
                   if (minShieldCounter !== 0) {
-                    var text = document.createTextNode(' - ' + Math.round(minShieldCounter));
+                    var text = document.createTextNode(': ' + Math.round(minShieldCounter));
                     abilityDiv.appendChild(text);
                   };
-                  var br = document.createElement("br");
-                  abilityDiv.appendChild(br);
+                  singleBreak();
                   var maxU = document.createElement('u');
-                  maxU.innerText = 'Max'
-                  abilityDiv.appendChild(maxU)
+                  maxU.innerText = 'Max';
+                  abilityDiv.appendChild(maxU);
                   
-                  if (shieldPath["maxShield"]) {
-                    maxShieldCounter += shieldPath["maxShield"][rankIndex]
-                  }
-                  if (shieldPath["maxShieldByLvl"]) {
-                    maxShieldCounter += shieldPath["maxShieldByLvl"][champLevel]
-                  }
-                  if (shieldPath["maxAPRatio"]) {
-                    var ratio = shieldPath["maxAPRatio"];
-                    if (typeof ratio !== 'number') {
-                      ratio = shieldPath["maxAPRatio"][rankIndex];
-                    };
-                    maxShieldCounter += ratio * (selectedStats.ap + itemStats.ap);
-                  }
-                  if (shieldPath["maxADRatio"]) {
-                    var ratio = shieldPath["maxADRatio"];
-                    if (typeof ratio !== 'number') {
-                      ratio = shieldPath["maxADRatio"][rankIndex];
-                    };
-                    maxShieldCounter += ratio * (itemStats.ad + statsPath["baseDamage"]
-                      + statsPath["damagePerLevel"] * champLvlRatio);
-                  }
-                  if (shieldPath["maxBonusADRatio"]) {
-                    var ratio = shieldPath["maxBonusADRatio"];
-                    if (typeof ratio !== 'number') {
-                      ratio = shieldPath["maxBonusADRatio"][rankIndex];
-                    };
-                    maxShieldCounter += ratio * (itemStats.ad 
-                      + statsPath["damagePerLevel"] * champLvlRatio);
-                  }
-                  if (maxShieldCounter !== 0) {
-                    var text = document.createTextNode(' - ' + Math.round(maxShieldCounter));
-                    abilityDiv.appendChild(text);
+                  if (path["maxShield"]) {
+                    maxShieldCounter += arrayCheck(path["maxShield"])
                   };
-                }
-                if (shieldPath["type"] !== 'Spell' && shieldPath["duration"]) {
-                  var br = document.createElement("br");
-                  abilityDiv.appendChild(br);
-                }
-                if (shieldPath["duration"]) {
+                  if (path["maxShieldByLvl"]) {
+                    maxShieldCounter += path["maxShieldByLvl"][champLevel];
+                  };
+                  if (path["maxAPRatio"]) {
+                    maxShieldCounter += arrayCheck(path["maxAPRatio"]) * totalAP;
+                  };
+                  if (path["maxADRatio"]) {
+                    maxShieldCounter += arrayCheck(path["maxADRatio"]) * totalAD;
+                  };
+                  if (path["maxBonusADRatio"]) {
+                    maxShieldCounter += arrayCheck(path["maxBonusADRatio"]) * bonusAD;
+                  };
+                  if (maxShieldCounter !== 0) {
+                    var text = document.createTextNode(': ' + Math.round(maxShieldCounter));
+                    abilityDiv.appendChild(text);
+                  }
+                };
+                if (path["type"] !== 'Spell' && path["duration"]) {
+                  singleBreak();
+                };
+                if (path["duration"]) {
                   var durationU = document.createElement('u');
-                  durationU.innerText = 'Duration'
-                  abilityDiv.appendChild(durationU)
-                  var durationText = document.createTextNode(': ' + shieldPath["duration"])
-                  abilityDiv.appendChild(durationText)
-                }
-                if (shieldPath["combatCoolDown"]) {
-                  var br4 = document.createElement('br');
-                  abilityDiv.appendChild(br4);
-                  var combatU = document.createElement('u')
-                  combatU.innerText = 'Combat Cooldown';
-                  abilityDiv.appendChild(combatU)
-                  var combatCD = document.createTextNode(': ' + shieldPath["combatCoolDown"])
-                  abilityDiv.appendChild(combatCD)
-                }
-                if (shieldPath["combatCoolDownByLvl"]) {
-                  var br4 = document.createElement('br');
-                  abilityDiv.appendChild(br4);
-                  var combatU = document.createElement('u')
-                  combatU.innerText = 'Combat Cooldown';
-                  abilityDiv.appendChild(combatU)
-                  var text = document.createTextNode(': ' + shieldPath["combatCoolDownByLvl"][champLevel])
+                  durationU.innerText = 'Duration';
+                  abilityDiv.appendChild(durationU);
+                  var text = document.createTextNode(': ' + arrayCheck(path["duration"]));
                   abilityDiv.appendChild(text);
-                }
+                };
+                if (path["combatCoolDown"]) {
+                  singleBreak();
+                  var combatU = document.createElement('u');
+                  combatU.innerText = 'Combat Cooldown';
+                  abilityDiv.appendChild(combatU);
+                  var combatCD = document.createTextNode(': ' + path["combatCoolDown"]);
+                  abilityDiv.appendChild(combatCD);
+                };
+                if (path["combatCoolDownByLvl"]) {
+                  singleBreak();
+                  var combatU = document.createElement('u');
+                  combatU.innerText = 'Combat Cooldown';
+                  abilityDiv.appendChild(combatU);
+                  var text = document.createTextNode(': ' + path["combatCoolDownByLvl"][champLevel]);
+                  abilityDiv.appendChild(text);
+                };
                 doubleBreak();
-              }
+              };
 
               if (champLeftFile[ability]["revive"]) {
-                var revivePath = champLeftFile[ability]["revive"]
-                var reviveBold = document.createElement('b');
-                reviveBold.innerText = 'Revive: '
-                abilityDiv.appendChild(reviveBold);
+                var path = champLeftFile[ability]["revive"]
+                var bold = document.createElement('b');
+                bold.innerText = 'Revive: '
+                abilityDiv.appendChild(bold);
                 var hpCounter = 0;
-                if (revivePath["health"]) {
+                if (path["health"]) {
                   var healthU = document.createElement('u');
                   healthU.innerText = 'Health Restored';
-                  abilityDiv.appendChild(healthU)
-                  hpCounter += revivePath["health"][rankIndex]
-                }
-                if (revivePath["healthPerAP"]) {
-                  hpCounter += revivePath["healthPerAP"] * (itemStats.ap + selectedStats.ap);
-                }
+                  abilityDiv.appendChild(healthU);
+                  hpCounter += arrayCheck(path["health"]);
+                };
+                if (path["healthPerAP"]) {
+                  hpCounter += arrayCheck(path["healthPerAP"]) * totalAP;
+                };
                 if (hpCounter !== 0) {
                   var text = document.createTextNode(': ' + Math.round(hpCounter));
                   abilityDiv.appendChild(text);
                 };
                 doubleBreak();
-              }
+              };
 
               if (champLeftFile[ability]["damageRedux"]) {
                 var reduxPath = champLeftFile[ability]["damageRedux"]
