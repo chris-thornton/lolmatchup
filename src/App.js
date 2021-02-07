@@ -7811,166 +7811,144 @@ class App extends Component {
 
               if (champLeftFile[ability]["magicDamageRedux"]) {
                 var path = champLeftFile[ability]["magicDamageRedux"]
-                var reducedDmgBold = document.createElement('b');
-                reducedDmgBold.innerText = 'Reduced Magic Damage Taken: '
-                abilityDiv.appendChild(reducedDmgBold)
+                var bold = document.createElement('b');
+                bold.innerText = 'Reduced Magic Damage Taken: ';
+                abilityDiv.appendChild(bold);
                 var ratioCount = 0;
                 if (path["reduxRatio"]) {
-                  ratioCount += path["reduxRatio"][rankIndex]
+                  ratioCount += arrayCheck(path["reduxRatio"]);
                 };
                 if (path["reduxRatioPer100AP"]) {
-                  ratioCount += path["reduxRatioPer100AP"] * (selectedStats.ap + itemStats.ap)/100
+                  ratioCount += arrayCheck(path["reduxRatioPer100AP"]) * totalAP/100;
                 };
                 if (path["reduxRatioPer100BonusMR"]) {
-                  ratioCount += path["reduxRatioPer100BonusMR"] * (itemStats.mr 
-                    + statsPath["magicResistPerLevel"] * champLvlRatio)/100
+                  ratioCount += arrayCheck(path["reduxRatioPer100BonusMR"]) * bonusMR/100;
                 };
-                var reduxRatioText = document.createTextNode('Reduced by ratio of ' + lengthCheck(ratioCount))
-                abilityDiv.appendChild(reduxRatioText)
+                var text = document.createTextNode('Reduced by ratio of ' + lengthCheck(ratioCount))
+                abilityDiv.appendChild(text)
                 if (path["duration"]) {
-                  var durationText = document.createTextNode(' for ' + path["duration"] + ' seconds.')
-                  abilityDiv.appendChild(durationText)
+                  var text = document.createTextNode(' for ' + path["duration"] + ' seconds.');
+                  abilityDiv.appendChild(text);
                 };
-                var br = document.createElement("br");
-                abilityDiv.appendChild(br);
-              }
+                singleBreak();
+              };
 
               if (champLeftFile[ability]["physDamageRedux"]) {
-                var path = champLeftFile[ability]["physDamageRedux"]
-                var reducedDmgBold = document.createElement('b');
-                reducedDmgBold.innerText = 'Reduced Physical Damage Taken: '
-                abilityDiv.appendChild(reducedDmgBold)
+                var path = champLeftFile[ability]["physDamageRedux"];
+                var bold = document.createElement('b');
+                bold.innerText = 'Reduced Physical Damage Taken: ';
+                abilityDiv.appendChild(bold);
                 var ratioCount = 0;
                 if (path["reduxRatio"]) {
-                  ratioCount += path["reduxRatio"][rankIndex]
+                  ratioCount += arrayCheck(path["reduxRatio"]);
                 };
                 if (path["reduxRatioPer100AP"]) {
-                  ratioCount += path["reduxRatioPer100AP"] * (selectedStats.ap + itemStats.ap)/100
+                  ratioCount += arrayCheck(path["reduxRatioPer100AP"]) * totalAP/100;
                 };
                 if (path["reduxRatioPer100BonusMR"]) {
-                  ratioCount += path["reduxRatioPer100BonusMR"] * (itemStats.mr 
-                    + statsPath["magicResistPerLevel"] * champLvlRatio)/100
+                  ratioCount += arrayCheck(path["reduxRatioPer100BonusMR"]) * bonusMR/100;
                 };
-                var reduxRatioText = document.createTextNode('Reduced by ratio of ' + lengthCheck(ratioCount))
-                abilityDiv.appendChild(reduxRatioText)
+                var text = document.createTextNode('Reduced by ratio of ' + lengthCheck(ratioCount));
+                abilityDiv.appendChild(text);
                 if (path["duration"]) {
-                  var durationText = document.createTextNode(' for ' + path["duration"] + ' seconds.')
-                  abilityDiv.appendChild(durationText)
+                  var text = document.createTextNode(' for ' + path["duration"] + ' seconds.');
+                  abilityDiv.appendChild(text);
                 };
                 doubleBreak();
-              }
+              };
 
               if(champLeftFile[ability]["dmgImmune"]) {
                 var immuneB = document.createElement('b');
-                immuneB.innerText = 'Damage Immune Duration: '
+                immuneB.innerText = 'Damage Immune Duration: ';
                 abilityDiv.appendChild(immuneB);
-                var dur = champLeftFile[ability]["dmgImmune"];
-                dur = arrayCheck(dur);
-                var immuneValue = document.createTextNode(dur);
-                abilityDiv.appendChild(immuneValue);
+                var text = document.createTextNode(arrayCheck(champLeftFile[ability]["dmgImmune"]));
+                abilityDiv.appendChild(text);
                 doubleBreak();
-              }
+              };
 
               if(champLeftFile[ability]["ccImmune"]) {
-                var immuneBold = document.createElement('b');
-                immuneBold.innerText = 'Crowd Control Immune Duration: '
-                abilityDiv.appendChild(immuneBold);
-                var imm = champLeftFile[ability]["ccImmune"];
-                if (typeof imm !== 'number') {
-                  imm = imm[rankIndex]
-                };
-                var immuneValue = document.createTextNode(imm);
-                abilityDiv.appendChild(immuneValue);
+                var bold = document.createElement('b');
+                bold.innerText = 'Crowd Control Immune Duration: ';
+                abilityDiv.appendChild(bold);
+                var text = document.createTextNode(arrayCheck(champLeftFile[ability]["ccImmune"]));
+                abilityDiv.appendChild(text);
                 doubleBreak();
-              }
+              };
 
               if (champLeftFile[ability]["minDmgImmune"]) {
-                var immuneBold = document.createElement('b');
-                immuneBold.innerText = 'Crowd Control Immune Duration: '
-                abilityDiv.appendChild(immuneBold);
+                var bold = document.createElement('b');
+                bold.innerText = 'Crowd Control Immune Duration: ';
+                abilityDiv.appendChild(bold);
                 var minU = document.createElement('u');
                 minU.innerText = 'Min'
-                abilityDiv.appendChild(minU)
-                var minText = document.createTextNode(' - ' + champLeftFile[ability]["minDmgImmune"])
+                abilityDiv.appendChild(minU);
+                var minText = document.createTextNode(': ' + arrayCheck(champLeftFile[ability]["minDmgImmune"]));
                 abilityDiv.appendChild(minText);
-                var br = document.createElement("br");
-                abilityDiv.appendChild(br);
+                singleBreak();
                 var maxU = document.createElement('u');
-                maxU.innerText = 'Max'
-                abilityDiv.appendChild(maxU)
-                var maxText = document.createTextNode(' - ' + champLeftFile[ability]["maxDmgImmune"])
+                maxU.innerText = 'Max';
+                abilityDiv.appendChild(maxU);
+                var maxText = document.createTextNode(': ' + arrayCheck(champLeftFile[ability]["maxDmgImmune"]));
                 abilityDiv.appendChild(maxText);
                 doubleBreak();
               };
 
               if (champLeftFile[ability]["silence"]) {
-                var silenceBold = document.createElement('b');
-                silenceBold.innerText = 'Silence Duration: '
-                abilityDiv.appendChild(silenceBold);
-                var dur = champLeftFile[ability]["silence"]
-                dur = arrayCheck(dur);
-                var silenceText = document.createTextNode(dur);
-                abilityDiv.appendChild(silenceText);
+                var bold = document.createElement('b');
+                bold.innerText = 'Silence Duration: ';
+                abilityDiv.appendChild(bold);
+                var text = document.createTextNode(arrayCheck(champLeftFile[ability]["silence"]));
+                abilityDiv.appendChild(text);
                 doubleBreak();
-              }
+              };
 
               if (champLeftFile[ability]["blind"]) {
                 var blindB = document.createElement('b');
-                blindB.innerText = 'Blind Duration: '
+                blindB.innerText = 'Blind Duration: ';
                 abilityDiv.appendChild(blindB);
-                var dur = champLeftFile[ability]["blind"]
-                dur = arrayCheck(dur);
-                var blindText = document.createTextNode(dur);
-                abilityDiv.appendChild(blindText);
+                var text = document.createTextNode(arrayCheck(champLeftFile[ability]["blind"]));
+                abilityDiv.appendChild(text);
                 doubleBreak();
-              }
+              };
 
               if(champLeftFile[ability]["interruptCC"] || champLeftFile[ability]["interruptCCByLvl"] 
               || champLeftFile[ability]["minInterruptCC"]) {
-                var interruptCCBold = document.createElement('b');
-                interruptCCBold.innerText = 'Crowd Control Duration: '
-                abilityDiv.appendChild(interruptCCBold)
-              }
+                var bold = document.createElement('b');
+                bold.innerText = 'Crowd Control Duration: ';
+                abilityDiv.appendChild(bold);
+              };
 
               if (champLeftFile[ability]["interruptCC"]) {
                 var intCounter = 0;
-                var intCC = champLeftFile[ability]["interruptCC"];
-                intCC = arrayCheck(intCC);
-                intCounter += intCC
+                intCounter += arrayCheck(champLeftFile[ability]["interruptCC"]);
                 if (champLeftFile[ability]["interruptCCPer10Lethality"]) {
-                  intCounter += champLeftFile[ability]["interruptCCPer10Lethality"] * (itemStats.lethality)/10
-                }
+                  intCounter += arrayCheck(champLeftFile[ability]["interruptCCPer10Lethality"]) * totalLethality/10;
+                };
                 if (intCounter.toString().length > 4) {
                   intCounter = intCounter.toFixed(2);
                 };
-                var text = document.createTextNode(intCounter)
-                abilityDiv.appendChild(text)
+                var text = document.createTextNode(intCounter);
+                abilityDiv.appendChild(text);
                 doubleBreak();
               };
 
               if (champLeftFile[ability]["interruptCCByLvl"]) {
-                var ccPath = champLeftFile[ability]["interruptCCByLvl"]
-                var text = document.createTextNode(ccPath[champLevel])
+                var text = document.createTextNode(champLeftFile[ability]["interruptCCByLvl"][champLevel]);
                 abilityDiv.appendChild(text);
                 doubleBreak();
-              }
+              };
 
               if (champLeftFile[ability]["minInterruptCC"]) {
-                var minInterruptU = document.createElement('u');
-                minInterruptU.innerText = 'Min'
-                abilityDiv.appendChild(minInterruptU)
-                var minInt = champLeftFile[ability]["minInterruptCC"]
-                minInt = arrayCheck(minInt);
-                var minText = document.createTextNode(' - ' + minInt)
+                var minU = document.createElement('u');
+                minU.innerText = 'Min';
+                abilityDiv.appendChild(minU);
+                var minText = document.createTextNode(': ' + arrayCheck(champLeftFile[ability]["minInterruptCC"]));
                 abilityDiv.appendChild(minText);
-                var br = document.createElement("br");
-                abilityDiv.appendChild(br);
-                var maxInterruptU = document.createElement('u');
-                maxInterruptU.innerText = 'Max'
-                abilityDiv.appendChild(maxInterruptU)
-                var maxInt = champLeftFile[ability]["maxInterruptCC"]
-                maxInt = arrayCheck(maxInt);
-                var maxText = document.createTextNode(' - ' + maxInt)
+                singleBreak();
+                var maxU = document.createElement('u');
+                maxU.innerText = 'Max';
+                abilityDiv.appendChild(maxU);
+                var maxText = document.createTextNode(': ' + arrayCheck(champLeftFile[ability]["maxInterruptCC"]));
                 abilityDiv.appendChild(maxText);
                 doubleBreak();
               };
