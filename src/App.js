@@ -8716,49 +8716,38 @@ class App extends Component {
                     abilityDiv.appendChild(text);
                   };
                   if (path["auto"]["enemyMaxHPRatio"] && !enemyStats.hp) {
-                    var value = path["auto"]["enemyMaxHPRatio"];
-                    value = arrayCheck(value);
-                    var text = document.createTextNode(' (+' + value + ' Enemy Max HP Ratio)');
+                    var text = document.createTextNode(' (+' + arrayCheck(path["auto"]["enemyMaxHPRatio"]) 
+                    + ' Enemy Max HP Ratio)');
                     abilityDiv.appendChild(text);
                   };
                   if (path["auto"]["system"] === 'minMax') {
-                    var minText = document.createTextNode('Min - ');
-                    abilityDiv.appendChild(minText);
                     var minCounter = 0;
                     var maxCounter = 0;
                     if (path["auto"]["minDmgByLvl"]) {
                       minCounter += path["auto"]["minDmgByLvl"][champLevel];
                     };
                     if (path["auto"]["minAPRatio"]) {
-                      var value =path["auto"]["minAPRatio"];
-                      value = arrayCheck(value);
-                      minCounter += value * (itemStats.ap + selectedStats.ap);
-                    }
-                    var minValue = document.createTextNode(Math.round(minCounter));
-                    abilityDiv.appendChild(minValue);
-                    var br = document.createElement('br');
-                    abilityDiv.appendChild(br);
-                    var maxText = document.createTextNode('Max - ');
-                    abilityDiv.appendChild(maxText);
+                      minCounter += arrayCheck(path["auto"]["minAPRatio"]) * totalAP;
+                    };
+                    var minText = document.createTextNode('Min: ' + Math.round(minCounter));
+                    abilityDiv.appendChild(minText);
+                    singleBreak();
                     if (path["auto"]["maxDmgByLvl"]) {
                       maxCounter += path["auto"]["maxDmgByLvl"][champLevel]
                     };
                     if (path["auto"]["maxAPRatio"]) {
-                      var value =path["auto"]["maxAPRatio"];
-                      value = arrayCheck(value);
-                      maxCounter += value * (itemStats.ap + selectedStats.ap);
+                      maxCounter += arrayCheck(path["auto"]["maxAPRatio"]) * totalAP;
                     };
-                    var maxValue = document.createTextNode(Math.round(maxCounter));
-                    abilityDiv.appendChild(maxValue);
-                  }
+                    var maxText = document.createTextNode('Max: ' + Math.round(maxCounter));
+                    abilityDiv.appendChild(maxText);
+                  }; 
                   if (path["auto"]["multiHitDmgRatio"]) {
-                    var br = document.createElement('br');
-                    abilityDiv.appendChild(br);
+                    singleBreak();
                     var multiU = document.createElement('u');
                     multiU.innerText = 'Multi-Hit Damage Ratio';
                     abilityDiv.appendChild(multiU);
-                    var multiText = document.createTextNode(': ' + path["auto"]["multiHitDmgRatio"]);
-                    abilityDiv.appendChild(multiText);
+                    var text = document.createTextNode(': ' + arrayCheck(path["auto"]["multiHitDmgRatio"]));
+                    abilityDiv.appendChild(text);
                   }
                 };
                 if (path["attackSpeed"] || path["attackSpeedByLvl"] || path["minAttackSpeed"]) {
@@ -8766,41 +8755,28 @@ class App extends Component {
                   var asU = document.createElement('u');
                   asU.innerText = 'Attack Speed';
                   abilityDiv.appendChild(asU);
-                }
+                };
                 var asCounter = 0;
                 if (path["attackSpeed"]) {
-                  var value = path["attackSpeed"];
-                  value = arrayCheck(value)
-                  asCounter += value;
+                  asCounter += arrayCheck(path["attackSpeed"]);
                 };
                 if (path["bonusAttackSpeed"]) {
-                  var value = path["bonusAttackSpeed"];
-                  value = arrayCheck(value);
-                  asCounter += value * path["attackSpeed"];
-                  asCounter = asCounter.toFixed(2);
-                };
-                if (asCounter !== 0) {
-                  var asText = document.createTextNode(': ' + asCounter);
-                  abilityDiv.appendChild(asText);
+                  asCounter += arrayCheck(path["bonusAttackSpeed"]) * arrayCheck(path["attackSpeed"]);
                 };
                 if (path["attackSpeedByLvl"]) {
-                  var text = document.createTextNode(': ' + path["attackSpeedByLvl"][champLevel])
-                  abilityDiv.appendChild(text);
-                };
-                if (path["minAttackSpeed"]) {
-                  var asText = document.createTextNode(': Min - ' + path["minAttackSpeed"] + ', Max - ' 
-                    + path["maxAttackSpeed"]);
-                  abilityDiv.appendChild(asText);
+                  asCounter += path["attackSpeedByLvl"][champLevel];
                 };
                 if (path["attackSpeedRatio"]) {
-                  singleBreak();
-                  var asU = document.createElement('u');
-                  asU.innerText = 'Attack Speed';
-                  abilityDiv.appendChild(asU);
-                  var text = document.createTextNode(': ' + (path["attackSpeedRatio"] * (statsPath["attackSpeed"] 
-                  + (itemStats.as + statsPath["attackSpeedPerLevel"] * champLevel 
-                  * (0.7025 + 0.0175 * champLevel)) * statsPath["attackSpeedRatio"])).toFixed(3));
-                  abilityDiv.appendChild(text);
+                  asCounter += (path["attackSpeedRatio"] * totalAS).toFixed(3);
+                };
+                if (asCounter !== 0) {
+                  var asText = document.createTextNode(': ' + asCounter.toFixed(2));
+                  abilityDiv.appendChild(asText);
+                };
+                if (path["minAttackSpeed"]) {
+                  var asText = document.createTextNode(': Min: ' + arrayCheck(path["minAttackSpeed"]) 
+                  + ', Max: ' + arrayCheck(path["maxAttackSpeed"]));
+                  abilityDiv.appendChild(asText);
                 };
                 if (path["healthRatio"]) {
                   singleBreak();
