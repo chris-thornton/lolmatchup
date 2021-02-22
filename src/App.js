@@ -236,13 +236,11 @@ class App extends Component {
     }
   };
 
-  calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, otherSide, champName) {
+  calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio) {
 
     import (`./champions/${champName.toLowerCase()}`)
           .then(({default: champFile}) => {
             var statsPath = champFile[`stats`];
-            var champLevel = this.state[`level${side}`] - 1;
-            var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
             var totalAD = itemStats.ad + statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"];
             var bonusAD = itemStats.ad;
             var totalAP = itemStats.ap + selectedStats.ap;
@@ -9662,14 +9660,16 @@ class App extends Component {
   onChampClick = (event) => {
 
     var one=new Date();
-
+    
+    var side = 'Left';
+    var otherSide = 'Right';
     this.testing('Left', event);
     var itemStats = this.state.itemStatsLeft;
     var enemyItemStats = this.state.itemStatsRight;
-    var enemyStats = this.state.stats2
-    var selectedStats = this.state.stats1
-    var side = 'Left';
-    var otherSide = 'Right';
+    var enemyStats = this.state.stats2;
+    var selectedStats = this.state.stats1;
+    var champLevel = this.state[`level${side}`] - 1;
+    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
 
     document.getElementsByTagName("input")[0].value = '';
     this.setState({ filteredChampsLeft: [] });
@@ -9688,9 +9688,9 @@ class App extends Component {
     };
 
     if (event.target.textContent !== "Wukong") {
-      var champName = event.target.textContent.replace("'","").replace(/\s/g, '')
+      var champName = event.target.textContent.replace("'","").replace(/\s/g, '');
     } else {
-      champName = 'MonkeyKing'
+      champName = 'MonkeyKing';
     };
 
     this.tfStatDisplay(champName, side, otherSide);
@@ -9704,7 +9704,7 @@ class App extends Component {
     return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
 
     var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
-    for (i = 0; i < abilitiesLength; i++) {
+    for (var i = 0; i < abilitiesLength; i++) {
       var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
       while (divToEmpty.firstChild) {
         divToEmpty.removeChild(divToEmpty.firstChild);
@@ -9713,13 +9713,11 @@ class App extends Component {
 
     this.setState({ champNameLeft: champName });
 
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, otherSide, champName);
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
 
     import (`./champions/${champName.toLowerCase()}`)
       .then(({default: champFile}) => {
         var statsPath = champFile[`stats`];
-        var champLevel = this.state[`level${side}`] - 1;
-        var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
 
         this.abilities1 = {
           passive: this.passiveDetails,
@@ -9764,12 +9762,14 @@ class App extends Component {
 
   onChampClick2 = (event) => {
 
+    var side = 'Right';
+    var otherSide = 'Left';
     var itemStats = this.state.itemStatsRight;
     var enemyItemStats = this.state.itemStatsLeft;
     var enemyStats = this.state.stats1
     var selectedStats = this.state.stats2
-    var side = 'Right';
-    var otherSide = 'Left';
+    var champLevel = this.state[`level${side}`] - 1;
+    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
 
     document.getElementsByTagName("input")[1].value = '';
     this.setState({ filteredChampsRight: [] });
@@ -9797,25 +9797,26 @@ class App extends Component {
 
     this.setState({ champIndexRight: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value
-    })
+    });
+    
+    document.getElementsByClassName('champIcon')[1].setAttribute('src', `${this.portraits[`${champList.filter(champ => {
+    return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
 
-    var abilitiesLength = document.getElementsByClassName('abilityBoxRight').length
-    for (i = 0; i < abilitiesLength; i++) {
+    var abilitiesLength = document.getElementsByClassName('abilityBoxRight').length;
+    for (var i = 0; i < abilitiesLength; i++) {
       var divToEmpty = document.getElementsByClassName('abilityBoxRight')[i];
       while (divToEmpty.firstChild) {
         divToEmpty.removeChild(divToEmpty.firstChild)
       }
-    }
+    };
 
     this.setState({ champNameRight: champName });
 
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, otherSide, champName);
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
 
     import (`./champions/${champName.toLowerCase()}`)
-    .then(({default: champRightFile}) => {
-      var statsPath = champRightFile[`stats`];
-      var champLevel = this.state[`level${side}`] - 1;
-      var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    .then(({default: champFile}) => {
+      var statsPath = champFile[`stats`];
 
       this.setState(prevState => ({
         stats2: {                   
@@ -9851,8 +9852,26 @@ class App extends Component {
   };
 
   onLevelChange = (event) => {
+    var side = 'Left';
+    var otherSide = 'Right';
     var champLevel = event.target.value - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    var itemStats = this.state.itemStatsLeft;
+    var enemyItemStats = this.state.itemStatsRight;
+    var enemyStats = this.state.stats2;
+    var selectedStats = this.state.stats1;
+    var champName = this.state.champNameLeft;
+
+    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
+    for (var i = 0; i < abilitiesLength; i++) {
+      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
+      while (divToEmpty.firstChild) {
+        divToEmpty.removeChild(divToEmpty.firstChild);
+      }
+    };
+
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+
     import (`./champions/${this.state.champNameLeft.toLowerCase()}`)
       .then(({default: champFile}) => {
         var statsPath = champFile[`stats`];
@@ -9875,11 +9894,29 @@ class App extends Component {
   };
 
   onLevelChange2 = (event) => {
+    var side = 'Right';
+    var otherSide = 'Left';
+    var itemStats = this.state.itemStatsRight;
+    var enemyItemStats = this.state.itemStatsLeft;
+    var enemyStats = this.state.stats1
+    var selectedStats = this.state.stats2
     var champLevel = event.target.value - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    var champName = this.state.champNameRight;
+
+    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
+    for (var i = 0; i < abilitiesLength; i++) {
+      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
+      while (divToEmpty.firstChild) {
+        divToEmpty.removeChild(divToEmpty.firstChild);
+      }
+    };
+
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+
     import (`./champions/${this.state.champNameRight.toLowerCase()}`)
-      .then(({default: champRightFile}) => {
-        var statsPath = champRightFile[`stats`]
+      .then(({default: champFile}) => {
+        var statsPath = champFile[`stats`]
         this.setState(prevState => ({
           stats2: {                   
               ...prevState.stats2,   
@@ -9899,14 +9936,53 @@ class App extends Component {
   }
 
   onRankChange = (event) => {
-    var abilityFirstChar = event.currentTarget.id.charAt(0)
-    this.setState({ [`${abilityFirstChar}RankLeft`]: event.target.value })
-    this.testing('Left', event);           
-  }
+    var side = 'Left';
+    var otherSide = 'Right';
+    var abilityFirstChar = event.currentTarget.id.charAt(0);
+    this.setState({ [`${abilityFirstChar}Rank${side}`]: event.target.value });
+
+    var champLevel = this.state[`level${side}`] - 1;
+    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    var itemStats = this.state[`itemStats${side}`];
+    var enemyItemStats = this.state[`itemStats${otherSide}`];
+    var enemyStats = this.state.stats2;
+    var selectedStats = this.state.stats1;
+    var champName = this.state[`champName${side}`];
+
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+
+    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
+    for (var i = 0; i < abilitiesLength; i++) {
+      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
+      while (divToEmpty.firstChild) {
+        divToEmpty.removeChild(divToEmpty.firstChild);
+      }
+    }          
+  };
 
   onRankChange2 = (event) => {
-    var abilityFirstChar2 = event.currentTarget.id.charAt(0)
-    this.setState({ [`${abilityFirstChar2}RankRight`]: event.target.value })              
+    var side = 'Right';
+    var otherSide = 'Left';
+    var abilityFirstChar = event.currentTarget.id.charAt(0);
+    this.setState({ [`${abilityFirstChar}Rank${side}`]: event.target.value });
+    
+    var champLevel = this.state[`level${side}`] - 1;
+    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    var itemStats = this.state[`itemStats${side}`];
+    var enemyItemStats = this.state[`itemStats${otherSide}`];
+    var enemyStats = this.state.stats1;
+    var selectedStats = this.state.stats2;
+    var champName = this.state[`champName${side}`];
+
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+
+    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
+    for (var i = 0; i < abilitiesLength; i++) {
+      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
+      while (divToEmpty.firstChild) {
+        divToEmpty.removeChild(divToEmpty.firstChild);
+      }
+    }          
   }
 
   preventKeyPress = (event) => {
