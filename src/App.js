@@ -241,17 +241,18 @@ class App extends Component {
     import (`./champions/${champName.toLowerCase()}`)
           .then(({default: champFile}) => {
             var statsPath = champFile[`stats`];
-            var totalAD = itemStats.ad + statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"];
+            var totalAD = itemStats.ad + statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLevel"];
             var bonusAD = itemStats.ad;
             var totalAP = itemStats.ap + selectedStats.ap;
-            var totalAS = statsPath["attackSpeed"] 
-            + (itemStats.as + champLvlRatio * statsPath["attackSpeedPerLvl"]) * statsPath["attackSpeedRatio"];
+            var totalAS = statsPath["attackSpeed"]
+            + (itemStats.as + champLvlRatio * statsPath["attackSpeedPerLevel"]) * statsPath["attackSpeedRatio"];
             var bonusAS = statsPath["attackSpeedRatio"] * itemStats.as;
-            var totalArmor = itemStats.arm + statsPath["baseArmor"] + champLvlRatio * statsPath["armorPerLvl"];
+            var totalArmor = itemStats.arm + statsPath["baseArmor"] + champLvlRatio * statsPath["armorPerLevel"];
+            console.log('totalArmor: ' + totalArmor);
             var bonusArmor = itemStats.arm;
-            var totalMR = itemStats.mr + statsPath["baseMagicResist"] + champLvlRatio * statsPath["magicResistPerLvl"];
+            var totalMR = itemStats.mr + statsPath["baseMagicResist"] + champLvlRatio * statsPath["magicResistPerLevel"];
             var bonusMR = itemStats.mr;
-            var totalHP = itemStats.hp + statsPath["baseHP"] + champLvlRatio * statsPath["hpPerLvl"];
+            var totalHP = itemStats.hp + statsPath["baseHP"] + champLvlRatio * statsPath["hpPerLevel"];
             var bonusHP = itemStats.hp;
             var enemyTotalHP = enemyStats.hp + enemyItemStats.hp;
             var enemyBonusHP = enemyItemStats.hp;
@@ -260,7 +261,7 @@ class App extends Component {
             var totalLifeSteal = itemStats.lifeSteal;
             var totalMana = itemStats.mana + statsPath["mana"]["base"] + statsPath["mana"]["manaPerLevel"] * champLvlRatio;
             var bonusMana = itemStats.mana;
-            var nonBaseAS = (itemStats.as + champLvlRatio * statsPath["attackSpeedPerLvl"]) * statsPath["attackSpeedRatio"];
+            var nonBaseAS = (itemStats.as + champLvlRatio * statsPath["attackSpeedPerLevel"]) * statsPath["attackSpeedRatio"];
     
     
             // eslint-disable-next-line
@@ -543,8 +544,11 @@ class App extends Component {
                     };
                     if (damage["ADRatio"]) {
                       var ADRatioValue = JSON.stringify(damage["ADRatio"]).replace(/,/g, ', ').replace(/^\[|]$/g, '')
-                      var ADRatioText = document.createTextNode(" (+" + ADRatioValue + " AD Ratio)")
-                      abilityDiv.appendChild(ADRatioText)
+                      var text = document.createTextNode(" (+" + ADRatioValue + " AD Ratio)")
+                      if (champName === 'Jayce') {
+                        text.textContent = '(' + ADRatioValue + " AD Ratio)";
+                      };
+                      abilityDiv.appendChild(text);
                     };
                     if (damage["ADRatioByLvl"]) {
                       var ADRatioByLvlText = document.createTextNode('(+' + damage["ADRatioByLvl"][0] + " to " 
@@ -5694,7 +5698,7 @@ class App extends Component {
                     if (damage["alwaysCrit"]) {
                       var critText = document.createTextNode('. Always critically strikes.');
                       abilityDiv.appendChild(critText);
-                    }l
+                    };
                     if (damage["attackSpeedPenalty"]) {
                       singleBreak();
                       var penaltyU = document.createElement('u');
@@ -5704,8 +5708,7 @@ class App extends Component {
                       abilityDiv.appendChild(text);
                     }
                     if (damage["system"] === "min" ) {
-                      var br = document.createElement('br')
-                      abilityDiv.appendChild(br)
+                      singleBreak();
                       var minDmgU = document.createElement('u');
                       minDmgU.innerText = 'Min Damage'
                       abilityDiv.appendChild(minDmgU);
@@ -9664,8 +9667,8 @@ class App extends Component {
     var side = 'Left';
     var otherSide = 'Right';
     this.testing('Left', event);
-    var itemStats = this.state.itemStatsLeft;
-    var enemyItemStats = this.state.itemStatsRight;
+    var itemStats = this.state[`itemStats${side}`];
+    var enemyItemStats = this.state[`itemStats${otherSide}`];
     var enemyStats = this.state.stats2;
     var selectedStats = this.state.stats1;
     var champLevel = this.state[`level${side}`] - 1;
@@ -9683,7 +9686,7 @@ class App extends Component {
       };
       document.getElementById(`levelBox${side}`).value = 1;
       this.rankedAbilities.map(rankedAbility => {
-        document.getElementById(`${rankedAbility}Rank${side}`).value = 0
+        document.getElementById(`${rankedAbility}Rank${side}`).value = 0;
       })
     };
 
@@ -9754,11 +9757,36 @@ class App extends Component {
             E: this.EDetails,
             R: this.RDetails
           }
-        }))
+        }));
+
+        if (champName === 'Gnar' || champName === 'Kled' ) {
+          var tfPath = champFile['statsTransform'];
+          this.setState(prevState => ({
+            transformStats1: {
+              ...prevState.transformStats1,
+              hp: tfPath["baseHP"] + tfPath["hpPerLevel"] * champLvlRatio,
+              hpPL: tfPath["hpPerLevel"],
+              asPL: tfPath["attackSpeedPerLevel"],
+              armPL: tfPath["armorPerLevel"],
+              adPL: tfPath["damagePerLevel"],
+              mrPL: tfPath["magicResistPerLevel"],
+              manaPL: tfPath.mana["manaPerLevel"],
+              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLevel"] * champLvlRatio,
+              manaRegenPL: tfPath.mana["manaRegenPerLevel"],
+              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLevel"] * champLvlRatio,
+              hpRegenPL: tfPath["hpRegenPerLevel"],
+              as: tfPath["attackSpeed"] + tfPath["attackSpeedPerLevel"] * tfPath["attackSpeedRatio"] * champLvlRatio,
+              arm: tfPath["baseArmor"] + tfPath["armorPerLevel"] * champLvlRatio,
+              ad: tfPath["baseDamage"] + tfPath["damagePerLevel"] * champLvlRatio,
+              mr: tfPath["baseMagicResist"] + tfPath["magicResistPerLevel"] * champLvlRatio,
+              mana: tfPath.mana["base"] + tfPath.mana["manaPerLevel"] * champLvlRatio
+            }
+          }))
+        }
       });
       var two = new Date();
       /*alert(two.getMilliseconds()-one.getMilliseconds());*/
-  }
+  };
 
   onChampClick2 = (event) => {
 
@@ -9846,6 +9874,31 @@ class App extends Component {
           R: this.RDetails
         }
       }))
+
+      if (champName === 'Gnar' || champName === 'Kled' ) {
+        var tfPath = champFile['statsTransform'];
+        this.setState(prevState => ({
+          transformStats2: {
+            ...prevState.transformStats2,
+            hp: tfPath["baseHP"] + tfPath["hpPerLevel"] * champLvlRatio,
+            hpPL: tfPath["hpPerLevel"],
+            asPL: tfPath["attackSpeedPerLevel"],
+            armPL: tfPath["armorPerLevel"],
+            adPL: tfPath["damagePerLevel"],
+            mrPL: tfPath["magicResistPerLevel"],
+            manaPL: tfPath.mana["manaPerLevel"],
+            manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLevel"] * champLvlRatio,
+            manaRegenPL: tfPath.mana["manaRegenPerLevel"],
+            hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLevel"] * champLvlRatio,
+            hpRegenPL: tfPath["hpRegenPerLevel"],
+            as: tfPath["attackSpeed"] + tfPath["attackSpeedPerLevel"] * tfPath["attackSpeedRatio"] * champLvlRatio,
+            arm: tfPath["baseArmor"] + tfPath["armorPerLevel"] * champLvlRatio,
+            ad: tfPath["baseDamage"] + tfPath["damagePerLevel"] * champLvlRatio,
+            mr: tfPath["baseMagicResist"] + tfPath["magicResistPerLevel"] * champLvlRatio,
+            mana: tfPath.mana["base"] + tfPath.mana["manaPerLevel"] * champLvlRatio
+          }
+        }))
+      }
     })
     return this.setState({ champIconUrlRight: 
       `http://ddragon.leagueoflegends.com/cdn/10.12.1/img/champion/${champName}.png`})
@@ -9887,7 +9940,24 @@ class App extends Component {
               manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLevel"] * champLvlRatio,
               hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLevel"] * champLvlRatio
           }
-        }))
+        }));
+
+        if (champName === 'Gnar' || champName === 'Kled' ) {
+          var tfPath = champFile['statsTransform'];
+          this.setState(prevState => ({
+            transformStats1: {
+              ...prevState.transformStats1,
+              hp: tfPath["baseHP"] + tfPath["hpPerLevel"] * champLvlRatio,
+              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLevel"] * champLvlRatio,
+              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLevel"] * champLvlRatio,
+              as: tfPath["attackSpeed"] + tfPath["attackSpeedPerLevel"] * tfPath["attackSpeedRatio"] * champLvlRatio,
+              arm: tfPath["baseArmor"] + tfPath["armorPerLevel"] * champLvlRatio,
+              ad: tfPath["baseDamage"] + tfPath["damagePerLevel"] * champLvlRatio,
+              mr: tfPath["baseMagicResist"] + tfPath["magicResistPerLevel"] * champLvlRatio,
+              mana: tfPath.mana["base"] + tfPath.mana["manaPerLevel"] * champLvlRatio
+            }
+          }))
+        }
       })
     document.getElementById("levelBoxLeft").setAttribute('value', event.target.value);
     return this.setState({ levelLeft: event.target.value })
@@ -9929,7 +9999,24 @@ class App extends Component {
               manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLevel"] * champLvlRatio,
               hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLevel"] * champLvlRatio
           }
-        }))
+        }));
+
+        if (champName === 'Gnar' || champName === 'Kled' ) {
+          var tfPath = champFile['statsTransform'];
+          this.setState(prevState => ({
+            transformStats2: {
+              ...prevState.transformStats2,
+              hp: tfPath["baseHP"] + tfPath["hpPerLevel"] * champLvlRatio,
+              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLevel"] * champLvlRatio,
+              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLevel"] * champLvlRatio,
+              as: tfPath["attackSpeed"] + tfPath["attackSpeedPerLevel"] * tfPath["attackSpeedRatio"] * champLvlRatio,
+              arm: tfPath["baseArmor"] + tfPath["armorPerLevel"] * champLvlRatio,
+              ad: tfPath["baseDamage"] + tfPath["damagePerLevel"] * champLvlRatio,
+              mr: tfPath["baseMagicResist"] + tfPath["magicResistPerLevel"] * champLvlRatio,
+              mana: tfPath.mana["base"] + tfPath.mana["manaPerLevel"] * champLvlRatio
+            }
+          }))
+        }
       })
     document.getElementById("levelBoxRight").setAttribute('value', event.target.value)
     return this.setState({ levelRight: event.target.value })
@@ -9983,7 +10070,7 @@ class App extends Component {
         divToEmpty.removeChild(divToEmpty.firstChild);
       }
     }          
-  }
+  };
 
   preventKeyPress = (event) => {
     event.preventDefault()
