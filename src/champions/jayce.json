@@ -16,7 +16,7 @@
     },
     "QTransform": {
             "damage": {
-                "type": "phys",
+                "type": "Physical",
                 "system": "single",
                     "dmg": [
                         55, 95, 135, 175, 215, 255
@@ -48,7 +48,7 @@
     },
     "WTransform": {
         "tickDamage": {
-            "type":"magic",
+            "type":"Magic",
             "interval":1,
             "ticks": 4,
             "dmg": [
@@ -60,7 +60,7 @@
     },
     "ETransform": {
         "damage": {
-            "type":"magic",
+            "type":"Magic",
             "system":"single",
             "enemyMaxHPRatio": [
              0.08, 0.104, 0.128, 0.152, 0.176, 0.20

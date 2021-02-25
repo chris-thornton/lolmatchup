@@ -15,12 +15,12 @@
     },
     "QTransform": {
             "damage": {
-                "type": "phys",
+                "type": "Physical",
                 "system": "single",
-                    "dmg": [
-                        5, 45, 85, 125, 165
-                    ],
-                    "ADRatio": 1.4
+                "dmg": [
+                    5, 45, 85, 125, 165
+                ],
+                "ADRatio": 1.4
             },
             "coolDown": [
                 20, 17.5, 15, 12.5, 10
@@ -45,7 +45,7 @@
     },
     "WTransform": {
         "damage": {
-            "type":"phys",
+            "type":"Physical",
             "system":"single",
             "dmg": [
                 25, 55, 85, 115, 145
@@ -76,12 +76,12 @@
     },
     "ETransform": {
         "damage": {
-            "type":"phys",
+            "type":"Physical",
             "system":"single",
             "dmg": [
                 80,115,150,185,220
             ],
-            "maxHPratio": 0.06
+            "maxHPRatio": 0.06
         },
         "coolDown": [
             22, 19.5, 17, 14.5, 12
@@ -89,7 +89,7 @@
     },
     "RTransform": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system":"minMax",
             "minDmg": [
                 200, 300, 400
