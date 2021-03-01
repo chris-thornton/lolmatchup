@@ -1727,8 +1727,8 @@ class App extends Component {
                     }
                   }*/
     
-                  if (champFile[ability]["path"]) {
-                    var path = champFile[ability]["path"]
+                  if (champFile[ability]["tickDamage"]) {
+                    var path = champFile[ability]["tickDamage"]
                     var bold = document.createElement('b')
                     if (path["type"]) {
                       var dmgType = path["type"];
@@ -1936,8 +1936,7 @@ class App extends Component {
                       abilityDiv.appendChild(bold)
                 
                       if (path["dmg"]) {
-                        var text = document.createTextNode(JSON.stringify(path["dmg"].map(multiplyTicks))
-                        .replace(/,/g, ', ').replace(/"/g,""));
+                        var text = document.createTextNode(mapSpace(multiplyTicks(path["dmg"])));
                         abilityDiv.appendChild(text);
                       };
                       if (path["dmgByLvl"]) {
@@ -1951,13 +1950,11 @@ class App extends Component {
                         abilityDiv.appendChild(text2)
                       };
                       if (path["APRatio"]) {
-                        var text = document.createTextNode(" (+" + JSON.stringify(multiplyTicks2(path["APRatio"]))
-                          .replace(/,/g, ', ').replace(/"/g,"").replace(/^\[|]$/g, '') + " AP Ratio)")
+                        var text = document.createTextNode(" (+" + mapParen(multiplyTicks2(path["APRatio"])) + " AP Ratio)")
                         abilityDiv.appendChild(text)
                       };
                       if (path["ADRatio"]) {
-                        var text = document.createTextNode(" (+" + JSON.stringify(multiplyTicks2(path["ADRatio"]))
-                        .replace(/,/g, ', ').replace(/"/g,"").replace(/^\[|]$/g, '') + " AD Ratio)")
+                        var text = document.createTextNode(" (+" + mapParen(multiplyTicks2(path["ADRatio"])) + " AD Ratio)")
                         abilityDiv.appendChild(text)
                       };
                       if (path["bonusADRatio"]) {
@@ -1965,8 +1962,8 @@ class App extends Component {
                         abilityDiv.appendChild(text)
                       };
                       if (path["enemyMaxHPRatio"]) {
-                        var text = document.createTextNode(" (+" + JSON.stringify(multiplyTicks2(path["enemyMaxHPRatio"]))
-                        .replace(/,/g, ', ').replace(/"/g,"").replace(/^\[|]$/g, '') + " Enemy Max HP Ratio)")
+                        var text = document.createTextNode(" (+" + mapParen(multiplyTicks2(path["enemyMaxHPRatio"]))
+                         + " Enemy Max HP Ratio)")
                         abilityDiv.appendChild(text)
                       };
                       if (path["maxHPRatio"]) {
@@ -1992,8 +1989,7 @@ class App extends Component {
                         var minDmgU = document.createElement('u')
                         minDmgU.innerText = 'Min'
                         abilityDiv.appendChild(minDmgU)
-                        var text = document.createTextNode(": " + JSON.stringify(path["minDmg"]
-                        .map(multiplyTicks)).replace(/,/g, ', ').replace(/"/g,""))
+                        var text = document.createTextNode(": " + mapSpace(multiplyTicks(path["minDmg"])))
                         abilityDiv.appendChild(text)
                       }
                       if (path["system"] === "minMax" ) {
@@ -2001,28 +1997,26 @@ class App extends Component {
                         minDmgU.innerText = 'Min'
                         abilityDiv.appendChild(minDmgU)
                         if (path["minDmg"]) {
-                          var array = JSON.stringify(path["minDmg"].map(multiplyTicks)).replace(/,/g, ', ').replace(/"/g,"")
+                          var array = mapSpace(multiplyTicks(path["minDmg"]))
                           if (path["minDmgByLvl"]) {
-                            var cDmg = multiplyTicks(path["minDmgByLvl"][champLevel])
-                            array = JSON.stringify(path["minDmg"].map(multiplyTicks)
-                            .map(x => (Number(x) + Number(cDmg)))).replace(/,/g, ', ').replace(/"/g,"")
+                            array = mapSpace(path['minDmg'].map(x => {
+                              return Math.round(path["ticks"] * (x + path["minDmgByLvl"][champLevel]))
+                            }))
                           }
                           var text = document.createTextNode(": " + array)
                           abilityDiv.appendChild(text)
                         }
                         if (path["minAPRatio"]) {
-                          var text = document.createTextNode(" (+" + JSON.stringify(multiplyTicks2(path["minAPRatio"]))
-                          .replace(/,/g, ', ').replace(/"/g,"").replace(/^\[|]$/g, '') + " AP Ratio)")
+                          var text = document.createTextNode(" (+" + mapParen(multiplyTicks2(path["minAPRatio"]))+ " AP Ratio)")
                           abilityDiv.appendChild(text)
                         }
                         if (path["minADRatio"]) {
-                          var text = document.createTextNode(" (+" + JSON.stringify(multiplyTicks2(path["minADRatio"]))
-                          .replace(/,/g, ', ').replace(/"/g,"").replace(/^\[|]$/g, '') + " AD Ratio)")
+                          var text = document.createTextNode(" (+" + mapParen(multiplyTicks2(path["minADRatio"]))+ " AD Ratio)")
                           abilityDiv.appendChild(text)
                         }
                         if (path["minBonusADRatio"]) {
-                          var text = document.createTextNode(" (+" + JSON.stringify(multiplyTicks2(path["minBonusADRatio"]))
-                          .replace(/,/g, ', ').replace(/"/g,"").replace(/^\[|]$/g, '') + " Bonus AD Ratio)")
+                          var text = document.createTextNode(" (+" + mapParen(multiplyTicks2(path["minBonusADRatio"]))
+                          + " Bonus AD Ratio)")
                           abilityDiv.appendChild(text)
                         }
                         singleBreak();
@@ -2030,28 +2024,26 @@ class App extends Component {
                         maxU.innerText = 'Max'
                         abilityDiv.appendChild(maxU)
                         if (path["maxDmg"]) {
-                          var array = JSON.stringify(path["maxDmg"].map(multiplyTicks)).replace(/,/g, ', ').replace(/"/g,"")
+                          var array = mapSpace(multiplyTicks(path["maxDmg"]))
                           if (path["maxDmgByLvl"]) {
-                            var currentLvlDmg = multiplyTicks(path["maxDmgByLvl"][champLevel])
-                            array = JSON.stringify(path["maxDmg"].map(multiplyTicks).map(x => 
-                              (Number(x) + Number(currentLvlDmg)))).replace(/,/g, ', ').replace(/"/g,"")
+                            array = mapSpace(path['maxDmg'].map(x => {
+                              return Math.round(path["ticks"] * (x + path["maxDmgByLvl"][champLevel]))
+                            }))
                           }
                           var text = document.createTextNode(": " + array)
                           abilityDiv.appendChild(text)
                         }
                         if (path["maxAPRatio"]) {
-                          var text = document.createTextNode(" (+" + JSON.stringify(multiplyTicks2(path["maxAPRatio"]))
-                          .replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"") + " AP Ratio)")
+                          var text = document.createTextNode(" (+" + mapParen(multiplyTicks2(path["maxAPRatio"])) + " AP Ratio)")
                           abilityDiv.appendChild(text)
                         }
                         if (path["maxADRatio"]) {
-                          var text = document.createTextNode(" (+" + JSON.stringify(multiplyTicks2(path["maxADRatio"]))
-                          .replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"") + " AD Ratio)")
+                          var text = document.createTextNode(" (+" + mapParen(multiplyTicks2(path["maxADRatio"])) + " AD Ratio)")
                           abilityDiv.appendChild(text)
                         }
                         if (path["maxBonusADRatio"]) {
-                          var text = document.createTextNode(" (+" + JSON.stringify(multiplyTicks2(path["maxBonusADRatio"]))
-                          .replace(/,/g, ', ').replace(/^\[|]$/g, '').replace(/"/g,"") + " Bonus AD Ratio)")
+                          var text = document.createTextNode(" (+" + mapParen(multiplyTicks2(path["maxBonusADRatio"]))
+                          + " Bonus AD Ratio)")
                           abilityDiv.appendChild(text)
                         }
                       };
@@ -2130,7 +2122,7 @@ class App extends Component {
     
                   if (champFile[ability]["specialDelivery"]) {
     
-                    var path = champFile[ability]["specialDelivery"]["path"]
+                    var path = champFile[ability]["specialDelivery"]["tickDamage"]
                     var bold = document.createElement('b')
                     bold.innerText = dmgType + " Special Delivery: "
                     abilityDiv.appendChild(bold);
@@ -6593,8 +6585,8 @@ class App extends Component {
                     doubleBreak();
                   };
     
-                  if (champFile[ability]["path"]) {
-                    var path = champFile[ability]["path"];
+                  if (champFile[ability]["tickDamage"]) {
+                    var path = champFile[ability]["tickDamage"];
                     var bold = document.createElement('b');
                     if (path["type"]) {
                       var dmgType = path["type"];
@@ -6935,7 +6927,7 @@ class App extends Component {
     
                   if (champFile[ability]["specialDelivery"]) {
     
-                    var path = champFile[ability]["specialDelivery"]["path"];
+                    var path = champFile[ability]["specialDelivery"]["tickDamage"];
                     var bold = document.createElement('b');
                     bold.innerText = "Special Delivery - " + dmgType + ' Damage Over Time: ';
                     abilityDiv.appendChild(bold);
@@ -9457,8 +9449,8 @@ class App extends Component {
                     doubleBreak();
                   };
 
-                  if (champFile[tfAbility]["path"]) {
-                    var path = champFile[tfAbility]["path"];
+                  if (champFile[tfAbility]["tickDamage"]) {
+                    var path = champFile[tfAbility]["tickDamage"];
                     var bold = document.createElement('b');
                     bold.innerText = path['type'] + ' Damage Over Time: ';
                     abilityDiv.appendChild(bold);
