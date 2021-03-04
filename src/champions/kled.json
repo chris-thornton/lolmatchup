@@ -26,7 +26,7 @@
     },
     "QTransform": {
             "damage": {
-                "type": "phys",
+                "type": "Physical",
                 "system": "minMax",
                     "minDmg": [
                         35, 50, 65, 80, 95
@@ -64,9 +64,6 @@
         "coolDown": [
             14, 12.5, 11, 9.5, 8
         ]
-    },
-    "WTransform": {
-        "W": true
     },
     "E": {
         "damage": {

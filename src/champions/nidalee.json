@@ -17,24 +17,24 @@
     "QTransform": {
         "autoEmpower": {
             "damage": {
-                "type": "magic",
-                "convertAuto": "magic",
+                "type": "Magic",
+                "convertAuto": "Magic",
                 "system": "minMax",
-                    "minDmg": [
+                    "minDmgByRRank": [
                         5, 30, 55, 80
                     ],
-                    "maxDmg":[
+                    "maxDmgByRRank":[
                         14, 94.5, 192.5, 308
                     ],
                     "minADRatio": 0.75,
-                    "maxADRatio": [
+                    "maxADRatioByRRank": [
                         2.10, 2.3625, 2.625, 2.8875
                     ],
                     "minAPRatio": 0.4,
-                    "maxAPRatio": [
+                    "maxAPRatioByRRank": [
                         1.12, 1.26, 1.40, 1.54
                     ],
-                    "dmgRatioPerMissingHP": [
+                    "dmgRatioPerMissingHPByRRank": [
                         0.01, 0.0125, 0.015, 0.0175
                     ]
                 }
@@ -57,15 +57,15 @@
     },
     "WTransform": {
         "damage": {
-            "type":"magic",
+            "type":"Magic",
             "system":"single",
-            "dmg": [
+            "dmgByRRank": [
                 60, 110, 160, 210
             ],
             "APRatio": 0.3
         },
         "coolDown": 6,
-        "reducedCoolDown": [
+        "reducedCoolDownByRRank": [
             3, 2.5, 2, 1.5
         ]
     },
@@ -92,9 +92,9 @@
     },
     "ETransform": {
         "damage": {
-            "type":"magic",
+            "type":"Magic",
             "system":"single",
-            "dmg":[
+            "dmgByRRank":[
                 80, 140, 200, 260
             ],
             "APRatio": 0.45
@@ -102,6 +102,7 @@
         "coolDown": 6
     },
     "R": {
+        "text": "Transform abilities rank up when R does.",
         "coolDown": 3
     },
     "stats": {
