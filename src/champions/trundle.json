@@ -20,9 +20,8 @@
             "removed": [
                 10, 12.5, 15, 17.5, 20
             ],
-            "statType": "attackDamage"
+            "statType": "Attack Damage"
         },
-        "text":"Gains [20, 25, 30, 35, 40] Attack Damage, and reduces half that amount from his enemy, for 5 seconds.",
         "coolDown": 4
     },
     "W": {
@@ -58,11 +57,10 @@
         "statSteal": {
             "duration": 8,
             "statType": [
-                "armor","magicResist"
+                "Armor, Magic Resist"
             ],
             "ratio": 0.4
         },
-        "text": "Steals 40% of enemy Armor and Magic Resist for 8 seconds.",
         "coolDown": [
             120, 100, 80
         ]

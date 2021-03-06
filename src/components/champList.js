@@ -94,6 +94,7 @@ Quinn
 Rakan
 Rammus
 Rek'Sai
+Rell
 Renekton
 Rengar
 Riven
@@ -102,6 +103,7 @@ Ryze
 Samira
 Sejuani
 Senna
+Seraphine
 Sett
 Shaco
 Shen
@@ -133,6 +135,7 @@ Vayne
 Veigar
 Vel'koz
 Vi
+Viego
 Viktor
 Vladimir
 Volibear

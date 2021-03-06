@@ -66,12 +66,10 @@
             "duration": 7,
             "maxDuration": "enemyRespawn",
             "statType": [
-                "attackDamage","abilityPower","attackSpeed","armor","magicResist","maxHP"
+                "Attack Damage, Ability Power, Attack Speed, Armor, Magic Resist, Max Health"
             ],
             "ratio": 0.1
         },
-        "text": "Steals 10% of enemy AD, AP, Attack Speed, Armor, Magic Resist, and Max HP.",
-        "duration": 7,
         "coolDown": [
             140, 120, 100
         ]
