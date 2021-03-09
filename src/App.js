@@ -9374,6 +9374,10 @@ class App extends Component {
                       if (path['APRatio']) {
                         dmgCounter += arrayCheck(path['APRatio']) * totalAP;
                       };
+                      if (champFile['ETransform']["passiveTransformBonus"] 
+                      && document.getElementById(`ERank${side}`).value > 0) {
+                        dmgCounter *= (1 + champFile['ETransform']["passiveTransformBonus"]['bonus'][ERank]);
+                      };
                       var dmgText = document.createTextNode(': ' + Math.round(dmgCounter));
                       abilityDiv.appendChild(dmgText);
                     };
@@ -9401,6 +9405,10 @@ class App extends Component {
                       };
                       if (path['APRatio']) {
                         healCounter += arrayCheck(path['APRatio']) * totalAP;
+                      };
+                      if (champFile['ETransform']["passiveTransformBonus"] 
+                      && document.getElementById(`ERank${side}`).value > 0) {
+                        healCounter *= (1 + champFile['ETransform']["passiveTransformBonus"]['bonus'][ERank]);
                       };
                       var text = document.createTextNode(': ' + Math.round(healCounter));
                       abilityDiv.appendChild(text);
@@ -9634,10 +9642,10 @@ class App extends Component {
                   }
                 };
     
-                if (document.getElementById(`${ability}Rank${side}`).value > 0 ) {
+                if (ability !== 'passive' && document.getElementById(`${ability}Rank${side}`).value > 0 ) {
 
                   if (champFile[tfAbility]["remountHPRatioByLvl"]) {
-                    var path = champFile[tfAbility]["remountHPRatioByLvl"]
+                    var path = champFile[tfAbility]["remountHPRatioByLvl"];
                     var bold = document.createElement('b');
                     bold.innerText = 'Remount HP: ';
                     abilityDiv.appendChild(bold);
@@ -9811,25 +9819,27 @@ class App extends Component {
                     var bold = document.createElement('b');
                     bold.innerText = path['type'] + ' Damage Over Time: ';
                     abilityDiv.appendChild(bold);
-                    var dmgText = document.createTextNode(removeSpace(path['dmg']));
-                    abilityDiv.appendChild(dmgText);
+                    var dmgCount = 0;
+                    if (path['dmg']) {
+                      dmgCount += arrayCheck(path['dmg']);
+                    };
                     if (path['APRatio']) {
-                      var text = document.createTextNode(' (+' + path['APRatio'] + ' AP Ratio)');
+                      dmgCount += arrayCheck(path['APRatio']) * totalAP;
+                    };
+                    if (dmgCount !== 0) {
+                      var text = document.createTextNode(Math.round(dmgCount));
                       abilityDiv.appendChild(text);
-                    }
+                    };
                     if (path['interval']) {
-                      var text = document.createTextNode(' per ' + path['interval'] + ' sec, for ' + path['ticks'] + ' seconds.');
+                      var text = document.createTextNode(' per ' + path['interval'] + ' sec, for ' 
+                      + path['ticks'] + ' seconds.');
                       abilityDiv.appendChild(text);
                       singleBreak();
                       var underL = document.createElement('u');
                       underL.innerText = 'Total';
                       abilityDiv.appendChild(underL);
-                      var text2 = document.createTextNode(': ' + mapSpace(multiplyTicks(path["dmg"])));
+                      var text2 = document.createTextNode(': ' + mapSpace(multiplyTicks(dmgCount)));
                       abilityDiv.appendChild(text2);
-                      if (path['APRatio']) {
-                        var text = document.createTextNode(' (+' + multiplyTicks2(path['APRatio']) + ' AP Ratio)');
-                        abilityDiv.appendChild(text);
-                      }
                     };
 
                     doubleBreak();
@@ -9841,7 +9851,7 @@ class App extends Component {
                     bold.innerText = 'Bonus Attack Speed: ';
                     abilityDiv.appendChild(bold);
                     if (path['attackSpeed']) {
-                      var text = document.createTextNode(removeSpace(path['attackSpeed']));
+                      var text = document.createTextNode(arrayCheck(path['attackSpeed']));
                       abilityDiv.appendChild(text);
                     };
                     if (path['duration']) {
@@ -9849,7 +9859,7 @@ class App extends Component {
                       var underL = document.createElement('u');
                       underL.innerText = 'Duration';
                       abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': ' + path['duration']);
+                      var text = document.createTextNode(': ' + arrayCheck(path['duration']));
                       abilityDiv.appendChild(text);
                     };
                     doubleBreak();
@@ -9866,16 +9876,29 @@ class App extends Component {
                       var underL = document.createElement('u');
                       underL.innerText = 'Ratio';
                       abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': [' + path["reduxRatioByLvl"][0] + ' to ' 
-                      + path["reduxRatioByLvl"][17] + '], based on lvl. Currently: ' + path["reduxRatioByLvl"][champLevel]);
+                      var text = document.createTextNode(': ' + path["reduxRatioByLvl"][champLevel]);
                       abilityDiv.appendChild(text);
+                      if (enemyStats.hp) {
+                        singleBreak();
+                        var curU = document.createElement('u');
+                        curU.innerText = 'Armor Reduced';
+                        abilityDiv.appendChild(curU);
+                        var text = document.createTextNode(': ' + path["reduxRatioByLvl"][champLevel] * enemyTotalArmor);
+                        abilityDiv.appendChild(text);
+                        singleBreak();
+                        var cur2 = document.createElement('u');
+                        cur2.innerText = 'Magic Resist Reduced';
+                        abilityDiv.appendChild(cur2);
+                        var text2 = document.createTextNode(': ' + path["reduxRatioByLvl"][champLevel] * enemyTotalMR);
+                        abilityDiv.appendChild(text2);
+                      }
                     };
                     if (path['duration']) {
                       singleBreak();
                       var underL = document.createElement('u');
                       underL.innerText = 'Duration';
                       abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': ' + path['duration']);
+                      var text = document.createTextNode(': ' + arrayCheck(path['duration']));
                       abilityDiv.appendChild(text);
                     };
                     doubleBreak();
@@ -9886,7 +9909,7 @@ class App extends Component {
                     var bold = document.createElement('b');
                     bold.innerText = `Passive's Auto Empower Increase Ratio: `;
                     abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(removeSpace(path['bonus']));
+                    var text = document.createTextNode(arrayCheck(path['bonus']));
                     abilityDiv.appendChild(text);
                     singleBreak();
                     var underL = document.createElement('u');
@@ -9901,7 +9924,7 @@ class App extends Component {
                     var underL = document.createElement('b');
                     underL.innerText = 'Crowd Control Duration';
                     abilityDiv.appendChild(underL);
-                    var text = document.createTextNode(': ' + removeSpace(champFile[tfAbility]['interruptCC']));
+                    var text = document.createTextNode(': ' + arrayCheck(champFile[tfAbility]['interruptCC']));
                     abilityDiv.appendChild(text);
                     doubleBreak();
                   };
@@ -9910,7 +9933,7 @@ class App extends Component {
                     var underL = document.createElement('b');
                     underL.innerText = 'Duration';
                     abilityDiv.appendChild(underL);
-                    var text = document.createTextNode(': ' + champFile[tfAbility]['duration']);
+                    var text = document.createTextNode(': ' + arrayCheck(champFile[tfAbility]['duration']));
                     abilityDiv.appendChild(text);
                   };
     
@@ -9918,7 +9941,7 @@ class App extends Component {
                     var bold = document.createElement('b');
                     bold.innerText = 'Cooldown: ';
                     abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(removeSpace(champFile[tfAbility]['coolDown']));
+                    var text = document.createTextNode(arrayCheck(champFile[tfAbility]['coolDown']));
                     abilityDiv.appendChild(text);
                   };
 
@@ -9927,7 +9950,7 @@ class App extends Component {
                     var refU = document.createElement('u');
                     refU.innerText = 'Cooldown Refund Ratio';
                     abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': ' + removeSpace(champFile[tfAbility]["coolDownRefundRatio"]));
+                    var text = document.createTextNode(': ' + arrayCheck(champFile[tfAbility]["coolDownRefundRatio"]));
                     abilityDiv.appendChild(text);
                   };
 
@@ -9936,7 +9959,7 @@ class App extends Component {
                     var cdU = document.createElement('u');
                     cdU.innerText = 'Reduced Cooldown';
                     abilityDiv.appendChild(cdU);
-                    var text = document.createTextNode(': ' + removeSpace(champFile[tfAbility]["reducedCoolDownByRRank"]));
+                    var text = document.createTextNode(': ' + arrayCheck(champFile[tfAbility]["reducedCoolDownByRRank"]));
                     abilityDiv.appendChild(text);
                   }
 
@@ -9946,8 +9969,7 @@ class App extends Component {
                     var underL = document.createElement('u');
                     underL.innerText = 'Recharge';
                     abilityDiv.appendChild(underL);
-                    var text = document.createTextNode(': [' + path[0] + ' to ' + path[17] + ', based on level. Currently: '
-                    + path[champLevel] + ']');
+                    var text = document.createTextNode(': ' + path[champLevel]);
                     abilityDiv.appendChild(text);
                   }
                   
