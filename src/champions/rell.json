@@ -1,74 +1,101 @@
 {
     "Q": {
-        "autoEmpower": {
-            "damage": {
-                "type": "magic",
-                "system": "single",
-                "dmg": [
-                    10, 35, 60, 85, 110
-                ],
-                "APRatio": 0.3
-            }
+        "damage": {
+            "type": "magic",
+            "system": "minMax",
+            "minDmg": [
+                35, 52.5, 70, 87.5, 105
+            ],
+            "maxDmg": [
+                70, 105, 140, 175, 210
+            ],
+            "minAPRatio": 0.25,
+            "maxAPRatio": 0.5
         },
-        "interruptCC": 1,
-        "coolDown": 5
+        "heal": {
+            "system":"minMax",
+            "minHeal": [
+                10, 15, 20, 25, 30
+            ],
+            "maxHeal": [
+                50, 75, 100, 125, 150
+            ],
+            "minAPRatio": 0.3,
+            "maxAPRatio": 1.5,
+            "minMissingHPRatio": 0.05,
+            "maxMissingHPRatio": 0.25
+        },
+        "coolDown": [
+            9,8,7,6,5
+        ]
     },
     "W": {
         "bonusResist": {
             "type": "both",
-            "resist": [
-                20, 25, 30, 35, 40
-            ],
-            "bonusResistRatio": 0.2
+            "bonusResistRatio": 0.1
         },
-        "damageRedux": {
+        "shield": {
             "type": "all",
-            "dmg": [
-                8, 12, 16, 20, 24
+            "targets": "Self",
+            "shield": [
+                40, 70, 100, 130, 160
             ],
-            "maxReduxRatio": 0.5
+            "maxHPRatio": 0.13
         },
         "damage": {
             "type":"magic",
             "system":"single",
             "dmg":[
-                60, 95, 130, 165, 200
+                70, 105, 140, 175, 210
             ],
-            "APRatio": 0.4
+            "APRatio": 0.6
         },
-        "minDuration": 3,
-        "maxDuration": 6,
-        "coolDown": [
-            14, 13, 12, 11, 10
-        ]
+        "autoEmpower": {
+            "damage":{
+                "type":"magic",
+                "dmg":[
+                    10, 25, 40, 55, 70
+                ],
+                "APRatio": 0.4
+            }
+        },
+        "interruptCC": 1,
+        "coolDown": 13
     },
     "E": {
         "damage": {
             "type": "magic",
             "system":"single",
             "dmg": [
-                50, 90, 130, 170, 210
+                80, 120, 160, 200, 240
             ],
-            "APRatio": 0.4
+            "APRatio": 0.3
+        },
+        "allyBonusArmor": {
+            "armorRatio": 0.1
+        },
+        "allyBonusMagicResist": {
+            "magicResistRatio": 0.1
         },
         "coolDown": [
-            12, 10.5, 9, 7.5, 6
+            18, 16.25, 14.5, 12.75, 11
         ],
-        "interruptCC": 0.5
+        "interruptCC": 1
     },
     "R": {
-        "damage": {
+        "tickDamage": {
             "type": "magic",
             "system":"single",
+            "interval": 0.25,
+            "ticks": 8,
             "dmg": [
-                100, 175, 250
+                15, 25, 35
             ],
-            "APRatio": 0.8
+            "APRatio": 0.1375
         },
         "coolDown": [
-            90, 75, 60
-        ],
-        "interruptCC": 1.5
+            120, 100, 80
+        ]
     },
     "passive": {
         "autoEmpower": {
