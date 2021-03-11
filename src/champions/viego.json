@@ -69,36 +69,34 @@
         ]
     },
     "passive": {
-        "autoEmpower": {
-            "damage": {
-                "type":"phys",
-                "ADRatioByLvl": [
-                    0.3,0.3,0.3,0.3,0.3,0.36,0.36,0.36,0.42,
-                    0.42,0.42,0.48,0.48,0.48,0.54,0.54,0.54,0.6
-                ],
-                "canCrit": true
-            }
-        }
+        "heal": {
+            "targets":"Self",
+            "enemyMaxHPRatio": 0.08,
+            "enemyMaxHPRatioPer100BonusAD": 0.025,
+            "enemyMaxHPRatioPer100AP": 0.015,
+            "enemyMaxHPRatioPerBonusAS": 0.025
+        },
+        "duration": 10
     },
     "stats": {
         "baseHP": 560,
-        "hpPerLevel": 86,
-        "baseHPRegen": 8.5,
-        "hpRegenPerLevel": 0.5,
+        "hpPerLevel": 95,
+        "baseHPRegen": 8,
+        "hpRegenPerLevel": 0.7,
         "mana": {
             "base": 0,
             "manaPerLevel": 0,
             "manaBaseRegen": 0,
             "manaRegenPerLevel": 0
         },
-        "baseDamage": 64,
-        "damagePerLevel": 3,
-        "baseArmor": 33,
-        "armorPerLevel": 3.2,
-        "baseMagicResist": 32.1,
+        "baseDamage": 57,
+        "damagePerLevel": 3.5,
+        "baseArmor": 34,
+        "armorPerLevel": 4,
+        "baseMagicResist": 32,
         "magicResistPerLevel": 1.25,
-        "attackSpeed": 0.625,
-        "attackSpeedRatio": 0.625,
-        "attackSpeedPerLevel": 0.035
+        "attackSpeed": 0.658,
+        "attackSpeedRatio": 0.658,
+        "attackSpeedPerLevel": 0.025
     }
 }

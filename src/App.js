@@ -247,6 +247,7 @@ class App extends Component {
             var totalAS = statsPath["attackSpeed"]
             + (itemStats.as + champLvlRatio * statsPath["attackSpeedPerLevel"]) * statsPath["attackSpeedRatio"];
             var bonusAS = statsPath["attackSpeedRatio"] * itemStats.as;
+            var bonusASRatio = itemStats.as;
             var totalArmor = itemStats.arm + statsPath["baseArmor"] + champLvlRatio * statsPath["armorPerLevel"];
             console.log('totalArmor: ' + totalArmor);
             var bonusArmor = itemStats.arm;
@@ -2804,6 +2805,11 @@ class App extends Component {
                       + " Enemy Max HP Ratio Per 100 Bonus AD)")
                       abilityDiv.appendChild(text)
                     }
+                    if (path['enemyMaxHPRatioPerBonusAS']) {
+                      var text = document.createTextNode(" (+" + path["enemyMaxHPRatioPerBonusAS"] 
+                      + " Enemy Max HP Ratio Per Bonus Attack Speed Ratio)")
+                      abilityDiv.appendChild(text)
+                    };
                     if (path["maxHPRatioByUltRank"]) {
                       var text = document.createTextNode('[' + path["maxHPRatioByUltRank"][0] + " to " 
                       + path["maxHPRatioByUltRank"][3] + " Max HP Ratio, based on ult rank. ");
@@ -7014,6 +7020,9 @@ class App extends Component {
                     if (path["enemyMaxHPRatioPer100BonusAD"] && enemyStats.hp) {
                       healCounter += arrayCheck(path["enemyMaxHPRatioPer100BonusAD"]) * enemyTotalHP * bonusAD/100;
                     };
+                    if (path['enemyMaxHPRatioPerBonusAS'] && enemyStats.hp) {
+                      healCounter += arrayCheck(path['enemyMaxHPRatioPerBonusAS']) * enemyTotalHP * bonusASRatio;
+                    };
                     if (healCounter !== 0) {
                       var text = document.createTextNode(Math.round(healCounter));
                       abilityDiv.appendChild(text);
@@ -7024,6 +7033,12 @@ class App extends Component {
                     };
                     if (path["enemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
                       maxHPRatioCounter += arrayCheck(path["enemyMaxHPRatioPer100AP"]) * totalAP/100;
+                    };
+                    if (path["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp) {
+                      maxHPRatioCounter += arrayCheck(path["enemyMaxHPRatioPer100BonusAD"]) * bonusAD/100;
+                    };
+                    if (path['enemyMaxHPRatioPerBonusAS'] && !enemyStats.hp) {
+                      maxHPRatioCounter += arrayCheck(path['enemyMaxHPRatioPerBonusAS']) * bonusASRatio;
                     };
                     if (maxHPRatioCounter !== 0) {
                       var text = document.createTextNode(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
