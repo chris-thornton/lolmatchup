@@ -2,53 +2,92 @@
     "Q": {
         "damage": {
             "type":"phys",
-            "system":"minMax",
-            "minDmg": [
-                14, 20, 26, 32, 38
-            ],
-            "maxDmg": [
-                70, 100, 130, 160, 190
-            ],
-            "minADRatio": [
-                0.28, 0.34, 0.40, 0.46, 0.52
-            ],
-            "maxADRatio": [
-                1.4, 1.7, 2, 2.3, 2.6
-            ],
-            "minAPRatio":0.2,
-            "maxAPRatio": 1
-        },
-        "coolDown": 7
-    },
-    "W": {
-        "bonusAttackSpeed": {
-            "durationAutos": 3,
-            "lvlRequirement": 6,
-            "attackSpeedByRRank": [
-                0.3, 0.45, 0.60
-            ]
-        },
-        "damage": {
-            "type":"phys",
             "system":"single",
-            "ADRatio": [
-                0.30, 0.40, 0.50, 0.60, 0.70
+            "dmg": [
+                0, 5, 10, 15, 20
             ],
-            "canCrit": true
+            "ADRatio": [
+                0.8, 0.9, 1, 1.1, 1.2
+            ],
+            "critDmg":1.25,
+            "critDmgWithIE": 1.35
         },
         "coolDown": [
-            12, 10.5, 9, 7.5, 6
+            6, 5, 4, 3, 2
+        ]
+    },
+    "W": {
+        "damage": {
+            "type":"phys",
+            "system":"minMax",
+            "minDmg": [
+                20, 35, 50, 65, 80
+            ],
+            "maxDmg": [
+                40, 70, 100, 130, 160
+            ],
+            "minBonusADRatio":0.8,
+            "maxBonusADRatio":1.6
+        },
+        "coolDown": [
+            30, 28, 26, 24, 22
         ]
     },
     "E": {
-        "shield": {
-            "type":"Spell",
-            "targets": "Self",
-            "duration": 1.5
+        "bonusAttackSpeed": {
+            "duration": 3,
+            "attackSpeed": [
+                0.2, 0.25, 0.3, 0.35, 0.4
+            ]
+        },
+        "damage": {
+            "type":"magic",
+            "dmg":[
+                50, 60, 70, 80, 90
+            ],
+            "bonusADRatio": 0.2
         },
         "coolDown": [
-            22, 19, 16, 13, 10
+            20, 18, 16, 14, 12
         ]
+    },
+    "R": {
+        "tickDamage": {
+            "type":"phys",
+            "ticks": 10,
+            "dmg":[
+                0, 10, 20
+            ],
+            "ADRatio": 0.5,
+            "critDmg": 1.75,
+            "critDmgWithIE": 2.1
+        },
+        "staticCoolDown": 8
+    },
+    "passive": {
+        "autoEmpower": {
+            "damage": {
+                "type":"magic",
+                "system":"minMax",
+                "minDmgByLvl": [
+                    2,3,4,5,6,7,8,9,10,
+                    11,12,13,14,15,16,17,18,19
+                ],
+                "maxDmgByLvl": [
+                    4,6,8,10,12,14,16,18,20,
+                    22,24,26,28,30,32,34,36,38
+                ],
+                "minADRatioByLvl": [
+                    0.035,0.0391,0.0432,0.0474,0.0515,0.0556,0.0597,0.0638,0.0679,
+                    0.0721,0.0762,0.0803,0.0844,0.0885,0.0926,0.0968,0.1009,0.105
+                ],
+                "maxADRatioByLvl": [
+                    0.07, 0.0782, 0.0864, 0.0948, 0.103, 0.1112, 0.1194, 0.1276, 0.1358,
+                     0.1442, 0.1524, 0.1606, 0.1688, 0.177, 0.1852, 0.1936, 0.2018, 0.21
+                ]
+            }
+        },
+        "interruptCC": 0.5
     },
     "stats": {
         "baseHP": 562,

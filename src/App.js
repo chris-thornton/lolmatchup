@@ -6734,6 +6734,20 @@ class App extends Component {
                       if (tickDmgCount !== 0) {
                         var text = document.createTextNode(Math.round(tickDmgCount * ticks));
                         abilityDiv.appendChild(text);
+                        if (path['critDmg']) {
+                          singleBreak();
+                          var totU = document.createElement('u');
+                          totU.innerText = 'Crit Total';
+                          abilityDiv.appendChild(totU);
+                          if (path['critDmgWithIE']) {
+                            var text = document.createTextNode(': ' + Math.round(tickDmgCount * ticks * path['critDmg'])
+                            + ' (' + Math.round(tickDmgCount * ticks * path['critDmgWithIE']) + ' with Infinity Edge)');
+                            abilityDiv.appendChild(text);
+                          } else {
+                            var text = document.createTextNode(': ' + Math.round(tickDmgCount * ticks * path['critDmg']));
+                            abilityDiv.appendChild(text);
+                          }
+                        }
                       }
                       var maxHPRatioTotal = 0;
                       if (path["enemyMaxHPRatio"] && !enemyStats.hp) {
