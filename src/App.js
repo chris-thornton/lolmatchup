@@ -2829,7 +2829,12 @@ class App extends Component {
                     if (path["missingHPRatio"]) {
                       var text = document.createTextNode(" (+" + removeParen(path["missingHPRatio"]) + " Missing HP Ratio)")
                       abilityDiv.appendChild(text)
-                    }
+                    };
+                    if (path['missingHPRatioPer100AP']) {
+                      var text = document.createTextNode(" (+" + removeParen(path["missingHPRatioPer100AP"]) 
+                      + " Missing HP Ratio per 100 AP)")
+                      abilityDiv.appendChild(text)
+                    };
                     if (path["preMitigation"]) {
                       var text = document.createTextNode(', pre-mitigation.');
                       abilityDiv.appendChild(text);
@@ -2914,6 +2919,11 @@ class App extends Component {
                         var text = document.createTextNode(" (+" + removeParen(path["minMissingHPRatio"]) + " Missing HP Ratio)")
                         abilityDiv.appendChild(text)
                       }
+                      if (path["minMissingHPRatioPer100AP"]) {
+                        var text = document.createTextNode(" (+" + removeParen(path["minMissingHPRatioPer100AP"]) 
+                        + " Missing HP Ratio per 100 AP)");
+                        abilityDiv.appendChild(text);
+                      }
     
                       singleBreak();
                       var maxU = document.createElement('u');
@@ -2959,6 +2969,11 @@ class App extends Component {
                       if (path["maxMissingHPRatio"]) {
                         var text = document.createTextNode(" (+" + removeParen(path["maxMissingHPRatio"]) + " Missing HP Ratio)")
                         abilityDiv.appendChild(text)
+                      }
+                      if (path["maxMissingHPRatioPer100AP"]) {
+                        var text = document.createTextNode(" (+" + removeParen(path["maxMissingHPRatioPer100AP"]) 
+                        + " Missing HP Ratio per 100 AP)");
+                        abilityDiv.appendChild(text);
                       }
                     }
                     if (path["interval"]) {
@@ -7014,10 +7029,17 @@ class App extends Component {
                       var text = document.createTextNode(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
                       abilityDiv.appendChild(text);
                     };
+                    var missCounter = 0;
                     if (path["missingHPRatio"]) {
-                      var text = document.createTextNode(" (+" + arrayCheck(path["missingHPRatio"]) + " Missing HP Ratio)");
-                      abilityDiv.appendChild(text);
+                      missCounter += arrayCheck(path["missingHPRatio"]);
                     };
+                    if (path['missingHPRatioPer100AP']) {
+                      missCounter += arrayCheck(path['missingHPRatioPer100AP']) * totalAP/100
+                    };
+                    if (missCounter !== 0) {
+                      var text = document.createTextNode(" (+" + lengthCheck(missCounter) + " Missing HP Ratio)");
+                      abilityDiv.appendChild(text);
+                    }
                     if (path["preMitigation"]) {
                       var preText = document.createTextNode(', pre-mitigation.');
                       abilityDiv.appendChild(preText);
@@ -7122,10 +7144,17 @@ class App extends Component {
                         var text = document.createTextNode(': ' + Math.round(minHealCounter));
                         abilityDiv.appendChild(text);
                       };
+                      var missCount = 0;
                       if (path["minMissingHPRatio"]) {
-                        var text = document.createTextNode(" (+" + arrayCheck(path["minMissingHPRatio"]) + " Missing HP Ratio)");
-                        abilityDiv.appendChild(text);
+                        missCount += arrayCheck(path["minMissingHPRatio"])
                       };
+                      if (path['minMissingHPRatioPer100AP']) {
+                        missCount += arrayCheck(path['minMissingHPRatioPer100AP']) * totalAP/100;
+                      }
+                      if (missCount !== 0) {
+                        var text = document.createTextNode(" (+" + lengthCheck(missCount) + " Missing HP Ratio)");
+                        abilityDiv.appendChild(text);
+                      }
     
                       singleBreak();
                       var maxU = document.createElement('u');
@@ -7157,9 +7186,15 @@ class App extends Component {
                         var text = document.createTextNode(': ' + Math.round(maxHealCounter));
                         abilityDiv.appendChild(text);
                       };
+                      var missCount2 = 0;
                       if (path["maxMissingHPRatio"]) {
-                        var text = document.createTextNode(" (+" + arrayCheck(path["maxMissingHPRatio"]) 
-                        + " Missing HP Ratio)");
+                        missCount2 += arrayCheck(path["maxMissingHPRatio"])
+                      };
+                      if (path['maxMissingHPRatioPer100AP']) {
+                        missCount2 += arrayCheck(path['maxMissingHPRatioPer100AP']) * totalAP/100;
+                      }
+                      if (missCount2 !== 0) {
+                        var text = document.createTextNode(" (+" + lengthCheck(missCount2) + " Missing HP Ratio)");
                         abilityDiv.appendChild(text);
                       }
                     };

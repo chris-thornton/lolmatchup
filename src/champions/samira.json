@@ -90,24 +90,24 @@
         "interruptCC": 0.5
     },
     "stats": {
-        "baseHP": 562,
-        "hpPerLevel": 90,
+        "baseHP": 530,
+        "hpPerLevel": 88,
         "baseHPRegen": 3.25,
         "hpRegenPerLevel": 0.55,
         "mana": {
-            "base": 284,
-            "manaPerLevel": 50,
-            "manaBaseRegen": 8,
-            "manaRegenPerLevel": 0.9
+            "base": 348.88,
+            "manaPerLevel": 38,
+            "manaBaseRegen": 8.176,
+            "manaRegenPerLevel": 0.7
         },
-        "baseDamage": 63,
+        "baseDamage": 57,
         "damagePerLevel": 3,
         "baseArmor": 26,
-        "armorPerLevel": 3.25,
+        "armorPerLevel": 3,
         "baseMagicResist": 30,
         "magicResistPerLevel": 0.5,
-        "attackSpeed": 0.625,
-        "attackSpeedRatio": 0.625,
-        "attackSpeedPerLevel": 0.016
+        "attackSpeed": 0.658,
+        "attackSpeedRatio": 0.658,
+        "attackSpeedPerLevel": 0.033
     }
 }
