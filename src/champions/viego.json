@@ -1,68 +1,82 @@
 {
     "Q": {
-        "damage": {
-            "type":"phys",
-            "system":"minMax",
-            "minDmg": [
-                15, 35, 55, 75, 95
-            ],
-            "maxDmg": [
-                45, 105, 165, 225, 285
-            ],
-            "minADRatio": [
-                0.45, 0.50, 0.55, 0.60, 0.65
-            ],
-            "maxADRatio": [
-                1.35, 1.5, 1.65, 1.8, 1.95
-            ]
+        "onHit": {
+            "damage":{
+                "type":"Physical",
+                "system":"min",
+                "enemyCurrentHPRatio": [
+                    0.02, 0.03, 0.04, 0.05, 0.06
+                ],
+                "minDmg":[
+                    10, 15, 20, 25, 30
+                ]
+            }
         },
-        "interruptCC": 0.75,
-        "coolDown": 13
+        "autoEmpower": {
+            "damage": {
+                "type":"Physical",
+                "ADRatio": 0.2,
+                "APRatio": 0.15,
+                "canCrit": "true"
+            },
+            "heal":{
+                "ADRatio": 0.3,
+                "APRatio": 0.225,
+                "preMitigation": "Armor",
+                "canCrit":"true"  
+            }
+        },
+        "damage": {
+            "type":"Physical",
+            "system":"single",
+            "dmg": [
+                25, 40, 55, 70, 85
+            ],
+            "ADRatio": 0.6,
+            "bonusDmgRatioPerCritChance": 0.75
+        },
+        "coolDown": [
+            5, 4.5, 4, 3.5, 3
+        ]
     },
     "W": {
         "damage": {
-            "type":"phys",
+            "type":"Magic",
             "system":"single",
             "dmg": [
-                55, 85, 115, 145, 175
+                80, 135, 190, 245, 300
             ],
-            "bonusADRatio": 1
+            "APRatio": 1
         },
-        "interruptCC": 0.75,
-        "coolDown": [
-            11,10,9,8,7
-        ]
+        "minInterruptCC": 0.25,
+        "maxInterruptCC": 1.25,
+        "coolDown": 8
     },
     "E": {
-        "shield": {
-            "type":"all",
-            "targets": "Self",
-            "shield": [
-                95, 125, 155, 185, 215
+        "bonusAttackSpeed": {
+            "attackSpeed": [
+                0.3, 0.35, 0.4, 0.45, 0.5
             ],
-            "bonusADRatio": 1,
-            "duration": 1.5
+            "duration": 8
         },
         "coolDown": [
-            12, 11, 10, 9, 8
+            14, 12, 10, 8, 6
         ]
     },
     "R": {
-        "bonusAttackDamage": {
-            "duration": 15,
-            "ADRatio": 0.2
-        },
         "damage": {
-            "type": "phys",
-            "system":"minMax",
-            "minDmg": [
-                100, 150, 200
-            ],
-            "maxDmg": [
-                300, 450, 600
-            ],
-            "minBonusADRatio": 0.6,
-            "maxBonusADRatio": 1.8
+            "type": "Physical",
+            "system":"2Part",
+            "part1": {
+                "ADRatio": 1.2,
+                "bonusDmgRatioPerCritChance": 0.75
+            },
+            "part2": {
+                "enemyMissingHPRatio": [
+                    0.15, 0.2, 0.25
+                ],
+                "enemyMissingHPRatioPer100BonusAD": 0.03
+            }
         },
         "coolDown": [
             120, 90, 60
