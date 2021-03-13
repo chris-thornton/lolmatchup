@@ -226,7 +226,6 @@ class App extends Component {
     E: {},
     R: {}
   };
-  partNumberArray = ["part1", "part2", "part3"];
 
   testing(side, event) {
     if(event.currentTarget.tagName === 'LI'){
@@ -538,12 +537,6 @@ class App extends Component {
     
                   if (champFile[ability]["autoEmpower"]) {
                     var damage = champFile[ability]["autoEmpower"]["damage"];
-                    var dmgType = damage["type"];
-                    if (dmgType === 'phys') {
-                      dmgType = 'Physical'
-                    } else {
-                      dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
-                    }
                     var bold = document.createElement('b')
                     if (!damage["durationAutos"] && !damage['autoCoolDown']) {
                       bold.innerText = 'Auto Attack Empower: '
@@ -554,7 +547,7 @@ class App extends Component {
                     };
                     abilityDiv.appendChild(bold);
                     var dmgTypeU = document.createElement('u');
-                    dmgTypeU.innerText = dmgType + " Damage";
+                    dmgTypeU.innerText = damage['type'] + " Damage";
                     var dash = document.createTextNode(': ');
                     abilityDiv.appendChild(dmgTypeU);
                     abilityDiv.appendChild(dash);
@@ -922,7 +915,18 @@ class App extends Component {
                     };
                     
                     if (damage["system"] === "2Part" || damage["system"] === "3Part") {
-                      function partDamageMap(partNumber, i, array) {
+                      (function() {
+                      for (var i = 1; i < 4; i++) {
+                        if (!damage[`part${i}`]) {
+                          return;
+                        }
+                        var part = damage[`part${i}`];
+                        var partU = document.createElement('u');
+                        partU.innerText = 'Part '  + i;  
+                        abilityDiv.appendChild(partU);
+                        var text = document.createTextNode(': ');
+                        abilityDiv.appendChild(text);
+                      /*function partDamageMap(partNumber, i, array) {
                         if (!damage[partNumber]) {
                             return;
                         }
@@ -931,7 +935,7 @@ class App extends Component {
                         partU.innerText = partNumber[0].toUpperCase() + partNumber.slice(1, 4) + ' '  + partNumber[4];  
                         abilityDiv.appendChild(partU);
                         var text = document.createTextNode(': ');
-                        abilityDiv.appendChild(text);
+                        abilityDiv.appendChild(text);*/
     
                         if (part["type"]) {
                           var text = document.createTextNode(part["type"] + " Damage: ");
@@ -947,12 +951,12 @@ class App extends Component {
                           part["trueDmgRatioByLvl"][17]+ ", based on lvl. Currently: " + part["trueDmgRatioByLvl"][champLevel] + ')');
                           abilityDiv.appendChild(text);
                         };
-                        var next = array[i+1];
-                        if (damage[next]) {
+                        if (damage[`part${i+1}`]) {
                           doubleBreak();
                         }
-                      };
-                      this.partNumberArray.map(partDamageMap);
+                      }
+                      })();
+                      /*this.partNumberArray.map(partDamageMap);*/
                     };
                     if (damage["staticCoolDownByLvl"]) {
                       singleBreak();
@@ -1541,27 +1545,22 @@ class App extends Component {
                     };
     
                     if (damage["system"] === "2Part" || damage["system"] === "3Part") {
-                      function partDamageMap(partNumber, i, array) {
-                        if (!champFile[ability]['damage'][partNumber]) {
+                      (function() {
+                        for (var i = 1; i < 4; i++) {
+                          if (!damage[`part${i}`]) {
                             return;
-                        }
-                        var part = champFile[ability]['damage'][partNumber];
-                        var partU = document.createElement('u');
-                        partU.innerText = partNumber[0].toUpperCase() + partNumber.slice(1, 4) + ' '  + partNumber[4];  
-                        abilityDiv.appendChild(partU);
-                        var text = document.createTextNode(': ');
-                        abilityDiv.appendChild(text);
+                          }
+                          var part = damage[`part${i}`];
+                          var partU = document.createElement('u');
+                          partU.innerText = 'Part '  + i;  
+                          abilityDiv.appendChild(partU);
+                          var text = document.createTextNode(': ');
+                          abilityDiv.appendChild(text);
     
                         if (part["type"]) {
-                          var dmgType = part["type"];
-                          if (dmgType === 'phys') {
-                            dmgType = 'Physical'
-                          } else {
-                            dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
-                          };
-                          var text = document.createTextNode(dmgType + " Damage: ");
-                          if (part["postMitigation"] === 'magic') {
-                            text.nodeValue = dmgType + ' Damage (part 1 damage, post-mitigation): ';
+                          var text = document.createTextNode(part["type"] + " Damage: ");
+                          if (part["postMitigation"] === 'Magic') {
+                            text.nodeValue = part["type"] + ' Damage (part 1 damage, post-mitigation): ';
                           }
                           abilityDiv.appendChild(text);
                         };
@@ -1706,12 +1705,11 @@ class App extends Component {
                           var text = document.createTextNode(': (' + part["bonusDmgRatioPerCritChance"] + ' per Crit Chance)');
                           abilityDiv.appendChild(text);
                         };
-                        var next = array[i+1]
-                        if (champFile[ability]['damage'][next]) {
+                        if (damage[`part${i + 1}`]) {
                           doubleBreak();
                         }
                       }
-                      this.partNumberArray.map(partDamageMap)
+                    })();
                     }
                     if (damage["storedDmg"]) {
                       singleBreak();
@@ -5703,45 +5701,39 @@ class App extends Component {
                     };
                    
                     if (damage["system"] === "2Part" || damage["system"] === "3Part") {
-                      function partDamageMap(partNumber, i, array) {
-                        if (!damage[partNumber]) {
+                      (function() {
+                        for (var i = 1; i < 4; i++) {
+                          if (!damage[`part${i}`]) {
                             return;
-                        }
-                        var part = damage[partNumber]
-                        var partDmgCount = 0;
-                        var partU = document.createElement('u')
-                        partU.innerText = partNumber[0].toUpperCase() + partNumber.slice(1, 4) + ' '  + partNumber[4]  
-                        abilityDiv.appendChild(partU)
-                        var colonSpace = document.createTextNode(': ')
-                        abilityDiv.appendChild(colonSpace)
-    
-                        if (part["type"]) {
-                          var dmgType = part["type"];
-                          if (dmgType === 'phys') {
-                            dmgType = 'Physical'
-                          } else {
-                            dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
                           }
-                          var text = document.createTextNode(dmgType + " Damage: ");
+                          var part = damage[`part${i}`];
+                          var partU = document.createElement('u');
+                          partU.innerText = 'Part '  + i;  
+                          abilityDiv.appendChild(partU);
+                          var colon = document.createTextNode(': ');
+                          abilityDiv.appendChild(colon);
+                          var dmgCount = 0;
+    
+                          if (part["type"]) {
+                            var text = document.createTextNode(part['type'] + " Damage: ");
+                            abilityDiv.appendChild(text);
+                          };
+                          if (part["ADRatio"]) {
+                            dmgCount += arrayCheck(part["ADRatio"]) * totalAD;
+                          };
+                          var text = document.createTextNode(Math.round(dmgCount));
                           abilityDiv.appendChild(text);
-                        };
-                        if (part["ADRatio"]) {
-                          partDmgCount += arrayCheck(part["ADRatio"]) * totalAD;
-                        };
-                        var text = document.createTextNode(Math.round(partDmgCount));
-                        abilityDiv.appendChild(text);
-                        if (part["trueDmgRatioByLvl"]) {
-                          singleBreak();
-                          var t2 = document.createTextNode('Physical: ' + Math.round((1 - part["trueDmgRatioByLvl"][champLevel]) 
-                          * partDmgCount) + ', True: ' + Math.round(part["trueDmgRatioByLvl"][champLevel] * partDmgCount));
-                          abilityDiv.appendChild(t2);
-                        };
-                        var next = array[i+1]
-                        if (damage[next]) {
-                          doubleBreak();
+                          if (part["trueDmgRatioByLvl"]) {
+                            singleBreak();
+                            var t2 = document.createTextNode('Physical: ' + Math.round((1 - part["trueDmgRatioByLvl"][champLevel]) 
+                            * dmgCount) + ', True: ' + Math.round(part["trueDmgRatioByLvl"][champLevel] * dmgCount));
+                            abilityDiv.appendChild(t2);
+                          };
+                          if (damage[`part${i + 1}`]) {
+                            doubleBreak();
+                          }
                         }
-                      };
-                      this.partNumberArray.map(partDamageMap)
+                      })();
                     };
                     if (damage["staticCoolDownByLvl"]) {
                       singleBreak();
@@ -6367,24 +6359,21 @@ class App extends Component {
                     };
     
                     if (damage["system"] === "2Part" || damage["system"] === "3Part") {
-                      function partDamageMap(partNumber, i, array) {
-                        if (!champFile[ability]['damage'][partNumber]) {
+                      (function() {
+                        for (var i = 1; i < 4; i++) {
+                          if (!damage[`part${i}`]) {
                             return;
-                        };
-                        var part = champFile[ability]['damage'][partNumber];
-                        var underL = document.createElement('u');
-                        underL.innerText = partNumber[0].toUpperCase() + partNumber.slice(1, 4) + ' '  + partNumber[4] + ': ';  
-                        abilityDiv.appendChild(underL);
+                          }
+                          var part = damage[`part${i}`];
+                          var partU = document.createElement('u');
+                          partU.innerText = 'Part '  + i;  
+                          abilityDiv.appendChild(partU);
+                          var text = document.createTextNode(': ');
+                          abilityDiv.appendChild(text);
     
                         if (part["type"]) {
-                          var dmgType = part["type"];
-                          if (dmgType === 'phys') {
-                            dmgType = 'Physical'
-                          } else {
-                            dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
-                          };
-                          var text = document.createTextNode(dmgType + " Damage: ");
-                          if (part["postMitigation"] === 'magic') {
+                          var text = document.createTextNode(part['type'] + " Damage: ");
+                          if (part["postMitigation"] === 'Magic') {
                             text.nodeValue = dmgType + ' Damage (part 1 damage, post-mitigation): ';
                           }
                           abilityDiv.appendChild(text);
@@ -6506,12 +6495,11 @@ class App extends Component {
                             abilityDiv.appendChild(text);
                           }
                         };
-                        var next = array[i+1];
-                        if (champFile[ability]['damage'][next]) {
+                        if (damage[`part${i + 1}`]) {
                           doubleBreak();
                         }
-                      };
-                      this.partNumberArray.map(partDamageMap);
+                      }
+                      })();
                     };
                     if (damage["storedDmg"]) {
                       singleBreak();
