@@ -983,14 +983,8 @@ class App extends Component {
                       abilityDiv.appendChild(bold);
                     };
                     if (damage["type"]) {
-                      var dmgType = damage["type"];
-                      if (dmgType === 'phys') {
-                        dmgType = 'Physical';
-                      } else {
-                        dmgType = dmgType[0].toUpperCase() + dmgType.slice(1);
-                      };
                       var bold = document.createElement('b')
-                      bold.innerText = dmgType + " Damage: "
+                      bold.innerText = damage['type'] + " Damage: "
                       abilityDiv.appendChild(bold);
                     };
                     if (damage["dmg"]) {
@@ -1758,19 +1752,8 @@ class App extends Component {
                     var path = champFile[ability]["tickDamage"]
                     var bold = document.createElement('b')
                     if (path["type"]) {
-                      var dmgType = path["type"];
-                      if (dmgType === 'physMagic') {
-                        bold.innerText = 'Half Physical, Half Magic Damage Over Time: '
-                        abilityDiv.appendChild(bold);
-                      } else {
-                        if (dmgType === 'phys') {
-                          dmgType = 'Physical'
-                        } else {
-                          dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
-                        }
-                        bold.innerText = dmgType + " Damage Over Time: "
-                        abilityDiv.appendChild(bold);
-                      }
+                      bold.innerText = path['type'] + " Damage Over Time: "
+                      abilityDiv.appendChild(bold);
                     };
                     if (path["dmg"]) {
                       var text = document.createTextNode(removeSpace(path["dmg"]));
@@ -6529,19 +6512,8 @@ class App extends Component {
                     var path = champFile[ability]["tickDamage"];
                     var bold = document.createElement('b');
                     if (path["type"]) {
-                      var dmgType = path["type"];
-                      if (dmgType === 'physMagic') {
-                        bold.innerText = 'Half Physical, Half Magic Damage Over Time: '
-                        abilityDiv.appendChild(bold);
-                      } else {
-                        if (dmgType === 'phys') {
-                          dmgType = 'Physical'
-                        } else {
-                          dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
-                        };
-                        bold.innerText = dmgType + " Damage Over Time: ";
-                        abilityDiv.appendChild(bold);
-                      }
+                      bold.innerText = path['type'] + " Damage Over Time: ";
+                      abilityDiv.appendChild(bold);
                     };
                     var tickDmgCount = 0;
                     var minTickDmgCount = 0;

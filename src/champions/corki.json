@@ -40,7 +40,7 @@
     },
     "E": {
         "tickDamage": {
-            "type": "physMagic",
+            "type": "Half Physical, Half Magic",
             "interval": 0.25,
             "ticks": 16,
             "dmg": [
