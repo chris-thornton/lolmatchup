@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import React, { Component } from 'react';
+import React, { Component, createElement } from 'react';
 import './App.css';
 import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
@@ -354,6 +354,25 @@ class App extends Component {
                 var br2 = document.createElement('br');
                 abilityDiv.appendChild(br2)
               };
+              function colon() {
+                var a = document.createTextNode(': ');
+                abilityDiv.appendChild(a);
+              };
+              function underLine(string) {
+                var underL = document.createElement('u');
+                underL.innerText = string;
+                abilityDiv.appendChild(underL);
+                colon();
+              };
+              function addBold(text) {
+                var b = document.createElement('b');
+                b.innerText = text;
+                abilityDiv.appendChild(b);
+              }
+              function addText(text) {
+                var a = document.createTextNode(text);
+                abilityDiv.appendChild(a);
+              }
               function multiplyTicks(x) {
                 if (typeof x !== 'number') {
                   return x.map((z, i) => {
@@ -423,147 +442,95 @@ class App extends Component {
                 if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value == 0) {
     
                   if (champFile[ability]["text"]) {
-                    var text = document.createTextNode(champFile[ability]["text"])
-                    abilityDiv.appendChild(text)
+                    addText(champFile[ability]["text"]);
                     doubleBreak();
                   };
     
                   if (champFile[ability]["auto"]) {
                     var path = champFile[ability]["auto"];
-                    var autoB = document.createElement('b');
-                    autoB.innerText = 'Modified Auto Attack: ';
-                    abilityDiv.appendChild(autoB);
+                    addBold('Modified Auto Attack: ');
                     var baseAutoDmg = totalAD;
                     var newAutoDmg = baseAutoDmg;
                     if (path["dmgRatio"]) {
-                      var dmgU = document.createElement('u');
-                      dmgU.innerText = 'Damage Ratio';
-                      abilityDiv.appendChild(dmgU);
-                      var text = document.createTextNode(': ' + path["dmgRatio"])
-                      abilityDiv.appendChild(text);
+                      underLine('Damage Ratio');
+                      addText(path["dmgRatio"])
                       newAutoDmg = path["dmgRatio"] * baseAutoDmg;
                     };
                     if (path["dmgRatioPerCritChance"]) {
                       singleBreak();
-                      var critU = document.createElement('u');
-                      critU.innerText = 'Damage Ratio Per Crit Chance';
-                      abilityDiv.appendChild(critU);
-                      var text = document.createTextNode(': ' + path["dmgRatioPerCritChance"])
-                      abilityDiv.appendChild(text);
-                      newAutoDmg *= path["dmgRatioPerCritChance"] * totalCritChance
+                      underLine('Damage Ratio Per Crit Chance');
+                      addText(path["dmgRatioPerCritChance"]);
+                      newAutoDmg *= path["dmgRatioPerCritChance"] * totalCritChance;
                     };
                     if (path["system"] === 'minMax') {
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min Damage';
-                      abilityDiv.appendChild(minU);
+                      underLine('Min');
                       if (path["minADRatioByLvl"]) {
-                        var text = document.createTextNode(': (' + path["minADRatioByLvl"][0] + " to " 
+                        addText('(' + path["minADRatioByLvl"][0] + " to " 
                         + path["minADRatioByLvl"][17] + " AD Ratio, based on lvl. ");
-                        var curU = document.createElement('u');
-                        curU.innerText = 'Currently';
-                        var text2 = document.createTextNode(': ' + path["minADRatioByLvl"][champLevel] + ') ');
-                        abilityDiv.appendChild(text);
-                        abilityDiv.appendChild(curU);
-                        abilityDiv.appendChild(text2);
+                        underLine('Currently');
+                        addText(path["minADRatioByLvl"][champLevel] + ') ');
                       };
                       singleBreak();
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max Damage';
-                      abilityDiv.appendChild(maxU);
+                      addText('Max Damage');
                       if (path["maxADRatioByLvl"]) {
-                        var text = document.createTextNode(': (' + path["maxADRatioByLvl"][0] + " to " 
+                        addText(': (' + path["maxADRatioByLvl"][0] + " to " 
                         + path["maxADRatioByLvl"][17] + " AD Ratio, based on lvl. ");
-                        var curU = document.createElement('u');
-                        curU.innerText = 'Currently';
-                        var text2 = document.createTextNode(': ' + path["maxADRatioByLvl"][champLevel] + ') ')
-                        abilityDiv.appendChild(text);
-                        abilityDiv.appendChild(curU);
-                        abilityDiv.appendChild(text2);
+                        underLine('Currently');
+                        addText(path["maxADRatioByLvl"][champLevel] + ') ')
                       };
                     };
                     if (path["critDmg"]) {
                       singleBreak();
-                      var critU = document.createElement('u');
-                      critU.innerText = 'Crit Damage Ratio';
-                      abilityDiv.appendChild(critU);
-                      var critText = document.createTextNode(': ' + path["critDmg"]);
-                      abilityDiv.appendChild(critText);
+                      underLine('Crit Damage Ratio');
+                      addText(path["critDmg"]);
                       if (path["critDmgWithIE"]) {
-                        var IEText = document.createTextNode(' (' + path["critDmgWithIE"] + ' with Infinity Edge)');
-                        abilityDiv.appendChild(IEText);
+                        addText(' (' + path["critDmgWithIE"] + ' with Infinity Edge)');
                       };
                       doubleBreak();
-                      var critDmgB = document.createElement('b');
-                      critDmgB.innerText = 'Crit Damage: '
-                      abilityDiv.appendChild(critDmgB);
-                      var text = document.createTextNode(Math.round(newAutoDmg * path["critDmg"]));
-                      abilityDiv.appendChild(text);
+                      addBold('Crit Damage: ');
+                      addText(Math.round(newAutoDmg * path["critDmg"]));
                       if (path["critDmgWithIE"]) {
-                        var IEText = document.createTextNode(' (' + Math.round(newAutoDmg * path["critDmgWithIE"]) + ' with Infinity Edge)');
-                        abilityDiv.appendChild(IEText);
+                        addText(' (' + Math.round(newAutoDmg * path["critDmgWithIE"]) + ' with Infinity Edge)');
                       }
                     };
                     if (path["dmgRatio"]) {
                       doubleBreak();
-                      var bold = document.createElement('b');
-                      bold.innerText = 'Auto Damage: '
-                      abilityDiv.appendChild(bold);
-                      var text = document.createTextNode(Math.round(newAutoDmg));
-                      abilityDiv.appendChild(text);
+                      addBold('Auto Damage: ');
+                      addText(Math.round(newAutoDmg));
                     };
                     if (path["system"] === 'minMax') {
                       doubleBreak();
-                      var bold = document.createElement('b');
-                      bold.innerText = 'Auto Damage: '
-                      abilityDiv.appendChild(bold);
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min';
-                      abilityDiv.appendChild(minU);
-                      var minText = document.createTextNode(': ' + Math.round(path["minADRatioByLvl"][champLevel]*(baseAutoDmg))
-                      + ' (Crit: ' + Math.round(path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg']))
-                      + ', Crit with IE: ' + Math.round(path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')');
-                      abilityDiv.appendChild(minText);
+                      addBold('Auto Damage: ');
+                      underLine('Min');
+                      addText(Math.round(path["minADRatioByLvl"][champLevel]*(baseAutoDmg))+ ' (Crit: ' 
+                      + Math.round(path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg'])) + ', Crit with IE: ' 
+                      + Math.round(path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')');
                       singleBreak();
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max';
-                      abilityDiv.appendChild(maxU);
-                      var maxText = document.createTextNode(': ' + Math.round(path["maxADRatioByLvl"][champLevel]*(baseAutoDmg))
-                      + ' (Crit: ' + Math.round(path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg']))
-                      + ', Crit with IE: ' + Math.round(path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')' );
-                      abilityDiv.appendChild(maxText);
-                    }
+                      underLine('Max');
+                      addText(': ' + Math.round(path["maxADRatioByLvl"][champLevel]*(baseAutoDmg))+ ' (Crit: ' + 
+                      Math.round(path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg']))+ ', Crit with IE: ' 
+                      + Math.round(path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')' );
+                    };
                     doubleBreak();
                   };
     
                   if (champFile[ability]["autoEmpower"]) {
                     var damage = champFile[ability]["autoEmpower"]["damage"];
-                    var bold = document.createElement('b')
                     if (!damage["durationAutos"] && !damage['autoCoolDown']) {
-                      bold.innerText = 'Auto Attack Empower: '
+                      addBold('Auto Attack Empower: ')
                     } else if (damage['autoCoolDown']) {
-                      bold.innerText = 'Empower 1 in every ' +  damage["autoCoolDown"] + ' Auto Attacks: '
+                     addBold('Empower 1 in every ' +  damage["autoCoolDown"] + ' Auto Attacks: ')
                     } else {
-                      bold.innerText = 'Empower ' +  damage["durationAutos"] + ' Auto Attacks: '
+                      addBold('Empower ' +  damage["durationAutos"] + ' Auto Attacks: ')
                     };
-                    abilityDiv.appendChild(bold);
-                    var dmgTypeU = document.createElement('u');
-                    dmgTypeU.innerText = damage['type'] + " Damage";
-                    var dash = document.createTextNode(': ');
-                    abilityDiv.appendChild(dmgTypeU);
-                    abilityDiv.appendChild(dash);
+                    underLine(damage['type'] + " Damage");
                     if (damage["dmg"]) {
-                      var text = document.createTextNode(removeSpace(damage["dmg"]));
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(damage["dmg"]));
                     };
                     if (damage["dmgByLvl"]) {
-                      var text = document.createTextNode(' [' + damage["dmgByLvl"][0] + " to " + damage["dmgByLvl"][17]
-                      + ", based on lvl. ");
-                      var curU = document.createElement('u');
-                      curU.innerText = 'Currently';
-                      var text2 = document.createTextNode(': ' + damage["dmgByLvl"][champLevel] + ']')
-                      abilityDiv.appendChild(text);
-                      abilityDiv.appendChild(curU);
-                      abilityDiv.appendChild(text2);
+                      addText(' [' + damage["dmgByLvl"][0] + " to " + damage["dmgByLvl"][17] + ", based on lvl. ");
+                      underLine('Currently');
+                      addText(': ' + damage["dmgByLvl"][champLevel] + ']')
                     };
                     if (damage["dmgByERank"]) {
                       var path = damage["dmgByERank"];
@@ -1222,8 +1189,7 @@ class App extends Component {
                       var minDmgU = document.createElement('u');
                       minDmgU.innerText = 'Min';
                       abilityDiv.appendChild(minDmgU);
-                      var dash = document.createTextNode(': ');
-                      abilityDiv.appendChild(dash);
+                      colon();
                       if (damage["minDmg"]) {
                         var text = document.createTextNode(removeSpace(damage["minDmg"]));
                         abilityDiv.appendChild(text);
@@ -2134,7 +2100,7 @@ class App extends Component {
     
                     var path = champFile[ability]["specialDelivery"]["tickDamage"]
                     var bold = document.createElement('b')
-                    bold.innerText = dmgType + " Special Delivery: "
+                    bold.innerText = "Special Delivery: "
                     abilityDiv.appendChild(bold);
     
                     var text = document.createTextNode('[' + path["dmgByLvl"][0] + " to " 
@@ -5307,7 +5273,6 @@ class App extends Component {
     
                 } 
                 if (ability !== 'passive' && document.getElementById(`${ability}Rank${side}`).value > 0 ) {
-                  /* Place non-rank related variables outside of the rank nesting (ex: dmgType) */
                   /* BEGIN RANK 1-5 SECTION */
                   if (champFile[ability]["text"]) {
                     var text = document.createTextNode(champFile[ability]["text"])
@@ -5317,12 +5282,6 @@ class App extends Component {
     
                   if (champFile[ability]["autoEmpower"]) {
                     var damage = champFile[ability]["autoEmpower"]["damage"]
-                    var dmgType = damage["type"];
-                    if (dmgType === 'phys') {
-                      dmgType = 'Physical'
-                    } else {
-                      dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
-                    }
                     var bold = document.createElement('b')
                     if (!damage["durationAutos"] && !damage['autoCoolDown']) {
                       bold.innerText = 'Auto Attack Empower: '
@@ -5333,12 +5292,12 @@ class App extends Component {
                     }
                     abilityDiv.appendChild(bold)
                     var dmgTypeU = document.createElement('u')
-                    dmgTypeU.innerText = dmgType + " Damage";
+                    dmgTypeU.innerText = damage['type'] + " Damage";
                     var dash = document.createTextNode(': ')
                     abilityDiv.appendChild(dmgTypeU);
                     abilityDiv.appendChild(dash);
-                    var totalDmgCount = 0
-                    var IEDmgCount = 0
+                    var totalDmgCount = 0;
+                    var IEDmgCount = 0;
                     var minDmgCount = 0;
                     var maxDmgCount = 0;
                     if (damage["dmg"]) {
