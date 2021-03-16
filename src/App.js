@@ -2574,92 +2574,59 @@ class App extends Component {
                   };
     
                   if (champFile[ability]["bonusStats"]) {
-                    var path = champFile[ability]["bonusStats"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus Stats: ';
-                    abilityDiv.appendChild(bold);
+                    var path = champFile[ability]["bonusStats"];
+                    addBold('Bonus Stats: ');
                     if (path["attackDamageByLvl"]) {
-                      var ADByLvlU = document.createElement('u');
-                      ADByLvlU.innerText = 'Attack Damage';
-                      abilityDiv.appendChild(ADByLvlU);
-                      var text = document.createTextNode(': [' + path["attackDamageByLvl"][0] + " to " + 
-                      path["attackDamageByLvl"][17] + "], based on lvl. Currently: " + path["attackDamageByLvl"][champLevel]);
-                      abilityDiv.appendChild(text);
+                      underLine('Attack Damage');
+                      addText('[' + path["attackDamageByLvl"][0] + " to " + path["attackDamageByLvl"][17] 
+                      + "], based on lvl. Currently: " + path["attackDamageByLvl"][champLevel]);
                       singleBreak();
                     }
                     if (path["attackSpeed"]) {
-                      var asU = document.createElement('u');
-                      asU.innerText = 'Attack Speed Ratio';
-                      abilityDiv.appendChild(asU);
-                      var text = document.createTextNode(': (' + removeParen(path["attackSpeed"]) + ')')
-                      abilityDiv.appendChild(text);
+                      underLine('Attack Speed Ratio');
+                      addText('(' + removeParen(path["attackSpeed"]) + ')')
                       singleBreak();
                     }
                     if (path["ADRatio"]) {
-                      var adU = document.createElement('u');
-                      adU.innerText = 'Attack Damage Ratio';
-                      abilityDiv.appendChild(adU);
-                      var text = document.createTextNode(': (' + removeParen(path["ADRatio"]) + ')')
-                      abilityDiv.appendChild(text);
+                      underLine('Attack Damage Ratio');
+                      addText('(' + removeParen(path["ADRatio"]) + ')')
                       singleBreak();
                     }
                     if (path["lifeSteal"]) {
-                      var lsU = document.createElement('u');
-                      lsU.innerText = 'Life Steal Ratio';
-                      abilityDiv.appendChild(lsU);
-                      var text = document.createTextNode(': (' + removeParen(path["lifeSteal"]) + ')')
-                      abilityDiv.appendChild(text);
+                      underLine('Life Steal Ratio');
+                      addText('(' + removeParen(path["lifeSteal"]) + ')')
                       singleBreak();
                     }
                     if (path["healingRatio"]) {
-                      var healU = document.createElement('u');
-                      healU.innerText = 'Increased Healing Ratio';
-                      abilityDiv.appendChild(healU);
-                      var text = document.createTextNode(': (' + removeParen(path["healingRatio"]) + ')')
-                      abilityDiv.appendChild(text);
+                      underLine('Increased Healing Ratio');
+                      addText('(' + removeParen(path["healingRatio"]) + ')')
                       singleBreak();
                     }
                     if (path["healingPerMissingHPRatio"]) {
-                      var healU = document.createElement('u');
-                      healU.innerText = 'Increased Healing';
-                      abilityDiv.appendChild(healU);
-                      var text = document.createTextNode(': (' + path["healingPerMissingHPRatio"] + ' per Missing HP Ratio)')
-                      abilityDiv.appendChild(text);
+                      underLine('Increased Healing');
+                      addText('(' + path["healingPerMissingHPRatio"] + ' per Missing HP Ratio)')
                       singleBreak();
                     };
                     if (path["resist"]) {
-                      var resU = document.createElement('u');
-                      resU.innerText = 'Armor and Magic Resist';
-                      abilityDiv.appendChild(resU);
-                      var text = document.createTextNode(': ' + removeSpace(path["resist"]));
-                      abilityDiv.appendChild(text);
+                      underLine('Armor and Magic Resist');
+                      addText(removeSpace(path["resist"]));
                       singleBreak();
                     };
                     if (path["abilityPower"]) {
-                      var apU = document.createElement('u');
-                      apU.innerText = 'Ability Power';
-                      abilityDiv.appendChild(apU);
-                      var text = document.createTextNode(': ' + removeSpace(path["abilityPower"]));
-                      abilityDiv.appendChild(text);
+                      underLine('Ability Power');
+                      addText(removeSpace(path["abilityPower"]));
                       singleBreak();
                     }
                     if (path["healthRegen"]) {
-                      var hpU = document.createElement('u');
-                      hpU.innerText = 'Health Regen';
-                      abilityDiv.appendChild(hpU);
-                      var text = document.createTextNode(': ' + removeSpace(path["healthRegen"]) + ' per second');
-                      abilityDiv.appendChild(text);
+                      underLine('Health Regen');
+                      addText(removeSpace(path["healthRegen"]) + ' per second');
                       singleBreak();
                     };
                     if (path["duration"]) {
-                      var durU = document.createElement('u');
-                      durU.innerText = 'Duration';
-                      abilityDiv.appendChild(durU);
-                      var text = document.createTextNode(': ' + removeParen(path["duration"]))
-                      abilityDiv.appendChild(text);
+                      underLine('Duration');
+                      addText(removeParen(path["duration"]))
                       if (path["durationExtend"]) {
-                        var text = document.createTextNode(', extends by ' + path["durationExtend"] + ' seconds.')
-                        abilityDiv.appendChild(text);
+                        addText(', extends by ' + path["durationExtend"] + ' seconds.')
                       }
                       singleBreak();
                     }
@@ -2668,371 +2635,255 @@ class App extends Component {
     
                   if (champFile[ability]["bonusHealth"]) {
                     var path = champFile[ability]["bonusHealth"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus Health: '
-                    abilityDiv.appendChild(bold);
+                    addBold('Bonus Health: ')
                     if (path["health"]) {
-                      var text = document.createTextNode(removeSpace(path["health"]))
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["health"]))
                     };
                     if (path["healthPerStack"]) {
-                      var text = document.createTextNode(removeSpace(path["healthPerStack"]) + ' per Stack')
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["healthPerStack"]) + ' per Stack')
                       doubleBreak();
                     };
                     if (path["APRatio"]) {
-                      var text = document.createTextNode(' (+' + removeSpace(path["APRatio"]) + ' AP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeSpace(path["APRatio"]) + ' AP Ratio)');
                     }
                     if (path["duration"]) {
                       singleBreak();
-                      var durU = document.createElement('u');
-                      durU.innerText = 'Duration';
-                      abilityDiv.appendChild(durU);
-                      var text = document.createTextNode(': ' + removeParen(path["duration"]))
-                      abilityDiv.appendChild(text);
+                      underLine('Duration');
+                      addText(removeParen(path["duration"]))
                     }
                     doubleBreak();
                   }
     
                   if (champFile[ability]["maxHPRegen"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Max HP Ratio Regenerated: ';
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(removeSpace(champFile[ability]["maxHPRegen"]));
-                    abilityDiv.appendChild(text);
+                    addBold('Max HP Ratio Regenerated: ');
+                    addText(removeSpace(champFile[ability]["maxHPRegen"]));
                     doubleBreak();
                   }
     
                   if (champFile[ability]["healthRegen"]) {
-                    var path = champFile[ability]["healthRegen"]
+                    var path = champFile[ability]["healthRegen"];
                     singleBreak();
-                    var regenB = document.createElement('b');
-                    regenB.innerText = 'Health Regen: ';
-                    abilityDiv.appendChild(regenB);
+                    addBold('Health Regen: ');
                     if (path["dmgTakenRatio"]) {
-                      var dmgU = document.createElement('u');
-                      dmgU.innerText = 'Damage Taken Ratio';
-                      abilityDiv.appendChild(dmgU);
-                      var text = document.createTextNode(': ' + removeSpace(path["dmgTakenRatio"]));
-                      abilityDiv.appendChild(text);
+                      underLine('Damage Taken Ratio');
+                      addText(removeSpace(path["dmgTakenRatio"]));
                     }
                     if (path["dmgTakenRatioByLvl"]) {
-                      var text = document.createTextNode('[' + path["dmgTakenRatioByLvl"][0] 
+                      addText('[' + path["dmgTakenRatioByLvl"][0] 
                       + " to " + path["dmgTakenRatioByLvl"][17] + " Damage Taken Ratio, based on lvl. ");
-                      var curU = document.createElement('u');
-                      curU.innerText = "Currently";
-                      var text2 = document.createTextNode(': ' + path["dmgTakenRatioByLvl"][champLevel] + '] ')
-                      abilityDiv.appendChild(text);
-                      abilityDiv.appendChild(curU);
-                      abilityDiv.appendChild(text2)
+                      underLine("Currently");
+                      addText(path["dmgTakenRatioByLvl"][champLevel] + '] ')
                     }
                     if (path["greyHealthRatioByLvl"]) {
                       singleBreak();
-                      var dmgU = document.createElement('u');
-                      dmgU.innerText = 'Grey Health Ratio';
-                      abilityDiv.appendChild(dmgU);
-                      var text = document.createTextNode(': [' + path["greyHealthRatioByLvl"][0] 
-                      + " to " + path["greyHealthRatioByLvl"][17] + ", based on lvl. ");
-                      var curU = document.createElement('u');
-                      curU.innerText = "Currently";
-                      var text2 = document.createTextNode(': ' + path["greyHealthRatioByLvl"][champLevel] + '] ')
-                      abilityDiv.appendChild(text);
-                      abilityDiv.appendChild(curU);
-                      abilityDiv.appendChild(text2)
+                      underLine('Grey Health Ratio');
+                      addText('[' + path["greyHealthRatioByLvl"][0] + " to " + path["greyHealthRatioByLvl"][17] + ", based on lvl. ");
+                      underLine("Currently");
+                      addText(path["greyHealthRatioByLvl"][champLevel] + '] ')
                     }
                     if (path["maxHPRatio"]) {
                       singleBreak();
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max';
-                      abilityDiv.appendChild(maxU);
-                      var text = document.createTextNode(': ' + path["maxHPRatio"] + ' Max HP Ratio');
-                      abilityDiv.appendChild(text);
+                      underLine('Max');
+                      addText(path["maxHPRatio"] + ' Max HP Ratio');
                     }
                     doubleBreak();
                   }
     
                   if (champFile[ability]["bonusAttackDamage"]) {
                     var path = champFile[ability]["bonusAttackDamage"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus Attack Damage: '
-                    abilityDiv.appendChild(bold);
+                    addBold('Bonus Attack Damage: ')
                     if (path['attackDamage']) {
-                      var text = document.createTextNode(removeSpace(path['attackDamage']));
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path['attackDamage']));
                     }
                     if (path["ADRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["ADRatio"]) + ' AD Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["ADRatio"]) + ' AD Ratio)');
                     }
                     if (path["attackDamagePerAPRatio"]) {
-                      var text = document.createTextNode(' (+' + path["attackDamagePerAPRatio"] + ' per Abiliy Power)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + path["attackDamagePerAPRatio"] + ' per Abiliy Power)');
                     }
                     if (path['minAttackDamage']) {
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min'
-                      abilityDiv.appendChild(minU)
-                      var text = document.createTextNode(': ' + removeSpace(path['minAttackDamage']))
-                      abilityDiv.appendChild(text);
+                      underLine('Min')
+                      addText(removeSpace(path['minAttackDamage']))
                     };
                     if (path['maxAttackDamage']) {
                       singleBreak();
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max'
-                      abilityDiv.appendChild(maxU)
-                      var text = document.createTextNode(': ' + removeSpace(path['maxAttackDamage']))
-                      abilityDiv.appendChild(text);
+                      underLine('Max')
+                      addText(removeSpace(path['maxAttackDamage']))
                     };
                     if (path["duration"]) {
                       singleBreak();
-                      var durU = document.createElement('u');
-                      durU.innerText = 'Duration'
-                      abilityDiv.appendChild(durU)
-                      var text = document.createTextNode(': ' + path['duration'])
-                      abilityDiv.appendChild(text);
+                      underLine('Duration')
+                      addText(path['duration'])
                     }
                     doubleBreak();
                   };
     
                   if (champFile[ability]["bonusHPRegen"]) {
                     var path = champFile[ability]["bonusHPRegen"];
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus Health Regen: ';
-                    abilityDiv.appendChild(bold);
+                    addBold('Bonus Health Regen: ');
                     if (path["HPRegenPerSecondByLvl"]) {
-                      var text = document.createTextNode(': [' + path["HPRegenPerSecondByLvl"][0] + " to " + 
-                      path["HPRegenPerSecondByLvl"][17] + "] per second, based on lvl. Currently: " 
-                      + path["HPRegenPerSecondByLvl"][champLevel]);
-                      abilityDiv.appendChild(text);
-                    }
+                      addText('[' + path["HPRegenPerSecondByLvl"][0] + " to " + path["HPRegenPerSecondByLvl"][17] 
+                      + "] per second, based on lvl. Currently: " + path["HPRegenPerSecondByLvl"][champLevel]);
+                    };
                     doubleBreak();
-                  }
+                  };
     
                   if (champFile[ability]["bonusAdaptiveForce"]) {
                     var path = champFile[ability]["bonusAdaptiveForce"]
-                    var forceB = document.createElement('b');
-                    forceB.innerText = 'Self Bonus Adaptive Force: ';
-                    abilityDiv.appendChild(forceB);
+                    addBold('Self Bonus Adaptive Force: ');
                     if (path["adaptiveForce"]) {
-                      var text = document.createTextNode(removeSpace(path["adaptiveForce"]));
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["adaptiveForce"]));
                     }
                     if (path["allyBonusADRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["allyBonusADRatio"])+ ' Ally Bonus AD Ratio');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["allyBonusADRatio"])+ ' Ally Bonus AD Ratio');
                     }
                     if (path["allyAPRatio"]) {
-                      var text = document.createTextNode(' OR +' + removeParen(path["allyAPRatio"]) + ' Ally AP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' OR +' + removeParen(path["allyAPRatio"]) + ' Ally AP Ratio)');
                     }
                     doubleBreak();
                   };
     
                   if (champFile[ability]["allyBonusAdaptiveForce"]) {
                     var path = champFile[ability]["allyBonusAdaptiveForce"]
-                    var forceB = document.createElement('b');
-                    forceB.innerText = 'Ally Bonus Adaptive Force: ';
-                    abilityDiv.appendChild(forceB);
+                    addBold('Ally Bonus Adaptive Force: ')
                     if (path["adaptiveAD"]) {
-                      var text = document.createTextNode('[' + removeParen(path["adaptiveAD"]) + ' Attack Damage]');
-                      abilityDiv.appendChild(text);
+                      addText('[' + removeParen(path["adaptiveAD"]) + ' Attack Damage]');
                     }
                     if (path["allyAdaptiveBonusADRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["allyAdaptiveBonusADRatio"])
-                       + ' Ally Bonus AD Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["allyAdaptiveBonusADRatio"]) + ' Ally Bonus AD Ratio)');
                     }
                     if (path["adaptiveAP"]) {
-                      var text = document.createTextNode(' OR [' + removeParen(path["adaptiveAP"]) + ' Ability Power]');
-                      abilityDiv.appendChild(text);
+                      addText(' OR [' + removeParen(path["adaptiveAP"]) + ' Ability Power]');
                     }
                     if (path["allyAdaptiveAPRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["allyAdaptiveAPRatio"]) + ' Ally AP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["allyAdaptiveAPRatio"]) + ' Ally AP Ratio)');
                     }
                     doubleBreak();
                   }
     
                   if (champFile[ability]["bonusResist"]) {
                     var path = champFile[ability]["bonusResist"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus Armor & Magic Resist: ';
-                    abilityDiv.appendChild(bold);
+                    addBold('Bonus Armor & Magic Resist: ');
                     if (path["resist"]) {
-                      var text = document.createTextNode(removeSpace(path["resist"]));
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["resist"]));
                     }
                     if (path["bonusResistByLvl"]) {
-                      var text = document.createTextNode(': [' + path["bonusResistByLvl"][0] + " to " + 
-                      path["bonusResistByLvl"][17] + "], based on lvl. Currently: " + path["bonusResistByLvl"][champLevel]);
-                      abilityDiv.appendChild(text);
+                      addText('[' + path["bonusResistByLvl"][0] + " to " + path["bonusResistByLvl"][17] 
+                      + "], based on lvl. Currently: " + path["bonusResistByLvl"][champLevel]);
                     };
                     if (path["minResistByLvl"]) {
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min';
-                      abilityDiv.appendChild(minU);
-                      var minText = document.createTextNode(': [' + path["minResistByLvl"][0] + " to " + 
-                      path["minResistByLvl"][17] + ", based on lvl. Currently: " + path["minResistByLvl"][champLevel] + ']');
-                      abilityDiv.appendChild(minText);
+                      underLine('Min');
+                      addText('[' + path["minResistByLvl"][0] + " to " + path["minResistByLvl"][17] 
+                      + ", based on lvl. Currently: " + path["minResistByLvl"][champLevel] + ']');
                       singleBreak();
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max';
-                      abilityDiv.appendChild(maxU);
-                      var maxText = document.createTextNode(': [' + path["maxResistByLvl"][0] + " to " + 
-                      path["maxResistByLvl"][17] + ", based on lvl. Currently: " + path["maxResistByLvl"][champLevel] + ']');
-                      abilityDiv.appendChild(maxText);
+                      underLine('Max');
+                      addText('[' + path["maxResistByLvl"][0] + " to " + path["maxResistByLvl"][17] 
+                      + ", based on lvl. Currently: " + path["maxResistByLvl"][champLevel] + ']');
                     }
                     if (path["bonusResistRatio"]) {
-                      var text = document.createTextNode(' (+' + path["bonusResistRatio"] + ' Bonus Resist Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + path["bonusResistRatio"] + ' Bonus Resist Ratio)');
                     }
                     if (path["minResist"]) {
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min';
-                      abilityDiv.appendChild(minU);
-                      var minText = document.createTextNode(': ' + removeSpace(path["minResist"]));
-                      abilityDiv.appendChild(minText);
+                      underLine('Min');
+                      addText(removeSpace(path["minResist"]));
                       singleBreak();
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max';
-                      abilityDiv.appendChild(maxU);
-                      var maxText = document.createTextNode(': ' + removeSpace(path["maxResist"]));
-                      abilityDiv.appendChild(maxText);
+                      underLine('Max');
+                      addText(removeSpace(path["maxResist"]));
                     }
                     if (path["duration"]) {
                       singleBreak();
-                      var durU = document.createElement('u');
-                      durU.innerText = 'Duration'
-                      abilityDiv.appendChild(durU)
-                      var text = document.createTextNode(': ' + path["duration"])
-                      abilityDiv.appendChild(text)
+                      underLine('Duration')
+                      addText(path["duration"])
                     }
                     doubleBreak();
-                  }
+                  };
     
                   if (champFile[ability]["bonusArmorPenOnCrit"]) {
                     var penPath = champFile[ability]["bonusArmorPenOnCrit"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus-Armor Pen Ratio on Crits: '
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(penPath["penRatio"]);
-                    abilityDiv.appendChild(text);
+                    addBold('Bonus-Armor Pen Ratio on Crits: ')
+                    addText(penPath["penRatio"]);
                     singleBreak();
-                    var durU = document.createElement('u');
-                    durU.innerText = 'Duration';
-                    abilityDiv.appendChild(durU);
-                    var durText = document.createTextNode(': ' + penPath["duration"]);
-                    abilityDiv.appendChild(durText);
+                    underLine('Duration');
+                    addText(penPath["duration"]);
                     doubleBreak();
                   }
     
                   if (champFile[ability]["bonusArmor"]) {
                     var path = champFile[ability]["bonusArmor"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus Armor: '
-                    abilityDiv.appendChild(bold);
+                    addBold('Bonus Armor: ')
                     if (path["armor"]) {
-                      var text = document.createTextNode(removeSpace(path["armor"]))
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["armor"]))
                     };
                     if (path["armorRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["armorRatio"]) + ' Armor Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["armorRatio"]) + ' Armor Ratio)');
                     };
                     if (path["bonusArmorRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["bonusArmorRatio"]) + ' Bonus Armor Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["bonusArmorRatio"]) + ' Bonus Armor Ratio)');
                     };
                     if (path["bonusADRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["bonusADRatio"]) + ' Bonus AD Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["bonusADRatio"]) + ' Bonus AD Ratio)');
                     }
                     if (path["system"] === 'minMax') {
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min';
-                      abilityDiv.appendChild(minU);
+                      underLine('Min');
                       if (path["minArmor"]) {
-                        var text = document.createTextNode(': ' + removeSpace(path["minArmor"]));
-                        abilityDiv.appendChild(text)
+                        addText(removeSpace(path["minArmor"]));
                       };
                       singleBreak();
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max';
-                      abilityDiv.appendChild(maxU);
+                      underLine('Max');
                       if (path["maxArmor"]) {
-                        var text = document.createTextNode(': ' + removeSpace(path["maxArmor"]));
-                        abilityDiv.appendChild(text)
+                        addText(removeSpace(path["maxArmor"]));
                       };
                     }
                     doubleBreak();
-                  }
+                  };
     
                   if (champFile[ability]["allyBonusArmor"]) {
                     var path = champFile[ability]["allyBonusArmor"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Ally Bonus Armor: '
-                    abilityDiv.appendChild(bold);
+                    addBold('Ally Bonus Armor: ')
                     if (path["armor"]) {
-                      var text = document.createTextNode(removeSpace(path["armor"]))
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["armor"]))
                     };
                     if (path["armorRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["armorRatio"]) + ' Armor Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["armorRatio"]) + ' Armor Ratio)');
                     };
                     if (path["bonusArmorRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["bonusArmorRatio"]) + ' Armor Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["bonusArmorRatio"]) + ' Armor Ratio)');
                     };
                     doubleBreak();
                   };
     
                   if (champFile[ability]["bonusMagicResist"]) {
                     var path = champFile[ability]["bonusMagicResist"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus Magic Resist: '
-                    abilityDiv.appendChild(bold);
+                    addBold('Bonus Magic Resist: ')
                     if (path["magicResist"]) {
-                      var text = document.createTextNode(removeSpace(path["magicResist"]))
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["magicResist"]))
                     };
                     if (path["magicResistRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["magicResistRatio"]) + ' Magic Resist Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["magicResistRatio"]) + ' Magic Resist Ratio)');
                     };
                     if (path["bonusMagicResistRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["bonusMagicResistRatio"]) 
-                      + ' Bonus Magic Resist Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["bonusMagicResistRatio"]) + ' Bonus Magic Resist Ratio)');
                     };
                     if (path["APRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["APRatio"]) + ' AP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["APRatio"]) + ' AP Ratio)');
                     }
                     doubleBreak();
-                  }
+                  };
     
                   if (champFile[ability]["allyBonusMagicResist"]) {
                     var path = champFile[ability]["allyBonusMagicResist"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Ally Bonus Magic Resist: '
-                    abilityDiv.appendChild(bold);
+                    addBold('Ally Bonus Magic Resist: ')
                     if (path["magicResist"]) {
-                      var text = document.createTextNode(removeSpace(path["magicResist"]))
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["magicResist"]))
                     };
                     if (path["magicResistRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["magicResistRatio"]) + ' Magic Resist Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["magicResistRatio"]) + ' Magic Resist Ratio)');
                     };
                     if (path["bonusMagicResistRatio"]) {
-                      var text = document.createTextNode(' (+' + removeParen(path["bonusMagicResistRatio"]) 
-                      + ' Bonus Magic Resist Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path["bonusMagicResistRatio"]) + ' Bonus Magic Resist Ratio)');
                     };
                     doubleBreak();
-                  }
+                  };
     
                   if (champFile[ability]["bonusAttackSpeed"]) {
                     var ASPath = champFile[ability]["bonusAttackSpeed"];
