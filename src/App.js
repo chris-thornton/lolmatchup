@@ -3692,27 +3692,20 @@ class App extends Component {
                 if (ability !== 'passive' && document.getElementById(`${ability}Rank${side}`).value > 0 ) {
                   /* BEGIN RANK 1-5 SECTION */
                   if (champFile[ability]["text"]) {
-                    var text = document.createTextNode(champFile[ability]["text"])
-                    abilityDiv.appendChild(text)
+                    addText(champFile[ability]["text"])
                     doubleBreak();
                   };
     
                   if (champFile[ability]["autoEmpower"]) {
                     var damage = champFile[ability]["autoEmpower"]["damage"]
-                    var bold = document.createElement('b')
                     if (!damage["durationAutos"] && !damage['autoCoolDown']) {
-                      bold.innerText = 'Auto Attack Empower: '
+                      addBold('Auto Attack Empower: ')
                     } else if (damage['autoCoolDown']) {
-                      bold.innerText = 'Empower 1 in every ' +  damage["autoCoolDown"] + ' Auto Attacks: '
+                      addBold('Empower 1 in every ' +  damage["autoCoolDown"] + ' Auto Attacks: ')
                     } else {
-                      bold.innerText = 'Empower ' +  damage["durationAutos"] + ' Auto Attacks: '
+                      addBold('Empower ' +  damage["durationAutos"] + ' Auto Attacks: ')
                     }
-                    abilityDiv.appendChild(bold)
-                    var dmgTypeU = document.createElement('u')
-                    dmgTypeU.innerText = damage['type'] + " Damage";
-                    var dash = document.createTextNode(': ')
-                    abilityDiv.appendChild(dmgTypeU);
-                    abilityDiv.appendChild(dash);
+                    underLine(damage['type'] + " Damage");
                     var totalDmgCount = 0;
                     var IEDmgCount = 0;
                     var minDmgCount = 0;
@@ -3757,8 +3750,7 @@ class App extends Component {
                       totalDmgCount += arrayCheck(damage["maxHPRatio"]) * totalHP;
                     };
                     if ((damage["enemyCurrentHPRatio"] || damage["enemyCurrentHPByLvl"]) && enemyStats.hp) {
-                      var text = document.createTextNode(' when enemy is full HP: ');
-                      abilityDiv.appendChild(text);
+                      addText(' when enemy is full HP: ');
                     };
                     if (damage["enemyCurrentHPRatio"] && enemyStats.hp) {
                       totalDmgCount += arrayCheck(damage["enemyCurrentHPRatio"]) * enemyTotalHP;
@@ -3781,15 +3773,14 @@ class App extends Component {
                         IEDmgCount += damage["ADRatioPerCritChanceWithIE"] * totalCritChance * totalAD;
                       }; 
                     };
-                    //begin dmg count for autoempower
+                    
                     if (totalDmgCount !== 0) {
-                      var text = document.createTextNode(Math.round(totalDmgCount));
-                      abilityDiv.appendChild(text);
+                      addText(Math.round(totalDmgCount));
                       if (IEDmgCount !== 0) {
-                        var dmgText = document.createTextNode(' (' + Math.round(totalDmgCount + IEDmgCount) + 'with IE)');
-                        abilityDiv.appendChild(dmgText);
+                        addText(' (' + Math.round(totalDmgCount + IEDmgCount) + 'with IE)');
                       }
                     };
+
                     var maxHPRatioCounter = 0;
                     if (damage["enemyMaxHPRatio"] && !enemyStats.hp) {
                       maxHPRatioCounter += arrayCheck(damage["enemyMaxHPRatio"]);
@@ -3807,31 +3798,24 @@ class App extends Component {
                       maxHPRatioCounter += damage["enemyMaxHPRatioByLvl"][champLevel];
                     };
                     if (maxHPRatioCounter !== 0) {
-                      var text = document.createTextNode(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
                     };
                     if (damage["enemyMaxHPRatioPerStack"] && !enemyStats.hp) {
-                      var text = document.createTextNode(" (+" + arrayCheck(damage["enemyMaxHPRatioPerStack"]) 
-                      + " Enemy Max HP Ratio per Stack)");
-                      abilityDiv.appendChild(text);
+                      addText(" (+" + arrayCheck(damage["enemyMaxHPRatioPerStack"]) + " Enemy Max HP Ratio per Stack)");
                     };
                     if (damage["enemyMaxHPRatioPerStack"] && enemyStats.hp) {
-                      var text = document.createTextNode(" (+" + Math.round(arrayCheck(damage["enemyMaxHPRatioPerStack"]) 
-                      * enemyTotalHP) + " per Stack)");
-                      abilityDiv.appendChild(text);
+                      addText(" (+" + Math.round(arrayCheck(damage["enemyMaxHPRatioPerStack"]) * enemyTotalHP) + " per Stack)");
                     };
                     var currentHPCounter = 0;
                     if (damage["enemyCurrentHPRatio"] && !enemyStats.hp) {
                       currentHPCounter += arrayCheck(damage["enemyCurrentHPRatio"]);
-                      var text = document.createTextNode(" (+" + arrayCheck(damage["enemyCurrentHPRatio"]) 
-                      + " Enemy Current HP Ratio)");
-                      abilityDiv.appendChild(text);
+                      addText(" (+" + arrayCheck(damage["enemyCurrentHPRatio"]) + " Enemy Current HP Ratio)");
                     };
                     if (damage["enemyCurrentHPRatioByLvl"] && !enemyStats.hp) {
                       currentHPCounter += damage["enemyCurrentHPRatioByLvl"][champLevel];
                     };
                     if (currentHPCounter !== 0) {
-                      var text = document.createTextNode(" (+" + lengthCheck(currentHPCounter) + " Enemy Current HP Ratio)");
+                      addText(" (+" + lengthCheck(currentHPCounter) + " Enemy Current HP Ratio)");
                     };
                     var missHPCounter = 0;
                     if (damage["enemyMissingHPRatio"]) {
@@ -3844,49 +3828,36 @@ class App extends Component {
                       missHPCounter += arrayCheck(damage["enemyMissingHPRatioPer100AP"]) * totalAP/100;
                     };
                     if (missHPCounter !== 0) {
-                      var text = document.createTextNode(" (+" + lengthCheck(missHPCounter) + " Enemy Missing HP Ratio)");
-                      abilityDiv.appendChild(text);
+                      addText(" (+" + lengthCheck(missHPCounter) + " Enemy Missing HP Ratio)");
                     };
                     if (damage["dmgPer5Chimes"]) {
-                      var text = document.createTextNode(" (+" + damage["dmgPer5Chimes"] + ' per 5 chimes)');
-                      abilityDiv.appendChild(text);
+                      addText(" (+" + damage["dmgPer5Chimes"] + ' per 5 chimes)');
                     };
                     if (damage["dmgPerStack"]) {
-                      var text = document.createTextNode(" (+" + damage["dmgPerStack"] + ' per Stack)');
-                      abilityDiv.appendChild(text);
+                      addText(" (+" + damage["dmgPerStack"] + ' per Stack)');
                     };
                     if (damage["armorIgnore"]) {
                       singleBreak();
-                      var text = document.createTextNode('Ignores ' + damage["armorIgnore"] + ' ratio of enemy armor.');
-                      abilityDiv.appendChild(text);
+                      addText('Ignores ' + damage["armorIgnore"] + ' Enemy Armor Ratio.');
                     };
                     if (damage["alwaysCrit"]) {
-                      var text = document.createTextNode('. Always critically strikes.');
-                      abilityDiv.appendChild(text);
+                      addText('. Always critically strikes.');
                     };
                     if (damage["attackSpeedPenalty"]) {
                       singleBreak();
-                      var penU = document.createElement('u');
-                      penU.innerText = 'Bonus Attack Speed Penalty Ratio';
-                      abilityDiv.appendChild(penU);
-                      var text = document.createTextNode(': ' + damage["attackSpeedPenalty"] );
-                      abilityDiv.appendChild(text);
+                      underLine('Bonus Attack Speed Penalty Ratio');
+                      addText(damage["attackSpeedPenalty"] );
                     }
                     if (damage["system"] === "min" ) {
                       singleBreak();
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min Damage'
-                      abilityDiv.appendChild(minU);
+                      underLine('Min Damage')
                       if (damage["minDmg"]) {
-                        var text = document.createTextNode(": " + arrayCheck(damage["minDmg"]));
-                        abilityDiv.appendChild(text);
+                        addText(arrayCheck(damage["minDmg"]));
                       }
                     };
-                    //begin minMax section
+                    
                     if (damage["system"] === "minMax" ) {
-                      var minU = document.createElement('u')
-                      minU.innerText = 'Min'
-                      abilityDiv.appendChild(minU)
+                      underLine('Min')
                       if (damage["minDmg"]) {
                         minDmgCount += arrayCheck(damage["minDmg"])
                       };
@@ -3912,8 +3883,7 @@ class App extends Component {
                         minDmgCount += arrayCheck(damage["minEnemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                       };
                       if (minDmgCount !== 0) {
-                        var text = document.createTextNode(Math.round(minDmgCount));
-                        abilityDiv.appendChild(text);
+                        addText(Math.round(minDmgCount));
                       };
                       var minMaxHPRatioCounter = 0;
                       if (damage["minEnemyMaxHPRatio"] && !enemyStats.hp) {
@@ -3923,17 +3893,15 @@ class App extends Component {
                         minMaxHPRatioCounter += arrayCheck(damage["minEnemyMaxHPRatioPer100AP"]) * totalAP/100;
                       };
                       if (minMaxHPRatioCounter !== 0) {
-                        var text = document.createTextNode(' (+' + lengthCheck(minMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + lengthCheck(minMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
                       }
                       if (damage["minDmgPerStack"]) {
-                        var text = document.createTextNode(' (+' + damage["minDmgPerStack"] + ' per Stack)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + damage["minDmgPerStack"] + ' per Stack)');
                       };
+
                       singleBreak();
-                      var maxU = document.createElement('u')
-                      maxU.innerText = 'Max'
-                      abilityDiv.appendChild(maxU)
+                      underLine('Max');
+
                       if (damage["maxDmg"]) {
                         maxDmgCount += arrayCheck(damage["maxDmg"])
                       };
@@ -3959,8 +3927,7 @@ class App extends Component {
                         maxDmgCount += arrayCheck(damage["maxEnemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                       };
                       if (maxDmgCount !== 0) {
-                        var text = document.createTextNode(Math.round(maxDmgCount));
-                        abilityDiv.appendChild(text);
+                        addText(Math.round(maxDmgCount));
                       };
                       var maxMaxHPRatioCounter = 0;
                       if (damage["maxEnemyMaxHPRatio"] && !enemyStats.hp) {
@@ -3970,93 +3937,67 @@ class App extends Component {
                         maxMaxHPRatioCounter += arrayCheck(damage["maxEnemyMaxHPRatioPer100AP"]) * totalAP/100;
                       };
                       if (maxMaxHPRatioCounter !== 0) {
-                        var text = document.createTextNode(' (+' + lengthCheck(maxMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + lengthCheck(maxMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
                       }
                       if (damage["maxDmgPerStack"]) {
-                        var text = document.createTextNode(' (+' + damage["maxDmgPerStack"] + ' per Stack)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + damage["maxDmgPerStack"] + ' per Stack)');
                       };
                     };
                     if (damage["lvlRequired"]) {
                       singleBreak();
-                      var lvlReqU = document.createElement('u');
-                      lvlReqU.innerText = 'Level Required';
-                      abilityDiv.appendChild(lvlReqU);
-                      var lvlText = document.createTextNode(': ' + damage["lvlRequired"]);
-                      abilityDiv.appendChild(lvlText);
+                      underLine('Level Required');
+                      addText(damage["lvlRequired"]);
                     };
                     if (damage["canCrit"]) {
-                      var text = document.createTextNode(', can crit.');
-                      abilityDiv.appendChild(text);
+                      addText(', can crit.');
                     };
                     if (damage["critDmg"]) {
                       singleBreak();
-                      var critU = document.createElement('u');
                       if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
-                        critU.innerText = 'Crit Damage Ratio';
+                        underLine('Crit Damage Ratio');
                       } else {
-                        critU.innerText = 'Crit Damage';
+                        underLine('Crit Damage');
                       };
                       abilityDiv.appendChild(critU);
                       if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
-                        var text = document.createTextNode(': ' + damage["critDmg"]);
-                        abilityDiv.appendChild(text);
+                        addText(damage["critDmg"]);
                       };
                       if (totalDmgCount !== 0) {
-                        var text = document.createTextNode(': ' + Math.round(damage["critDmg"] * totalDmgCount));
-                        abilityDiv.appendChild(text);
+                        addText(Math.round(damage["critDmg"] * totalDmgCount));
                       };
                       if (minDmgCount !== 0) {
-                        var text = document.createTextNode(': Min: ' + Math.round(damage["critDmg"] * minDmgCount)
+                        addText('Min: ' + Math.round(damage["critDmg"] * minDmgCount)
                         + ', Max: ' + Math.round(damage["critDmg"] * maxDmgCount));
-                        abilityDiv.appendChild(text);
                       };
                       if (damage["critDmgWithIE"]) {
                         if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
-                          var IEText = document.createTextNode(' (' + damage["critDmgWithIE"] + ' with Infinity Edge)');
-                          abilityDiv.appendChild(IEText);
+                          addText(' (' + damage["critDmgWithIE"] + ' with Infinity Edge)');
                         };
                         if (totalDmgCount !== 0) {
-                          var IEText = document.createTextNode(' (' + Math.round(damage["critDmgWithIE"] * totalDmgCount) 
-                          + ' with Infinity Edge)');
-                          abilityDiv.appendChild(IEText);
+                          addText(' (' + Math.round(damage["critDmgWithIE"] * totalDmgCount) + ' with Infinity Edge)');
                         };
                         if (minDmgCount !== 0) {
-                          var text = document.createTextNode(' (Min: ' + Math.round(damage["critDmgWithIE"] * minDmgCount)
+                          addText(' (Min: ' + Math.round(damage["critDmgWithIE"] * minDmgCount)
                           + ', Max: ' + Math.round(damage["critDmgWithIE"] * maxDmgCount) + ' with Infinity Edge)');
-                          abilityDiv.appendChild(text);
                         }
                       }
                     };
                     if (damage["critADRatioWithIE"]) {
                       singleBreak();
-                      var critU = document.createElement('u');
-                      critU.innerText = 'Crit Bonus Dmg with Infinity Edge';
-                      abilityDiv.appendChild(critU);
-                      var text = document.createTextNode(': ' + Math.round(damage["critADRatioWithIE"]) * totalAD);
-                      abilityDiv.appendChild(text);
+                      underLine('Crit Bonus Dmg with Infinity Edge');
+                      addText(Math.round(damage["critADRatioWithIE"]) * totalAD);
                     };
                     if (damage["duration"]) {
                       singleBreak();
-                      var durU = document.createElement('u');
-                      durU.innerText = 'Duration'
-                      abilityDiv.appendChild(durU)
-                      var text = document.createTextNode(': ' + arrayCheck(damage["duration"]))
-                      abilityDiv.appendChild(text)
+                      underLine('Duration')
+                      addText(arrayCheck(damage["duration"]))
                     };
                     if (damage["minDuration"]) {
                       singleBreak();
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min Duration'
-                      abilityDiv.appendChild(minU)
-                      var minText = document.createTextNode(': ' + damage["minDuration"] + ', ')
-                      abilityDiv.appendChild(minText)
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max Duration'
-                      abilityDiv.appendChild(maxU)
-                      var maxText = document.createTextNode(': ' + damage["maxDuration"])
-                      abilityDiv.appendChild(maxText)
+                      underLine('Min Duration')
+                      addText(damage["minDuration"] + ', ')
+                      underLine('Max Duration')
+                      addText(damage["maxDuration"])
                     };
                    
                     if (damage["system"] === "2Part" || damage["system"] === "3Part") {
@@ -4066,27 +4007,20 @@ class App extends Component {
                             return;
                           }
                           var part = damage[`part${i}`];
-                          var partU = document.createElement('u');
-                          partU.innerText = 'Part '  + i;  
-                          abilityDiv.appendChild(partU);
-                          var colon = document.createTextNode(': ');
-                          abilityDiv.appendChild(colon);
+                          underLine('Part '  + i);  
                           var dmgCount = 0;
     
                           if (part["type"]) {
-                            var text = document.createTextNode(part['type'] + " Damage: ");
-                            abilityDiv.appendChild(text);
+                            addText(part['type'] + " Damage: ");
                           };
                           if (part["ADRatio"]) {
                             dmgCount += arrayCheck(part["ADRatio"]) * totalAD;
                           };
-                          var text = document.createTextNode(Math.round(dmgCount));
-                          abilityDiv.appendChild(text);
+                          addText(Math.round(dmgCount));
                           if (part["trueDmgRatioByLvl"]) {
                             singleBreak();
-                            var t2 = document.createTextNode('Physical: ' + Math.round((1 - part["trueDmgRatioByLvl"][champLevel]) 
+                            addText('Physical: ' + Math.round((1 - part["trueDmgRatioByLvl"][champLevel]) 
                             * dmgCount) + ', True: ' + Math.round(part["trueDmgRatioByLvl"][champLevel] * dmgCount));
-                            abilityDiv.appendChild(t2);
                           };
                           if (damage[`part${i + 1}`]) {
                             doubleBreak();
@@ -4096,11 +4030,8 @@ class App extends Component {
                     };
                     if (damage["staticCoolDownByLvl"]) {
                       singleBreak();
-                      var cdU = document.createElement('u');
-                      cdU.innerText = "Static Cooldown";
-                      abilityDiv.appendChild(cdU)
-                      var text = document.createTextNode(': ' + damage["staticCoolDownByLvl"][champLevel])
-                      abilityDiv.appendChild(text);
+                      underLine("Static Cooldown");
+                      addText(damage["staticCoolDownByLvl"][champLevel])
                     };
                     doubleBreak();
                   };
@@ -4112,20 +4043,10 @@ class App extends Component {
                     var minDmgCount = 0;
                     var maxDmgCount = 0;
                     if (!damage["type"]) {
-                      var dmgBold = document.createElement('b');
-                      dmgBold.innerText = "Damage: ";
-                      abilityDiv.appendChild(dmgBold);
+                      addBold("Damage: ");
                     }
                     if (damage["type"]) {
-                      var dmgType = damage["type"];
-                      if (dmgType === 'phys') {
-                        dmgType = 'Physical'
-                      } else {
-                        dmgType = dmgType[0].toUpperCase() + dmgType.slice(1)
-                      }
-                      var bold = document.createElement('b')
-                      bold.innerText = dmgType + " Damage: "
-                      abilityDiv.appendChild(bold);
+                      addBold(damage['type'] + " Damage: ")
                     };                                  
                     if (damage["dmg"]) {
                       totalDmgCount += arrayCheck(damage["dmg"]);
@@ -4134,11 +4055,8 @@ class App extends Component {
                       totalDmgCount += damage["dmgByLvl"][champLevel];
                     };
                     if (damage["totalDmgRatio"]) {
-                      var dmgU = document.createElement('u');
-                      dmgU.innerText = 'Total Damage Ratio';
-                      abilityDiv.appendChild(dmgU);
-                      var text = document.createTextNode(': ' + arrayCheck(damage["totalDmgRatio"]));
-                      abilityDiv.appendChild(text);
+                      underLine('Total Damage Ratio');
+                      addText(arrayCheck(damage["totalDmgRatio"]));
                     };
                     if (damage["dmgByWRank"]) {
                       totalDmgCount += damage["dmgByWRank"][WRank];
@@ -4181,8 +4099,7 @@ class App extends Component {
                     };
                     if ((damage["enemyCurrentHPRatio"] || damage["enemyCurrentHPRatioPer100AD"] 
                     || damage["enemyCurrentHPRatioPer100AP"]) && enemyStats.hp) {
-                      var text = document.createTextNode(' when enemy is full HP: ');
-                      abilityDiv.appendChild(text);
+                      addText(' when enemy is full HP: ');
                     };
                     if (damage["enemyCurrentHPRatio"] && enemyStats.hp) {
                       totalDmgCount += arrayCheck(damage["enemyCurrentHPRatio"]) * enemyTotalHP;
@@ -4205,7 +4122,7 @@ class App extends Component {
                     if (damage["dmgPerLethality"]) {
                       totalDmgCount += arrayCheck(damage["dmgPerLethality"]) * totalLethality;
                     };
-                    //begin dmg count and trailing ratios for damage section
+                    
                     if (totalDmgCount !== 0) {
                       if (damage["bonusDmgRatioPerCritChance"]) {
                         totalDmgCount *= (1 + damage["bonusDmgRatioPerCritChance"] * totalCritChance);
@@ -4213,19 +4130,14 @@ class App extends Component {
                       if (damage["dmgRatioByRRank"]) {
                          totalDmgCount *= damage["dmgRatioByRRank"][RRank];
                       };
-                      var text = document.createTextNode(Math.round(totalDmgCount));
-                      abilityDiv.appendChild(text);
+                      addText(Math.round(totalDmgCount));
                       if (IEDmgCount !== 0) {
-                        var dmgText = document.createTextNode(' (' + Math.round(totalDmgCount + IEDmgCount) + 'with IE)');
-                        abilityDiv.appendChild(dmgText);
+                        addText(' (' + Math.round(totalDmgCount + IEDmgCount) + 'with IE)');
                       };
                       if (damage["executeDmgRatio"]) {
                         singleBreak();
-                        var execU = document.createElement('u');
-                        execU.innerText = 'Execute HP Threshold';
-                        abilityDiv.appendChild(execU);
-                        var text = document.createTextNode(': ' + Math.round(damage["executeDmgRatio"] * Math.round(totalDmgCount)));
-                        abilityDiv.appendChild(text);
+                        underLine('Execute HP Threshold');
+                        addText(Math.round(damage["executeDmgRatio"] * Math.round(totalDmgCount)));
                       }
                     };
                     var maxHPRatioCounter = 0;
@@ -4245,8 +4157,7 @@ class App extends Component {
                       maxHPRatioCounter += damage["enemyMaxHPRatioByLvl"][champLevel];
                     };
                     if (maxHPRatioCounter !== 0) {
-                      var text = document.createTextNode(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
                     }
                     var missingHPRatioCounter = 0;
                     if (damage["enemyMissingHPRatio"]) {
@@ -4256,13 +4167,10 @@ class App extends Component {
                       missingHPRatioCounter += arrayCheck(damage["enemyMissingHPRatioPer100AP"]) * totalAP/100;
                     };
                     if (missingHPRatioCounter !== 0) {
-                      var text = document.createTextNode(" (+" + lengthCheck(missingHPRatioCounter) + " Enemy Missing HP Ratio)");
-                      abilityDiv.appendChild(text);
+                      addText(" (+" + lengthCheck(missingHPRatioCounter) + " Enemy Missing HP Ratio)");
                     };
                     if (damage["enemyMissingHPRatioPerStack"]) {
-                      var text = document.createTextNode(' (+' + arrayCheck(damage["enemyMissingHPRatioPerStack"]) 
-                      + ' Enemy Missing HP Ratio per Stack)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + arrayCheck(damage["enemyMissingHPRatioPerStack"]) + ' Enemy Missing HP Ratio per Stack)');
                     };
                     var currentHPCounter = 0;
                     if (damage["enemyCurrentHPRatio"] && !enemyStats.hp) {
@@ -4275,33 +4183,23 @@ class App extends Component {
                       currentHPCounter += arrayCheck(damage["enemyCurrentHPRatioPer100AP"]) * totalAP/100;
                     };
                     if (currentHPCounter !== 0) {
-                      var text = document.createTextNode(" (+" + lengthCheck(currentHPCounter) + " Enemy Current HP Ratio)");
-                      abilityDiv.appendChild(text);
+                      addText(" (+" + lengthCheck(currentHPCounter) + " Enemy Current HP Ratio)");
                     }; 
                     if (damage["enemyCurrentHPRatioPerStack"]) {
-                      var text = document.createTextNode(' (+' + arrayCheck(damage["enemyCurrentHPRatioPerStack"]) 
-                      + ' Enemy Current HP Ratio per Stack)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + arrayCheck(damage["enemyCurrentHPRatioPerStack"]) + ' Enemy Current HP Ratio per Stack)');
                     };
                     if (damage["bonusMoveSpeedRatioByLvl"]) {
-                      var text = document.createTextNode(' (+' + damage["bonusMoveSpeedRatioByLvl"][champLevel] 
-                      + " Bonus Move Speed Ratio) ");
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + damage["bonusMoveSpeedRatioByLvl"][champLevel] + " Bonus Move Speed Ratio) ");
                     };
                     if (damage["asPerBonusAS"]) {
                       singleBreak();
-                      var asU = document.createElement('u');
-                      asU.innerText = 'Wolf Attack Speed';
-                      abilityDiv.appendChild(asU);
-                      var asRatio = document.createTextNode(': ' + damage["asPerBonusAS"] * bonusAS);
-                      abilityDiv.appendChild(asRatio);
+                      underLine('Wolf Attack Speed');
+                      addText(damage["asPerBonusAS"] * bonusAS);
                     };
     
                     if (damage["system"] === "min" ) {
                       singleBreak();
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min Damage'
-                      abilityDiv.appendChild(minU);
+                      underLine('Min Damage')
                       var minCount = 0
                       if (damage["minDmg"]) {
                         minCount += arrayCheck(damage["minDmg"]);
@@ -4309,14 +4207,11 @@ class App extends Component {
                       if (damage["minDmgAPRatio"]) {
                         minCount += arrayCheck(damage["minDmgAPRatio"]) * totalAP;
                       };
-                      var minText = document.createTextNode(': ' + Math.round(minCount));
-                      abilityDiv.appendChild(minText);
+                      addText(Math.round(minCount));
                     };
     
                     if (damage["system"] === "minMax" ) {
-                      var minU = document.createElement('u')
-                      minU.innerText = 'Min'
-                      abilityDiv.appendChild(minU)
+                      underLine('Min')
                       if (damage["minDmg"]) {
                         minDmgCount += arrayCheck(damage["minDmg"]);
                       };
@@ -4357,8 +4252,7 @@ class App extends Component {
                         minDmgCount += arrayCheck(damage["minEnemyBonusHPRatio"]) * enemyTotalHP;
                       };
                       if ((damage["minEnemyCurrentHPRatio"] || damage["minEnemyCurrentHPRatioPer100AP"]) && enemyStats.hp) {
-                        var text = document.createTextNode(' when enemy is full HP: ');
-                        abilityDiv.appendChild(text);
+                        addText(' when enemy is full HP: ');
                       }
                       if (damage["minEnemyCurrentHPRatio"] && enemyStats.hp) {
                         minDmgCount += arrayCheck(damage["minEnemyCurrentHPRatio"]) * enemyTotalHP;
@@ -4367,8 +4261,7 @@ class App extends Component {
                         minDmgCount += arrayCheck(damage["minEnemyCurrentHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                       };
                       if (minDmgCount !== 0) {
-                        var text = document.createTextNode(': ' + Math.round(minDmgCount));
-                        abilityDiv.appendChild(text);
+                        addText(Math.round(minDmgCount));
                       };
                       var minMaxHPRatioCounter = 0;
                       if (damage["minEnemyMaxHPRatio"] && !enemyStats.hp) {
@@ -4387,12 +4280,10 @@ class App extends Component {
                         minMaxHPRatioCounter += damage["minEnemyMaxHPRatioByLvl"][champLevel];
                       };
                       if (minMaxHPRatioCounter !== 0) {
-                        var text = document.createTextNode(' (+' + lengthCheck(minMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + lengthCheck(minMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
                       };
                       if (damage["minEnemyBonusHPRatio"] && !enemyStats.hp) {
-                        var text = document.createTextNode(' (+'+ arrayCheck(damage["minEnemyBonusHPRatio"])+ ' Enemy Bonus HP Ratio');
-                        abilityDiv.appendChild(text);
+                        addText(' (+'+ arrayCheck(damage["minEnemyBonusHPRatio"]) + ' Enemy Bonus HP Ratio)');
                       }
                       var minCurrentHPCounter = 0;
                       if (damage["minEnemyCurrentHPRatio"] && !enemyStats.hp) {
@@ -4402,21 +4293,16 @@ class App extends Component {
                         minCurrentHPCounter += arrayCheck(damage["minEnemyCurrentHPRatioPer100AP"]) * totalAP/100;
                       };
                       if (minCurrentHPCounter !== 0) {
-                        var text = document.createTextNode(' (+' + lengthCheck(minCurrentHPCounter) + ' Enemy Current HP Ratio');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + lengthCheck(minCurrentHPCounter) + ' Enemy Current HP Ratio');
                       };
                       if (damage["minEnemyMissingHPRatio"]) {
-                        var text = document.createTextNode(" (+" + arrayCheck(damage["minEnemyMissingHPRatio"]) 
-                        + " Enemy Missing HP Ratio)");
-                        abilityDiv.appendChild(text);
+                        addText(" (+" + arrayCheck(damage["minEnemyMissingHPRatio"]) + " Enemy Missing HP Ratio)");
                       };  
                       singleBreak();
     
                       if (damage["medDmg"]) {
                         var medDmgCounter = 0;
-                        var medDmgU = document.createElement('u')
-                        medDmgU.innerText = 'Med'
-                        abilityDiv.appendChild(medDmgU)
+                        underLine('Med')
                         medDmgCounter += arrayCheck(damage["medDmg"]);
                         if (damage["medAPRatio"]) {
                           medDmgCounter += arrayCheck(damage["medAPRatio"]) * totalAP;
@@ -4424,14 +4310,11 @@ class App extends Component {
                         if (damage["medBonusADRatio"]) {
                           medDmgCounter += arrayCheck(damage["medBonusADRatio"]) * bonusAD;
                         };
-                        var medText = document.createTextNode(': ' + Math.round(medDmgCounter));
-                        abilityDiv.appendChild(medText);
+                        addText(Math.round(medDmgCounter));
                         singleBreak();
                       };
     
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max';
-                      abilityDiv.appendChild(maxU);
+                      underLine('Max');
     
                       if (damage["maxDmg"]) {
                         maxDmgCount += arrayCheck(damage["maxDmg"]);
@@ -4476,8 +4359,7 @@ class App extends Component {
                         maxDmgCount += arrayCheck(damage["maxEnemyBonusHPRatio"]) * enemyBonusHP;
                       };
                       if ((damage["maxEnemyCurrentHPRatio"] || damage["maxEnemyCurrentHPRatioPer100AP"]) && enemyStats.hp) {
-                        var text = document.createTextNode(' when enemy is full HP: ');
-                        abilityDiv.appendChild(text);
+                        addText(' when enemy is full HP: ');
                       }
                       if (damage["maxEnemyCurrentHPRatio"] && enemyStats.hp) {
                         maxDmgCount += arrayCheck(damage["maxEnemyCurrentHPRatio"]) * enemyTotalHP;
@@ -4486,8 +4368,7 @@ class App extends Component {
                         maxDmgCount += arrayCheck(damage["maxEnemyCurrentHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                       };
                       if (maxDmgCount !== 0) {
-                        var text = document.createTextNode(': ' + Math.round(maxDmgCount));
-                        abilityDiv.appendChild(text);
+                        addText(Math.round(maxDmgCount));
                       };
                       var maxMaxHPRatioCounter = 0;
                       if (damage["maxEnemyMaxHPRatio"] && !enemyStats.hp) {
@@ -4506,13 +4387,10 @@ class App extends Component {
                         maxMaxHPRatioCounter += damage["maxEnemyMaxHPRatioByLvl"][champLevel];
                       }
                       if (maxMaxHPRatioCounter !== 0) {
-                        var text = document.createTextNode(' (+' + lengthCheck(maxMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + lengthCheck(maxMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
                       }
                       if (damage["maxEnemyBonusHPRatio"] && !enemyStats.hp) {
-                        var text = document.createTextNode(' (+' + arrayCheck(damage["maxEnemyBonusHPRatio"]) 
-                        + ' Enemy Bonus HP Ratio');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + arrayCheck(damage["maxEnemyBonusHPRatio"]) + ' Enemy Bonus HP Ratio');
                       };
                       var maxCurrentHPCounter = 0;
                       if (damage["maxEnemyCurrentHPRatio"] && !enemyStats.hp) {
@@ -4522,22 +4400,17 @@ class App extends Component {
                         maxCurrentHPCounter += arrayCheck(damage["maxEnemyCurrentHPRatioPer100AP"]) * totalAP/100;
                       };
                       if (maxCurrentHPCounter !== 0) {
-                        var text = document.createTextNode(' (+' + lengthCheck(maxCurrentHPCounter) + ' Enemy Current HP Ratio');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + lengthCheck(maxCurrentHPCounter) + ' Enemy Current HP Ratio');
                       };
                       if (damage["maxEnemyMissingHPRatio"]) {
-                        var text = document.createTextNode(" (+" + arrayCheck(damage["maxEnemyMissingHPRatio"]) 
-                        + " Enemy Missing HP Ratio)");
-                        abilityDiv.appendChild(text);
+                        addText(" (+" + arrayCheck(damage["maxEnemyMissingHPRatio"]) + " Enemy Missing HP Ratio)");
                       };
                     };
     
                     var evolveDmgCounter = 0;
                     if (damage["evolveMaxDmg"]) {
                       singleBreak();
-                      var evolveU = document.createElement('u');
-                      evolveU.innerText = 'Evolve Max Damage';
-                      abilityDiv.appendChild(evolveU);
+                      underLine('Evolve Max Damage');
                       evolveDmgCounter += arrayCheck(damage["evolveMaxDmg"]);
                     }
                     if (damage["evolveMaxBonusADRatio"]) {
@@ -4547,133 +4420,97 @@ class App extends Component {
                       evolveDmgCounter += arrayCheck(damage["evolveMaxAPRatio"]) * totalAP;
                     };
                     if (evolveDmgCounter !== 0) {
-                      var text = document.createTextNode(': ' + Math.round(evolveDmgCounter));
-                      abilityDiv.appendChild(text);
+                      addText(Math.round(evolveDmgCounter));
                     };
     
                     if (damage["system"] === 'stacking') {
                       var stackDmgCounter = 0;
                       singleBreak();
-                      var stackU = document.createElement('u');
-                      stackU.innerText = 'Damage per Stack';
-                      abilityDiv.appendChild(stackU);
+                      underLine('Damage per Stack');
                       if (damage["dmgPerStack"]) {
                         stackDmgCounter += arrayCheck(damage["dmgPerStack"]);
                       };
                       if (damage["ADRatioPerStack"]) {
                         stackDmgCounter += arrayCheck(damage["ADRatioPerStack"]) * totalAD;
                       };
-                      var text = document.createTextNode(': ' + Math.round(stackDmgCounter));
-                      abilityDiv.appendChild(text);
+                      addText(Math.round(stackDmgCounter));
                     };
     
                     if (damage["4thShotDmgRatio"]) {
                       singleBreak();
-                      var dmgU = document.createElement('u');
-                      dmgU.innerText = '4th Shot Damage';
-                      abilityDiv.appendChild(dmgU);
-                      var minText = document.createTextNode(': Min: ' + Math.round(damage["4thShotDmgRatio"] * minDmgCount) 
+                      underLine('4th Shot Damage');
+                      addText('Min: ' + Math.round(damage["4thShotDmgRatio"] * minDmgCount) 
                       + ' (' + Math.round(damage["4thShotDmgRatioWithIE"] * minDmgCount) + ' with Infinity Edge)');
-                      abilityDiv.appendChild(minText);
                       singleBreak();
-                      var maxText = document.createTextNode('Max: ' + Math.round(damage["4thShotDmgRatio"] * maxDmgCount) 
+                      addText('Max: ' + Math.round(damage["4thShotDmgRatio"] * maxDmgCount) 
                       + ' (' + Math.round(damage["4thShotDmgRatioWithIE"] * maxDmgCount) + ' with Infinity Edge)');
-                      abilityDiv.appendChild(maxText);
                     };
     
                     if (damage["multiHitDmgRatio"]) {
                       singleBreak();
-                      var text = document.createTextNode('Additional hits deal ' + arrayCheck(damage["multiHitDmgRatio"]) 
-                      + ' damage ratio.');
-                      abilityDiv.appendChild(text);
+                      addText('Additional hits deal ' + arrayCheck(damage["multiHitDmgRatio"]) + ' damage ratio.');
                     };
     
                     if (damage["minMinDmg"]) {
                       singleBreak();
-                      var minDmgU = document.createElement('u');
-                      minDmgU.innerText = 'Minimum Damage';
-                      abilityDiv.appendChild(minDmgU);
-                      var text = document.createTextNode(': ' + arrayCheck(damage["minMinDmg"]));
-                      abilityDiv.appendChild(text);
+                      underLine('Minimum Damage');
+                      addText(arrayCheck(damage["minMinDmg"]));
                     };
     
                     if (damage["canCrit"]) {
-                      var text = document.createTextNode(', can crit.');
-                      abilityDiv.appendChild(text);
+                      addText(', can crit.');
                     };
                     
                     if (damage["critDmg"]) {
                       singleBreak();
-                      var critU = document.createElement('u');
                       if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
-                        critU.innerText = 'Crit Damage Ratio';
+                        underLine('Crit Damage Ratio');
                       } else {
-                        critU.innerText = 'Crit Damage';
+                        underLine('Crit Damage');
                       };
-                      abilityDiv.appendChild(critU);
                       if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
-                        var text = document.createTextNode(': ' + arrayCheck(damage["critDmg"]));
-                        abilityDiv.appendChild(text);
+                        addText(arrayCheck(damage["critDmg"]));
                       };
                       if (totalDmgCount !== 0) {
-                        var text = document.createTextNode(': ' + Math.round(damage["critDmg"] * totalDmgCount));
-                        abilityDiv.appendChild(text);
+                        addText(Math.round(damage["critDmg"] * totalDmgCount));
                       };
                       if (minDmgCount !== 0) {
-                        var text = document.createTextNode(': Min: ' + Math.round(damage["critDmg"] * minDmgCount)
+                        addText('Min: ' + Math.round(damage["critDmg"] * minDmgCount)
                         + ', Max: ' + Math.round(damage["critDmg"] * maxDmgCount));
-                        abilityDiv.appendChild(text);
                       };
                       if (damage["critDmgWithIE"]) {
                         if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
-                          var IEText = document.createTextNode(' (' + damage["critDmgWithIE"] + ' with Infinity Edge)');
-                          abilityDiv.appendChild(IEText);
+                          addText(' (' + damage["critDmgWithIE"] + ' with Infinity Edge)');
                         };
                         if (totalDmgCount !== 0) {
-                          var IEText = document.createTextNode(' (' + Math.round(damage["critDmgWithIE"] * totalDmgCount) 
-                          + ' with Infinity Edge)');
-                          abilityDiv.appendChild(IEText);
+                          addText(' (' + Math.round(damage["critDmgWithIE"] * totalDmgCount) + ' with Infinity Edge)');
                         };
                         if (minDmgCount !== 0) {
-                          var text = document.createTextNode(' (Min: ' + Math.round(damage["critDmgWithIE"] * minDmgCount)
-                          + ', Max: ' + Math.round(damage["critDmgWithIE"] * maxDmgCount) + ' with Infinity Edge)');
-                          abilityDiv.appendChild(text);
+                          addText(' (Min: ' + Math.round(damage["critDmgWithIE"] * minDmgCount) + ', Max: ' 
+                          + Math.round(damage["critDmgWithIE"] * maxDmgCount) + ' with Infinity Edge)');
                         };
                       }
                     };
                     if (damage["critADRatio"]) {
                       singleBreak();
-                      var critU = document.createElement('u');
-                      critU.innerText = 'Crit Bonus Damage';
-                      abilityDiv.appendChild(critU);
-                      var text = document.createTextNode(': ' + Math.round(damage["critADRatio"] * totalAD));
-                      abilityDiv.appendChild(text);
+                      underLine('Crit Bonus Damage');
+                      addText(Math.round(damage["critADRatio"] * totalAD));
                       if (damage["critADRatioWithIE"]) {
-                        var IEText = document.createTextNode(' (' + Math.round(damage["critADRatioWithIE"] * totalAD) 
-                        + ' with Infinity Edge)');
-                        abilityDiv.appendChild(IEText);
+                        addText(' (' + Math.round(damage["critADRatioWithIE"] * totalAD) + ' with Infinity Edge)');
                       }
                     };
     
                     if (damage["minCritADRatio"]) {
                       singleBreak();
-                      var critU = document.createElement('u');
-                      critU.innerText = 'Crit Bonus Damage';
-                      abilityDiv.appendChild(critU);
-                      var text = document.createTextNode(': Min: ' + Math.round(damage["minCritADRatio"] * totalAD));
-                      abilityDiv.appendChild(text);
+                      underLine('Crit Bonus Damage');
+                      addText('Min: ' + Math.round(damage["minCritADRatio"] * totalAD));
                       if (damage["minCritADRatioWithIE"]) {
-                        var IEText = document.createTextNode(' (' + Math.round(damage["minCritADRatioWithIE"] * totalAD) 
-                          + ' with Infinity Edge)');
-                        abilityDiv.appendChild(IEText);
+                        addText(' (' + Math.round(damage["minCritADRatioWithIE"] * totalAD) + ' with Infinity Edge)');
                       };
                       singleBreak();
-                      var maxCritText = document.createTextNode('Max: ' + Math.round(damage["maxCritADRatio"] * totalAD));
-                      abilityDiv.appendChild(maxCritText);
+                      addText('Max: ' + Math.round(damage["maxCritADRatio"] * totalAD));
                       if (damage["maxCritADRatioWithIE"]) {
-                        var IEText = document.createTextNode(' (' + Math.round(damage["maxCritADRatioWithIE"] * totalAD) 
-                          + ' with Infinity Edge)');
-                        abilityDiv.appendChild(IEText);
+                        addText(' (' + Math.round(damage["maxCritADRatioWithIE"] * totalAD) + ' with Infinity Edge)');
                       };
                     };
     
