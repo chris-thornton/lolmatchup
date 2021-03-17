@@ -6827,12 +6827,11 @@ class App extends Component {
                 var tfAbility = this.transformAbilities[i];
                 var hr = document.createElement('hr');
                 abilityDiv.appendChild(hr);
-                var transU = document.createElement('u');
-                transU.innerText = 'Transform ' + ability;
-                if (ability === 'passive') {
-                  transU.innerText = 'Transform Passive';
+                if (ability !== 'passive') {
+                  underLine('Transform ' + ability);
+                } else {
+                  underLine('Transform Passive');
                 };
-                abilityDiv.appendChild(transU);
                 var hr2 = document.createElement('hr');
                 abilityDiv.appendChild(hr2);
     
@@ -6840,75 +6839,51 @@ class App extends Component {
 
                   if (champFile[tfAbility]["remountHPRatioByLvl"]) {
                     var path = champFile[tfAbility]["remountHPRatioByLvl"]
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Remount HP Ratio: ';
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode('(' + path[0] + ' to ' + path[17] 
-                    + ', based on level. Currently: ' + path[champLevel] + ')');
-                    abilityDiv.appendChild(text);
-                  }
+                    addBold('Remount HP Ratio: ');
+                    addText('(' + path[0] + ' to ' + path[17] + ', based on level. Currently: ' + path[champLevel] + ')');
+                  };
     
                   if (champFile[tfAbility]['autoEmpower']) {
                     var path = champFile[tfAbility]['autoEmpower']['damage'];
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Auto Attack Empower: ';
-                    abilityDiv.appendChild(bold);
-                    var dmgType = document.createElement('u');
-                    dmgType.innerText = path['type'] + ' Damage';
-                    abilityDiv.appendChild(dmgType);
+                    addBold('Auto Attack Empower: ');
+                    underLine(path['type'] + ' Damage');
                     if (path['dmgByRRank']) {
-                      var text = document.createTextNode(': ' + removeSpace(path["dmgByRRank"]) + ' (based on R rank)');
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["dmgByRRank"]) + ' (based on R rank)');
                     };
                     if (path['APRatio']) {
-                      var text = document.createTextNode(' (+' + path['APRatio'] + ' AP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + path['APRatio'] + ' AP Ratio)');
                     };
                     if (path['system'] === 'minMax') {
-                      var minU = document.createTextNode(': Min: ');
-                      abilityDiv.appendChild(minU);
+                      addText('Min: ');
                       if (path['minDmgByRRank']) {
-                        var text = document.createTextNode(removeSpace(path['minDmgByRRank']));
-                        abilityDiv.appendChild(text);
+                        addText(removeSpace(path['minDmgByRRank']));
                       };
                       if (path['minADRatio']) {
-                        var text = document.createTextNode(' (+' + removeParen(path['minADRatio']) + ' AD Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + removeParen(path['minADRatio']) + ' AD Ratio)');
                       };
                       if (path['minAPRatio']) {
-                        var text = document.createTextNode(' (+' + removeParen(path['minAPRatio']) + ' AP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + removeParen(path['minAPRatio']) + ' AP Ratio)');
                       };
                       singleBreak();
-                      var maxU = document.createTextNode('Max: ');
-                      abilityDiv.appendChild(maxU);
+                      addText('Max: ');
                       if (path['maxDmgByRRank']) {
-                        var text = document.createTextNode(removeSpace(path['maxDmgByRRank']));
-                        abilityDiv.appendChild(text);
+                        addText(removeSpace(path['maxDmgByRRank']));
                       };
                       if (path['maxADRatioByRRank']) {
-                        var text = document.createTextNode(' (+' + removeParen(path['maxADRatioByRRank']) + ' AD Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + removeParen(path['maxADRatioByRRank']) + ' AD Ratio)');
                       };
                       if (path['maxAPRatioByRRank']) {
-                        var text = document.createTextNode(' (+' + removeParen(path['maxAPRatioByRRank']) + ' AP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + removeParen(path['maxAPRatioByRRank']) + ' AP Ratio)');
                       };
                     }
                     if (path['dmgRatioPerMissingHPByRRank']) {
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Bonus Damage Ratio';
-                      abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': (' + removeParen(path['dmgRatioPerMissingHPByRRank'])
-                      + ' per Enemy Missing HP Ratio)');
-                      abilityDiv.appendChild(text);
+                      underLine('Bonus Damage Ratio');
+                      addText('(' + removeParen(path['dmgRatioPerMissingHPByRRank']) + ' per Enemy Missing HP Ratio)');
                     };
                     if (ability === 'passive') {
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Current Value';
-                      abilityDiv.appendChild(underL);
+                      underLine('Current Value');
                       var dmgCounter = 0;
                       if (path['dmgByRRank']) {
                         dmgCounter += path["dmgByRRank"][RRank];
@@ -6916,31 +6891,23 @@ class App extends Component {
                       if (path['APRatio']) {
                         dmgCounter += arrayCheck(path['APRatio']) * totalAP;
                       };
-                      if (champFile['ETransform']["passiveTransformBonus"] 
-                      && document.getElementById(`ERank${side}`).value > 0) {
+                      if (champFile['ETransform']["passiveTransformBonus"] && document.getElementById(`ERank${side}`).value > 0) {
                         dmgCounter *= (1 + champFile['ETransform']["passiveTransformBonus"]['bonus'][ERank]);
                       };
-                      var dmgText = document.createTextNode(': ' + Math.round(dmgCounter));
-                      abilityDiv.appendChild(dmgText);
+                      addText(Math.round(dmgCounter));
                     };
                     if (champFile[tfAbility]['autoEmpower']['heal']) {
                       var path = champFile[tfAbility]['autoEmpower']['heal'];
                       doubleBreak();
-                      var healU = document.createElement('u');
-                      healU.innerText = 'Heal';
-                      abilityDiv.appendChild(healU);
+                      underLine('Heal');
                       if (path['healByRRank']) {
-                        var text = document.createTextNode(': ' + removeSpace(path["healByRRank"]) + ' (based on R rank)');
-                        abilityDiv.appendChild(text);
+                        addText(removeSpace(path["healByRRank"]) + ' (based on R rank)');
                       };
                       if (path['APRatio']) {
-                        var text = document.createTextNode(' (+' + path['APRatio'] + ' AP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + path['APRatio'] + ' AP Ratio)');
                       };
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Current Value';
-                      abilityDiv.appendChild(underL);
+                      underLine('Current Value');
                       var healCounter = 0;
                       if (path['healByRRank']) {
                         healCounter += path["healByRRank"][RRank];
@@ -6948,91 +6915,66 @@ class App extends Component {
                       if (path['APRatio']) {
                         healCounter += arrayCheck(path['APRatio']) * totalAP;
                       };
-                      if (champFile['ETransform']["passiveTransformBonus"] 
-                      && document.getElementById(`ERank${side}`).value > 0) {
+                      if (champFile['ETransform']["passiveTransformBonus"] && document.getElementById(`ERank${side}`).value > 0) {
                         healCounter *= (1 + champFile['ETransform']["passiveTransformBonus"]['bonus'][ERank]);
                       };
-                      var text = document.createTextNode(': ' + Math.round(healCounter));
-                      abilityDiv.appendChild(text);
-    
+                      addText(Math.round(healCounter));
                     }
                     doubleBreak();
                   };
     
                   if (champFile[tfAbility]['damage']) {
                     var path = champFile[tfAbility]['damage'];
-                    var bold = document.createElement('b');
-                    bold.innerText = path['type'] + ' Damage: ';
-                    abilityDiv.appendChild(bold);
+                    addBold(path['type'] + ' Damage: ');
                     if (path['dmg']) {
-                      var text = document.createTextNode(removeSpace(path['dmg']));
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path['dmg']));
                     };
                     if (path['dmgByRRank']) {
-                      var text = document.createTextNode(': ' + removeSpace(path["dmgByRRank"]));
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path["dmgByRRank"]));
                     };
                     if (path['ADRatio']) {
-                      var text = document.createTextNode(' (+' + path['ADRatio'] + ' AD Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + path['ADRatio'] + ' AD Ratio)');
                     };
                     if (path['bonusADRatio']) {
-                      var text = document.createTextNode(' (+' + path['bonusADRatio'] + ' Bonus AD Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + path['bonusADRatio'] + ' Bonus AD Ratio)');
                     };
                     if (path['APRatio']) {
-                      var text = document.createTextNode(' (+' + removeParen(path['APRatio']) + ' AP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path['APRatio']) + ' AP Ratio)');
                     };
                     if (path['maxHPRatio']) {
-                      var text = document.createTextNode(' (+' + path['maxHPRatio'] + ' Max HP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + path['maxHPRatio'] + ' Max HP Ratio)');
                     };
                     if (path['enemyMaxHPRatio']) {
-                      var text = document.createTextNode(' (+' + removeParen(path['enemyMaxHPRatio']) + ' Enemy Max HP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + removeParen(path['enemyMaxHPRatio']) + ' Enemy Max HP Ratio)');
                     };
                     if (path['enemyMissingHPRatio']) {
-                      var text = document.createTextNode(' (+' + path['enemyMissingHPRatio'] + ' Enemy Missing HP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + path['enemyMissingHPRatio'] + ' Enemy Missing HP Ratio)');
                     };
                     if (path['enemyMissingHPRatioPer100AP']) {
-                      var text = document.createTextNode(' (+' + path['enemyMissingHPRatioPer100AP'] 
-                      + ' Enemy Missing HP Ratio per 100 AP)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + path['enemyMissingHPRatioPer100AP'] + ' Enemy Missing HP Ratio per 100 AP)');
                     };
 
                     if (path['system'] === 'minMax') {
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min';
-                      abilityDiv.appendChild(minU);
+                      underLine('Min');
                       if (path['minDmg']) {
-                        var text = document.createTextNode(': ' + removeSpace(path['minDmg']));
-                        abilityDiv.appendChild(text);
+                        addText(removeSpace(path['minDmg']));
                       };
                       if (path['minBonusADRatio']) {
-                        var text = document.createTextNode(' (+' + path['minBonusADRatio'] + ' Bonus AD Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + path['minBonusADRatio'] + ' Bonus AD Ratio)');
                       };
                       if (path['minAPRatio']) {
-                        var text = document.createTextNode(' (+' + path['minAPRatio'] + ' AP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + path['minAPRatio'] + ' AP Ratio)');
                       };
                       singleBreak();
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max';
-                      abilityDiv.appendChild(maxU);
+                      underLine('Max');
                       if (path['maxDmg']) {
-                        var text = document.createTextNode(': ' + removeSpace(path['maxDmg']));
-                        abilityDiv.appendChild(text);
+                        addText(removeSpace(path['maxDmg']));
                       };
                       if (path['maxBonusADRatio']) {
-                        var text = document.createTextNode(' (+' + path['maxBonusADRatio'] + ' Bonus AD Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + path['maxBonusADRatio'] + ' Bonus AD Ratio)');
                       };
                       if (path['maxAPRatio']) {
-                        var text = document.createTextNode(' (+' + path['maxAPRatio'] + ' AP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + path['maxAPRatio'] + ' AP Ratio)');
                       };
                     };
                     doubleBreak();
@@ -7040,49 +6982,33 @@ class App extends Component {
 
                   if (champFile[tfAbility]["tickDamage"]) {
                     var path = champFile[tfAbility]["tickDamage"];
-                    var bold = document.createElement('b');
-                    bold.innerText = path['type'] + ' Damage Over Time: ';
-                    abilityDiv.appendChild(bold);
-                    var dmgText = document.createTextNode(removeSpace(path['dmg']));
-                    abilityDiv.appendChild(dmgText);
+                    addBold(path['type'] + ' Damage Over Time: ');
+                    addText(removeSpace(path['dmg']));
                     if (path['APRatio']) {
-                      var text = document.createTextNode(' (+' + path['APRatio'] + ' AP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + path['APRatio'] + ' AP Ratio)');
                     }
                     if (path['interval']) {
-                      var text = document.createTextNode(' per ' + path['interval'] + ' sec, for ' + path['ticks'] + ' seconds.');
-                      abilityDiv.appendChild(text);
+                      addText(' per ' + path['interval'] + ' sec, for ' + path['ticks'] + ' seconds.');
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Total';
-                      abilityDiv.appendChild(underL);
-                      var text2 = document.createTextNode(': ' + mapSpace(multiplyTicks(path["dmg"])));
-                      abilityDiv.appendChild(text2);
+                      underLine('Total');
+                      addText(mapSpace(multiplyTicks(path["dmg"])));
                       if (path['APRatio']) {
-                        var text = document.createTextNode(' (+' + multiplyTicks2(path['APRatio']) + ' AP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + multiplyTicks2(path['APRatio']) + ' AP Ratio)');
                       }
                     };
-
                     doubleBreak();
                   };
     
                   if (champFile[tfAbility]['bonusAttackSpeed']) {
                     var path = champFile[tfAbility]['bonusAttackSpeed'];
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus Attack Speed: ';
-                    abilityDiv.appendChild(bold);
+                    addBold('Bonus Attack Speed: ');
                     if (path['attackSpeed']) {
-                      var text = document.createTextNode(removeSpace(path['attackSpeed']));
-                      abilityDiv.appendChild(text);
+                      addText(removeSpace(path['attackSpeed']));
                     };
                     if (path['duration']) {
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Duration';
-                      abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': ' + path['duration']);
-                      abilityDiv.appendChild(text);
+                      underLine('Duration');
+                      addText(path['duration']);
                     };
                     doubleBreak();
                   };
@@ -7090,97 +7016,64 @@ class App extends Component {
                   if (champFile[tfAbility]['resistRedux']) {
                     var path = champFile[tfAbility]['resistRedux'];
                     if (path['type'] === 'both') {
-                      var bold = document.createElement('b');
-                      bold.innerText = 'Armor and Magic Resist Reduction: ';
-                      abilityDiv.appendChild(bold);
+                      addBold('Armor and Magic Resist Reduction: ');
                     };
                     if (path["reduxRatioByLvl"]) {
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Ratio';
-                      abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': [' + path["reduxRatioByLvl"][0] + ' to ' 
-                      + path["reduxRatioByLvl"][17] + '], based on lvl. Currently: ' + path["reduxRatioByLvl"][champLevel]);
-                      abilityDiv.appendChild(text);
+                      underLine('Ratio');
+                      addText('[' + path["reduxRatioByLvl"][0] + ' to ' + path["reduxRatioByLvl"][17] 
+                      + '], based on lvl. Currently: ' + path["reduxRatioByLvl"][champLevel]);
                     };
                     if (path['duration']) {
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Duration';
-                      abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': ' + path['duration']);
-                      abilityDiv.appendChild(text);
+                      underLine('Duration');
+                      addText(path['duration']);
                     };
                     doubleBreak();
                   };
     
                   if (champFile[tfAbility]["passiveTransformBonus"]) {
                     var path = champFile[tfAbility]["passiveTransformBonus"];
-                    var bold = document.createElement('b');
-                    bold.innerText = `Passive's Auto Empower Increase Ratio: `;
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(removeSpace(path['bonus']));
-                    abilityDiv.appendChild(text);
+                    addBold(`Passive's Auto Empower Increase Ratio: `);
+                    addText(removeSpace(path['bonus']));
                     singleBreak();
-                    var underL = document.createElement('u');
-                    underL.innerText = 'Duration';
-                    abilityDiv.appendChild(underL);
-                    var dur = document.createTextNode(': ' + path['duration']);
-                    abilityDiv.appendChild(dur);
+                    underLine('Duration');
+                    addText(path['duration']);
                     doubleBreak();
                   };
 
                   if (champFile[tfAbility]['interruptCC']) {
-                    var underL = document.createElement('b');
-                    underL.innerText = 'Crowd Control Duration';
-                    abilityDiv.appendChild(underL);
-                    var text = document.createTextNode(': ' + removeSpace(champFile[tfAbility]['interruptCC']));
-                    abilityDiv.appendChild(text);
+                    addBold('Crowd Control Duration');
+                    addText(removeSpace(champFile[tfAbility]['interruptCC']));
                     doubleBreak();
                   };
 
                   if (champFile[tfAbility]['duration']) {
-                    var underL = document.createElement('b');
-                    underL.innerText = 'Duration';
-                    abilityDiv.appendChild(underL);
-                    var text = document.createTextNode(': ' + champFile[tfAbility]['duration']);
-                    abilityDiv.appendChild(text);
+                    addBold('Duration');
+                    addText(champFile[tfAbility]['duration']);
                   };
     
                   if (champFile[tfAbility]['coolDown']) {
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Cooldown: ';
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(removeSpace(champFile[tfAbility]['coolDown']));
-                    abilityDiv.appendChild(text);
+                    addBold('Cooldown: ');
+                    addText(removeSpace(champFile[tfAbility]['coolDown']));
                   };
 
                   if (champFile[tfAbility]["coolDownRefundRatio"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Cooldown Refund Ratio';
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': ' + removeSpace(champFile[tfAbility]["coolDownRefundRatio"]));
-                    abilityDiv.appendChild(text);
+                    underLine('Cooldown Refund Ratio');
+                    addText(removeSpace(champFile[tfAbility]["coolDownRefundRatio"]));
                   };
 
                   if (champFile[tfAbility]["reducedCoolDownByRRank"]) {
                     singleBreak();
-                    var cdU = document.createElement('u');
-                    cdU.innerText = 'Reduced Cooldown';
-                    abilityDiv.appendChild(cdU);
-                    var text = document.createTextNode(': ' + removeSpace(champFile[tfAbility]["reducedCoolDownByRRank"]));
-                    abilityDiv.appendChild(text);
-                  }
+                    underLine('Reduced Cooldown');
+                    addText(removeSpace(champFile[tfAbility]["reducedCoolDownByRRank"]));
+                  };
 
                   if (champFile[tfAbility]['rechargeByLvl']) {
                     var path = champFile[tfAbility]['rechargeByLvl']
                     singleBreak();
-                    var underL = document.createElement('u');
-                    underL.innerText = 'Recharge';
-                    abilityDiv.appendChild(underL);
-                    var text = document.createTextNode(': [' + path[0] + ' to ' + path[17] + ', based on level. Currently: '
-                    + path[champLevel] + ']');
-                    abilityDiv.appendChild(text);
+                    underLine('Recharge');
+                    addText('[' + path[0] + ' to ' + path[17] + ', based on level. Currently: ' + path[champLevel] + ']');
                   }
                 };
     
@@ -7188,21 +7081,14 @@ class App extends Component {
 
                   if (champFile[tfAbility]["remountHPRatioByLvl"]) {
                     var path = champFile[tfAbility]["remountHPRatioByLvl"];
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Remount HP: ';
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(Math.round(path[champLevel] * totalHP));
-                    abilityDiv.appendChild(text);
+                    addBold('Remount HP: ');
+                    addText(Math.round(path[champLevel] * totalHP));
                   };
     
                   if (champFile[tfAbility]['autoEmpower']) {
                     var path = champFile[tfAbility]['autoEmpower']['damage'];
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Auto Attack Empower: ';
-                    abilityDiv.appendChild(bold);
-                    var dmgType = document.createElement('u');
-                    dmgType.innerText = path['type'] + ' Damage';
-                    abilityDiv.appendChild(dmgType);
+                    addBold('Auto Attack Empower: ');
+                    underLine(path['type'] + ' Damage');
                     var empCounter = 0;
                     if (path['dmgByRRank']) {
                       empCounter += path["dmgByRRank"][RRank];
@@ -7211,12 +7097,10 @@ class App extends Component {
                       empCounter += arrayCheck(path['APRatio']) * totalAP;
                     };
                     if (empCounter !== 0) {
-                      var dmgText = document.createTextNode(': ' + Math.round(empCounter));
-                      abilityDiv.appendChild(dmgText);
+                      addText(Math.round(empCounter));
                     }
                     if (path['system'] === 'minMax') {
-                      var minU = document.createTextNode(': Min: ');
-                      abilityDiv.appendChild(minU);
+                      addText('Min: ');
                       var minCount = 0;
                       var maxCount = 0;
                       if (path['minDmgByRRank']) {
@@ -7228,11 +7112,9 @@ class App extends Component {
                       if (path['minAPRatio']) {
                         minCount += arrayCheck(path['minAPRatio']) * totalAP;
                       };
-                      var minText = document.createTextNode(Math.round(minCount));
-                      abilityDiv.appendChild(minText);
+                      addText(Math.round(minCount));
                       singleBreak();
-                      var maxU = document.createTextNode('Max: ');
-                      abilityDiv.appendChild(maxU);
+                      addText('Max: ');
                       if (path['maxDmgByRRank']) {
                         maxCount += path['maxDmgByRRank'][RRank];
                       };
@@ -7242,24 +7124,17 @@ class App extends Component {
                       if (path['maxAPRatioByRRank']) {
                         maxCount += path['maxAPRatioByRRank'][RRank] * totalAP;
                       };
-                      var maxText = document.createTextNode(Math.round(maxCount));
-                      abilityDiv.appendChild(maxText);
+                      addText(Math.round(maxCount));
                     };
                     if (path['dmgRatioPerMissingHPByRRank']) {
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Bonus Damage Ratio';
-                      abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': (' + path['dmgRatioPerMissingHPByRRank'][RRank]
-                      + ' per Enemy Missing HP Ratio)');
-                      abilityDiv.appendChild(text);
+                      underLine('Bonus Damage Ratio');
+                      addText('(' + path['dmgRatioPerMissingHPByRRank'][RRank] + ' per Enemy Missing HP Ratio)');
                     };
                     if (champFile[tfAbility]['autoEmpower']['heal']) {
                       var path = champFile[tfAbility]['autoEmpower']['heal'];
                       doubleBreak();
-                      var healU = document.createElement('u');
-                      healU.innerText = 'Heal';
-                      abilityDiv.appendChild(healU);
+                      underLine('Heal');
                       var healCount = 0;
                       if (path['healByRRank']) {
                         healCount += path["healByRRank"][RRank];
@@ -7267,17 +7142,14 @@ class App extends Component {
                       if (path['APRatio']) {
                         healCount += arrayCheck(path['APRatio']) * totalAP;
                       };
-                      var text = document.createTextNode(': ' + Math.round(healCount));
-                      abilityDiv.appendChild(text);
+                      addText(Math.round(healCount));
                     }
                     doubleBreak();
                   };
     
                   if (champFile[tfAbility]['damage']) {
                     var path = champFile[tfAbility]['damage'];
-                    var bold = document.createElement('b');
-                    bold.innerText = path['type'] + ' Damage: ';
-                    abilityDiv.appendChild(bold);
+                    addBold(path['type'] + ' Damage: ');
                     var dmgCount = 0;
                     if (path['dmg']) {
                       dmgCount += arrayCheck(path['dmg']);
@@ -7301,12 +7173,10 @@ class App extends Component {
                       dmgCount += arrayCheck(path['enemyMaxHPRatio']) * enemyTotalHP;
                     };
                     if (dmgCount !== 0) {
-                      var text = document.createTextNode(Math.round(dmgCount));
-                      abilityDiv.appendChild(text);
+                      addText(Math.round(dmgCount));
                     };
                     if (path['enemyMaxHPRatio'] && !enemyStats.hp) {
-                      var text = document.createTextNode(' (+' + arrayCheck(path['enemyMaxHPRatio']) + ' Enemy Max HP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + arrayCheck(path['enemyMaxHPRatio']) + ' Enemy Max HP Ratio)');
                     };
                     var missCount = 0;
                     if (path['enemyMissingHPRatio']) {
@@ -7316,14 +7186,11 @@ class App extends Component {
                       missCount += arrayCheck(path['enemyMissingHPRatioPer100AP']);
                     };
                     if (missCount !== 0) {
-                      var text = document.createTextNode(' (+' + lengthCheck(missCount) + ' Enemy Missing HP Ratio)');
-                      abilityDiv.appendChild(text);
+                      addText(' (+' + lengthCheck(missCount) + ' Enemy Missing HP Ratio)');
                     };
 
                     if (path['system'] === 'minMax') {
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min';
-                      abilityDiv.appendChild(minU);
+                      underLine('Min');
                       var minCount = 0;
                       var maxCount = 0;
                       if (path['minDmg']) {
@@ -7335,12 +7202,9 @@ class App extends Component {
                       if (path['minAPRatio']) {
                         minCount += path['minAPRatio'] * totalAP;
                       };
-                      var minText = document.createTextNode(': ' + Math.round(minCount));
-                      abilityDiv.appendChild(minText);
+                      addText(Math.round(minCount));
                       singleBreak();
-                      var maxU = document.createElement('u');
-                      maxU.innerText = 'Max';
-                      abilityDiv.appendChild(maxU);
+                      underLine('Max');
                       if (path['maxDmg']) {
                         maxCount += arrayCheck(path['maxDmg']);
                       };
@@ -7350,17 +7214,14 @@ class App extends Component {
                       if (path['maxAPRatio']) {
                         maxCount += arrayCheck(path['maxAPRatio']) * totalAP;
                       };
-                      var maxText = document.createTextNode(': ' + Math.round(maxCount));
-                      abilityDiv.appendChild(maxText);
+                      addText(Math.round(maxCount));
                     };
                     doubleBreak();
                   };
 
                   if (champFile[tfAbility]["tickDamage"]) {
                     var path = champFile[tfAbility]["tickDamage"];
-                    var bold = document.createElement('b');
-                    bold.innerText = path['type'] + ' Damage Over Time: ';
-                    abilityDiv.appendChild(bold);
+                    addBold(path['type'] + ' Damage Over Time: ');
                     var dmgCount = 0;
                     if (path['dmg']) {
                       dmgCount += arrayCheck(path['dmg']);
@@ -7369,40 +7230,27 @@ class App extends Component {
                       dmgCount += arrayCheck(path['APRatio']) * totalAP;
                     };
                     if (dmgCount !== 0) {
-                      var text = document.createTextNode(Math.round(dmgCount));
-                      abilityDiv.appendChild(text);
+                      addText(Math.round(dmgCount));
                     };
                     if (path['interval']) {
-                      var text = document.createTextNode(' per ' + path['interval'] + ' sec, for ' 
-                      + path['ticks'] + ' seconds.');
-                      abilityDiv.appendChild(text);
+                      addText(' per ' + path['interval'] + ' sec, for ' + path['ticks'] + ' seconds.');
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Total';
-                      abilityDiv.appendChild(underL);
-                      var text2 = document.createTextNode(': ' + mapSpace(multiplyTicks(dmgCount)));
-                      abilityDiv.appendChild(text2);
+                      underLine('Total');
+                      addText(mapSpace(multiplyTicks(dmgCount)));
                     };
-
                     doubleBreak();
                   };
     
                   if (champFile[tfAbility]['bonusAttackSpeed']) {
                     var path = champFile[tfAbility]['bonusAttackSpeed'];
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Bonus Attack Speed: ';
-                    abilityDiv.appendChild(bold);
+                    addBold('Bonus Attack Speed: ');
                     if (path['attackSpeed']) {
-                      var text = document.createTextNode(arrayCheck(path['attackSpeed']));
-                      abilityDiv.appendChild(text);
+                      addText(arrayCheck(path['attackSpeed']));
                     };
                     if (path['duration']) {
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Duration';
-                      abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': ' + arrayCheck(path['duration']));
-                      abilityDiv.appendChild(text);
+                      underLine('Duration');
+                      addText(arrayCheck(path['duration']));
                     };
                     doubleBreak();
                   };
@@ -7410,109 +7258,71 @@ class App extends Component {
                   if (champFile[tfAbility]['resistRedux']) {
                     var path = champFile[tfAbility]['resistRedux'];
                     if (path['type'] === 'both') {
-                      var bold = document.createElement('b');
-                      bold.innerText = 'Armor and Magic Resist Reduction: ';
-                      abilityDiv.appendChild(bold);
+                      addBold('Armor and Magic Resist Reduction: ');
                     };
                     if (path["reduxRatioByLvl"]) {
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Ratio';
-                      abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': ' + path["reduxRatioByLvl"][champLevel]);
-                      abilityDiv.appendChild(text);
+                      underLine('Ratio');
+                      addText(path["reduxRatioByLvl"][champLevel]);
                       if (enemyStats.hp) {
                         singleBreak();
-                        var curU = document.createElement('u');
-                        curU.innerText = 'Armor Reduced';
-                        abilityDiv.appendChild(curU);
-                        var text = document.createTextNode(': ' + path["reduxRatioByLvl"][champLevel] * enemyTotalArmor);
-                        abilityDiv.appendChild(text);
+                        underLine('Armor Reduced');
+                        addText(path["reduxRatioByLvl"][champLevel] * enemyTotalArmor);
                         singleBreak();
-                        var cur2 = document.createElement('u');
-                        cur2.innerText = 'Magic Resist Reduced';
-                        abilityDiv.appendChild(cur2);
-                        var text2 = document.createTextNode(': ' + path["reduxRatioByLvl"][champLevel] * enemyTotalMR);
-                        abilityDiv.appendChild(text2);
+                        underLine('Magic Resist Reduced');
+                        addText(path["reduxRatioByLvl"][champLevel] * enemyTotalMR);
                       }
                     };
                     if (path['duration']) {
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Duration';
-                      abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': ' + arrayCheck(path['duration']));
-                      abilityDiv.appendChild(text);
+                      underLine('Duration');
+                      addText(arrayCheck(path['duration']));
                     };
                     doubleBreak();
                   };
     
                   if (champFile[tfAbility]["passiveTransformBonus"]) {
                     var path = champFile[tfAbility]["passiveTransformBonus"];
-                    var bold = document.createElement('b');
-                    bold.innerText = `Passive's Auto Empower Increase Ratio: `;
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(arrayCheck(path['bonus']));
-                    abilityDiv.appendChild(text);
+                    addBold(`Passive's Auto Empower Increase Ratio: `);
+                    addText(arrayCheck(path['bonus']));
                     singleBreak();
-                    var underL = document.createElement('u');
-                    underL.innerText = 'Duration';
-                    abilityDiv.appendChild(underL);
-                    var dur = document.createTextNode(': ' + path['duration']);
-                    abilityDiv.appendChild(dur);
+                    underLine('Duration');
+                    addText(path['duration']);
                     doubleBreak();
                   };
 
                   if (champFile[tfAbility]['interruptCC']) {
-                    var underL = document.createElement('b');
-                    underL.innerText = 'Crowd Control Duration';
-                    abilityDiv.appendChild(underL);
-                    var text = document.createTextNode(': ' + arrayCheck(champFile[tfAbility]['interruptCC']));
-                    abilityDiv.appendChild(text);
+                    addBold('Crowd Control Duration: ');
+                    addText(arrayCheck(champFile[tfAbility]['interruptCC']));
                     doubleBreak();
                   };
 
                   if (champFile[tfAbility]['duration']) {
-                    var underL = document.createElement('b');
-                    underL.innerText = 'Duration';
-                    abilityDiv.appendChild(underL);
-                    var text = document.createTextNode(': ' + arrayCheck(champFile[tfAbility]['duration']));
-                    abilityDiv.appendChild(text);
+                    addBold('Duration: ');
+                    addText(arrayCheck(champFile[tfAbility]['duration']));
                   };
     
                   if (champFile[tfAbility]['coolDown']) {
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Cooldown: ';
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(arrayCheck(champFile[tfAbility]['coolDown']));
-                    abilityDiv.appendChild(text);
+                    addBold('Cooldown: ');
+                    addText(arrayCheck(champFile[tfAbility]['coolDown']));
                   };
 
                   if (champFile[tfAbility]["coolDownRefundRatio"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Cooldown Refund Ratio';
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': ' + arrayCheck(champFile[tfAbility]["coolDownRefundRatio"]));
-                    abilityDiv.appendChild(text);
+                    underLine('Cooldown Refund Ratio');
+                    addText(arrayCheck(champFile[tfAbility]["coolDownRefundRatio"]));
                   };
 
                   if (champFile[tfAbility]["reducedCoolDownByRRank"]) {
                     singleBreak();
-                    var cdU = document.createElement('u');
-                    cdU.innerText = 'Reduced Cooldown';
-                    abilityDiv.appendChild(cdU);
-                    var text = document.createTextNode(': ' + arrayCheck(champFile[tfAbility]["reducedCoolDownByRRank"]));
-                    abilityDiv.appendChild(text);
+                    underLine('Reduced Cooldown');
+                    addText(arrayCheck(champFile[tfAbility]["reducedCoolDownByRRank"]));
                   }
 
                   if (champFile[tfAbility]['rechargeByLvl']) {
                     var path = champFile[tfAbility]['rechargeByLvl']
                     singleBreak();
-                    var underL = document.createElement('u');
-                    underL.innerText = 'Recharge';
-                    abilityDiv.appendChild(underL);
-                    var text = document.createTextNode(': ' + path[champLevel]);
-                    abilityDiv.appendChild(text);
+                    underLine('Recharge');
+                    addText(path[champLevel]);
                   }
                   
                 }
