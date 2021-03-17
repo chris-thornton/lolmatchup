@@ -3232,41 +3232,29 @@ class App extends Component {
                         singleBreak();
                         var damage = ePath['Q']["damage"]
                         if (damage["type"]) {
-                          var bold = document.createElement('b')
-                          bold.innerText = damage["type"] + " Damage: "
-                          abilityDiv.appendChild(bold);
+                          addBold(damage["type"] + " Damage: ")
                         };
                         if (damage["dmg"]) {
-                          var text = document.createTextNode(removeSpace(damage["dmg"]));
-                          abilityDiv.appendChild(text);
+                          addText(removeSpace(damage["dmg"]));
                         };
                         if (damage["APRatio"]) {
-                          var text = document.createTextNode(' (+' + removeParen(damage["APRatio"]) + ' AP Ratio)');
-                          abilityDiv.appendChild(text);
+                          addText(' (+' + removeParen(damage["APRatio"]) + ' AP Ratio)');
                         }
                         if (damage["system"] === 'minMax') {
-                          var minU = document.createElement('u');
-                          minU.innerText = 'Min';
-                          abilityDiv.appendChild(minU);
+                          underLine('Min');
                           if (damage["minDmg"]) {
-                            var text = document.createTextNode(': ' + removeSpace(damage["minDmg"]));
-                            abilityDiv.appendChild(text);
+                            addText(removeSpace(damage["minDmg"]));
                           }
                           if (damage["minAPRatio"]) {
-                            var text = document.createTextNode(' (+' + removeParen(damage["minAPRatio"]) + ' AP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(damage["minAPRatio"]) + ' AP Ratio)');
                           }
                           singleBreak();
-                          var maxU = document.createElement('u');
-                          maxU.innerText = 'Max';
-                          abilityDiv.appendChild(maxU);
+                          underLine('Max');
                           if (damage["maxDmg"]) {
-                            var text = document.createTextNode(': ' + removeSpace(damage["maxDmg"]));
-                            abilityDiv.appendChild(text);
+                            addText(removeSpace(damage["maxDmg"]));
                           }
                           if (damage["maxAPRatio"]) {
-                            var text = document.createTextNode(' (+' + removeParen(damage["maxAPRatio"]) + ' AP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(damage["maxAPRatio"]) + ' AP Ratio)');
                           }
                         };
                       }
@@ -3274,33 +3262,23 @@ class App extends Component {
                         singleBreak();
                         var damage = ePath['Q']["bonusDamage"]
                         if (damage["type"]) {
-                          var bold = document.createElement('b')
-                          bold.innerText = 'Bonus ' + damage["type"] + " Damage: "
-                          abilityDiv.appendChild(bold);
+                          addBold('Bonus ' + damage["type"] + " Damage: ")
                         };
                         if (damage["system"] === 'minMax') {
-                          var minU = document.createElement('u');
-                          minU.innerText = 'Min';
-                          abilityDiv.appendChild(minU);
+                          underLine('Min');
                           if (damage["minDmg"]) {
-                            var text = document.createTextNode(': ' + removeSpace(damage["minDmg"]));
-                            abilityDiv.appendChild(text);
+                            addText(removeSpace(damage["minDmg"]));
                           };
                           if (damage["minAPRatio"]) {
-                            var text = document.createTextNode(' (+' + removeParen(damage["minAPRatio"]) + ' AP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(damage["minAPRatio"]) + ' AP Ratio)');
                           }
                           singleBreak();
-                          var maxU = document.createElement('u');
-                          maxU.innerText = 'Max';
-                          abilityDiv.appendChild(maxU);
+                          underLine('Max');
                           if (damage["maxDmg"]) {
-                            var text = document.createTextNode(': ' + removeSpace(damage["maxDmg"]));
-                            abilityDiv.appendChild(text);
+                            addText(removeSpace(damage["maxDmg"]));
                           };
                           if (damage["maxAPRatio"]) {
-                            var text = document.createTextNode(' (+' + removeParen(damage["maxAPRatio"]) + ' AP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(damage["maxAPRatio"]) + ' AP Ratio)');
                           }
                         }
                       }
@@ -3316,77 +3294,51 @@ class App extends Component {
                         singleBreak();
                         var damage = ePath['W']["damage"]
                         if (damage["type"]) {
-                          var bold = document.createElement('b')
-                          bold.innerText = damage["type"] + " Damage: "
-                          abilityDiv.appendChild(bold);
+                          addBold(damage["type"] + " Damage: ")
                         };
                         if (damage["dmg"]) {
-                          var text = document.createTextNode(removeSpace(damage["dmg"]));
-                          abilityDiv.appendChild(text);
+                          addText(removeSpace(damage["dmg"]));
                         };
                         if (damage["APRatio"]) {
-                          var text = document.createTextNode(' (+' + removeParen(damage["APRatio"]) + ' AP Ratio)');
-                          abilityDiv.appendChild(text);
+                          addText(' (+' + removeParen(damage["APRatio"]) + ' AP Ratio)');
                         }
                         if (damage["system"] === 'minMax') {
-                          var minU = document.createElement('u');
-                          minU.innerText = 'Min';
-                          abilityDiv.appendChild(minU);
+                          underLine('Min');
                           if (damage["minDmg"]) {
-                            var text = document.createTextNode(': ' + removeSpace(damage["minDmg"]));
-                            abilityDiv.appendChild(text);
+                            addText(removeSpace(damage["minDmg"]));
                           }
                           if (damage["minAPRatio"]) {
-                            var text = document.createTextNode(' (+' + removeParen(damage["minAPRatio"]) + ' AP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(damage["minAPRatio"]) + ' AP Ratio)');
                           }
                           singleBreak();
-                          var maxU = document.createElement('u');
-                          maxU.innerText = 'Max';
-                          abilityDiv.appendChild(maxU);
+                          underLine('Max');
                           if (damage["maxDmg"]) {
-                            var text = document.createTextNode(': ' + removeSpace(damage["maxDmg"]));
-                            abilityDiv.appendChild(text);
+                            addText(removeSpace(damage["maxDmg"]));
                           }
                           if (damage["maxAPRatio"]) {
-                            var text = document.createTextNode(' (+' + removeParen(damage["maxAPRatio"]) + ' AP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(damage["maxAPRatio"]) + ' AP Ratio)');
                           }
                         }
                       };
                       if (ePath['W']['heal']) {
                         singleBreak();
                         var path = ePath['W']['heal']
-                        var bold = document.createElement('b');
-                        bold.innerText = 'Heal: '
-                        abilityDiv.appendChild(bold)
+                        addBold('Heal: ')
                         if (path['system'] === 'minMax') {
-                          var minU = document.createElement('u');
-                          minU.innerText = 'Min';
-                          abilityDiv.appendChild(minU);
+                          underLine('Min');
                           if (path["minMissingHPRatio"]) {
-                            var text = document.createTextNode(': (' + removeParen(path["minMissingHPRatio"])
-                            + ' Missing HP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText('(' + removeParen(path["minMissingHPRatio"]) + ' Missing HP Ratio)');
                           }
                           if (path["minMissingHPRatioPer100AP"]) {
-                            var text = document.createTextNode(' (+' + removeParen(path["minMissingHPRatioPer100AP"])
-                            + ' Missing HP Ratio per 100 AP)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(path["minMissingHPRatioPer100AP"]) + ' Missing HP Ratio per 100 AP)');
                           }
                           singleBreak();
-                          var maxU = document.createElement('u');
-                          maxU.innerText = 'Max';
-                          abilityDiv.appendChild(maxU);
+                          underLine('Max');
                           if (path["maxMissingHPRatio"]) {
-                            var text = document.createTextNode(': (' + removeParen(path["maxMissingHPRatio"])
-                            + ' Missing HP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText('(' + removeParen(path["maxMissingHPRatio"]) + ' Missing HP Ratio)');
                           }
                           if (path["maxMissingHPRatioPer100AP"]) {
-                            var text = document.createTextNode(' (+' + removeParen(path["maxMissingHPRatioPer100AP"])
-                            + ' Missing HP Ratio per 100 AP)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(path["maxMissingHPRatioPer100AP"]) + ' Missing HP Ratio per 100 AP)');
                           }
                         }
                       }
@@ -3402,65 +3354,46 @@ class App extends Component {
                         singleBreak();
                         var damage = ePath['E']["damage"]
                         if (damage["type"]) {
-                          var bold = document.createElement('b')
-                          bold.innerText = damage["type"] + " Damage: "
-                          abilityDiv.appendChild(bold);
+                          addBold(damage["type"] + " Damage: ")
                         };
                         if (damage["dmg"]) {
-                          var text = document.createTextNode(removeSpace(damage["dmg"]));
-                          abilityDiv.appendChild(text);
+                          addText(removeSpace(damage["dmg"]));
                         };
                         if (damage["APRatio"]) {
-                          var text = document.createTextNode(' (+' + removeParen(damage["APRatio"]) + ' AP Ratio)');
-                          abilityDiv.appendChild(text);
+                          addText(' (+' + removeParen(damage["APRatio"]) + ' AP Ratio)');
                         }
                         if (damage["system"] === '2Part') {
-                          var p1U = document.createElement('u');
-                          p1U.innerText = 'Part 1';
-                          abilityDiv.appendChild(p1U);
+                          underLine('Part 1');
                           if (damage["part1"]["dmg"]) {
-                            var text = document.createTextNode(': ' + removeSpace(damage["part1"]["dmg"]));
-                            abilityDiv.appendChild(text);
+                            addText(removeSpace(damage["part1"]["dmg"]));
                           };
                           if (damage["part1"]["APRatio"]) {
-                            var text = document.createTextNode(' (+' + removeParen(damage["part1"]["APRatio"]) + ' AP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(damage["part1"]["APRatio"]) + ' AP Ratio)');
                           }
                           singleBreak();
-                          var p2U = document.createElement('u');
-                          p2U.innerText = 'Part 2';
-                          abilityDiv.appendChild(p2U);
+                          underLine('Part 2');
                           if (damage["part2"]["dmg"]) {
-                            var text = document.createTextNode(': ' + removeSpace(damage["part2"]["dmg"]));
-                            abilityDiv.appendChild(text);
+                            addText(removeSpace(damage["part2"]["dmg"]));
                           };
                           if (damage["part2"]["APRatio"]) {
-                            var text = document.createTextNode(' (+' + removeParen(damage["part2"]["APRatio"]) + ' AP Ratio)');
-                            abilityDiv.appendChild(text);
+                            addText(' (+' + removeParen(damage["part2"]["APRatio"]) + ' AP Ratio)');
                           }
                         }
                       }
                       if (ePath['E']['bonusShield']) {
                         singleBreak();
                         var shield = ePath['E']["bonusShield"]
-                        var shieldB = document.createElement('b');
-                        shieldB.innerText = 'Bonus Shield: ';
-                        abilityDiv.appendChild(shieldB);
+                        addBold('Bonus Shield: ');
                         if (shield["shield"]) {
-                          var text = document.createTextNode(removeSpace(shield["shield"]));
-                          abilityDiv.appendChild(text);
+                          addText(removeSpace(shield["shield"]));
                         }
                         if (shield["APRatio"]) {
-                          var text = document.createTextNode(' (+' + removeParen(shield["APRatio"]) + ' AP Ratio)');
-                          abilityDiv.appendChild(text);
+                          addText(' (+' + removeParen(shield["APRatio"]) + ' AP Ratio)');
                         }
                         if (shield["nonTargetRatio"]) {
                           singleBreak();
-                          var shieldU = document.createElement('u');
-                          shieldU.innerText = 'Non-Target Shield Ratio: ';
-                          abilityDiv.appendChild(shieldU);
-                          var text = document.createTextNode(shield["nonTargetRatio"]);
-                          abilityDiv.appendChild(text);
+                          underLine('Non-Target Shield Ratio: ');
+                          addText(shield["nonTargetRatio"]);
                         }
                       }
                       doubleBreak();
@@ -3469,11 +3402,9 @@ class App extends Component {
 
                   if (champFile[ability]['statSteal']) {
                     var path = champFile[ability]['statSteal'];
-                    var bold = document.createElement('b');
-                    bold.innerText = 'Stat Steal: ';
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode('');
-                    /*if (path['ratio']) {
+                    addBold('Stat Steal: ');
+                    /*var text = document.createTextNode('');
+                    if (path['ratio']) {
                       text.nodeValue = path['ratio'] + ' of Enemy ' + path['statType'] + ' for ' 
                       + path['duration'] + ' seconds.'
                     };
@@ -3491,274 +3422,172 @@ class App extends Component {
                       + ', based on lvl. Currently: ' + path['minByLvl'][champLevel] + ']');
                       abilityDiv.appendChild(text);
                     }*/
-                    var typeText = document.createTextNode(path['statType']);
-                    abilityDiv.appendChild(typeText);
+                    addText(path['statType']);
                     if (path['ratio']) {
                       singleBreak();
-                      var underL = document.createElement('u');
-                      underL.innerText = 'Ratio';
-                      abilityDiv.appendChild(underL);
-                      var text = document.createTextNode(': ' + path['ratio']);
-                      abilityDiv.appendChild(text);
+                      underLine('Ratio');
+                      addText(path['ratio']);
                     };
                     if (path['gained']) {
                       singleBreak();
-                      var gainU = document.createElement('u');
-                      gainU.innerText = 'Gain';
-                      abilityDiv.appendChild(gainU);
-                      var text = document.createTextNode(': ' + removeSpace(path['gained']));
-                      abilityDiv.appendChild(text);
+                      underLine('Gain');
+                      addText(removeSpace(path['gained']));
                       singleBreak();
-                      var takeU = document.createElement('u');
-                      takeU.innerText = 'Remove';
-                      abilityDiv.appendChild(takeU);
-                      var text2 = document.createTextNode(': ' + removeSpace(path['removed']));
-                      abilityDiv.appendChild(text2);
+                      underLine('Remove');
+                      addText(removeSpace(path['removed']));
                     };
                     if (path['minByLvl']) {
                       singleBreak();
-                      var minU = document.createElement('u');
-                      minU.innerText = 'Min';
-                      abilityDiv.appendChild(minU);
-                      var text = document.createTextNode(': [' + path['minByLvl'][0] + ' to ' + path['minByLvl'][17]
+                      underLine('Min');
+                      addText('[' + path['minByLvl'][0] + ' to ' + path['minByLvl'][17]
                       + ', based on lvl. Currently: ' + path['minByLvl'][champLevel] + ']');
-                      abilityDiv.appendChild(text);
                     };
                     if (path['duration']) {
                       singleBreak();
-                      var durU = document.createElement('u');
-                      durU.innerText = 'Duration';
-                      abilityDiv.appendChild(durU);
-                      var text = document.createTextNode(': ' + removeSpace(path['duration']));
-                      abilityDiv.appendChild(text);
+                      underLine('Duration');
+                      addText(removeSpace(path['duration']));
                     };
                     doubleBreak();
                   }
     
                   if (champFile[ability]["duration"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Duration: "
-                    abilityDiv.appendChild(bold)
-                    var text = document.createTextNode(removeSpace(champFile[ability]["duration"]))
-                    abilityDiv.appendChild(text)
+                    addBold("Duration: ")
+                    addText(removeSpace(champFile[ability]["duration"]))
                     doubleBreak();
                   };
     
                   if (champFile[ability]["minDuration"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Duration: "
-                    abilityDiv.appendChild(bold)
-                    var text = document.createTextNode('Min: ' + removeSpace(champFile[ability]["minDuration"]) 
+                    addBold("Duration: ")
+                    addText('Min: ' + removeSpace(champFile[ability]["minDuration"]) 
                     + ', Max: ' + removeSpace(champFile[ability]["maxDuration"]));
-                    abilityDiv.appendChild(text);
                     doubleBreak();
                   };
     
                   if (champFile[ability]["maxDuration"] && !champFile[ability]["minDuration"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Max Duration: "
+                    addBold("Max Duration: ")
                     abilityDiv.appendChild(bold)
-                    var text = document.createTextNode(removeSpace(champFile[ability]["maxDuration"]))
-                    abilityDiv.appendChild(text)
+                    addText(removeSpace(champFile[ability]["maxDuration"]))
                     doubleBreak();
                   };
     
                   if (champFile[ability]["coolDown"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Cooldown: ";
-                    abilityDiv.appendChild(bold)
-                    var text = document.createTextNode(removeSpace(champFile[ability]["coolDown"]));
-                    abilityDiv.appendChild(text)
+                    addBold("Cooldown: ");
+                    addText(removeSpace(champFile[ability]["coolDown"]));
                   };
                   if (champFile[ability]["minCoolDown"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Cooldown: ";
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode('Max: ' + champFile[ability]["maxCoolDown"]
-                    + ', Min: ' + champFile[ability]["minCoolDown"]);
-                    abilityDiv.appendChild(text);
+                    addBold("Cooldown: ");
+                    addText('Max: ' + champFile[ability]["maxCoolDown"] + ', Min: ' + champFile[ability]["minCoolDown"]);
                   };
                   if (champFile[ability]["maxCoolDown"] && !champFile[ability]["minCoolDown"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Max Cooldown: ";
-                    abilityDiv.appendChild(bold);
-                    var text = document.createTextNode(champFile[ability]["maxCoolDown"]);
-                    abilityDiv.appendChild(text);
+                    addBold("Max Cooldown: ");
+                    addText(champFile[ability]["maxCoolDown"]);
                   };
                   if (champFile[ability]["coolDownByLvl"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Cooldown: ";
-                    abilityDiv.appendChild(bold)
-                    var text = document.createTextNode('[' + champFile[ability]["coolDownByLvl"][0] + " to " 
+                    addBold("Cooldown: ");
+                    addText('[' + champFile[ability]["coolDownByLvl"][0] + " to " 
                     + champFile[ability]["coolDownByLvl"][17] + "], based on lvl. ");
-                    var curU = document.createElement('u');
-                    curU.innerText = "Currently";
-                    var text2 = document.createTextNode(': ' + champFile[ability]["coolDownByLvl"][champLevel])
-                    abilityDiv.appendChild(text);
-                    abilityDiv.appendChild(curU)
-                    abilityDiv.appendChild(text2)
+                    underLine("Currently");
+                    addText(champFile[ability]["coolDownByLvl"][champLevel])
                   };
                   if (champFile[ability]["combatCoolDown"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Combat Cooldown: ";
-                    abilityDiv.appendChild(bold)
-                    var text = document.createTextNode(removeSpace(champFile[ability]["combatCoolDown"]))
-                    abilityDiv.appendChild(text);
+                    addBold("Combat Cooldown: ");
+                    addText(removeSpace(champFile[ability]["combatCoolDown"]))
                   };
                   if (champFile[ability]["staticCoolDown"]) {
                     if (champFile[ability]["coolDown"]) {
                       singleBreak();
                     }
-                    var bold = document.createElement('b');
-                    bold.innerText = "Static Cooldown: ";
-                    abilityDiv.appendChild(bold)
-                    var text = document.createTextNode(removeSpace(champFile[ability]["staticCoolDown"]))
-                    abilityDiv.appendChild(text);
+                    addBold("Static Cooldown: ");
+                    addText(removeSpace(champFile[ability]["staticCoolDown"]))
                   }
                   if (champFile[ability]["staticCoolDownByLvl"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Static Cooldown: ";
-                    abilityDiv.appendChild(bold)
-                    var text = document.createTextNode('[' + champFile[ability]["staticCoolDownByLvl"][0] + " to " 
+                    addBold("Static Cooldown: ");
+                    addText('[' + champFile[ability]["staticCoolDownByLvl"][0] + " to " 
                     + champFile[ability]["staticCoolDownByLvl"][17] + "], based on lvl. ");
-                    var curU = document.createElement('u');
-                    curU.innerText = "Currently";
-                    var text2 = document.createTextNode(': ' + champFile[ability]["staticCoolDownByLvl"][champLevel])
-                    abilityDiv.appendChild(text);
-                    abilityDiv.appendChild(curU)
-                    abilityDiv.appendChild(text2)
+                    underLine("Currently");
+                    addText(champFile[ability]["staticCoolDownByLvl"][champLevel])
                   }
                   if (champFile[ability]["autoCoolDown"]) {
-                    var bold = document.createElement('b');
-                    bold.innerText = "Cooldown Number of Auto Attacks: ";
-                    abilityDiv.appendChild(bold)
-                    var text = document.createTextNode(champFile[ability]["autoCoolDown"]);
-                    abilityDiv.appendChild(text)
+                    addBold("Cooldown Number of Auto Attacks: ");
+                    addText(champFile[ability]["autoCoolDown"]);
                   };
                   if (champFile[ability]["coolDownRefund"]) {
                     if (champFile[ability]["coolDownByLvl"] || champFile[ability]["coolDown"] 
                     || champFile[ability]["staticCoolDownByLvl"] || champFile[ability]["staticCoolDown"]) {
                       singleBreak();
                     }
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Cooldown Refund'
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': ' + champFile[ability]["coolDownRefund"]);
-                    abilityDiv.appendChild(text);
+                    underLine('Cooldown Refund')
+                    addText(champFile[ability]["coolDownRefund"]);
                   };
                   if (champFile[ability]["allCDRefund"]) {
                     if (champFile[ability]["coolDown"]) {
                       singleBreak();
                     };
-                    var refU = document.createElement('u');
-                    refU.innerText = 'All Abilities Cooldown Refund'
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': ' + champFile[ability]["allCDRefund"]);
-                    abilityDiv.appendChild(text);
+                    underLine('All Abilities Cooldown Refund')
+                    addText(champFile[ability]["allCDRefund"]);
                   };
                   if (champFile[ability]["basicCDMaxRefundRatioPerStack"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Basic Abilities Max Cooldown Refund Ratio';
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': ' + champFile[ability]["basicCDMaxRefundRatioPerStack"]+ ' per Stack');
-                    abilityDiv.appendChild(text);
+                    underLine('Basic Abilities Max Cooldown Refund Ratio');
+                    addText(champFile[ability]["basicCDMaxRefundRatioPerStack"]+ ' per Stack');
                   };
                   if (champFile[ability]["coolDownRefundByLvl"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Cooldown Refund'
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': [' + champFile[ability]["coolDownRefundByLvl"][0]
-                    + " to " + champFile[ability]["coolDownRefundByLvl"][17] + "], based on lvl. ");
-                   var curU = document.createElement('u');
-                   curU.innerText = "Currently";
-                   var text2 = document.createTextNode(': ' + champFile[ability]["coolDownRefundByLvl"][champLevel])
-                   abilityDiv.appendChild(text);
-                   abilityDiv.appendChild(curU)
-                   abilityDiv.appendChild(text2)
+                    underLine('Cooldown Refund')
+                    addText('[' + champFile[ability]["coolDownRefundByLvl"][0] + " to " 
+                    + champFile[ability]["coolDownRefundByLvl"][17] + "], based on lvl. ");
+                   underLine("Currently");
+                   addText(champFile[ability]["coolDownRefundByLvl"][champLevel])
                   };
                   if (champFile[ability]["minCoolDownRefund"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Cooldown Refund'
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': Min: ' + champFile[ability]["minCoolDownRefund"]
-                    + ', Max: ' + champFile[ability]["maxCoolDownRefund"]);
-                    abilityDiv.appendChild(text);
+                    underLine('Cooldown Refund')
+                    addText('Min: ' + champFile[ability]["minCoolDownRefund"]+ ', Max: ' + champFile[ability]["maxCoolDownRefund"]);
                   };
                   if (champFile[ability]["minCoolDownRefundByLvl"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Min Cooldown Refund'
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(' - [' + champFile[ability]["minCoolDownRefundByLvl"][0]
-                     + " to " + champFile[ability]["minCoolDownRefundByLvl"][17] + "], based on lvl. ");
-                    var curU = document.createElement('u');
-                    curU.innerText = "Currently";
-                    var text2 = document.createTextNode(': ' + champFile[ability]["minCoolDownRefundByLvl"][champLevel])
-                    abilityDiv.appendChild(text);
-                    abilityDiv.appendChild(curU)
-                    abilityDiv.appendChild(text2)
+                    underLine('Min Cooldown Refund')
+                    addText('[' + champFile[ability]["minCoolDownRefundByLvl"][0]
+                     + " to " + champFile[ability]["minCoolDownRefundByLvl"][17] + ", based on lvl. ");
+                    underLine("Currently");
+                    addText(champFile[ability]["minCoolDownRefundByLvl"][champLevel] + ']')
                   }
                   if (champFile[ability]["maxCoolDownRefundByLvl"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Max Cooldown Refund'
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(' - [' + champFile[ability]["maxCoolDownRefundByLvl"][0]
-                     + " to " + champFile[ability]["maxCoolDownRefundByLvl"][17] + "], based on lvl. ");
-                    var curU = document.createElement('u');
-                    curU.innerText = "Currently";
-                    var text2 = document.createTextNode(': ' + champFile[ability]["maxCoolDownRefundByLvl"][champLevel])
-                    abilityDiv.appendChild(text);
-                    abilityDiv.appendChild(curU)
-                    abilityDiv.appendChild(text2)
+                    underLine('Max Cooldown Refund')
+                    addText('[' + champFile[ability]["maxCoolDownRefundByLvl"][0]
+                     + " to " + champFile[ability]["maxCoolDownRefundByLvl"][17] + ", based on lvl. ");
+                    underLine("Currently");
+                    addText(champFile[ability]["maxCoolDownRefundByLvl"][champLevel] + ']')
                   }
                   if (champFile[ability]["coolDownRefundRatio"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Cooldown Refund Ratio'
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': ' + removeSpace(champFile[ability]["coolDownRefundRatio"]));
-                    abilityDiv.appendChild(text);
+                    underLine('Cooldown Refund Ratio')
+                    addText(removeSpace(champFile[ability]["coolDownRefundRatio"]));
                   };
                   if (champFile[ability]["coolDownRefundRatioByLvl"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Cooldown Refund Ratio'
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': [' + champFile[ability]["coolDownRefundRatioByLvl"][0]
-                     + " to " + champFile[ability]["coolDownRefundRatioByLvl"][17] + "], based on lvl. ");
-                    var curU = document.createElement('u');
-                    curU.innerText = "Currently";
-                    var text2 = document.createTextNode(': ' + champFile[ability]["coolDownRefundRatioByLvl"][champLevel])
-                    abilityDiv.appendChild(text);
-                    abilityDiv.appendChild(curU)
-                    abilityDiv.appendChild(text2)
+                    underLine('Cooldown Refund Ratio')
+                    addText('[' + champFile[ability]["coolDownRefundRatioByLvl"][0]
+                     + " to " + champFile[ability]["coolDownRefundRatioByLvl"][17] + ", based on lvl. ");
+                    underLine("Currently");
+                    addText(champFile[ability]["coolDownRefundRatioByLvl"][champLevel] + ']')
                   };
                   if (champFile[ability]["maxCoolDownRefundRatio"]) {
                     singleBreak();
-                    var refU = document.createElement('u');
-                    refU.innerText = 'Max Cooldown Refund Ratio'
-                    abilityDiv.appendChild(refU);
-                    var text = document.createTextNode(': ' + champFile[ability]["maxCoolDownRefundRatio"]);
-                    abilityDiv.appendChild(text);
+                    underLine('Max Cooldown Refund Ratio')
+                    addText(champFile[ability]["maxCoolDownRefundRatio"]);
                   };
                   if (champFile[ability]["recharge"]) {
                     if (champFile[ability]["coolDown"] || champFile[ability]["staticCoolDown"]) {
                       singleBreak();
                     }
-                    var bold = document.createElement('b');
-                    bold.innerText = "Recharge: ";
-                    abilityDiv.appendChild(bold)
-                    var text = document.createTextNode(removeSpace(champFile[ability]["recharge"]));
-                    abilityDiv.appendChild(text)
+                    addBold("Recharge: ");
+                    addText(removeSpace(champFile[ability]["recharge"]));
                   };
                   if (champFile[ability]["staticCoolDownFormula"]) {
                     singleBreak();
-                    var text = document.createTextNode('Cooldown Formula: ' + champFile[ability]["staticCoolDownFormula"]);
-                    abilityDiv.appendChild(text);
+                    addText('Cooldown Formula: ' + champFile[ability]["staticCoolDownFormula"]);
                   }
     
                   if (champFile[ability]["Rhaast"]) {
@@ -3773,90 +3602,64 @@ class App extends Component {
                     abilityDiv.appendChild(rhaastB);
                     if (path["spellVamp"]) {
                       singleBreak();
-                      var svU = document.createElement('u');
-                      svU.innerText = 'Spell Vamp Ratio';
-                      abilityDiv.appendChild(svU);
+                      underLine('Spell Vamp Ratio');
                       if (path["spellVamp"]["vampByLvl"]) {
-                        var text = document.createTextNode(': [' + path["spellVamp"]["vampByLvl"][0]
+                        addText('[' + path["spellVamp"]["vampByLvl"][0]
                         + " to " + path["spellVamp"]["vampByLvl"][17] + ", based on lvl. ");
-                        var curU = document.createElement('u');
-                        curU.innerText = "Currently";
-                        var text2 = document.createTextNode(': ' + path["spellVamp"]["vampByLvl"][champLevel] + ']')
-                        abilityDiv.appendChild(text);
-                        abilityDiv.appendChild(curU)
-                        abilityDiv.appendChild(text2)
+                        underLine("Currently");
+                        addText(path["spellVamp"]["vampByLvl"][champLevel] + ']')
                       }
                     };
                     if (path["damage"]) {
                       singleBreak();
-                      var typeB = document.createElement('u');
-                      typeB.innerText = path["damage"]["type"] + ' Damage'
-                      abilityDiv.appendChild(typeB);
+                      underLine(path["damage"]["type"] + ' Damage')
                       if (path["damage"]["enemyMaxHPRatio"]){
-                        var text = document.createTextNode(': (' + path["damage"]["enemyMaxHPRatio"] + ' Enemy Max HP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText('(' + path["damage"]["enemyMaxHPRatio"] + ' Enemy Max HP Ratio)');
                       }
                       if (path["damage"]["enemyMaxHPRatioPer100BonusAD"]) {
-                        var text = document.createTextNode(' (+' + path["damage"]["enemyMaxHPRatioPer100BonusAD"]
-                        + ' Enemy Max HP Ratio per 100 Bonus AD)');
-                        abilityDiv.appendChild(text);
+                        addText(' (+' + path["damage"]["enemyMaxHPRatioPer100BonusAD"] + ' Enemy Max HP Ratio per 100 Bonus AD)');
                       }
                       if (path["damage"]["system"] === 'minMax') {
-                        var minText = document.createTextNode(': Min: ');
-                        abilityDiv.appendChild(minText);
+                        addText('Min: ');
                         if (path["damage"]["minADRatio"]) {
-                          var text = document.createTextNode('(' + path["damage"]["minADRatio"] + ' AD Ratio)');
-                          abilityDiv.appendChild(text);
+                          addText('(' + path["damage"]["minADRatio"] + ' AD Ratio)');
                         };
                         if (path["damage"]["minEnemyMaxHPRatio"]) {
-                          var text = document.createTextNode(' (+' + path["damage"]["minEnemyMaxHPRatio"]+ ' Enemy Max HP Ratio)');
-                          abilityDiv.appendChild(text);
+                          addText(' (+' + path["damage"]["minEnemyMaxHPRatio"]+ ' Enemy Max HP Ratio)');
                         };
                         if (path["damage"]["minEnemyMaxHPRatioPer100BonusAD"]) {
-                          var text = document.createTextNode(' (+' + path["damage"]["minEnemyMaxHPRatioPer100BonusAD"]
+                          addText(' (+' + path["damage"]["minEnemyMaxHPRatioPer100BonusAD"] 
                           + ' Enemy Max HP Ratio per 100 Bonus AD)');
-                          abilityDiv.appendChild(text);
                         };
                         singleBreak();
-                        var maxText = document.createTextNode('Max: ');
-                        abilityDiv.appendChild(maxText);
+                        addText('Max: ');
                         if (path["damage"]["maxADRatio"]) {
-                          var text = document.createTextNode('(' + path["damage"]["maxADRatio"] + ' AD Ratio)');
-                          abilityDiv.appendChild(text);
+                          addText('(' + path["damage"]["maxADRatio"] + ' AD Ratio)');
                         };
                         if (path["damage"]["maxEnemyMaxHPRatio"]) {
-                          var text = document.createTextNode(' (+' + path["damage"]["maxEnemyMaxHPRatio"]+ ' Enemy Max HP Ratio)');
-                          abilityDiv.appendChild(text);
+                          addText(' (+' + path["damage"]["maxEnemyMaxHPRatio"]+ ' Enemy Max HP Ratio)');
                         };
                         if (path["damage"]["maxEnemyMaxHPRatioPer100BonusAD"]) {
-                          var text = document.createTextNode(' (+' + path["damage"]["maxEnemyMaxHPRatioPer100BonusAD"]
+                          addText(' (+' + path["damage"]["maxEnemyMaxHPRatioPer100BonusAD"]
                           + ' Enemy Max HP Ratio per 100 Bonus AD)');
-                          abilityDiv.appendChild(text);
                         };
                       } 
                     };
                     if (path["heal"]) {
                       singleBreak();
-                      var healB = document.createElement('u');
-                      healB.innerText = 'Heal'
-                      abilityDiv.appendChild(healB);
+                      underLine('Heal')
                       if (path["heal"]["enemyMaxHPRatio"]){
-                        var text = document.createTextNode(': (' + path["heal"]["enemyMaxHPRatio"] + ' Enemy Max HP Ratio)');
-                        abilityDiv.appendChild(text);
+                        addText('(' + path["heal"]["enemyMaxHPRatio"] + ' Enemy Max HP Ratio)');
                       }
                       if (path["heal"]["enemyMaxHPRatioPer100BonusAD"]){
-                        var text = document.createTextNode(' (+' + path["heal"]["enemyMaxHPRatioPer100BonusAD"]
+                        addText(' (+' + path["heal"]["enemyMaxHPRatioPer100BonusAD"]
                         + ' Enemy Max HP Ratio per 100 Bonus AD)');
-                        abilityDiv.appendChild(text);
                       } 
                     };
                     if (path["interruptCC"]) {
                       singleBreak();
-                      var intU = document.createElement('u');
-                      intU.innerText = 'Crowd Control Duration'
-                      abilityDiv.appendChild(intU)
-                      var ccText = document.createTextNode(': ' + path["interruptCC"]);
-                      abilityDiv.appendChild(ccText);
+                      underLine('Crowd Control Duration')
+                      addText(path["interruptCC"]);
                     }
                   };
     
@@ -3870,27 +3673,18 @@ class App extends Component {
                     abilityDiv.appendChild(shadowB);
                     if (path["damage"]) {
                       singleBreak();
-                      var typeB = document.createElement('u');
-                      typeB.innerText = path["damage"]["type"] + ' Damage'
-                      abilityDiv.appendChild(typeB);
+                      underLine(path["damage"]["type"] + ' Damage')
                       if (path["damage"]["dmgRatioByLvl"]) {
-                        var text = document.createTextNode(': (' + path["damage"]["dmgRatioByLvl"][0]+ " to " 
-                        + path["damage"]["dmgRatioByLvl"][17] + " Ratio of damage dealt over 3 seconds, based on lvl. ");
-                        var curU = document.createElement('u');
-                        curU.innerText = "Currently";
-                        var text2 = document.createTextNode(': ' + path["damage"]["dmgRatioByLvl"][champLevel] + ')')
-                        abilityDiv.appendChild(text);
-                        abilityDiv.appendChild(curU)
-                        abilityDiv.appendChild(text2)
+                        addText('(' + path["damage"]["dmgRatioByLvl"][0]+ " to " + path["damage"]["dmgRatioByLvl"][17]
+                        + " Ratio of damage dealt over 3 seconds, based on lvl. ");
+                        underLine("Currently");
+                        addText(path["damage"]["dmgRatioByLvl"][champLevel] + ')')
                       }
                     };
                     if (path["coolDown"]) {
                       singleBreak();
-                      var cdU = document.createElement('u');
-                      cdU.innerText = 'Cooldown';
-                      abilityDiv.appendChild(cdU);
-                      var cdText = document.createTextNode(': ' + path["coolDown"]);
-                      abilityDiv.appendChild(cdText);
+                      underLine('Cooldown');
+                      addText(path["coolDown"]);
                     }
                   }
     
