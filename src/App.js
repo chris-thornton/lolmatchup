@@ -2191,7 +2191,6 @@ class App extends Component {
                     } else {
                       addBold(' Shield: ');
                     };
-                    abilityDiv.appendChild(bold)
                     if (path["shield"]) {
                       addText(removeSpace(path["shield"]))
                     }
