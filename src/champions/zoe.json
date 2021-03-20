@@ -1,7 +1,7 @@
 {
     "Q": { 
         "damage":{
-            "type":"magic",
+            "type":"Magic",
             "system":"minMax",
             "minDmgByLvl":[
                 7,8,10,12,14,16,18,20,22,
@@ -27,7 +27,7 @@
     "W": {
         "spellthief": true,
         "damage":{
-            "type":"magic",
+            "type":"Magic",
             "system":"minMax",
             "minDmg":[
                 25, 35, 45, 55, 65
@@ -45,15 +45,15 @@
             "type":"mixed",
             "system": "2Part",
             "part1": {
-                "type":"magic",
+                "type":"Magic",
                 "dmg": [
                     60, 100, 140, 180, 220
                 ],
                 "APRatio": 0.4
             },
             "part2": {
-                "type": "true",
-                "postMitigation": "magic",
+                "type": "True",
+                "postMitigation": "Magic",
                 "dmg":[
                     60, 100, 140, 180, 220
                 ],
@@ -68,7 +68,7 @@
     "passive": {
         "autoEmpower": {
             "damage": {
-                "type":"magic",
+                "type":"Magic",
                 "dmgByLvl": [
                     16,20,24,28,32,36,42,48,54,
                     60,66,74,82,90,100,110,120,130
@@ -79,23 +79,23 @@
     },
     "stats": {
         "baseHP": 560,
-        "hpPerLevel": 92,
+        "hpPerLvl": 92,
         "baseHPRegen": 6.5,
-        "hpRegenPerLevel": 0.6,
+        "hpRegenPerLvl": 0.6,
         "mana": {
             "base": 425,
-            "manaPerLevel": 25,
+            "manaPerLvl": 25,
             "manaBaseRegen": 8,
-            "manaRegenPerLevel": 0.65
+            "manaRegenPerLvl": 0.65
         },
         "baseDamage": 58,
-        "damagePerLevel": 3.3,
+        "damagePerLvl": 3.3,
         "baseArmor": 20.8,
-        "armorPerLevel": 3.5,
-        "baseMagicResist": 30,
-        "magicResistPerLevel": 0.5,
+        "armorPerLvl": 3.5,
+        "baseMR": 30,
+        "mrPerLvl": 0.5,
         "attackSpeed": 0.625,
-        "attackSpeedRatio": 0.625,
-        "attackSpeedPerLevel": 0.025
+        "asRatio": 0.625,
+        "asPerLvl": 0.025
     }
 }

@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage":{
-            "type":"magic",
+            "type":"Magic",
             "system":"single",
             "dmg":[
                 80, 135, 190, 245, 300
@@ -13,7 +13,7 @@
     "W": {
         "coolDown": 12,
         "tickDamage": {
-            "type":"magic",
+            "type":"Magic",
             "system": "minMax",
             "interval": 0.5,
             "ticks": 10,
@@ -45,7 +45,7 @@
     },
     "R": {
         "damage": {
-            "type":"magic",
+            "type":"Magic",
             "system":"minMax",
             "minDmg": [
                 150, 225, 300
@@ -68,23 +68,23 @@
     },
     "stats": {
         "baseHP": 560,
-        "hpPerLevel": 90,
+        "hpPerLvl": 90,
         "baseHPRegen": 5.5,
-        "hpRegenPerLevel": 0.4,
+        "hpRegenPerLvl": 0.4,
         "mana": {
             "base": 340,
-            "manaPerLevel": 60,
+            "manaPerLvl": 60,
             "manaBaseRegen": 11,
-            "manaRegenPerLevel": 0.4
+            "manaRegenPerLvl": 0.4
         },
         "baseDamage": 56,
-        "damagePerLevel": 3.5,
+        "damagePerLvl": 3.5,
         "baseArmor": 25,
-        "armorPerLevel": 3.8,
-        "baseMagicResist": 30,
-        "magicResistPerLevel": 0.5,
+        "armorPerLvl": 3.8,
+        "baseMR": 30,
+        "mrPerLvl": 0.5,
         "attackSpeed": 0.625,
-        "attackSpeedRatio": 0.625,
-        "attackSpeedPerLevel": 0.0153
+        "asRatio": 0.625,
+        "asPerLvl": 0.0153
     }
 }

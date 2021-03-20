@@ -1,7 +1,7 @@
 {
     "Q": {
        "damage": {
-           "type":"magic",
+           "type":"Magic",
            "system":"minMax",
            "minDmg": [
                 40, 70, 100, 130, 160, 190
@@ -97,23 +97,23 @@
     },
     "stats": {
         "baseHP": 480,
-        "hpPerLevel": 70,
+        "hpPerLvl": 70,
         "baseHPRegen": 7,
-        "hpRegenPerLevel": 0.55,
+        "hpRegenPerLvl": 0.55,
         "mana": {
             "base": 400,
-            "manaPerLevel": 45,
+            "manaPerLvl": 45,
             "manaBaseRegen": 10,
-            "manaRegenPerLevel": 0.4
+            "manaRegenPerLvl": 0.4
         },
         "baseDamage": 55,
-        "damagePerLevel": 3.1,
+        "damagePerLvl": 3.1,
         "baseArmor": 25,
-        "armorPerLevel": 3,
-        "baseMagicResist": 25,
-        "magicResistPerLevel": 0.3,
+        "armorPerLvl": 3,
+        "baseMR": 25,
+        "mrPerLvl": 0.3,
         "attackSpeed": 0.625,
-        "attackSpeedRatio": 0.625,
-        "attackSpeedPerLevel": 0.01
+        "asRatio": 0.625,
+        "asPerLvl": 0.01
     }
 }

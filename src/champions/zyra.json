@@ -1,7 +1,7 @@
 {
     "Q": {  
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "single",
             "dmg": [
                 60, 95, 130, 165, 200
@@ -38,7 +38,7 @@
     },
     "E": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "single",
             "dmg": [
                 60, 105, 150, 195, 240
@@ -49,7 +49,7 @@
     },
     "R": {
         "damage": {
-            "type":"magic",
+            "type":"Magic",
             "system":"single",
             "dmg":[
                 180, 265, 350
@@ -77,7 +77,7 @@
         "baseArmor": 29,
         "armorPerLevel": 3,
         "baseMagicResist": 30,
-        "magicResistPerLevel": 0.5,
+        "mrPerLevel": 0.5,
         "attackSpeed": 0.625,
         "attackSpeedRatio": 0.625,
         "attackSpeedPerLevel": 0.0211

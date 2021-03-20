@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "single",
             "dmg": [
                 70, 115, 160, 205, 250
@@ -26,7 +26,7 @@
         },
         "autoEmpower": {
             "damage": {
-                "type":"magic",
+                "type":"Magic",
                 "dmg":[
                     30, 40, 50, 60, 70
                 ],
@@ -38,7 +38,7 @@
     },
     "E": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system":"minMax",
             "minDmg": [
                 55, 85, 115, 145, 175
@@ -55,7 +55,7 @@
     },
     "R": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system":"minMax",
             "minDmg": [
                 125, 175, 225
@@ -76,7 +76,7 @@
     "passive": {
        "autoEmpower": { 
             "damage": {
-                "type":"phys",
+                "type":"Physical",
                 "dmgByLvl": [
                     8,14,20,26,32,38,44,50,56,
                     62,68,74,80,86,92,98,104,110
@@ -91,23 +91,23 @@
     },
     "stats": {
         "baseHP": 576.48,
-        "hpPerLevel": 86,
+        "hpPerLvl": 86,
         "baseHPRegen": 8.5,
-        "hpRegenPerLevel": 0.55,
+        "hpRegenPerLvl": 0.55,
         "mana": {
             "base": 400,
-            "manaPerLevel": 47,
+            "manaPerLvl": 47,
             "manaBaseRegen": 8.626,
-            "manaRegenPerLevel": 0.5
+            "manaRegenPerLvl": 0.5
         },
         "baseDamage": 61,
-        "damagePerLevel": 3.3,
+        "damagePerLvl": 3.3,
         "baseArmor": 39,
-        "armorPerLevel": 3.75,
-        "baseMagicResist": 32.1,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 3.75,
+        "baseMR": 32.1,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.706,
-        "attackSpeedRatio": 0.612,
-        "attackSpeedPerLevel": 0.01
+        "asdRatio": 0.612,
+        "asPerLvl": 0.01
     }
 }

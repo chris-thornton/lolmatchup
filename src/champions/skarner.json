@@ -4,14 +4,14 @@
             "type":"mixed",
             "system":"2Part",
             "part1": {
-                "type":"phys",
+                "type":"Physical",
                 "enemyMaxHPRatio": [
                     0.01, 0.015, 0.02, 0.025, 0.03
                 ],
                 "ADRatio": 0.2
             },
             "part2": {
-                "type": "magic",
+                "type": "Magic",
                 "enemyMaxHPRatio": [
                     0.01, 0.015, 0.02, 0.025, 0.03
                 ],
@@ -43,14 +43,14 @@
             "type":"mixed",
             "system":"2Part",
             "part1":{
-                "type": "magic",
+                "type": "Magic",
                 "dmg": [
                     40, 65, 90, 115, 140
                 ],
                 "APRatio": 0.2
             },
             "part2": {
-                "type":"phys",
+                "type":"Physical",
                 "dmg": [
                     30, 50, 70, 90, 110
                 ]
@@ -68,11 +68,11 @@
             "type": "mixed",
             "system":"2Part",
             "part1": {
-                "type":"phys",
+                "type":"Physical",
                 "ADRatio": 1.2
             },
             "part2": {
-                "type":"magic",
+                "type":"Magic",
                 "dmg": [
                     40, 120, 200
                 ],
@@ -94,23 +94,23 @@
     },
     "stats": {
         "baseHP": 601.28,
-        "hpPerLevel": 90,
+        "hpPerLvl": 90,
         "baseHPRegen": 9,
-        "hpRegenPerLevel": 0.85,
+        "hpRegenPerLvl": 0.85,
         "mana": {
             "base": 320,
-            "manaPerLevel": 60,
+            "manaPerLvl": 60,
             "manaBaseRegen": 7.206,
-            "manaRegenPerLevel": 0.45
+            "manaRegenPerLvl": 0.45
         },
         "baseDamage": 65,
-        "damagePerLevel": 4.5,
+        "damagePerLvl": 4.5,
         "baseArmor": 38,
-        "armorPerLevel": 3.8,
-        "baseMagicResist": 32.1,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 3.8,
+        "baseMR": 32.1,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.625,
-        "attackSpeedRatio": 0.625,
-        "attackSpeedPerLevel": 0.021
+        "asRatio": 0.625,
+        "asPerLvl": 0.021
     }
 }

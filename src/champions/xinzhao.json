@@ -2,7 +2,7 @@
     "Q": {
         "autoEmpower": {
             "damage": {
-                "type":"phys",
+                "type":"Physical",
                 "dmg": [
                     20, 28, 36, 44, 52
                 ],
@@ -19,7 +19,7 @@
     },
     "W": {
          "damage": {
-             "type":"phys",
+             "type":"Physical",
              "system":"minMax",
              "minDmg":[
                  30, 40, 50, 60, 70
@@ -39,7 +39,7 @@
     },
     "E": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "single",
             "dmg": [
                 50, 75, 100, 125, 150
@@ -56,7 +56,7 @@
     },
     "R": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system":"single",
             "dmg": [
                 75, 175, 275
@@ -71,7 +71,7 @@
     "passive": {
         "autoEmpower": {
             "damage":{
-                "type":"phys",
+                "type":"Physical",
                 "ADRatioByLvl": [
                     0.15, 0.15, 0.15, 0.15, 0.15, 0.25, 0.25, 0.25, 0.25,
                     0.25, 0.35, 0.35, 0.35, 0.35, 0.35, 0.45, 0.45, 0.45
@@ -91,23 +91,23 @@
     },
     "stats": {
         "baseHP": 570,
-        "hpPerLevel": 92,
+        "hpPerLvl": 92,
         "baseHPRegen": 8,
-        "hpRegenPerLevel": 0.7,
+        "hpRegenPerLvl": 0.7,
         "mana": {
             "base": 273.8,
-            "manaPerLevel": 55,
+            "manaPerLvl": 55,
             "manaBaseRegen": 7.256,
-            "manaRegenPerLevel": 0.45
+            "manaRegenPerLvl": 0.45
         },
         "baseDamage": 66,
-        "damagePerLevel": 3,
+        "damagePerLvl": 3,
         "baseArmor": 35,
-        "armorPerLevel": 3.5,
-        "baseMagicResist": 32.1,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 3.5,
+        "baseMR": 32.1,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.645,
-        "attackSpeedRatio": 0.645,
-        "attackSpeedPerLevel": 0.035
+        "asRatio": 0.645,
+        "asPerLvl": 0.035
     }
 }

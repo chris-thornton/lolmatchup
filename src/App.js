@@ -240,19 +240,19 @@ class App extends Component {
     import (`./champions/${champName.toLowerCase()}`)
           .then(({default: champFile}) => {
             var statsPath = champFile[`stats`];
-            var totalAD = itemStats.ad + statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLevel"];
+            var totalAD = itemStats.ad + statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"];
             var bonusAD = itemStats.ad;
             var totalAP = itemStats.ap + selectedStats.ap;
             var totalAS = statsPath["attackSpeed"]
-            + (itemStats.as + champLvlRatio * statsPath["attackSpeedPerLevel"]) * statsPath["attackSpeedRatio"];
-            var bonusAS = statsPath["attackSpeedRatio"] * itemStats.as;
+            + (itemStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
+            var bonusAS = statsPath["asRatio"] * itemStats.as;
             var bonusASRatio = itemStats.as;
-            var totalArmor = itemStats.arm + statsPath["baseArmor"] + champLvlRatio * statsPath["armorPerLevel"];
+            var totalArmor = itemStats.arm + statsPath["baseArmor"] + champLvlRatio * statsPath["armorPerLvl"];
             console.log('totalArmor: ' + totalArmor);
             var bonusArmor = itemStats.arm;
-            var totalMR = itemStats.mr + statsPath["baseMagicResist"] + champLvlRatio * statsPath["magicResistPerLevel"];
+            var totalMR = itemStats.mr + statsPath["baseMR"] + champLvlRatio * statsPath["mrPerLvl"];
             var bonusMR = itemStats.mr;
-            var totalHP = itemStats.hp + statsPath["baseHP"] + champLvlRatio * statsPath["hpPerLevel"];
+            var totalHP = itemStats.hp + statsPath["baseHP"] + champLvlRatio * statsPath["hpPerLvl"];
             var bonusHP = itemStats.hp;
             var enemyTotalHP = enemyStats.hp + enemyItemStats.hp;
             var enemyBonusHP = enemyItemStats.hp;
@@ -261,9 +261,9 @@ class App extends Component {
             var totalCritChance = itemStats.critChance; 
             var totalLethality = itemStats.lethality;
             var totalLifeSteal = itemStats.lifeSteal;
-            var totalMana = itemStats.mana + statsPath["mana"]["base"] + statsPath["mana"]["manaPerLevel"] * champLvlRatio;
+            var totalMana = itemStats.mana + statsPath["mana"]["base"] + statsPath["mana"]["manaPerLvl"] * champLvlRatio;
             var bonusMana = itemStats.mana;
-            var nonBaseAS = (itemStats.as + champLvlRatio * statsPath["attackSpeedPerLevel"]) * statsPath["attackSpeedRatio"];
+            var nonBaseAS = (itemStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
 
             var QRank;
             if (document.getElementById(`QRank${side}`).value == 0) {
@@ -5679,7 +5679,7 @@ class App extends Component {
                     };
                     if (path["attackSpeed"]) {
                       underLine('Attacks per Second');
-                      addText((arrayCheck(path["attackSpeed"]) * statsPath["attackSpeedRatio"]).toFixed(3))
+                      addText((arrayCheck(path["attackSpeed"]) * statsPath["asRatio"]).toFixed(3))
                       singleBreak();
                     };
                     if (path["ADRatio"]) {
@@ -6013,13 +6013,13 @@ class App extends Component {
                       asRatioCounter += ASPath['attackSpeedByRRank'][RRank];
                     };
                     if (asRatioCounter !== 0) {
-                      addText((asRatioCounter * statsPath["attackSpeedRatio"]).toFixed(3));
+                      addText((asRatioCounter * statsPath["asRatio"]).toFixed(3));
                     };
                     if (totalASRatioCounter !== 0) {
-                      addText(totalAS * totalASRatioCounter * statsPath["attackSpeedRatio"]).toFixed(3);
+                      addText(totalAS * totalASRatioCounter * statsPath["asRatio"]).toFixed(3);
                     };
                     if (ASPath["attackSpeedPerStack"]) {
-                      addText(' (+' + (ASPath["attackSpeedPerStack"] * statsPath["attackSpeedRatio"]).toFixed(3) + ' per stack)');
+                      addText(' (+' + (ASPath["attackSpeedPerStack"] * statsPath["asRatio"]).toFixed(3) + ' per stack)');
                     };
                     var minCounter = 0;
                     var maxCounter = 0;
@@ -6032,7 +6032,7 @@ class App extends Component {
                       if (ASPath["minAttackSpeedPer100AP"]) {
                         minCounter += arrayCheck(ASPath["minAttackSpeedPer100AP"]) * totalAP/100;
                       };
-                      addText((minCounter * statsPath["attackSpeedRatio"]).toFixed(3));
+                      addText((minCounter * statsPath["asRatio"]).toFixed(3));
                       singleBreak();
                       underLine('Max');
                       maxCounter += arrayCheck(ASPath['maxAttackSpeed']);
@@ -6042,15 +6042,15 @@ class App extends Component {
                       if (ASPath["maxAttackSpeedPer100AP"]) {
                         maxCounter += arrayCheck(ASPath["maxAttackSpeedPer100AP"]) * totalAP/100;
                       };
-                      addText((maxCounter * statsPath["attackSpeedRatio"]).toFixed(3));
+                      addText((maxCounter * statsPath["asRatio"]).toFixed(3));
                     };
                     if (ASPath["minAttackSpeedByLvl"]) {
                       underLine('Min');
-                      addText((ASPath["minAttackSpeedByLvl"][champLevel] * statsPath["attackSpeedRatio"]).toFixed(3));
+                      addText((ASPath["minAttackSpeedByLvl"][champLevel] * statsPath["asRatio"]).toFixed(3));
                       singleBreak();
                       underLine('Max')
                       if (ASPath["maxAttackSpeedByLvl"]) {
-                        addText((ASPath["maxAttackSpeedByLvl"][champLevel] * statsPath["attackSpeedRatio"]).toFixed(3));
+                        addText((ASPath["maxAttackSpeedByLvl"][champLevel] * statsPath["asRatio"]).toFixed(3));
                       }
                     };
                     if (ASPath["duration"]) {
@@ -6693,7 +6693,7 @@ class App extends Component {
                   };
                   if (champFile[ability]["staticCoolDownFormula"]) {
                     addBold("Cooldown: ");
-                    var value = 4 * (1 - (0.6 * (itemStats.as + statsPath["attackSpeedPerLevel"] * champLevel 
+                    var value = 4 * (1 - (0.6 * (itemStats.as + statsPath["asPerLvl"] * champLevel 
                     * (0.7025 + 0.0175 * champLevel))));
                     if (value.toString().length > 4) {
                       value = value.toFixed(2);
@@ -7441,22 +7441,22 @@ class App extends Component {
         this.setState(prevState => ({
           stats1: {                   
               ...prevState.stats1,   
-              hp: statsPath["baseHP"] + statsPath["hpPerLevel"] * champLvlRatio,
-              hpPL: statsPath["hpPerLevel"],
-              asPL: statsPath["attackSpeedPerLevel"],
-              armPL: statsPath["armorPerLevel"],
-              adPL: statsPath["damagePerLevel"],
-              mrPL: statsPath["magicResistPerLevel"],
-              manaPL: statsPath.mana["manaPerLevel"],
-              manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLevel"] * champLvlRatio,
-              manaRegenPL: statsPath.mana["manaRegenPerLevel"],
-              hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLevel"] * champLvlRatio,
-              hpRegenPL: statsPath["hpRegenPerLevel"],
-              as: statsPath["attackSpeed"] + statsPath["attackSpeedPerLevel"] * statsPath["attackSpeedRatio"] * champLvlRatio,
-              arm: statsPath["baseArmor"] + statsPath["armorPerLevel"] * champLvlRatio,
-              ad: statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLvlRatio,
-              mr: statsPath["baseMagicResist"] + statsPath["magicResistPerLevel"] * champLvlRatio,
-              mana: statsPath.mana["base"] + statsPath.mana["manaPerLevel"] * champLvlRatio
+              hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
+              hpPL: statsPath["hpPerLvl"],
+              asPL: statsPath["asPerLvl"],
+              armPL: statsPath["armorPerLvl"],
+              adPL: statsPath["damagePerLvl"],
+              mrPL: statsPath["mrPerLvl"],
+              manaPL: statsPath.mana["manaPerLvl"],
+              manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              manaRegenPL: statsPath.mana["manaRegenPerLvl"],
+              hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio,
+              hpRegenPL: statsPath["hpRegenPerLvl"],
+              as: statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
+              arm: statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
+              ad: statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
+              mr: statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+              mana: statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio
           },
           abilities1: {
             passive: this.passiveDetails,
@@ -7472,22 +7472,22 @@ class App extends Component {
           this.setState(prevState => ({
             transformStats1: {
               ...prevState.transformStats1,
-              hp: tfPath["baseHP"] + tfPath["hpPerLevel"] * champLvlRatio,
-              hpPL: tfPath["hpPerLevel"],
-              asPL: tfPath["attackSpeedPerLevel"],
-              armPL: tfPath["armorPerLevel"],
-              adPL: tfPath["damagePerLevel"],
-              mrPL: tfPath["magicResistPerLevel"],
-              manaPL: tfPath.mana["manaPerLevel"],
-              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLevel"] * champLvlRatio,
-              manaRegenPL: tfPath.mana["manaRegenPerLevel"],
-              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLevel"] * champLvlRatio,
-              hpRegenPL: tfPath["hpRegenPerLevel"],
-              as: tfPath["attackSpeed"] + tfPath["attackSpeedPerLevel"] * tfPath["attackSpeedRatio"] * champLvlRatio,
-              arm: tfPath["baseArmor"] + tfPath["armorPerLevel"] * champLvlRatio,
-              ad: tfPath["baseDamage"] + tfPath["damagePerLevel"] * champLvlRatio,
-              mr: tfPath["baseMagicResist"] + tfPath["magicResistPerLevel"] * champLvlRatio,
-              mana: tfPath.mana["base"] + tfPath.mana["manaPerLevel"] * champLvlRatio
+              hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
+              hpPL: tfPath["hpPerLvl"],
+              asPL: tfPath["asPerLvl"],
+              armPL: tfPath["armorPerLvl"],
+              adPL: tfPath["damagePerLvl"],
+              mrPL: tfPath["mrPerLvl"],
+              manaPL: tfPath.mana["manaPerLvl"],
+              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              manaRegenPL: tfPath.mana["manaRegenPerLvl"],
+              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
+              hpRegenPL: tfPath["hpRegenPerLvl"],
+              as: tfPath["attackSpeed"] + tfPath["asPerLvl"] * tfPath["asRatio"] * champLvlRatio,
+              arm: tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
+              ad: tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
+              mr: tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
+              mana: tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
             }
           }))
         }
@@ -7557,22 +7557,22 @@ class App extends Component {
       this.setState(prevState => ({
         stats2: {                   
             ...prevState.stats2,   
-            hp: statsPath["baseHP"] + statsPath["hpPerLevel"] * champLvlRatio,
-            hpPL: statsPath["hpPerLevel"],
-            asPL: statsPath["attackSpeedPerLevel"],
-            armPL: statsPath["armorPerLevel"],
-            adPL: statsPath["damagePerLevel"],
-            mrPL: statsPath["magicResistPerLevel"],
-            manaPL: statsPath.mana["manaPerLevel"],
-            manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLevel"] * champLvlRatio,
-            manaRegenPL: statsPath.mana["manaRegenPerLevel"],
-            hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLevel"] * champLvlRatio,
-            hpRegenPL: statsPath["hpRegenPerLevel"],
-            as: statsPath["attackSpeed"] + statsPath["attackSpeedPerLevel"] * statsPath["attackSpeedRatio"] * champLvlRatio,
-            arm: statsPath["baseArmor"] + statsPath["armorPerLevel"] * champLvlRatio,
-            ad: statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLvlRatio,
-            mr: statsPath["baseMagicResist"] + statsPath["magicResistPerLevel"] * champLvlRatio,
-            mana: statsPath.mana["base"] + statsPath.mana["manaPerLevel"] * champLvlRatio
+            hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
+            hpPL: statsPath["hpPerLvl"],
+            asPL: statsPath["asPerLvl"],
+            armPL: statsPath["armorPerLvl"],
+            adPL: statsPath["damagePerLvl"],
+            mrPL: statsPath["mrPerLvl"],
+            manaPL: statsPath.mana["manaPerLvl"],
+            manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
+            manaRegenPL: statsPath.mana["manaRegenPerLvl"],
+            hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio,
+            hpRegenPL: statsPath["hpRegenPerLvl"],
+            as: statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
+            arm: statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
+            ad: statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
+            mr: statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+            mana: statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio
         },
         abilities2: {
           passive: this.passiveDetails,
@@ -7588,22 +7588,22 @@ class App extends Component {
         this.setState(prevState => ({
           transformStats2: {
             ...prevState.transformStats2,
-            hp: tfPath["baseHP"] + tfPath["hpPerLevel"] * champLvlRatio,
-            hpPL: tfPath["hpPerLevel"],
-            asPL: tfPath["attackSpeedPerLevel"],
-            armPL: tfPath["armorPerLevel"],
-            adPL: tfPath["damagePerLevel"],
-            mrPL: tfPath["magicResistPerLevel"],
-            manaPL: tfPath.mana["manaPerLevel"],
-            manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLevel"] * champLvlRatio,
-            manaRegenPL: tfPath.mana["manaRegenPerLevel"],
-            hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLevel"] * champLvlRatio,
-            hpRegenPL: tfPath["hpRegenPerLevel"],
-            as: tfPath["attackSpeed"] + tfPath["attackSpeedPerLevel"] * tfPath["attackSpeedRatio"] * champLvlRatio,
-            arm: tfPath["baseArmor"] + tfPath["armorPerLevel"] * champLvlRatio,
-            ad: tfPath["baseDamage"] + tfPath["damagePerLevel"] * champLvlRatio,
-            mr: tfPath["baseMagicResist"] + tfPath["magicResistPerLevel"] * champLvlRatio,
-            mana: tfPath.mana["base"] + tfPath.mana["manaPerLevel"] * champLvlRatio
+            hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
+            hpPL: tfPath["hpPerLvl"],
+            asPL: tfPath["asPerLvl"],
+            armPL: tfPath["armorPerLvl"],
+            adPL: tfPath["damagePerLvl"],
+            mrPL: tfPath["mrPerLvl"],
+            manaPL: tfPath.mana["manaPerLvl"],
+            manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
+            manaRegenPL: tfPath.mana["manaRegenPerLvl"],
+            hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
+            hpRegenPL: tfPath["hpRegenPerLvl"],
+            as: tfPath["attackSpeed"] + tfPath["asPerLvl"] * tfPath["asRatio"] * champLvlRatio,
+            arm: tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
+            ad: tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
+            mr: tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
+            mana: tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
           }
         }))
       }
@@ -7639,14 +7639,14 @@ class App extends Component {
         this.setState(prevState => ({
           stats1: {                   
               ...prevState.stats1,   
-              hp: statsPath["baseHP"] + statsPath["hpPerLevel"] * champLvlRatio,
-              as: statsPath["attackSpeed"] + statsPath["attackSpeedPerLevel"] * statsPath["attackSpeedRatio"] * champLvlRatio,
-              arm: statsPath["baseArmor"] + statsPath["armorPerLevel"] * champLvlRatio,
-              ad: statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLvlRatio,
-              mr: statsPath["baseMagicResist"] + statsPath["magicResistPerLevel"] * champLvlRatio,
-              mana: statsPath.mana["base"] + statsPath.mana["manaPerLevel"] * champLvlRatio,
-              manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLevel"] * champLvlRatio,
-              hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLevel"] * champLvlRatio
+              hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
+              as: statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
+              arm: statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
+              ad: statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
+              mr: statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+              mana: statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio,
+              manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio
           }
         }));
 
@@ -7655,14 +7655,14 @@ class App extends Component {
           this.setState(prevState => ({
             transformStats1: {
               ...prevState.transformStats1,
-              hp: tfPath["baseHP"] + tfPath["hpPerLevel"] * champLvlRatio,
-              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLevel"] * champLvlRatio,
-              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLevel"] * champLvlRatio,
-              as: tfPath["attackSpeed"] + tfPath["attackSpeedPerLevel"] * tfPath["attackSpeedRatio"] * champLvlRatio,
-              arm: tfPath["baseArmor"] + tfPath["armorPerLevel"] * champLvlRatio,
-              ad: tfPath["baseDamage"] + tfPath["damagePerLevel"] * champLvlRatio,
-              mr: tfPath["baseMagicResist"] + tfPath["magicResistPerLevel"] * champLvlRatio,
-              mana: tfPath.mana["base"] + tfPath.mana["manaPerLevel"] * champLvlRatio
+              hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
+              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
+              as: tfPath["attackSpeed"] + tfPath["asPerLvl"] * tfPath["asRatio"] * champLvlRatio,
+              arm: tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
+              ad: tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
+              mr: tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
+              mana: tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
             }
           }))
         }
@@ -7698,14 +7698,14 @@ class App extends Component {
         this.setState(prevState => ({
           stats2: {                   
               ...prevState.stats2,   
-              hp: statsPath["baseHP"] + statsPath["hpPerLevel"] * champLvlRatio,
-              as: statsPath["attackSpeed"] + statsPath["attackSpeedPerLevel"] * statsPath["attackSpeedRatio"] * champLvlRatio,
-              arm: statsPath["baseArmor"] + statsPath["armorPerLevel"] * champLvlRatio,
-              ad: statsPath["baseDamage"] + statsPath["damagePerLevel"] * champLvlRatio,
-              mr: statsPath["baseMagicResist"] + statsPath["magicResistPerLevel"] * champLvlRatio,
-              mana: statsPath.mana["base"] + statsPath.mana["manaPerLevel"] * champLvlRatio,
-              manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLevel"] * champLvlRatio,
-              hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLevel"] * champLvlRatio
+              hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
+              as: statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
+              arm: statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
+              ad: statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
+              mr: statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+              mana: statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio,
+              manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio
           }
         }));
 
@@ -7714,14 +7714,14 @@ class App extends Component {
           this.setState(prevState => ({
             transformStats2: {
               ...prevState.transformStats2,
-              hp: tfPath["baseHP"] + tfPath["hpPerLevel"] * champLvlRatio,
-              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLevel"] * champLvlRatio,
-              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLevel"] * champLvlRatio,
-              as: tfPath["attackSpeed"] + tfPath["attackSpeedPerLevel"] * tfPath["attackSpeedRatio"] * champLvlRatio,
-              arm: tfPath["baseArmor"] + tfPath["armorPerLevel"] * champLvlRatio,
-              ad: tfPath["baseDamage"] + tfPath["damagePerLevel"] * champLvlRatio,
-              mr: tfPath["baseMagicResist"] + tfPath["magicResistPerLevel"] * champLvlRatio,
-              mana: tfPath.mana["base"] + tfPath.mana["manaPerLevel"] * champLvlRatio
+              hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
+              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
+              as: tfPath["attackSpeed"] + tfPath["asPerLvl"] * tfPath["asRatio"] * champLvlRatio,
+              arm: tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
+              ad: tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
+              mr: tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
+              mana: tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
             }
           }))
         }

@@ -94,23 +94,23 @@
     },
     "stats": {
         "baseHP": 560,
-        "hpPerLevel": 95,
+        "hpPerLvl": 95,
         "baseHPRegen": 8,
-        "hpRegenPerLevel": 0.7,
+        "hpRegenPerLvl": 0.7,
         "mana": {
             "base": 0,
-            "manaPerLevel": 0,
+            "manaPerLvl": 0,
             "manaBaseRegen": 0,
-            "manaRegenPerLevel": 0
+            "manaRegenPerLvl": 0
         },
         "baseDamage": 57,
-        "damagePerLevel": 3.5,
+        "damagePerLvl": 3.5,
         "baseArmor": 34,
-        "armorPerLevel": 4,
-        "baseMagicResist": 32,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 4,
+        "baseMR": 32,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.658,
-        "attackSpeedRatio": 0.658,
-        "attackSpeedPerLevel": 0.025
+        "asRatio": 0.658,
+        "asPerLvl": 0.025
     }
 }

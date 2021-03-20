@@ -15,7 +15,7 @@
             "type": "mixed",
             "part1": {
                 "system":"minMax",
-                "type":"phys",
+                "type":"Physical",
                 "minDmg": [
                     35, 50, 65, 80, 95
                 ],
@@ -27,7 +27,7 @@
             },
             "part2": {
                 "system":"minMax",
-                "type": "magic",
+                "type": "Magic",
                 "minAPRatio": 0.333,
                 "maxAPRatio": 2
             }
@@ -47,7 +47,7 @@
     },
     "passive": {
         "tickDamage": {
-            "type":"true",
+            "type":"True",
             "system":"minMax",
             "interval": 1,
             "minDmgByLvl": [
@@ -64,23 +64,23 @@
     },
     "stats": {
         "baseHP": 612,
-        "hpPerLevel": 86,
+        "hpPerLvl": 86,
         "baseHPRegen": 3.75,
-        "hpRegenPerLevel": 0.6,
+        "hpRegenPerLvl": 0.6,
         "mana": {
             "base": 287.2,
-            "manaPerLevel": 40,
+            "manaPerLvl": 40,
             "manaBaseRegen": 7.256,
-            "manaRegenPerLevel": 0.45
+            "manaRegenPerLvl": 0.45
         },
         "baseDamage": 59,
-        "damagePerLevel": 3.11,
+        "damagePerLvl": 3.11,
         "baseArmor": 27,
-        "armorPerLevel": 3,
-        "baseMagicResist": 30,
-        "magicResistPerLevel": 0.5,
+        "armorPerLvl": 3,
+        "baseMR": 30,
+        "mrPerLvl": 0.5,
         "attackSpeed": 0.679,
-        "attackSpeedRatio": 0.679,
-        "attackSpeedPerLevel": 0.0338
+        "asRatio": 0.679,
+        "asPerLvl": 0.0338
     }
 }
