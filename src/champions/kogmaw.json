@@ -6,7 +6,7 @@
             ]
         },
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "single",
             "dmg": [
                 90, 140, 190, 240, 290
@@ -25,7 +25,7 @@
     "W": {
         "autoEmpower": {
             "damage": {
-                "type": "magic",
+                "type": "Magic",
                 "enemyMaxHPRatio": [
                     0.03, 0.0375, 0.045, 0.0525, 0.06
                 ],
@@ -37,7 +37,7 @@
     },
     "E": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "single",
             "dmg": [
                 75, 120, 165, 210, 255
@@ -48,7 +48,7 @@
     },
     "R": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "minMax",
             "minDmg": [
                 100, 140, 180
@@ -72,7 +72,7 @@
     },
     "passive": {
         "damage": {
-            "type":"true",
+            "type":"True",
             "dmgByLvl": [
                 125,150,175,200,225,250,275,300,325,
                 350,375,400,425,450,475,500,525,550
@@ -81,23 +81,23 @@
     },
     "stats": {
         "baseHP": 565,
-        "hpPerLevel": 85,
+        "hpPerLvl": 85,
         "baseHPRegen": 3.75,
-        "hpRegenPerLevel": 0.55,
+        "hpRegenPerLvl": 0.55,
         "mana": {
             "base": 325,
-            "manaPerLevel": 40,
+            "manaPerLvl": 40,
             "manaBaseRegen": 8.75,
-            "manaRegenPerLevel": 0.7
+            "manaRegenPerLvl": 0.7
         },
         "baseDamage": 61,
-        "damagePerLevel": 3.11,
+        "damagePerLvl": 3.11,
         "baseArmor": 24,
-        "armorPerLevel": 3.25,
-        "baseMagicResist": 30,
-        "magicResistPerLevel": 0.5,
+        "armorPerLvl": 3.25,
+        "baseMR": 30,
+        "mrPerLvl": 0.5,
         "attackSpeed": 0.665,
-        "attackSpeedRatio": 0.665,
-        "attackSpeedPerLevel": 0.0265
+        "asRatio": 0.665,
+        "asPerLvl": 0.0265
     }
 }

@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "2Part",
             "part1": {
                 "dmg": [
@@ -51,7 +51,7 @@
         },
         "autoEmpower": {
             "damage": {
-                "type":"phys",
+                "type":"Physical",
                 "dmg": [
                     20, 30, 40, 50, 60
                 ],
@@ -67,7 +67,7 @@
     },
     "E": {
         "damage": {
-            "type":"phys",
+            "type":"Physical",
             "system":"minMax",
             "minDmg": [
                 35, 60, 85, 110, 135
@@ -84,7 +84,7 @@
     },
     "R": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system":"minMax",
             "minEnemyMaxHPRatio": [
                 0.04, 0.05, 0.06
@@ -121,44 +121,44 @@
     },
     "stats": {
         "baseHP": 400,
-        "hpPerLevel": 60,
+        "hpPerLvl": 60,
         "baseHPRegen": 6,
-        "hpRegenPerLevel": 0.75,
+        "hpRegenPerLvl": 0.75,
         "mana": {
             "base": 0,
-            "manaPerLevel": 0,
+            "manaPerLvl": 0,
             "manaBaseRegen": 0,
-            "manaRegenPerLevel": 0
+            "manaRegenPerLvl": 0
         },
         "baseDamage": 65,
-        "damagePerLevel": 3.5,
+        "damagePerLvl": 3.5,
         "baseArmor": 35,
-        "armorPerLevel": 4,
-        "baseMagicResist": 28,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 4,
+        "baseMR": 28,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.625,
-        "attackSpeedRatio": 0.625,
-        "attackSpeedPerLevel": 0.035
+        "asRatio": 0.625,
+        "asPerLvl": 0.035
     },
     "statsTransform": {
         "baseHP": 340,
-        "hpPerLevel": 70,
+        "hpPerLvl": 70,
         "baseHPRegen": 6,
-        "hpRegenPerLevel": 0.75,
+        "hpRegenPerLvl": 0.75,
         "mana": {
             "base": 0,
-            "manaPerLevel": 0,
+            "manaPerLvl": 0,
             "manaBaseRegen": 0,
-            "manaRegenPerLevel": 0
+            "manaRegenPerLvl": 0
         },
         "baseDamage": 65,
-        "damagePerLevel": 3.5,
+        "damagePerLvl": 3.5,
         "baseArmor": 35,
-        "armorPerLevel": 4,
-        "baseMagicResist": 32.1,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 4,
+        "baseMR": 32.1,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.625,
-        "attackSpeedRatio": 0.625,
-        "attackSpeedPerLevel": 0.035
+        "asRatio": 0.625,
+        "asPerLvl": 0.035
     }
 }

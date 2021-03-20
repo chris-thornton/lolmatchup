@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "single",
             "dmg": [
                 20, 45, 70, 95, 120
@@ -27,7 +27,7 @@
     "E": {
         "autoEmpower": {
             "damage": {
-                "type": "true",
+                "type": "Physical",
                 "system":"single",
                 "dmg": [
                     80, 105, 130, 155, 180
@@ -42,7 +42,7 @@
     },
     "R": {
         "tickDamage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "minMax",
             "interval": 2,
             "ticks": 4,
@@ -56,7 +56,7 @@
             "maxAPRatio": 0.45
         },
         "damage": {
-            "type":"true",
+            "type":"True",
             "dmg": [
                 120, 210, 300
             ],
@@ -68,7 +68,7 @@
     },
     "passive": {
             "damage": {
-                "type": "true",
+                "type": "True",
                 "dmgByLvl": [
                     55,65,75,85,95,105,115,125,135,
                     145,155,165,175,185,195,205,215,225
@@ -81,23 +81,23 @@
     },
     "stats": {
         "baseHP": 540,
-        "hpPerLevel": 82,
+        "hpPerLvl": 82,
         "baseHPRegen": 6,
-        "hpRegenPerLevel": 0.6,
+        "hpRegenPerLvl": 0.6,
         "mana": {
             "base": 282,
-            "manaPerLevel": 60,
+            "manaPerLvl": 60,
             "manaBaseRegen": 7.5,
-            "manaRegenPerLevel": 0.7
+            "manaRegenPerLvl": 0.7
         },
         "baseDamage": 64,
-        "damagePerLevel": 4,
+        "damagePerLvl": 4,
         "baseArmor": 35,
-        "armorPerLevel": 3,
-        "baseMagicResist": 32.1,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 3,
+        "baseMR": 32.1,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.69,
-        "attackSpeedRatio": 0.69,
-        "attackSpeedPerLevel": 0.032
+        "asRatio": 0.69,
+        "asPerLvl": 0.032
     }
 }

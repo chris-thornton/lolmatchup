@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "minMax",
                 "minDmg": [
                     75, 95, 115, 135, 155
@@ -30,7 +30,7 @@
     },
     "W": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "single",
             "dmg": [
                 90, 135, 180, 225, 270
@@ -61,7 +61,7 @@
     },
     "R": {
         "damage": {
-            "type":"phys",
+            "type":"Physical",
             "system":"single",
             "dmg": [
                 150, 250, 350
@@ -111,23 +111,23 @@
     },
     "stats": {
         "baseHP": 585,
-        "hpPerLevel": 85,
+        "hpPerLvl": 85,
         "baseHPRegen": 8,
-        "hpRegenPerLevel": 0.75,
+        "hpRegenPerLvl": 0.75,
         "mana": {
             "base": 410,
-            "manaPerLevel": 50,
+            "manaPerLvl": 50,
             "manaBaseRegen": 11.5,
-            "manaRegenPerLevel": 0.95
+            "manaRegenPerLvl": 0.95
         },
         "baseDamage": 68,
-        "damagePerLevel": 3.3,
+        "damagePerLvl": 3.3,
         "baseArmor": 38,
-        "armorPerLevel": 3.3,
-        "baseMagicResist": 32.1,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 3.3,
+        "baseMR": 32.1,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.669,
-        "attackSpeedRatio": 0.669,
-        "attackSpeedPerLevel": 0.027
+        "asRatio": 0.669,
+        "asPerLvl": 0.027
     }
 }

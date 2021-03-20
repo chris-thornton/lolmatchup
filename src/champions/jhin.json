@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "minMax",
             "minDmg": [
                 45, 70, 95, 120, 145
@@ -24,7 +24,7 @@
     },
     "W": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "single",
             "dmg": [
                 50, 85, 120, 155, 190
@@ -35,7 +35,7 @@
     },
     "E": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "single",
             "dmg": [
                 20, 80, 140, 200, 260
@@ -50,7 +50,7 @@
     },
     "R": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "minMax",
             "minDmg": [
                 50, 125, 200
@@ -76,7 +76,7 @@
         },
         "autoEmpower": {
             "damage": {
-                "type":"phys",
+                "type":"Physical",
                 "enemyMissingHPRatioByLvl": [
                     0.15, 0.15, 0.15, 0.15, 0.15, 0.2, 0.2, 0.2, 0.2,
                     0.2, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25
@@ -103,24 +103,24 @@
     },
     "stats": {
         "baseHP": 585,
-        "hpPerLevel": 93,
+        "hpPerLvl": 93,
         "baseHPRegen": 3.75,
-        "hpRegenPerLevel": 0.55,
+        "hpRegenPerLvl": 0.55,
         "mana": {
             "base": 300,
-            "manaPerLevel": 50,
+            "manaPerLvl": 50,
             "manaBaseRegen": 6,
-            "manaRegenPerLevel": 0.8
+            "manaRegenPerLvl": 0.8
         },
         "baseDamage": 59,
-        "damagePerLevel": 4.7,
+        "damagePerLvl": 4.7,
         "baseArmor": 24,
-        "armorPerLevel": 3.5,
-        "baseMagicResist": 30,
-        "magicResistPerLevel": 0.5,
+        "armorPerLvl": 3.5,
+        "baseMR": 30,
+        "mrPerLvl": 0.5,
         "attackSpeed": 0.625,
-        "attackSpeedRatio": 0,
-        "attackSpeedPerLevel": 0.03,
+        "asRatio": 0,
+        "asPerLvl": 0.03,
         "moveSpeed": 330
     }
 }

@@ -16,7 +16,7 @@
     },
     "R": {
         "damage": {
-           "type": "phys",
+           "type": "Physical",
            "system": "single",
            "dmg": [
                125, 
@@ -61,7 +61,7 @@
     "calibrum": {
         "active": {
             "damage": {
-                "type": "phys",
+                "type": "Physical",
                 "system":"single",
                 "dmgByLvl": [
                     60, 60, 85, 85, 110, 110, 135, 135, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160
@@ -80,7 +80,7 @@
         "passive": {
             "autoEmpower": {
                 "damage": {
-                    "type":"phys",
+                    "type":"Physical",
                     "system":"perMark",
                     "dmgByLvl": [
                         20, 20, 25, 25, 30, 30, 35, 35, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40
@@ -94,7 +94,7 @@
     "severum": {
         "active": {
             "damage": {
-                "type": "phys",
+                "type": "Physical",
                 "dmgByLvl": [
                     10, 10, 15, 15, 20, 20, 25, 25, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30
                 ],
@@ -130,7 +130,7 @@
     "gravitum": {
         "active": {
             "damage": {
-                "type": "magic",
+                "type": "Magic",
                 "dmgByLvl": [
                     50, 50, 65, 65, 80, 80, 95, 95, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110
                 ],
@@ -149,7 +149,7 @@
     "infernum": {
         "active": {
             "damage": {
-                "type":"phys",
+                "type":"Physical",
                 "dmgByLvl":[
                     25, 25, 35, 35, 45, 45, 55, 55, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65
                 ],
@@ -168,7 +168,7 @@
         "passive": {
             "autoEmpower": {
                 "damage": {
-                    "type":"phys",
+                    "type":"Physical",
                     "ADRatio": 0.1,
                     "splashRatioLvl1": 0.75,
                     "splashRatioLvl9": 1
@@ -184,7 +184,7 @@
                 7, 6.5, 6.5, 6, 6, 6, 6, 6, 6
             ],
             "damage": {
-                "type":"phys",
+                "type":"Physical",
                 "dmgByLvl":[
                     25, 25, 40, 40, 55, 55, 70, 70, 85,
                      85, 85, 85, 85, 85, 85, 85, 85, 85
@@ -199,7 +199,7 @@
         },
         "passive": {
             "damage": {
-                "type":"phys",
+                "type":"Physical",
                 "ADRatioBonusDmgByStack": [
                    0, 0.24, 0.45, 0.625, 0.765, 0.87, 0.94, 0.99, 1.04,
                     1.09, 1.14, 1.19, 1.24, 1.29, 1.34, 1.39, 1.44, 1.49, 1.54, 1.59, 1.64
@@ -210,23 +210,23 @@
     },
     "stats": {
         "baseHP": 530,
-        "hpPerLevel": 88,
+        "hpPerLvl": 88,
         "baseHPRegen": 3.25,
-        "hpRegenPerLevel": 0.55,
+        "hpRegenPerLvl": 0.55,
         "mana": {
             "base": 348,
-            "manaPerLevel": 42,
+            "manaPerLvl": 42,
             "manaBaseRegen": 6.5,
-            "manaRegenPerLevel": 0.4
+            "manaRegenPerLvl": 0.4
         },
         "baseDamage": 57,
-        "damagePerLevel": 2.4,
+        "damagePerLvl": 2.4,
         "baseArmor": 28,
-        "armorPerLevel": 3,
-        "baseMagicResist": 26,
-        "magicResistPerLevel": 0.5,
+        "armorPerLvl": 3,
+        "baseMR": 26,
+        "mrPerLvl": 0.5,
         "attackSpeed": 0.64,
-        "attackSpeedRatio": 0.64,
-        "attackSpeedPerLevel": 0.021
+        "asRatio": 0.64,
+        "asPerLvl": 0.021
     }
 }

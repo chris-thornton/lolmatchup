@@ -6,7 +6,7 @@
         },
         "autoEmpower": {
             "damage": {
-                "type": "phys",
+                "type": "Physical",
                 "system": "single",
                 "ADRatio": [0.05, 0.1, 0.15, 0.2, 0.25],
                 "duration": 4
@@ -16,7 +16,7 @@
     },
     "W": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "single",
             "dmg": [
                 20 , 35 , 50 , 65 , 80
@@ -29,7 +29,7 @@
     },
     "R": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "minMax",
             "minDmg": [
                 100, 200, 300
@@ -56,23 +56,23 @@
     },
     "stats": {
         "baseHP": 570,
-        "hpPerLevel": 87,
+        "hpPerLvl": 87,
         "baseHPRegen": 3.5,
-        "hpRegenPerLevel": 0.55,
+        "hpRegenPerLvl": 0.55,
         "mana": {
             "base": 280,
-            "manaPerLevel": 32,
+            "manaPerLvl": 32,
             "manaBaseRegen": 6.972,
-            "manaRegenPerLevel": 0.4
+            "manaRegenPerLvl": 0.4
         },
         "baseDamage": 59,
-        "damagePerLevel": 2.96,
+        "damagePerLvl": 2.96,
         "baseArmor": 26,
-        "armorPerLevel": 3.4,
-        "baseMagicResist": 30,
-        "magicResistPerLevel": 0.5,
+        "armorPerLvl": 3.4,
+        "baseMR": 30,
+        "mrPerLvl": 0.5,
         "attackSpeed": 0.658,
-        "attackSpeedRatio": 0.658,
-        "attackSpeedPerLevel": 0.0333
+        "asRatio": 0.658,
+        "asPerLvl": 0.0333
     }
 }

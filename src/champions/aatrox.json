@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "3Part",
             "part1": {
                 "system": "minMax",
@@ -57,7 +57,7 @@
     },
     "W": {
         "damage": {
-            "type": "phys",
+            "type": "Physical",
             "system": "minMax",
             "minDmg": [
                 30,
@@ -116,7 +116,7 @@
         "coolDownRefund": 2.0,
         "autoEmpower": {
             "damage": {
-                "type": "phys",
+                "type": "Physical",
                 "enemyMaxHPRatioByLvl": [
                     0.05,0.0541,0.0582,0.0624,0.0665,0.0706,0.0747,0.0788,0.0829,
                     0.0871,0.0912,0.0953,0.0994,0.1035,0.1076,0.1118,0.1159,0.12
@@ -130,23 +130,23 @@
     },
     "stats": {
         "baseHP": 580,
-        "hpPerLevel": 90,
+        "hpPerLvl": 90,
         "baseHPRegen": 3,
-        "hpRegenPerLevel": 1,
+        "hpRegenPerLvl": 1,
         "mana": {
             "base": 0,
-            "manaPerLevel": 0,
+            "manaPerLvl": 0,
             "manaBaseRegen": 0,
-            "manaRegenPerLevel": 0
+            "manaRegenPerLvl": 0
         },
         "baseDamage": 60,
-        "damagePerLevel": 5,
+        "damagePerLvl": 5,
         "baseArmor": 38,
-        "armorPerLevel": 3.25,
-        "baseMagicResist": 32.1,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 3.25,
+        "baseMR": 32.1,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.651,
-        "attackSpeedRatio": 0.651,
-        "attackSpeedPerLevel": 0.025
+        "asRatio": 0.651,
+        "asPerLvl": 0.025
     }
 }

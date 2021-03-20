@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "single",
             "dmg": [
                 75, 105, 135, 165, 195
@@ -18,7 +18,7 @@
     },
     "E": {
         "damage": {
-            "type": "magic",
+            "type": "Magic",
             "system": "single",
             "dmg": [
                 15, 30, 45, 60, 75
@@ -35,7 +35,7 @@
             "type":"Mixed",
             "system": "2Part",
             "part1": {
-              "type":"magic",
+              "type":"Magic",
               "system": "minMax",
               "minDmg":[
                 25, 37.5, 50
@@ -47,7 +47,7 @@
               "maxAPRatio": 2.85
             },
             "part2": {
-              "type": "phys",
+              "type": "Physical",
               "system":"minMax",
               "minBonusADRatio": 0.15,
               "minBonusADPerAttackSpeedRatio": 0.099,
@@ -62,7 +62,7 @@
     "passive": {
        "allCDRefund": 15,
         "damage": {
-            "type":"magic",
+            "type":"Magic",
             "dmgByLvl": [
                 68,72,77,82,89,96,103,112,121,
                 131,142,154,166,180,194,208,224,240
@@ -76,23 +76,23 @@
     },
     "stats": {
         "baseHP": 602,
-        "hpPerLevel": 94,
+        "hpPerLvl": 94,
         "baseHPRegen": 7.5,
-        "hpRegenPerLevel": 0.7,
+        "hpRegenPerLvl": 0.7,
         "mana": {
             "base": 0,
-            "manaPerLevel": 0,
+            "manaPerLvl": 0,
             "manaBaseRegen": 0,
-            "manaRegenPerLevel": 0
+            "manaRegenPerLvl": 0
         },
         "baseDamage": 58,
-        "damagePerLevel": 3.2,
+        "damagePerLvl": 3.2,
         "baseArmor": 27.88,
-        "armorPerLevel": 3.5,
-        "baseMagicResist": 32.1,
-        "magicResistPerLevel": 1.25,
+        "armorPerLvl": 3.5,
+        "baseMR": 32.1,
+        "mrPerLvl": 1.25,
         "attackSpeed": 0.658,
-        "attackSpeedRatio": 0.658,
-        "attackSpeedPerLevel": 0.0274
+        "asRatio": 0.658,
+        "asPerLvl": 0.0274
     }
 }
