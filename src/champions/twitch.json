@@ -12,7 +12,7 @@
     "E": {
         "damage": {
             "system": "2Part",
-            "type": "mixed",
+            "type": "Mixed",
             "part1": {
                 "system":"minMax",
                 "type":"Physical",

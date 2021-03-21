@@ -8,6 +8,7 @@ import ChampDropDownRight from './components/ChampDropDownRight';
 import logo from './logo.jpg';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
+import adaptiveIcon from './staticons/adaptiveforce.png'
 import healthIcon from './staticons/healthscaling.png';
 import armorIcon from './staticons/armor.png';
 import magicResIcon from './staticons/magicres.png';
@@ -7795,7 +7796,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{backgroundColor: '#f7f7f7', minHeight: '100vh'}}>
+      <div style={{backgroundColor: '#f7f7f7', minHeight: '100vh', padding: '0 1vw'}}>
 
         <header className="navHeader">
           <h2 style={{marginBottom: 0, textDecoration: "underline"}}>LoL MatchUp</h2>
@@ -7827,6 +7828,26 @@ class App extends Component {
         <div className="flexAround">
           <img className='champIcon' src={ defaultChampIcon } height="120px" width="120px"
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
+          <div className='runeBox'>
+            <img src={adaptiveIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
+            alt='Adaptive Force Icon' height="25px" width="25px"/>
+            <img src={adaptiveIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
+            alt='Adaptive Force Icon' height="25px" width="25px"/>
+            <img src={healthIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
+            alt='Health Icon' height="25px" width="25px"/>
+            <img src={attackSpeedIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
+            alt='Health Icon' height="25px" width="25px"/>
+            <img src={armorIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
+            alt='Health Icon' height="25px" width="25px"/>
+            <img src={armorIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
+            alt='Health Icon' height="25px" width="25px"/>
+            <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
+            alt='Health Icon' height="25px" width="25px"/>
+            <img src={magicResIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
+            alt='Health Icon' height="25px" width="25px"/>
+            <img src={magicResIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
+            alt='Health Icon' height="25px" width="25px"/>
+          </div>
           <img src={versus} alt='Versus Icon' height="64px" width="64px"/>
           <img className='champIcon' src={ `${this.state.champIconUrlRight}` } height="120px" width="120px"
           alt='Champion Icon' style={{marginBottom: 10}}/>
@@ -7871,7 +7892,7 @@ class App extends Component {
             <img src={abilityPowerIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Ability Power Icon' height="25px" width="25px"/>
             Ability Power: {this.state.stats1.ap}<br />
             <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Cooldown Reduction Icon' height="25px" width="25px"/>
-            Cooldown Reduction: {Math.round(this.state.stats1.cdr)}%
+            Ability Haste: {Math.round(this.state.stats1.cdr)}
           </div>
           <div className="statsBox">
             Health: {Math.round(this.state.stats2.hp)}<br />
@@ -7884,7 +7905,7 @@ class App extends Component {
             Mana Per 5: {this.state.stats2.manaRegen.toFixed(3)}<br />
             Health Per 5: {this.state.stats2.hpRegen.toFixed(3)}<br />
             Ability Power: {this.state.stats2.ap}<br />
-            Cooldown Reduction: {Math.round(this.state.stats2.cdr)}%
+            Ability Haste: {Math.round(this.state.stats2.cdr)}
           </div>
         </div>
         <div id='transform'>
@@ -7913,7 +7934,7 @@ class App extends Component {
               <img src={abilityPowerIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Ability Power Icon' height="25px" width="25px"/>
               Ability Power: {this.state.transformStats1.ap}<br />
               <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Cooldown Reduction Icon' height="25px" width="25px"/>
-              Cooldown Reduction: {Math.round(this.state.transformStats1.cdr)}%
+              Ability Haste: {Math.round(this.state.transformStats1.cdr)}
             </div>
             <div className="statsBox transformRight">
             <img src={healthIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Health Icon' height="25px" width="25px"/>
@@ -7935,7 +7956,7 @@ class App extends Component {
               <img src={abilityPowerIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Ability Power Icon' height="25px" width="25px"/>
               Ability Power: {this.state.transformStats2.ap}<br />
               <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Cooldown Reduction Icon' height="25px" width="25px"/>
-              Cooldown Reduction: {Math.round(this.state.transformStats2.cdr)}%
+              Ability Haste: {Math.round(this.state.transformStats2.cdr)}
             </div>
           </div>
         </div>
@@ -8000,39 +8021,59 @@ class App extends Component {
           </div>
           
           <div>
-            <div className="hidden">
-              <span><b><u>Passive </u></b></span> 
-            </div>
-            <div className="hidden abilityBoxRight">
-            </div>
+            <div className='hidden abilityTitleBox' style={{paddingTop: '5px', marginLeft: '20vw'}}>
+              <p style={{margin: 0}}><b><u>Passive </u></b></p> 
+              <div className="spriteContainer">
+                <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+              </div>
+            </div>  
+            <div className="hidden abilityBoxRight"></div>
 
-            <div className="hidden">
-              <span><b><u>Q </u></b></span><span>- rank: </span>
-              <input id="QRankRight" type="number" placeholder="0" min="0" max="5" 
-              style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange2}/>
-            </div>
-            <div className="hidden abilityBoxRight">
-            </div>
-
-            <div className="hidden">
-              <span><b><u>W </u></b></span><span>- rank: </span>
-              <input id="WRankRight" type="number" placeholder="0" min="0" max="5" 
-              style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange2}/>
-            </div>
-            <div className="hidden abilityBoxRight">
-            </div>
-
-            <div className="hidden">
-                <span><b><u>E </u></b></span><span>- rank: </span>
-                <input id="ERankRight" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange2}/>
+            <div className="hidden abilityTitleBox" style={{paddingTop: '5px', paddingLeft: '20vw'}}>
+              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                <p style={{margin: 0}}><b><u>Q </u></b>- rank: </p>
+                <input id="QRankRight" type="number" placeholder="0" min="0" max="5" 
+                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+              </div>
+              <div className="spriteContainer">
+                <img className='qMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+              </div>
             </div>
             <div className="hidden abilityBoxRight"></div>
 
-            <div className="hidden">
-                <span><b><u>R </u></b></span><span>- rank: </span>
-                <input id="RRankRight" type="number" placeholder="0" min="0" max="3"
-                style={{width: "40px"}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange2}/>
+            <div className="hidden abilityTitleBox" style={{paddingTop: '5px', paddingLeft: '20vw'}}>
+              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                <p style={{margin: 0}}><b><u>W </u></b>- rank: </p>
+                <input id="WRankRight" type="number" placeholder="0" min="0" max="5" 
+                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+              </div>
+              <div className="spriteContainer">
+                <img className='wMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+              </div>
+            </div>
+            <div className="hidden abilityBoxRight"></div>
+
+            <div className="hidden abilityTitleBox" style={{paddingTop: '5px', paddingLeft: '20vw'}}>
+              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                <p style={{margin: 0}}><b><u>E </u></b>- rank: </p>
+                <input id="ERankRight" type="number" placeholder="0" min="0" max="5" 
+                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+              </div>
+              <div className="spriteContainer">
+                <img className='eMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+              </div>
+            </div>
+            <div className="hidden abilityBoxRight"></div>
+
+            <div className="hidden abilityTitleBox" style={{paddingTop: '5px', paddingLeft: '20vw'}}>
+              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                <p style={{margin: 0}}><b><u>R </u></b>- rank: </p>
+                <input id="RRankRight" type="number" placeholder="0" min="0" max="3" 
+                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+              </div>
+              <div className="spriteContainer">
+                <img className='rMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+              </div>
             </div>
             <div className="hidden abilityBoxRight"></div>
           </div>

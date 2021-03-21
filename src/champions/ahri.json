@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage": {
-            "type": "mixed",
+            "type": "Mixed",
             "system": "2Part",
             "part1": {
                 "type": "Magic",

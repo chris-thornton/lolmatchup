@@ -44,6 +44,13 @@
   display: none;
 }
 
+.runeBox {
+  width: 100px;
+  height: 90px;
+  border: 1px solid black;
+  column-count: 3;
+}
+
 .abilityBoxLeft {
   width: 45vw;
   border: 1px solid black;
@@ -127,6 +134,8 @@ h2 {
   overflow: hidden;
   display: inline-block;
   margin-left: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
 }
 
 .passiveMargin {

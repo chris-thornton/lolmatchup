@@ -1,7 +1,7 @@
 {
     "Q": {
         "damage": {
-            "type":"mixed",
+            "type":"Mixed",
             "system":"2Part",
             "part1": {
                 "type":"Physical",
@@ -40,7 +40,7 @@
     },
     "E": {
         "damage": {
-            "type":"mixed",
+            "type":"Mixed",
             "system":"2Part",
             "part1":{
                 "type": "Magic",
@@ -65,7 +65,7 @@
     },
     "R": {
         "damage": {
-            "type": "mixed",
+            "type": "Mixed",
             "system":"2Part",
             "part1": {
                 "type":"Physical",
