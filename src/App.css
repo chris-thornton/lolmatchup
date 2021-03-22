@@ -51,6 +51,28 @@
   column-count: 3;
 }
 
+.runeBox2 {
+  width: 80px;
+  height: 80px;
+  border: 1px solid black;
+}
+
+.runeBoxHR {
+  margin: 0;
+}
+
+.runeImgStyle {
+  vertical-align: middle;
+  height: 25px;
+  width: 25px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
 .abilityBoxLeft {
   width: 45vw;
   border: 1px solid black;

@@ -7828,27 +7828,45 @@ class App extends Component {
         <div className="flexAround">
           <img className='champIcon' src={ defaultChampIcon } height="120px" width="120px"
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
-          <div className='runeBox'>
-            <img src={adaptiveIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
-            alt='Adaptive Force Icon' height="25px" width="25px"/>
-            <img src={adaptiveIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
-            alt='Adaptive Force Icon' height="25px" width="25px"/>
-            <img src={healthIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
-            alt='Health Icon' height="25px" width="25px"/>
-            <img src={attackSpeedIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
-            alt='Health Icon' height="25px" width="25px"/>
-            <img src={armorIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
-            alt='Health Icon' height="25px" width="25px"/>
-            <img src={armorIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
-            alt='Health Icon' height="25px" width="25px"/>
-            <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
-            alt='Health Icon' height="25px" width="25px"/>
-            <img src={magicResIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
-            alt='Health Icon' height="25px" width="25px"/>
-            <img src={magicResIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} 
-            alt='Health Icon' height="25px" width="25px"/>
+          
+          <div className='runeBox2'>
+            <img src={adaptiveIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
+            <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' />
+            <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' />
+
+            <hr className='runeBoxHR'></hr>
+
+            <img src={adaptiveIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
+            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
+            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
+
+            <hr className='runeBoxHR'></hr>
+
+            <img src={healthIcon} className='runeImgStyle' alt='Health Icon' />
+            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
+            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
           </div>
+
           <img src={versus} alt='Versus Icon' height="64px" width="64px"/>
+
+          <div className='runeBox2'>
+            <img src={adaptiveIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
+            <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' />
+            <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' />
+
+            <hr className='runeBoxHR'></hr>
+
+            <img src={adaptiveIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
+            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
+            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
+
+            <hr className='runeBoxHR'></hr>
+
+            <img src={healthIcon} className='runeImgStyle' alt='Health Icon' />
+            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
+            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
+          </div>
+
           <img className='champIcon' src={ `${this.state.champIconUrlRight}` } height="120px" width="120px"
           alt='Champion Icon' style={{marginBottom: 10}}/>
         </div>
