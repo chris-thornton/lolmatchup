@@ -18,6 +18,7 @@ import critChanceIcon from './staticons/critchance.png';
 import manaIcon from './staticons/mana.png';
 import abilityPowerIcon from './staticons/abilitypower.png';
 import cdrIcon from './staticons/cdr.png';
+import circleAdaptive from './staticons/adaptiveforceRing.png';
 
 class App extends Component {
   constructor() {
@@ -7830,7 +7831,7 @@ class App extends Component {
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
           
           <div className='runeBox2'>
-            <img src={adaptiveIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
+            <img src={circleAdaptive} className='runeImgStyle' alt='Adaptive Force Icon' />
             <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' />
             <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' />
 
