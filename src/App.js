@@ -5,16 +5,16 @@ import './App.css';
 import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
 import ChampDropDownRight from './components/ChampDropDownRight';
-import logo from './logo.jpg';
+import logo from './logoTest.png';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
 import adaptiveIcon from './staticons/adaptiveforce.png'
 import healthIcon from './staticons/healthscaling.png';
-import armorIcon from './staticons/armor.png';
+import armorIcon from './staticons/armorFullRed.png';
 import magicResIcon from './staticons/magicres.png';
 import attackDamageIcon from './staticons/attackdamage.png';
 import attackSpeedIcon from './staticons/attackspeed.png';
-import critChanceIcon from './staticons/critchance.png';
+import critChanceIcon from './staticons/critchance69.png';
 import manaIcon from './staticons/mana.png';
 import abilityPowerIcon from './staticons/abilitypower.png';
 import cdrIcon from './staticons/cdr.png';
@@ -7782,6 +7782,10 @@ class App extends Component {
     }          
   };
 
+  onRuneChange = (event) => {
+    
+  }
+
   preventKeyPress = (event) => {
     event.preventDefault()
   }
@@ -7797,7 +7801,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{backgroundColor: '#f7f7f7', minHeight: '100vh', padding: '0 1vw'}}>
+      <div style={{/*backgroundColor: '#f7f7f7', */minHeight: '100vh', padding: '0 1vw'}}>
 
         <header className="navHeader">
           <h2 style={{marginBottom: 0, textDecoration: "underline"}}>LoL MatchUp</h2>
@@ -7831,7 +7835,7 @@ class App extends Component {
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
           
           <div className='runeBox2'>
-            <img src={circleAdaptive} className='runeImgStyle' alt='Adaptive Force Icon' />
+            <img src={circleAdaptive} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange}/>
             <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' />
             <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' />
 
@@ -7902,7 +7906,7 @@ class App extends Component {
             Attack Damage: {Math.round(this.state.stats1.ad)}<br />
             <img src={attackSpeedIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Speed Icon' height="25px" width="25px"/>
             Attack Speed: {this.state.stats1.as.toFixed(3)}<br />
-            <img src={critChanceIcon} style={{verticalAlign: "middle", padding: "0px 5px 5px 0px"}} alt='Crit Chance Icon' height="16px" width="16px"/>
+            <img src={critChanceIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Crit Chance Icon' height="25px" width="25px"/>
             Crit Chance: {Math.round(this.state.stats1.critChance)}%<br />
             <img src={manaIcon} style={{verticalAlign: "middle", paddingBottom: "0px 5px 5px 0px"}} alt='Mana Icon' height="16px" width="16px"/>
             Mana: {Math.round(this.state.stats1.mana)}<br />
@@ -8040,7 +8044,7 @@ class App extends Component {
           </div>
           
           <div>
-            <div className='hidden abilityTitleBox' style={{paddingTop: '5px', marginLeft: '20vw'}}>
+            <div className='hidden abilityTitleBox' style={{paddingTop: '5px'}}>
               <p style={{margin: 0}}><b><u>Passive </u></b></p> 
               <div className="spriteContainer">
                 <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
@@ -8048,7 +8052,7 @@ class App extends Component {
             </div>  
             <div className="hidden abilityBoxRight"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px', paddingLeft: '20vw'}}>
+            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>Q </u></b>- rank: </p>
                 <input id="QRankRight" type="number" placeholder="0" min="0" max="5" 
@@ -8060,7 +8064,7 @@ class App extends Component {
             </div>
             <div className="hidden abilityBoxRight"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px', paddingLeft: '20vw'}}>
+            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>W </u></b>- rank: </p>
                 <input id="WRankRight" type="number" placeholder="0" min="0" max="5" 
@@ -8072,7 +8076,7 @@ class App extends Component {
             </div>
             <div className="hidden abilityBoxRight"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px', paddingLeft: '20vw'}}>
+            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>E </u></b>- rank: </p>
                 <input id="ERankRight" type="number" placeholder="0" min="0" max="5" 
@@ -8084,7 +8088,7 @@ class App extends Component {
             </div>
             <div className="hidden abilityBoxRight"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px', paddingLeft: '20vw'}}>
+            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>R </u></b>- rank: </p>
                 <input id="RRankRight" type="number" placeholder="0" min="0" max="3" 

@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+html {
+  background: url("./staticons/background5.png");
+  background-size: cover;
+}
+
 .center {
   display: block;
   margin: auto;
@@ -80,13 +85,13 @@ hr {
 
 .abilityBoxLeft {
   width: 45vw;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 5px;
   padding: 0px 1em;
   margin-top: 1px;
-  /* background-color: lightblue; */
+  /*background-color: #87ccfa;*/
   border-image-slice: 27 27 53 50;
-  border-image-width: 5px 5px 5px 5px;
+  border-image-width: 5px 5px 5.5px 5.3px;
   border-image-outset: 0px 0px 0px 0px;
   border-image-repeat: stretch stretch;
   border-image-source: url("./staticons/border-image-1.png"); 
@@ -94,6 +99,7 @@ hr {
 
 .abilityTitleBox {
   margin-top: 20px;
+  padding-left: 20vw;
 }
 
 .abilityBoxRight {
@@ -102,7 +108,14 @@ hr {
   border-radius: 5px;
   padding: 0px 1em;
   margin-top: 1px;
-  background-color: lightblue;
+  /*background-color: #d887fa;*/
+  /*background-color: #ff7990;*/
+  /*background-color: #fa87aa;*/
+  border-image-slice: 27 27 53 50;
+  border-image-width: 5px 5px 5px 5px;
+  border-image-outset: 0px 0px 0px 0px;
+  border-image-repeat: stretch stretch;
+  border-image-source: url("./staticons/border-image-1.png"); 
 }
 
 .navHeader {
