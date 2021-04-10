@@ -8,17 +8,17 @@ import ChampDropDownRight from './components/ChampDropDownRight';
 import logo from './logoTest.png';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
-import adaptiveIcon from './staticons/adaptiveforce.png'
-import healthIcon from './staticons/healthscaling.png';
-import armorIcon from './staticons/armorFullRed.png';
-import magicResIcon from './staticons/magicres.png';
+import forceIcon from './staticons/force.png'
+import healthIcon from './staticons/health.png';
+import armorIcon from './staticons/armor5.png';
+import magicResIcon from './staticons/magicres4.png';
 import attackDamageIcon from './staticons/attackdamage.png';
 import attackSpeedIcon from './staticons/attackspeed.png';
 import critChanceIcon from './staticons/critchance69.png';
-import manaIcon from './staticons/mana.png';
-import abilityPowerIcon from './staticons/abilitypower.png';
+import manaIcon from './staticons/mana5.png';
+import abilityPowerIcon from './staticons/abilitypower2.png';
 import cdrIcon from './staticons/cdr.png';
-import circleAdaptive from './staticons/adaptiveforceRing.png';
+import forceRing from './staticons/forceRing.png';
 
 class App extends Component {
   constructor() {
@@ -7835,13 +7835,13 @@ class App extends Component {
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
           
           <div className='runeBox2'>
-            <img src={circleAdaptive} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange}/>
+            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange}/>
             <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' />
             <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' />
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={adaptiveIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
+            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
             <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
             <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
 
@@ -7855,13 +7855,13 @@ class App extends Component {
           <img src={versus} alt='Versus Icon' height="64px" width="64px"/>
 
           <div className='runeBox2'>
-            <img src={adaptiveIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
+            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
             <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' />
             <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' />
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={adaptiveIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
+            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
             <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
             <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
 
@@ -7908,7 +7908,7 @@ class App extends Component {
             Attack Speed: {this.state.stats1.as.toFixed(3)}<br />
             <img src={critChanceIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Crit Chance Icon' height="25px" width="25px"/>
             Crit Chance: {Math.round(this.state.stats1.critChance)}%<br />
-            <img src={manaIcon} style={{verticalAlign: "middle", paddingBottom: "0px 5px 5px 0px"}} alt='Mana Icon' height="16px" width="16px"/>
+            <img src={manaIcon} style={{verticalAlign: "middle", padding: "4px 5px 5px 0px"}} alt='Mana Icon' height="16px" width="16px"/>
             Mana: {Math.round(this.state.stats1.mana)}<br />
             Mana Per 5: {this.state.stats1.manaRegen.toFixed(3)}<br />
             Health Per 5: {this.state.stats1.hpRegen.toFixed(3)}<br />
@@ -7948,9 +7948,9 @@ class App extends Component {
               Attack Damage: {Math.round(this.state.transformStats1.ad)}<br />
               <img src={attackSpeedIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Speed Icon' height="25px" width="25px"/>
               Attack Speed: {this.state.transformStats1.as.toFixed(3)}<br />
-              <img src={critChanceIcon} style={{verticalAlign: "middle", padding: "0px 5px 5px 0px"}} alt='Crit Chance Icon' height="16px" width="16px"/>
+              <img src={critChanceIcon} style={{verticalAlign: "middle", padding: "5px 5px 5px 0px"}} alt='Crit Chance Icon' height="16px" width="16px"/>
               Crit Chance: {Math.round(this.state.transformStats1.critChance)}%<br />
-              <img src={manaIcon} style={{verticalAlign: "middle", paddingBottom: "0px 5px 5px 0px"}} alt='Mana Icon' height="16px" width="16px"/>
+              <img src={manaIcon} style={{verticalAlign: "middle", padding: "0px 5px 5px 0px"}} alt='Mana Icon' height="16px" width="16px"/>
               Mana: {Math.round(this.state.transformStats1.mana)}<br />
               Mana Per 5: {this.state.transformStats1.manaRegen.toFixed(3)}<br />
               Health Per 5: {this.state.transformStats1.hpRegen.toFixed(3)}<br />
