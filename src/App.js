@@ -12,13 +12,20 @@ import forceIcon from './staticons/force.png'
 import healthIcon from './staticons/health.png';
 import armorIcon from './staticons/armor5.png';
 import magicResIcon from './staticons/magicres4.png';
-import attackDamageIcon from './staticons/attackdamage.png';
-import attackSpeedIcon from './staticons/attackspeed.png';
+import attackDamageIcon from './staticons/attackDamage.png';
+import attackSpeedIcon from './staticons/attackSpeedRing.png';
 import critChanceIcon from './staticons/critchance69.png';
-import manaIcon from './staticons/mana5.png';
+import manaIcon from './staticons/mana.png';
 import abilityPowerIcon from './staticons/abilitypower2.png';
 import cdrIcon from './staticons/cdr.png';
 import forceRing from './staticons/forceRing.png';
+import healthRing from './staticons/healthRing.png';
+import armorRing from './staticons/armorRing.png';
+import magicResRing from './staticons/magicResRing.png';
+import cdrRing from './staticons/cdrRing.png';
+import attackSpeedRing from './staticons/attackSpeedRing.png';
+import healthRegenIcon from './staticons/healthRegen.png';
+import manaRegenIcon from './staticons/manaRegen.png';
 
 class App extends Component {
   constructor() {
@@ -171,6 +178,16 @@ class App extends Component {
         W: {},
         E: {},
         R: {}
+      },
+      runesLeft: {
+        row1: 1,
+        row2: 1,
+        row3: 2
+      },
+      runesRight: {
+        row1: 1,
+        row2: 1,
+        row3: 2
       },
       QRankLeft: 0,
       QRankRight: 0,
@@ -7783,12 +7800,47 @@ class App extends Component {
   };
 
   onRuneChange = (event) => {
-    
-  }
+    var runeSrc = event.target.src;
+    var runeName = runeSrc.substring(runeSrc.lastIndexOf('/') + 1, runeSrc.indexOf('.'));
+    console.log(event.target);
+    /*if (runeName.substring(runeName.length - 4, runeName.length) === 'Ring') {
+      return
+    };*/
+    if (runeName.includes('Ring')) {
+      return
+    };
+    if (event.target.nextSibling.src) {
+      var nextSrc = event.target.nextSibling.src;
+      if (nextSrc.includes('Ring')) {
+        var nextName = nextSrc.substring(nextSrc.lastIndexOf('/') + 1, nextSrc.indexOf('.'))
+        console.log(nextName);
+        var minusName = nextName.substring(0, nextName.length - 4);
+        console.log('minusName: ' + `./staticons/${minusName}.png`);
+        var minusImg = window[`${minusName}Icon`];
+        console.log(forceIcon);
+        event.target.nextSibling.setAttribute('src', `${minusImg}`)
+      }
+    }
+    var runeNumber = event.target.id.substring(4, event.target.id.length);
+    var rowIndex = Math.trunc(runeNumber / 3);
+    var side = '';
+    if (rowIndex < 3) {
+      side = 'Left';
+      this.setState(prevState => ({
+        runesLeft: {
+          ...prevState.runesLeft,
+          [`row${rowIndex + 1}`]: 1
+        }
+      }))
+      console.log('row1 value: ' + this.state.runesLeft.row1)
+    } else {
+      side = 'Right';
+    }
+  };
 
   preventKeyPress = (event) => {
     event.preventDefault()
-  }
+  };
 
   componentDidMount() {
     function importAll(r) {
@@ -7835,41 +7887,41 @@ class App extends Component {
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
           
           <div className='runeBox2'>
-            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange}/>
-            <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' />
-            <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' />
+            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
+            <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
+            <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
-            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
-            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
+            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
+            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune4'/>
+            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune5'/>
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={healthIcon} className='runeImgStyle' alt='Health Icon' />
-            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
-            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
+            <img src={healthIcon} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
+            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune7'/>
+            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
           </div>
 
           <img src={versus} alt='Versus Icon' height="64px" width="64px"/>
 
           <div className='runeBox2'>
-            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
-            <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' />
-            <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' />
+            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
+            <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune10'/>
+            <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune11'/>
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' />
-            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
-            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
+            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune12'/>
+            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune13'/>
+            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune14'/>
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={healthIcon} className='runeImgStyle' alt='Health Icon' />
-            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' />
-            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' />
+            <img src={healthIcon} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune15'/>
+            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune16'/>
+            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
           </div>
 
           <img className='champIcon' src={ `${this.state.champIconUrlRight}` } height="120px" width="120px"
@@ -7908,9 +7960,11 @@ class App extends Component {
             Attack Speed: {this.state.stats1.as.toFixed(3)}<br />
             <img src={critChanceIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Crit Chance Icon' height="25px" width="25px"/>
             Crit Chance: {Math.round(this.state.stats1.critChance)}%<br />
-            <img src={manaIcon} style={{verticalAlign: "middle", padding: "4px 5px 5px 0px"}} alt='Mana Icon' height="16px" width="16px"/>
+            <img src={manaIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Mana Icon' height="25px" width="25px"/>
             Mana: {Math.round(this.state.stats1.mana)}<br />
+            <img src={manaRegenIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Mana Regen Icon' height="25px" width="25px"/>
             Mana Per 5: {this.state.stats1.manaRegen.toFixed(3)}<br />
+            <img src={healthRegenIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Health Regen Icon' height="25px" width="25px"/>
             Health Per 5: {this.state.stats1.hpRegen.toFixed(3)}<br />
             <img src={abilityPowerIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Ability Power Icon' height="25px" width="25px"/>
             Ability Power: {this.state.stats1.ap}<br />
