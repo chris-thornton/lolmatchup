@@ -8,7 +8,7 @@ import ChampDropDownRight from './components/ChampDropDownRight';
 import logo from './logoTest.png';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
-import forceIcon from './staticons/force.png'
+import forceIcon from './staticons/force.png';
 import healthIcon from './staticons/health.png';
 import armorIcon from './staticons/armor5.png';
 import magicResIcon from './staticons/magicres4.png';
@@ -201,6 +201,90 @@ class App extends Component {
       levelRight: 1
     }
   };
+
+  runeIconArray = [
+    forceIcon, attackSpeedIcon, cdrIcon, 
+    forceIcon, armorIcon, magicResIcon,
+    healthIcon, armorIcon, magicResIcon,
+    forceIcon, attackSpeedIcon, cdrIcon, 
+    forceIcon, armorIcon, magicResIcon,
+    healthIcon, armorIcon, magicResIcon
+  ];
+
+  runeHash = {
+    rune0: {
+      baseSrc: forceIcon,
+      ringSrc: forceRing
+    },
+    rune1: {
+      baseSrc: attackSpeedIcon,
+      ringSrc: attackSpeedRing
+    },
+    rune2: {
+      baseSrc: cdrIcon,
+      ringSrc: cdrRing
+    },
+    rune3: {
+      baseSrc: forceIcon,
+      ringSrc: forceRing
+    },
+    rune4: {
+      baseSrc: armorIcon,
+      ringSrc: armorRing
+    },
+    rune5: {
+      baseSrc: magicResIcon,
+      ringSrc: magicResRing
+    },
+    rune6: {
+      baseSrc: healthIcon,
+      ringSrc: healthRing
+    },
+    rune7: {
+      baseSrc: armorIcon,
+      ringSrc: armorRing
+    },
+    rune8: {
+      baseSrc: magicResIcon,
+      ringSrc: magicResRing
+    },
+    rune9: {
+      baseSrc: forceIcon,
+      ringSrc: forceRing
+    },
+    rune10: {
+      baseSrc: attackSpeedIcon,
+      ringSrc: attackSpeedRing
+    },
+    rune11: {
+      baseSrc: cdrIcon,
+      ringSrc: cdrRing
+    },
+    rune12: {
+      baseSrc: forceIcon,
+      ringSrc: forceRing
+    },
+    rune13: {
+      baseSrc: armorIcon,
+      ringSrc: armorRing
+    },
+    rune14: {
+      baseSrc: magicResIcon,
+      ringSrc: magicResRing
+    },
+    rune15: {
+      baseSrc: healthIcon,
+      ringSrc: healthRing
+    },
+    rune16: {
+      baseSrc: armorIcon,
+      ringSrc: armorRing
+    },
+    rune17: {
+      baseSrc: magicResIcon,
+      ringSrc: magicResRing
+    }
+  }
 
   onSearchChange = (event) => {
     this.setState({ searchField1: event.target.value });
@@ -7802,10 +7886,9 @@ class App extends Component {
   onRuneChange = (event) => {
     var runeSrc = event.target.src;
     var runeName = runeSrc.substring(runeSrc.lastIndexOf('/') + 1, runeSrc.indexOf('.'));
-    console.log(event.target);
-    /*if (runeName.substring(runeName.length - 4, runeName.length) === 'Ring') {
-      return
-    };*/
+    if (event.target.nextSibling.id) {
+      console.log(forceIcon);
+    }
     if (runeName.includes('Ring')) {
       return
     };
@@ -7817,10 +7900,9 @@ class App extends Component {
         var minusName = nextName.substring(0, nextName.length - 4);
         console.log('minusName: ' + `./staticons/${minusName}.png`);
         var minusImg = window[`${minusName}Icon`];
-        console.log(forceIcon);
         event.target.nextSibling.setAttribute('src', `${minusImg}`)
       }
-    }
+    };
     var runeNumber = event.target.id.substring(4, event.target.id.length);
     var rowIndex = Math.trunc(runeNumber / 3);
     var side = '';
