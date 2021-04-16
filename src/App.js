@@ -13,7 +13,7 @@ import healthIcon from './staticons/health.png';
 import armorIcon from './staticons/armor5.png';
 import magicResIcon from './staticons/magicres4.png';
 import attackDamageIcon from './staticons/attackDamage.png';
-import attackSpeedIcon from './staticons/attackSpeedRing.png';
+import attackSpeedIcon from './staticons/attackSpeed.png';
 import critChanceIcon from './staticons/critchance69.png';
 import manaIcon from './staticons/mana.png';
 import abilityPowerIcon from './staticons/abilitypower2.png';
@@ -180,14 +180,22 @@ class App extends Component {
         R: {}
       },
       runesLeft: {
-        row1: 1,
-        row2: 1,
-        row3: 2
+        ad: 0,
+        as: 0,
+        arm: 0,
+        mr: 0,
+        hp: 0,
+        ap: 0,
+        cdr: 0
       },
       runesRight: {
-        row1: 1,
-        row2: 1,
-        row3: 2
+        ad: 0,
+        as: 0,
+        arm: 0,
+        mr: 0,
+        hp: 0,
+        ap: 0,
+        cdr: 0
       },
       QRankLeft: 0,
       QRankRight: 0,
@@ -214,75 +222,135 @@ class App extends Component {
   runeHash = {
     rune0: {
       baseSrc: forceIcon,
-      ringSrc: forceRing
+      ringSrc: forceRing,
+      stat: {
+        force: 9
+      }
     },
     rune1: {
       baseSrc: attackSpeedIcon,
-      ringSrc: attackSpeedRing
+      ringSrc: attackSpeedRing,
+      stat: {
+        as: 0.1
+      }
     },
     rune2: {
       baseSrc: cdrIcon,
-      ringSrc: cdrRing
+      ringSrc: cdrRing,
+      stat: {
+        cdr: 8
+      }
     },
     rune3: {
       baseSrc: forceIcon,
-      ringSrc: forceRing
+      ringSrc: forceRing,
+      stat: {
+       force: 9 
+      }
     },
     rune4: {
       baseSrc: armorIcon,
-      ringSrc: armorRing
+      ringSrc: armorRing,
+      stat: {
+       arm: 6 
+      }
     },
     rune5: {
       baseSrc: magicResIcon,
-      ringSrc: magicResRing
+      ringSrc: magicResRing,
+      stat: {
+       mr: 8 
+      }
     },
     rune6: {
       baseSrc: healthIcon,
-      ringSrc: healthRing
+      ringSrc: healthRing,
+      stat: {
+        hp: [
+          15,19.41,23.82,28.24,32.65,37.06,41.47,45.88,50.29,
+          54.71,59.12,63.53,67.94,72.35,76.76,81.18,85.59,90
+        ]
+      }
     },
     rune7: {
       baseSrc: armorIcon,
-      ringSrc: armorRing
+      ringSrc: armorRing,
+      stat: {
+        arm: 6
+      }
     },
     rune8: {
       baseSrc: magicResIcon,
-      ringSrc: magicResRing
+      ringSrc: magicResRing,
+      stat: {
+        mr: 8
+      }
     },
     rune9: {
       baseSrc: forceIcon,
-      ringSrc: forceRing
+      ringSrc: forceRing,
+      stat: {
+        force: 9
+      }
     },
     rune10: {
       baseSrc: attackSpeedIcon,
-      ringSrc: attackSpeedRing
+      ringSrc: attackSpeedRing,
+      stat: {
+        as: 0.1
+      }
     },
     rune11: {
       baseSrc: cdrIcon,
-      ringSrc: cdrRing
+      ringSrc: cdrRing,
+      stat: {
+        cdr: 8
+      }
     },
     rune12: {
       baseSrc: forceIcon,
-      ringSrc: forceRing
+      ringSrc: forceRing,
+      stat: {
+        force: 9
+      }
     },
     rune13: {
       baseSrc: armorIcon,
-      ringSrc: armorRing
+      ringSrc: armorRing,
+      stat: {
+        arm: 6
+      }
     },
     rune14: {
       baseSrc: magicResIcon,
-      ringSrc: magicResRing
+      ringSrc: magicResRing,
+      stat: {
+        mr: 8
+      }
     },
     rune15: {
       baseSrc: healthIcon,
-      ringSrc: healthRing
+      ringSrc: healthRing,
+      stat: {
+        hp: [
+          15,19.41,23.82,28.24,32.65,37.06,41.47,45.88,50.29,
+          54.71,59.12,63.53,67.94,72.35,76.76,81.18,85.59,90
+        ]
+      }
     },
     rune16: {
       baseSrc: armorIcon,
-      ringSrc: armorRing
+      ringSrc: armorRing,
+      stat: {
+        arm: 6
+      }
     },
     rune17: {
       baseSrc: magicResIcon,
-      ringSrc: magicResRing
+      ringSrc: magicResRing,
+      stat: {
+        mr: 8
+      }
     }
   }
 
@@ -7886,38 +7954,38 @@ class App extends Component {
   onRuneChange = (event) => {
     var runeSrc = event.target.src;
     var runeName = runeSrc.substring(runeSrc.lastIndexOf('/') + 1, runeSrc.indexOf('.'));
-    if (event.target.nextSibling.id) {
-      console.log(forceIcon);
-    }
+
     if (runeName.includes('Ring')) {
       return
     };
-    if (event.target.nextSibling.src) {
-      var nextSrc = event.target.nextSibling.src;
-      if (nextSrc.includes('Ring')) {
-        var nextName = nextSrc.substring(nextSrc.lastIndexOf('/') + 1, nextSrc.indexOf('.'))
-        console.log(nextName);
-        var minusName = nextName.substring(0, nextName.length - 4);
-        console.log('minusName: ' + `./staticons/${minusName}.png`);
-        var minusImg = window[`${minusName}Icon`];
-        event.target.nextSibling.setAttribute('src', `${minusImg}`)
-      }
-    };
+    event.target.setAttribute('src', this.runeHash[event.target.id]['ringSrc']);
+
     var runeNumber = event.target.id.substring(4, event.target.id.length);
+    var rowIndex = Math.trunc(runeNumber / 3);
+    var side = '';
     var rowIndex = Math.trunc(runeNumber / 3);
     var side = '';
     if (rowIndex < 3) {
       side = 'Left';
-      this.setState(prevState => ({
-        runesLeft: {
-          ...prevState.runesLeft,
-          [`row${rowIndex + 1}`]: 1
-        }
-      }))
-      console.log('row1 value: ' + this.state.runesLeft.row1)
     } else {
       side = 'Right';
-    }
+    };
+
+    this.setState(prevState => ({
+      [`runes${side}`]: {
+        ...prevState[`runes${side}`],
+        [this.runeHash[event.target.id][stat]]: 1
+      }
+    }))
+
+    if (runeNumber % 3 === 0) {
+      var nextSib = event.target.nextSibling;
+      var nextNextSib = event.target.nextSibling.nextSibling;
+      if (nextSib.src.includes('Ring')) {
+        nextSib.setAttribute('src', this.runeHash[nextSib.id]['baseSrc'])
+        
+      }
+    };
   };
 
   preventKeyPress = (event) => {
