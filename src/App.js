@@ -43,7 +43,7 @@ class App extends Component {
       champNameRight: '',
       champIconUrlLeft: defaultChampIcon,
       champIconUrlRight: defaultChampIcon,
-      stats1: {
+      statsLeft: {
         ad: 0,
         adPL: 0,
         as: 0,
@@ -106,7 +106,7 @@ class App extends Component {
         manaRegen: 0,
         manaRegenPL: 0
       },
-      stats2: {
+      statsRight: {
         ad: 0,
         adPL: 0,
         as: 0,
@@ -180,20 +180,20 @@ class App extends Component {
         R: {}
       },
       runesLeft: {
-        ad: 0,
+        ad: 10.8,
         as: 0,
         arm: 0,
         mr: 0,
-        hp: 0,
+        hp: 15,
         ap: 0,
         cdr: 0
       },
       runesRight: {
-        ad: 0,
+        ad: 10.8,
         as: 0,
         arm: 0,
         mr: 0,
-        hp: 0,
+        hp: 15,
         ap: 0,
         cdr: 0
       },
@@ -210,147 +210,104 @@ class App extends Component {
     }
   };
 
-  runeIconArray = [
-    forceIcon, attackSpeedIcon, cdrIcon, 
-    forceIcon, armorIcon, magicResIcon,
-    healthIcon, armorIcon, magicResIcon,
-    forceIcon, attackSpeedIcon, cdrIcon, 
-    forceIcon, armorIcon, magicResIcon,
-    healthIcon, armorIcon, magicResIcon
-  ];
-
   runeHash = {
     rune0: {
       baseSrc: forceIcon,
       ringSrc: forceRing,
-      stat: {
-        force: 9
-      }
+      stat: ['force', 9]
     },
     rune1: {
       baseSrc: attackSpeedIcon,
       ringSrc: attackSpeedRing,
-      stat: {
-        as: 0.1
-      }
+      stat: ['as', 0.1]
     },
     rune2: {
       baseSrc: cdrIcon,
       ringSrc: cdrRing,
-      stat: {
-        cdr: 8
-      }
+      stat: ['cdr', 8]
     },
     rune3: {
       baseSrc: forceIcon,
       ringSrc: forceRing,
-      stat: {
-       force: 9 
-      }
+      stat: ['force', 9] 
     },
     rune4: {
       baseSrc: armorIcon,
       ringSrc: armorRing,
-      stat: {
-       arm: 6 
-      }
+      stat: ['arm', 6]
     },
     rune5: {
       baseSrc: magicResIcon,
       ringSrc: magicResRing,
-      stat: {
-       mr: 8 
-      }
+      stat: ['mr', 8] 
     },
     rune6: {
       baseSrc: healthIcon,
       ringSrc: healthRing,
-      stat: {
-        hp: [
+      stat: 
+        ['hp', 
           15,19.41,23.82,28.24,32.65,37.06,41.47,45.88,50.29,
           54.71,59.12,63.53,67.94,72.35,76.76,81.18,85.59,90
         ]
-      }
     },
     rune7: {
       baseSrc: armorIcon,
       ringSrc: armorRing,
-      stat: {
-        arm: 6
-      }
+      stat: ['arm', 6]
     },
     rune8: {
       baseSrc: magicResIcon,
       ringSrc: magicResRing,
-      stat: {
-        mr: 8
-      }
+      stat: ['mr', 8]
     },
     rune9: {
       baseSrc: forceIcon,
       ringSrc: forceRing,
-      stat: {
-        force: 9
-      }
+      stat: ['force', 9]
     },
     rune10: {
       baseSrc: attackSpeedIcon,
       ringSrc: attackSpeedRing,
-      stat: {
-        as: 0.1
-      }
+      stat: ['as', 0.1]
     },
     rune11: {
       baseSrc: cdrIcon,
       ringSrc: cdrRing,
-      stat: {
-        cdr: 8
-      }
+      stat: ['cdr', 8]
     },
     rune12: {
       baseSrc: forceIcon,
       ringSrc: forceRing,
-      stat: {
-        force: 9
-      }
+      stat: ['force', 9]
     },
     rune13: {
       baseSrc: armorIcon,
       ringSrc: armorRing,
-      stat: {
-        arm: 6
-      }
+      stat: ['arm', 6]
     },
     rune14: {
       baseSrc: magicResIcon,
       ringSrc: magicResRing,
-      stat: {
-        mr: 8
-      }
+      stat: ['mr', 8]
     },
     rune15: {
       baseSrc: healthIcon,
       ringSrc: healthRing,
-      stat: {
-        hp: [
+      stat: 
+        ['hp', 
           15,19.41,23.82,28.24,32.65,37.06,41.47,45.88,50.29,
           54.71,59.12,63.53,67.94,72.35,76.76,81.18,85.59,90
         ]
-      }
     },
     rune16: {
       baseSrc: armorIcon,
       ringSrc: armorRing,
-      stat: {
-        arm: 6
-      }
+      stat: ['arm', 6]
     },
     rune17: {
       baseSrc: magicResIcon,
       ringSrc: magicResRing,
-      stat: {
-        mr: 8
-      }
+      stat: ['mr', 8]
     }
   }
 
@@ -7548,8 +7505,8 @@ class App extends Component {
     this.testing('Left', event);
     var itemStats = this.state[`itemStats${side}`];
     var enemyItemStats = this.state[`itemStats${otherSide}`];
-    var enemyStats = this.state.stats2;
-    var selectedStats = this.state.stats1;
+    var enemyStats = this.state[`stats${otherSide}`];
+    var selectedStats = this.state[`stats${side}`];
     var champLevel = this.state[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
 
@@ -7610,8 +7567,8 @@ class App extends Component {
         };
 
         this.setState(prevState => ({
-          stats1: {                   
-              ...prevState.stats1,   
+          [`stats${side}`]: {                   
+              ...prevState[`stats${side}`],   
               hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
               hpPL: statsPath["hpPerLvl"],
               asPL: statsPath["asPerLvl"],
@@ -7673,8 +7630,8 @@ class App extends Component {
     var otherSide = 'Left';
     var itemStats = this.state.itemStatsRight;
     var enemyItemStats = this.state.itemStatsLeft;
-    var enemyStats = this.state.stats1
-    var selectedStats = this.state.stats2
+    var enemyStats = this.state[`stats${otherSide}`]
+    var selectedStats = this.state[`stats${side}`]
     var champLevel = this.state[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
 
@@ -7726,8 +7683,8 @@ class App extends Component {
       var statsPath = champFile[`stats`];
 
       this.setState(prevState => ({
-        stats2: {                   
-            ...prevState.stats2,   
+        [`stats${side}`]: {                   
+            ...prevState[`stats${side}`],   
             hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
             hpPL: statsPath["hpPerLvl"],
             asPL: statsPath["asPerLvl"],
@@ -7788,11 +7745,11 @@ class App extends Component {
     var otherSide = 'Right';
     var champLevel = event.target.value - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    var itemStats = this.state.itemStatsLeft;
-    var enemyItemStats = this.state.itemStatsRight;
-    var enemyStats = this.state.stats2;
-    var selectedStats = this.state.stats1;
-    var champName = this.state.champNameLeft;
+    var itemStats = this.state[`itemStats${side}`];
+    var enemyItemStats = this.state[`itemStats${otherSide}`];
+    var enemyStats = this.state[`stats${otherSide}`];
+    var selectedStats = this.state[`stats${side}`];
+    var champName = this.state[`champName${side}`];
 
     var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
     for (var i = 0; i < abilitiesLength; i++) {
@@ -7808,8 +7765,8 @@ class App extends Component {
       .then(({default: champFile}) => {
         var statsPath = champFile[`stats`];
         this.setState(prevState => ({
-          stats1: {                   
-              ...prevState.stats1,   
+          [`stats${side}`]: {                   
+              ...prevState[`stats${side}`],   
               hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
               as: statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
               arm: statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
@@ -7845,13 +7802,13 @@ class App extends Component {
   onLevelChange2 = (event) => {
     var side = 'Right';
     var otherSide = 'Left';
-    var itemStats = this.state.itemStatsRight;
-    var enemyItemStats = this.state.itemStatsLeft;
-    var enemyStats = this.state.stats1
-    var selectedStats = this.state.stats2
+    var itemStats = this.state[`itemStats${side}`];
+    var enemyItemStats = this.state[`itemStats${otherSide}`];
+    var enemyStats = this.state[`stats${otherSide}`];
+    var selectedStats = this.state[`stats${side}`]
     var champLevel = event.target.value - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    var champName = this.state.champNameRight;
+    var champName = this.state[`champName${side}`];
 
     var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
     for (var i = 0; i < abilitiesLength; i++) {
@@ -7867,8 +7824,8 @@ class App extends Component {
       .then(({default: champFile}) => {
         var statsPath = champFile[`stats`]
         this.setState(prevState => ({
-          stats2: {                   
-              ...prevState.stats2,   
+          [`stats${side}`]: {                   
+              ...prevState[`stats${side}`],   
               hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
               as: statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
               arm: statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
@@ -7911,8 +7868,8 @@ class App extends Component {
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
     var itemStats = this.state[`itemStats${side}`];
     var enemyItemStats = this.state[`itemStats${otherSide}`];
-    var enemyStats = this.state.stats2;
-    var selectedStats = this.state.stats1;
+    var enemyStats = this.state[`stats${otherSide}`];
+    var selectedStats = this.state[`stats${side}`];
     var champName = this.state[`champName${side}`];
 
     this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
@@ -7936,8 +7893,8 @@ class App extends Component {
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
     var itemStats = this.state[`itemStats${side}`];
     var enemyItemStats = this.state[`itemStats${otherSide}`];
-    var enemyStats = this.state.stats1;
-    var selectedStats = this.state.stats2;
+    var enemyStats = this.state[`stats${otherSide}`];
+    var selectedStats = this.state[`stats${side}`];
     var champName = this.state[`champName${side}`];
 
     this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
@@ -7952,29 +7909,43 @@ class App extends Component {
   };
 
   onRuneChange = (event) => {
+    console.log(this.state.runesLeft)
     var runeSrc = event.target.src;
     var runeName = runeSrc.substring(runeSrc.lastIndexOf('/') + 1, runeSrc.indexOf('.'));
 
     if (runeName.includes('Ring')) {
       return
     };
-    event.target.setAttribute('src', this.runeHash[event.target.id]['ringSrc']);
+    var runeId = event.target.id;
+    event.target.setAttribute('src', this.runeHash[runeId]['ringSrc']);
 
-    var runeNumber = event.target.id.substring(4, event.target.id.length);
-    var rowIndex = Math.trunc(runeNumber / 3);
+    var runeNumber = runeId.substring(4, runeId.length);
     var side = '';
-    var rowIndex = Math.trunc(runeNumber / 3);
-    var side = '';
-    if (rowIndex < 3) {
+    if (runeNumber < 9) {
       side = 'Left';
     } else {
       side = 'Right';
+    };
+    var runeStat = this.runeHash[runeId]['stat'][0];
+    var runeValue = this.runeHash[runeId]['stat'][1];
+    if (runeStat === 'force') {
+      if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+        runeStat = 'ap';
+        runeValue = 9;
+      } else {
+        runeStat = 'ad';
+        runeValue = 5.4;
+      };
+    };
+    var champLevel = this.state[`level${side}`] - 1;
+    if (runeStat === 'hp') {
+      runeValue = this.runeHash[runeId]['stat'][champLevel+1];
     };
 
     this.setState(prevState => ({
       [`runes${side}`]: {
         ...prevState[`runes${side}`],
-        [this.runeHash[event.target.id][stat]]: 1
+        [runeStat]: +prevState[`runes${side}`][runeStat] + +runeValue
       }
     }))
 
@@ -7982,10 +7953,105 @@ class App extends Component {
       var nextSib = event.target.nextSibling;
       var nextNextSib = event.target.nextSibling.nextSibling;
       if (nextSib.src.includes('Ring')) {
-        nextSib.setAttribute('src', this.runeHash[nextSib.id]['baseSrc'])
-        
-      }
+        nextSib.setAttribute('src', this.runeHash[nextSib.id]['baseSrc']);
+        var nextStat = this.runeHash[nextSib.id]['stat'][0];
+        var nextValue = this.runeHash[nextSib.id]['stat'][1];
+        if (nextStat === 'force') {
+          if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+            nextStat = 'ap';
+            nextValue = 9;
+          } else {
+            nextStat = 'ad';
+            nextValue = 5.4;
+          };
+        };
+        if (nextStat === 'hp') {
+          nextValue = this.runeHash[nextSib.id]['stat'][champLevel+1];
+        };
+
+        this.setState(prevState => ({
+          [`runes${side}`]: {
+            ...prevState[`runes${side}`],
+            [nextStat]: +prevState[`runes${side}`][nextStat] - +nextValue
+          }
+        }))
+      } else {
+        nextNextSib.setAttribute('src', this.runeHash[nextNextSib.id]['baseSrc']);
+        var nextNextStat = this.runeHash[nextNextSib.id]['stat'][0];
+        var nextNextValue = this.runeHash[nextNextSib.id]['stat'][1];
+        if (nextNextStat === 'force') {
+          if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+            nextNextStat = 'ap';
+            nextNextValue = 9;
+          } else {
+            nextNextStat = 'ad';
+            nextNextValue = 5.4;
+          };
+        };
+        if (nextNextStat === 'hp') {
+          nextNextValue = this.runeHash[nextNextSib.id]['stat'][champLevel+1];
+        };
+
+        this.setState(prevState => ({
+          [`runes${side}`]: {
+            ...prevState[`runes${side}`],
+            [nextNextStat]: +prevState[`runes${side}`][nextNextStat] - +nextNextValue
+          }
+        }));
+      };
     };
+
+    if (runeNumber % 3 === 1) {
+      var prevSib = event.target.previousSibling;
+      var nextSib = event.target.nextSibling;
+      if (prevSib.src.includes('Ring')) {
+        prevSib.setAttribute('src', this.runeHash[prevSib.id]['baseSrc']);
+        var prevStat = this.runeHash[prevSib.id]['stat'][0];
+        var prevValue = this.runeHash[prevSib.id]['stat'][1];
+        if (prevStat === 'force') {
+          if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+            prevStat = 'ap';
+            prevValue = 9;
+          } else {
+            prevStat = 'ad';
+            prevValue = 5.4;
+          };
+        };
+        if (prevStat === 'hp') {
+          prevValue = this.runeHash[prevSib.id]['stat'][champLevel+1];
+        };
+
+        this.setState(prevState => ({
+          [`runes${side}`]: {
+            ...prevState[`runes${side}`],
+            [prevStat]: +prevState[`runes${side}`][prevStat] - +prevValue
+          }
+        }))
+      } else {
+          nextSib.setAttribute('src', this.runeHash[nextSib.id]['baseSrc']);
+          var nextStat = this.runeHash[nextSib.id]['stat'][0];
+          var nextValue = this.runeHash[nextSib.id]['stat'][1];
+          if (nextStat === 'force') {
+            if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+              nextStat = 'ap';
+              nextValue = 9;
+            } else {
+              nextStat = 'ad';
+              nextValue = 5.4;
+            };
+          };
+          if (nextStat === 'hp') {
+            nextValue = this.runeHash[nextSib.id]['stat'][champLevel+1];
+          };
+
+          this.setState(prevState => ({
+            [`runes${side}`]: {
+              ...prevState[`runes${side}`],
+              [nextStat]: +prevState[`runes${side}`][nextStat] - +nextValue
+            }
+          }))
+      }
+    }
   };
 
   preventKeyPress = (event) => {
@@ -8037,19 +8103,19 @@ class App extends Component {
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
           
           <div className='runeBox2'>
-            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
+            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
             <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
             <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
+            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
             <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune4'/>
             <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune5'/>
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={healthIcon} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
+            <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
             <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune7'/>
             <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
           </div>
@@ -8057,19 +8123,19 @@ class App extends Component {
           <img src={versus} alt='Versus Icon' height="64px" width="64px"/>
 
           <div className='runeBox2'>
-            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
+            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
             <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune10'/>
             <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune11'/>
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={forceIcon} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune12'/>
+            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune12'/>
             <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune13'/>
             <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune14'/>
 
             <hr className='runeBoxHR'></hr>
 
-            <img src={healthIcon} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune15'/>
+            <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune15'/>
             <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune16'/>
             <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
           </div>
@@ -8098,41 +8164,52 @@ class App extends Component {
 
         <div className="flexDisplay">        
           <div className="statsBox">
-            <img src={healthIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Health Icon' height="25px" width="25px"/>
-            Health: {Math.round(this.state.stats1.hp)}<br />
-            <img src={armorIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Armor Icon' height="25px" width="25px"/>
-            Armor: {Math.round(this.state.stats1.arm)}<br />
-            <img src={magicResIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Magic Resist Icon' height="25px" width="25px"/>
-            Magic Resist: {Math.round(this.state.stats1.mr)}<br />
-            <img src={attackDamageIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Damage Icon' height="25px" width="25px"/>
-            Attack Damage: {Math.round(this.state.stats1.ad)}<br />
-            <img src={attackSpeedIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Speed Icon' height="25px" width="25px"/>
-            Attack Speed: {this.state.stats1.as.toFixed(3)}<br />
-            <img src={critChanceIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Crit Chance Icon' height="25px" width="25px"/>
-            Crit Chance: {Math.round(this.state.stats1.critChance)}%<br />
-            <img src={manaIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Mana Icon' height="25px" width="25px"/>
-            Mana: {Math.round(this.state.stats1.mana)}<br />
-            <img src={manaRegenIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Mana Regen Icon' height="25px" width="25px"/>
-            Mana Per 5: {this.state.stats1.manaRegen.toFixed(3)}<br />
-            <img src={healthRegenIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Health Regen Icon' height="25px" width="25px"/>
-            Health Per 5: {this.state.stats1.hpRegen.toFixed(3)}<br />
-            <img src={abilityPowerIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Ability Power Icon' height="25px" width="25px"/>
-            Ability Power: {this.state.stats1.ap}<br />
-            <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Cooldown Reduction Icon' height="25px" width="25px"/>
-            Ability Haste: {Math.round(this.state.stats1.cdr)}
+            <img src={healthIcon} className='statsImgStyle' alt='Health Icon'/>
+            Health: {Math.round(this.state.statsLeft.hp)}<br />
+            <img src={armorIcon} className='statsImgStyle' alt='Armor Icon'/>
+            Armor: {Math.round(this.state.statsLeft.arm)}<br />
+            <img src={magicResIcon} className='statsImgStyle' alt='Magic Resist Icon'/>
+            Magic Resist: {Math.round(this.state.statsLeft.mr)}<br />
+            <img src={attackDamageIcon} className='statsImgStyle' alt='Attack Damage Icon'/>
+            Attack Damage: {Math.round(this.state.statsLeft.ad)}<br />
+            <img src={attackSpeedIcon} className='statsImgStyle' alt='Attack Speed Icon'/>
+            Attack Speed: {this.state.statsLeft.as.toFixed(3)}<br />
+            <img src={critChanceIcon} className='statsImgStyle' alt='Crit Chance Icon'/>
+            Crit Chance: {Math.round(this.state.statsLeft.critChance)}%<br />
+            <img src={manaIcon} className='statsImgStyle' alt='Mana Icon'/>
+            Mana: {Math.round(this.state.statsLeft.mana)}<br />
+            <img src={manaRegenIcon} className='statsImgStyle' alt='Mana Regen Icon'/>
+            Mana Per 5: {this.state.statsLeft.manaRegen.toFixed(3)}<br />
+            <img src={healthRegenIcon} className='statsImgStyle' alt='Health Regen Icon'/>
+            Health Per 5: {this.state.statsLeft.hpRegen.toFixed(3)}<br />
+            <img src={abilityPowerIcon} className='statsImgStyle' alt='Ability Power Icon'/>
+            Ability Power: {this.state.statsLeft.ap}<br />
+            <img src={cdrIcon} className='statsImgStyle' alt='Cooldown Reduction Icon'/>
+            Ability Haste: {Math.round(this.state.statsLeft.cdr)}
           </div>
           <div className="statsBox">
-            Health: {Math.round(this.state.stats2.hp)}<br />
-            Armor: {Math.round(this.state.stats2.arm)}<br />
-            Magic Resist: {Math.round(this.state.stats2.mr)}<br />
-            Attack Damage: {Math.round(this.state.stats2.ad)}<br />
-            Attack Speed: {this.state.stats2.as.toFixed(3)}<br />
-            Crit Chance: {Math.round(this.state.stats2.critChance)}%<br />
-            Mana: {Math.round(this.state.stats2.mana)}<br />
-            Mana Per 5: {this.state.stats2.manaRegen.toFixed(3)}<br />
-            Health Per 5: {this.state.stats2.hpRegen.toFixed(3)}<br />
-            Ability Power: {this.state.stats2.ap}<br />
-            Ability Haste: {Math.round(this.state.stats2.cdr)}
+            <img src={healthIcon} className='statsImgStyle' alt='Health Icon'/>
+            Health: {Math.round(this.state.statsRight.hp)}<br />
+            <img src={armorIcon} className='statsImgStyle' alt='Armor Icon'/>
+            Armor: {Math.round(this.state.statsRight.arm)}<br />
+            <img src={magicResIcon} className='statsImgStyle' alt='Magic Resist Icon'/>
+            Magic Resist: {Math.round(this.state.statsRight.mr)}<br />
+            <img src={attackDamageIcon} className='statsImgStyle' alt='Attack Damage Icon'/>
+            Attack Damage: {Math.round(this.state.statsRight.ad)}<br />
+            <img src={attackSpeedIcon} className='statsImgStyle' alt='Attack Speed Icon'/>
+            Attack Speed: {this.state.statsRight.as.toFixed(3)}<br />
+            <img src={critChanceIcon} className='statsImgStyle' alt='Crit Chance Icon'/>
+            Crit Chance: {Math.round(this.state.statsRight.critChance)}%<br />
+            <img src={manaIcon} className='statsImgStyle' alt='Mana Icon'/>
+            Mana: {Math.round(this.state.statsRight.mana)}<br />
+            <img src={manaRegenIcon} className='statsImgStyle' alt='Mana Regen Icon'/>
+            Mana Per 5: {this.state.statsRight.manaRegen.toFixed(3)}<br />
+            <img src={healthRegenIcon} className='statsImgStyle' alt='Health Regen Icon'/>
+            Health Per 5: {this.state.statsRight.hpRegen.toFixed(3)}<br />
+            <img src={abilityPowerIcon} className='statsImgStyle' alt='Ability Power Icon'/>
+            Ability Power: {this.state.statsRight.ap}<br />
+            <img src={cdrIcon} className='statsImgStyle' alt='Cooldown Reduction Icon'/>
+            Ability Haste: {Math.round(this.state.statsRight.cdr)}
           </div>
         </div>
         <div id='transform'>

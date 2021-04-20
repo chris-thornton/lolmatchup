@@ -20,3 +20,26 @@
 </div>
 
 //runebox alt version
+
+nextNextSib.setAttribute('src', this.runeHash[nextNextSib.id]['baseSrc']);
+        var nextNextStat = this.runeHash[nextNextSib.id]['stat'][0];
+        var nextNextValue = this.runeHash[nextNextSib.id]['stat'][1];
+        if (nextNextStat === 'force') {
+          if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+            nextNextStat = 'ap';
+            nextNextValue = 9;
+          } else {
+            nextNextStat = 'ad';
+            nextNextValue = 5.4;
+          };
+        };
+        if (nextNextStat === 'hp') {
+          nextNextValue = this.runeHash[nextNextSib.id]['stat'][champLevel+1];
+        };
+
+        this.setState(prevState => ({
+          [`runes${side}`]: {
+            ...prevState[`runes${side}`],
+            [nextNextStat]: +prevState[`runes${side}`][nextNextStat] - +nextNextValue
+          }
+        }))

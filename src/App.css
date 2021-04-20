@@ -37,6 +37,13 @@ html {
   column-count: 4;
 }
 
+.statsImgStyle {
+  vertical-align: middle;
+  padding-bottom: 5px;
+  height: 25px;
+  width: 25px;
+}
+
 .transformLeft {
   visibility: hidden;
 }
