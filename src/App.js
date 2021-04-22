@@ -10,12 +10,12 @@ import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
 import forceIcon from './staticons/force.png';
 import healthIcon from './staticons/health.png';
-import armorIcon from './staticons/armor5.png';
-import magicResIcon from './staticons/magicres4.png';
+import armorIcon from './staticons/armor.png';
+import magicResIcon from './staticons/magicRes2.png';
 import attackDamageIcon from './staticons/attackDamage.png';
 import attackSpeedIcon from './staticons/attackSpeed.png';
-import critChanceIcon from './staticons/critchance69.png';
-import manaIcon from './staticons/mana.png';
+import critChanceIcon from './staticons/critChance.png';
+import manaIcon from './staticons/mana2.png';
 import abilityPowerIcon from './staticons/abilitypower2.png';
 import cdrIcon from './staticons/cdr.png';
 import forceRing from './staticons/forceRing.png';
@@ -24,15 +24,15 @@ import armorRing from './staticons/armorRing.png';
 import magicResRing from './staticons/magicResRing.png';
 import cdrRing from './staticons/cdrRing.png';
 import attackSpeedRing from './staticons/attackSpeedRing.png';
-import healthRegenIcon from './staticons/healthRegen.png';
+import healthRegenIcon from './staticons/healthRegen2.png';
 import manaRegenIcon from './staticons/manaRegen.png';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      searchField1: '',
-      searchField2: '',
+      searchFieldLeft: '',
+      searchFieldRight: '',
       filteredChampsLeft: [],
       filteredChampsRight: [],
       filteredChampPairsLeft: [],
@@ -312,18 +312,26 @@ class App extends Component {
   }
 
   onSearchChange = (event) => {
-    this.setState({ searchField1: event.target.value });
-    this.setState({ filteredChampsLeft: champList.filter(champ => {
+    console.log(event.target);
+    var side = '';
+    if (event.target.nextSibling) {
+      side = 'Left';
+    } else {
+      side = 'Right';
+    };
+    this.setState({ [`searchField${side}`]: event.target.value });
+    this.setState({ [`filteredChamps${side}`]: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) }).map(champ => {
         return champ.name
       })
     });
-    this.setState({ filteredChampPairsLeft: champList.filter(champ => {
+    this.setState({ [`filteredChampPairs${side}`]: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) })
     })
   };
 
-  onSearchChange2 = (event) => {
+  /*onSearchChange2 = (event) => {
+    console.log(event.target);
     this.setState({ searchField2: event.target.value });
     this.setState({ filteredChampsRight: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) }).map(champ => {
@@ -333,7 +341,7 @@ class App extends Component {
     this.setState({ filteredChampPairsRight: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) })
     })
-  }
+  }*/
 
   abilities = ["passive", "Q", "W", "E", "R"]
   rankedAbilities = ["Q", "W", "E", "R"]
@@ -7736,8 +7744,8 @@ class App extends Component {
         }))
       }
     })
-    return this.setState({ champIconUrlRight: 
-      `http://ddragon.leagueoflegends.com/cdn/10.12.1/img/champion/${champName}.png`})
+    /*return this.setState({ champIconUrlRight: 
+      `http://ddragon.leagueoflegends.com/cdn/10.12.1/img/champion/${champName}.png`})*/
   };
 
   onLevelChange = (event) => {
@@ -8051,6 +8059,58 @@ class App extends Component {
             }
           }))
       }
+    };
+
+    if (runeNumber % 3 === 2) {
+      var prevSib = event.target.previousSibling;
+      var prevPrevSib = event.target.previousSibling.previousSibling;
+      if (prevSib.src.includes('Ring')) {
+        prevSib.setAttribute('src', this.runeHash[prevSib.id]['baseSrc']);
+        var prevStat = this.runeHash[prevSib.id]['stat'][0];
+        var prevValue = this.runeHash[prevSib.id]['stat'][1];
+        if (prevStat === 'force') {
+          if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+            prevStat = 'ap';
+            prevValue = 9;
+          } else {
+            prevStat = 'ad';
+            prevValue = 5.4;
+          };
+        };
+        if (prevStat === 'hp') {
+          prevValue = this.runeHash[prevSib.id]['stat'][champLevel+1];
+        };
+
+        this.setState(prevState => ({
+          [`runes${side}`]: {
+            ...prevState[`runes${side}`],
+            [prevStat]: +prevState[`runes${side}`][prevStat] - +prevValue
+          }
+        }))
+      } else {
+          prevPrevSib.setAttribute('src', this.runeHash[prevPrevSib.id]['baseSrc']);
+          var prevPrevStat = this.runeHash[prevPrevSib.id]['stat'][0];
+          var prevPrevValue = this.runeHash[prevPrevSib.id]['stat'][1];
+          if (prevPrevStat === 'force') {
+            if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+              prevPrevStat = 'ap';
+              prevPrevValue = 9;
+            } else {
+              prevPrevStat = 'ad';
+              prevPrevValue = 5.4;
+            };
+          };
+          if (prevPrevStat === 'hp') {
+            prevPrevValue = this.runeHash[prevPrevSib.id]['stat'][champLevel+1];
+          };
+
+          this.setState(prevState => ({
+            [`runes${side}`]: {
+              ...prevState[`runes${side}`],
+              [prevPrevStat]: +prevState[`runes${side}`][prevPrevStat] - +prevPrevValue
+            }
+          }))
+      }
     }
   };
 
@@ -8064,7 +8124,6 @@ class App extends Component {
     }
     this.portraits = importAll(require.context('./portraits/', false, /\.(png|jpe?g|svg)$/));
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
-    // document.getElementById('blahblah').setAttribute('src', `${this.images[0]}`)
   }
 
   render() {
@@ -8086,7 +8145,7 @@ class App extends Component {
           <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} style={{width: 120}}
           />
           <span style={{width: 64}}></span>
-          <input type="search" placeholder='Champion Name' onChange={this.onSearchChange2} style={{width: 120}}
+          <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} style={{width: 120}}
           />
         </div>
 
@@ -8140,8 +8199,8 @@ class App extends Component {
             <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
           </div>
 
-          <img className='champIcon' src={ `${this.state.champIconUrlRight}` } height="120px" width="120px"
-          alt='Champion Icon' style={{marginBottom: 10}}/>
+          <img className='champIcon' src={ defaultChampIcon } height="120px" width="120px"
+          alt='Champion Icon' style={{position: 'relative', marginBottom: 10}}/>
         </div>
 
         <div className="flexDisplay">
