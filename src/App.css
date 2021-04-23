@@ -37,7 +37,7 @@ html {
   column-count: 4;
 }
 
-.statsImgStyle {
+.statsBox img {
   vertical-align: middle;
   padding-bottom: 5px;
   height: 25px;

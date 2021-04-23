@@ -8223,51 +8223,51 @@ class App extends Component {
 
         <div className="flexDisplay">        
           <div className="statsBox">
-            <img src={healthIcon} className='statsImgStyle' alt='Health Icon'/>
+            <img src={healthIcon}  alt='Health Icon'/>
             Health: {Math.round(this.state.statsLeft.hp)}<br />
-            <img src={armorIcon} className='statsImgStyle' alt='Armor Icon'/>
+            <img src={armorIcon} alt='Armor Icon'/>
             Armor: {Math.round(this.state.statsLeft.arm)}<br />
-            <img src={magicResIcon} className='statsImgStyle' alt='Magic Resist Icon'/>
+            <img src={magicResIcon} alt='Magic Resist Icon'/>
             Magic Resist: {Math.round(this.state.statsLeft.mr)}<br />
-            <img src={attackDamageIcon} className='statsImgStyle' alt='Attack Damage Icon'/>
+            <img src={attackDamageIcon} alt='Attack Damage Icon'/>
             Attack Damage: {Math.round(this.state.statsLeft.ad)}<br />
-            <img src={attackSpeedIcon} className='statsImgStyle' alt='Attack Speed Icon'/>
+            <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
             Attack Speed: {this.state.statsLeft.as.toFixed(3)}<br />
-            <img src={critChanceIcon} className='statsImgStyle' alt='Crit Chance Icon'/>
+            <img src={critChanceIcon} alt='Crit Chance Icon'/>
             Crit Chance: {Math.round(this.state.statsLeft.critChance)}%<br />
-            <img src={manaIcon} className='statsImgStyle' alt='Mana Icon'/>
+            <img src={manaIcon} alt='Mana Icon'/>
             Mana: {Math.round(this.state.statsLeft.mana)}<br />
-            <img src={manaRegenIcon} className='statsImgStyle' alt='Mana Regen Icon'/>
+            <img src={manaRegenIcon} alt='Mana Regen Icon'/>
             Mana Per 5: {this.state.statsLeft.manaRegen.toFixed(3)}<br />
-            <img src={healthRegenIcon} className='statsImgStyle' alt='Health Regen Icon'/>
+            <img src={healthRegenIcon} alt='Health Regen Icon'/>
             Health Per 5: {this.state.statsLeft.hpRegen.toFixed(3)}<br />
-            <img src={abilityPowerIcon} className='statsImgStyle' alt='Ability Power Icon'/>
+            <img src={abilityPowerIcon} alt='Ability Power Icon'/>
             Ability Power: {this.state.statsLeft.ap}<br />
-            <img src={cdrIcon} className='statsImgStyle' alt='Cooldown Reduction Icon'/>
+            <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
             Ability Haste: {Math.round(this.state.statsLeft.cdr)}
           </div>
           <div className="statsBox">
-            <img src={healthIcon} className='statsImgStyle' alt='Health Icon'/>
+            <img src={healthIcon} alt='Health Icon'/>
             Health: {Math.round(this.state.statsRight.hp)}<br />
-            <img src={armorIcon} className='statsImgStyle' alt='Armor Icon'/>
+            <img src={armorIcon} alt='Armor Icon'/>
             Armor: {Math.round(this.state.statsRight.arm)}<br />
-            <img src={magicResIcon} className='statsImgStyle' alt='Magic Resist Icon'/>
+            <img src={magicResIcon} alt='Magic Resist Icon'/>
             Magic Resist: {Math.round(this.state.statsRight.mr)}<br />
-            <img src={attackDamageIcon} className='statsImgStyle' alt='Attack Damage Icon'/>
+            <img src={attackDamageIcon} alt='Attack Damage Icon'/>
             Attack Damage: {Math.round(this.state.statsRight.ad)}<br />
-            <img src={attackSpeedIcon} className='statsImgStyle' alt='Attack Speed Icon'/>
+            <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
             Attack Speed: {this.state.statsRight.as.toFixed(3)}<br />
-            <img src={critChanceIcon} className='statsImgStyle' alt='Crit Chance Icon'/>
+            <img src={critChanceIcon} alt='Crit Chance Icon'/>
             Crit Chance: {Math.round(this.state.statsRight.critChance)}%<br />
-            <img src={manaIcon} className='statsImgStyle' alt='Mana Icon'/>
+            <img src={manaIcon} alt='Mana Icon'/>
             Mana: {Math.round(this.state.statsRight.mana)}<br />
-            <img src={manaRegenIcon} className='statsImgStyle' alt='Mana Regen Icon'/>
+            <img src={manaRegenIcon} alt='Mana Regen Icon'/>
             Mana Per 5: {this.state.statsRight.manaRegen.toFixed(3)}<br />
-            <img src={healthRegenIcon} className='statsImgStyle' alt='Health Regen Icon'/>
+            <img src={healthRegenIcon} alt='Health Regen Icon'/>
             Health Per 5: {this.state.statsRight.hpRegen.toFixed(3)}<br />
-            <img src={abilityPowerIcon} className='statsImgStyle' alt='Ability Power Icon'/>
+            <img src={abilityPowerIcon} alt='Ability Power Icon'/>
             Ability Power: {this.state.statsRight.ap}<br />
-            <img src={cdrIcon} className='statsImgStyle' alt='Cooldown Reduction Icon'/>
+            <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
             Ability Haste: {Math.round(this.state.statsRight.cdr)}
           </div>
         </div>
@@ -8278,47 +8278,51 @@ class App extends Component {
           </div>
           <div className="flexDisplay">    
             <div className="statsBox transformLeft">
-              <img src={healthIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Health Icon' height="25px" width="25px"/>
+              <img src={healthIcon} alt='Health Icon'/>
               Health: {Math.round(this.state.transformStats1.hp)}<br />
-              <img src={armorIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Armor Icon' height="25px" width="25px"/>
+              <img src={armorIcon} alt='Armor Icon'/>
               Armor: {Math.round(this.state.transformStats1.arm)}<br />
-              <img src={magicResIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Magic Resist Icon' height="25px" width="25px"/>
+              <img src={magicResIcon} alt='Magic Resist Icon'/>
               Magic Resist: {Math.round(this.state.transformStats1.mr)}<br />
-              <img src={attackDamageIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Damage Icon' height="25px" width="25px"/>
+              <img src={attackDamageIcon} alt='Attack Damage Icon'/>
               Attack Damage: {Math.round(this.state.transformStats1.ad)}<br />
-              <img src={attackSpeedIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Speed Icon' height="25px" width="25px"/>
+              <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
               Attack Speed: {this.state.transformStats1.as.toFixed(3)}<br />
-              <img src={critChanceIcon} style={{verticalAlign: "middle", padding: "5px 5px 5px 0px"}} alt='Crit Chance Icon' height="16px" width="16px"/>
+              <img src={critChanceIcon} alt='Crit Chance Icon'/>
               Crit Chance: {Math.round(this.state.transformStats1.critChance)}%<br />
-              <img src={manaIcon} style={{verticalAlign: "middle", padding: "0px 5px 5px 0px"}} alt='Mana Icon' height="16px" width="16px"/>
+              <img src={manaIcon} alt='Mana Icon'/>
               Mana: {Math.round(this.state.transformStats1.mana)}<br />
+              <img src={manaRegenIcon} alt='Mana Regen Icon'/>
               Mana Per 5: {this.state.transformStats1.manaRegen.toFixed(3)}<br />
+              <img src={healthRegenIcon} alt='Health Regen Icon'/>
               Health Per 5: {this.state.transformStats1.hpRegen.toFixed(3)}<br />
-              <img src={abilityPowerIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Ability Power Icon' height="25px" width="25px"/>
+              <img src={abilityPowerIcon} alt='Ability Power Icon'/>
               Ability Power: {this.state.transformStats1.ap}<br />
-              <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Cooldown Reduction Icon' height="25px" width="25px"/>
+              <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
               Ability Haste: {Math.round(this.state.transformStats1.cdr)}
             </div>
             <div className="statsBox transformRight">
-            <img src={healthIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Health Icon' height="25px" width="25px"/>
+              <img src={healthIcon} alt='Health Icon'/>
               Health: {Math.round(this.state.transformStats2.hp)}<br />
-              <img src={armorIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Armor Icon' height="25px" width="25px"/>
+              <img src={armorIcon} alt='Armor Icon'/>
               Armor: {Math.round(this.state.transformStats2.arm)}<br />
-              <img src={magicResIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Magic Resist Icon' height="25px" width="25px"/>
+              <img src={magicResIcon} alt='Magic Resist Icon'/>
               Magic Resist: {Math.round(this.state.transformStats2.mr)}<br />
-              <img src={attackDamageIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Damage Icon' height="25px" width="25px"/>
+              <img src={attackDamageIcon} alt='Attack Damage Icon'/>
               Attack Damage: {Math.round(this.state.transformStats2.ad)}<br />
-              <img src={attackSpeedIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Attack Speed Icon' height="25px" width="25px"/>
+              <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
               Attack Speed: {this.state.transformStats2.as.toFixed(3)}<br />
-              <img src={critChanceIcon} style={{verticalAlign: "middle", padding: "0px 5px 5px 0px"}} alt='Crit Chance Icon' height="16px" width="16px"/>
+              <img src={critChanceIcon} alt='Crit Chance Icon'/>
               Crit Chance: {Math.round(this.state.transformStats2.critChance)}%<br />
-              <img src={manaIcon} style={{verticalAlign: "middle", paddingBottom: "0px 5px 5px 0px"}} alt='Mana Icon' height="16px" width="16px"/>
+              <img src={manaIcon} alt='Mana Icon'/>
               Mana: {Math.round(this.state.transformStats2.mana)}<br />
+              <img src={manaRegenIcon} alt='Mana Regen Icon'/>
               Mana Per 5: {this.state.transformStats2.manaRegen.toFixed(3)}<br />
+              <img src={healthRegenIcon} alt='Health Regen Icon'/>
               Health Per 5: {this.state.transformStats2.hpRegen.toFixed(3)}<br />
-              <img src={abilityPowerIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Ability Power Icon' height="25px" width="25px"/>
+              <img src={abilityPowerIcon} alt='Ability Power Icon'/>
               Ability Power: {this.state.transformStats2.ap}<br />
-              <img src={cdrIcon} style={{verticalAlign: "middle", paddingBottom: "5px"}} alt='Cooldown Reduction Icon' height="25px" width="25px"/>
+              <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
               Ability Haste: {Math.round(this.state.transformStats2.cdr)}
             </div>
           </div>
