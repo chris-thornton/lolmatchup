@@ -8161,7 +8161,7 @@ class App extends Component {
           <img className='champIcon' src={ defaultChampIcon } height="120px" width="120px"
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
           
-          <div className='runeBox2'>
+          <div className='runeBox'>
             <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
             <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
             <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
@@ -8181,7 +8181,7 @@ class App extends Component {
 
           <img src={versus} alt='Versus Icon' height="64px" width="64px"/>
 
-          <div className='runeBox2'>
+          <div className='runeBox'>
             <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
             <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune10'/>
             <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune11'/>
