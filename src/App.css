@@ -3,8 +3,11 @@
 }
 
 html {
-  background: url("./staticons/bgTest2.png");
-  background-size: cover;
+  /*background: url("./staticons/Red.jpg"), url("./staticons/Blue.jpg");
+  background-size: 50vw, 50vw;
+  background-position: left, right;
+  background-repeat: no-repeat, no-repeat;*/
+  background-color: white;
 }
 
 .center {
@@ -29,7 +32,7 @@ html {
 .statsBox {
   text-align: center;
   width: 45vw;
-  border: 1px solid black;
+  border: 1px solid grey;
   border-radius: 5px;
   padding: 0px 1em;
   margin-top: 1px;
@@ -125,10 +128,9 @@ hr {
 .navHeader {
   max-height: 15vh;
   min-height: 100px;
-  color: black;
-  border-style: solid;
-  border-width: 0px 0px 1px 0px;
-  box-shadow: inset 0px 3px 5px grey, 0px 3px 5px grey;
+  color: #003747;
+  border: 1px solid #003747;
+  box-shadow: inset 0px 3px 5px #003747, 0px 3px 5px #003747;
   background-color: white;
 }
 
