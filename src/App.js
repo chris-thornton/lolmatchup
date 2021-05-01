@@ -354,7 +354,6 @@ class App extends Component {
   }
 
   onSearchChange = (event) => {
-    console.log(event.target);
     var side = '';
     if (event.target.nextSibling) {
       side = 'Left';
@@ -392,14 +391,6 @@ class App extends Component {
     R: {}
   };
 
-  testing(side, event) {
-    if(event.currentTarget.tagName === 'LI'){
-      console.log("you just selected a champion")
-    } else {
-      console.log("you just changed an ability rank")
-    }
-  };
-
   calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
      champLevel, champLvlRatio, runeStats, enemyRuneStats) {
 
@@ -423,7 +414,11 @@ class App extends Component {
         var enemyBonusHP = enemyItemStats.hp + enemyRuneStats.hp;
         var enemyTotalArmor = enemyStats.arm + enemyItemStats.arm + enemyRuneStats.arm;
         var enemyTotalMR = enemyStats.mr + enemyItemStats.mr + enemyRuneStats.mr;
-        var totalCritChance = itemStats.critChance; 
+        var totalCritChance = itemStats.critChance;
+        if (champName === 'Tryndamere' || champName === 'Yone') {
+          totalCritChance *= 2
+          console.log('crit chance: ' + totalCritChance)
+        } 
         var totalLethality = itemStats.lethality;
         var totalLifeSteal = itemStats.lifeSteal;
         var totalMana = itemStats.mana + statsPath["mana"]["base"] + statsPath["mana"]["manaPerLvl"] * champLvlRatio;
@@ -7539,13 +7534,14 @@ class App extends Component {
     
     var side = 'Left';
     var otherSide = 'Right';
-    this.testing('Left', event);
     var itemStats = this.state[`itemStats${side}`];
     var enemyItemStats = this.state[`itemStats${otherSide}`];
     var enemyStats = this.state[`stats${otherSide}`];
     var selectedStats = this.state[`stats${side}`];
     var champLevel = this.state[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    var runeStats = this.state[`runes${side}`];
+    var enemyRuneStats = this.state[`runes${otherSide}`];
 
     document.getElementsByTagName("input")[0].value = '';
     this.setState({ filteredChampsLeft: [] });
@@ -7589,7 +7585,8 @@ class App extends Component {
 
     this.setState({ champNameLeft: champName });
 
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, 
+      champLevel, champLvlRatio, runeStats, enemyRuneStats);
 
     import (`./champions/${champName.toLowerCase()}`)
       .then(({default: champFile}) => {
@@ -7671,6 +7668,8 @@ class App extends Component {
     var selectedStats = this.state[`stats${side}`]
     var champLevel = this.state[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    var runeStats = this.state[`runes${side}`];
+    var enemyRuneStats = this.state[`runes${otherSide}`];
 
     document.getElementsByTagName("input")[1].value = '';
     this.setState({ filteredChampsRight: [] });
@@ -7713,7 +7712,8 @@ class App extends Component {
 
     this.setState({ champNameRight: champName });
 
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
+       champLevel, champLvlRatio, runeStats, enemyRuneStats);
 
     import (`./champions/${champName.toLowerCase()}`)
     .then(({default: champFile}) => {
@@ -7796,6 +7796,8 @@ class App extends Component {
     var champName = this.state[`champName${side}`];
     var runeStats = this.state[`runes${side}`];
     var enemyRuneStats = this.state[`runes${otherSide}`];
+    var runeStats = this.state[`runes${side}`];
+    var enemyRuneStats = this.state[`runes${otherSide}`];
 
     var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
     for (var i = 0; i < abilitiesLength; i++) {
@@ -7805,7 +7807,8 @@ class App extends Component {
       }
     };
 
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
+       champLevel, champLvlRatio, runeStats, enemyRuneStats);
 
     import (`./champions/${this.state[`champName${side}`].toLowerCase()}`)
       .then(({default: champFile}) => {
@@ -7864,7 +7867,8 @@ class App extends Component {
       }
     };
 
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
+       champLevel, champLvlRatio, runeStats, enemyRuneStats);
 
     import (`./champions/${this.state.champNameRight.toLowerCase()}`)
       .then(({default: champFile}) => {
@@ -7917,8 +7921,11 @@ class App extends Component {
     var enemyStats = this.state[`stats${otherSide}`];
     var selectedStats = this.state[`stats${side}`];
     var champName = this.state[`champName${side}`];
+    var runeStats = this.state[`runes${side}`];
+    var enemyRuneStats = this.state[`runes${otherSide}`];
 
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
+       champLevel, champLvlRatio, runeStats, enemyRuneStats);
 
     var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
     for (var i = 0; i < abilitiesLength; i++) {
@@ -7942,8 +7949,11 @@ class App extends Component {
     var enemyStats = this.state[`stats${otherSide}`];
     var selectedStats = this.state[`stats${side}`];
     var champName = this.state[`champName${side}`];
+    var runeStats = this.state[`runes${side}`];
+    var enemyRuneStats = this.state[`runes${otherSide}`];
 
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, champLevel, champLvlRatio);
+    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
+       champLevel, champLvlRatio, runeStats, enemyRuneStats);
 
     var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
     for (var i = 0; i < abilitiesLength; i++) {
