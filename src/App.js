@@ -394,6 +394,14 @@ class App extends Component {
   calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
      champLevel, champLvlRatio, runeStats, enemyRuneStats) {
 
+    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
+    for (var i = 0; i < abilitiesLength; i++) {
+      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
+      while (divToEmpty.firstChild) {
+        divToEmpty.removeChild(divToEmpty.firstChild);
+      }
+    };
+
     import (`./champions/${champName.toLowerCase()}`)
       .then(({default: champFile}) => {
         var statsPath = champFile[`stats`];
@@ -417,8 +425,7 @@ class App extends Component {
         var totalCritChance = itemStats.critChance;
         if (champName === 'Tryndamere' || champName === 'Yone') {
           totalCritChance *= 2
-          console.log('crit chance: ' + totalCritChance)
-        } 
+        }; 
         var totalLethality = itemStats.lethality;
         var totalLifeSteal = itemStats.lifeSteal;
         var totalMana = itemStats.mana + statsPath["mana"]["base"] + statsPath["mana"]["manaPerLvl"] * champLvlRatio;
@@ -7575,14 +7582,6 @@ class App extends Component {
     document.getElementsByClassName('champIcon')[0].setAttribute('src', `${this.portraits[`${champList.filter(champ => {
     return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
 
-    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
-    for (var i = 0; i < abilitiesLength; i++) {
-      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
-      while (divToEmpty.firstChild) {
-        divToEmpty.removeChild(divToEmpty.firstChild);
-      }
-    };
-
     this.setState({ champNameLeft: champName });
 
     this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, 
@@ -7702,14 +7701,6 @@ class App extends Component {
     document.getElementsByClassName('champIcon')[1].setAttribute('src', `${this.portraits[`${champList.filter(champ => {
     return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
 
-    var abilitiesLength = document.getElementsByClassName('abilityBoxRight').length;
-    for (var i = 0; i < abilitiesLength; i++) {
-      var divToEmpty = document.getElementsByClassName('abilityBoxRight')[i];
-      while (divToEmpty.firstChild) {
-        divToEmpty.removeChild(divToEmpty.firstChild)
-      }
-    };
-
     this.setState({ champNameRight: champName });
 
     this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
@@ -7778,12 +7769,9 @@ class App extends Component {
   };
 
   onLevelChange = (event) => {
-    var side = '';
-    var otherSide = '';
-    if (event.target.id === 'levelBoxLeft') {
-      side = 'Left';
-      otherSide = 'Right';
-    } else {
+    var side = 'Left';
+    var otherSide = 'Right';
+    if (event.target.id !== 'levelBoxLeft') {
       side = 'Right';
       otherSide = 'Left';
     }
@@ -7798,14 +7786,6 @@ class App extends Component {
     var enemyRuneStats = this.state[`runes${otherSide}`];
     var runeStats = this.state[`runes${side}`];
     var enemyRuneStats = this.state[`runes${otherSide}`];
-
-    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
-    for (var i = 0; i < abilitiesLength; i++) {
-      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
-      while (divToEmpty.firstChild) {
-        divToEmpty.removeChild(divToEmpty.firstChild);
-      }
-    };
 
     this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
        champLevel, champLvlRatio, runeStats, enemyRuneStats);
@@ -7848,71 +7828,15 @@ class App extends Component {
     return this.setState({ [`level${side}`]: event.target.value })
   };
 
-  onLevelChange2 = (event) => {
-    var side = 'Right';
-    var otherSide = 'Left';
-    var itemStats = this.state[`itemStats${side}`];
-    var enemyItemStats = this.state[`itemStats${otherSide}`];
-    var enemyStats = this.state[`stats${otherSide}`];
-    var selectedStats = this.state[`stats${side}`]
-    var champLevel = event.target.value - 1;
-    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    var champName = this.state[`champName${side}`];
-
-    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
-    for (var i = 0; i < abilitiesLength; i++) {
-      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
-      while (divToEmpty.firstChild) {
-        divToEmpty.removeChild(divToEmpty.firstChild);
-      }
-    };
-
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
-       champLevel, champLvlRatio, runeStats, enemyRuneStats);
-
-    import (`./champions/${this.state.champNameRight.toLowerCase()}`)
-      .then(({default: champFile}) => {
-        var statsPath = champFile[`stats`]
-        this.setState(prevState => ({
-          [`stats${side}`]: {                   
-              ...prevState[`stats${side}`],   
-              hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
-              as: statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
-              arm: statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
-              ad: statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
-              mr: statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
-              mana: statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio,
-              manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
-              hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio
-          }
-        }));
-
-        if (champName === 'Gnar' || champName === 'Kled' ) {
-          var tfPath = champFile['statsTransform'];
-          this.setState(prevState => ({
-            transformStats2: {
-              ...prevState.transformStats2,
-              hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
-              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
-              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
-              as: tfPath["attackSpeed"] + tfPath["asPerLvl"] * tfPath["asRatio"] * champLvlRatio,
-              arm: tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
-              ad: tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
-              mr: tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
-              mana: tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
-            }
-          }))
-        }
-      })
-    document.getElementById("levelBoxRight").setAttribute('value', event.target.value)
-    return this.setState({ levelRight: event.target.value })
-  }
-
   onRankChange = (event) => {
     var side = 'Left';
     var otherSide = 'Right';
-    var abilityFirstChar = event.currentTarget.id.charAt(0);
-    this.setState({ [`${abilityFirstChar}Rank${side}`]: event.target.value });
+    if (event.target.id.includes('Right')) {
+      side = 'Right';
+      otherSide = 'Left';
+    };
+    var firstChar = event.currentTarget.id.charAt(0);
+    this.setState({ [`${firstChar}Rank${side}`]: event.target.value });
 
     var champLevel = this.state[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
@@ -7923,20 +7847,12 @@ class App extends Component {
     var champName = this.state[`champName${side}`];
     var runeStats = this.state[`runes${side}`];
     var enemyRuneStats = this.state[`runes${otherSide}`];
-
+    
     this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
-       champLevel, champLvlRatio, runeStats, enemyRuneStats);
-
-    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
-    for (var i = 0; i < abilitiesLength; i++) {
-      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
-      while (divToEmpty.firstChild) {
-        divToEmpty.removeChild(divToEmpty.firstChild);
-      }
-    }          
+      champLevel, champLvlRatio, runeStats, enemyRuneStats);
   };
 
-  onRankChange2 = (event) => {
+  /*onRankChange2 = (event) => {
     var side = 'Right';
     var otherSide = 'Left';
     var abilityFirstChar = event.currentTarget.id.charAt(0);
@@ -7953,16 +7869,8 @@ class App extends Component {
     var enemyRuneStats = this.state[`runes${otherSide}`];
 
     this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
-       champLevel, champLvlRatio, runeStats, enemyRuneStats);
-
-    var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
-    for (var i = 0; i < abilitiesLength; i++) {
-      var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
-      while (divToEmpty.firstChild) {
-        divToEmpty.removeChild(divToEmpty.firstChild);
-      }
-    }          
-  };
+       champLevel, champLvlRatio, runeStats, enemyRuneStats);    
+  };*/
 
   onRuneChange = (event) => {
     console.log(this.state.runesLeft)
@@ -8260,7 +8168,7 @@ class App extends Component {
           <div className="hidden">
             <span>Level: </span>
             <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px"}} 
-            onKeyDown={this.preventKeyPress} onChange={this.onLevelChange2}/>
+            onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
           </div>
         </div>
 
