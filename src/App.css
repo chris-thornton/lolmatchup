@@ -10,6 +10,14 @@ html {
   background-color: white;
 }
 
+li {
+  border: 1px solid;
+}
+
+li + li {
+  border-top: none;
+}
+
 .center {
   display: block;
   margin: auto;
@@ -41,6 +49,10 @@ html {
   color:white;
 }
 
+.statsBox span {
+  color: #ffffb9
+}
+
 .statsBox img {
   vertical-align: middle;
   padding-bottom: 5px;
@@ -48,11 +60,7 @@ html {
   width: 25px;
 }
 
-.transformLeft {
-  visibility: hidden;
-}
-
-.transformRight {
+.transformLeft, .transformRight {
   visibility: hidden;
 }
 
@@ -90,39 +98,29 @@ hr {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
-.abilityBoxLeft {
+.abilityBoxLeft, .abilityBoxRight {
   width: 45vw;
   border: 2px solid black;
   border-radius: 5px;
   padding: 0px 1em;
   margin-top: 1px;
   /*background-color: #87ccfa;*/
+  background-color:#003747;
+  color:white;
   border-image-slice: 27 27 53 50;
   border-image-width: 5px 5px 5.5px 5.3px;
   border-image-outset: 0px 0px 0px 0px;
   border-image-repeat: stretch stretch;
-  border-image-source: url("./staticons/border-image-1.png"); 
+  border-image-source: url("./border-image-1.png"); 
+}
+
+.abilityBoxLeft b, .abilityBoxRight b {
+  color: #ffffb9
 }
 
 .abilityTitleBox {
   margin-top: 20px;
   padding-left: 20vw;
-}
-
-.abilityBoxRight {
-  width: 45vw;
-  border-top: 1px solid black;
-  border-radius: 5px;
-  padding: 0px 1em;
-  margin-top: 1px;
-  /*background-color: #d887fa;*/
-  /*background-color: #ff7990;*/
-  /*background-color: #fa87aa;*/
-  border-image-slice: 27 27 53 50;
-  border-image-width: 5px 5px 5px 5px;
-  border-image-outset: 0px 0px 0px 0px;
-  border-image-repeat: stretch stretch;
-  border-image-source: url("./staticons/border-image-1.png"); 
 }
 
 .navHeader {
@@ -175,7 +173,11 @@ h2 {
     z-index: 1;
 }
 
-.hidden {
+.hiddenLeft {
+  visibility: hidden;
+}
+
+.hiddenRight {
   visibility: hidden;
 }
 

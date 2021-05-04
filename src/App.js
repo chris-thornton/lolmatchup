@@ -7541,6 +7541,10 @@ class App extends Component {
     
     var side = 'Left';
     var otherSide = 'Right';
+    if (event.target.className.includes('Right')) {
+      side = 'Right';
+      otherSide = 'Left';
+    };
     var itemStats = this.state[`itemStats${side}`];
     var enemyItemStats = this.state[`itemStats${otherSide}`];
     var enemyStats = this.state[`stats${otherSide}`];
@@ -7551,13 +7555,14 @@ class App extends Component {
     var enemyRuneStats = this.state[`runes${otherSide}`];
 
     document.getElementsByTagName("input")[0].value = '';
-    this.setState({ filteredChampsLeft: [] });
+    if (side === 'Right') {
+      document.getElementsByTagName("input")[1].value = '';
+    }
+    this.setState({ [`filteredChamps${side}`]: [] });
 
-    //function executed when the first champ is selected
     if (this.state[`champName${side}`] === '') {
-      var hiddenArray = document.getElementsByClassName("hidden");
-      hiddenArray[0].style.visibility = 'visible';
-      for (var i = 2; i < 12; i++) {
+      var hiddenArray = document.getElementsByClassName(`hidden${side}`);
+      for (var i = 0; i < hiddenArray.length; i++) {
         hiddenArray[i].style.visibility = 'visible';
       };
       document.getElementById(`levelBox${side}`).value = 1;
@@ -7566,23 +7571,22 @@ class App extends Component {
       })
     };
 
-    if (event.target.textContent !== "Wukong") {
-      var champName = event.target.textContent.replace("'","").replace(/\s/g, '');
-    } else {
+    var champName = event.target.textContent.replace("'","").replace(/\s/g, '')
+    if (event.target.textContent === "Wukong") {
       champName = 'MonkeyKing';
     };
 
     this.tfStatDisplay(champName, side, otherSide);
     this.jayceRankReset(champName, side);
 
-    this.setState({ champIndexLeft: champList.filter(champ => {
+    this.setState({ [`champIndex${side}`]: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value
     });
     
-    document.getElementsByClassName('champIcon')[0].setAttribute('src', `${this.portraits[`${champList.filter(champ => {
-    return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
+      document.getElementById(`champIcon${side}`).setAttribute('src', `${this.portraits[`${champList.filter(champ => {
+        return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
 
-    this.setState({ champNameLeft: champName });
+    this.setState({ [`champName${side}`]: champName });
 
     this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, 
       champLevel, champLvlRatio, runeStats, enemyRuneStats);
@@ -7852,26 +7856,6 @@ class App extends Component {
       champLevel, champLvlRatio, runeStats, enemyRuneStats);
   };
 
-  /*onRankChange2 = (event) => {
-    var side = 'Right';
-    var otherSide = 'Left';
-    var abilityFirstChar = event.currentTarget.id.charAt(0);
-    this.setState({ [`${abilityFirstChar}Rank${side}`]: event.target.value });
-    
-    var champLevel = this.state[`level${side}`] - 1;
-    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    var itemStats = this.state[`itemStats${side}`];
-    var enemyItemStats = this.state[`itemStats${otherSide}`];
-    var enemyStats = this.state[`stats${otherSide}`];
-    var selectedStats = this.state[`stats${side}`];
-    var champName = this.state[`champName${side}`];
-    var runeStats = this.state[`runes${side}`];
-    var enemyRuneStats = this.state[`runes${otherSide}`];
-
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
-       champLevel, champLvlRatio, runeStats, enemyRuneStats);    
-  };*/
-
   onRuneChange = (event) => {
     console.log(this.state.runesLeft)
     var runeSrc = event.target.src;
@@ -8100,21 +8084,25 @@ class App extends Component {
         <div className="flexAround" style={{marginTop: 10}}>
           <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} style={{width: 120}}
           />
-          <span style={{width: 64}}></span>
+          
           <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} style={{width: 120}}
           />
         </div>
 
         <div className="flexAround">
+          <div style={{width: 120}} >
           <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } 
           onChampClick={this.onChampClick} />
-          <span style={{width: 64}}></span>
+          </div>
+          
+          <div style={{width: 120}} >
           <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } 
-          onChampClick2={this.onChampClick2} />
+          onChampClick={this.onChampClick} />
+          </div>
         </div>
 
-        <div className="flexAround">
-          <img className='champIcon' src={ defaultChampIcon } height="120px" width="120px"
+        <div className="flexAround" style={{marginTop: '10px'}}>
+          <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
           
           <div className='runeBox'>
@@ -8155,17 +8143,17 @@ class App extends Component {
             <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
           </div>
 
-          <img className='champIcon' src={ defaultChampIcon } height="120px" width="120px"
+          <img id='champIconRight' src={ defaultChampIcon } height="120px" width="120px"
           alt='Champion Icon' style={{position: 'relative', marginBottom: 10}}/>
         </div>
 
         <div className="flexDisplay">
-          <div className="hidden">
+          <div className="hiddenLeft">
             <span>Level: </span>
             <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px"}} 
             onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
           </div>
-          <div className="hidden">
+          <div className="hiddenRight">
             <span>Level: </span>
             <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px"}} 
             onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
@@ -8180,51 +8168,51 @@ class App extends Component {
         <div className="flexDisplay">        
           <div className="statsBox">
             <img src={healthIcon}  alt='Health Icon'/>
-            Health: {Math.round(this.state.statsLeft.hp)}<br />
+            <span>Health: </span>{Math.round(this.state.statsLeft.hp)}<br />
             <img src={armorIcon} alt='Armor Icon'/>
-            Armor: {Math.round(this.state.statsLeft.arm)}<br />
+            <span>Armor: </span>{Math.round(this.state.statsLeft.arm)}<br />
             <img src={magicResIcon} alt='Magic Resist Icon'/>
-            Magic Resist: {Math.round(this.state.statsLeft.mr)}<br />
+            <span>Magic Resist: </span>{Math.round(this.state.statsLeft.mr)}<br />
             <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-            Attack Damage: {Math.round(this.state.statsLeft.ad)}<br />
+            <span>Attack Damage: </span>{Math.round(this.state.statsLeft.ad)}<br />
             <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-            Attack Speed: {this.state.statsLeft.as.toFixed(3)}<br />
+            <span>Attack Speed: </span>{this.state.statsLeft.as.toFixed(3)}<br />
             <img src={critChanceIcon} alt='Crit Chance Icon'/>
-            Crit Chance: {Math.round(this.state.statsLeft.critChance)}%<br />
+            <span>Crit Chance: </span>{Math.round(this.state.statsLeft.critChance)}%<br />
             <img src={manaIcon} alt='Mana Icon'/>
-            Mana: {Math.round(this.state.statsLeft.mana)}<br />
+            <span>Mana: </span>{Math.round(this.state.statsLeft.mana)}<br />
             <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-            Mana Per 5: {this.state.statsLeft.manaRegen.toFixed(3)}<br />
+            <span>Mana Per 5: </span>{this.state.statsLeft.manaRegen.toFixed(3)}<br />
             <img src={healthRegenIcon} alt='Health Regen Icon'/>
-            Health Per 5: {this.state.statsLeft.hpRegen.toFixed(3)}<br />
+            <span>Health Per 5: </span>{this.state.statsLeft.hpRegen.toFixed(3)}<br />
             <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-            Ability Power: {this.state.statsLeft.ap}<br />
+            <span>Ability Power: </span>{this.state.statsLeft.ap}<br />
             <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-            Ability Haste: {Math.round(this.state.statsLeft.cdr)}
+            <span>Ability Haste: </span>{Math.round(this.state.statsLeft.cdr)}
           </div>
           <div className="statsBox">
             <img src={healthIcon} alt='Health Icon'/>
-            Health: {Math.round(this.state.statsRight.hp)}<br />
+            <span>Health: </span>{Math.round(this.state.statsRight.hp)}<br />
             <img src={armorIcon} alt='Armor Icon'/>
-            Armor: {Math.round(this.state.statsRight.arm)}<br />
+            <span>Armor: </span>{Math.round(this.state.statsRight.arm)}<br />
             <img src={magicResIcon} alt='Magic Resist Icon'/>
-            Magic Resist: {Math.round(this.state.statsRight.mr)}<br />
+            <span>Magic Resist: </span>{Math.round(this.state.statsRight.mr)}<br />
             <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-            Attack Damage: {Math.round(this.state.statsRight.ad)}<br />
+            <span>Attack Damage: </span>{Math.round(this.state.statsRight.ad)}<br />
             <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-            Attack Speed: {this.state.statsRight.as.toFixed(3)}<br />
+            <span>Attack Speed: </span>{this.state.statsRight.as.toFixed(3)}<br />
             <img src={critChanceIcon} alt='Crit Chance Icon'/>
-            Crit Chance: {Math.round(this.state.statsRight.critChance)}%<br />
+            <span>Crit Chance: </span>{Math.round(this.state.statsRight.critChance)}%<br />
             <img src={manaIcon} alt='Mana Icon'/>
-            Mana: {Math.round(this.state.statsRight.mana)}<br />
+            <span>Mana: </span>{Math.round(this.state.statsRight.mana)}<br />
             <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-            Mana Per 5: {this.state.statsRight.manaRegen.toFixed(3)}<br />
+            <span>Mana Per 5: </span>{this.state.statsRight.manaRegen.toFixed(3)}<br />
             <img src={healthRegenIcon} alt='Health Regen Icon'/>
-            Health Per 5: {this.state.statsRight.hpRegen.toFixed(3)}<br />
+            <span>Health Per 5: </span>{this.state.statsRight.hpRegen.toFixed(3)}<br />
             <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-            Ability Power: {this.state.statsRight.ap}<br />
+            <span>Ability Power: </span>{this.state.statsRight.ap}<br />
             <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-            Ability Haste: {Math.round(this.state.statsRight.cdr)}
+            <span>Ability Haste: </span>{Math.round(this.state.statsRight.cdr)}
           </div>
         </div>
         <div id='transform'>
@@ -8286,15 +8274,15 @@ class App extends Component {
 
         <div className="flexDisplay">
           <div>
-            <div className='hidden abilityTitleBox' style={{paddingTop: '5px'}}>
+            <div className='hiddenLeft abilityTitleBox' style={{paddingTop: '5px'}}>
               <p style={{margin: 0}}><b><u>Passive </u></b></p> 
               <div className="spriteContainer">
                 <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
               </div>
             </div>  
-            <div className="hidden abilityBoxLeft"></div>
+            <div className="hiddenLeft abilityBoxLeft"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
+            <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>Q </u></b>- rank: </p>
                 <input id="QRankLeft" type="number" placeholder="0" min="0" max="5" 
@@ -8304,9 +8292,9 @@ class App extends Component {
                 <img className='qMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hidden abilityBoxLeft"></div>
+            <div className="hiddenLeft abilityBoxLeft"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
+            <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>W </u></b>- rank: </p>
                 <input id="WRankLeft" type="number" placeholder="0" min="0" max="5" 
@@ -8316,9 +8304,9 @@ class App extends Component {
                 <img className='wMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hidden abilityBoxLeft"></div>
+            <div className="hiddenLeft abilityBoxLeft"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
+            <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>E </u></b>- rank: </p>
                 <input id="ERankLeft" type="number" placeholder="0" min="0" max="5" 
@@ -8328,9 +8316,9 @@ class App extends Component {
                 <img className='eMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hidden abilityBoxLeft"></div>
+            <div className="hiddenLeft abilityBoxLeft"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
+            <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>R </u></b>- rank: </p>
                 <input id="RRankLeft" type="number" placeholder="0" min="0" max="3" 
@@ -8340,19 +8328,19 @@ class App extends Component {
                 <img className='rMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hidden abilityBoxLeft"></div>
+            <div className="hiddenLeft abilityBoxLeft"></div>
           </div>
           
           <div>
-            <div className='hidden abilityTitleBox' style={{paddingTop: '5px'}}>
+            <div className='hiddenRight abilityTitleBox' style={{paddingTop: '5px'}}>
               <p style={{margin: 0}}><b><u>Passive </u></b></p> 
               <div className="spriteContainer">
                 <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
               </div>
             </div>  
-            <div className="hidden abilityBoxRight"></div>
+            <div className="hiddenRight abilityBoxRight"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
+            <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>Q </u></b>- rank: </p>
                 <input id="QRankRight" type="number" placeholder="0" min="0" max="5" 
@@ -8362,9 +8350,9 @@ class App extends Component {
                 <img className='qMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hidden abilityBoxRight"></div>
+            <div className="hiddenRight abilityBoxRight"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
+            <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>W </u></b>- rank: </p>
                 <input id="WRankRight" type="number" placeholder="0" min="0" max="5" 
@@ -8374,9 +8362,9 @@ class App extends Component {
                 <img className='wMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hidden abilityBoxRight"></div>
+            <div className="hiddenRight abilityBoxRight"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
+            <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>E </u></b>- rank: </p>
                 <input id="ERankRight" type="number" placeholder="0" min="0" max="5" 
@@ -8386,9 +8374,9 @@ class App extends Component {
                 <img className='eMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hidden abilityBoxRight"></div>
+            <div className="hiddenRight abilityBoxRight"></div>
 
-            <div className="hidden abilityTitleBox" style={{paddingTop: '5px'}}>
+            <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                 <p style={{margin: 0}}><b><u>R </u></b>- rank: </p>
                 <input id="RRankRight" type="number" placeholder="0" min="0" max="3" 
@@ -8398,7 +8386,7 @@ class App extends Component {
                 <img className='rMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hidden abilityBoxRight"></div>
+            <div className="hiddenRight abilityBoxRight"></div>
           </div>
 
         </div>

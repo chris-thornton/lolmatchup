@@ -3,7 +3,7 @@ import React from 'react';
 const ChampDropDownLeft = ( {filteredChamps, onChampClick} ) => {
   const dropDown = filteredChamps.split(',').map(champ => {
     return (
-      <li style={{border: 'solid 1px', cursor: 'pointer', backgroundColor: '#f6f6f6'}} onClick={onChampClick} key={champ}>
+      <li style={{cursor: 'pointer', backgroundColor: '#f6f6f6'}} onClick={onChampClick} className='clickLeft' key={champ}>
         { champ }
       </li>
     )
