@@ -8071,7 +8071,7 @@ class App extends Component {
       <div style={{/*backgroundColor: '#f7f7f7', */minHeight: '100vh', padding: '0 1vw'}}>
 
         <header className="navHeader">
-          <h2 style={{marginBottom: 0, textDecoration: "underline"}}>LoL MatchUp</h2>
+          <h2 style={{marginBottom: 0, textDecoration: "underline"}}><b>LoL MatchUp</b></h2>
           <img style={{marginBottom: -60}} className="center" src={logo} alt='Logo'/>
           <div className="navLeft">
             <h2>Home</h2>
