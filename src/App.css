@@ -8,10 +8,12 @@ html {
   background-position: left, right;
   background-repeat: no-repeat, no-repeat;*/
   background-color: #134f61;
+  color: white
 }
 
 li {
   border: 1px solid;
+  color: black;
 }
 
 li + li {
@@ -21,6 +23,14 @@ li + li {
 .center {
   display: block;
   margin: auto;
+  width: 400px;
+}
+
+.logoDiv {
+  display: inline-block;
+  margin: auto;
+  width: 100%;
+  text-align: center;
 }
 
 .bold {
@@ -70,7 +80,7 @@ li + li {
 .runeBox {
   width: 80px;
   height: 80px;
-  border: 3px double #ffffb9;
+  border: 1px solid #ffffb9;
   background-color: #003747;
 }
 
@@ -123,11 +133,12 @@ hr {
 
 .navHeader {
   max-height: 15vh;
-  min-height: 100px;
+  min-height: 125px;
   color: #003747;
-  border: 1px solid #003747;
-  box-shadow: inset 0px 3px 5px #003747, 0px 3px 5px #003747;
-  background-color: lightgray;
+  /*border: 1px solid #003747;*/
+  box-shadow: /*inset 0px -3px 5px #003747, */0px 3px 5px #003747;
+  background-color: white;
+  margin: 0 -1vw;
 }
 
 .App-link {
@@ -146,13 +157,21 @@ hr {
 .navLeft {
   display: flex;
   justify-content: flex-start;
+  margin-top: -1.5em;
 }
 
 h2 {
   padding: 0 1rem;
+  margin: 0;
   font-size: 22px;
   font-weight: 200;
   text-align: center;
+}
+
+h1 {
+  padding: 0 1rem;
+  font-weight: 200;
+  margin: 0;
 }
 
 .navRight {

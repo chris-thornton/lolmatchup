@@ -8071,8 +8071,12 @@ class App extends Component {
       <div style={{/*backgroundColor: '#f7f7f7', */minHeight: '100vh', padding: '0 1vw'}}>
 
         <header className="navHeader">
-          <h2 style={{marginBottom: 0, textDecoration: "underline"}}><b>LoL MatchUp</b></h2>
-          <img style={{marginBottom: -60}} className="center" src={logo} alt='Logo'/>
+          <h2 className='center'>League of Legends</h2>
+          <div className='logoDiv'>
+            <h1 style={{display: 'inline'}}><u>Match</u></h1>
+            <img style={{margin: '5px 5px 0px 5px'}} src={logo} alt='Logo'/>
+            <h1 style={{display: 'inline-block', verticalAlign: 'top'}}><u>Up</u></h1>
+          </div>
           <div className="navLeft">
             <h2>Home</h2>
             <h2>Saved Builds</h2>
