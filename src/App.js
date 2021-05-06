@@ -85,7 +85,7 @@ class App extends Component {
         manaRegen: 0,
         manaRegenPL: 0
       },
-      transformStats1: {
+      tfStatsLeft: {
         ad: 0,
         adPL: 0,
         as: 0,
@@ -106,7 +106,7 @@ class App extends Component {
         manaRegen: 0,
         manaRegenPL: 0
       },
-      transformStats2: {
+      tfStatsRight: {
         ad: 0,
         adPL: 0,
         as: 0,
@@ -7635,8 +7635,8 @@ class App extends Component {
         if (champName === 'Gnar' || champName === 'Kled' ) {
           var tfPath = champFile['statsTransform'];
           this.setState(prevState => ({
-            transformStats1: {
-              ...prevState.transformStats1,
+            [`tfStats${side}`]: {
+              ...prevState[`tfStats${side}`],
               hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
               hpPL: tfPath["hpPerLvl"],
               asPL: tfPath["asPerLvl"],
@@ -7659,117 +7659,6 @@ class App extends Component {
       });
       var two = new Date();
       /*alert(two.getMilliseconds()-one.getMilliseconds());*/
-  };
-
-  onChampClick2 = (event) => {
-
-    var side = 'Right';
-    var otherSide = 'Left';
-    var itemStats = this.state.itemStatsRight;
-    var enemyItemStats = this.state.itemStatsLeft;
-    var enemyStats = this.state[`stats${otherSide}`]
-    var selectedStats = this.state[`stats${side}`]
-    var champLevel = this.state[`level${side}`] - 1;
-    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    var runeStats = this.state[`runes${side}`];
-    var enemyRuneStats = this.state[`runes${otherSide}`];
-
-    document.getElementsByTagName("input")[1].value = '';
-    this.setState({ filteredChampsRight: [] });
-
-    if (this.state[`champName${side}`] === '') {
-      var hiddenArray = document.getElementsByClassName("hidden");
-      hiddenArray[1].style.visibility = 'visible';
-      for (var i = 12; i < 22; i++) {
-        hiddenArray[i].style.visibility = 'visible';
-      };
-      document.getElementById(`levelBox${side}`).value = 1;
-      this.rankedAbilities.map(rankedAbility => {
-        document.getElementById(`${rankedAbility}Rank${side}`).value = 0
-      })
-    };
-
-    if (event.target.textContent !== "Wukong") {
-      var champName = event.target.textContent.replace("'","").replace(/\s/g, '')
-    } else {
-      champName = 'MonkeyKing'
-    };
-
-    this.tfStatDisplay(champName, side, otherSide);
-    this.jayceRankReset(champName, side);
-
-    this.setState({ champIndexRight: champList.filter(champ => {
-      return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value
-    });
-    
-    document.getElementsByClassName('champIcon')[1].setAttribute('src', `${this.portraits[`${champList.filter(champ => {
-    return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
-
-    this.setState({ champNameRight: champName });
-
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
-       champLevel, champLvlRatio, runeStats, enemyRuneStats);
-
-    import (`./champions/${champName.toLowerCase()}`)
-    .then(({default: champFile}) => {
-      var statsPath = champFile[`stats`];
-
-      this.setState(prevState => ({
-        [`stats${side}`]: {                   
-            ...prevState[`stats${side}`],   
-            hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
-            hpPL: statsPath["hpPerLvl"],
-            asPL: statsPath["asPerLvl"],
-            armPL: statsPath["armorPerLvl"],
-            adPL: statsPath["damagePerLvl"],
-            mrPL: statsPath["mrPerLvl"],
-            manaPL: statsPath.mana["manaPerLvl"],
-            manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
-            manaRegenPL: statsPath.mana["manaRegenPerLvl"],
-            hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio,
-            hpRegenPL: statsPath["hpRegenPerLvl"],
-            as: statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
-            arm: statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
-            ad: statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
-            mr: statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
-            mana: statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio
-        },
-        abilities2: {
-          passive: this.passiveDetails,
-          Q: this.QDetails,
-          W: this.WDetails,
-          E: this.EDetails,
-          R: this.RDetails
-        }
-      }))
-
-      if (champName === 'Gnar' || champName === 'Kled' ) {
-        var tfPath = champFile['statsTransform'];
-        this.setState(prevState => ({
-          transformStats2: {
-            ...prevState.transformStats2,
-            hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
-            hpPL: tfPath["hpPerLvl"],
-            asPL: tfPath["asPerLvl"],
-            armPL: tfPath["armorPerLvl"],
-            adPL: tfPath["damagePerLvl"],
-            mrPL: tfPath["mrPerLvl"],
-            manaPL: tfPath.mana["manaPerLvl"],
-            manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
-            manaRegenPL: tfPath.mana["manaRegenPerLvl"],
-            hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
-            hpRegenPL: tfPath["hpRegenPerLvl"],
-            as: tfPath["attackSpeed"] + tfPath["asPerLvl"] * tfPath["asRatio"] * champLvlRatio,
-            arm: tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
-            ad: tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
-            mr: tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
-            mana: tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
-          }
-        }))
-      }
-    })
-    /*return this.setState({ champIconUrlRight: 
-      `http://ddragon.leagueoflegends.com/cdn/10.12.1/img/champion/${champName}.png`})*/
   };
 
   onLevelChange = (event) => {
@@ -7814,8 +7703,8 @@ class App extends Component {
         if (champName === 'Gnar' || champName === 'Kled' ) {
           var tfPath = champFile['statsTransform'];
           this.setState(prevState => ({
-            transformStats1: {
-              ...prevState.transformStats1,
+            [`tfStats${side}`]: {
+              ...prevState[`tfStats${side}`],
               hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
               manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
               hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
@@ -8085,21 +7974,20 @@ class App extends Component {
           </div>
         </header>
 
-        <div className="flexAround" style={{marginTop: 10}}>
-          <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} style={{width: 120}}
-          />
-          
-          <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} style={{width: 120}}
-          />
+        <div style={{marginTop: 10, display: 'flex'}}>
+          <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} 
+          style={{width: 120, display: 'inline-block'}} />
+          <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} 
+          style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} />
         </div>
 
-        <div className="flexAround">
-          <div style={{width: 120}} >
+        <div style={{display: 'flex'}}>
+          <div style={{width: 120, display: 'inline-block'}} >
           <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } 
           onChampClick={this.onChampClick} />
           </div>
           
-          <div style={{width: 120}} >
+          <div style={{width: 120, marginLeft: 'auto', display: 'inline-block'}} >
           <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } 
           onChampClick={this.onChampClick} />
           </div>
@@ -8165,8 +8053,8 @@ class App extends Component {
         </div>
 
         <div className="flexDisplay">
-          <span><u><b>Stats</b></u></span>
-          <span><u><b>Stats</b></u></span>
+          <span style={{width: '45vw', textAlign: 'center'}}><u><b>Stats</b></u></span>
+          <span style={{width: '45vw', textAlign: 'center'}}><u><b>Stats</b></u></span>
         </div>
 
         <div className="flexDisplay">        
@@ -8227,51 +8115,51 @@ class App extends Component {
           <div className="flexDisplay">    
             <div className="statsBox transformLeft">
               <img src={healthIcon} alt='Health Icon'/>
-              Health: {Math.round(this.state.transformStats1.hp)}<br />
+              Health: {Math.round(this.state.tfStatsLeft.hp)}<br />
               <img src={armorIcon} alt='Armor Icon'/>
-              Armor: {Math.round(this.state.transformStats1.arm)}<br />
+              Armor: {Math.round(this.state.tfStatsLeft.arm)}<br />
               <img src={magicResIcon} alt='Magic Resist Icon'/>
-              Magic Resist: {Math.round(this.state.transformStats1.mr)}<br />
+              Magic Resist: {Math.round(this.state.tfStatsLeft.mr)}<br />
               <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-              Attack Damage: {Math.round(this.state.transformStats1.ad)}<br />
+              Attack Damage: {Math.round(this.state.tfStatsLeft.ad)}<br />
               <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-              Attack Speed: {this.state.transformStats1.as.toFixed(3)}<br />
+              Attack Speed: {this.state.tfStatsLeft.as.toFixed(3)}<br />
               <img src={critChanceIcon} alt='Crit Chance Icon'/>
-              Crit Chance: {Math.round(this.state.transformStats1.critChance)}%<br />
+              Crit Chance: {Math.round(this.state.tfStatsLeft.critChance)}%<br />
               <img src={manaIcon} alt='Mana Icon'/>
-              Mana: {Math.round(this.state.transformStats1.mana)}<br />
+              Mana: {Math.round(this.state.tfStatsLeft.mana)}<br />
               <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              Mana Per 5: {this.state.transformStats1.manaRegen.toFixed(3)}<br />
+              Mana Per 5: {this.state.tfStatsLeft.manaRegen.toFixed(3)}<br />
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              Health Per 5: {this.state.transformStats1.hpRegen.toFixed(3)}<br />
+              Health Per 5: {this.state.tfStatsLeft.hpRegen.toFixed(3)}<br />
               <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-              Ability Power: {this.state.transformStats1.ap}<br />
+              Ability Power: {this.state.tfStatsLeft.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              Ability Haste: {Math.round(this.state.transformStats1.cdr)}
+              Ability Haste: {Math.round(this.state.tfStatsLeft.cdr)}
             </div>
             <div className="statsBox transformRight">
               <img src={healthIcon} alt='Health Icon'/>
-              Health: {Math.round(this.state.transformStats2.hp)}<br />
+              Health: {Math.round(this.state.tfStatsRight.hp)}<br />
               <img src={armorIcon} alt='Armor Icon'/>
-              Armor: {Math.round(this.state.transformStats2.arm)}<br />
+              Armor: {Math.round(this.state.tfStatsRight.arm)}<br />
               <img src={magicResIcon} alt='Magic Resist Icon'/>
-              Magic Resist: {Math.round(this.state.transformStats2.mr)}<br />
+              Magic Resist: {Math.round(this.state.tfStatsRight.mr)}<br />
               <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-              Attack Damage: {Math.round(this.state.transformStats2.ad)}<br />
+              Attack Damage: {Math.round(this.state.tfStatsRight.ad)}<br />
               <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-              Attack Speed: {this.state.transformStats2.as.toFixed(3)}<br />
+              Attack Speed: {this.state.tfStatsRight.as.toFixed(3)}<br />
               <img src={critChanceIcon} alt='Crit Chance Icon'/>
-              Crit Chance: {Math.round(this.state.transformStats2.critChance)}%<br />
+              Crit Chance: {Math.round(this.state.tfStatsRight.critChance)}%<br />
               <img src={manaIcon} alt='Mana Icon'/>
-              Mana: {Math.round(this.state.transformStats2.mana)}<br />
+              Mana: {Math.round(this.state.tfStatsRight.mana)}<br />
               <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              Mana Per 5: {this.state.transformStats2.manaRegen.toFixed(3)}<br />
+              Mana Per 5: {this.state.tfStatsRight.manaRegen.toFixed(3)}<br />
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              Health Per 5: {this.state.transformStats2.hpRegen.toFixed(3)}<br />
+              Health Per 5: {this.state.tfStatsRight.hpRegen.toFixed(3)}<br />
               <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-              Ability Power: {this.state.transformStats2.ap}<br />
+              Ability Power: {this.state.tfStatsRight.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              Ability Haste: {Math.round(this.state.transformStats2.cdr)}
+              Ability Haste: {Math.round(this.state.tfStatsRight.cdr)}
             </div>
           </div>
         </div>
