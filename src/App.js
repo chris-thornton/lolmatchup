@@ -5,7 +5,7 @@ import './App.css';
 import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
 import ChampDropDownRight from './components/ChampDropDownRight';
-import logo from './logoTest2.png';
+import logo from './logoTest.png';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
 import forceIcon from './staticons/force.png';
@@ -3336,9 +3336,7 @@ class App extends Component {
               if (champFile[ability]["empower"]) {
                 var ePath = champFile[ability]["empower"];
                 var empB = document.createElement('b');
-                var empU = document.createElement('u');
-                empB.appendChild(empU);
-                empU.innerText = 'Empower';
+                empB.innerText = 'Empower';
                 abilityDiv.appendChild(empB);
                 doubleBreak();
                 if (ePath['Q']) {
@@ -8029,7 +8027,7 @@ class App extends Component {
 
         <div className="flexAround" style={{marginTop: '10px'}}>
           <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
-          alt='Champion Icon' style={{position: 'relative', marginBottom: 10}} />
+          alt='Champion Icon' style={{position: 'relative'}} />
           
           <div className='runeBox'>
             <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
@@ -8049,7 +8047,7 @@ class App extends Component {
             <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
           </div>
 
-          <img src={versus} alt='Versus Icon' height="64px" width="64px"/>
+          <img src={versus} alt='Versus Icon' height="64px" width="64px" style={{alignSelf: 'center'}} />
 
           <div className='runeBox'>
             <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
@@ -8070,7 +8068,7 @@ class App extends Component {
           </div>
 
           <img id='champIconRight' src={ defaultChampIcon } height="120px" width="120px"
-          alt='Champion Icon' style={{position: 'relative', marginBottom: 10}}/>
+          alt='Champion Icon' style={{position: 'relative'}}/>
         </div>
 
         <div className="flexDisplay">
@@ -8201,7 +8199,7 @@ class App extends Component {
         <div className="flexDisplay">
           <div>
             <div className='hiddenLeft abilityTitleBox' style={{paddingTop: '5px'}}>
-              <p style={{margin: 0}}><b><u>Passive </u></b></p> 
+              <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p> 
               <div className="spriteContainer">
                 <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
               </div>
@@ -8210,7 +8208,7 @@ class App extends Component {
 
             <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>Q </u></b>- rank: </p>
+                <p style={{margin: 0}}><b><u>Q</u></b> - rank: </p>
                 <input id="QRankLeft" type="number" placeholder="0" min="0" max="5" 
                 style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
               </div>
@@ -8222,7 +8220,7 @@ class App extends Component {
 
             <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>W </u></b>- rank: </p>
+                <p style={{margin: 0}}><b><u>W</u></b> - rank: </p>
                 <input id="WRankLeft" type="number" placeholder="0" min="0" max="5" 
                 style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
               </div>
@@ -8234,7 +8232,7 @@ class App extends Component {
 
             <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>E </u></b>- rank: </p>
+                <p style={{margin: 0}}><b><u>E</u></b> - rank: </p>
                 <input id="ERankLeft" type="number" placeholder="0" min="0" max="5" 
                 style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
               </div>
@@ -8246,7 +8244,7 @@ class App extends Component {
 
             <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>R </u></b>- rank: </p>
+                <p style={{margin: 0}}><b><u>R</u></b> - rank: </p>
                 <input id="RRankLeft" type="number" placeholder="0" min="0" max="3" 
                 style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
               </div>
@@ -8268,7 +8266,7 @@ class App extends Component {
 
             <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>Q </u></b>- rank: </p>
+                <p style={{margin: 0}}><b><u>Q</u></b> - rank: </p>
                 <input id="QRankRight" type="number" placeholder="0" min="0" max="5" 
                 style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
               </div>
@@ -8280,7 +8278,7 @@ class App extends Component {
 
             <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>W </u></b>- rank: </p>
+                <p style={{margin: 0}}><b><u>W</u></b> - rank: </p>
                 <input id="WRankRight" type="number" placeholder="0" min="0" max="5" 
                 style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
               </div>
@@ -8292,7 +8290,7 @@ class App extends Component {
 
             <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>E </u></b>- rank: </p>
+                <p style={{margin: 0}}><b><u>E</u></b> - rank: </p>
                 <input id="ERankRight" type="number" placeholder="0" min="0" max="5" 
                 style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
               </div>
@@ -8304,7 +8302,7 @@ class App extends Component {
 
             <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
               <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>R </u></b>- rank: </p>
+                <p style={{margin: 0}}><b><u>R</u></b> - rank: </p>
                 <input id="RRankRight" type="number" placeholder="0" min="0" max="3" 
                 style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
               </div>

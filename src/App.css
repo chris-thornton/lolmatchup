@@ -11,6 +11,15 @@ html {
   color: white
 }
 
+.abilityTitleBox u {
+  color: #ffffb9;
+  text-decoration-color: lightgray;
+}
+
+.abilityBoxLeft u, .abilityBoxRight u {
+  color: #f9b54a
+}
+
 li {
   border: 1px solid;
   color: black;
@@ -82,6 +91,7 @@ li + li {
   height: 80px;
   border: 1px solid #ffffb9;
   background-color: #003747;
+  align-self: center;
 }
 
 .runeBoxHR {
@@ -112,7 +122,6 @@ hr {
   border: 2px solid black;
   padding: 0px 1em;
   margin-top: 1px;
-  /*background-color: #87ccfa;*/
   background-color:#003747;
   color:white;
   border-image-slice: 27 27 53 50;
@@ -133,10 +142,10 @@ hr {
 
 .navHeader {
   max-height: 15vh;
-  min-height: 140px;
+  min-height: 130px;
   color: #003747;
-  /*border: 1px solid #003747;*/
-  box-shadow: /*inset 0px -3px 5px #003747, */0px 3px 5px #003747;
+  border-bottom: 1px solid #003747;
+  box-shadow: 0px 0.5px 2px /*rgb(242, 154, 47)*/#f9b54a;
   background-color: white;
   margin: 0 -1vw;
 }
