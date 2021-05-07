@@ -5,7 +5,7 @@ import './App.css';
 import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
 import ChampDropDownRight from './components/ChampDropDownRight';
-import logo from './logoTest.png';
+import logo from './logoTest2.png';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
 import forceIcon from './staticons/force.png';
@@ -7559,6 +7559,7 @@ class App extends Component {
       document.getElementsByTagName("input")[1].value = '';
     }
     this.setState({ [`filteredChamps${side}`]: [] });
+    this[`listHover${side}`] = 'false';
 
     if (this.state[`champName${side}`] === '') {
       var hiddenArray = document.getElementsByClassName(`hidden${side}`);
@@ -7947,6 +7948,41 @@ class App extends Component {
     event.preventDefault()
   };
 
+  listHoverLeft = 'false';
+  listHoverRight = 'false';
+
+  listMouseEnter = () => {
+    this.listHoverLeft = 'true';
+  }
+
+  listMouseLeave = () => {
+    this.listHoverLeft = 'false';
+  }
+
+  listMouseEnter2 = (event) => {
+    this.listHoverRight = 'true';
+  }
+
+  listMouseLeave2 = (event) => {
+    this.listHoverRight = 'false';
+  }
+
+  onListBlur = () => {
+    if (this.listHoverLeft === 'true') {
+      return
+    };
+    document.getElementsByTagName("input")[0].value = '';
+    this.setState({ filteredChampsLeft: [] });
+  }
+
+  onListBlur2 = () => {
+    if (this.listHoverRight === 'true') {
+      return
+    };
+    document.getElementsByTagName("input")[1].value = '';
+    this.setState({ filteredChampsRight: [] });
+  }
+
   componentDidMount() {
     function importAll(r) {
       return r.keys().map(r);
@@ -7957,14 +7993,12 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{/*backgroundColor: '#f7f7f7', */minHeight: '100vh', padding: '0 1vw'}}>
+      <div style={{minHeight: '100vh', padding: '0 1vw'}}>
 
         <header className="navHeader">
           <h2 className='center'>League of Legends</h2>
           <div className='logoDiv'>
-            <h1 style={{display: 'inline'}}><u>Match</u></h1>
-            <img style={{margin: '5px 5px 0px 5px'}} src={logo} alt='Logo'/>
-            <h1 style={{display: 'inline-block', verticalAlign: 'top'}}><u>Up</u></h1>
+            <img src={logo} alt='Logo'/>
           </div>
           <div className="navLeft">
             <h2>Home</h2>
@@ -7976,20 +8010,20 @@ class App extends Component {
 
         <div style={{marginTop: 10, display: 'flex'}}>
           <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} 
-          style={{width: 120, display: 'inline-block'}} />
+          style={{width: 120, display: 'inline-block'}} onBlur={this.onListBlur} />
           <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} 
-          style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} />
+          style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={this.onListBlur2} />
         </div>
 
         <div style={{display: 'flex'}}>
           <div style={{width: 120, display: 'inline-block'}} >
-          <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } 
-          onChampClick={this.onChampClick} />
+          <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } onChampClick={this.onChampClick} 
+          listMouseEnter={this.listMouseEnter} listMouseLeave={this.listMouseLeave} />
           </div>
           
           <div style={{width: 120, marginLeft: 'auto', display: 'inline-block'}} >
-          <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } 
-          onChampClick={this.onChampClick} />
+          <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } onChampClick={this.onChampClick} 
+          listMouseEnter={this.listMouseEnter2} listMouseLeave={this.listMouseLeave2} />
           </div>
         </div>
 

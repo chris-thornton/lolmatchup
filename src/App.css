@@ -133,7 +133,7 @@ hr {
 
 .navHeader {
   max-height: 15vh;
-  min-height: 125px;
+  min-height: 140px;
   color: #003747;
   /*border: 1px solid #003747;*/
   box-shadow: /*inset 0px -3px 5px #003747, */0px 3px 5px #003747;
