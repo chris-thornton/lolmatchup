@@ -3,10 +3,6 @@
 }
 
 html {
-  /*background: url("./staticons/Red.jpg"), url("./staticons/Blue.jpg");
-  background-size: 50vw, 50vw;
-  background-position: left, right;
-  background-repeat: no-repeat, no-repeat;*/
   background-color: #134f61;
   color: white
 }
@@ -59,7 +55,8 @@ li + li {
 .statsBox {
   text-align: center;
   width: 45vw;
-  border: 3px double #ffffb9;
+  border: 1px solid #ffffb9;
+  box-shadow: 3px 3px 3px #003747;
   padding: 0px 1em;
   margin-top: 1px;
   background-color:#003747;
@@ -89,14 +86,15 @@ li + li {
 .runeBox {
   width: 80px;
   height: 80px;
-  border: 1px solid #ffffb9;
+  /*border: 1px solid #ffffb9;*/
+  box-shadow: 1px 1px 3px #ffffb9;
   background-color: #003747;
   align-self: center;
 }
 
 .runeBoxHR {
   margin: 0;
-  background-color: white;
+  color: #ffffb9;
 }
 
 .runeImgStyle {
@@ -114,25 +112,39 @@ li + li {
 hr {
   border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, rgba(255, 255, 185, 1), rgba(0, 0, 0, 0.75), rgba(255, 255, 185, 1));
+  background-image: linear-gradient(to right, rgba(255, 255, 185, 1), rgba(0, 0, 0, 0.2), rgba(255, 255, 185, 1));
 }
 
 .abilityBoxLeft, .abilityBoxRight {
   width: 45vw;
   border: 2px solid black;
+  box-shadow: 3px 3px 3px #003747;
   padding: 0px 1em;
   margin-top: 1px;
   background-color:#003747;
   color:white;
   border-image-slice: 27 27 53 50;
-  border-image-width: 5px 5px 5px 5px;
+  border-image-width: 5px 5px 5px 4.5px;
   border-image-outset: 0px 0px 0px 0px;
   border-image-repeat: stretch stretch;
   border-image-source: url("./border-image-2.png"); 
 }
 
+.abilityBoxLeft hr, .abilityBoxRight hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(255, 255, 185, 1), rgba(255, 255, 255, 0.3), rgba(255, 255, 185, 1));
+}
+
 .abilityBoxLeft b, .abilityBoxRight b {
   color: #ffffb9
+}
+
+.abilityBoxLeft p, .abilityBoxRight p {
+  text-align: center;
+  margin: 0;
+  font-weight: bold;
+  color: #ffffb9;
 }
 
 .abilityTitleBox {
@@ -144,8 +156,7 @@ hr {
   max-height: 15vh;
   min-height: 130px;
   color: #003747;
-  border-bottom: 1px solid #003747;
-  box-shadow: 0px 0.5px 2px /*rgb(242, 154, 47)*/#f9b54a;
+  box-shadow: 0px 1px 3px /*rgb(242, 154, 47)*/#f9b54a;
   background-color: white;
   margin: 0 -1vw;
 }

@@ -47,7 +47,8 @@ class App extends Component {
         ad: 0,
         adPL: 0,
         as: 0,
-        asPL: 0, 
+        asPL: 0,
+        asRatio: 0, 
         arm: 0, 
         armPL: 0,
         mr: 0,
@@ -131,7 +132,8 @@ class App extends Component {
         ad: 0,
         adPL: 0,
         as: 0,
-        asPL: 0, 
+        asPL: 0,
+        asRatio: 0, 
         arm: 0, 
         armPL: 0,
         mr: 0,
@@ -6992,9 +6994,14 @@ class App extends Component {
             var hr = document.createElement('hr');
             abilityDiv.appendChild(hr);
             if (ability !== 'passive') {
-              underLine('Transform ' + ability);
+              var p = document.createElement('p');
+              p.innerText = 'Transform ' + ability;
+              abilityDiv.appendChild(p);
             } else {
-              underLine('Transform Passive');
+              //underLine('Transform Passive');
+              var p = document.createElement('p');
+              p.innerText = 'Transform Passive';
+              abilityDiv.appendChild(p);
             };
             var hr2 = document.createElement('hr');
             abilityDiv.appendChild(hr2);
@@ -7206,13 +7213,13 @@ class App extends Component {
               };
 
               if (champFile[tfAbility]['interruptCC']) {
-                addBold('Crowd Control Duration');
+                addBold('Crowd Control Duration: ');
                 addText(removeSpace(champFile[tfAbility]['interruptCC']));
                 doubleBreak();
               };
 
               if (champFile[tfAbility]['duration']) {
-                addBold('Duration');
+                addBold('Duration: ');
                 addText(champFile[tfAbility]['duration']);
               };
 
@@ -7543,6 +7550,23 @@ class App extends Component {
       side = 'Right';
       otherSide = 'Left';
     };
+
+    var champName = event.target.textContent.replace("'","").replace(/\s/g, '')
+    if (event.target.textContent === "Wukong") {
+      champName = 'MonkeyKing';
+    };
+
+    document.getElementsByTagName("input")[0].value = '';
+    if (side === 'Right') {
+      document.getElementsByTagName("input")[1].value = '';
+    }
+    this.setState({ [`filteredChamps${side}`]: [] });
+    this[`listHover${side}`] = 'false';
+
+    if (this.state[`champName${side}`] === champName) {
+      return
+    };
+
     var itemStats = this.state[`itemStats${side}`];
     var enemyItemStats = this.state[`itemStats${otherSide}`];
     var enemyStats = this.state[`stats${otherSide}`];
@@ -7551,13 +7575,6 @@ class App extends Component {
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
     var runeStats = this.state[`runes${side}`];
     var enemyRuneStats = this.state[`runes${otherSide}`];
-
-    document.getElementsByTagName("input")[0].value = '';
-    if (side === 'Right') {
-      document.getElementsByTagName("input")[1].value = '';
-    }
-    this.setState({ [`filteredChamps${side}`]: [] });
-    this[`listHover${side}`] = 'false';
 
     if (this.state[`champName${side}`] === '') {
       var hiddenArray = document.getElementsByClassName(`hidden${side}`);
@@ -7569,11 +7586,7 @@ class App extends Component {
         document.getElementById(`${rankedAbility}Rank${side}`).value = 0;
       })
     };
-
-    var champName = event.target.textContent.replace("'","").replace(/\s/g, '')
-    if (event.target.textContent === "Wukong") {
-      champName = 'MonkeyKing';
-    };
+    this.setState({ [`champName${side}`]: champName });
 
     this.tfStatDisplay(champName, side, otherSide);
     this.jayceRankReset(champName, side);
@@ -7582,10 +7595,8 @@ class App extends Component {
       return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value
     });
     
-      document.getElementById(`champIcon${side}`).setAttribute('src', `${this.portraits[`${champList.filter(champ => {
-        return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
-
-    this.setState({ [`champName${side}`]: champName });
+    document.getElementById(`champIcon${side}`).setAttribute('src', `${this.portraits[`${champList.filter(champ => {
+      return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
 
     this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, 
       champLevel, champLvlRatio, runeStats, enemyRuneStats);
@@ -7617,6 +7628,7 @@ class App extends Component {
               hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio,
               hpRegenPL: statsPath["hpRegenPerLvl"],
               as: statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
+              asRatio: statsPath["asRatio"],
               arm: statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
               ad: statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
               mr: statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
@@ -7696,6 +7708,17 @@ class App extends Component {
               mana: statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio,
               manaRegen: statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
               hpRegen: statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio
+          },
+          [`totalStats${side}`]: {
+            ...prevState[`totalStats${side}`],
+            hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
+            as: statsPath["attackSpeed"] + ((statsPath["asPerLvl"] * champLvlRatio) + itemStats.as + runeStats.as) * statsPath["asRatio"],
+            arm: itemStats.arm + runeStats.arm + statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
+            ad: itemStats.ad + runeStats.ad + statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
+            mr: itemStats.mr + runeStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+            mana: itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio,
+            manaRegen: itemStats.manaRegen + statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
+            hpRegen: itemStats.hpRegen + statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio
           }
         }));
 
@@ -7745,7 +7768,6 @@ class App extends Component {
   };
 
   onRuneChange = (event) => {
-    console.log(this.state.runesLeft)
     var runeSrc = event.target.src;
     var runeName = runeSrc.substring(runeSrc.lastIndexOf('/') + 1, runeSrc.indexOf('.'));
 
@@ -7782,6 +7804,10 @@ class App extends Component {
       [`runes${side}`]: {
         ...prevState[`runes${side}`],
         [runeStat]: +prevState[`runes${side}`][runeStat] + +runeValue
+      },
+      [`totalStats${side}`]: {
+        ...prevState[`totalStats${side}`],
+        [runeStat]: +prevState[`totalStats${side}`][runeStat] + +runeValue
       }
     }))
 
@@ -7809,6 +7835,10 @@ class App extends Component {
           [`runes${side}`]: {
             ...prevState[`runes${side}`],
             [nextStat]: +prevState[`runes${side}`][nextStat] - +nextValue
+          },
+          [`totalStats${side}`]: {
+            ...prevState[`totalStats${side}`],
+            [nextStat]: +prevState[`totalStats${side}`][nextStat] - +nextValue
           }
         }))
       } else {
@@ -7827,11 +7857,15 @@ class App extends Component {
         if (nextNextStat === 'hp') {
           nextNextValue = this.runeHash[nextNextSib.id]['stat'][champLevel+1];
         };
-
+        
         this.setState(prevState => ({
           [`runes${side}`]: {
             ...prevState[`runes${side}`],
             [nextNextStat]: +prevState[`runes${side}`][nextNextStat] - +nextNextValue
+          },
+          [`totalStats${side}`]: {
+            ...prevState[`totalStats${side}`],
+            [nextNextStat]: +prevState[`totalStats${side}`][nextNextStat] - +nextNextValue
           }
         }));
       };
@@ -7861,6 +7895,10 @@ class App extends Component {
           [`runes${side}`]: {
             ...prevState[`runes${side}`],
             [prevStat]: +prevState[`runes${side}`][prevStat] - +prevValue
+          },
+          [`totalStats${side}`]: {
+            ...prevState[`totalStats${side}`],
+            [prevStat]: +prevState[`totalStats${side}`][prevStat] - +prevValue
           }
         }))
       } else {
@@ -7884,6 +7922,10 @@ class App extends Component {
             [`runes${side}`]: {
               ...prevState[`runes${side}`],
               [nextStat]: +prevState[`runes${side}`][nextStat] - +nextValue
+            },
+            [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],
+              [nextStat]: +prevState[`totalStats${side}`][nextStat] - +nextValue
             }
           }))
       }
@@ -7913,6 +7955,10 @@ class App extends Component {
           [`runes${side}`]: {
             ...prevState[`runes${side}`],
             [prevStat]: +prevState[`runes${side}`][prevStat] - +prevValue
+          },
+          [`totalStats${side}`]: {
+            ...prevState[`totalStats${side}`],
+            [prevStat]: +prevState[`totalStats${side}`][prevStat] - +prevValue
           }
         }))
       } else {
@@ -7936,6 +7982,10 @@ class App extends Component {
             [`runes${side}`]: {
               ...prevState[`runes${side}`],
               [prevPrevStat]: +prevState[`runes${side}`][prevPrevStat] - +prevPrevValue
+            },
+            [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],
+              [prevPrevStat]: +prevState[`totalStats${side}`][prevPrevStat] - +prevPrevValue
             }
           }))
       }
@@ -7957,11 +8007,11 @@ class App extends Component {
     this.listHoverLeft = 'false';
   }
 
-  listMouseEnter2 = (event) => {
+  listMouseEnter2 = () => {
     this.listHoverRight = 'true';
   }
 
-  listMouseLeave2 = (event) => {
+  listMouseLeave2 = () => {
     this.listHoverRight = 'false';
   }
 
@@ -7994,7 +8044,7 @@ class App extends Component {
       <div style={{minHeight: '100vh', padding: '0 1vw'}}>
 
         <header className="navHeader">
-          <h2 className='center'>League of Legends</h2>
+          <h2 className='center' style={{fontWeight: 'normal'}}>League of Legends</h2>
           <div className='logoDiv'>
             <img src={logo} alt='Logo'/>
           </div>
@@ -8085,64 +8135,64 @@ class App extends Component {
         </div>
 
         <div className="flexDisplay">
-          <span style={{width: '45vw', textAlign: 'center'}}><u><b>Stats</b></u></span>
-          <span style={{width: '45vw', textAlign: 'center'}}><u><b>Stats</b></u></span>
+          <span style={{width: '45vw', textAlign: 'center'}}><b>Stats</b></span>
+          <span style={{width: '45vw', textAlign: 'center'}}><b>Stats</b></span>
         </div>
 
         <div className="flexDisplay">        
           <div className="statsBox">
             <img src={healthIcon}  alt='Health Icon'/>
-            <span>Health: </span>{Math.round(this.state.statsLeft.hp)}<br />
+            <span>Health: </span>{Math.round(this.state.totalStatsLeft.hp)}<br />
             <img src={armorIcon} alt='Armor Icon'/>
-            <span>Armor: </span>{Math.round(this.state.statsLeft.arm)}<br />
+            <span>Armor: </span>{Math.round(this.state.totalStatsLeft.arm)}<br />
             <img src={magicResIcon} alt='Magic Resist Icon'/>
-            <span>Magic Resist: </span>{Math.round(this.state.statsLeft.mr)}<br />
+            <span>Magic Resist: </span>{Math.round(this.state.totalStatsLeft.mr)}<br />
             <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-            <span>Attack Damage: </span>{Math.round(this.state.statsLeft.ad)}<br />
+            <span>Attack Damage: </span>{Math.round(this.state.totalStatsLeft.ad)}<br />
             <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-            <span>Attack Speed: </span>{this.state.statsLeft.as.toFixed(3)}<br />
+            <span>Attack Speed: </span>{this.state.totalStatsLeft.as.toFixed(3)}<br />
             <img src={critChanceIcon} alt='Crit Chance Icon'/>
-            <span>Crit Chance: </span>{Math.round(this.state.statsLeft.critChance)}%<br />
+            <span>Crit Chance: </span>{Math.round(this.state.totalStatsLeft.critChance)}%<br />
             <img src={manaIcon} alt='Mana Icon'/>
-            <span>Mana: </span>{Math.round(this.state.statsLeft.mana)}<br />
+            <span>Mana: </span>{Math.round(this.state.totalStatsLeft.mana)}<br />
             <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-            <span>Mana Per 5: </span>{this.state.statsLeft.manaRegen.toFixed(3)}<br />
+            <span>Mana Per 5: </span>{this.state.totalStatsLeft.manaRegen.toFixed(3)}<br />
             <img src={healthRegenIcon} alt='Health Regen Icon'/>
-            <span>Health Per 5: </span>{this.state.statsLeft.hpRegen.toFixed(3)}<br />
+            <span>Health Per 5: </span>{this.state.totalStatsLeft.hpRegen.toFixed(3)}<br />
             <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-            <span>Ability Power: </span>{this.state.statsLeft.ap}<br />
+            <span>Ability Power: </span>{this.state.totalStatsLeft.ap}<br />
             <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-            <span>Ability Haste: </span>{Math.round(this.state.statsLeft.cdr)}
+            <span>Ability Haste: </span>{Math.round(this.state.totalStatsLeft.cdr)}
           </div>
           <div className="statsBox">
             <img src={healthIcon} alt='Health Icon'/>
-            <span>Health: </span>{Math.round(this.state.statsRight.hp)}<br />
+            <span>Health: </span>{Math.round(this.state.totalStatsRight.hp)}<br />
             <img src={armorIcon} alt='Armor Icon'/>
-            <span>Armor: </span>{Math.round(this.state.statsRight.arm)}<br />
+            <span>Armor: </span>{Math.round(this.state.totalStatsRight.arm)}<br />
             <img src={magicResIcon} alt='Magic Resist Icon'/>
-            <span>Magic Resist: </span>{Math.round(this.state.statsRight.mr)}<br />
+            <span>Magic Resist: </span>{Math.round(this.state.totalStatsRight.mr)}<br />
             <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-            <span>Attack Damage: </span>{Math.round(this.state.statsRight.ad)}<br />
+            <span>Attack Damage: </span>{Math.round(this.state.totalStatsRight.ad)}<br />
             <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-            <span>Attack Speed: </span>{this.state.statsRight.as.toFixed(3)}<br />
+            <span>Attack Speed: </span>{this.state.totalStatsRight.as.toFixed(3)}<br />
             <img src={critChanceIcon} alt='Crit Chance Icon'/>
-            <span>Crit Chance: </span>{Math.round(this.state.statsRight.critChance)}%<br />
+            <span>Crit Chance: </span>{Math.round(this.state.totalStatsRight.critChance)}%<br />
             <img src={manaIcon} alt='Mana Icon'/>
-            <span>Mana: </span>{Math.round(this.state.statsRight.mana)}<br />
+            <span>Mana: </span>{Math.round(this.state.totalStatsRight.mana)}<br />
             <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-            <span>Mana Per 5: </span>{this.state.statsRight.manaRegen.toFixed(3)}<br />
+            <span>Mana Per 5: </span>{this.state.totalStatsRight.manaRegen.toFixed(3)}<br />
             <img src={healthRegenIcon} alt='Health Regen Icon'/>
-            <span>Health Per 5: </span>{this.state.statsRight.hpRegen.toFixed(3)}<br />
+            <span>Health Per 5: </span>{this.state.totalStatsRight.hpRegen.toFixed(3)}<br />
             <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-            <span>Ability Power: </span>{this.state.statsRight.ap}<br />
+            <span>Ability Power: </span>{this.state.totalStatsRight.ap}<br />
             <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-            <span>Ability Haste: </span>{Math.round(this.state.statsRight.cdr)}
+            <span>Ability Haste: </span>{Math.round(this.state.totalStatsRight.cdr)}
           </div>
         </div>
         <div id='transform'>
           <div className="flexDisplay">
-            <span className="transformLeft"><u><b>Transform Stats</b></u></span>
-            <span className="transformRight"><u><b>Transform Stats</b></u></span>
+            <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}><b>Transform Stats</b></span>
+            <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}><b>Transform Stats</b></span>
           </div>
           <div className="flexDisplay">    
             <div className="statsBox transformLeft">
@@ -8257,7 +8307,7 @@ class App extends Component {
           
           <div>
             <div className='hiddenRight abilityTitleBox' style={{paddingTop: '5px'}}>
-              <p style={{margin: 0}}><b><u>Passive </u></b></p> 
+              <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p> 
               <div className="spriteContainer">
                 <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
               </div>
