@@ -6,6 +6,7 @@ import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
 import ChampDropDownRight from './components/ChampDropDownRight';
 import logo from './logoTest.png';
+import title from './lolTitle2.png';
 import versus from './versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
 import forceIcon from './staticons/force.png';
@@ -107,7 +108,49 @@ class App extends Component {
         manaRegen: 0,
         manaRegenPL: 0
       },
+      tfTotalStatsLeft: {
+        ad: 0,
+        adPL: 0,
+        as: 0,
+        asPL: 0, 
+        arm: 0, 
+        armPL: 0,
+        mr: 0,
+        mrPL: 0,
+        hp: 0,
+        hpPL: 0,
+        hpRegen: 0,
+        hpRegenPL: 0,
+        ap: 0,
+        cdr: 0,
+        critChance: 0,
+        mana: 0,
+        manaPL: 0,
+        manaRegen: 0,
+        manaRegenPL: 0
+      },
       tfStatsRight: {
+        ad: 0,
+        adPL: 0,
+        as: 0,
+        asPL: 0, 
+        arm: 0, 
+        armPL: 0,
+        mr: 0,
+        mrPL: 0,
+        hp: 0,
+        hpPL: 0,
+        hpRegen: 0,
+        hpRegenPL: 0,
+        ap: 0,
+        cdr: 0,
+        critChance: 0,
+        mana: 0,
+        manaPL: 0,
+        manaRegen: 0,
+        manaRegenPL: 0
+      },
+      tfTotalStatsRight: {
         ad: 0,
         adPL: 0,
         as: 0,
@@ -207,22 +250,6 @@ class App extends Component {
         mana: 0,
         manaRegen: 0
       },
-      baseChampStatsLeft: {},
-      baseChampStatsRight: {},
-      abilities1: {
-        passive: {},
-        Q: {},
-        W: {},
-        E: {},
-        R: {}
-      },
-      abilities2: {
-        passive: {},
-        Q: {},
-        W: {},
-        E: {},
-        R: {}
-      },
       runesLeft: {
         ad: 10.8,
         as: 0,
@@ -241,6 +268,8 @@ class App extends Component {
         ap: 0,
         cdr: 0
       },
+      forceTypeLeft: 'ad',
+      forceTypeRight: 'ad',
       QRankLeft: 0,
       QRankRight: 0,
       WRankLeft: 0,
@@ -253,6 +282,9 @@ class App extends Component {
       levelRight: 1
     }
   };
+
+  champFileLeft = {}
+  champFileRight = {}
 
   runeHash = {
     rune0: {
@@ -378,20 +410,6 @@ class App extends Component {
   transformAbilities = ["passiveTransform", "QTransform", "WTransform", "ETransform", "RTransform"]
   images = {};
   portraits = {};
-  abilities1 = {
-    passive: {},
-    Q: {},
-    W: {},
-    E: {},
-    R: {}
-  };
-  abilities2 = {
-    passive: {},
-    Q: {},
-    W: {},
-    E: {},
-    R: {}
-  };
 
   calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
      champLevel, champLvlRatio, runeStats, enemyRuneStats) {
@@ -410,9 +428,9 @@ class App extends Component {
         var totalAD = itemStats.ad + runeStats.ad + statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"];
         var bonusAD = itemStats.ad + runeStats.ad;
         var totalAP = itemStats.ap + selectedStats.ap + runeStats.ap;
-        var totalAS = statsPath["attackSpeed"]
-        + (itemStats.as + runeStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
-        var bonusAS = statsPath["asRatio"] * (itemStats.as + runeStats.as);
+        var totalAS = statsPath["attackSpeed"] + runeStats.as
+        + (itemStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
+        var bonusAS = statsPath["asRatio"] * itemStats.as + runeStats.as;
         var bonusASRatio = itemStats.as + runeStats.as;
         var totalArmor = itemStats.arm + runeStats.arm + statsPath["baseArmor"] + champLvlRatio * statsPath["armorPerLvl"];
         var bonusArmor = itemStats.arm + runeStats.arm;
@@ -432,7 +450,7 @@ class App extends Component {
         var totalLifeSteal = itemStats.lifeSteal;
         var totalMana = itemStats.mana + statsPath["mana"]["base"] + statsPath["mana"]["manaPerLvl"] * champLvlRatio;
         var bonusMana = itemStats.mana;
-        var nonBaseAS = (itemStats.as + runeStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
+        var nonBaseAS = runeStats.as + (itemStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
 
         var QRank;
         if (document.getElementById(`QRank${side}`).value == 0) {
@@ -7551,6 +7569,9 @@ class App extends Component {
       otherSide = 'Left';
     };
 
+    var prevName = this.state[`champName${side}`];
+    console.log(prevName);
+
     var champName = event.target.textContent.replace("'","").replace(/\s/g, '')
     if (event.target.textContent === "Wukong") {
       champName = 'MonkeyKing';
@@ -7584,7 +7605,7 @@ class App extends Component {
       document.getElementById(`levelBox${side}`).value = 1;
       this.rankedAbilities.map(rankedAbility => {
         document.getElementById(`${rankedAbility}Rank${side}`).value = 0;
-      })
+      });
     };
     this.setState({ [`champName${side}`]: champName });
 
@@ -7598,22 +7619,17 @@ class App extends Component {
     document.getElementById(`champIcon${side}`).setAttribute('src', `${this.portraits[`${champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.textContent.toLowerCase()) })[0].value}`]}`);
 
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, 
-      champLevel, champLvlRatio, runeStats, enemyRuneStats);
-
     import (`./champions/${champName.toLowerCase()}`)
       .then(({default: champFile}) => {
         var statsPath = champFile[`stats`];
+        if (this.state[`runes${side}`].as === 0.1 && prevName === '') {
+          runeStats.as = 0.1 * statsPath['asRatio'];
+        }
 
-        this.abilities1 = {
-          passive: this.passiveDetails,
-          Q: this.QDetails,
-          W: this.WDetails,
-          E: this.EDetails,
-          R: this.RDetails
-        };
+        this[`champFile${side}`] = champFile;
 
         this.setState(prevState => ({
+          
           [`stats${side}`]: {                   
               ...prevState[`stats${side}`],   
               hp: statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
@@ -7634,16 +7650,45 @@ class App extends Component {
               mr: statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
               mana: statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio
           },
-          abilities1: {
-            passive: this.passiveDetails,
-            Q: this.QDetails,
-            W: this.WDetails,
-            E: this.EDetails,
-            R: this.RDetails
+          [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],   
+              hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
+              manaRegen: itemStats.manaRegen + statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              hpRegen: itemStats.hpRegen + statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio,
+              as: itemStats.as + runeStats.as + statsPath["attackSpeed"] + statsPath["asPerLvl"] * statsPath["asRatio"] * champLvlRatio,
+              arm: itemStats.arm + runeStats.arm + statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
+              ad: itemStats.ad + runeStats.ad + statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
+              mr: itemStats.mr + runeStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+              mana: itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio
           }
         }));
 
-        if (champName === 'Gnar' || champName === 'Kled' ) {
+        if (champName === 'Kled' ) {
+          var tfPath = champFile['statsTransform'];
+          this.setState(prevState => ({
+            [`tfStats${side}`]: {
+              ...prevState[`tfStats${side}`],
+              hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
+              hpPL: tfPath["hpPerLvl"],
+              asPL: tfPath["asPerLvl"],
+              armPL: tfPath["armorPerLvl"],
+              adPL: tfPath["damagePerLvl"],
+              mrPL: tfPath["mrPerLvl"],
+              manaPL: tfPath.mana["manaPerLvl"],
+              manaRegen: tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              manaRegenPL: tfPath.mana["manaRegenPerLvl"],
+              hpRegen: tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
+              hpRegenPL: tfPath["hpRegenPerLvl"],
+              as: tfPath["attackSpeed"] + tfPath["asPerLvl"] * tfPath["asRatio"] * champLvlRatio,
+              arm: tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
+              ad: tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
+              mr: tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
+              mana: tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
+            }
+          }))
+        };
+
+        if (champName === 'Gnar') {
           var tfPath = champFile['statsTransform'];
           this.setState(prevState => ({
             [`tfStats${side}`]: {
@@ -7668,6 +7713,10 @@ class App extends Component {
           }))
         }
       });
+
+      this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName, 
+        champLevel, champLvlRatio, runeStats, enemyRuneStats);
+
       var two = new Date();
       /*alert(two.getMilliseconds()-one.getMilliseconds());*/
   };
@@ -7684,7 +7733,7 @@ class App extends Component {
     var itemStats = this.state[`itemStats${side}`];
     var enemyItemStats = this.state[`itemStats${otherSide}`];
     var enemyStats = this.state[`stats${otherSide}`];
-    var selectedStats = this.state[`stats${side}`];
+    var selectedStats = this[`champFile${side}`].stats;
     var champName = this.state[`champName${side}`];
     var runeStats = this.state[`runes${side}`];
     var enemyRuneStats = this.state[`runes${otherSide}`];
@@ -7799,6 +7848,9 @@ class App extends Component {
     if (runeStat === 'hp') {
       runeValue = this.runeHash[runeId]['stat'][champLevel+1];
     };
+    if (runeStat === 'as' && this.state[`champName${side}`] !== '') {
+      runeValue *= this.state[`stats${side}`].asRatio 
+    }
 
     this.setState(prevState => ({
       [`runes${side}`]: {
@@ -7818,7 +7870,7 @@ class App extends Component {
         nextSib.setAttribute('src', this.runeHash[nextSib.id]['baseSrc']);
         var nextStat = this.runeHash[nextSib.id]['stat'][0];
         var nextValue = this.runeHash[nextSib.id]['stat'][1];
-        if (nextStat === 'force') {
+        /*if (nextStat === 'force') {
           if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
             nextStat = 'ap';
             nextValue = 9;
@@ -7829,7 +7881,10 @@ class App extends Component {
         };
         if (nextStat === 'hp') {
           nextValue = this.runeHash[nextSib.id]['stat'][champLevel+1];
-        };
+        };*/
+        if (nextStat === 'as' && this.state[`champName${side}`] !== '') {
+          nextValue *= this.state[`stats${side}`].asRatio 
+        }
 
         this.setState(prevState => ({
           [`runes${side}`]: {
@@ -7845,7 +7900,7 @@ class App extends Component {
         nextNextSib.setAttribute('src', this.runeHash[nextNextSib.id]['baseSrc']);
         var nextNextStat = this.runeHash[nextNextSib.id]['stat'][0];
         var nextNextValue = this.runeHash[nextNextSib.id]['stat'][1];
-        if (nextNextStat === 'force') {
+        /*if (nextNextStat === 'force') {
           if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
             nextNextStat = 'ap';
             nextNextValue = 9;
@@ -7857,6 +7912,9 @@ class App extends Component {
         if (nextNextStat === 'hp') {
           nextNextValue = this.runeHash[nextNextSib.id]['stat'][champLevel+1];
         };
+        if (nextNextStat === 'as' && this.state[`champName${side}`] !== '') {
+          nextNextValue *= this.state[`stats${side}`].asRatio 
+        };*/
         
         this.setState(prevState => ({
           [`runes${side}`]: {
@@ -7905,7 +7963,7 @@ class App extends Component {
           nextSib.setAttribute('src', this.runeHash[nextSib.id]['baseSrc']);
           var nextStat = this.runeHash[nextSib.id]['stat'][0];
           var nextValue = this.runeHash[nextSib.id]['stat'][1];
-          if (nextStat === 'force') {
+          /*if (nextStat === 'force') {
             if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
               nextStat = 'ap';
               nextValue = 9;
@@ -7916,7 +7974,7 @@ class App extends Component {
           };
           if (nextStat === 'hp') {
             nextValue = this.runeHash[nextSib.id]['stat'][champLevel+1];
-          };
+          };*/
 
           this.setState(prevState => ({
             [`runes${side}`]: {
@@ -7938,7 +7996,7 @@ class App extends Component {
         prevSib.setAttribute('src', this.runeHash[prevSib.id]['baseSrc']);
         var prevStat = this.runeHash[prevSib.id]['stat'][0];
         var prevValue = this.runeHash[prevSib.id]['stat'][1];
-        if (prevStat === 'force') {
+        /*if (prevStat === 'force') {
           if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
             prevStat = 'ap';
             prevValue = 9;
@@ -7949,7 +8007,10 @@ class App extends Component {
         };
         if (prevStat === 'hp') {
           prevValue = this.runeHash[prevSib.id]['stat'][champLevel+1];
-        };
+        };*/
+        if (prevStat === 'as' && this.state[`champName${side}`] !== '') {
+          prevValue *= this.state[`stats${side}`].asRatio 
+        }
 
         this.setState(prevState => ({
           [`runes${side}`]: {
@@ -8039,12 +8100,17 @@ class App extends Component {
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
   }
 
+  //<h2 className='center' style={{fontWeight: 'normal'}}>League of Legends</h2>
+
   render() {
     return (
       <div style={{minHeight: '100vh', padding: '0 1vw'}}>
 
         <header className="navHeader">
-          <h2 className='center' style={{fontWeight: 'normal'}}>League of Legends</h2>
+          
+          <div className='logoDiv'>
+            <img src={title} alt='League of Legends Title'/>
+          </div>
           <div className='logoDiv'>
             <img src={logo} alt='Logo'/>
           </div>
@@ -8052,7 +8118,7 @@ class App extends Component {
             <h2>Home</h2>
             <h2>Saved Builds</h2>
             <h2>About</h2>
-            <h2 className="navRight">Login / Signup</h2>
+            <h2 className="navRight">Patch v11.10</h2>
           </div>
         </header>
 

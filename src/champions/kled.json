@@ -155,7 +155,7 @@
         "damagePerLvl": 3.5,
         "baseArmor": 35,
         "armorPerLvl": 4,
-        "baseMR": 32.1,
+        "baseMR": 28,
         "mrPerLvl": 1.25,
         "attackSpeed": 0.625,
         "asRatio": 0.625,
