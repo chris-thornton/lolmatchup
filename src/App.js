@@ -8027,7 +8027,7 @@ class App extends Component {
 
         <div className="flexDisplay">
           <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameLeft} Stats</b></span>
-          <span style={{width: '45vw', textAlign: 'center'}}><b>Stats</b></span>
+          <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameRight} Stats</b></span>
         </div>
 
         <div className="flexDisplay">        
@@ -8088,51 +8088,51 @@ class App extends Component {
           <div className="flexDisplay">    
             <div className="statsBox transformLeft">
               <img src={healthIcon} alt='Health Icon'/>
-              Health: {Math.round(this.state.tfTotalStatsLeft.hp)}<br />
+              <span>Health: </span>{Math.round(this.state.tfTotalStatsLeft.hp)}<br />
               <img src={armorIcon} alt='Armor Icon'/>
-              Armor: {Math.round(this.state.tfTotalStatsLeft.arm)}<br />
+              <span>Armor: </span>{Math.round(this.state.tfTotalStatsLeft.arm)}<br />
               <img src={magicResIcon} alt='Magic Resist Icon'/>
-              Magic Resist: {Math.round(this.state.tfTotalStatsLeft.mr)}<br />
+              <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsLeft.mr)}<br />
               <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-              Attack Damage: {Math.round(this.state.tfTotalStatsLeft.ad)}<br />
+              <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsLeft.ad)}<br />
               <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-              Attack Speed: {this.state.tfTotalStatsLeft.as.toFixed(3)}<br />
+              <span>Attack Speed: </span>{this.state.tfTotalStatsLeft.as.toFixed(3)}<br />
               <img src={critChanceIcon} alt='Crit Chance Icon'/>
-              Crit Chance: {Math.round(this.state.tfTotalStatsLeft.critChance)}%<br />
+              <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsLeft.critChance)}%<br />
               <img src={manaIcon} alt='Mana Icon'/>
-              Mana: {Math.round(this.state.tfTotalStatsLeft.mana)}<br />
+              <span>Mana: </span>{Math.round(this.state.tfTotalStatsLeft.mana)}<br />
               <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              Mana Per 5: {this.state.tfTotalStatsLeft.manaRegen.toFixed(3)}<br />
+              <span>Mana Per 5: </span>{this.state.tfTotalStatsLeft.manaRegen.toFixed(3)}<br />
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              Health Per 5: {this.state.tfTotalStatsLeft.hpRegen.toFixed(3)}<br />
+              <span>Health Per 5: </span>{this.state.tfTotalStatsLeft.hpRegen.toFixed(3)}<br />
               <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-              Ability Power: {this.state.tfTotalStatsLeft.ap}<br />
+              <span>Ability Power: </span>{this.state.tfTotalStatsLeft.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              Ability Haste: {Math.round(this.state.tfTotalStatsLeft.cdr)}
+              <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsLeft.cdr)}
             </div>
             <div className="statsBox transformRight">
               <img src={healthIcon} alt='Health Icon'/>
-              Health: {Math.round(this.state.tfTotalStatsRight.hp)}<br />
+              <span>Health: </span>{Math.round(this.state.tfTotalStatsRight.hp)}<br />
               <img src={armorIcon} alt='Armor Icon'/>
-              Armor: {Math.round(this.state.tfTotalStatsRight.arm)}<br />
+              <span>Armor: </span>{Math.round(this.state.tfTotalStatsRight.arm)}<br />
               <img src={magicResIcon} alt='Magic Resist Icon'/>
-              Magic Resist: {Math.round(this.state.tfTotalStatsRight.mr)}<br />
+              <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsRight.mr)}<br />
               <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-              Attack Damage: {Math.round(this.state.tfTotalStatsRight.ad)}<br />
+              <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsRight.ad)}<br />
               <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-              Attack Speed: {this.state.tfTotalStatsRight.as.toFixed(3)}<br />
+              <span>Attack Speed: </span>{this.state.tfTotalStatsRight.as.toFixed(3)}<br />
               <img src={critChanceIcon} alt='Crit Chance Icon'/>
-              Crit Chance: {Math.round(this.state.tfTotalStatsRight.critChance)}%<br />
+              <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsRight.critChance)}%<br />
               <img src={manaIcon} alt='Mana Icon'/>
-              Mana: {Math.round(this.state.tfTotalStatsRight.mana)}<br />
+              <span>Mana: </span>{Math.round(this.state.tfTotalStatsRight.mana)}<br />
               <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              Mana Per 5: {this.state.tfTotalStatsRight.manaRegen.toFixed(3)}<br />
+              <span>Mana Per 5: </span>{this.state.tfTotalStatsRight.manaRegen.toFixed(3)}<br />
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              Health Per 5: {this.state.tfTotalStatsRight.hpRegen.toFixed(3)}<br />
+              <span>Health Per 5: </span>{this.state.tfTotalStatsRight.hpRegen.toFixed(3)}<br />
               <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-              Ability Power: {this.state.tfTotalStatsRight.ap}<br />
+              <span>Ability Power: </span>{this.state.tfTotalStatsRight.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              Ability Haste: {Math.round(this.state.tfTotalStatsRight.cdr)}
+              <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsRight.cdr)}
             </div>
           </div>
         </div>
@@ -8140,6 +8140,7 @@ class App extends Component {
         <div className="flexDisplay">
           <div>
             <div className='hiddenLeft abilityTitleBox' style={{paddingTop: '5px'}}>
+              {this.state.champNameLeft === 'Aphelios' ? <p>test test test</p> : ''}
               <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p> 
               <div className="spriteContainer">
                 <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
