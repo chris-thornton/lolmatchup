@@ -231,6 +231,8 @@ class App extends Component {
   transformAbilities = ["passiveTransform", "QTransform", "WTransform", "ETransform", "RTransform"]
   images = {};
   portraits = {};
+  champNameLeft = '';
+  champNameRight = '';
   champFileLeft = {
     stats: {
       baseHP: 0,
@@ -370,7 +372,7 @@ class App extends Component {
   forceTypeLeft = 'ad';
   forceTypeRight = 'ad';
 
-  calculateAbility(side, champName) {
+  calculateAbility(side) {
 
       var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
       for (var i = 0; i < abilitiesLength; i++) {
@@ -388,6 +390,8 @@ class App extends Component {
       };
       var champFile = this[`champFile${side}`];
       var statsPath = champFile[`stats`];
+      var champName = this[`champName${side}`];
+
       var enemyStats = this[`champFile${otherSide}`].stats;
       var itemStats = this[`itemStats${side}`];
       var enemyItemStats = this[`itemStats${otherSide}`];
@@ -3323,9 +3327,7 @@ class App extends Component {
 
             if (champFile[ability]["empower"]) {
               var ePath = champFile[ability]["empower"];
-              var empB = document.createElement('b');
-              empB.innerText = 'Empower';
-              abilityDiv.appendChild(empB);
+              addBold('Empower');
               doubleBreak();
               if (ePath['Q']) {
                 var qB = document.createElement('b');
@@ -6440,11 +6442,7 @@ class App extends Component {
 
             if (champFile[ability]["empower"]) {
               var ePath = champFile[ability]["empower"];
-              var empB = document.createElement('b');
-              var empU = document.createElement('u');
-              empB.appendChild(empU);
-              empU.innerText = 'Empower';
-              abilityDiv.appendChild(empB);
+              addBold('Empower');
               doubleBreak();
               if (ePath['Q']) {
                 var qB = document.createElement('b');
@@ -7535,27 +7533,18 @@ class App extends Component {
       side = 'Right';
       otherSide = 'Left';
     };
-    var prevName = this.state[`champName${side}`];
+    var prevName = this[`champName${side}`];
+    this.setState({ [`champName${side}`]: event.target.textContent })
     var champName = event.target.textContent.replace("'","").replace(/\s/g, '')
-    if (event.target.textContent === "Wukong") {
-      champName = 'MonkeyKing';
-    };
 
     document.getElementsByTagName("input")[0].value = '';
-    if (side === 'Right') {
-      document.getElementsByTagName("input")[1].value = '';
-    }
+    document.getElementsByTagName("input")[1].value = '';
     this.setState({ [`filteredChamps${side}`]: [] });
     this[`listHover${side}`] = 'false';
 
     if (prevName === champName) {
       return
     };
-
-    var itemStats = this[`itemStats${side}`];
-    var champLevel = this[`level${side}`] - 1;
-    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    var runeStats = this[`runes${side}`];
 
     if (prevName === '') {
       var hiddenArray = document.getElementsByClassName(`hidden${side}`);
@@ -7567,7 +7556,12 @@ class App extends Component {
         document.getElementById(`${rankedAbility}Rank${side}`).value = 0;
       });
     };
-    this.setState({ [`champName${side}`]: champName });
+
+    this[`champName${side}`] = champName;
+    var itemStats = this[`itemStats${side}`];
+    var champLevel = this[`level${side}`] - 1;
+    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    var runeStats = this[`runes${side}`];
 
     this.tfStatDisplay(champName, side, otherSide);
     this.jayceRankReset(champName, side);
@@ -7582,9 +7576,6 @@ class App extends Component {
     import (`./champions/${champName.toLowerCase()}`)
       .then(({default: champFile}) => {
         var statsPath = champFile[`stats`];
-        /*if (this[`runes${side}`].as === 0.1 && prevName === '') {
-          runeStats.as = 0.1 * statsPath['asRatio'];
-        }*/
 
         this[`champFile${side}`] = champFile;
 
@@ -7627,7 +7618,7 @@ class App extends Component {
           }
         };
 
-        this.calculateAbility(side, champName);
+        this.calculateAbility(side);
       })
   };
 
@@ -7642,7 +7633,7 @@ class App extends Component {
     var champLevel = event.target.value - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
     var itemStats = this[`itemStats${side}`];
-    var champName = this.state[`champName${side}`];
+    var champName = this[`champName${side}`];
     var runeStats = this[`runes${side}`];
     var statsPath = this[`champFile${side}`][`stats`];
 
@@ -7674,7 +7665,7 @@ class App extends Component {
           mr: itemStats.mr + runeStats.mr + tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
           mana: itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
         }
-      }))
+      }));
       if (champName === 'Kled') {
         this.setState(prevState => ({
           [`tfTotalStats${side}`]: {
@@ -7685,31 +7676,18 @@ class App extends Component {
       }
     };
 
-    this.calculateAbility(side, champName);
+    this.calculateAbility(side);
   };
 
   onRankChange = (event) => {
     var side = 'Left';
-    var otherSide = 'Right';
     if (event.target.id.includes('Right')) {
       side = 'Right';
-      otherSide = 'Left';
     };
     var firstChar = event.currentTarget.id.charAt(0);
     this.setState({ [`${firstChar}Rank${side}`]: event.target.value });
-
-    var champLevel = this[`level${side}`] - 1;
-    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    var itemStats = this.state[`itemStats${side}`];
-    var enemyItemStats = this.state[`itemStats${otherSide}`];
-    var enemyStats = this.state[`stats${otherSide}`];
-    var selectedStats = this.state[`stats${side}`];
-    var champName = this.state[`champName${side}`];
-    var runeStats = this.state[`runes${side}`];
-    var enemyRuneStats = this.state[`runes${otherSide}`];
     
-    this.calculateAbility(itemStats, enemyItemStats, enemyStats, selectedStats, side, champName,
-      champLevel, champLvlRatio, runeStats, enemyRuneStats);
+    this.calculateAbility(side);
   };
 
   onRuneChange = (event) => {
@@ -7723,20 +7701,18 @@ class App extends Component {
     event.target.setAttribute('src', this.runeHash[runeId]['ringSrc']);
 
     var runeNumber = runeId.substring(4, runeId.length);
-    var side = '';
-    if (runeNumber < 9) {
-      side = 'Left';
-    } else {
+    var side = 'Left';
+    if (runeNumber > 8) {
       side = 'Right';
     };
     var runeStat = this.runeHash[runeId]['stat'][0];
     var runeValue = this.runeHash[runeId]['stat'][1];
     if (runeStat === 'force') {
       if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
-        runeStat = 'ap';
+        this[`forceType${side}`], runeStat = 'ap';
         runeValue = 9;
       } else {
-        runeStat = 'ad';
+        this[`forceType${side}`], runeStat = 'ad';
         runeValue = 5.4;
       };
     };
@@ -7898,6 +7874,8 @@ class App extends Component {
           }))
       }
     }
+
+    this.calculateAbility(side, champName)
   };
 
   preventKeyPress = (event) => {
@@ -8048,7 +8026,7 @@ class App extends Component {
         </div>
 
         <div className="flexDisplay">
-          <span style={{width: '45vw', textAlign: 'center'}}><b>Stats</b></span>
+          <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameLeft} Stats</b></span>
           <span style={{width: '45vw', textAlign: 'center'}}><b>Stats</b></span>
         </div>
 

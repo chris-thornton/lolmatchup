@@ -18,7 +18,7 @@ Braum
 Caitlyn
 Camille
 Cassiopeia
-Cho'gath
+Cho'Gath
 Corki
 Darius
 Diana
@@ -48,7 +48,7 @@ Jax
 Jayce
 Jhin
 Jinx
-Kai'sa
+Kai'Sa
 Kalista
 Karma
 Karthus
@@ -57,7 +57,7 @@ Katarina
 Kayle
 Kayn
 Kennen
-Kha'zix
+Kha'Zix
 Kindred
 Kled
 Kog'Maw
@@ -133,7 +133,7 @@ Urgot
 Varus
 Vayne
 Veigar
-Vel'koz
+Vel'Koz
 Vi
 Viego
 Viktor
