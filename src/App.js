@@ -7707,12 +7707,15 @@ class App extends Component {
     };
     var runeStat = this.runeHash[runeId]['stat'][0];
     var runeValue = this.runeHash[runeId]['stat'][1];
+    var sideASRatio = this[`champFile${side}`].stats.asRatio
     if (runeStat === 'force') {
-      if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
-        this[`forceType${side}`], runeStat = 'ap';
+      if (this[`itemStats${side}`].ap > this[`itemStats${side}`].ad) {
+        this[`forceType${side}`] = 'ap';
+        runeStat = 'ap';
         runeValue = 9;
       } else {
-        this[`forceType${side}`], runeStat = 'ad';
+        this[`forceType${side}`] = 'ad';
+        runeStat = 'ad';
         runeValue = 5.4;
       };
     };
@@ -7720,20 +7723,24 @@ class App extends Component {
     if (runeStat === 'hp') {
       runeValue = this.runeHash[runeId]['stat'][champLevel+1];
     };
-    if (runeStat === 'as' && this.state[`champName${side}`] !== '') {
-      runeValue *= this[`champFile${side}`].asRatio 
-    }
 
-    this.setState(prevState => ({
-      [`runes${side}`]: {
-        ...prevState[`runes${side}`],
-        [runeStat]: +prevState[`runes${side}`][runeStat] + +runeValue
-      },
-      [`totalStats${side}`]: {
-        ...prevState[`totalStats${side}`],
-        [runeStat]: +prevState[`totalStats${side}`][runeStat] + +runeValue
-      }
-    }))
+    if (runeStat === 'as' && this[`champName${side}`] !== '') {
+      this[`runes${side}`].as += +runeValue
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          as: +prevState[`totalStats${side}`].as + +runeValue * sideASRatio 
+        }
+      }))
+    } else {
+      this[`runes${side}`][runeStat] += +runeValue
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          [runeStat]: +prevState[`totalStats${side}`][runeStat] + +runeValue
+        }
+      }))
+    };
 
     if (runeNumber % 3 === 0) {
       var nextSib = event.target.nextSibling;
@@ -7742,31 +7749,31 @@ class App extends Component {
         nextSib.setAttribute('src', this.runeHash[nextSib.id]['baseSrc']);
         var nextStat = this.runeHash[nextSib.id]['stat'][0];
         var nextValue = this.runeHash[nextSib.id]['stat'][1];
-        
-        if (nextStat === 'as' && this.state[`champName${side}`] !== '') {
-          nextValue *= this[`champFile${side}`].asRatio 
-        }
 
-        this.setState(prevState => ({
-          [`runes${side}`]: {
-            ...prevState[`runes${side}`],
-            [nextStat]: +prevState[`runes${side}`][nextStat] - +nextValue
-          },
-          [`totalStats${side}`]: {
-            ...prevState[`totalStats${side}`],
-            [nextStat]: +prevState[`totalStats${side}`][nextStat] - +nextValue
-          }
-        }))
+        if (nextStat === 'as' && this[`champName${side}`] !== '') {
+          this[`runes${side}`].as -= + nextValue
+          this.setState(prevState => ({
+            [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],
+              as: +prevState[`totalStats${side}`].as - +nextValue * sideASRatio
+            }
+          }));
+        } else {
+          this[`runes${side}`][nextStat] -= + nextValue
+          this.setState(prevState => ({
+            [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],
+              [nextStat]: +prevState[`totalStats${side}`][nextStat] - +nextValue
+            }
+          }));
+        }
       } else {
         nextNextSib.setAttribute('src', this.runeHash[nextNextSib.id]['baseSrc']);
         var nextNextStat = this.runeHash[nextNextSib.id]['stat'][0];
         var nextNextValue = this.runeHash[nextNextSib.id]['stat'][1];
         
+        this[`runes${side}`][nextNextStat] -= +nextNextValue
         this.setState(prevState => ({
-          [`runes${side}`]: {
-            ...prevState[`runes${side}`],
-            [nextNextStat]: +prevState[`runes${side}`][nextNextStat] - +nextNextValue
-          },
           [`totalStats${side}`]: {
             ...prevState[`totalStats${side}`],
             [nextNextStat]: +prevState[`totalStats${side}`][nextNextStat] - +nextNextValue
@@ -7783,10 +7790,12 @@ class App extends Component {
         var prevStat = this.runeHash[prevSib.id]['stat'][0];
         var prevValue = this.runeHash[prevSib.id]['stat'][1];
         if (prevStat === 'force') {
-          if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+          if (this[`itemStats${side}`].ap > this[`itemStats${side}`].ad) {
+            this[`forceType${side}`] = 'ap';
             prevStat = 'ap';
             prevValue = 9;
           } else {
+            this[`forceType${side}`] = 'ad';
             prevStat = 'ad';
             prevValue = 5.4;
           };
@@ -7795,11 +7804,8 @@ class App extends Component {
           prevValue = this.runeHash[prevSib.id]['stat'][champLevel+1];
         };
 
+        this[`runes${side}`][prevStat] -= +prevValue
         this.setState(prevState => ({
-          [`runes${side}`]: {
-            ...prevState[`runes${side}`],
-            [prevStat]: +prevState[`runes${side}`][prevStat] - +prevValue
-          },
           [`totalStats${side}`]: {
             ...prevState[`totalStats${side}`],
             [prevStat]: +prevState[`totalStats${side}`][prevStat] - +prevValue
@@ -7810,11 +7816,8 @@ class App extends Component {
           var nextStat = this.runeHash[nextSib.id]['stat'][0];
           var nextValue = this.runeHash[nextSib.id]['stat'][1];
 
+          this[`runes${side}`][nextStat] -= +nextValue
           this.setState(prevState => ({
-            [`runes${side}`]: {
-              ...prevState[`runes${side}`],
-              [nextStat]: +prevState[`runes${side}`][nextStat] - +nextValue
-            },
             [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],
               [nextStat]: +prevState[`totalStats${side}`][nextStat] - +nextValue
@@ -7831,29 +7834,34 @@ class App extends Component {
         var prevStat = this.runeHash[prevSib.id]['stat'][0];
         var prevValue = this.runeHash[prevSib.id]['stat'][1];
         
-        if (prevStat === 'as' && this.state[`champName${side}`] !== '') {
-          prevValue *= this[`champFile${side}`].asRatio 
+        if (prevStat === 'as' && this[`champName${side}`] !== '') {
+          this[`runes${side}`].as -= +prevValue
+          this.setState(prevState => ({
+            [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],
+              as: +prevState[`totalStats${side}`].as - +prevValue * sideASRatio
+            }
+          }));
+        } else {
+          this[`runes${side}`][prevStat] -= +prevValue
+          this.setState(prevState => ({
+            [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],
+              [prevStat]: +prevState[`totalStats${side}`][prevStat] - +prevValue
+            }
+          }))
         }
-
-        this.setState(prevState => ({
-          [`runes${side}`]: {
-            ...prevState[`runes${side}`],
-            [prevStat]: +prevState[`runes${side}`][prevStat] - +prevValue
-          },
-          [`totalStats${side}`]: {
-            ...prevState[`totalStats${side}`],
-            [prevStat]: +prevState[`totalStats${side}`][prevStat] - +prevValue
-          }
-        }))
       } else {
           prevPrevSib.setAttribute('src', this.runeHash[prevPrevSib.id]['baseSrc']);
           var prevPrevStat = this.runeHash[prevPrevSib.id]['stat'][0];
           var prevPrevValue = this.runeHash[prevPrevSib.id]['stat'][1];
           if (prevPrevStat === 'force') {
             if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+              this[`forceType${side}`] = 'ap';
               prevPrevStat = 'ap';
               prevPrevValue = 9;
             } else {
+              this[`forceType${side}`] = 'ad';
               prevPrevStat = 'ad';
               prevPrevValue = 5.4;
             };
@@ -7862,20 +7870,17 @@ class App extends Component {
             prevPrevValue = this.runeHash[prevPrevSib.id]['stat'][champLevel+1];
           };
 
+          this[`runes${side}`][prevPrevStat] -= +prevPrevValue;
           this.setState(prevState => ({
-            [`runes${side}`]: {
-              ...prevState[`runes${side}`],
-              [prevPrevStat]: +prevState[`runes${side}`][prevPrevStat] - +prevPrevValue
-            },
             [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],
               [prevPrevStat]: +prevState[`totalStats${side}`][prevPrevStat] - +prevPrevValue
             }
           }))
       }
-    }
+    };
 
-    this.calculateAbility(side, champName)
+    this.calculateAbility(side)
   };
 
   preventKeyPress = (event) => {
