@@ -16,6 +16,10 @@ html {
   color: #f9b54a
 }
 
+.abilityBoxLeft b, .abilityBoxRight b {
+  color: #ffffb9
+}
+
 li {
   border: 1px solid;
   color: black;
@@ -195,7 +199,8 @@ h1 {
 }
 
 .navRight {
-  margin-left: auto; 
+  margin-left: auto;
+  color: black; 
 }
 
 .leftAlign {

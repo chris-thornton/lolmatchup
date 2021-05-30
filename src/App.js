@@ -42,6 +42,8 @@ class App extends Component {
       champIndexRight: 148,
       champNameLeft: '',
       champNameRight: '',
+      tfWordLeft: '',
+      tfWordRight: '',
       champIconUrlLeft: defaultChampIcon,
       champIconUrlRight: defaultChampIcon,
       totalStatsLeft: {
@@ -3746,16 +3748,14 @@ class App extends Component {
 
             if (champFile[ability]["Rhaast"]) {
               var path = champFile[ability]["Rhaast"];
-              if (ability !== 'passive') {
-                doubleBreak()
-              };
-              var rhaastU = document.createElement('u');
-              var rhaastB = document.createElement('b');
-              rhaastB.appendChild(rhaastU);
-              rhaastU.innerText = 'Rhaast'
-              abilityDiv.appendChild(rhaastB);
+              var hr = document.createElement('hr');
+              abilityDiv.appendChild(hr);
+              var p = document.createElement('p');
+              p.innerText = 'Rhaast';
+              abilityDiv.appendChild(p);
+              var hr2 = document.createElement('hr');
+              abilityDiv.appendChild(hr2);
               if (path["spellVamp"]) {
-                singleBreak();
                 underLine('Spell Vamp Ratio');
                 if (path["spellVamp"]["vampByLvl"]) {
                   addText('[' + path["spellVamp"]["vampByLvl"][0]
@@ -3765,7 +3765,6 @@ class App extends Component {
                 }
               };
               if (path["damage"]) {
-                singleBreak();
                 underLine(path["damage"]["type"] + ' Damage')
                 if (path["damage"]["enemyMaxHPRatio"]){
                   addText('(' + path["damage"]["enemyMaxHPRatio"] + ' Enemy Max HP Ratio)');
@@ -3811,7 +3810,6 @@ class App extends Component {
                 } 
               };
               if (path["interruptCC"]) {
-                singleBreak();
                 underLine('Crowd Control Duration')
                 addText(path["interruptCC"]);
               }
@@ -3819,14 +3817,14 @@ class App extends Component {
 
             if (champFile[ability]["Shadow"]) {
               var path = champFile[ability]["Shadow"];
-              doubleBreak();
-              var shadowU = document.createElement('u');
-              var shadowB = document.createElement('b');
-              shadowB.appendChild(shadowU);
-              shadowU.innerText = 'Shadow'
-              abilityDiv.appendChild(shadowB);
+              var hr = document.createElement('hr');
+              abilityDiv.appendChild(hr);
+              var p = document.createElement('p');
+              p.innerText = 'Shadow'
+              abilityDiv.appendChild(p);
+              var hr2 = document.createElement('hr');
+              abilityDiv.appendChild(hr2);
               if (path["damage"]) {
-                singleBreak();
                 underLine(path["damage"]["type"] + ' Damage')
                 if (path["damage"]["dmgRatioByLvl"]) {
                   addText('(' + path["damage"]["dmgRatioByLvl"][0]+ " to " + path["damage"]["dmgRatioByLvl"][17]
@@ -3836,7 +3834,6 @@ class App extends Component {
                 }
               };
               if (path["coolDown"]) {
-                singleBreak();
                 underLine('Cooldown');
                 addText(path["coolDown"]);
               }
@@ -6858,16 +6855,14 @@ class App extends Component {
 
             if (champFile[ability]["Rhaast"]) {
               var path = champFile[ability]["Rhaast"];
-              if (ability !== 'passive') {
-                doubleBreak();
-              };
-              var rhaastU = document.createElement('u');
-              var rhaastB = document.createElement('b');
-              rhaastB.appendChild(rhaastU);
-              rhaastU.innerText = 'Rhaast';
-              abilityDiv.appendChild(rhaastB);
+              var hr = document.createElement('hr');
+              abilityDiv.appendChild(hr);
+              var p = document.createElement('p');
+              p.innerText = 'Rhaast';
+              abilityDiv.appendChild(p);
+              var hr2 = document.createElement('hr');
+              abilityDiv.appendChild(hr2);
               if (path["damage"]) {
-                singleBreak();
                 underLine(path["damage"]["type"] + ' Damage');
                 var dmgCounter = 0;
                 var enemyMaxHPCounter = 0;
@@ -6950,7 +6945,6 @@ class App extends Component {
                 } 
               };
               if (path["interruptCC"]) {
-                singleBreak();
                 underLine('Crowd Control Duration');
                 addText(arrayCheck(path["interruptCC"]));
               }
@@ -6958,14 +6952,14 @@ class App extends Component {
 
             if (champFile[ability]["Shadow"]) {
               var path = champFile[ability]["Shadow"];
-              doubleBreak();
-              var shadowU = document.createElement('u');
-              var shadowB = document.createElement('b');
-              shadowB.appendChild(shadowU);
-              shadowU.innerText = 'Shadow';
-              abilityDiv.appendChild(shadowB);
+              var hr = document.createElement('hr');
+              abilityDiv.appendChild(hr);
+              var p = document.createElement('p');
+              p.innerText = 'Shadow';
+              abilityDiv.appendChild(p);
+              var hr2 = document.createElement('hr');
+              abilityDiv.appendChild(hr2);
               if (path["coolDown"]) {
-                singleBreak();
                 underLine('Cooldown');
                 addText(arrayCheck(path["coolDown"]));
               }
@@ -7856,7 +7850,7 @@ class App extends Component {
           var prevPrevStat = this.runeHash[prevPrevSib.id]['stat'][0];
           var prevPrevValue = this.runeHash[prevPrevSib.id]['stat'][1];
           if (prevPrevStat === 'force') {
-            if (this.state[`itemStats${side}`].ap > this.state[`itemStats${side}`].ad) {
+            if (this[`itemStats${side}`].ap > this[`itemStats${side}`].ad) {
               this[`forceType${side}`] = 'ap';
               prevPrevStat = 'ap';
               prevPrevValue = 9;
@@ -7929,8 +7923,6 @@ class App extends Component {
     this.portraits = importAll(require.context('./portraits/', false, /\.(png|jpe?g|svg)$/));
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
   }
-
-  //<h2 className='center' style={{fontWeight: 'normal'}}>League of Legends</h2>
 
   render() {
     return (
@@ -8087,8 +8079,8 @@ class App extends Component {
         </div>
         <div id='transform'>
           <div className="flexDisplay">
-            <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}><b>Transform Stats</b></span>
-            <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}><b>Transform Stats</b></span>
+            <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}><b>{this.state.tfWordLeft} Stats</b></span>
+            <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}><b>{this.state.tfWordRight} Stats</b></span>
           </div>
           <div className="flexDisplay">    
             <div className="statsBox transformLeft">
@@ -8199,7 +8191,7 @@ class App extends Component {
                 <img className='rMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hiddenLeft abilityBoxLeft"></div>
+            <div className="hiddenLeft abilityBoxLeft" style={{marginBottom: '50px'}}></div>
           </div>
           
           <div>
@@ -8257,7 +8249,7 @@ class App extends Component {
                 <img className='rMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
               </div>
             </div>
-            <div className="hiddenRight abilityBoxRight"></div>
+            <div className="hiddenRight abilityBoxRight" style={{marginBottom: '50px'}}></div>
           </div>
 
         </div>
