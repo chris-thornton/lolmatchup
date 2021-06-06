@@ -27,6 +27,7 @@ import cdrRing from './staticons/cdrRing.png';
 import attackSpeedRing from './staticons/attackSpeedRing.png';
 import healthRegenIcon from './staticons/healthRegen.png';
 import manaRegenIcon from './staticons/manaRegen.png';
+import ApheliosLeft from './components/ApheliosLeft';
 
 class App extends Component {
   constructor() {
@@ -98,6 +99,12 @@ class App extends Component {
         mana: 0,
         manaRegen: 0
       },
+      aphelADLeft: [],
+      aphelASLeft: [],
+      aphelLethalLeft: [],
+      aphelADRight: [],
+      aphelASRight: [],
+      aphelLethalRight: [],
       QRankLeft: 0,
       QRankRight: 0,
       WRankLeft: 0,
@@ -210,6 +217,18 @@ class App extends Component {
     }
   }
 
+  aphelAD = {
+    0: [4, 8, 12, 16, 20, 24], 1: 4, 2: 8, 3: 12, 4: 16, 5: 20, 6: 24
+  };
+
+  aphelAS = {
+    0: [0.06, 0.12, 0.18, 0.24, 0.3, 0.36], 1: 0.06, 2: 0.12, 3: 0.18, 4: 0.24, 5: 0.3, 6: 0.36
+  };
+
+  aphelLethal = {
+    0: [3.5, 7, 10.5, 14, 17.5, 214], 1: 3.5, 2: 7, 3: 10.5, 4: 14, 5: 17.5, 6: 21
+  }
+
   onSearchChange = (event) => {
     var side = '';
     if (event.target.nextSibling) {
@@ -228,9 +247,9 @@ class App extends Component {
     })
   };
 
-  abilities = ["passive", "Q", "W", "E", "R"]
-  rankedAbilities = ["Q", "W", "E", "R"]
-  transformAbilities = ["passiveTransform", "QTransform", "WTransform", "ETransform", "RTransform"]
+  abilities = ["passive", "Q", "W", "E", "R"];
+  rankedAbilities = ["Q", "W", "E", "R"];
+  transformAbilities = ["passiveTransform", "QTransform", "WTransform", "ETransform", "RTransform"];
   images = {};
   portraits = {};
   champNameLeft = '';
@@ -7540,7 +7559,8 @@ class App extends Component {
       return
     };
 
-    if (prevName === '') {
+    if (prevName === '' || prevName === 'Aphelios') {
+      console.log('aphelios check!')
       var hiddenArray = document.getElementsByClassName(`hidden${side}`);
       for (var i = 0; i < hiddenArray.length; i++) {
         hiddenArray[i].style.visibility = 'visible';
@@ -7549,6 +7569,15 @@ class App extends Component {
       this.rankedAbilities.map(rankedAbility => {
         document.getElementById(`${rankedAbility}Rank${side}`).value = 0;
       });
+    };
+
+    if (champName === 'Aphelios') {
+      for (var i = 1; i < hiddenArray.length; i++) {
+        hiddenArray[i].style.visibility = 'hidden';
+      };
+      document.getElementById(`adRank${side}`).value = 1;
+      document.getElementById(`asRank${side}`).value = 1;
+      document.getElementById(`lethalRank${side}`).value = 1;
     };
 
     this[`champName${side}`] = champName;
@@ -7612,9 +7641,20 @@ class App extends Component {
           }
         };
 
+        if (champName === 'Aphelios') {
+          return
+        };
         this.calculateAbility(side);
       })
   };
+
+  onApheliosClick (side) {
+
+  };
+
+  onApheliosRank = (event, side, hash) => {
+    this.setState( {[`${hash}${side}`]: event.target.value} )
+  }
 
   onLevelChange = (event) => {
     var side = 'Left';
@@ -8137,7 +8177,10 @@ class App extends Component {
         <div className="flexDisplay">
           <div>
             <div className='hiddenLeft abilityTitleBox' style={{paddingTop: '5px'}}>
-              {this.state.champNameLeft === 'Aphelios' ? <p>test test test</p> : ''}
+              {this.state.champNameLeft === 'Aphelios' ? 
+                <ApheliosLeft runes={this.runesLeft} items={this.itemStatsLeft} /> 
+                : ''
+              }
               <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p> 
               <div className="spriteContainer">
                 <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
