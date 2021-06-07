@@ -1,7 +1,7 @@
 import React from 'react';
 import spellIcons from '../spellicons/aphelios.png';
 
-const ApheliosLeft = ({runes, items}) => {
+const ApheliosLeft = ({runes, items, onRankChange, bonuses}) => {
   return (
     <div>
       <div className='abilityTitleBox' style={{paddingTop: '5px'}}>
@@ -12,23 +12,24 @@ const ApheliosLeft = ({runes, items}) => {
       </div>  
       <div className="abilityBoxLeft">
         <input id="adRankLeft" type="number" placeholder="0" min="0" max="6" 
-        style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={this.onRankChange} />
-        <span>Bonus Attack Damage: [4, 8, 12, 16, 20, 24]</span>
+        style={{width: "30px", marginLeft: '10px'}} onKeyDown={(event) => event.preventDefault()} 
+        onChange={onRankChange} />
+        <span>Bonus Attack Damage: {bonuses.ad}</span>
 
         <input id="asRankLeft" type="number" placeholder="0" min="0" max="6" 
-        style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={this.onRankChange} />
-        <span>Bonus Attack Speed Ratio: [0.06, 0.12, 0.18, 0.24, 0.3, 0.36]</span>
+        style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={onRankChange} />
+        <span>Bonus Attack Speed Ratio: {bonuses.as}</span>
 
         <input id="lethalRankLeft" type="number" placeholder="0" min="0" max="6" 
-        style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={this.onRankChange} />
-        <span>Bonus Lethality: [3.5, 7, 10.5, 14, 17.5, 21]</span>
+        style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={onRankChange} />
+        <span>Bonus Lethality: {bonuses.lethal}</span>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
         <div style={{display: 'inline-block', verticalAlign: 'top'}}>
           <p style={{margin: 0}}><b><u>Calibrum</u></b> - rank: </p>
           <input id="QRankLeft" type="number" placeholder="0" min="0" max="5" 
-          style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={this.onRankChange}/>
+          style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={onRankChange(e, 'Left', adHash)}/>
         </div>
         <div className="spriteContainer">
           <img className='qMargin' src={ spellIcons } alt='Ability icon'/>

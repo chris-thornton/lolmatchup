@@ -99,12 +99,16 @@ class App extends Component {
         mana: 0,
         manaRegen: 0
       },
-      aphelADLeft: [],
-      aphelASLeft: [],
-      aphelLethalLeft: [],
-      aphelADRight: [],
-      aphelASRight: [],
-      aphelLethalRight: [],
+      aphelLeft: {
+        ad: [4, 8, 12, 16, 20, 24],
+        as: [0.06, 0.12, 0.18, 0.24, 0.3, 0.36],
+        lethal: [3.5, 7, 10.5, 14, 17.5, 21],
+      },
+      aphelRight: {
+        ad: [4, 8, 12, 16, 20, 24],
+        as: [0.06, 0.12, 0.18, 0.24, 0.3, 0.36],
+        lethal: [3.5, 7, 10.5, 14, 17.5, 21],
+      },
       QRankLeft: 0,
       QRankRight: 0,
       WRankLeft: 0,
@@ -215,18 +219,6 @@ class App extends Component {
       ringSrc: magicResRing,
       stat: ['mr', 8]
     }
-  }
-
-  aphelAD = {
-    0: [4, 8, 12, 16, 20, 24], 1: 4, 2: 8, 3: 12, 4: 16, 5: 20, 6: 24
-  };
-
-  aphelAS = {
-    0: [0.06, 0.12, 0.18, 0.24, 0.3, 0.36], 1: 0.06, 2: 0.12, 3: 0.18, 4: 0.24, 5: 0.3, 6: 0.36
-  };
-
-  aphelLethal = {
-    0: [3.5, 7, 10.5, 14, 17.5, 214], 1: 3.5, 2: 7, 3: 10.5, 4: 14, 5: 17.5, 6: 21
   }
 
   onSearchChange = (event) => {
@@ -7652,9 +7644,37 @@ class App extends Component {
 
   };
 
-  onApheliosRank = (event, side, hash) => {
-    this.setState( {[`${hash}${side}`]: event.target.value} )
+  adAphel = {
+    0: [4, 8, 12, 16, 20, 24], 1: 4, 2: 8, 3: 12, 4: 16, 5: 20, 6: 24
+  };
+
+  asAphel = {
+    0: [0.06, 0.12, 0.18, 0.24, 0.3, 0.36], 1: 0.06, 2: 0.12, 3: 0.18, 4: 0.24, 5: 0.3, 6: 0.36
+  };
+
+  lethalAphel = {
+    0: [3.5, 7, 10.5, 14, 17.5, 21], 1: 3.5, 2: 7, 3: 10.5, 4: 14, 5: 17.5, 6: 21
   }
+
+  onApheliosRank = (event) => {
+    var side = 'Left';
+    if (event.target.id.includes('Right')) {
+      side = 'Right'
+    };
+    var hash = 'ad';
+    if (event.target.id.includes('as')) {
+      hash = 'as'
+    };
+    if (event.target.id.includes('lethal')) {
+      hash = 'lethal'
+    };
+    this.setState(prevState => ({
+      [`aphel${side}`]: {
+        ...prevState[`aphel${side}`],
+        [`${hash}`]: this[`${hash}Aphel`][event.target.value]
+      }
+    }));
+  };
 
   onLevelChange = (event) => {
     var side = 'Left';
@@ -8178,7 +8198,8 @@ class App extends Component {
           <div>
             <div className='hiddenLeft abilityTitleBox' style={{paddingTop: '5px'}}>
               {this.state.champNameLeft === 'Aphelios' ? 
-                <ApheliosLeft runes={this.runesLeft} items={this.itemStatsLeft} /> 
+                <ApheliosLeft runes={this.runesLeft} items={this.itemStatsLeft} onRankChange={this.onApheliosRank} 
+                bonuses={this.state.aphelLeft} /> 
                 : ''
               }
               <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p> 
