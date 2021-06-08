@@ -100,14 +100,14 @@ class App extends Component {
         manaRegen: 0
       },
       aphelLeft: {
-        ad: [4, 8, 12, 16, 20, 24],
-        as: [0.06, 0.12, 0.18, 0.24, 0.3, 0.36],
-        lethal: [3.5, 7, 10.5, 14, 17.5, 21],
+        ad: '[4, 8, 12, 16, 20, 24]',
+        as: '[0.06, 0.12, 0.18, 0.24, 0.3, 0.36]',
+        lethal: '[3.5, 7, 10.5, 14, 17.5, 21]',
       },
       aphelRight: {
-        ad: [4, 8, 12, 16, 20, 24],
-        as: [0.06, 0.12, 0.18, 0.24, 0.3, 0.36],
-        lethal: [3.5, 7, 10.5, 14, 17.5, 21],
+        ad: '[4, 8, 12, 16, 20, 24]',
+        as: '[0.06, 0.12, 0.18, 0.24, 0.3, 0.36]',
+        lethal: '[3.5, 7, 10.5, 14, 17.5, 21]',
       },
       QRankLeft: 0,
       QRankRight: 0,
@@ -7564,12 +7564,13 @@ class App extends Component {
     };
 
     if (champName === 'Aphelios') {
+      var hiddenArray = document.getElementsByClassName(`hidden${side}`);
       for (var i = 1; i < hiddenArray.length; i++) {
         hiddenArray[i].style.visibility = 'hidden';
       };
-      document.getElementById(`adRank${side}`).value = 1;
+      /*document.getElementById(`adRank${side}`).value = 1;
       document.getElementById(`asRank${side}`).value = 1;
-      document.getElementById(`lethalRank${side}`).value = 1;
+      document.getElementById(`lethalRank${side}`).value = 1;*/
     };
 
     this[`champName${side}`] = champName;
@@ -7645,15 +7646,15 @@ class App extends Component {
   };
 
   adAphel = {
-    0: [4, 8, 12, 16, 20, 24], 1: 4, 2: 8, 3: 12, 4: 16, 5: 20, 6: 24
+    0: '[4, 8, 12, 16, 20, 24]', 1: 4, 2: 8, 3: 12, 4: 16, 5: 20, 6: 24
   };
 
   asAphel = {
-    0: [0.06, 0.12, 0.18, 0.24, 0.3, 0.36], 1: 0.06, 2: 0.12, 3: 0.18, 4: 0.24, 5: 0.3, 6: 0.36
+    0: '[0.06, 0.12, 0.18, 0.24, 0.3, 0.36]', 1: 0.06, 2: 0.12, 3: 0.18, 4: 0.24, 5: 0.3, 6: 0.36
   };
 
   lethalAphel = {
-    0: [3.5, 7, 10.5, 14, 17.5, 21], 1: 3.5, 2: 7, 3: 10.5, 4: 14, 5: 17.5, 6: 21
+    0: '[3.5, 7, 10.5, 14, 17.5, 21]', 1: 3.5, 2: 7, 3: 10.5, 4: 14, 5: 17.5, 6: 21
   }
 
   onApheliosRank = (event) => {
@@ -7668,10 +7669,11 @@ class App extends Component {
     if (event.target.id.includes('lethal')) {
       hash = 'lethal'
     };
+    var targetRank = document.getElementById(event.target.id).value
     this.setState(prevState => ({
       [`aphel${side}`]: {
         ...prevState[`aphel${side}`],
-        [`${hash}`]: this[`${hash}Aphel`][event.target.value]
+        [`${hash}`]: this[`${hash}Aphel`][targetRank]
       }
     }));
   };
@@ -8196,12 +8198,14 @@ class App extends Component {
 
         <div className="flexDisplay">
           <div>
+            
+            {this.state.champNameLeft === 'Aphelios' ? 
+              <ApheliosLeft runes={this.runesLeft} items={this.itemStatsLeft} onRankChange={this.onApheliosRank} 
+              bonuses={this.state.aphelLeft} /> 
+              : ''
+            }
+
             <div className='hiddenLeft abilityTitleBox' style={{paddingTop: '5px'}}>
-              {this.state.champNameLeft === 'Aphelios' ? 
-                <ApheliosLeft runes={this.runesLeft} items={this.itemStatsLeft} onRankChange={this.onApheliosRank} 
-                bonuses={this.state.aphelLeft} /> 
-                : ''
-              }
               <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p> 
               <div className="spriteContainer">
                 <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
