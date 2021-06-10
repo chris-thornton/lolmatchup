@@ -7731,6 +7731,9 @@ class App extends Component {
         }))
       }
     };
+    if (champName === 'Aphelios') {
+      return
+    }
 
     this.calculateAbility(side);
   };

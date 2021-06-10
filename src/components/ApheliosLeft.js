@@ -1,7 +1,30 @@
 import React from 'react';
 import spellIcons from '../spellicons/aphelios.png';
+import './ApheliosLeft.css';
+
+var moonShot = {
+  dmgByLvl: [
+    60, 60, 85, 85, 110, 110, 135, 135, 160,
+     160, 160, 160, 160, 160, 160, 160, 160, 160
+  ],
+  APRatio: 1,
+  bonusADRatioByLvl: [
+      0.42,0.42,0.45,0.45,0.48,0.48,0.51,0.51,0.54,
+      0.54, 0.57,0.57,0.60,0.60,0.60,0.60,0.60,0.60
+  ],
+  coolDownByLvl: [
+    10, 10, 9.67, 9.67, 9.33, 9.33, 9, 9, 8.67,
+    8.67, 8.33, 8.33, 8, 8, 8, 8, 8, 8
+  ]
+}
+
+var calAutoEmp = {
+  dmg: 15,
+  bonusADRatio: 0.2
+}
 
 const ApheliosLeft = ({runes, items, onRankChange, bonuses}) => {
+  var champLevel = document.getElementById('levelBoxLeft').value
   return (
     <div>
       <div className='abilityTitleBox' style={{paddingTop: '5px'}}>
@@ -14,17 +37,17 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses}) => {
         <input id="adRankLeft" type="number" placeholder="0" min="0" max="6" 
         style={{width: "30px", marginLeft: '10px'}} onKeyDown={(event) => event.preventDefault()} 
         onChange={onRankChange} />
-        <span> Bonus Attack Damage: {bonuses.ad}</span>
+        <b> Bonus Attack Damage: </b><span>{bonuses.ad}</span>
 
         <br></br>
         <input id="asRankLeft" type="number" placeholder="0" min="0" max="6" 
         style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={onRankChange} />
-        <span> Bonus Attack Speed Ratio: {bonuses.as}</span>
+        <b> Bonus Attack Speed Ratio: </b><span>{bonuses.as}</span>
 
         <br></br>
         <input id="lethalRankLeft" type="number" placeholder="0" min="0" max="6" 
         style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={onRankChange} />
-        <span> Bonus Lethality: {bonuses.lethal}</span>
+        <b> Bonus Lethality: </b><span>{bonuses.lethal}</span>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
@@ -36,7 +59,21 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses}) => {
         </div>
       </div>
       <div className="abilityBoxLeft">
-
+        <b>Auto Attack Empower: </b><u>Physical Damage:</u><text> {calAutoEmp.dmg} (+{calAutoEmp.bonusADRatio} Bonus AD Ratio)</text>
+        <br></br>
+        <u>Total:</u><text> {Math.round(calAutoEmp.dmg + calAutoEmp.bonusADRatio * (items.ad + runes.ad))} </text>
+        <hr></hr>
+        <p>Moonshot</p>
+        <hr></hr>
+        <b>Physical Damage: </b><text>[{moonShot.dmgByLvl[0]} to {moonShot.dmgByLvl[17]}, based on lvl. </text><u>Currently:</u>
+        <text> {moonShot.dmgByLvl[champLevel-1]}] (+{moonShot.bonusADRatioByLvl[0]} to {moonShot.bonusADRatioByLvl[17]} Bonus AD
+        Ratio, based on lvl. </text><u>Currently:</u><text> {moonShot.bonusADRatioByLvl[champLevel-1]}) (+{moonShot.APRatio} AP Ratio)</text>
+        <br></br>
+        <u>Total:</u><text> {Math.round(moonShot.dmgByLvl[champLevel-1] + moonShot.bonusADRatioByLvl[champLevel-1] * (runes.ad + items.ad) 
+        +moonShot.APRatio * (items.ap + runes.ap))}</text>
+        <br></br><br></br>
+        <b>Cooldown: </b><text>{moonShot.coolDownByLvl[0]} to {moonShot.coolDownByLvl[17]}, based on lvl. </text><u>Currently:</u>
+        <text> {moonShot.coolDownByLvl[champLevel-1]}</text>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
