@@ -23,6 +23,20 @@ var calAutoEmp = {
   bonusADRatio: 0.2
 }
 
+var sev = {
+  lifeStealByLvl: [
+    0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.10,0.11,
+    0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,0.20
+  ],
+  overHeal: {
+    overHealByLvl: [
+      10,20,30,40,50,60,70,80,90,100,110,120,130,140
+    ],
+    maxHPRatio: 0.06,
+    duration: 30
+  }
+}
+
 const ApheliosLeft = ({runes, items, onRankChange, bonuses}) => {
   var champLevel = document.getElementById('levelBoxLeft').value
   return (
@@ -85,7 +99,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses}) => {
         </div>
       </div>
       <div className="abilityBoxLeft">
-
+          <b>Life Steal: </b>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>

@@ -2,6 +2,7 @@
 
 import React, { Component, createElement } from 'react';
 import './App.css';
+import About from './components/About';
 import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
 import ChampDropDownRight from './components/ChampDropDownRight';
@@ -33,6 +34,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      about: false,
       searchFieldLeft: '',
       searchFieldRight: '',
       filteredChampsLeft: [],
@@ -2620,13 +2622,19 @@ class App extends Component {
               doubleBreak();
             };
 
-            if(champFile[ability]["dmgImmune"]) {
+            if (champFile[ability]["passiveDmgIncrease"]) {
+              addBold('Passive Damage Increase Ratio: ');
+              addText('(' + removeParen(champFile[ability]["passiveDmgIncrease"]) + ')');
+              doubleBreak();
+            };
+
+            if (champFile[ability]["dmgImmune"]) {
               addBold('Damage Immune Duration: ')
               addText(removeSpace(champFile[ability]["dmgImmune"]));
               doubleBreak();
             }
 
-            if(champFile[ability]["ccImmune"]) {
+            if (champFile[ability]["ccImmune"]) {
               addBold('Crowd Control Immune Duration: ')
               addText(removeSpace(champFile[ability]["ccImmune"]));
               doubleBreak();
@@ -5709,6 +5717,12 @@ class App extends Component {
               doubleBreak();
             };
 
+            if (champFile[ability]["passiveDmgIncrease"]) {
+              addBold('Passive Damage Increase Ratio: ');
+              addText(arrayCheck(champFile[ability]["passiveDmgIncrease"]));
+              doubleBreak();
+            };
+
             if(champFile[ability]["dmgImmune"]) {
               addBold('Damage Immune Duration: ');
               addText(arrayCheck(champFile[ability]["dmgImmune"]));
@@ -7981,6 +7995,22 @@ class App extends Component {
     this.setState({ filteredChampsRight: [] });
   }
 
+  homeToggle =() => {
+    if (this.state.about === false) {
+      this.setState({
+        about: true
+      });
+      document.getElementById('homeAbout').textContent = 'Home';
+      document.getElementById('homePage').style.visibility = 'hidden';
+    } else {
+      this.setState({
+        about: false
+      });
+      document.getElementById('homeAbout').textContent = 'About';
+      document.getElementById('homePage').style.visibility = 'visible';
+    }
+  };
+
   componentDidMount() {
     function importAll(r) {
       return r.keys().map(r);
@@ -8002,326 +8032,302 @@ class App extends Component {
             <img src={logo} alt='Logo'/>
           </div>
           <div className="navLeft">
-            <h2>Home</h2>
-            <h2>Saved Builds</h2>
-            <h2>About</h2>
-            <h2 className="navRight">Patch v11.10</h2>
+            <h2 id='homeAbout' onClick={this.homeToggle}>About</h2>
+            <h2 className="navRight"><a href="https://na.leagueoflegends.com/en-us/news/tags/patch-notes" target='_blank'>Patch v11.10</a></h2>
           </div>
         </header>
 
-        <div style={{marginTop: 10, display: 'flex'}}>
-          <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} 
-          style={{width: 120, display: 'inline-block'}} onBlur={this.onListBlur} />
-          <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} 
-          style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={this.onListBlur2} />
-        </div>
+        {this.state.about ? <About /> : ''}
 
-        <div style={{display: 'flex'}}>
-          <div style={{width: 120, display: 'inline-block'}} >
-          <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } onChampClick={this.onChampClick} 
-          listMouseEnter={this.listMouseEnter} listMouseLeave={this.listMouseLeave} />
+        <div id='homePage'>
+          <div style={{marginTop: 10, display: 'flex'}}>
+            <input type="search" placeholder='Champion Name' onChange={this.onSearchChange}
+            style={{width: 120, display: 'inline-block'}} onBlur={this.onListBlur} />
+            <input type="search" placeholder='Champion Name' onChange={this.onSearchChange}
+            style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={this.onListBlur2} />
           </div>
+          <div style={{display: 'flex'}}>
+            <div style={{width: 120, display: 'inline-block'}} >
+            <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } onChampClick={this.onChampClick}
+            listMouseEnter={this.listMouseEnter} listMouseLeave={this.listMouseLeave} />
+            </div>
           
-          <div style={{width: 120, marginLeft: 'auto', display: 'inline-block'}} >
-          <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } onChampClick={this.onChampClick} 
-          listMouseEnter={this.listMouseEnter2} listMouseLeave={this.listMouseLeave2} />
+            <div style={{width: 120, marginLeft: 'auto', display: 'inline-block'}} >
+            <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } onChampClick={this.onChampClick}
+            listMouseEnter={this.listMouseEnter2} listMouseLeave={this.listMouseLeave2} />
+            </div>
           </div>
-        </div>
-
-        <div className="flexAround" style={{marginTop: '10px'}}>
-          <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
-          alt='Champion Icon' style={{position: 'relative'}} />
+          <div className="flexAround" style={{marginTop: '10px'}}>
+            <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
+            alt='Champion Icon' style={{position: 'relative'}} />
           
-          <div className='runeBox'>
-            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
-            <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
-            <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
-
-            <hr className='runeBoxHR'></hr>
-
-            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
-            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune4'/>
-            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune5'/>
-
-            <hr className='runeBoxHR'></hr>
-
-            <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
-            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune7'/>
-            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
+            <div className='runeBox'>
+              <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
+              <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
+              <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
+              <hr className='runeBoxHR'></hr>
+              <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
+              <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune4'/>
+              <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune5'/>
+              <hr className='runeBoxHR'></hr>
+              <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
+              <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune7'/>
+              <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
+            </div>
+            <img src={versus} alt='Versus Icon' height="64px" width="64px" style={{alignSelf: 'center'}} />
+            <div className='runeBox'>
+              <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
+              <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune10'/>
+              <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune11'/>
+              <hr className='runeBoxHR'></hr>
+              <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune12'/>
+              <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune13'/>
+              <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune14'/>
+              <hr className='runeBoxHR'></hr>
+              <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune15'/>
+              <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune16'/>
+              <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
+            </div>
+            <img id='champIconRight' src={ defaultChampIcon } height="120px" width="120px"
+            alt='Champion Icon' style={{position: 'relative'}}/>
           </div>
-
-          <img src={versus} alt='Versus Icon' height="64px" width="64px" style={{alignSelf: 'center'}} />
-
-          <div className='runeBox'>
-            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
-            <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune10'/>
-            <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune11'/>
-
-            <hr className='runeBoxHR'></hr>
-
-            <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune12'/>
-            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune13'/>
-            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune14'/>
-
-            <hr className='runeBoxHR'></hr>
-
-            <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune15'/>
-            <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune16'/>
-            <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
-          </div>
-
-          <img id='champIconRight' src={ defaultChampIcon } height="120px" width="120px"
-          alt='Champion Icon' style={{position: 'relative'}}/>
-        </div>
-
-        <div className="flexDisplay">
-          <div className="hiddenLeft">
-            <span>Level: </span>
-            <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px"}} 
-            onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
-          </div>
-          <div className="hiddenRight">
-            <span>Level: </span>
-            <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px"}} 
-            onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
-          </div>
-        </div>
-
-        <div className="flexDisplay">
-          <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameLeft} Stats</b></span>
-          <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameRight} Stats</b></span>
-        </div>
-
-        <div className="flexDisplay">        
-          <div className="statsBox">
-            <img src={healthIcon}  alt='Health Icon'/>
-            <span>Health: </span>{Math.round(this.state.totalStatsLeft.hp)}<br />
-            <img src={armorIcon} alt='Armor Icon'/>
-            <span>Armor: </span>{Math.round(this.state.totalStatsLeft.arm)}<br />
-            <img src={magicResIcon} alt='Magic Resist Icon'/>
-            <span>Magic Resist: </span>{Math.round(this.state.totalStatsLeft.mr)}<br />
-            <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-            <span>Attack Damage: </span>{Math.round(this.state.totalStatsLeft.ad)}<br />
-            <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-            <span>Attack Speed: </span>{this.state.totalStatsLeft.as.toFixed(3)}<br />
-            <img src={critChanceIcon} alt='Crit Chance Icon'/>
-            <span>Crit Chance: </span>{Math.round(this.state.totalStatsLeft.critChance)}%<br />
-            <img src={manaIcon} alt='Mana Icon'/>
-            <span>Mana: </span>{Math.round(this.state.totalStatsLeft.mana)}<br />
-            <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-            <span>Mana Per 5: </span>{this.state.totalStatsLeft.manaRegen.toFixed(3)}<br />
-            <img src={healthRegenIcon} alt='Health Regen Icon'/>
-            <span>Health Per 5: </span>{this.state.totalStatsLeft.hpRegen.toFixed(3)}<br />
-            <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-            <span>Ability Power: </span>{this.state.totalStatsLeft.ap}<br />
-            <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-            <span>Ability Haste: </span>{Math.round(this.state.totalStatsLeft.cdr)}
-          </div>
-          <div className="statsBox">
-            <img src={healthIcon} alt='Health Icon'/>
-            <span>Health: </span>{Math.round(this.state.totalStatsRight.hp)}<br />
-            <img src={armorIcon} alt='Armor Icon'/>
-            <span>Armor: </span>{Math.round(this.state.totalStatsRight.arm)}<br />
-            <img src={magicResIcon} alt='Magic Resist Icon'/>
-            <span>Magic Resist: </span>{Math.round(this.state.totalStatsRight.mr)}<br />
-            <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-            <span>Attack Damage: </span>{Math.round(this.state.totalStatsRight.ad)}<br />
-            <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-            <span>Attack Speed: </span>{this.state.totalStatsRight.as.toFixed(3)}<br />
-            <img src={critChanceIcon} alt='Crit Chance Icon'/>
-            <span>Crit Chance: </span>{Math.round(this.state.totalStatsRight.critChance)}%<br />
-            <img src={manaIcon} alt='Mana Icon'/>
-            <span>Mana: </span>{Math.round(this.state.totalStatsRight.mana)}<br />
-            <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-            <span>Mana Per 5: </span>{this.state.totalStatsRight.manaRegen.toFixed(3)}<br />
-            <img src={healthRegenIcon} alt='Health Regen Icon'/>
-            <span>Health Per 5: </span>{this.state.totalStatsRight.hpRegen.toFixed(3)}<br />
-            <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-            <span>Ability Power: </span>{this.state.totalStatsRight.ap}<br />
-            <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-            <span>Ability Haste: </span>{Math.round(this.state.totalStatsRight.cdr)}
-          </div>
-        </div>
-        <div id='transform'>
           <div className="flexDisplay">
-            <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}><b>{this.state.tfWordLeft} Stats</b></span>
-            <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}><b>{this.state.tfWordRight} Stats</b></span>
+            <div className="hiddenLeft">
+              <span>Level: </span>
+              <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px"}}
+              onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
+            </div>
+            <div className="hiddenRight">
+              <span>Level: </span>
+              <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px"}}
+              onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
+            </div>
           </div>
-          <div className="flexDisplay">    
-            <div className="statsBox transformLeft">
-              <img src={healthIcon} alt='Health Icon'/>
-              <span>Health: </span>{Math.round(this.state.tfTotalStatsLeft.hp)}<br />
+          <div className="flexDisplay">
+            <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameLeft} Stats</b></span>
+            <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameRight} Stats</b></span>
+          </div>
+          <div className="flexDisplay">
+            <div className="statsBox">
+              <img src={healthIcon}  alt='Health Icon'/>
+              <span>Health: </span>{Math.round(this.state.totalStatsLeft.hp)}<br />
               <img src={armorIcon} alt='Armor Icon'/>
-              <span>Armor: </span>{Math.round(this.state.tfTotalStatsLeft.arm)}<br />
+              <span>Armor: </span>{Math.round(this.state.totalStatsLeft.arm)}<br />
               <img src={magicResIcon} alt='Magic Resist Icon'/>
-              <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsLeft.mr)}<br />
+              <span>Magic Resist: </span>{Math.round(this.state.totalStatsLeft.mr)}<br />
               <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-              <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsLeft.ad)}<br />
+              <span>Attack Damage: </span>{Math.round(this.state.totalStatsLeft.ad)}<br />
               <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-              <span>Attack Speed: </span>{this.state.tfTotalStatsLeft.as.toFixed(3)}<br />
+              <span>Attack Speed: </span>{this.state.totalStatsLeft.as.toFixed(3)}<br />
               <img src={critChanceIcon} alt='Crit Chance Icon'/>
-              <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsLeft.critChance)}%<br />
+              <span>Crit Chance: </span>{Math.round(this.state.totalStatsLeft.critChance)}%<br />
               <img src={manaIcon} alt='Mana Icon'/>
-              <span>Mana: </span>{Math.round(this.state.tfTotalStatsLeft.mana)}<br />
+              <span>Mana: </span>{Math.round(this.state.totalStatsLeft.mana)}<br />
               <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              <span>Mana Per 5: </span>{this.state.tfTotalStatsLeft.manaRegen.toFixed(3)}<br />
+              <span>Mana Per 5: </span>{this.state.totalStatsLeft.manaRegen.toFixed(3)}<br />
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              <span>Health Per 5: </span>{this.state.tfTotalStatsLeft.hpRegen.toFixed(3)}<br />
+              <span>Health Per 5: </span>{this.state.totalStatsLeft.hpRegen.toFixed(3)}<br />
               <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-              <span>Ability Power: </span>{this.state.tfTotalStatsLeft.ap}<br />
+              <span>Ability Power: </span>{this.state.totalStatsLeft.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsLeft.cdr)}
+              <span>Ability Haste: </span>{Math.round(this.state.totalStatsLeft.cdr)}
             </div>
-            <div className="statsBox transformRight">
+            <div className="statsBox">
               <img src={healthIcon} alt='Health Icon'/>
-              <span>Health: </span>{Math.round(this.state.tfTotalStatsRight.hp)}<br />
+              <span>Health: </span>{Math.round(this.state.totalStatsRight.hp)}<br />
               <img src={armorIcon} alt='Armor Icon'/>
-              <span>Armor: </span>{Math.round(this.state.tfTotalStatsRight.arm)}<br />
+              <span>Armor: </span>{Math.round(this.state.totalStatsRight.arm)}<br />
               <img src={magicResIcon} alt='Magic Resist Icon'/>
-              <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsRight.mr)}<br />
+              <span>Magic Resist: </span>{Math.round(this.state.totalStatsRight.mr)}<br />
               <img src={attackDamageIcon} alt='Attack Damage Icon'/>
-              <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsRight.ad)}<br />
+              <span>Attack Damage: </span>{Math.round(this.state.totalStatsRight.ad)}<br />
               <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-              <span>Attack Speed: </span>{this.state.tfTotalStatsRight.as.toFixed(3)}<br />
+              <span>Attack Speed: </span>{this.state.totalStatsRight.as.toFixed(3)}<br />
               <img src={critChanceIcon} alt='Crit Chance Icon'/>
-              <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsRight.critChance)}%<br />
+              <span>Crit Chance: </span>{Math.round(this.state.totalStatsRight.critChance)}%<br />
               <img src={manaIcon} alt='Mana Icon'/>
-              <span>Mana: </span>{Math.round(this.state.tfTotalStatsRight.mana)}<br />
+              <span>Mana: </span>{Math.round(this.state.totalStatsRight.mana)}<br />
               <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              <span>Mana Per 5: </span>{this.state.tfTotalStatsRight.manaRegen.toFixed(3)}<br />
+              <span>Mana Per 5: </span>{this.state.totalStatsRight.manaRegen.toFixed(3)}<br />
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              <span>Health Per 5: </span>{this.state.tfTotalStatsRight.hpRegen.toFixed(3)}<br />
+              <span>Health Per 5: </span>{this.state.totalStatsRight.hpRegen.toFixed(3)}<br />
               <img src={abilityPowerIcon} alt='Ability Power Icon'/>
-              <span>Ability Power: </span>{this.state.tfTotalStatsRight.ap}<br />
+              <span>Ability Power: </span>{this.state.totalStatsRight.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsRight.cdr)}
+              <span>Ability Haste: </span>{Math.round(this.state.totalStatsRight.cdr)}
             </div>
           </div>
-        </div>
-
-        <div className="flexDisplay">
-          <div>
-            
-            {this.state.champNameLeft === 'Aphelios' ? 
-              <ApheliosLeft runes={this.runesLeft} items={this.itemStatsLeft} onRankChange={this.onApheliosRank} 
-              bonuses={this.state.aphelLeft} /> 
-              : ''
-            }
-
-            <div className='hiddenLeft abilityTitleBox' style={{paddingTop: '5px'}}>
-              <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p> 
-              <div className="spriteContainer">
-                <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
+          <div id='transform'>
+            <div className="flexDisplay">
+              <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}><b>{this.state.tfWordLeft} Stats</b></span>
+              <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}><b>{this.state.tfWordRight} Stats</b></span>
+            </div>
+            <div className="flexDisplay">
+              <div className="statsBox transformLeft">
+                <img src={healthIcon} alt='Health Icon'/>
+                <span>Health: </span>{Math.round(this.state.tfTotalStatsLeft.hp)}<br />
+                <img src={armorIcon} alt='Armor Icon'/>
+                <span>Armor: </span>{Math.round(this.state.tfTotalStatsLeft.arm)}<br />
+                <img src={magicResIcon} alt='Magic Resist Icon'/>
+                <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsLeft.mr)}<br />
+                <img src={attackDamageIcon} alt='Attack Damage Icon'/>
+                <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsLeft.ad)}<br />
+                <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
+                <span>Attack Speed: </span>{this.state.tfTotalStatsLeft.as.toFixed(3)}<br />
+                <img src={critChanceIcon} alt='Crit Chance Icon'/>
+                <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsLeft.critChance)}%<br />
+                <img src={manaIcon} alt='Mana Icon'/>
+                <span>Mana: </span>{Math.round(this.state.tfTotalStatsLeft.mana)}<br />
+                <img src={manaRegenIcon} alt='Mana Regen Icon'/>
+                <span>Mana Per 5: </span>{this.state.tfTotalStatsLeft.manaRegen.toFixed(3)}<br />
+                <img src={healthRegenIcon} alt='Health Regen Icon'/>
+                <span>Health Per 5: </span>{this.state.tfTotalStatsLeft.hpRegen.toFixed(3)}<br />
+                <img src={abilityPowerIcon} alt='Ability Power Icon'/>
+                <span>Ability Power: </span>{this.state.tfTotalStatsLeft.ap}<br />
+                <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
+                <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsLeft.cdr)}
               </div>
-            </div>  
-            <div className="hiddenLeft abilityBoxLeft"></div>
-
-            <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
-              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>Q</u></b> - rank: </p>
-                <input id="QRankLeft" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
-              </div>
-              <div className="spriteContainer">
-                <img className='qMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
+              <div className="statsBox transformRight">
+                <img src={healthIcon} alt='Health Icon'/>
+                <span>Health: </span>{Math.round(this.state.tfTotalStatsRight.hp)}<br />
+                <img src={armorIcon} alt='Armor Icon'/>
+                <span>Armor: </span>{Math.round(this.state.tfTotalStatsRight.arm)}<br />
+                <img src={magicResIcon} alt='Magic Resist Icon'/>
+                <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsRight.mr)}<br />
+                <img src={attackDamageIcon} alt='Attack Damage Icon'/>
+                <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsRight.ad)}<br />
+                <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
+                <span>Attack Speed: </span>{this.state.tfTotalStatsRight.as.toFixed(3)}<br />
+                <img src={critChanceIcon} alt='Crit Chance Icon'/>
+                <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsRight.critChance)}%<br />
+                <img src={manaIcon} alt='Mana Icon'/>
+                <span>Mana: </span>{Math.round(this.state.tfTotalStatsRight.mana)}<br />
+                <img src={manaRegenIcon} alt='Mana Regen Icon'/>
+                <span>Mana Per 5: </span>{this.state.tfTotalStatsRight.manaRegen.toFixed(3)}<br />
+                <img src={healthRegenIcon} alt='Health Regen Icon'/>
+                <span>Health Per 5: </span>{this.state.tfTotalStatsRight.hpRegen.toFixed(3)}<br />
+                <img src={abilityPowerIcon} alt='Ability Power Icon'/>
+                <span>Ability Power: </span>{this.state.tfTotalStatsRight.ap}<br />
+                <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
+                <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsRight.cdr)}
               </div>
             </div>
-            <div className="hiddenLeft abilityBoxLeft"></div>
-
-            <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
-              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>W</u></b> - rank: </p>
-                <input id="WRankLeft" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
-              </div>
-              <div className="spriteContainer">
-                <img className='wMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
-              </div>
-            </div>
-            <div className="hiddenLeft abilityBoxLeft"></div>
-
-            <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
-              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>E</u></b> - rank: </p>
-                <input id="ERankLeft" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
-              </div>
-              <div className="spriteContainer">
-                <img className='eMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
-              </div>
-            </div>
-            <div className="hiddenLeft abilityBoxLeft"></div>
-
-            <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
-              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>R</u></b> - rank: </p>
-                <input id="RRankLeft" type="number" placeholder="0" min="0" max="3" 
-                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
-              </div>
-              <div className="spriteContainer">
-                <img className='rMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
-              </div>
-            </div>
-            <div className="hiddenLeft abilityBoxLeft" style={{marginBottom: '50px'}}></div>
           </div>
+          <div className="flexDisplay">
+            <div>
           
-          <div>
-            <div className='hiddenRight abilityTitleBox' style={{paddingTop: '5px'}}>
-              <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p> 
-              <div className="spriteContainer">
-                <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+              {this.state.champNameLeft === 'Aphelios' ?
+                <ApheliosLeft runes={this.runesLeft} items={this.itemStatsLeft} onRankChange={this.onApheliosRank}
+                bonuses={this.state.aphelLeft} />
+                : ''
+              }
+              <div className='hiddenLeft abilityTitleBox' style={{paddingTop: '5px'}}>
+                <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p>
+                <div className="spriteContainer">
+                  <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
+                </div>
               </div>
-            </div>  
-            <div className="hiddenRight abilityBoxRight"></div>
-
-            <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
-              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>Q</u></b> - rank: </p>
-                <input id="QRankRight" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+              <div className="hiddenLeft abilityBoxLeft"></div>
+              <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
+                <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                  <p style={{margin: 0}}><b><u>Q</u></b> - rank: </p>
+                  <input id="QRankLeft" type="number" placeholder="0" min="0" max="5"
+                  style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+                </div>
+                <div className="spriteContainer">
+                  <img className='qMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
+                </div>
               </div>
-              <div className="spriteContainer">
-                <img className='qMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+              <div className="hiddenLeft abilityBoxLeft"></div>
+              <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
+                <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                  <p style={{margin: 0}}><b><u>W</u></b> - rank: </p>
+                  <input id="WRankLeft" type="number" placeholder="0" min="0" max="5"
+                  style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+                </div>
+                <div className="spriteContainer">
+                  <img className='wMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
+                </div>
               </div>
+              <div className="hiddenLeft abilityBoxLeft"></div>
+              <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
+                <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                  <p style={{margin: 0}}><b><u>E</u></b> - rank: </p>
+                  <input id="ERankLeft" type="number" placeholder="0" min="0" max="5"
+                  style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+                </div>
+                <div className="spriteContainer">
+                  <img className='eMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
+                </div>
+              </div>
+              <div className="hiddenLeft abilityBoxLeft"></div>
+              <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
+                <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                  <p style={{margin: 0}}><b><u>R</u></b> - rank: </p>
+                  <input id="RRankLeft" type="number" placeholder="0" min="0" max="3"
+                  style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+                </div>
+                <div className="spriteContainer">
+                  <img className='rMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
+                </div>
+              </div>
+              <div className="hiddenLeft abilityBoxLeft" style={{marginBottom: '50px'}}></div>
             </div>
-            <div className="hiddenRight abilityBoxRight"></div>
-
-            <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
-              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>W</u></b> - rank: </p>
-                <input id="WRankRight" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+          
+            <div>
+              <div className='hiddenRight abilityTitleBox' style={{paddingTop: '5px'}}>
+                <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p>
+                <div className="spriteContainer">
+                  <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+                </div>
               </div>
-              <div className="spriteContainer">
-                <img className='wMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+              <div className="hiddenRight abilityBoxRight"></div>
+              <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
+                <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                  <p style={{margin: 0}}><b><u>Q</u></b> - rank: </p>
+                  <input id="QRankRight" type="number" placeholder="0" min="0" max="5"
+                  style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+                </div>
+                <div className="spriteContainer">
+                  <img className='qMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+                </div>
               </div>
+              <div className="hiddenRight abilityBoxRight"></div>
+              <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
+                <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                  <p style={{margin: 0}}><b><u>W</u></b> - rank: </p>
+                  <input id="WRankRight" type="number" placeholder="0" min="0" max="5"
+                  style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+                </div>
+                <div className="spriteContainer">
+                  <img className='wMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+                </div>
+              </div>
+              <div className="hiddenRight abilityBoxRight"></div>
+              <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
+                <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                  <p style={{margin: 0}}><b><u>E</u></b> - rank: </p>
+                  <input id="ERankRight" type="number" placeholder="0" min="0" max="5"
+                  style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+                </div>
+                <div className="spriteContainer">
+                  <img className='eMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+                </div>
+              </div>
+              <div className="hiddenRight abilityBoxRight"></div>
+              <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
+                <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+                  <p style={{margin: 0}}><b><u>R</u></b> - rank: </p>
+                  <input id="RRankRight" type="number" placeholder="0" min="0" max="3"
+                  style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
+                </div>
+                <div className="spriteContainer">
+                  <img className='rMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
+                </div>
+              </div>
+              <div className="hiddenRight abilityBoxRight" style={{marginBottom: '50px'}}></div>
             </div>
-            <div className="hiddenRight abilityBoxRight"></div>
-
-            <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
-              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>E</u></b> - rank: </p>
-                <input id="ERankRight" type="number" placeholder="0" min="0" max="5" 
-                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
-              </div>
-              <div className="spriteContainer">
-                <img className='eMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
-              </div>
-            </div>
-            <div className="hiddenRight abilityBoxRight"></div>
-
-            <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
-              <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-                <p style={{margin: 0}}><b><u>R</u></b> - rank: </p>
-                <input id="RRankRight" type="number" placeholder="0" min="0" max="3" 
-                style={{width: "30px", marginLeft: '10px'}} onKeyDown={this.preventKeyPress} onChange={this.onRankChange}/>
-              </div>
-              <div className="spriteContainer">
-                <img className='rMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
-              </div>
-            </div>
-            <div className="hiddenRight abilityBoxRight" style={{marginBottom: '50px'}}></div>
-          </div>
+        </div>
 
         </div>
 

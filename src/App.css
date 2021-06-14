@@ -7,6 +7,10 @@ html {
   color: white;
 }
 
+#homeAbout {
+  cursor: pointer;
+}
+
 .abilityTitleBox u {
   color: #ffffb9;
   text-decoration-color: lightgray;
@@ -163,6 +167,11 @@ hr {
   box-shadow: 0px 1px 3px /*rgb(242, 154, 47)*/#f9b54a;
   background-color: white;
   margin: 0 -1vw;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: #003747;
+  text-decoration: none;
 }
 
 .App-link {
