@@ -8001,13 +8001,13 @@ class App extends Component {
         about: true
       });
       document.getElementById('homeAbout').textContent = 'Home';
-      document.getElementById('homePage').style.visibility = 'hidden';
+      document.getElementById('homePage').style.display = 'none';
     } else {
       this.setState({
         about: false
       });
       document.getElementById('homeAbout').textContent = 'About';
-      document.getElementById('homePage').style.visibility = 'visible';
+      document.getElementById('homePage').style.display = 'block';
     }
   };
 
@@ -8025,15 +8025,16 @@ class App extends Component {
 
         <header className="navHeader">
           
-          <div className='logoDiv'>
+          {/*<div className='logoDiv'>
             <img src={title} alt='League of Legends Title'/>
           </div>
+          <h4>Le<span style={{color: '#f29a2f'}}>a</span>gue of Legends</h4>*/}
+          <h2 id='homeAbout' onClick={this.homeToggle}>About</h2>
           <div className='logoDiv'>
             <img src={logo} alt='Logo'/>
           </div>
-          <div className="navLeft">
-            <h2 id='homeAbout' onClick={this.homeToggle}>About</h2>
-            <h2 className="navRight"><a href="https://na.leagueoflegends.com/en-us/news/tags/patch-notes" target='_blank'>Patch v11.10</a></h2>
+          <div className="navRight">
+            <h2><a href="https://na.leagueoflegends.com/en-us/news/tags/patch-notes" target='_blank'>Patch v11.10</a></h2>
           </div>
         </header>
 
@@ -8327,7 +8328,7 @@ class App extends Component {
               </div>
               <div className="hiddenRight abilityBoxRight" style={{marginBottom: '50px'}}></div>
             </div>
-        </div>
+          </div>
 
         </div>
 

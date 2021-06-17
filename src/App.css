@@ -161,8 +161,12 @@ hr {
 }
 
 .navHeader {
-  max-height: 15vh;
-  min-height: 130px;
+  /*max-height: 15vh;
+  min-height: 90px;*/
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 90px;
   color: #003747;
   box-shadow: 0px 1px 3px /*rgb(242, 154, 47)*/#f9b54a;
   background-color: white;
@@ -187,18 +191,17 @@ a:link, a:visited, a:hover, a:active {
   }
 }
 
-.navLeft {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: -1.5em;
-}
-
 h2 {
   padding: 0 1rem;
   margin: 0;
   font-size: 22px;
   font-weight: 200;
   text-align: center;
+}
+
+h4 {
+  text-align: center;
+  margin: 0 0 10px 0;
 }
 
 h1 {
@@ -208,7 +211,6 @@ h1 {
 }
 
 .navRight {
-  margin-left: auto;
   color: black; 
 }
 
