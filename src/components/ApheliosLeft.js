@@ -30,14 +30,19 @@ var sev = {
   ],
   overHeal: {
     overHealByLvl: [
-      10,20,30,40,50,60,70,80,90,100,110,120,130,140
+      10,10,10,10,10,20,30,40,50,
+      60,70,80,90,100,110,120,130,140
     ],
     maxHPRatio: 0.06,
     duration: 30
   }
 }
 
-const ApheliosLeft = ({runes, items, onRankChange, bonuses}) => {
+var onslaught = {
+  
+}
+
+const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
   var champLevel = document.getElementById('levelBoxLeft').value
   return (
     <div>
@@ -99,7 +104,13 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses}) => {
         </div>
       </div>
       <div className="abilityBoxLeft">
-          <b>Life Steal: </b>
+          <b>Life Steal Ratio: </b><text>[{sev.lifeStealByLvl[0]} to {sev.lifeStealByLvl[17]}, based on lvl. </text><u>Currently:</u>
+          <text> {sev.lifeStealByLvl[champLevel-1]}] (Tripled for attacks from abilities)</text>
+          <br></br><br></br>
+          <b>Overheal Shield: </b><text>[{sev.overHeal.overHealByLvl[0]} to {sev.overHeal.overHealByLvl[17]}, based on lvl. </text>
+          <u>Currently:</u><text> {sev.overHeal.overHealByLvl[champLevel-1]}] (+{sev.overHeal.maxHPRatio} Max HP Ratio)</text>
+          <br></br>
+          <u>Total:</u><text> {Math.round(sev.overHeal.overHealByLvl[champLevel-1] + sev.overHeal.maxHPRatio*totalStats.hp )}</text>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>

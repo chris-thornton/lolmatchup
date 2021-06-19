@@ -7,7 +7,7 @@ import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
 import ChampDropDownRight from './components/ChampDropDownRight';
 import logo from './images/logoTest.png';
-import title from './images/lolTitle2.png';
+import lolIcon from './images/lol-icon.png';  
 import versus from './images/versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
 import forceIcon from './staticons/force.png';
@@ -3640,7 +3640,6 @@ class App extends Component {
 
             if (champFile[ability]["maxDuration"] && !champFile[ability]["minDuration"]) {
               addBold("Max Duration: ")
-              abilityDiv.appendChild(bold)
               addText(removeSpace(champFile[ability]["maxDuration"]))
               doubleBreak();
             };
@@ -6037,8 +6036,7 @@ class App extends Component {
                 addBold('Bonus Armor & Magic Resist: ');
               } else {
                 addBold('Bonus Armor: ');
-              }
-              abilityDiv.appendChild(bold);
+              };
               var resCount = 0;
               if (path["resist"]) {
                 resCount += arrayCheck(path["resist"]);
@@ -8024,18 +8022,12 @@ class App extends Component {
       <div style={{minHeight: '100vh', padding: '0 1vw'}}>
 
         <header className="navHeader">
-          
-          {/*<div className='logoDiv'>
-            <img src={title} alt='League of Legends Title'/>
-          </div>
-          <h4>Le<span style={{color: '#f29a2f'}}>a</span>gue of Legends</h4>*/}
-          <h2 id='homeAbout' onClick={this.homeToggle}>About</h2>
+          <h2 id='homeAbout' style={{color: 'black'}} onClick={this.homeToggle}>About</h2>
           <div className='logoDiv'>
-            <img src={logo} alt='Logo'/>
+            <img src={logo} height='80px' alt='Logo'/>
           </div>
-          <div className="navRight">
-            <h2><a href="https://na.leagueoflegends.com/en-us/news/tags/patch-notes" target='_blank'>Patch v11.10</a></h2>
-          </div>
+          <img src={lolIcon} height='31px' width='30px' alt='League of Legends Icon' />
+          <h2><a href="https://na.leagueoflegends.com/en-us/news/tags/patch-notes" target='_blank'>Patch v11.10</a></h2>
         </header>
 
         {this.state.about ? <About /> : ''}
@@ -8219,7 +8211,7 @@ class App extends Component {
           
               {this.state.champNameLeft === 'Aphelios' ?
                 <ApheliosLeft runes={this.runesLeft} items={this.itemStatsLeft} onRankChange={this.onApheliosRank}
-                bonuses={this.state.aphelLeft} />
+                bonuses={this.state.aphelLeft} totalStats={this.state.totalStatsLeft} />
                 : ''
               }
               <div className='hiddenLeft abilityTitleBox' style={{paddingTop: '5px'}}>
