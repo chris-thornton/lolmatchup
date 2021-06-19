@@ -7586,6 +7586,12 @@ class App extends Component {
     };
 
     this[`champName${side}`] = champName;
+    if (this[`champName${otherSide}`] === '') {
+      document.title = champName;
+    } else {
+      document.title = this.champNameLeft + ' vs. ' + this.champNameRight
+    };
+
     var itemStats = this[`itemStats${side}`];
     var champLevel = this[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
@@ -8221,6 +8227,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
+
               <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                   <p style={{margin: 0}}><b><u>Q</u></b> - rank: </p>
@@ -8232,6 +8239,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
+
               <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                   <p style={{margin: 0}}><b><u>W</u></b> - rank: </p>
@@ -8243,6 +8251,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
+
               <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                   <p style={{margin: 0}}><b><u>E</u></b> - rank: </p>
@@ -8254,6 +8263,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
+
               <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                   <p style={{margin: 0}}><b><u>R</u></b> - rank: </p>
@@ -8275,6 +8285,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="hiddenRight abilityBoxRight"></div>
+
               <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                   <p style={{margin: 0}}><b><u>Q</u></b> - rank: </p>
@@ -8286,6 +8297,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="hiddenRight abilityBoxRight"></div>
+
               <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                   <p style={{margin: 0}}><b><u>W</u></b> - rank: </p>
@@ -8297,6 +8309,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="hiddenRight abilityBoxRight"></div>
+
               <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                   <p style={{margin: 0}}><b><u>E</u></b> - rank: </p>
@@ -8308,6 +8321,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="hiddenRight abilityBoxRight"></div>
+
               <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
                   <p style={{margin: 0}}><b><u>R</u></b> - rank: </p>
