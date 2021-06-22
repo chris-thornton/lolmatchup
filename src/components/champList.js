@@ -61,7 +61,7 @@ Kha'Zix
 Kindred
 Kled
 Kog'Maw
-Leblanc
+LeBlanc
 Lee Sin
 Leona
 Lillia

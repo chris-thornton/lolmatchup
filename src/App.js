@@ -7688,10 +7688,39 @@ class App extends Component {
       hash = 'lethal'
     };
     var targetRank = document.getElementById(event.target.id).value
+    var prevBonus = this.state[`aphel${side}`][hash];
+    var newBonus = this[`${hash}Aphel`][targetRank];
+    console.log('prevBonus: ' + prevBonus)
+    console.log(prevBonus.length)
+    if (!newBonus.length && prevBonus.length) {
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          [hash]: this.state[`totalStats${side}`][hash] + +newBonus
+        }
+      }));
+    }
+    if (!prevBonus.length && newBonus.length) {
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          [hash]: this.state[`totalStats${side}`][hash] - +prevBonus
+        }
+      }))
+    };
+    console.log('newBonus: ' + newBonus)
+    if (!newBonus.length && !prevBonus.length) {
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          [hash]: this.state[`totalStats${side}`][hash] - +prevBonus + +newBonus
+        }
+      }));
+    };
     this.setState(prevState => ({
       [`aphel${side}`]: {
         ...prevState[`aphel${side}`],
-        [`${hash}`]: this[`${hash}Aphel`][targetRank]
+        [`${hash}`]: newBonus
       }
     }));
   };
