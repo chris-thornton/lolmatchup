@@ -60,7 +60,8 @@ class App extends Component {
         cdr: 0,
         critChance: 0,
         mana: 0,
-        manaRegen: 0
+        manaRegen: 0,
+        lethal: 0
       },
       totalStatsRight: {
         ad: 10.8,
@@ -73,7 +74,8 @@ class App extends Component {
         cdr: 0,
         critChance: 0,
         mana: 0,
-        manaRegen: 0
+        manaRegen: 0,
+        lethal: 0
       },
       tfTotalStatsLeft: {
         ad: 10.8,
@@ -86,7 +88,8 @@ class App extends Component {
         cdr: 0,
         critChance: 0,
         mana: 0,
-        manaRegen: 0
+        manaRegen: 0,
+        lethal: 0
       },
       tfTotalStatsRight: {
         ad: 10.8,
@@ -99,7 +102,8 @@ class App extends Component {
         cdr: 0,
         critChance: 0,
         mana: 0,
-        manaRegen: 0
+        manaRegen: 0,
+        lethal: 0
       },
       aphelLeft: {
         ad: '[4, 8, 12, 16, 20, 24]',
@@ -7689,7 +7693,13 @@ class App extends Component {
     };
     var targetRank = document.getElementById(event.target.id).value
     var prevBonus = this.state[`aphel${side}`][hash];
+    if (hash === 'as' && !prevBonus.length) {
+      prevBonus *= this[`champFile${side}`].stats.asRatio
+    }
     var newBonus = this[`${hash}Aphel`][targetRank];
+    if (hash === 'as' && !newBonus.length) {
+      newBonus *= this[`champFile${side}`].stats.asRatio
+    }
     console.log('prevBonus: ' + prevBonus)
     console.log(prevBonus.length)
     if (!newBonus.length && prevBonus.length) {
@@ -7720,7 +7730,7 @@ class App extends Component {
     this.setState(prevState => ({
       [`aphel${side}`]: {
         ...prevState[`aphel${side}`],
-        [`${hash}`]: newBonus
+        [hash]: this[`${hash}Aphel`][targetRank]
       }
     }));
   };
