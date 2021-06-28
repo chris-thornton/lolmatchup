@@ -49,7 +49,21 @@ var onslaught = {
 }
 
 const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
-  var champLevel = document.getElementById('levelBoxLeft').value
+  var champLevel = document.getElementById('levelBoxLeft').value;
+  var bonus = {
+    ad: bonuses.ad,
+    as: bonuses.as,
+    lethal: bonuses.lethal
+  }
+  if (bonuses.ad.length) {
+    bonus.ad = 0
+  };
+  if (bonuses.as.length) {
+    bonus.as = 0
+  };
+  if (bonuses.lethal.length) {
+    bonus.lethal = 0
+  };
   return (
     <div>
       <div className='abilityTitleBox' style={{paddingTop: '5px'}}>
@@ -86,7 +100,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
       <div className="abilityBoxLeft">
         <span><b>Auto Attack Empower: </b><u>Physical Damage:</u> {calAutoEmp.dmg} (+{calAutoEmp.bonusADRatio} Bonus AD Ratio)</span>
         <br></br>
-        <span><u>Total:</u> {Math.round(calAutoEmp.dmg + calAutoEmp.bonusADRatio * (items.ad + runes.ad + bonuses.ad))}</span>
+        <span><u>Total:</u> {Math.round(calAutoEmp.dmg + calAutoEmp.bonusADRatio * (items.ad + runes.ad + bonus.ad))}</span>
         <hr></hr>
         <p>Moonshot</p>
         <hr></hr>
@@ -98,7 +112,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         <br></br>
         <span>
           <u>Total:</u> {Math.round(moonShot.dmgByLvl[champLevel-1] + moonShot.bonusADRatioByLvl[champLevel-1] 
-          * (runes.ad + items.ad) + moonShot.APRatio * (items.ap + runes.ap))}
+          * (runes.ad + items.ad + bonus.ad) + moonShot.APRatio * (items.ap + runes.ap))}
         </span>
         <br></br><br></br>
         <span>
@@ -138,10 +152,10 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
           </span>
           <br></br>
           <span>
-            <u>Total:</u> {(6 + Math.round(2*(items.as + runes.as + bonuses.as)))} attacks dealing {Math.round(onslaught.dmgByLvl[champLevel-1] 
-            + onslaught.bonusADRatioByLvl[champLevel-1] * (items.ad + runes.ad + bonuses.ad))}, for a total of {Math.round(
-              (6 + Math.round(2*(items.as + runes.as + bonuses.as))) * (onslaught.dmgByLvl[champLevel-1] 
-                + onslaught.bonusADRatioByLvl[champLevel-1] * (items.ad + runes.ad + bonuses.ad)) )} Physical Damage.
+            <u>Total:</u> {(6 + Math.round(2*(items.as + runes.as + bonus.as)))} attacks dealing {Math.round(onslaught.dmgByLvl[champLevel-1] 
+            + onslaught.bonusADRatioByLvl[champLevel-1] * (items.ad + runes.ad + bonus.ad))}, for a total of {Math.round(
+              (6 + Math.round(2*(items.as + runes.as + bonus.as))) * (onslaught.dmgByLvl[champLevel-1] 
+                + onslaught.bonusADRatioByLvl[champLevel-1] * (items.ad + runes.ad + bonus.ad)) )} Physical Damage.
           </span>
       </div>
 
