@@ -39,7 +39,13 @@ var sev = {
 }
 
 var onslaught = {
-  
+  dmgByLvl: [
+    10, 10, 15, 15, 20, 20, 25, 25, 30, 30, 35, 35, 40, 40, 40, 40, 40, 40
+  ],
+  bonusADRatioByLvl: [
+    0.21, 0.21, 0.225, 0.225, 0.24, 0.24, 0.255, 0.255, 0.27,
+    0.27, 0.285, 0.285, 0.3,0.3,0.3,0.3,0.3,0.3
+  ]
 }
 
 const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
@@ -78,21 +84,27 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </div>
       </div>
       <div className="abilityBoxLeft">
-        <b>Auto Attack Empower: </b><u>Physical Damage:</u><text> {calAutoEmp.dmg} (+{calAutoEmp.bonusADRatio} Bonus AD Ratio)</text>
+        <span><b>Auto Attack Empower: </b><u>Physical Damage:</u> {calAutoEmp.dmg} (+{calAutoEmp.bonusADRatio} Bonus AD Ratio)</span>
         <br></br>
-        <u>Total:</u><text> {Math.round(calAutoEmp.dmg + calAutoEmp.bonusADRatio * (items.ad + runes.ad))} </text>
+        <span><u>Total:</u> {Math.round(calAutoEmp.dmg + calAutoEmp.bonusADRatio * (items.ad + runes.ad + bonuses.ad))}</span>
         <hr></hr>
         <p>Moonshot</p>
         <hr></hr>
-        <b>Physical Damage: </b><text>[{moonShot.dmgByLvl[0]} to {moonShot.dmgByLvl[17]}, based on lvl. </text><u>Currently:</u>
-        <text> {moonShot.dmgByLvl[champLevel-1]}] (+{moonShot.bonusADRatioByLvl[0]} to {moonShot.bonusADRatioByLvl[17]} Bonus AD
-        Ratio, based on lvl. </text><u>Currently:</u><text> {moonShot.bonusADRatioByLvl[champLevel-1]}) (+{moonShot.APRatio} AP Ratio)</text>
+        <span>
+          <b>Physical Damage: </b>[{moonShot.dmgByLvl[0]} to {moonShot.dmgByLvl[17]}, based on lvl. <u>Currently:
+            </u> {moonShot.dmgByLvl[champLevel-1]}] (+{moonShot.bonusADRatioByLvl[0]} to {moonShot.bonusADRatioByLvl[17]} Bonus AD
+          Ratio, based on lvl. <u>Currently:</u> {moonShot.bonusADRatioByLvl[champLevel-1]}) (+{moonShot.APRatio} AP Ratio)
+        </span>
         <br></br>
-        <u>Total:</u><text> {Math.round(moonShot.dmgByLvl[champLevel-1] + moonShot.bonusADRatioByLvl[champLevel-1] * (runes.ad + items.ad) 
-        +moonShot.APRatio * (items.ap + runes.ap))}</text>
+        <span>
+          <u>Total:</u> {Math.round(moonShot.dmgByLvl[champLevel-1] + moonShot.bonusADRatioByLvl[champLevel-1] 
+          * (runes.ad + items.ad) + moonShot.APRatio * (items.ap + runes.ap))}
+        </span>
         <br></br><br></br>
-        <b>Cooldown: </b><text>{moonShot.coolDownByLvl[0]} to {moonShot.coolDownByLvl[17]}, based on lvl. </text><u>Currently:</u>
-        <text> {moonShot.coolDownByLvl[champLevel-1]}</text>
+        <span>
+          <b>Cooldown: </b>{moonShot.coolDownByLvl[0]} to {moonShot.coolDownByLvl[17]}, based on lvl. <u>
+            Currently:</u> {moonShot.coolDownByLvl[champLevel-1]}
+        </span>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
@@ -104,13 +116,33 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </div>
       </div>
       <div className="abilityBoxLeft">
-          <b>Life Steal Ratio: </b><text>[{sev.lifeStealByLvl[0]} to {sev.lifeStealByLvl[17]}, based on lvl. </text><u>Currently:</u>
-          <text> {sev.lifeStealByLvl[champLevel-1]}] (Tripled for attacks from abilities)</text>
+          <span>
+            <b>Life Steal Ratio: </b>[{sev.lifeStealByLvl[0]} to {sev.lifeStealByLvl[17]}, based on lvl. <u>
+              Currently:</u> {sev.lifeStealByLvl[champLevel-1]}] (Tripled for attacks from abilities)
+          </span>
           <br></br><br></br>
-          <b>Overheal Shield: </b><text>[{sev.overHeal.overHealByLvl[0]} to {sev.overHeal.overHealByLvl[17]}, based on lvl. </text>
-          <u>Currently:</u><text> {sev.overHeal.overHealByLvl[champLevel-1]}] (+{sev.overHeal.maxHPRatio} Max HP Ratio)</text>
+          <span>
+            <b>Overheal Shield: </b>[{sev.overHeal.overHealByLvl[0]} to {sev.overHeal.overHealByLvl[17]}, based on lvl. <u>
+              Currently:</u> {sev.overHeal.overHealByLvl[champLevel-1]}] (+{sev.overHeal.maxHPRatio} Max HP Ratio)
+          </span>
           <br></br>
-          <u>Total:</u><text> {Math.round(sev.overHeal.overHealByLvl[champLevel-1] + sev.overHeal.maxHPRatio*totalStats.hp )}</text>
+          <span><u>Total:</u> {Math.round(sev.overHeal.overHealByLvl[champLevel-1] + sev.overHeal.maxHPRatio*totalStats.hp )}</span>
+          <hr></hr>
+          <p>Onslaught</p>
+          <hr></hr>
+          <span>
+            Over 1.75 seconds, attack 6 (+1 per 50% Bonus Attack Speed, rounded at 25%) times. Can crit. Each attack deals [{
+            onslaught.dmgByLvl[0]} to {onslaught.dmgByLvl[17]}, based on lvl. <u>Currently:</u> {onslaught.dmgByLvl[champLevel-1]}
+            ] (+ {onslaught.bonusADRatioByLvl[0]} to {onslaught.bonusADRatioByLvl[17]} Bonus AD Ratio, based on lvl. <u>
+              Currently:</u> {onslaught.bonusADRatioByLvl[champLevel-1]}) Physical Damage.
+          </span>
+          <br></br>
+          <span>
+            <u>Total:</u> {(6 + Math.round(2*(items.as + runes.as + bonuses.as)))} attacks dealing {Math.round(onslaught.dmgByLvl[champLevel-1] 
+            + onslaught.bonusADRatioByLvl[champLevel-1] * (items.ad + runes.ad + bonuses.ad))}, for a total of {Math.round(
+              (6 + Math.round(2*(items.as + runes.as + bonuses.as))) * (onslaught.dmgByLvl[champLevel-1] 
+                + onslaught.bonusADRatioByLvl[champLevel-1] * (items.ad + runes.ad + bonuses.ad)) )} Physical Damage.
+          </span>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
