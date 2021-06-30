@@ -3,14 +3,15 @@ import spellIcons from '../spellicons/aphelios.png';
 import './ApheliosLeft.css';
 
 var moonShot = {
+  type: 'Physical',
   dmgByLvl: [
-    60, 60, 85, 85, 110, 110, 135, 135, 160,
-     160, 160, 160, 160, 160, 160, 160, 160, 160
+    60, 60, 76.67, 76.67, 93.33, 93.33, 110, 110, 126.67,
+    126.67, 143.33, 143.33, 160, 160, 160, 160, 160, 160
   ],
   APRatio: 1,
   bonusADRatioByLvl: [
-      0.42,0.42,0.45,0.45,0.48,0.48,0.51,0.51,0.54,
-      0.54, 0.57,0.57,0.60,0.60,0.60,0.60,0.60,0.60
+    0.42,0.42,0.45,0.45,0.48,0.48,0.51,0.51,0.54,
+    0.54,0.57,0.57,0.60,0.60,0.60,0.60,0.60,0.60
   ],
   coolDownByLvl: [
     10, 10, 9.67, 9.67, 9.33, 9.33, 9, 9, 8.67,
@@ -39,12 +40,31 @@ var sev = {
 }
 
 var onslaught = {
+  type: 'Physical',
   dmgByLvl: [
-    10, 10, 15, 15, 20, 20, 25, 25, 30, 30, 35, 35, 40, 40, 40, 40, 40, 40
+    10, 10, 15, 15, 20, 20, 25, 25, 30,
+    30, 35, 35, 40, 40, 40, 40, 40, 40
   ],
   bonusADRatioByLvl: [
-    0.21, 0.21, 0.225, 0.225, 0.24, 0.24, 0.255, 0.255, 0.27,
-    0.27, 0.285, 0.285, 0.3,0.3,0.3,0.3,0.3,0.3
+    0.20, 0.20, 0.225, 0.225, 0.25, 0.25, 0.275, 0.275, 0.3,
+    0.3, 0.325, 0.325, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35
+  ],
+  coolDownByLvl: [
+    10, 10, 9.67, 9.67, 9.33, 9.33, 9, 9, 8.67,
+    8.67, 8.33, 8.33, 8, 8, 8, 8, 8, 8
+  ]
+}
+
+var bindingEclipse = {
+  type: 'Magic',
+  dmgByLvl: [
+    50, 50, 60, 60, 70, 70, 80, 80, 90,
+    90, 100, 100, 110, 110, 110, 110, 110, 110
+  ],
+  APRatio: 0.7,
+  bonusADRatioByLvl: [
+    0.26, 0.26, 0.275, 0.275, 0.29, 0.29, 0.305, 0.305, 0.32,
+    0.32, 0.335, 0.335, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35 
   ]
 }
 
@@ -157,6 +177,11 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
               (6 + Math.round(2*(items.as + runes.as + bonus.as))) * (onslaught.dmgByLvl[champLevel-1] 
                 + onslaught.bonusADRatioByLvl[champLevel-1] * (items.ad + runes.ad + bonus.ad)) )} Physical Damage.
           </span>
+          <br></br><br></br>
+          <span>
+            <b>Cooldown: </b>{onslaught.coolDownByLvl[0]} to {onslaught.coolDownByLvl[17]}, based on lvl. <u>
+              Currently:</u> {onslaught.coolDownByLvl[champLevel-1]}
+          </span>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
@@ -168,7 +193,24 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </div>
       </div>
       <div className="abilityBoxLeft">
-
+        <hr></hr>
+          <p>Binding Eclipse</p>
+        <hr></hr>
+        <span>
+          <b>Magic Damage: </b>[{bindingEclipse.dmgByLvl[0]} to {bindingEclipse.dmgByLvl[17]}, based on lvl. <u>Currently:
+          </u> {bindingEclipse.dmgByLvl[champLevel-1]}] (+{bindingEclipse.bonusADRatioByLvl[0]} to {bindingEclipse.bonusADRatioByLvl[17]
+          } Bonus AD Ratio, based on lvl. <u>Currently:</u> {bindingEclipse.bonusADRatioByLvl[champLevel-1]}) (+{bindingEclipse.APRatio} AP Ratio)
+        </span>
+        <br></br>
+        <span>
+          <u>Total:</u> {Math.round(bindingEclipse.dmgByLvl[champLevel-1] + bindingEclipse.bonusADRatioByLvl[champLevel-1] 
+          * (runes.ad + items.ad + bonus.ad) + bindingEclipse.APRatio * (items.ap + runes.ap))}
+        </span>
+        <br></br><br></br>
+        <span>
+          <b>Cooldown: </b>{bindingEclipse.coolDownByLvl[0]} to {bindingEclipse.coolDownByLvl[17]}, based on lvl. <u>
+            Currently:</u> {bindingEclipse.coolDownByLvl[champLevel-1]}
+        </span>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
