@@ -65,7 +65,67 @@ var bindingEclipse = {
   bonusADRatioByLvl: [
     0.26, 0.26, 0.275, 0.275, 0.29, 0.29, 0.305, 0.305, 0.32,
     0.32, 0.335, 0.335, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35 
+  ],
+  coolDownByLvl: [
+    12, 12, 11.67, 11.67, 11.33, 11.33, 11, 11, 10.67,
+    10.67, 10.33, 10.33, 10, 10, 10, 10, 10, 10
   ]
+}
+
+var inf = {
+  type: 'Physical',
+  ADRatio: 0.1
+}
+
+var duskwave = {
+  type: 'Physical',
+  dmgByLvl: [
+    25, 25, 31.67, 31.67, 38.33, 38.33, 45, 45, 51.67,
+    51.67, 58.33, 58.33, 65, 65, 65, 65, 65, 65
+  ],
+  bonusADRatioByLvl: [
+    0.56, 0.56, 0.6, 0.6, 0.64, 0.64, 0.68, 0.68, 0.72,
+    0.72, 0.76, 0.76, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8
+  ],
+  APRatio: 0.7,
+  coolDownByLvl: [
+    9, 9, 8.5, 8.5, 8, 8, 7.5, 7.5, 7,
+    7, 6.5, 6.5, 6, 6, 6, 6, 6, 6
+  ]
+}
+
+var crescendum = {
+  type: 'Physical',
+  ADRatioByStack: [
+    0.15, 0.28, 0.435, 0.575, 0.7, 0.81, 0.905, 0.985, 1.05, 1.1,
+    1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6
+  ]
+}
+
+var sentry = {
+  type: 'Physical',
+  dmgByLvl: [
+    31, 31, 42.5, 42.5, 54, 54, 65.5, 65.5, 77,
+    77, 88.5, 88.5, 100, 100, 100, 100, 100, 100
+  ],
+  bonusADRatioByLvl: [
+    0.4, 0.4, 0.4333, 0.4333, 0.4667, 0.4667, 0.5, 0.5, 0.5333,
+    0.5333, 0.5667, 0.5667, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6
+  ],
+  APRatio: 0.5,
+  coolDownByLvl: [
+    9, 9, 8.5, 8.5, 8, 8, 7.5, 7.5, 7,
+    7, 6.5, 6.5, 6, 6, 6, 6, 6, 6
+  ]
+}
+
+var r = {
+  type: 'Physical',
+  dmg: [
+    125, 175, 225
+  ],
+  bonusADRatio: 0.2,
+  APRatio: 1
 }
 
 const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
@@ -222,7 +282,31 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </div>
       </div>
       <div className="abilityBoxLeft">
-
+        <span>
+          <b>Auto Attack Empower: </b><u>Physical Damage:</u> {inf.ADRatio} AD Ratio
+        </span>
+        <br></br>
+        <span>
+          <u>Total:</u> {Math.round(inf.ADRatio * totalStats.ad)}
+        </span>
+        <hr></hr>
+        <p>Duskwave</p>
+        <hr></hr>
+        <span>
+          <b>Physical Damage: </b>[{duskwave.dmgByLvl[0]} to {duskwave.dmgByLvl[17]}, based on lvl. <u>Currently:
+            </u> {duskwave.dmgByLvl[champLevel-1]}] (+{duskwave.bonusADRatioByLvl[0]} to {duskwave.bonusADRatioByLvl[17]} Bonus AD
+          Ratio, based on lvl. <u>Currently:</u> {duskwave.bonusADRatioByLvl[champLevel-1]}) (+{duskwave.APRatio} AP Ratio)
+        </span>
+        <br></br>
+        <span>
+          <u>Total:</u> {Math.round(duskwave.dmgByLvl[champLevel-1] + duskwave.bonusADRatioByLvl[champLevel-1] 
+          * (runes.ad + items.ad + bonus.ad) + duskwave.APRatio * (items.ap + runes.ap))}
+        </span>
+        <br></br><br></br>
+        <span>
+          <b>Cooldown: </b>{duskwave.coolDownByLvl[0]} to {duskwave.coolDownByLvl[17]}, based on lvl. <u>
+            Currently:</u> {duskwave.coolDownByLvl[champLevel-1]}
+        </span>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
@@ -234,20 +318,142 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </div>
       </div>
       <div className="abilityBoxLeft">
-
+      <span>
+          <b>Auto Attack Empower: </b><u>Physical Damage:</u> {crescendum.ADRatioByStack[0]} to {crescendum.ADRatioByStack[19]} AD Ratio, 
+          based on stacks:
+        </span>
+        <table>
+            <tr>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+              <th>5</th>
+              <th>6</th>
+              <th>7</th>
+              <th>8</th>
+              <th>9</th>
+              <th>10</th>
+              <th>11</th>
+              <th>12</th>
+              <th>13</th>
+              <th>14</th>
+              <th>15</th>
+              <th>16</th>
+              <th>17</th>
+              <th>18</th>
+              <th>19</th>
+              <th>20</th>
+            </tr>
+            <tr>
+              <th>{crescendum.ADRatioByStack[0]}</th>
+              <th>{crescendum.ADRatioByStack[1]}</th>
+              <th>{crescendum.ADRatioByStack[2]}</th>
+              <th>{crescendum.ADRatioByStack[3]}</th>
+              <th>{crescendum.ADRatioByStack[4]}</th>
+              <th>{crescendum.ADRatioByStack[5]}</th>
+              <th>{crescendum.ADRatioByStack[6]}</th>
+              <th>{crescendum.ADRatioByStack[7]}</th>
+              <th>{crescendum.ADRatioByStack[8]}</th>
+              <th>{crescendum.ADRatioByStack[9]}</th>
+              <th>{crescendum.ADRatioByStack[10]}</th>
+              <th>{crescendum.ADRatioByStack[11]}</th>
+              <th>{crescendum.ADRatioByStack[12]}</th>
+              <th>{crescendum.ADRatioByStack[13]}</th>
+              <th>{crescendum.ADRatioByStack[14]}</th>
+              <th>{crescendum.ADRatioByStack[15]}</th>
+              <th>{crescendum.ADRatioByStack[16]}</th>
+              <th>{crescendum.ADRatioByStack[17]}</th>
+              <th>{crescendum.ADRatioByStack[18]}</th>
+              <th>{crescendum.ADRatioByStack[19]}</th>
+            </tr>
+        </table>
+        <br></br>
+        <span>
+          <u>Total:</u>
+        </span>
+        <table>
+            <tr>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+              <th>5</th>
+              <th>6</th>
+              <th>7</th>
+              <th>8</th>
+              <th>9</th>
+              <th>10</th>
+              <th>11</th>
+              <th>12</th>
+              <th>13</th>
+              <th>14</th>
+              <th>15</th>
+              <th>16</th>
+              <th>17</th>
+              <th>18</th>
+              <th>19</th>
+              <th>20</th>
+            </tr>
+            <tr>
+              <th>{Math.round(crescendum.ADRatioByStack[0] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[1] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[2] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[3] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[4] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[5] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[6] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[7] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[8] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[9] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[10] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[11] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[12] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[13] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[14] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[15] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[16] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[17] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[18] * totalStats.ad)}</th>
+              <th>{Math.round(crescendum.ADRatioByStack[19] * totalStats.ad)}</th>
+            </tr>
+        </table>
+        <hr></hr>
+        <p>Sentry</p>
+        <hr></hr>
+        <span>
+          <u>Base Attack Speed:</u> 0.8
+        </span>
+        <br></br>
+        <span>
+          <b>Physical Damage per Attack: </b>[{sentry.dmgByLvl[0]} to {sentry.dmgByLvl[17]}, based on lvl. <u>Currently:
+            </u> {sentry.dmgByLvl[champLevel-1]}] (+{sentry.bonusADRatioByLvl[0]} to {sentry.bonusADRatioByLvl[17]} Bonus AD
+          Ratio, based on lvl. <u>Currently:</u> {sentry.bonusADRatioByLvl[champLevel-1]}) (+{sentry.APRatio} AP Ratio)
+        </span>
+        <br></br>
+        <span>
+          <u>Total:</u> {Math.round(sentry.dmgByLvl[champLevel-1] + sentry.bonusADRatioByLvl[champLevel-1] 
+          * (runes.ad + items.ad + bonus.ad) + sentry.APRatio * (items.ap + runes.ap))}
+        </span>
+        <br></br><br></br>
+        <span>
+          <b>Cooldown: </b>{sentry.coolDownByLvl[0]} to {sentry.coolDownByLvl[17]}, based on lvl. <u>
+            Currently:</u> {sentry.coolDownByLvl[champLevel-1]}
+        </span>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
         <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-          <p style={{margin: 0}}><b><u>R</u></b> - rank: </p>
+          <p style={{margin: 0}}><b><u>R</u></b></p>
         </div>
         <div className="spriteContainer">
           <img style={{marginLeft: '-300px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
       <div className="abilityBoxLeft">
-
-        
+        <span>
+          <b>Physical Damage: </b>[{r.dmg[0]}, {r.dmg[1]}, {r.dmg[2]}]
+        </span>
       </div>
     </div>
   )
