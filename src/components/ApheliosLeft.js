@@ -125,7 +125,24 @@ var r = {
     125, 175, 225
   ],
   bonusADRatio: 0.2,
-  APRatio: 1
+  APRatio: 1,
+  coolDown: [120, 110, 100],
+  calibrum: {
+    bonusDmg: [50, 80, 110]
+  },
+  severum: {
+    heal: [275, 400, 525]
+  },
+  infernum: {
+    dmg: [50, 100, 150],
+    bonusADRatio: 0.25,
+    splashRatio: 0.9
+  }
+};
+
+var champLvlIndex = {
+  1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0,
+  11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 2, 17: 2, 18: 2
 }
 
 const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
@@ -452,8 +469,54 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
       </div>
       <div className="abilityBoxLeft">
         <span>
-          <b>Physical Damage: </b>[{r.dmg[0]}, {r.dmg[1]}, {r.dmg[2]}]
+          <b>Physical Damage: </b>[{r.dmg[0]}, {r.dmg[1]}, {r.dmg[2]} at lvl 6, 11, 16] (+{r.bonusADRatio} Bonus AD Ratio) 
+          (+{r.APRatio} AP Ratio)
         </span>
+        <br></br>
+        <span>
+          <u>Total:</u> {Math.round(r.dmg[champLvlIndex[champLevel]] + r.bonusADRatio * (runes.ad + items.ad + bonus.ad)
+          + r.APRatio * (runes.ap + items.ap))}
+        </span>
+        <br></br><br></br>
+        <span>
+          <b>Cooldown: </b> [{r.coolDown[0]}, {r.coolDown[1]}, {r.coolDown[2]}]
+        </span>
+        <br></br>
+        <span>
+          <u>Currently:</u> {r.coolDown[champLvlIndex[champLevel]]}
+        </span>
+        <hr></hr>
+        <p>Calibrum</p>
+        <hr></hr>
+        <span>
+          <b>Bonus Physical Damage: </b>[{r.calibrum.bonusDmg[0]}, {r.calibrum.bonusDmg[1]}, {r.calibrum.bonusDmg[2]}]
+        </span>
+        <br></br>
+        <u>Currently:</u> {r.calibrum.bonusDmg[champLvlIndex[champLevel]]}
+        <hr></hr>
+        <p>Severum</p>
+        <hr></hr>
+        <span>
+          <b>Heal: </b> [{r.severum.heal[0]}, {r.severum.heal[1]}, {r.severum.heal[2]}]
+        </span>
+        <br></br>
+        <u>Currently:</u> {r.severum.heal[champLvlIndex[champLevel]]}
+        <hr></hr>
+        <p>Infernum</p>
+        <hr></hr>
+        <span>
+          <b>Physical Damage: </b>[{r.infernum.dmg[0]}, {r.infernum.dmg[1]}, {r.infernum.dmg[2]}] (+{r.infernum.bonusADRatio} Bonus 
+          AD Ratio)
+        </span>
+        <br></br>
+        <u>Total:</u> {Math.round(r.infernum.dmg[champLvlIndex[champLevel]] + r.infernum.bonusADRatio 
+        * (runes.ad + items.ad + bonus.ad))}
+        <br></br> 
+        Splashes for 90% damage. Enemy champions take damage from overlapping areas.
+        <hr></hr>
+        <p>Crescendum</p>
+        <hr></hr>
+        Return a Chakram for each enemy hit, plus an additional 5 from the first enemy champion hit.
       </div>
     </div>
   )
