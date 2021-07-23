@@ -250,6 +250,7 @@ class App extends Component {
   transformAbilities = ["passiveTransform", "QTransform", "WTransform", "ETransform", "RTransform"];
   images = {};
   portraits = {};
+  ksIcons = {};
   champNameLeft = '';
   champNameRight = '';
   champFileLeft = {
@@ -7568,7 +7569,6 @@ class App extends Component {
     };
 
     if (prevName === '' || prevName === 'Aphelios') {
-      console.log('aphelios check!')
       var hiddenArray = document.getElementsByClassName(`hidden${side}`);
       for (var i = 0; i < hiddenArray.length; i++) {
         hiddenArray[i].style.visibility = 'visible';
@@ -7577,6 +7577,8 @@ class App extends Component {
       this.rankedAbilities.map(rankedAbility => {
         document.getElementById(`${rankedAbility}Rank${side}`).value = 0;
       });
+      document.getElementsByClassName('keystone')[0].style.visibility = 'visible';
+      document.getElementsByClassName('keystone')[1].style.visibility = 'visible';
     };
 
     if (champName === 'Aphelios') {
@@ -8060,7 +8062,8 @@ class App extends Component {
     }
     this.portraits = importAll(require.context('./portraits/', false, /\.(png|jpe?g|svg)$/));
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
-  }
+    this.ksIcons = importAll(require.context('./ksicons/', false, /\.(png|jpe?g|svg)$/));
+  };
 
   render() {
     return (
@@ -8084,6 +8087,7 @@ class App extends Component {
             <input type="search" placeholder='Champion Name' onChange={this.onSearchChange}
             style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={this.onListBlur2} />
           </div>
+
           <div style={{display: 'flex'}}>
             <div style={{width: 120, display: 'inline-block'}} >
             <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } onChampClick={this.onChampClick}
@@ -8095,9 +8099,34 @@ class App extends Component {
             listMouseEnter={this.listMouseEnter2} listMouseLeave={this.listMouseLeave2} />
             </div>
           </div>
+
           <div className="flexAround" style={{marginTop: '10px'}}>
             <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
             alt='Champion Icon' style={{position: 'relative'}} />
+
+            <div className='keystone'>
+              <img src={`${this.ksIcons[0]}`} />
+              <img src={`${this.ksIcons[1]}`} />
+              <img src={`${this.ksIcons[2]}`} />
+              <img src={`${this.ksIcons[3]}`} />
+              <hr style={{margin: 0}}></hr>
+              <img src={`${this.ksIcons[4]}`} />
+              <img src={`${this.ksIcons[5]}`} />
+              <img src={`${this.ksIcons[6]}`} />
+              <img src={`${this.ksIcons[7]}`} />
+              <hr style={{margin: 0}}></hr>
+              <div>
+                <img src={`${this.ksIcons[8]}`} />
+                <img src={`${this.ksIcons[9]}`} />
+                <img src={`${this.ksIcons[10]}`} />
+              </div>
+              <hr style={{margin: 0}}></hr>
+              <div>
+                <img src={`${this.ksIcons[11]}`} />
+                <img src={`${this.ksIcons[12]}`} />
+                <img src={`${this.ksIcons[13]}`} />
+              </div>
+            </div>
           
             <div className='runeBox'>
               <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
@@ -8112,7 +8141,9 @@ class App extends Component {
               <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune7'/>
               <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
             </div>
+
             <img src={versus} alt='Versus Icon' height="64px" width="64px" style={{alignSelf: 'center'}} />
+
             <div className='runeBox'>
               <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
               <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune10'/>
@@ -8126,6 +8157,31 @@ class App extends Component {
               <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune16'/>
               <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
             </div>
+
+            <div className='keystone'>
+              <img src={`${this.ksIcons[0]}`} />
+              <img src={`${this.ksIcons[1]}`} />
+              <img src={`${this.ksIcons[2]}`} />
+              <img src={`${this.ksIcons[3]}`} />
+              <hr style={{margin: 0}}></hr>
+              <img src={`${this.ksIcons[4]}`} />
+              <img src={`${this.ksIcons[5]}`} />
+              <img src={`${this.ksIcons[6]}`} />
+              <img src={`${this.ksIcons[7]}`} />
+              <hr style={{margin: 0}}></hr>
+              <div>
+                <img src={`${this.ksIcons[8]}`} />
+                <img src={`${this.ksIcons[9]}`} />
+                <img src={`${this.ksIcons[10]}`} />
+              </div>
+              <hr style={{margin: 0}}></hr>
+              <div>
+                <img src={`${this.ksIcons[11]}`} />
+                <img src={`${this.ksIcons[12]}`} />
+                <img src={`${this.ksIcons[13]}`} />
+              </div>
+            </div>
+
             <img id='champIconRight' src={ defaultChampIcon } height="120px" width="120px"
             alt='Champion Icon' style={{position: 'relative'}}/>
           </div>

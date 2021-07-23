@@ -89,6 +89,21 @@ li + li {
   display: none;
 }
 
+.keystone {
+  width: 128px;
+  visibility: hidden;
+}
+
+.keystone img {
+  height: 32px;
+  width: 32px;
+}
+
+.keystone div {
+  display: flex; 
+  justify-content: space-around;
+}
+
 .runeBox {
   width: 80px;
   height: 80px;
