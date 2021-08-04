@@ -105,6 +105,18 @@ class App extends Component {
         manaRegen: 0,
         lethal: 0
       },
+      keystoneLeft: '',
+      keystoneIDLeft: {
+        title: '',
+        index: '',
+        text: ''
+      },
+      keystoneRight: '',
+      keystoneIDRight: {
+        title: '',
+        index: '',
+        text: ''
+      },
       aphelLeft: {
         ad: '[4, 8, 12, 16, 20, 24]',
         as: '[0.06, 0.12, 0.18, 0.24, 0.3, 0.36]',
@@ -8040,7 +8052,24 @@ class App extends Component {
     this.setState({ filteredChampsRight: [] });
   }
 
-  homeToggle =() => {
+  pressTheAttack = (side) => {
+    var dmgByLvl = [
+      40,48.24,56.47,64.71,72.94,81.18,89.41,97.65,105.88,
+      114.12,122.35,130.59,138.82,147.06,155.29,163.53,171.76,180
+    ];
+    var champLevel = this[`level${side}`] - 1;
+    this.setState({
+      [`keystone${side}`]: <div style={{marginLeft: 0}}>
+        Adaptive Damage: 40 to 180, based on lvl. Currently: {dmgByLvl[champLevel]}
+      </div>,
+      [`keystoneID${side}`]: {
+        index: 0,
+        title: 'Press the Attack: '
+      }
+    })
+  }
+
+  homeToggle = () => {
     if (this.state.about === false) {
       this.setState({
         about: true
@@ -8104,28 +8133,33 @@ class App extends Component {
             <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
             alt='Champion Icon' style={{position: 'relative'}} />
 
-            <div className='keystone'>
-              <img src={`${this.ksIcons[0]}`} />
-              <img src={`${this.ksIcons[1]}`} />
-              <img src={`${this.ksIcons[2]}`} />
-              <img src={`${this.ksIcons[3]}`} />
-              <hr style={{margin: 0}}></hr>
-              <img src={`${this.ksIcons[4]}`} />
-              <img src={`${this.ksIcons[5]}`} />
-              <img src={`${this.ksIcons[6]}`} />
-              <img src={`${this.ksIcons[7]}`} />
-              <hr style={{margin: 0}}></hr>
-              <div>
-                <img src={`${this.ksIcons[8]}`} />
-                <img src={`${this.ksIcons[9]}`} />
-                <img src={`${this.ksIcons[10]}`} />
+            <div>
+              <div className='keystone'>
+                <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Left')} />
+                <img src={`${this.ksIcons[1]}`} />
+                <img src={`${this.ksIcons[2]}`} />
+                <img src={`${this.ksIcons[3]}`} />
+                <hr style={{margin: 0}}></hr>
+                <img src={`${this.ksIcons[4]}`} />
+                <img src={`${this.ksIcons[5]}`} />
+                <img src={`${this.ksIcons[6]}`} />
+                <img src={`${this.ksIcons[7]}`} />
+                <hr style={{margin: 0}}></hr>
+                <div>
+                  <img src={`${this.ksIcons[8]}`} />
+                  <img src={`${this.ksIcons[9]}`} />
+                  <img src={`${this.ksIcons[10]}`} />
+                </div>
+                <hr style={{margin: 0}}></hr>
+                <div>
+                  <img src={`${this.ksIcons[11]}`} />
+                  <img src={`${this.ksIcons[12]}`} />
+                  <img src={`${this.ksIcons[13]}`} />
+                </div>
               </div>
-              <hr style={{margin: 0}}></hr>
-              <div>
-                <img src={`${this.ksIcons[11]}`} />
-                <img src={`${this.ksIcons[12]}`} />
-                <img src={`${this.ksIcons[13]}`} />
-              </div>
+
+              <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDLeft.title}</u>
+              {this.state.keystoneLeft} 
             </div>
           
             <div className='runeBox'>
@@ -8158,28 +8192,32 @@ class App extends Component {
               <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
             </div>
 
-            <div className='keystone'>
-              <img src={`${this.ksIcons[0]}`} />
-              <img src={`${this.ksIcons[1]}`} />
-              <img src={`${this.ksIcons[2]}`} />
-              <img src={`${this.ksIcons[3]}`} />
-              <hr style={{margin: 0}}></hr>
-              <img src={`${this.ksIcons[4]}`} />
-              <img src={`${this.ksIcons[5]}`} />
-              <img src={`${this.ksIcons[6]}`} />
-              <img src={`${this.ksIcons[7]}`} />
-              <hr style={{margin: 0}}></hr>
-              <div>
-                <img src={`${this.ksIcons[8]}`} />
-                <img src={`${this.ksIcons[9]}`} />
-                <img src={`${this.ksIcons[10]}`} />
+            <div>
+              <div className='keystone'>
+                <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Right')} />
+                <img src={`${this.ksIcons[1]}`} />
+                <img src={`${this.ksIcons[2]}`} />
+                <img src={`${this.ksIcons[3]}`} />
+                <hr style={{margin: 0}}></hr>
+                <img src={`${this.ksIcons[4]}`} />
+                <img src={`${this.ksIcons[5]}`} />
+                <img src={`${this.ksIcons[6]}`} />
+                <img src={`${this.ksIcons[7]}`} />
+                <hr style={{margin: 0}}></hr>
+                <div>
+                  <img src={`${this.ksIcons[8]}`} />
+                  <img src={`${this.ksIcons[9]}`} />
+                  <img src={`${this.ksIcons[10]}`} />
+                </div>
+                <hr style={{margin: 0}}></hr>
+                <div>
+                  <img src={`${this.ksIcons[11]}`} />
+                  <img src={`${this.ksIcons[12]}`} />
+                  <img src={`${this.ksIcons[13]}`} />
+                </div>
               </div>
-              <hr style={{margin: 0}}></hr>
-              <div>
-                <img src={`${this.ksIcons[11]}`} />
-                <img src={`${this.ksIcons[12]}`} />
-                <img src={`${this.ksIcons[13]}`} />
-              </div>
+
+              {this.state.keystoneRight}
             </div>
 
             <img id='champIconRight' src={ defaultChampIcon } height="120px" width="120px"
