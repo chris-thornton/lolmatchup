@@ -90,13 +90,20 @@ li + li {
 }
 
 .keystone {
-  width: 128px;
+  flex-direction: row;
   visibility: hidden;
 }
 
 .keystone img {
   height: 32px;
   width: 32px;
+}
+
+.keystone hr {
+  width: 2px;
+  height: 32px;
+  display: inline-block;
+  margin-bottom: 0;
 }
 
 .keystone div {

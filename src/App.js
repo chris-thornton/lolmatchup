@@ -8132,35 +8132,6 @@ class App extends Component {
           <div className="flexAround" style={{marginTop: '10px'}}>
             <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
             alt='Champion Icon' style={{position: 'relative'}} />
-
-            <div>
-              <div className='keystone'>
-                <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Left')} />
-                <img src={`${this.ksIcons[1]}`} />
-                <img src={`${this.ksIcons[2]}`} />
-                <img src={`${this.ksIcons[3]}`} />
-                <hr style={{margin: 0}}></hr>
-                <img src={`${this.ksIcons[4]}`} />
-                <img src={`${this.ksIcons[5]}`} />
-                <img src={`${this.ksIcons[6]}`} />
-                <img src={`${this.ksIcons[7]}`} />
-                <hr style={{margin: 0}}></hr>
-                <div>
-                  <img src={`${this.ksIcons[8]}`} />
-                  <img src={`${this.ksIcons[9]}`} />
-                  <img src={`${this.ksIcons[10]}`} />
-                </div>
-                <hr style={{margin: 0}}></hr>
-                <div>
-                  <img src={`${this.ksIcons[11]}`} />
-                  <img src={`${this.ksIcons[12]}`} />
-                  <img src={`${this.ksIcons[13]}`} />
-                </div>
-              </div>
-
-              <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDLeft.title}</u>
-              {this.state.keystoneLeft} 
-            </div>
           
             <div className='runeBox'>
               <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
@@ -8192,37 +8163,78 @@ class App extends Component {
               <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
             </div>
 
-            <div>
-              <div className='keystone'>
-                <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Right')} />
-                <img src={`${this.ksIcons[1]}`} />
-                <img src={`${this.ksIcons[2]}`} />
-                <img src={`${this.ksIcons[3]}`} />
-                <hr style={{margin: 0}}></hr>
-                <img src={`${this.ksIcons[4]}`} />
-                <img src={`${this.ksIcons[5]}`} />
-                <img src={`${this.ksIcons[6]}`} />
-                <img src={`${this.ksIcons[7]}`} />
-                <hr style={{margin: 0}}></hr>
-                <div>
-                  <img src={`${this.ksIcons[8]}`} />
-                  <img src={`${this.ksIcons[9]}`} />
-                  <img src={`${this.ksIcons[10]}`} />
-                </div>
-                <hr style={{margin: 0}}></hr>
-                <div>
-                  <img src={`${this.ksIcons[11]}`} />
-                  <img src={`${this.ksIcons[12]}`} />
-                  <img src={`${this.ksIcons[13]}`} />
-                </div>
-              </div>
-
-              {this.state.keystoneRight}
-            </div>
-
             <img id='champIconRight' src={ defaultChampIcon } height="120px" width="120px"
             alt='Champion Icon' style={{position: 'relative'}}/>
           </div>
+
+          <div className="flexDisplay">
+            <div>
+              <div className='keystone'>
+                  
+                  <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Left')} />
+                  <img src={`${this.ksIcons[1]}`} />
+                  <img src={`${this.ksIcons[2]}`} />
+                  <img src={`${this.ksIcons[3]}`} />
+                
+                <hr></hr>
+                
+                  <img src={`${this.ksIcons[4]}`} />
+                  <img src={`${this.ksIcons[5]}`} />
+                  <img src={`${this.ksIcons[6]}`} />
+                  <img src={`${this.ksIcons[7]}`} />
+                
+                <hr></hr>
+                
+                  <img src={`${this.ksIcons[8]}`} />
+                  <img src={`${this.ksIcons[9]}`} />
+                  <img src={`${this.ksIcons[10]}`} />
+                
+                <hr></hr>
+                
+                  <img src={`${this.ksIcons[11]}`} />
+                  <img src={`${this.ksIcons[12]}`} />
+                  <img src={`${this.ksIcons[13]}`} />
+                
+              </div>
+
+              <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDLeft.title}</u>
+              {this.state.keystoneLeft} 
+            </div>
+
+            <div>
+              <div className='keystone'>
+                
+                  <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Right')} />
+                  <img src={`${this.ksIcons[1]}`} />
+                  <img src={`${this.ksIcons[2]}`} />
+                  <img src={`${this.ksIcons[3]}`} />
+                
+                <hr></hr>
+                
+                  <img src={`${this.ksIcons[4]}`} />
+                  <img src={`${this.ksIcons[5]}`} />
+                  <img src={`${this.ksIcons[6]}`} />
+                  <img src={`${this.ksIcons[7]}`} />
+                
+                <hr></hr>
+                
+                  <img src={`${this.ksIcons[8]}`} />
+                  <img src={`${this.ksIcons[9]}`} />
+                  <img src={`${this.ksIcons[10]}`} />
+                
+                <hr></hr>
+                
+                  <img src={`${this.ksIcons[11]}`} />
+                  <img src={`${this.ksIcons[12]}`} />
+                  <img src={`${this.ksIcons[13]}`} />
+                
+              </div>
+
+              <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDRight.title}</u>
+              {this.state.keystoneRight} 
+            </div>
+          </div>
+
           <div className="flexDisplay">
             <div className="hiddenLeft">
               <span>Level: </span>
