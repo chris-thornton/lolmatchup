@@ -1916,12 +1916,8 @@ class App extends Component {
               };
               if (path["critChancePer20Stacks"]) {
                 singleBreak();
-                critU = document.createElement('u');
-                critU.innerText = 'Bonus Crit Chance Ratio';
-                abilityDiv.appendChild(critU);
-                var text = document.createTextNode(': ' + path["critChancePer20Stacks"] 
-                + ' per 20 Stacks');
-                abilityDiv.appendChild(text);
+                underLine('Bonus Crit Chance Ratio');
+                addText(path["critChancePer20Stacks"] + ' per 20 Stacks');
               }
               if (path["lifestealPerOverCrit"]) {
                 singleBreak();
@@ -7591,6 +7587,8 @@ class App extends Component {
       });
       document.getElementsByClassName('keystone')[0].style.visibility = 'visible';
       document.getElementsByClassName('keystone')[1].style.visibility = 'visible';
+      document.getElementById('ksToggleLeft').style.visibility = 'visible';
+      document.getElementById('ksToggleRight').style.visibility = 'visible';
     };
 
     if (champName === 'Aphelios') {
@@ -8085,6 +8083,16 @@ class App extends Component {
     }
   };
 
+  keystoneToggle = (side) => {
+    if (document.getElementById(`ksToggle${side}`).textContent === 'Hide Keystones') {
+      document.getElementById(`ksToggle${side}`).textContent = 'Show Keystones';
+      document.getElementById(`ks${side}`).style.visibility = 'hidden';
+    } else {
+      document.getElementById(`ksToggle${side}`).textContent = 'Hide Keystones';
+      document.getElementById(`ks${side}`).style.visibility = 'visible';
+    }
+  };
+
   componentDidMount() {
     function importAll(r) {
       return r.keys().map(r);
@@ -8169,7 +8177,8 @@ class App extends Component {
 
           <div className="flexDisplay">
             <div>
-              <div className='keystone'>
+              <button type='button' id='ksToggleLeft' onClick={(side) => this.keystoneToggle('Left')}>Hide Keystones</button>
+              <div className='keystone' id='ksLeft'>
                   
                   <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Left')} />
                   <img src={`${this.ksIcons[1]}`} />
@@ -8202,7 +8211,8 @@ class App extends Component {
             </div>
 
             <div>
-              <div className='keystone'>
+              <button type='button' id='ksToggleRight' onClick={(side) => this.keystoneToggle('Right')}>Hide Keystones</button>
+              <div className='keystone' id='ksRight'>
                 
                   <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Right')} />
                   <img src={`${this.ksIcons[1]}`} />
