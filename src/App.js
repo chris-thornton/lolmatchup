@@ -105,16 +105,24 @@ class App extends Component {
         manaRegen: 0,
         lethal: 0
       },
-      keystoneLeft: '',
+      keystoneLeft: 'Adaptive Damage: 40 to 180, based on level.',
+      ksArrayLeft: [40,48,56,65,73,81,89,98,106,
+        114,122,131,139,147,155,164,172,180],
+      ksBonusADRatioLeft: 0,
+      ksAPRatioLeft: 0,
       keystoneIDLeft: {
-        title: '',
-        index: '',
+        title: 'Press the Attack:',
+        index: 0,
         text: ''
       },
-      keystoneRight: '',
+      keystoneRight: 'Adaptive Damage: 40 to 180, based on level.',
+      ksArrayRight: [40,48,56,65,73,81,89,98,106,
+        114,122,131,139,147,155,164,172,180],
+      ksBonusADRatioRight: 0,
+      ksAPRatioRight: 0,
       keystoneIDRight: {
-        title: '',
-        index: '',
+        title: 'Press the Attack:',
+        index: 0,
         text: ''
       },
       aphelLeft: {
@@ -7585,8 +7593,8 @@ class App extends Component {
       this.rankedAbilities.map(rankedAbility => {
         document.getElementById(`${rankedAbility}Rank${side}`).value = 0;
       });
-      document.getElementsByClassName('keystone')[0].style.visibility = 'visible';
-      document.getElementsByClassName('keystone')[1].style.visibility = 'visible';
+      document.getElementById('ksLeft').style.visibility = 'visible';
+      document.getElementById('ksRight').style.visibility = 'visible';
       document.getElementById('ksToggleLeft').style.visibility = 'visible';
       document.getElementById('ksToggleRight').style.visibility = 'visible';
     };
@@ -8052,19 +8060,25 @@ class App extends Component {
 
   pressTheAttack = (side) => {
     var dmgByLvl = [
-      40,48.24,56.47,64.71,72.94,81.18,89.41,97.65,105.88,
-      114.12,122.35,130.59,138.82,147.06,155.29,163.53,171.76,180
+      40,48,56,65,73,81,89,98,106,
+      114,122,131,139,147,155,164,172,180
     ];
     var champLevel = this[`level${side}`] - 1;
     this.setState({
-      [`keystone${side}`]: <div style={{marginLeft: 0}}>
-        Adaptive Damage: 40 to 180, based on lvl. Currently: {dmgByLvl[champLevel]}
-      </div>,
+      [`keystone${side}`]: 
+        'Adaptive Damage: 40 to 180, based on level.',
       [`keystoneID${side}`]: {
         index: 0,
-        title: 'Press the Attack: '
-      }
+        title: 'Press the Attack:'
+      },
+      [`ksArray${side}`]: dmgByLvl,
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0
     })
+  }
+
+  lethalTempo = (side) => {
+    
   }
 
   homeToggle = () => {
@@ -8178,70 +8192,73 @@ class App extends Component {
           <div className="flexDisplay">
             <div>
               <button type='button' id='ksToggleLeft' onClick={(side) => this.keystoneToggle('Left')}>Hide Keystones</button>
-              <div className='keystone' id='ksLeft'>
-                  
-                  <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Left')} />
-                  <img src={`${this.ksIcons[1]}`} />
-                  <img src={`${this.ksIcons[2]}`} />
-                  <img src={`${this.ksIcons[3]}`} />
-                
-                <hr></hr>
-                
-                  <img src={`${this.ksIcons[4]}`} />
-                  <img src={`${this.ksIcons[5]}`} />
-                  <img src={`${this.ksIcons[6]}`} />
-                  <img src={`${this.ksIcons[7]}`} />
-                
-                <hr></hr>
-                
-                  <img src={`${this.ksIcons[8]}`} />
-                  <img src={`${this.ksIcons[9]}`} />
-                  <img src={`${this.ksIcons[10]}`} />
-                
-                <hr></hr>
-                
-                  <img src={`${this.ksIcons[11]}`} />
-                  <img src={`${this.ksIcons[12]}`} />
-                  <img src={`${this.ksIcons[13]}`} />
-                
-              </div>
 
-              <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDLeft.title}</u>
-              {this.state.keystoneLeft} 
+              <div id='ksLeft'>
+                <div className='keystone'>
+                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Left')} />
+                  <img className='precision' src={`${this.ksIcons[1]}`} />
+                  <img className='precision' src={`${this.ksIcons[2]}`} />
+                  <img className='precision' src={`${this.ksIcons[3]}`} />
+                
+                  <hr></hr>
+                
+                  <img className='domination' src={`${this.ksIcons[4]}`} />
+                  <img className='domination' src={`${this.ksIcons[5]}`} />
+                  <img className='domination' src={`${this.ksIcons[6]}`} />
+                  <img className='domination' src={`${this.ksIcons[7]}`} />
+                
+                  <hr></hr>
+                
+                  <img className='sorcery' src={`${this.ksIcons[8]}`} />
+                  <img className='sorcery' src={`${this.ksIcons[9]}`} />
+                  <img className='sorcery' src={`${this.ksIcons[10]}`} />
+                
+                  <hr></hr>
+                
+                  <img className='resolve' src={`${this.ksIcons[11]}`} />
+                  <img className='resolve' src={`${this.ksIcons[12]}`} />
+                  <img className='resolve' src={`${this.ksIcons[13]}`} />
+                </div>
+
+                <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDLeft.title}</u> {this.state.keystoneLeft}
+                <br></br><span> Current Value</span>: {this.state.ksArrayLeft[this.levelLeft - 1]}
+                
+              </div> 
             </div>
 
             <div>
               <button type='button' id='ksToggleRight' onClick={(side) => this.keystoneToggle('Right')}>Hide Keystones</button>
-              <div className='keystone' id='ksRight'>
-                
-                  <img src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Right')} />
-                  <img src={`${this.ksIcons[1]}`} />
-                  <img src={`${this.ksIcons[2]}`} />
-                  <img src={`${this.ksIcons[3]}`} />
-                
-                <hr></hr>
-                
-                  <img src={`${this.ksIcons[4]}`} />
-                  <img src={`${this.ksIcons[5]}`} />
-                  <img src={`${this.ksIcons[6]}`} />
-                  <img src={`${this.ksIcons[7]}`} />
-                
-                <hr></hr>
-                
-                  <img src={`${this.ksIcons[8]}`} />
-                  <img src={`${this.ksIcons[9]}`} />
-                  <img src={`${this.ksIcons[10]}`} />
-                
-                <hr></hr>
-                
-                  <img src={`${this.ksIcons[11]}`} />
-                  <img src={`${this.ksIcons[12]}`} />
-                  <img src={`${this.ksIcons[13]}`} />
-                
-              </div>
 
-              <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDRight.title}</u>
-              {this.state.keystoneRight} 
+              <div id='ksRight'>
+                <div className='keystone'>
+                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Right')} />
+                  <img className='precision' src={`${this.ksIcons[1]}`} />
+                  <img className='precision' src={`${this.ksIcons[2]}`} />
+                  <img className='precision' src={`${this.ksIcons[3]}`} />
+                
+                  <hr></hr>
+                
+                  <img className='domination' src={`${this.ksIcons[4]}`} />
+                  <img className='domination' src={`${this.ksIcons[5]}`} />
+                  <img className='domination' src={`${this.ksIcons[6]}`} />
+                  <img className='domination' src={`${this.ksIcons[7]}`} />
+                
+                  <hr></hr>
+                
+                  <img className='sorcery' src={`${this.ksIcons[8]}`} />
+                  <img className='sorcery' src={`${this.ksIcons[9]}`} />
+                  <img className='sorcery' src={`${this.ksIcons[10]}`} />
+                
+                  <hr></hr>
+                
+                  <img className='resolve' src={`${this.ksIcons[11]}`} />
+                  <img className='resolve' src={`${this.ksIcons[12]}`} />
+                  <img className='resolve' src={`${this.ksIcons[13]}`} />
+                </div>
+
+                <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDRight.title}</u>
+                {this.state.keystoneRight}
+              </div>
             </div>
           </div>
 
