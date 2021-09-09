@@ -93,6 +93,10 @@ li + li {
   visibility: hidden;
 }
 
+#ksLeft u, #ksRight u {
+  text-decoration-color: #f9b54a;
+}
+
 .keystone {
   flex-direction: row;
   margin-top: 5px;

@@ -105,25 +105,27 @@ class App extends Component {
         manaRegen: 0,
         lethal: 0
       },
-      keystoneLeft: 'Adaptive Damage: 40 to 180, based on level.',
+      keystoneLeft: '40 to 180, based on level.',
       ksArrayLeft: [40,48,56,65,73,81,89,98,106,
         114,122,131,139,147,155,164,172,180],
       ksBonusADRatioLeft: 0,
       ksAPRatioLeft: 0,
       keystoneIDLeft: {
-        title: 'Press the Attack:',
+        title: 'Press the Attack',
         index: 0,
-        text: ''
+        text: '',
+        type: 'Adaptive Damage'
       },
-      keystoneRight: 'Adaptive Damage: 40 to 180, based on level.',
+      keystoneRight: '40 to 180, based on level.',
       ksArrayRight: [40,48,56,65,73,81,89,98,106,
         114,122,131,139,147,155,164,172,180],
       ksBonusADRatioRight: 0,
       ksAPRatioRight: 0,
       keystoneIDRight: {
-        title: 'Press the Attack:',
+        title: 'Press the Attack',
         index: 0,
-        text: ''
+        text: '',
+        type: 'Adaptive Damage'
       },
       aphelLeft: {
         ad: '[4, 8, 12, 16, 20, 24]',
@@ -8066,10 +8068,11 @@ class App extends Component {
     var champLevel = this[`level${side}`] - 1;
     this.setState({
       [`keystone${side}`]: 
-        'Adaptive Damage: 40 to 180, based on level.',
+        '40 to 180, based on level.',
       [`keystoneID${side}`]: {
         index: 0,
-        title: 'Press the Attack:'
+        title: 'Press the Attack',
+        type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0,
@@ -8078,7 +8081,9 @@ class App extends Component {
   }
 
   lethalTempo = (side) => {
-    
+    var asByLvl = [
+      
+    ]
   }
 
   homeToggle = () => {
@@ -8196,7 +8201,7 @@ class App extends Component {
               <div id='ksLeft'>
                 <div className='keystone'>
                   <img className='precision' src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Left')} />
-                  <img className='precision' src={`${this.ksIcons[1]}`} />
+                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={(side) => this.lethalTempo('Left')} />
                   <img className='precision' src={`${this.ksIcons[2]}`} />
                   <img className='precision' src={`${this.ksIcons[3]}`} />
                 
@@ -8220,8 +8225,12 @@ class App extends Component {
                   <img className='resolve' src={`${this.ksIcons[13]}`} />
                 </div>
 
-                <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDLeft.title}</u> {this.state.keystoneLeft}
-                <br></br><span> Current Value</span>: {this.state.ksArrayLeft[this.levelLeft - 1]}
+                <b style={{color: '#ffffb9'}}>{this.state.keystoneIDLeft.title}</b>
+                
+                <div style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
+                  <u>{this.state.keystoneIDLeft.type}</u>: {this.state.keystoneLeft}
+                  <br></br><u> Current Value</u>: {this.state.ksArrayLeft[this.levelLeft - 1] + this.state.ksAPRatioLeft}
+                </div>
                 
               </div> 
             </div>
@@ -8232,7 +8241,7 @@ class App extends Component {
               <div id='ksRight'>
                 <div className='keystone'>
                   <img className='precision' src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Right')} />
-                  <img className='precision' src={`${this.ksIcons[1]}`} />
+                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={(side) => this.lethalTempo('Right')} />
                   <img className='precision' src={`${this.ksIcons[2]}`} />
                   <img className='precision' src={`${this.ksIcons[3]}`} />
                 
@@ -8257,19 +8266,20 @@ class App extends Component {
                 </div>
 
                 <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDRight.title}</u>
-                {this.state.keystoneRight}
+                <br></br>{this.state.keystoneRight}
+                <br></br><span> Current Value</span>: {this.state.ksArrayRight[this.levelRight - 1] + this.state.ksAPRatioRight}
               </div>
             </div>
           </div>
 
-          <div className="flexDisplay">
+          <div className="flexDisplay" style={{marginTop: '5px'}}>
             <div className="hiddenLeft">
-              <span>Level: </span>
+              <span style={{color: '#ffffb9'}}>Champion Level: </span>
               <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px"}}
               onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
             </div>
             <div className="hiddenRight">
-              <span>Level: </span>
+              <span style={{color: '#ffffb9'}}>Champion Level: </span>
               <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px"}}
               onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
             </div>
