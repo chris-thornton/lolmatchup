@@ -110,6 +110,7 @@ class App extends Component {
         114,122,131,139,147,155,164,172,180],
       ksBonusADRatioLeft: 0,
       ksAPRatioLeft: 0,
+      ksCDLeft: 6,
       keystoneIDLeft: {
         title: 'Press the Attack',
         index: 0,
@@ -121,6 +122,7 @@ class App extends Component {
         114,122,131,139,147,155,164,172,180],
       ksBonusADRatioRight: 0,
       ksAPRatioRight: 0,
+      ksCDRight: 6,
       keystoneIDRight: {
         title: 'Press the Attack',
         index: 0,
@@ -8065,7 +8067,6 @@ class App extends Component {
       40,48,56,65,73,81,89,98,106,
       114,122,131,139,147,155,164,172,180
     ];
-    var champLevel = this[`level${side}`] - 1;
     this.setState({
       [`keystone${side}`]: 
         '40 to 180, based on level.',
@@ -8076,15 +8077,70 @@ class App extends Component {
       },
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0,
-      [`ksAPRatio${side}`]: 0
+      [`ksAPRatio${side}`]: 0,
+      [`ksCD${side}`]: 6
     })
-  }
+  };
 
   lethalTempo = (side) => {
     var asByLvl = [
-      
-    ]
-  }
+      0.4,0.4412,0.4824,0.5235,0.5647,0.6059,0.6471,0.6882,0.7294,
+      0.7706,0.8118,0.8529,0.8941,0.9353,0.9765,1.0176,1.0588,1.1
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '0.4 to 1.1, based on level. Lasts 3 seconds, extended to 6 by attacking an enemy champion.',
+      [`keystoneID${side}`]: {
+        index: 1,
+        title: 'Lethal Tempo',
+        type: 'Attack Speed Ratio'
+      },
+      [`ksArray${side}`]: asByLvl,
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0,
+      [`ksCD${side}`]: 6
+    })
+  };
+
+  fleetFootwork = (side) => {
+    var healByLvl = [
+      10,15.29,20.59,25.88,31.18,36.47,41.76,47.06,52.35,
+      57.65,62.94,68.24,73.53,78.82,84.12,89.41,94.71,100
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '10 to 100, based on level +(0.4 Bonus AD Ratio) +(0.3 AP Ratio).',
+      [`keystoneID${side}`]: {
+        index: 2,
+        title: 'Fleet Footwork',
+        type: 'Heal'
+      },
+      [`ksArray${side}`]: healByLvl,
+      [`ksBonusADRatio${side}`]: 0.4,
+      [`ksAPRatio${side}`]: 0.3,
+      [`ksCD${side}`]: 'Energized'
+    })
+  };
+
+  conqueror = (side) => {
+    var forceByLvl = [
+      2,2.18,2.35,2.53,2.71,2.88,3.06,3.24,3.41,
+      3.59,3.76,3.94,4.12,4.29,4.47,4.65,4.82,5
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '2 to 5 per stack, based on level. Stacks up to 12 times for 24-60 max.',
+      [`keystoneID${side}`]: {
+        index: 3,
+        title: 'Conqueror',
+        type: 'Adaptive Force'
+      },
+      [`ksArray${side}`]: forceByLvl,
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0,
+      [`ksCD${side}`]: 'None'
+    })
+  };
 
   homeToggle = () => {
     if (this.state.about === false) {
@@ -8202,8 +8258,8 @@ class App extends Component {
                 <div className='keystone'>
                   <img className='precision' src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Left')} />
                   <img className='precision' src={`${this.ksIcons[1]}`} onClick={(side) => this.lethalTempo('Left')} />
-                  <img className='precision' src={`${this.ksIcons[2]}`} />
-                  <img className='precision' src={`${this.ksIcons[3]}`} />
+                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={(side) => this.fleetFootwork('Left')} />
+                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={(side) => this.conqueror('Left')} />
                 
                   <hr></hr>
                 
@@ -8229,7 +8285,8 @@ class App extends Component {
                 
                 <div style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
                   <u>{this.state.keystoneIDLeft.type}</u>: {this.state.keystoneLeft}
-                  <br></br><u> Current Value</u>: {this.state.ksArrayLeft[this.levelLeft - 1] + this.state.ksAPRatioLeft}
+                  <br></br><u>Current Value</u>: {this.state.ksArrayLeft[this.levelLeft - 1] + this.state.ksAPRatioLeft}
+                  <br></br><u>Cooldown</u>: {this.state.ksCDLeft}
                 </div>
                 
               </div> 
@@ -8242,8 +8299,8 @@ class App extends Component {
                 <div className='keystone'>
                   <img className='precision' src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Right')} />
                   <img className='precision' src={`${this.ksIcons[1]}`} onClick={(side) => this.lethalTempo('Right')} />
-                  <img className='precision' src={`${this.ksIcons[2]}`} />
-                  <img className='precision' src={`${this.ksIcons[3]}`} />
+                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={(side) => this.fleetFootwork('Right')} />
+                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={(side) => this.conqueror('Right')} />
                 
                   <hr></hr>
                 
@@ -8265,9 +8322,14 @@ class App extends Component {
                   <img className='resolve' src={`${this.ksIcons[13]}`} />
                 </div>
 
-                <u style={{color: '#ffffb9', textDecorationColor: 'white'}}>{this.state.keystoneIDRight.title}</u>
-                <br></br>{this.state.keystoneRight}
-                <br></br><span> Current Value</span>: {this.state.ksArrayRight[this.levelRight - 1] + this.state.ksAPRatioRight}
+                <b style={{color: '#ffffb9'}}>{this.state.keystoneIDRight.title}</b>
+                
+                <div style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
+                  <u>{this.state.keystoneIDRight.type}</u>: {this.state.keystoneRight}
+                  <br></br><u>Current Value</u>: {this.state.ksArrayRight[this.levelRight - 1] + this.state.ksAPRatioRight}
+                  <br></br><u>Cooldown</u>: {this.state.ksCDRight}
+                </div>
+
               </div>
             </div>
           </div>
