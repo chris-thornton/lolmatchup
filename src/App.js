@@ -8142,6 +8142,26 @@ class App extends Component {
     })
   };
 
+  electrocute = (side) => {
+    var dmgByLvl = [
+      30,38.82,47.65,56.47,65.29,74.12,82.94,91.76,100.59,
+      109.41,118.24,127.06,135.88,144.71,153.53,162.35,171.18,180
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '30 to 180, based on level +(0.4 Bonus AD Ratio) +(0.25 AP Ratio).',
+      [`keystoneID${side}`]: {
+        index: 2,
+        title: 'Electrocute',
+        type: 'Adaptive Damage'
+      },
+      [`ksArray${side}`]: dmgByLvl,
+      [`ksBonusADRatio${side}`]: 0.4,
+      [`ksAPRatio${side}`]: 0.25,
+      [`ksCD${side}`]: '25 to 20, based on level.'
+    })
+  };
+
   homeToggle = () => {
     if (this.state.about === false) {
       this.setState({
@@ -8263,7 +8283,7 @@ class App extends Component {
                 
                   <hr></hr>
                 
-                  <img className='domination' src={`${this.ksIcons[4]}`} />
+                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={(side) => this.electrocute('Left')} />
                   <img className='domination' src={`${this.ksIcons[5]}`} />
                   <img className='domination' src={`${this.ksIcons[6]}`} />
                   <img className='domination' src={`${this.ksIcons[7]}`} />
@@ -8285,7 +8305,8 @@ class App extends Component {
                 
                 <div style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
                   <u>{this.state.keystoneIDLeft.type}</u>: {this.state.keystoneLeft}
-                  <br></br><u>Current Value</u>: {this.state.ksArrayLeft[this.levelLeft - 1] + this.state.ksAPRatioLeft}
+                  <br></br><u>Current Value</u>: {this.state.ksArrayLeft[this.levelLeft - 1] + Math.round(this.state.ksAPRatioLeft 
+                  * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad)) }
                   <br></br><u>Cooldown</u>: {this.state.ksCDLeft}
                 </div>
                 
@@ -8304,7 +8325,7 @@ class App extends Component {
                 
                   <hr></hr>
                 
-                  <img className='domination' src={`${this.ksIcons[4]}`} />
+                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={(side) => this.electrocute('Right')} />
                   <img className='domination' src={`${this.ksIcons[5]}`} />
                   <img className='domination' src={`${this.ksIcons[6]}`} />
                   <img className='domination' src={`${this.ksIcons[7]}`} />
