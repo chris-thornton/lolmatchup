@@ -8151,7 +8151,7 @@ class App extends Component {
       [`keystone${side}`]: 
         '30 to 180, based on level +(0.4 Bonus AD Ratio) +(0.25 AP Ratio).',
       [`keystoneID${side}`]: {
-        index: 2,
+        index: 4,
         title: 'Electrocute',
         type: 'Adaptive Damage'
       },
@@ -8159,6 +8159,66 @@ class App extends Component {
       [`ksBonusADRatio${side}`]: 0.4,
       [`ksAPRatio${side}`]: 0.25,
       [`ksCD${side}`]: '25 to 20, based on level.'
+    })
+  };
+
+  predator = (side) => {
+    var dmgByLvl = [
+      40,44.71,49.41,54.12,58.82,63.53,68.24,72.94,77.65,
+      82.35,87.06,91.76,96.47,101.18,105.88,110.59,115.29,120
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '40 to 120, based on level +(0.2 Bonus AD Ratio) +(0.1 AP Ratio).',
+      [`keystoneID${side}`]: {
+        index: 5,
+        title: 'Predator',
+        type: 'Adaptive Damage'
+      },
+      [`ksArray${side}`]: dmgByLvl,
+      [`ksBonusADRatio${side}`]: 0.2,
+      [`ksAPRatio${side}`]: 0.1,
+      [`ksCD${side}`]: '90 to 60, based on level.'
+    })
+  };
+
+  darkHarvest = (side) => {
+    var dmgByLvl = [
+      20,22.35,24.71,27.06,29.41,31.76,34.12,36.47,38.82,
+      41.18,43.53,45.88,48.24,50.59,52.94,55.29,57.65,60
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '20 to 60, based on level +(5 per soul) +(0.25 Bonus AD Ratio) +(0.15 AP Ratio).',
+      [`keystoneID${side}`]: {
+        index: 6,
+        title: 'Dark Harvest',
+        type: 'Adaptive Damage'
+      },
+      [`ksArray${side}`]: dmgByLvl,
+      [`ksBonusADRatio${side}`]: 0.25,
+      [`ksAPRatio${side}`]: 0.15,
+      [`ksCD${side}`]: '45, reduced to 1.5 on takedown.'
+    })
+  };
+
+  hailOfBlades = (side) => {
+    var asByLvl = [
+      1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,
+      1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '1.1 for 3 attacks.',
+      [`keystoneID${side}`]: {
+        index: 7,
+        title: 'Hail of Blades',
+        type: 'Attack Speed Ratio'
+      },
+      [`ksArray${side}`]: asByLvl,
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0,
+      [`ksCD${side}`]: 12
     })
   };
 
@@ -8284,9 +8344,9 @@ class App extends Component {
                   <hr></hr>
                 
                   <img className='domination' src={`${this.ksIcons[4]}`} onClick={(side) => this.electrocute('Left')} />
-                  <img className='domination' src={`${this.ksIcons[5]}`} />
-                  <img className='domination' src={`${this.ksIcons[6]}`} />
-                  <img className='domination' src={`${this.ksIcons[7]}`} />
+                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={(side) => this.predator('Left')} />
+                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={(side) => this.darkHarvest('Left')} />
+                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={(side) => this.hailOfBlades('Left')} />
                 
                   <hr></hr>
                 
@@ -8326,9 +8386,9 @@ class App extends Component {
                   <hr></hr>
                 
                   <img className='domination' src={`${this.ksIcons[4]}`} onClick={(side) => this.electrocute('Right')} />
-                  <img className='domination' src={`${this.ksIcons[5]}`} />
-                  <img className='domination' src={`${this.ksIcons[6]}`} />
-                  <img className='domination' src={`${this.ksIcons[7]}`} />
+                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={(side) => this.predator('Right')} />
+                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={(side) => this.darkHarvest('Right')} />
+                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={(side) => this.hailOfBlades('Right')} />
                 
                   <hr></hr>
                 
@@ -8347,7 +8407,8 @@ class App extends Component {
                 
                 <div style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
                   <u>{this.state.keystoneIDRight.type}</u>: {this.state.keystoneRight}
-                  <br></br><u>Current Value</u>: {this.state.ksArrayRight[this.levelRight - 1] + this.state.ksAPRatioRight}
+                  <br></br><u>Current Value</u>: {this.state.ksArrayRight[this.levelRight - 1] + Math.round(this.state.ksAPRatioRight 
+                  * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)) }
                   <br></br><u>Cooldown</u>: {this.state.ksCDRight}
                 </div>
 
