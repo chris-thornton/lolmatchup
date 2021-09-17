@@ -117,6 +117,13 @@ class App extends Component {
         text: '',
         type: 'Adaptive Damage'
       },
+      ksPart2Left: {
+        text: '',
+        type: '',
+        bonusADRatio: '',
+        APRatio: '',
+        array: []
+      },
       keystoneRight: '40 to 180, based on level.',
       ksArrayRight: [40,48,56,65,73,81,89,98,106,
         114,122,131,139,147,155,164,172,180],
@@ -128,6 +135,13 @@ class App extends Component {
         index: 0,
         text: '',
         type: 'Adaptive Damage'
+      },
+      ksPart2Right: {
+        text: '',
+        type: '',
+        bonusADRatio: '',
+        APRatio: '',
+        array: []
       },
       aphelLeft: {
         ad: '[4, 8, 12, 16, 20, 24]',
@@ -8219,6 +8233,26 @@ class App extends Component {
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
       [`ksCD${side}`]: 12
+    })
+  };
+
+  summonAery = (side) => {
+    var dmgByLvl = [
+      10,11.76,13.53,15.29,17.06,18.82,20.59,22.35,24.12,
+      25.88,27.65,29.41,31.18,32.94,34.71,36.47,38.24,40
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '10 to 40, based on level +(0.15 Bonus AD Ratio) +(0.1 AP Ratio).',
+      [`keystoneID${side}`]: {
+        index: 8,
+        title: 'Summon Aery',
+        type: 'Adaptive Damage'
+      },
+      [`ksArray${side}`]: dmgByLvl,
+      [`ksBonusADRatio${side}`]: 0.15,
+      [`ksAPRatio${side}`]: 0.1,
+      [`ksCD${side}`]: 'Return'
     })
   };
 
