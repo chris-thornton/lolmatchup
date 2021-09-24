@@ -120,10 +120,11 @@ class App extends Component {
       ksPart2Left: {
         text: '',
         type: '',
-        bonusADRatio: '',
-        APRatio: '',
+        bonusADRatio: 0,
+        APRatio: 0,
         array: []
       },
+      ksPart2DisplayLeft: 'none',
       keystoneRight: '40 to 180, based on level.',
       ksArrayRight: [40,48,56,65,73,81,89,98,106,
         114,122,131,139,147,155,164,172,180],
@@ -139,10 +140,11 @@ class App extends Component {
       ksPart2Right: {
         text: '',
         type: '',
-        bonusADRatio: '',
-        APRatio: '',
+        bonusADRatio: 0,
+        APRatio: 0,
         array: []
       },
+      ksPart2DisplayRight: 'none',
       aphelLeft: {
         ad: '[4, 8, 12, 16, 20, 24]',
         as: '[0.06, 0.12, 0.18, 0.24, 0.3, 0.36]',
@@ -8092,7 +8094,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
-      [`ksCD${side}`]: 6
+      [`ksCD${side}`]: 6,
+      [`ksPart2Display${side}`]: 'none'
     })
   };
 
@@ -8112,7 +8115,8 @@ class App extends Component {
       [`ksArray${side}`]: asByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
-      [`ksCD${side}`]: 6
+      [`ksCD${side}`]: 6,
+      [`ksPart2Display${side}`]: 'none'
     })
   };
 
@@ -8132,7 +8136,8 @@ class App extends Component {
       [`ksArray${side}`]: healByLvl,
       [`ksBonusADRatio${side}`]: 0.4,
       [`ksAPRatio${side}`]: 0.3,
-      [`ksCD${side}`]: 'Energized'
+      [`ksCD${side}`]: 'Energized',
+      [`ksPart2Display${side}`]: 'none'
     })
   };
 
@@ -8152,7 +8157,8 @@ class App extends Component {
       [`ksArray${side}`]: forceByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
-      [`ksCD${side}`]: 'None'
+      [`ksCD${side}`]: 'None',
+      [`ksPart2Display${side}`]: 'none'
     })
   };
 
@@ -8172,7 +8178,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0.4,
       [`ksAPRatio${side}`]: 0.25,
-      [`ksCD${side}`]: '25 to 20, based on level.'
+      [`ksCD${side}`]: '25 to 20, based on level.',
+      [`ksPart2Display${side}`]: 'none'
     })
   };
 
@@ -8192,7 +8199,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0.2,
       [`ksAPRatio${side}`]: 0.1,
-      [`ksCD${side}`]: '90 to 60, based on level.'
+      [`ksCD${side}`]: '90 to 60, based on level.',
+      [`ksPart2Display${side}`]: 'none'
     })
   };
 
@@ -8212,7 +8220,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0.25,
       [`ksAPRatio${side}`]: 0.15,
-      [`ksCD${side}`]: '45, reduced to 1.5 on takedown.'
+      [`ksCD${side}`]: '45, reduced to 1.5 on takedown.',
+      [`ksPart2Display${side}`]: 'none'
     })
   };
 
@@ -8232,7 +8241,8 @@ class App extends Component {
       [`ksArray${side}`]: asByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
-      [`ksCD${side}`]: 12
+      [`ksCD${side}`]: 12,
+      [`ksPart2Display${side}`]: 'none'
     })
   };
 
@@ -8249,10 +8259,42 @@ class App extends Component {
         title: 'Summon Aery',
         type: 'Adaptive Damage'
       },
+      [`ksPart2${side}`]: {
+        text: '35 to 80, based on level +(0.4 Bonus AD Ratio) +(0.25 AP Ratio) for 2 seconds.',
+        type: 'Shield',
+        bonusADRatio: 0.4,
+        APRatio: 0.25,
+        array: [
+          35,37.65,40.29,42.94,45.59,48.24,50.88,53.53,56.18,
+          58.82,61.47,64.12,66.76,69.41,72.06,74.71,77.35,80
+        ]
+      },
+      [`ksPart2Display${side}`]: 'block',
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0.15,
       [`ksAPRatio${side}`]: 0.1,
-      [`ksCD${side}`]: 'Return'
+      [`ksCD${side}`]: 'Aery return'
+    })
+  };
+
+  arcaneComet = (side) => {
+    var dmgByLvl = [
+      30,34.12,38.24,42.35,46.47,50.59,54.71,58.82,62.94,
+      67.06,71.18,75.29,79.41,83.53,87.65,91.76,95.88,100
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '30 to 100, based on level +(0.35 Bonus AD Ratio) +(0.2 AP Ratio).',
+      [`keystoneID${side}`]: {
+        index: 9,
+        title: 'Arcane Comet',
+        type: 'Adaptive Damage'
+      },
+      [`ksArray${side}`]: dmgByLvl,
+      [`ksBonusADRatio${side}`]: 0.35,
+      [`ksAPRatio${side}`]: 0.2,
+      [`ksCD${side}`]: '20 to 8, based on level. Reduced by dmg: spells 20%, AoE 10% per enemy, DoT 5%',
+      [`ksPart2Display${side}`]: 'none'
     })
   };
 
@@ -8384,8 +8426,8 @@ class App extends Component {
                 
                   <hr></hr>
                 
-                  <img className='sorcery' src={`${this.ksIcons[8]}`} />
-                  <img className='sorcery' src={`${this.ksIcons[9]}`} />
+                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={(side) => this.summonAery('Left')} />
+                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={(side) => this.arcaneComet('Left')} />
                   <img className='sorcery' src={`${this.ksIcons[10]}`} />
                 
                   <hr></hr>
@@ -8402,6 +8444,13 @@ class App extends Component {
                   <br></br><u>Current Value</u>: {this.state.ksArrayLeft[this.levelLeft - 1] + Math.round(this.state.ksAPRatioLeft 
                   * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad)) }
                   <br></br><u>Cooldown</u>: {this.state.ksCDLeft}
+                  <div style={{display: this.state.ksPart2DisplayLeft}}>
+                    <br></br>
+                    <u>{this.state.ksPart2Left.type}</u>: {this.state.ksPart2Left.text}
+                    <br></br><u>Current Value</u>: {this.state.ksPart2Left.array[this.levelLeft - 1] 
+                    + Math.round(this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
+                    + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)) }
+                  </div>
                 </div>
                 
               </div> 
@@ -8426,8 +8475,8 @@ class App extends Component {
                 
                   <hr></hr>
                 
-                  <img className='sorcery' src={`${this.ksIcons[8]}`} />
-                  <img className='sorcery' src={`${this.ksIcons[9]}`} />
+                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={(side) => this.summonAery('Right')} />
+                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={(side) => this.arcaneComet('Right')} />
                   <img className='sorcery' src={`${this.ksIcons[10]}`} />
                 
                   <hr></hr>
@@ -8444,6 +8493,13 @@ class App extends Component {
                   <br></br><u>Current Value</u>: {this.state.ksArrayRight[this.levelRight - 1] + Math.round(this.state.ksAPRatioRight 
                   * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)) }
                   <br></br><u>Cooldown</u>: {this.state.ksCDRight}
+                  <div style={{display: this.state.ksPart2DisplayRight}}>
+                    <br></br>
+                    <u>{this.state.ksPart2Right.type}</u>: {this.state.ksPart2Right.text}
+                    <br></br><u>Current Value</u>: {this.state.ksPart2Right.array[this.levelRight - 1] 
+                    + Math.round(this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap 
+                    + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)) }
+                  </div>
                 </div>
 
               </div>
