@@ -136,6 +136,18 @@ li + li {
   justify-content: space-around;
 }
 
+.ksStats {
+  width: 45vw;
+  border: 2px solid #f9b54a;
+  box-shadow: 3px 3px 3px #003747;
+  padding: 0px 1em;
+  background-color:#003747;
+}
+
+.ksStats span {
+  color: #ffffb9;
+}
+
 .runeBox {
   width: 80px;
   height: 80px;

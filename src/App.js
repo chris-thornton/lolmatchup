@@ -110,6 +110,8 @@ class App extends Component {
         114,122,131,139,147,155,164,172,180],
       ksBonusADRatioLeft: 0,
       ksAPRatioLeft: 0,
+      ksHPRatioLeft: 0,
+      ksBonusHPRatioLeft: 0,
       ksCDLeft: 6,
       keystoneIDLeft: {
         title: 'Press the Attack',
@@ -122,6 +124,7 @@ class App extends Component {
         type: '',
         bonusADRatio: 0,
         APRatio: 0,
+        HPRatio: 0,
         array: []
       },
       ksPart2DisplayLeft: 'none',
@@ -130,6 +133,8 @@ class App extends Component {
         114,122,131,139,147,155,164,172,180],
       ksBonusADRatioRight: 0,
       ksAPRatioRight: 0,
+      ksHPRatioRight: 0,
+      ksBonusHPRatioRight: 0,
       ksCDRight: 6,
       keystoneIDRight: {
         title: 'Press the Attack',
@@ -142,6 +147,7 @@ class App extends Component {
         type: '',
         bonusADRatio: 0,
         APRatio: 0,
+        HPRatio: 0,
         array: []
       },
       ksPart2DisplayRight: 'none',
@@ -8264,6 +8270,7 @@ class App extends Component {
         type: 'Shield',
         bonusADRatio: 0.4,
         APRatio: 0.25,
+        HPRatio: 0,
         array: [
           35,37.65,40.29,42.94,45.59,48.24,50.88,53.53,56.18,
           58.82,61.47,64.12,66.76,69.41,72.06,74.71,77.35,80
@@ -8297,6 +8304,37 @@ class App extends Component {
       [`ksPart2Display${side}`]: 'none'
     })
   };
+
+  grasp = (side) => {
+    this.setState({
+      [`keystone${side}`]: 
+        '0.04 Max HP Ratio',
+      [`keystoneID${side}`]: {
+        index: 8,
+        title: 'Grasp of the Undying (60% effective on ranged champions)',
+        type: 'Magic Damage'
+      },
+      [`ksPart2${side}`]: {
+        text: '0.02 Max HP Ratio (permanent +5 HP per stack)',
+        type: 'Heal',
+        bonusADRatio: 0,
+        APRatio: 0,
+        HPRatio: 0.02,
+        array: [
+          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+        ]
+      },
+      [`ksPart2Display${side}`]: 'block',
+      [`ksArray${side}`]: [
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 
+      ],
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0,
+      [`ksHPRatio${side}`]: 0.04,
+      [`ksBonusHPRatio${side}`]: 0,
+      [`ksCD${side}`]: 'Aery return'
+    })
+  }; 
 
   homeToggle = () => {
     if (this.state.about === false) {
@@ -8428,28 +8466,30 @@ class App extends Component {
                 
                   <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={(side) => this.summonAery('Left')} />
                   <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={(side) => this.arcaneComet('Left')} />
-                  <img className='sorcery' src={`${this.ksIcons[10]}`} />
+                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={(side) => this.phaseRush('Left')} />
                 
                   <hr></hr>
                 
-                  <img className='resolve' src={`${this.ksIcons[11]}`} />
+                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={(side) => this.grasp('Left')} />
                   <img className='resolve' src={`${this.ksIcons[12]}`} />
                   <img className='resolve' src={`${this.ksIcons[13]}`} />
                 </div>
 
                 <b style={{color: '#ffffb9'}}>{this.state.keystoneIDLeft.title}</b>
                 
-                <div style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
+                <div className='ksStats' style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
                   <u>{this.state.keystoneIDLeft.type}</u>: {this.state.keystoneLeft}
                   <br></br><u>Current Value</u>: {this.state.ksArrayLeft[this.levelLeft - 1] + Math.round(this.state.ksAPRatioLeft 
-                  * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad)) }
+                  * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad) 
+                  + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp) }
                   <br></br><u>Cooldown</u>: {this.state.ksCDLeft}
                   <div style={{display: this.state.ksPart2DisplayLeft}}>
                     <br></br>
                     <u>{this.state.ksPart2Left.type}</u>: {this.state.ksPart2Left.text}
                     <br></br><u>Current Value</u>: {this.state.ksPart2Left.array[this.levelLeft - 1] 
                     + Math.round(this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
-                    + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)) }
+                    + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
+                    + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio) }
                   </div>
                 </div>
                 
@@ -8477,18 +8517,18 @@ class App extends Component {
                 
                   <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={(side) => this.summonAery('Right')} />
                   <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={(side) => this.arcaneComet('Right')} />
-                  <img className='sorcery' src={`${this.ksIcons[10]}`} />
+                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={(side) => this.phaseRush('Right')} />
                 
                   <hr></hr>
                 
-                  <img className='resolve' src={`${this.ksIcons[11]}`} />
+                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={(side) => this.grasp('Right')} />
                   <img className='resolve' src={`${this.ksIcons[12]}`} />
                   <img className='resolve' src={`${this.ksIcons[13]}`} />
                 </div>
 
                 <b style={{color: '#ffffb9'}}>{this.state.keystoneIDRight.title}</b>
                 
-                <div style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
+                <div className='ksStats' style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
                   <u>{this.state.keystoneIDRight.type}</u>: {this.state.keystoneRight}
                   <br></br><u>Current Value</u>: {this.state.ksArrayRight[this.levelRight - 1] + Math.round(this.state.ksAPRatioRight 
                   * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)) }
@@ -8498,7 +8538,8 @@ class App extends Component {
                     <u>{this.state.ksPart2Right.type}</u>: {this.state.ksPart2Right.text}
                     <br></br><u>Current Value</u>: {this.state.ksPart2Right.array[this.levelRight - 1] 
                     + Math.round(this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap 
-                    + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)) }
+                    + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
+                    + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio) }
                   </div>
                 </div>
 
@@ -8508,12 +8549,12 @@ class App extends Component {
 
           <div className="flexDisplay" style={{marginTop: '5px'}}>
             <div className="hiddenLeft">
-              <span style={{color: '#ffffb9'}}>Champion Level: </span>
+              <span>Level: </span>
               <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px"}}
               onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
             </div>
             <div className="hiddenRight">
-              <span style={{color: '#ffffb9'}}>Champion Level: </span>
+              <span>Level: </span>
               <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px"}}
               onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
             </div>
