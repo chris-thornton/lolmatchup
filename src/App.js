@@ -767,7 +767,7 @@ class App extends Component {
                 addText(" (+" + damage["dmgPer5Chimes"] + ' per 5 chimes)');
               };
               if (damage["dmgPerStack"]) {
-                addText(" (+" + damage["dmgPerStack"] + ' per Stack)');
+                addText(" (+" + damage["dmgPerStack"] + ' per stack)');
               };
               if (damage["APRatio"]) {
                 addText(" (+" + damage["APRatio"] + " AP Ratio)");
@@ -814,7 +814,7 @@ class App extends Component {
                 addText(damage["bonusMoveSpeedRatioByLvl"][champLevel] + ") ")
               };
               if (damage["enemyMaxHPRatioPerStack"]) {
-                addText(" (+" + removeParen(damage["enemyMaxHPRatioPerStack"]) + " Enemy Max HP Ratio per Stack)");
+                addText(" (+" + removeParen(damage["enemyMaxHPRatioPerStack"]) + " Enemy Max HP Ratio per stack)");
               };
               if (damage["maxHPRatio"]) {
                 addText(" (+" + removeParen(damage["maxHPRatio"]) + " Max HP Ratio)");
@@ -920,7 +920,7 @@ class App extends Component {
                   addText(" (+" + damage["minEnemyMaxHPRatioPer100AP"] + " Enemy Max HP Ratio per 100 AP)");
                 };
                 if (damage["minDmgPerStack"]) {
-                  addText(': (' + damage["minDmgPerStack"] + ' per Stack)');
+                  addText(': (' + damage["minDmgPerStack"] + ' per stack)');
                 };
 
                 singleBreak();
@@ -935,7 +935,7 @@ class App extends Component {
                   addText(damage["maxDmgByLvl"][champLevel] + '] ')
                 };
                 if (damage["maxDmgPerStack"]) {
-                  addText('(' + damage["maxDmgPerStack"] + ' per Stack)');
+                  addText('(' + damage["maxDmgPerStack"] + ' per stack)');
                 };
                 if (damage["maxADRatio"]) {
                   addText(" (+" + removeParen(damage["maxADRatio"]) + " AD Ratio)");
@@ -1106,7 +1106,7 @@ class App extends Component {
                 addText(" (+" + removeParen(damage["enemyCurrentHPRatio"]) + " Enemy Current HP Ratio)");
               };
               if (damage["enemyCurrentHPRatioPerStack"]) {
-                addText(' (+' + damage["enemyCurrentHPRatioPerStack"] + ' Enemy Current HP Ratio per Stack)');
+                addText(' (+' + damage["enemyCurrentHPRatioPerStack"] + ' Enemy Current HP Ratio per stack)');
               };
               if (damage["enemyCurrentHPRatioPer100AP"]) {
                 addText(" (+" + removeParen(damage["enemyCurrentHPRatioPer100AP"]) + " Enemy Current HP Ratio per 100 AP)");
@@ -1121,7 +1121,7 @@ class App extends Component {
                 addText(" (+" + removeParen(damage["enemyMissingHPRatioPer100AP"]) + " Enemy Missing HP Ratio per 100 AP)");
               };
               if (damage["enemyMissingHPRatioPerStack"]) {
-                addText(' (+' + damage["enemyMissingHPRatioPerStack"] + ' Enemy Missing HP Ratio per Stack)');
+                addText(' (+' + damage["enemyMissingHPRatioPerStack"] + ' Enemy Missing HP Ratio per stack)');
               };
               if (damage["armorRatio"]) {
                 addText(" (+" + removeParen(damage["armorRatio"]) + " Armor Ratio)");
@@ -1146,7 +1146,7 @@ class App extends Component {
                 underLine('Bonus Damage Ratio');
                 addText(damage["bonusDmgRatioPerCritChance"] + ' per Crit Chance)');
                 if (damage["dmgRatioPerStack"]) {
-                  addText(' (' + damage["dmgRatioPerStack"] + ' per Stack)');
+                  addText(' (' + damage["dmgRatioPerStack"] + ' per stack)');
                 }
               };
 
@@ -1910,7 +1910,7 @@ class App extends Component {
                   addText('Max: ' + arrayCheck(path["bonusAttackDamage"]["maxBonusAD"]));
                 }
                 if (path["bonusAttackDamage"]["ADPerStack"]) {
-                  addText(path["bonusAttackDamage"]["ADPerStack"] + ' per Stack');
+                  addText(path["bonusAttackDamage"]["ADPerStack"] + ' per stack');
                 };
                 if (path["bonusAttackDamage"]["ADPerOverCrit"]) {
                   var overCrit = 0;
@@ -1937,12 +1937,12 @@ class App extends Component {
               };
               if (path["bonusArmorPerStack"]) {
                 underLine('Bonus Armor')
-                addText(path["bonusArmorPerStack"] + ' per Stack');
+                addText(path["bonusArmorPerStack"] + ' per stack');
                 singleBreak();
               };
               if (path["bonusAPPerStack"]) {
                 underLine('Bonus Ability Power')
-                addText(path["bonusAPPerStack"] + ' per Stack');
+                addText(path["bonusAPPerStack"] + ' per stack');
               };
               if (path["bonusCritChancePerFury"]) {
                 underLine('Bonus Crit Chance');
@@ -1951,7 +1951,7 @@ class App extends Component {
               if (path["critChancePer20Stacks"]) {
                 singleBreak();
                 underLine('Bonus Crit Chance Ratio');
-                addText(path["critChancePer20Stacks"] + ' per 20 Stacks');
+                addText(path["critChancePer20Stacks"] + ' per 20 stacks');
               }
               if (path["lifestealPerOverCrit"]) {
                 singleBreak();
@@ -1978,7 +1978,7 @@ class App extends Component {
                 underLine('Bonus Armor, MR, and HP');
                 addText('(' + path["bonusBonusResistHPRatio"] + ' Bonus Ratio)');
                 if (path["bonusBonusPerStack"]) {
-                  addText(' (+' + path["bonusBonusPerStack"] + ' per Stack)');
+                  addText(' (+' + path["bonusBonusPerStack"] + ' per stack)');
                 };
                 singleBreak();
                 addText('Current Bonus Armor: ' + Math.round(bonusArmor * path["bonusBonusResistHPRatio"]) + 
@@ -1986,7 +1986,7 @@ class App extends Component {
                 + ', Current Bonus HP: ' + Math.round(path["bonusBonusResistHPRatio"] * bonusHP) );
               };
               if (path["bonusResistPerStack"]) {
-                addText(' (+' + path["bonusResistPerStack"] + ' per Stack)');
+                addText(' (+' + path["bonusResistPerStack"] + ' per stack)');
               }
               if (path["minResistRatio"]) {
                 underLine('Bonus Armor and Magic Resist');
@@ -2022,7 +2022,7 @@ class App extends Component {
               if (path["bonusHealth"]) {
                 underLine('Bonus Health')
                 if (path["bonusHealth"]["healthPerStack"]) {
-                  addText('(' + path["bonusHealth"]["healthPerStack"] + ' per Stack)');
+                  addText('(' + path["bonusHealth"]["healthPerStack"] + ' per stack)');
                 }
                 if (path["bonusHealth"]["healthPerTakedown"]) {
                   addText(' (+' + path["bonusHealth"]["healthPerTakedown"] + ' per Takedown)');
@@ -2421,7 +2421,7 @@ class App extends Component {
                 addText(path["shieldByLvl"][champLevel] + '] ')
               };
               if (path["shieldPerStack"]) {
-                addText(" (+" + path["shieldPerStack"] + " per Stack)")
+                addText(" (+" + path["shieldPerStack"] + " per stack)")
               }
               if (path["dmgTakenRatio"]) {
                 underLine('Damage Taken Ratio');
@@ -2866,7 +2866,7 @@ class App extends Component {
                 addText(removeSpace(path["health"]))
               };
               if (path["healthPerStack"]) {
-                addText(removeSpace(path["healthPerStack"]) + ' per Stack')
+                addText(removeSpace(path["healthPerStack"]) + ' per stack')
                 doubleBreak();
               };
               if (path["APRatio"]) {
@@ -3750,7 +3750,7 @@ class App extends Component {
             if (champFile[ability]["basicCDMaxRefundRatioPerStack"]) {
               singleBreak();
               underLine('Basic Abilities Max Cooldown Refund Ratio');
-              addText(champFile[ability]["basicCDMaxRefundRatioPerStack"]+ ' per Stack');
+              addText(champFile[ability]["basicCDMaxRefundRatioPerStack"]+ ' per stack');
             };
             if (champFile[ability]["coolDownRefundByLvl"]) {
               singleBreak();
@@ -4017,10 +4017,10 @@ class App extends Component {
                 addText(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
               };
               if (damage["enemyMaxHPRatioPerStack"] && !enemyStats.hp) {
-                addText(" (+" + arrayCheck(damage["enemyMaxHPRatioPerStack"]) + " Enemy Max HP Ratio per Stack)");
+                addText(" (+" + arrayCheck(damage["enemyMaxHPRatioPerStack"]) + " Enemy Max HP Ratio per stack)");
               };
               if (damage["enemyMaxHPRatioPerStack"] && enemyStats.hp) {
-                addText(" (+" + Math.round(arrayCheck(damage["enemyMaxHPRatioPerStack"]) * enemyTotalHP) + " per Stack)");
+                addText(" (+" + Math.round(arrayCheck(damage["enemyMaxHPRatioPerStack"]) * enemyTotalHP) + " per stack)");
               };
               var currentHPCounter = 0;
               if (damage["enemyCurrentHPRatio"] && !enemyStats.hp) {
@@ -4050,7 +4050,7 @@ class App extends Component {
                 addText(" (+" + damage["dmgPer5Chimes"] + ' per 5 chimes)');
               };
               if (damage["dmgPerStack"]) {
-                addText(" (+" + damage["dmgPerStack"] + ' per Stack)');
+                addText(" (+" + damage["dmgPerStack"] + ' per stack)');
               };
               if (damage["armorIgnore"]) {
                 singleBreak();
@@ -4112,7 +4112,7 @@ class App extends Component {
                   addText(' (+' + lengthCheck(minMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
                 }
                 if (damage["minDmgPerStack"]) {
-                  addText(' (+' + damage["minDmgPerStack"] + ' per Stack)');
+                  addText(' (+' + damage["minDmgPerStack"] + ' per stack)');
                 };
 
                 singleBreak();
@@ -4156,7 +4156,7 @@ class App extends Component {
                   addText(' (+' + lengthCheck(maxMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
                 }
                 if (damage["maxDmgPerStack"]) {
-                  addText(' (+' + damage["maxDmgPerStack"] + ' per Stack)');
+                  addText(' (+' + damage["maxDmgPerStack"] + ' per stack)');
                 };
               };
               if (damage["lvlRequired"]) {
@@ -4386,7 +4386,7 @@ class App extends Component {
                 addText(" (+" + lengthCheck(missingHPRatioCounter) + " Enemy Missing HP Ratio)");
               };
               if (damage["enemyMissingHPRatioPerStack"]) {
-                addText(' (+' + arrayCheck(damage["enemyMissingHPRatioPerStack"]) + ' Enemy Missing HP Ratio per Stack)');
+                addText(' (+' + arrayCheck(damage["enemyMissingHPRatioPerStack"]) + ' Enemy Missing HP Ratio per stack)');
               };
               var currentHPCounter = 0;
               if (damage["enemyCurrentHPRatio"] && !enemyStats.hp) {
@@ -4402,7 +4402,7 @@ class App extends Component {
                 addText(" (+" + lengthCheck(currentHPCounter) + " Enemy Current HP Ratio)");
               }; 
               if (damage["enemyCurrentHPRatioPerStack"]) {
-                addText(' (+' + arrayCheck(damage["enemyCurrentHPRatioPerStack"]) + ' Enemy Current HP Ratio per Stack)');
+                addText(' (+' + arrayCheck(damage["enemyCurrentHPRatioPerStack"]) + ' Enemy Current HP Ratio per stack)');
               };
               if (damage["bonusMoveSpeedRatioByLvl"]) {
                 addText(' (+' + damage["bonusMoveSpeedRatioByLvl"][champLevel] + " Bonus Move Speed Ratio) ");
@@ -5202,7 +5202,7 @@ class App extends Component {
               if (path["bonusHealth"]) {
                 underLine('Bonus Health');
                 if (path["bonusHealth"]["healthPerStack"]) {
-                  addText('(' + arrayCheck(path["bonusHealth"]["healthPerStack"]) + ' per Stack)');
+                  addText('(' + arrayCheck(path["bonusHealth"]["healthPerStack"]) + ' per stack)');
                 };
                 if (path["bonusHealth"]["healthPerTakedown"]) {
                   addText(' (+' + arrayCheck(path["bonusHealth"]["healthPerTakedown"]) + ' per Takedown)');
@@ -5573,7 +5573,7 @@ class App extends Component {
                 addText(Math.round(path["maxMaxHPRatio"] * totalHP));
               };
               if (path["shieldPerStack"]) {
-                addText(" (+" + path["shieldPerStack"] + " per Stack)");
+                addText(" (+" + path["shieldPerStack"] + " per stack)");
               };
               if (path["maxHPRatioPerStack"]) {
                 addText(" (+" + Math.round(path["maxHPRatioPerStack"] * totalHP) + " per stack)");
@@ -5969,7 +5969,7 @@ class App extends Component {
                 addText(Math.round(healthCounter));
               };
               if (path["healthPerStack"]) {
-                addText(arrayCheck(path["healthPerStack"]) + ' per Stack');
+                addText(arrayCheck(path["healthPerStack"]) + ' per stack');
                 doubleBreak();
               };
               if (path["duration"]) {
@@ -6868,7 +6868,7 @@ class App extends Component {
             if (champFile[ability]["basicCDMaxRefundRatioPerStack"]) {
               singleBreak();
               underLine('Basic Abilities Max Cooldown Refund Ratio');
-              addText(champFile[ability]["basicCDMaxRefundRatioPerStack"] + ' per Stack');
+              addText(champFile[ability]["basicCDMaxRefundRatioPerStack"] + ' per stack');
             };
             if (champFile[ability]["coolDownRefundByLvl"]) {
               singleBreak();
@@ -8305,12 +8305,44 @@ class App extends Component {
     })
   };
 
+  phaseRush = (side) => {
+    var msByLvl = [
+      0.3,0.3176,0.3353,0.3529,0.3706,0.3882,0.4059,0.4235,0.4412,
+      0.4588,0.4765,0.4941,0.5118,0.5294,0.5471,0.5647,0.5824,0.6
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '0.3 to 0.6, based on level, and 75% slow resist for 3 seconds.',
+      [`keystoneID${side}`]: {
+        index: 10,
+        title: 'Phase Rush',
+        type: 'Bonus Movement Speed Ratio'
+      },
+      [`ksPart2${side}`]: {
+        text: '0.15 to 0.4, based on level, and 75% slow resist for 3 seconds.',
+        type: 'Bonus Movement Speed Ratio (ranged)',
+        bonusADRatio: 0,
+        APRatio: 0,
+        HPRatio: 0,
+        array: [
+          0.15,0.1647,0.1794,0.1941,0.2088,0.2235,0.2382,0.2529,0.2676,
+          0.2824,0.2971,0.3118,0.3265,0.3412,0.3559,0.3706,0.3853,0.4
+        ]
+      },
+      [`ksArray${side}`]: msByLvl,
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0,
+      [`ksCD${side}`]: '30 to 10, based on level.',
+      [`ksPart2Display${side}`]: 'block'
+    })
+  }
+
   grasp = (side) => {
     this.setState({
       [`keystone${side}`]: 
         '0.04 Max HP Ratio',
       [`keystoneID${side}`]: {
-        index: 8,
+        index: 11,
         title: 'Grasp of the Undying (60% effective on ranged champions)',
         type: 'Magic Damage'
       },
@@ -8332,7 +8364,7 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0.04,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: 'Aery return'
+      [`ksCD${side}`]: '4 seconds in combat'
     })
   }; 
 
@@ -8475,18 +8507,18 @@ class App extends Component {
                   <img className='resolve' src={`${this.ksIcons[13]}`} />
                 </div>
 
-                <b style={{color: '#ffffb9'}}>{this.state.keystoneIDLeft.title}</b>
+                <b>{this.state.keystoneIDLeft.title}</b>
                 
                 <div className='ksStats' style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
-                  <u>{this.state.keystoneIDLeft.type}</u>: {this.state.keystoneLeft}
-                  <br></br><u>Current Value</u>: {this.state.ksArrayLeft[this.levelLeft - 1] + Math.round(this.state.ksAPRatioLeft 
+                  <span>{this.state.keystoneIDLeft.type}</span>: {this.state.keystoneLeft}
+                  <br></br><span>Current Value</span>: {this.state.ksArrayLeft[this.levelLeft - 1] + Math.round(this.state.ksAPRatioLeft 
                   * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad) 
                   + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp) }
-                  <br></br><u>Cooldown</u>: {this.state.ksCDLeft}
+                  <br></br><span>Cooldown</span>: {this.state.ksCDLeft}
                   <div style={{display: this.state.ksPart2DisplayLeft}}>
                     <br></br>
-                    <u>{this.state.ksPart2Left.type}</u>: {this.state.ksPart2Left.text}
-                    <br></br><u>Current Value</u>: {this.state.ksPart2Left.array[this.levelLeft - 1] 
+                    <span>{this.state.ksPart2Left.type}</span>: {this.state.ksPart2Left.text}
+                    <br></br><span>Current Value</span>: {this.state.ksPart2Left.array[this.levelLeft - 1] 
                     + Math.round(this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
                     + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
                     + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio) }
@@ -8526,17 +8558,18 @@ class App extends Component {
                   <img className='resolve' src={`${this.ksIcons[13]}`} />
                 </div>
 
-                <b style={{color: '#ffffb9'}}>{this.state.keystoneIDRight.title}</b>
+                <b>{this.state.keystoneIDRight.title}</b>
                 
                 <div className='ksStats' style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
-                  <u>{this.state.keystoneIDRight.type}</u>: {this.state.keystoneRight}
-                  <br></br><u>Current Value</u>: {this.state.ksArrayRight[this.levelRight - 1] + Math.round(this.state.ksAPRatioRight 
+                  <span>{this.state.keystoneIDRight.type}</span>: {this.state.keystoneRight}
+                  <br></br>
+                  <span>Current Value</span>: {this.state.ksArrayRight[this.levelRight - 1] + Math.round(this.state.ksAPRatioRight 
                   * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)) }
-                  <br></br><u>Cooldown</u>: {this.state.ksCDRight}
+                  <br></br><span>Cooldown</span>: {this.state.ksCDRight}
                   <div style={{display: this.state.ksPart2DisplayRight}}>
                     <br></br>
-                    <u>{this.state.ksPart2Right.type}</u>: {this.state.ksPart2Right.text}
-                    <br></br><u>Current Value</u>: {this.state.ksPart2Right.array[this.levelRight - 1] 
+                    <span>{this.state.ksPart2Right.type}</span>: {this.state.ksPart2Right.text}
+                    <br></br><span>Current Value</span>: {this.state.ksPart2Right.array[this.levelRight - 1] 
                     + Math.round(this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap 
                     + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
                     + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio) }
