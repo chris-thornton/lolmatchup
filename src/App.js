@@ -112,7 +112,9 @@ class App extends Component {
       ksAPRatioLeft: 0,
       ksHPRatioLeft: 0,
       ksBonusHPRatioLeft: 0,
-      ksCDLeft: 6,
+      ksCDLeft: [6,6,6,6,6,6,6,6,6,
+      6,6,6,6,6,6,6,6,6],
+      ksCDTextLeft: '',
       keystoneIDLeft: {
         title: 'Press the Attack',
         index: 0,
@@ -135,7 +137,9 @@ class App extends Component {
       ksAPRatioRight: 0,
       ksHPRatioRight: 0,
       ksBonusHPRatioRight: 0,
-      ksCDRight: 6,
+      ksCDRight: [6,6,6,6,6,6,6,6,6,
+      6,6,6,6,6,6,6,6,6],
+      ksCDTextRight: '',
       keystoneIDRight: {
         title: 'Press the Attack',
         index: 0,
@@ -8102,7 +8106,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: 6,
+      [`ksCD${side}`]: [6,6,6,6,6,6,6,6,6,
+      6,6,6,6,6,6,6,6,6],
+      [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -8125,7 +8131,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: 6,
+      [`ksCD${side}`]: [6,6,6,6,6,6,6,6,6,
+      6,6,6,6,6,6,6,6,6],
+      [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -8148,7 +8156,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0.3,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: 'Energized',
+      [`ksCD${side}`]: ['','','','','','','','','',
+      '','','','','','','','',''],
+      [`ksCDText${side}`]: 'Energized',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -8171,7 +8181,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: 'None',
+      [`ksCD${side}`]: ['','','','','','','','','',
+      '','','','','','','','',''],
+      [`ksCDText${side}`]: 'None',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -8194,7 +8206,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0.25,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: '25 to 20, based on level.',
+      [`ksCD${side}`]: [25,24.71,24.41,24.12,23.82,23.53,23.24,22.94,22.65,
+      22.35,22.06,21.76,21.47,21.18,20.88,20.59,20.29,20],
+      [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -8217,7 +8231,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0.1,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: '90 to 60, based on level.',
+      [`ksCD${side}`]: [90,88.24,86.47,84.71,82.94,81.18,79.41,77.65,75.88,
+        74.12,72.35,70.59,68.82,67.06,65.29,63.53,61.76,60],
+      [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -8240,7 +8256,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0.15,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: '45, reduced to 1.5 on takedown.',
+      [`ksCD${side}`]: [45,45,45,45,45,45,45,45,45,
+        45,45,45,45,45,45,45,45,45],
+      [`ksCDText${side}`]: ', reduced to 1.5 on takedown.',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -8263,7 +8281,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: 12,
+      [`ksCD${side}`]: [12,12,12,12,12,12,12,12,12,
+        12,12,12,12,12,12,12,12,12],
+      [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -8298,7 +8318,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0.1,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: 'Aery return'
+      [`ksCD${side}`]: ['','','','','','','','','',
+      '','','','','','','','',''],
+      [`ksCDText${side}`]: 'Return'
     })
   };
 
@@ -8320,7 +8342,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0.2,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: '20 to 8, based on level. Reduced by dmg: spells 20%, AoE 10% per enemy, DoT 5%',
+      [`ksCD${side}`]: [20,19.29,18.59,17.88,17.18,16.47,15.76,15.06,14.35,
+        13.65,12.94,12.24,11.53,10.82,10.12,9.41,8.71,8],
+      [`ksCDText${side}`]: ' (reduced by dmg: spells 20%, AoE 10% per enemy, DoT 5%)',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -8354,7 +8378,9 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: '30 to 10, based on level.',
+      [`ksCD${side}`]: [30,28.82,27.65,26.47,25.29,24.12,22.94,21.76,20.59,
+        19.41,18.24,17.06,15.88,14.71,13.53,12.35,11.18,10],
+      [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'block'
     })
   }
@@ -8386,9 +8412,47 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0.04,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: '4 seconds in combat'
+      [`ksCD${side}`]: [4,4,4,4,4,4,4,4,4,
+        4,4,4,4,4,4,4,4,4],
+      [`ksCDText${side}`]: ' seconds in combat',
     })
-  }; 
+  };
+  
+  aftershock = (side) => {
+    var dmgByLvl = [
+      25,30.59,36.18,41.76,47.35,52.94,58.53,64.12,69.71,
+      75.29,80.88,86.47,92.06,97.65,103.24,108.82,114.41,120
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '25 to 120, based on level +(0.15 Bonus AD Ratio) +(0.1 AP Ratio).',
+      [`keystoneID${side}`]: {
+        index: 8,
+        title: 'Summon Aery',
+        type: 'Adaptive Damage'
+      },
+      [`ksPart2${side}`]: {
+        text: '35 to 80, based on level +(0.4 Bonus AD Ratio) +(0.25 AP Ratio) for 2 seconds.',
+        type: 'Shield',
+        bonusADRatio: 0.4,
+        APRatio: 0.25,
+        HPRatio: 0,
+        array: [
+          35,37.65,40.29,42.94,45.59,48.24,50.88,53.53,56.18,
+          58.82,61.47,64.12,66.76,69.41,72.06,74.71,77.35,80
+        ]
+      },
+      [`ksPart2Display${side}`]: 'block',
+      [`ksArray${side}`]: dmgByLvl,
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0.08,
+      [`ksCD${side}`]: [20,20,20,20,20,20,20,20,20,
+        20,20,20,20,20,20,20,20,20],
+      [`ksCDText${side}`]: 'Return'
+    })
+  };
 
   homeToggle = () => {
     if (this.state.about === false) {
@@ -8536,7 +8600,7 @@ class App extends Component {
                   <br></br><span>Current Value</span>: {this.state.ksArrayLeft[this.levelLeft - 1] + Math.round(this.state.ksAPRatioLeft 
                   * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad) 
                   + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp) }
-                  <br></br><span>Cooldown</span>: {this.state.ksCDLeft}
+                  <br></br><span>Cooldown</span>: {this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
                   <div style={{display: this.state.ksPart2DisplayLeft}}>
                     <br></br>
                     <span>{this.state.ksPart2Left.type}</span>: {this.state.ksPart2Left.text}
@@ -8587,7 +8651,7 @@ class App extends Component {
                   <br></br>
                   <span>Current Value</span>: {this.state.ksArrayRight[this.levelRight - 1] + Math.round(this.state.ksAPRatioRight 
                   * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)) }
-                  <br></br><span>Cooldown</span>: {this.state.ksCDRight}
+                  <br></br><span>Cooldown</span>: {this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
                   <div style={{display: this.state.ksPart2DisplayRight}}>
                     <br></br>
                     <span>{this.state.ksPart2Right.type}</span>: {this.state.ksPart2Right.text}
