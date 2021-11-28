@@ -7623,11 +7623,14 @@ class App extends Component {
       this.rankedAbilities.map(rankedAbility => {
         document.getElementById(`${rankedAbility}Rank${side}`).value = 0;
       });
+    };
+
+    if (prevName === '' && this[`champName${otherSide}`] === '') {
       document.getElementById('ksLeft').style.visibility = 'visible';
       document.getElementById('ksRight').style.visibility = 'visible';
       document.getElementById('ksToggleLeft').style.visibility = 'visible';
       document.getElementById('ksToggleRight').style.visibility = 'visible';
-    };
+    }
 
     if (champName === 'Aphelios') {
       var hiddenArray = document.getElementsByClassName(`hidden${side}`);
@@ -8425,21 +8428,21 @@ class App extends Component {
     ];
     this.setState({
       [`keystone${side}`]: 
-        '25 to 120, based on level +(0.15 Bonus AD Ratio) +(0.1 AP Ratio).',
+        '25 to 120, based on level +(0.08 Bonus HP Ratio).',
       [`keystoneID${side}`]: {
-        index: 8,
-        title: 'Summon Aery',
-        type: 'Adaptive Damage'
+        index: 12,
+        title: 'Aftershock',
+        type: 'Magic Damage'
       },
       [`ksPart2${side}`]: {
-        text: '35 to 80, based on level +(0.4 Bonus AD Ratio) +(0.25 AP Ratio) for 2 seconds.',
-        type: 'Shield',
-        bonusADRatio: 0.4,
-        APRatio: 0.25,
+        text: '35 +(0.8 bonus ratio) for 2.5 seconds. Capped at 80 to 150, based on level.',
+        type: 'Bonus Armor and Magic Resistance',
+        bonusADRatio: 0,
+        APRatio: 0,
         HPRatio: 0,
         array: [
-          35,37.65,40.29,42.94,45.59,48.24,50.88,53.53,56.18,
-          58.82,61.47,64.12,66.76,69.41,72.06,74.71,77.35,80
+          80,84.12,88.24,92.35,96.47,100.59,104.71,108.82,112.94,
+          117.06,121.18,125.29,129.41,133.53,137.65,141.76,145.88,150
         ]
       },
       [`ksPart2Display${side}`]: 'block',
@@ -8450,7 +8453,7 @@ class App extends Component {
       [`ksBonusHPRatio${side}`]: 0.08,
       [`ksCD${side}`]: [20,20,20,20,20,20,20,20,20,
         20,20,20,20,20,20,20,20,20],
-      [`ksCDText${side}`]: 'Return'
+      [`ksCDText${side}`]: ''
     })
   };
 
@@ -8471,11 +8474,22 @@ class App extends Component {
   };
 
   keystoneToggle = (side) => {
+    var otherSide = 'Left';
+    if (side === 'Left') {
+      otherSide = 'Right'
+    };
     if (document.getElementById(`ksToggle${side}`).textContent === 'Hide Keystones') {
+      if (document.getElementById(`ksToggle${otherSide}`).textContent === 'Show Keystones') {
+        document.getElementById('ksLeft').style.display = 'none';
+        document.getElementById('ksRight').style.display = 'none';
+      } else {
+        document.getElementById(`ks${side}`).style.visibility = 'hidden';
+      }
       document.getElementById(`ksToggle${side}`).textContent = 'Show Keystones';
-      document.getElementById(`ks${side}`).style.visibility = 'hidden';
     } else {
       document.getElementById(`ksToggle${side}`).textContent = 'Hide Keystones';
+      document.getElementById('ksLeft').style.display = 'block';
+      document.getElementById('ksRight').style.display = 'block';
       document.getElementById(`ks${side}`).style.visibility = 'visible';
     }
   };
@@ -8589,7 +8603,7 @@ class App extends Component {
                   <hr></hr>
                 
                   <img className='resolve' src={`${this.ksIcons[11]}`} onClick={(side) => this.grasp('Left')} />
-                  <img className='resolve' src={`${this.ksIcons[12]}`} />
+                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={(side) => this.aftershock('Left')} />
                   <img className='resolve' src={`${this.ksIcons[13]}`} />
                 </div>
 
@@ -8597,14 +8611,19 @@ class App extends Component {
                 
                 <div className='ksStats' style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
                   <span>{this.state.keystoneIDLeft.type}</span>: {this.state.keystoneLeft}
-                  <br></br><span>Current Value</span>: {this.state.ksArrayLeft[this.levelLeft - 1] + Math.round(this.state.ksAPRatioLeft 
+                  <br></br>
+                  <span>Current Value</span>: {this.state.ksArrayLeft[this.levelLeft - 1] + Math.round(this.state.ksAPRatioLeft 
                   * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad) 
-                  + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp) }
-                  <br></br><span>Cooldown</span>: {this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
+                  + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp 
+                  + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp)) }
+                  <br></br>
+                  <span>Cooldown</span>: {this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
                   <div style={{display: this.state.ksPart2DisplayLeft}}>
                     <br></br>
                     <span>{this.state.ksPart2Left.type}</span>: {this.state.ksPart2Left.text}
-                    <br></br><span>Current Value</span>: {this.state.ksPart2Left.array[this.levelLeft - 1] 
+                    <br></br>
+                    {this.state.keystoneIDLeft.index !== 12 ? <span>Current Value</span>
+                    : <span>Current Cap</span>}: {this.state.ksPart2Left.array[this.levelLeft - 1] 
                     + Math.round(this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
                     + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
                     + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio) }
@@ -8640,7 +8659,7 @@ class App extends Component {
                   <hr></hr>
                 
                   <img className='resolve' src={`${this.ksIcons[11]}`} onClick={(side) => this.grasp('Right')} />
-                  <img className='resolve' src={`${this.ksIcons[12]}`} />
+                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={(side) => this.aftershock('Right')} />
                   <img className='resolve' src={`${this.ksIcons[13]}`} />
                 </div>
 
@@ -8650,12 +8669,17 @@ class App extends Component {
                   <span>{this.state.keystoneIDRight.type}</span>: {this.state.keystoneRight}
                   <br></br>
                   <span>Current Value</span>: {this.state.ksArrayRight[this.levelRight - 1] + Math.round(this.state.ksAPRatioRight 
-                  * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)) }
-                  <br></br><span>Cooldown</span>: {this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
+                  * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)
+                  + this.state.ksHPRatioRight * this.state.totalStatsRight.hp 
+                  + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp)) }
+                  <br></br>
+                  <span>Cooldown</span>: {this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
                   <div style={{display: this.state.ksPart2DisplayRight}}>
                     <br></br>
                     <span>{this.state.ksPart2Right.type}</span>: {this.state.ksPart2Right.text}
-                    <br></br><span>Current Value</span>: {this.state.ksPart2Right.array[this.levelRight - 1] 
+                    <br></br>
+                    {this.state.keystoneIDRight.index !== 12 ? <span>Current Value</span>
+                    : <span>Current Cap</span>}: {this.state.ksPart2Right.array[this.levelRight - 1] 
                     + Math.round(this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap 
                     + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
                     + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio) }
