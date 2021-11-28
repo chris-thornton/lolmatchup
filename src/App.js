@@ -8100,6 +8100,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: 6,
       [`ksPart2Display${side}`]: 'none'
     })
@@ -8121,6 +8123,8 @@ class App extends Component {
       [`ksArray${side}`]: asByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: 6,
       [`ksPart2Display${side}`]: 'none'
     })
@@ -8142,6 +8146,8 @@ class App extends Component {
       [`ksArray${side}`]: healByLvl,
       [`ksBonusADRatio${side}`]: 0.4,
       [`ksAPRatio${side}`]: 0.3,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: 'Energized',
       [`ksPart2Display${side}`]: 'none'
     })
@@ -8163,6 +8169,8 @@ class App extends Component {
       [`ksArray${side}`]: forceByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: 'None',
       [`ksPart2Display${side}`]: 'none'
     })
@@ -8184,6 +8192,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0.4,
       [`ksAPRatio${side}`]: 0.25,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: '25 to 20, based on level.',
       [`ksPart2Display${side}`]: 'none'
     })
@@ -8205,6 +8215,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0.2,
       [`ksAPRatio${side}`]: 0.1,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: '90 to 60, based on level.',
       [`ksPart2Display${side}`]: 'none'
     })
@@ -8226,6 +8238,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0.25,
       [`ksAPRatio${side}`]: 0.15,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: '45, reduced to 1.5 on takedown.',
       [`ksPart2Display${side}`]: 'none'
     })
@@ -8247,6 +8261,8 @@ class App extends Component {
       [`ksArray${side}`]: asByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: 12,
       [`ksPart2Display${side}`]: 'none'
     })
@@ -8280,6 +8296,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0.15,
       [`ksAPRatio${side}`]: 0.1,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: 'Aery return'
     })
   };
@@ -8300,6 +8318,8 @@ class App extends Component {
       [`ksArray${side}`]: dmgByLvl,
       [`ksBonusADRatio${side}`]: 0.35,
       [`ksAPRatio${side}`]: 0.2,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: '20 to 8, based on level. Reduced by dmg: spells 20%, AoE 10% per enemy, DoT 5%',
       [`ksPart2Display${side}`]: 'none'
     })
@@ -8332,6 +8352,8 @@ class App extends Component {
       [`ksArray${side}`]: msByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: '30 to 10, based on level.',
       [`ksPart2Display${side}`]: 'block'
     })
