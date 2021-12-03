@@ -8457,6 +8457,33 @@ class App extends Component {
     })
   };
 
+  guardian = (side) => {
+    var shieldByLvl = [
+      50,54.71,59.41,64.12,68.82,73.53,78.24,82.94,87.65,
+      92.35,97.06,101.76,106.47,111.18,115.88,120.59,125.29,130
+    ];
+    this.setState({
+      [`keystone${side}`]: 
+        '50 to 130, based on level +(0.09 Bonus HP Ratio) +(0.15 AP Ratio) for 2 seconds.',
+      [`keystoneID${side}`]: {
+        index: 13,
+        title: 'Guardian',
+        type: 'Shield'
+      },
+      [`ksArray${side}`]: shieldByLvl,
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0.15,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0.09,
+      [`ksCD${side}`]: [
+        70,68.24,66.47,64.71,62.94,61.18,59.41,57.65,55.88,
+        54.12,52.35,50.59,48.82,47.06,45.29,43.53,41.76,40
+      ],
+      [`ksCDText${side}`]: '',
+      [`ksPart2Display${side}`]: 'none'
+    })
+  };
+
   homeToggle = () => {
     if (this.state.about === false) {
       this.setState({
@@ -8604,29 +8631,39 @@ class App extends Component {
                 
                   <img className='resolve' src={`${this.ksIcons[11]}`} onClick={(side) => this.grasp('Left')} />
                   <img className='resolve' src={`${this.ksIcons[12]}`} onClick={(side) => this.aftershock('Left')} />
-                  <img className='resolve' src={`${this.ksIcons[13]}`} />
+                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={(side) => this.guardian('Left')} />
                 </div>
 
                 <b>{this.state.keystoneIDLeft.title}</b>
                 
                 <div className='ksStats' style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
-                  <span>{this.state.keystoneIDLeft.type}</span>: {this.state.keystoneLeft}
+                  <span>{this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
                   <br></br>
-                  <span>Current Value</span>: {this.state.ksArrayLeft[this.levelLeft - 1] + Math.round(this.state.ksAPRatioLeft 
-                  * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad) 
-                  + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp 
-                  + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp)) }
-                  <br></br>
-                  <span>Cooldown</span>: {this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
+                  {this.state.keystoneIDLeft.index !== 7 ? <span>Current Value: </span> : ''} 
+                  {
+                    this.state.keystoneIDLeft.index === 7 ? '' 
+                    : this.state.keystoneIDLeft.index === 1 || this.state.keystoneIDLeft.index === 3 || this.state.keystoneIDLeft.index === 10 ? this.state.ksArrayLeft[this.levelLeft - 1] 
+                    + Math.round(this.state.ksAPRatioLeft * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft 
+                    * (this.runesLeft.ad + this.itemStatsLeft.ad) + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp 
+                    + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp))
+                    : Math.round(this.state.ksArrayLeft[this.levelLeft - 1] + (this.state.ksAPRatioLeft 
+                      * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad) 
+                      + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp 
+                      + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp))) 
+                  }
                   <div style={{display: this.state.ksPart2DisplayLeft}}>
                     <br></br>
-                    <span>{this.state.ksPart2Left.type}</span>: {this.state.ksPart2Left.text}
+                    <span>{this.state.ksPart2Left.type}: </span>{this.state.ksPart2Left.text}
                     <br></br>
-                    {this.state.keystoneIDLeft.index !== 12 ? <span>Current Value</span>
-                    : <span>Current Cap</span>}: {this.state.ksPart2Left.array[this.levelLeft - 1] 
-                    + Math.round(this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
+                    {this.state.keystoneIDLeft.index !== 12 ? <span>Current Value: </span>
+                    : <span>Current Cap: </span>}{Math.round(this.state.ksPart2Left.array[this.levelLeft - 1] 
+                    + (this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
                     + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
-                    + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio) }
+                    + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio)) }
+                  </div>
+                  <div>
+                    <br></br>
+                    <span>Cooldown: </span>{this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
                   </div>
                 </div>
                 
@@ -8660,7 +8697,7 @@ class App extends Component {
                 
                   <img className='resolve' src={`${this.ksIcons[11]}`} onClick={(side) => this.grasp('Right')} />
                   <img className='resolve' src={`${this.ksIcons[12]}`} onClick={(side) => this.aftershock('Right')} />
-                  <img className='resolve' src={`${this.ksIcons[13]}`} />
+                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={(side) => this.guardian('Right')} />
                 </div>
 
                 <b>{this.state.keystoneIDRight.title}</b>
