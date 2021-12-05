@@ -8656,10 +8656,12 @@ class App extends Component {
                     <span>{this.state.ksPart2Left.type}: </span>{this.state.ksPart2Left.text}
                     <br></br>
                     {this.state.keystoneIDLeft.index !== 12 ? <span>Current Value: </span>
-                    : <span>Current Cap: </span>}{Math.round(this.state.ksPart2Left.array[this.levelLeft - 1] 
+                    : <span>Current Cap: </span>}
+                    {this.state.keystoneIDLeft.index !== 10 ? Math.round(this.state.ksPart2Left.array[this.levelLeft - 1] 
                     + (this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
                     + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
-                    + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio)) }
+                    + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio)) 
+                    : this.state.ksPart2Left.array[this.levelLeft - 1] }
                   </div>
                   <div>
                     <br></br>
@@ -8703,23 +8705,35 @@ class App extends Component {
                 <b>{this.state.keystoneIDRight.title}</b>
                 
                 <div className='ksStats' style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
-                  <span>{this.state.keystoneIDRight.type}</span>: {this.state.keystoneRight}
+                <span>{this.state.keystoneIDRight.type}: </span>{this.state.keystoneRight}
                   <br></br>
-                  <span>Current Value</span>: {this.state.ksArrayRight[this.levelRight - 1] + Math.round(this.state.ksAPRatioRight 
-                  * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)
-                  + this.state.ksHPRatioRight * this.state.totalStatsRight.hp 
-                  + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp)) }
-                  <br></br>
-                  <span>Cooldown</span>: {this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
+                  {this.state.keystoneIDRight.index !== 7 ? <span>Current Value: </span> : ''} 
+                  {
+                    this.state.keystoneIDRight.index === 7 ? '' 
+                    : this.state.keystoneIDRight.index === 1 || this.state.keystoneIDRight.index === 3 || this.state.keystoneIDRight.index === 10 ? this.state.ksArrayRight[this.levelRight - 1] 
+                    + Math.round(this.state.ksAPRatioRight * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight 
+                    * (this.runesRight.ad + this.itemStatsRight.ad) + this.state.ksHPRatioRight * this.state.totalStatsRight.hp 
+                    + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))
+                    : Math.round(this.state.ksArrayRight[this.levelRight - 1] + (this.state.ksAPRatioRight 
+                      * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad) 
+                      + this.state.ksHPRatioRight * this.state.totalStatsRight.hp 
+                      + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))) 
+                  }
                   <div style={{display: this.state.ksPart2DisplayRight}}>
                     <br></br>
-                    <span>{this.state.ksPart2Right.type}</span>: {this.state.ksPart2Right.text}
+                    <span>{this.state.ksPart2Right.type}: </span>{this.state.ksPart2Right.text}
                     <br></br>
-                    {this.state.keystoneIDRight.index !== 12 ? <span>Current Value</span>
-                    : <span>Current Cap</span>}: {this.state.ksPart2Right.array[this.levelRight - 1] 
-                    + Math.round(this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap 
+                    {this.state.keystoneIDRight.index !== 12 ? <span>Current Value: </span>
+                    : <span>Current Cap: </span>}
+                    {this.state.keystoneIDRight.index !== 10 ? Math.round(this.state.ksPart2Right.array[this.levelRight - 1] 
+                    + (this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap 
                     + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
-                    + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio) }
+                    + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio)) 
+                    : this.state.ksPart2Right.array[this.levelRight - 1] }
+                  </div>
+                  <div>
+                    <br></br>
+                    <span>Cooldown: </span>{this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
                   </div>
                 </div>
 
