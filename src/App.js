@@ -598,11 +598,74 @@ class App extends Component {
           var b = document.createElement('b');
           b.innerText = text;
           abilityDiv.appendChild(b);
-        }
+        };
         function addText(text) {
           var a = document.createTextNode(text);
           abilityDiv.appendChild(a);
-        }
+        };
+        function colorAD(text){
+          var c = document.createElement('span');
+          var d = document.createTextNode(text);
+          c.appendChild(d);
+          c.style.color = 'rgb(189, 125, 76)';
+          abilityDiv.appendChild(c);
+        };
+        function colorAP(text){
+          var c = document.createElement('span');
+          var d = document.createTextNode(text);
+          c.appendChild(d);
+          c.style.color = 'rgb(156, 255, 247)';
+          abilityDiv.appendChild(c);
+        };
+        function colorHP(text){
+          var c = document.createElement('span');
+          var d = document.createTextNode(text);
+          c.appendChild(d);
+          c.style.color = 'rgb(32, 152, 93)';
+          abilityDiv.appendChild(c);
+        };
+        function colorArmor(text){
+          var c = document.createElement('span');
+          var d = document.createTextNode(text);
+          c.appendChild(d);
+          c.style.color = 'rgb(247, 113, 90)';
+          abilityDiv.appendChild(c);
+        };
+        function colorMR(text){
+          var c = document.createElement('span');
+          var d = document.createTextNode(text);
+          c.appendChild(d);
+          c.style.color = 'rgb(206, 142, 214)';
+          abilityDiv.appendChild(c);
+        };
+        function colorAS(text){
+          var c = document.createElement('span');
+          var d = document.createTextNode(text);
+          c.appendChild(d);
+          c.style.color = 'rgb(255, 203, 90)';
+          abilityDiv.appendChild(c);
+        };
+        function colorForce(text){
+          var c = document.createElement('span');
+          var d = document.createTextNode(text);
+          c.appendChild(d);
+          c.style.color = 'rgb(132, 69, 255)';
+          abilityDiv.appendChild(c);
+        };
+        function colorCrit(text){
+          var c = document.createElement('span');
+          var d = document.createTextNode(text);
+          c.appendChild(d);
+          c.style.color = 'rgb(213, 58, 66)';
+          abilityDiv.appendChild(c);
+        };
+        function colorMana(text){
+          var c = document.createElement('span');
+          var d = document.createTextNode(text);
+          c.appendChild(d);
+          c.style.color = 'rgb(29, 169, 255)';
+          abilityDiv.appendChild(c);
+        };
         function multiplyTicks(x) {
           if (typeof x !== 'number') {
             return x.map((z, i) => {
@@ -687,23 +750,25 @@ class App extends Component {
               };
               if (path["dmgRatioPerCritChance"]) {
                 singleBreak();
-                underLine('Damage Ratio Per Crit Chance');
+                underLine('Damage Ratio per Crit Chance');
                 addText(path["dmgRatioPerCritChance"]);
                 newAutoDmg *= path["dmgRatioPerCritChance"] * totalCritChance;
               };
               if (path["system"] === 'minMax') {
                 underLine('Min');
                 if (path["minADRatioByLvl"]) {
-                  addText('(' + path["minADRatioByLvl"][0] + " to " 
-                  + path["minADRatioByLvl"][17] + " AD Ratio, based on lvl. ");
+                  addText('(' + path["minADRatioByLvl"][0] + " to " + path["minADRatioByLvl"][17]);
+                  colorAD(' AD ');
+                  addText("ratio, based on lvl. ");
                   underLine('Currently');
                   addText(path["minADRatioByLvl"][champLevel] + ') ');
                 };
                 singleBreak();
                 addText('Max Damage');
                 if (path["maxADRatioByLvl"]) {
-                  addText(': (' + path["maxADRatioByLvl"][0] + " to " 
-                  + path["maxADRatioByLvl"][17] + " AD Ratio, based on lvl. ");
+                  addText(': (' + path["maxADRatioByLvl"][0] + " to " + path["maxADRatioByLvl"][17]);
+                  colorAD(' AD '); 
+                  addText("ratio, based on lvl. ");
                   underLine('Currently');
                   addText(path["maxADRatioByLvl"][champLevel] + ') ')
                 };
@@ -774,40 +839,58 @@ class App extends Component {
                 addText(" (+" + damage["dmgPerStack"] + ' per stack)');
               };
               if (damage["APRatio"]) {
-                addText(" (+" + damage["APRatio"] + " AP Ratio)");
+                addText(" (+" + damage["APRatio"]);
+                colorAP(' AP ');
+                addText("ratio)");
               };
               if (damage["ADRatio"]) {
                 if (champName !== 'Jayce') {
-                  addText(' (+' + removeParen(damage["ADRatio"]) + " AD Ratio)");
+                  addText(' (+' + removeParen(damage["ADRatio"]));
+                  colorAD(' AD ');
+                  addText("ratio)");
                 } else {
-                  addText('(' + removeParen(damage["ADRatio"]) + " AD Ratio)")
+                  addText('(' + removeParen(damage["ADRatio"]));
+                  colorAD(' AD ');
+                  addText("ratio)");
                 }
               };
               if (damage["ADRatioByLvl"]) {
-                addText('(+' + damage["ADRatioByLvl"][0] + " to " 
-                + damage["ADRatioByLvl"][17] + " AD Ratio, based on lvl. ");
+                addText('(+' + damage["ADRatioByLvl"][0] + " to " + damage["ADRatioByLvl"][17]);
+                colorAD(' AD '); 
+                addText("ratio, based on lvl. ");
                 underLine('Currently');
-                addText(damage["ADRatioByLvl"][champLevel] + ")")
+                addText(damage["ADRatioByLvl"][champLevel] + ")");
               };
               if (damage["bonusADRatio"]) {
-                addText(" (+" + removeParen(damage["bonusADRatio"]) + " Bonus AD Ratio)");
+                addText(" (+" + removeParen(damage["bonusADRatio"]));
+                colorAD(' Bonus AD ');
+                addText("ratio)");
               };
               if (damage["enemyMaxHPRatio"]) {
-                addText(" (+" + removeParen(damage["enemyMaxHPRatio"]) + " Enemy Max HP Ratio)");
+                addText(" (+" + removeParen(damage["enemyMaxHPRatio"]));
+                colorHP(' Enemy Max HP ');
+                addText("ratio)");
               };
               if (damage["enemyMaxHPRatioPer100AD"]) {
-                addText(" (+" + removeParen(damage["enemyMaxHPRatioPer100AD"]) + " Enemy Max HP Ratio per 100 AD)");
+                addText(" (+" + removeParen(damage["enemyMaxHPRatioPer100AD"]));
+                colorHP(' Enemy Max HP '); 
+                addText("ratio per 100 AD)");
               };
               if (damage["enemyMaxHPRatioPer100BonusAD"]) {
-                addText(" (+" + removeParen(damage["enemyMaxHPRatioPer100BonusAD"])
-                + " Enemy Max HP Ratio per 100 Bonus AD)");
+                addText(" (+" + removeParen(damage["enemyMaxHPRatioPer100BonusAD"]));
+                colorHP(' Enemy Max HP '); 
+                addText("ratio per 100 Bonus AD)");
               };
               if (damage["enemyMaxHPRatioPer100AP"]) {
-                addText(" (+" + removeParen(damage["enemyMaxHPRatioPer100AP"])+ " Enemy Max HP Ratio per 100 AP)");
+                addText(" (+" + removeParen(damage["enemyMaxHPRatioPer100AP"]));
+                colorHP(' Enemy Max HP ');
+                addText("ratio per 100 AP)");
               };
               if (damage["enemyMaxHPRatioByLvl"]) {
                 addText('(+' + damage["enemyMaxHPRatioByLvl"][0] 
-                + " to " + damage["enemyMaxHPRatioByLvl"][17] + " Enemy Max HP Ratio, based on lvl. ");
+                + " to " + damage["enemyMaxHPRatioByLvl"][17]);
+                colorHP(' Enemy Max HP ');
+                addText("ratio, based on lvl. ");
                 underLine('Currently');
                 addText(damage["enemyMaxHPRatioByLvl"][champLevel] + ") ");
               };
@@ -908,6 +991,9 @@ class App extends Component {
                 if (damage["minADRatio"]) {
                   addText(" (+" + removeParen(damage["minADRatio"]) + " AD Ratio)");
                 };
+                if (damage["minADRatioByLvl"]) {
+                  addText(" (+" + damage["minADRatioByLvl"][champLevel] + ' AD Ratio) ');
+                };
                 if (damage["minBonusADRatio"]) {
                   addText(" (+" + removeParen(damage["minBonusADRatio"]) + " Bonus AD Ratio)");
                 };
@@ -934,7 +1020,7 @@ class App extends Component {
                   addText(removeSpace(damage["maxDmg"]));
                 };
                 if (damage["maxDmgByLvl"]) {
-                  addText(': [' + damage["maxDmgByLvl"][0] + " to " + damage["maxDmgByLvl"][17] + ", based on lvl. ");
+                  addText('[' + damage["maxDmgByLvl"][0] + " to " + damage["maxDmgByLvl"][17] + ", based on lvl. ");
                   underLine('Currently');
                   addText(damage["maxDmgByLvl"][champLevel] + '] ')
                 };
@@ -943,6 +1029,9 @@ class App extends Component {
                 };
                 if (damage["maxADRatio"]) {
                   addText(" (+" + removeParen(damage["maxADRatio"]) + " AD Ratio)");
+                };
+                if (damage["maxADRatioByLvl"]) {
+                  addText(" (+" + damage["maxADRatioByLvl"][champLevel] + ' AD Ratio) ');
                 };
                 if (damage["maxBonusADRatio"]) {
                   addText(" (+" + removeParen(damage["maxBonusADRatio"]) + " Bonus AD Ratio)");
