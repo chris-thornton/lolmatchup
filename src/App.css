@@ -212,6 +212,12 @@ hr {
   color: #ffffb9;
 }
 
+.abilityBoxLeft img, .abilityBoxRight img {
+  vertical-align: middle;
+  height: 25px;
+  width: 25px;
+}
+
 .abilityTitleBox {
   margin-top: 20px;
   padding-left: 20vw;

@@ -640,6 +640,9 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = 'rgb(189, 125, 76)';
           abilityDiv.appendChild(c);
+          var e = document.createElement('img');
+          e.src = attackDamageIcon;
+          abilityDiv.appendChild(e);
         };
         function colorAP(text){
           var c = document.createElement('span');
@@ -647,6 +650,9 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = 'rgb(156, 255, 247)';
           abilityDiv.appendChild(c);
+          var e = document.createElement('img');
+          e.src = abilityPowerIcon;
+          abilityDiv.appendChild(e);
         };
         function colorHP(text){
           var c = document.createElement('span');
@@ -654,6 +660,9 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = 'rgb(32, 152, 93)';
           abilityDiv.appendChild(c);
+          var e = document.createElement('img');
+          e.src = healthIcon;
+          abilityDiv.appendChild(e);
         };
         function colorArmor(text){
           var c = document.createElement('span');
@@ -661,6 +670,9 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = 'rgb(247, 113, 90)';
           abilityDiv.appendChild(c);
+          var e = document.createElement('img');
+          e.src = armorIcon;
+          abilityDiv.appendChild(e);
         };
         function colorMR(text){
           var c = document.createElement('span');
@@ -668,6 +680,9 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = 'rgb(206, 142, 214)';
           abilityDiv.appendChild(c);
+          var e = document.createElement('img');
+          e.src = magicResIcon;
+          abilityDiv.appendChild(e);
         };
         function colorAS(text){
           var c = document.createElement('span');
@@ -675,6 +690,9 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = 'rgb(255, 203, 90)';
           abilityDiv.appendChild(c);
+          var e = document.createElement('img');
+          e.src = attackSpeedIcon;
+          abilityDiv.appendChild(e);
         };
         function colorForce(text){
           var c = document.createElement('span');
@@ -682,6 +700,9 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = 'rgb(132, 69, 255)';
           abilityDiv.appendChild(c);
+          var e = document.createElement('img');
+          e.src = forceIcon;
+          abilityDiv.appendChild(e);
         };
         function colorCrit(text){
           var c = document.createElement('span');
@@ -689,6 +710,9 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = 'rgb(213, 58, 66)';
           abilityDiv.appendChild(c);
+          var e = document.createElement('img');
+          e.src = critChanceIcon;
+          abilityDiv.appendChild(e);
         };
         function colorMana(text){
           var c = document.createElement('span');
@@ -696,6 +720,9 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = 'rgb(29, 169, 255)';
           abilityDiv.appendChild(c);
+          var e = document.createElement('img');
+          e.src = manaIcon;
+          abilityDiv.appendChild(e);
         };
         function multiplyTicks(x) {
           if (typeof x !== 'number') {
@@ -789,7 +816,7 @@ class App extends Component {
                 underLine('Min');
                 if (path["minADRatioByLvl"]) {
                   addText('(' + path["minADRatioByLvl"][0] + " to " + path["minADRatioByLvl"][17]);
-                  colorAD(' AD ');
+                  colorAD(' AD');
                   addText("ratio, based on lvl. ");
                   underLine('Currently');
                   addText(path["minADRatioByLvl"][champLevel] + ') ');
@@ -798,7 +825,7 @@ class App extends Component {
                 addText('Max Damage');
                 if (path["maxADRatioByLvl"]) {
                   addText(': (' + path["maxADRatioByLvl"][0] + " to " + path["maxADRatioByLvl"][17]);
-                  colorAD(' AD '); 
+                  colorAD(' AD'); 
                   addText("ratio, based on lvl. ");
                   underLine('Currently');
                   addText(path["maxADRatioByLvl"][champLevel] + ') ')
@@ -871,54 +898,54 @@ class App extends Component {
               };
               if (damage["APRatio"]) {
                 addText(" (+" + damage["APRatio"]);
-                colorAP(' AP ');
+                colorAP(' AP');
                 addText("ratio)");
               };
               if (damage["ADRatio"]) {
                 if (champName !== 'Jayce') {
                   addText(' (+' + removeParen(damage["ADRatio"]));
-                  colorAD(' AD ');
+                  colorAD(' AD');
                   addText("ratio)");
                 } else {
                   addText('(' + removeParen(damage["ADRatio"]));
-                  colorAD(' AD ');
+                  colorAD(' AD');
                   addText("ratio)");
                 }
               };
               if (damage["ADRatioByLvl"]) {
                 addText('(+' + damage["ADRatioByLvl"][0] + " to " + damage["ADRatioByLvl"][17]);
-                colorAD(' AD '); 
+                colorAD(' AD'); 
                 addText("ratio, based on lvl. ");
                 underLine('Currently');
                 addText(damage["ADRatioByLvl"][champLevel] + ")");
               };
               if (damage["bonusADRatio"]) {
                 addText(" (+" + removeParen(damage["bonusADRatio"]));
-                colorAD(' Bonus AD ');
+                colorAD(' Bonus AD');
                 addText("ratio)");
               };
               if (damage["enemyMaxHPRatio"]) {
                 addText(" (+" + removeParen(damage["enemyMaxHPRatio"]));
-                colorHP(' Enemy Max HP ');
+                colorHP(' Enemy Max HP');
                 addText("ratio)");
               };
               if (damage["enemyMaxHPRatioPer100AD"]) {
                 addText(" (+" + removeParen(damage["enemyMaxHPRatioPer100AD"]));
-                colorHP(' Enemy Max HP '); 
+                colorHP(' Enemy Max HP'); 
                 addText("ratio per ");
                 colorAD('100 AD');
                 addText(')');
               };
               if (damage["enemyMaxHPRatioPer100BonusAD"]) {
                 addText(" (+" + removeParen(damage["enemyMaxHPRatioPer100BonusAD"]));
-                colorHP(' Enemy Max HP '); 
+                colorHP(' Enemy Max HP'); 
                 addText("ratio per ")
                 colorAD('100 Bonus AD');
                 addText(')');
               };
               if (damage["enemyMaxHPRatioPer100AP"]) {
                 addText(" (+" + removeParen(damage["enemyMaxHPRatioPer100AP"]));
-                colorHP(' Enemy Max HP ');
+                colorHP(' Enemy Max HP');
                 addText("ratio per ");
                 colorAP('100 AP');
                 addText(')');
@@ -926,7 +953,7 @@ class App extends Component {
               if (damage["enemyMaxHPRatioByLvl"]) {
                 addText('(+' + damage["enemyMaxHPRatioByLvl"][0] 
                 + " to " + damage["enemyMaxHPRatioByLvl"][17]);
-                colorHP(' Enemy Max HP ');
+                colorHP(' Enemy Max HP');
                 addText("ratio, based on lvl. ");
                 underLine('Currently');
                 addText(damage["enemyMaxHPRatioByLvl"][champLevel] + ") ");
@@ -939,65 +966,65 @@ class App extends Component {
               };
               if (damage["enemyMaxHPRatioPerStack"]) {
                 addText(" (+" + removeParen(damage["enemyMaxHPRatioPerStack"]));
-                colorHP(' Enemy Max HP ');
+                colorHP(' Enemy Max HP');
                 addText("ratio per stack)");
               };
               if (damage["maxHPRatio"]) {
                 addText(" (+" + removeParen(damage["maxHPRatio"]));
-                colorHP(' Max HP ');
+                colorHP(' Max HP');
                 addText("ratio)");
               };
               if (damage["enemyCurrentHPRatio"]) {
                 addText(" (+" + removeParen(damage["enemyCurrentHPRatio"]));
-                colorHP(' Enemy Current HP '); 
+                colorHP(' Enemy Current HP'); 
                 addText("ratio)");
               };
               if (damage["enemyCurrentHPRatioByLvl"]) {
                 addText('(' + damage["enemyCurrentHPRatioByLvl"][0] + " to " + damage["enemyCurrentHPRatioByLvl"][17]);
-                colorHP(" Enemy Current HP "); 
+                colorHP(" Enemy Current HP"); 
                 addText("ratio, based on lvl. ");
                 underLine('Currently');
                 addText(': ' + damage["enemyCurrentHPRatioByLvl"][champLevel] + ") ");
               };
               if (damage["enemyMissingHPRatio"]) {
                 addText(" (+" + removeParen(damage["enemyMissingHPRatio"]));
-                colorHP(" Enemy Missing HP ");
+                colorHP(" Enemy Missing HP");
                 addText("ratio)");
               };
               if (damage["enemyMissingHPRatioPer100AP"]) {
                 addText(" (+" + removeParen(damage["enemyMissingHPRatioPer100AP"]));
-                colorHP(" Enemy Missing HP ");
+                colorHP(" Enemy Missing HP");
                 addText("ratio per ");
                 colorAP('100 AP');
                 addText(')');
               };
               if (damage["enemyMissingHPRatioByLvl"]) {
                 addText('(' + damage["enemyMissingHPRatioByLvl"][0] + " to " + damage["enemyMissingHPRatioByLvl"][17]);
-                colorHP(' Enemy Missing HP ');
+                colorHP(' Enemy Missing HP');
                 addText("ratio, based on lvl. ");
                 underLine('Currently');
                 addText(': ' + damage["enemyMissingHPRatioByLvl"][champLevel] + ")");
               };
               if (damage["armorRatio"]) {
                 addText(" (+" + removeParen(damage["armorRatio"]));
-                colorArmor(" Armor ");
+                colorArmor(" Armor");
                 addText("ratio)");
               };
               if (damage["bonusArmorRatio"]) {
                 addText(" (+" + removeParen(damage["bonusArmorRatio"]));
-                colorArmor(" Bonus Armor ");
+                colorArmor(" Bonus Armor");
                 addText("ratio)");
               };
               if (damage['enemyResistRatio']) {
                 addText(' (+' + damage['enemyResistRatio']);
-                colorArmor(' Enemy Armor ');
+                colorArmor(' Enemy Armor');
                 addText('and');
                 colorMR(' Magic Resist');
                 addText('ratio)');
               };
               if (damage["ADRatioPerCritChance"]) {
                 addText(" (+" + damage["ADRatioPerCritChance"]);
-                colorAD(" AD ");
+                colorAD(" AD");
                 addText('ratio per');
                 colorCrit(" Crit Chance");
                 if (damage["ADRatioPerCritChanceWithIE"]) {
@@ -1053,37 +1080,37 @@ class App extends Component {
                 };
                 if (damage["minADRatio"]) {
                   addText(" (+" + removeParen(damage["minADRatio"]));
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio)");
                 };
                 if (damage["minADRatioByLvl"]) {
                   addText(" (+" + damage["minADRatioByLvl"][champLevel])
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio) ");
                 };
                 if (damage["minBonusADRatio"]) {
                   addText(" (+" + removeParen(damage["minBonusADRatio"]));
-                  colorAD(" Bonus AD ");
+                  colorAD(" Bonus AD");
                   addText("ratio)");
                 };
                 if (damage["minAPRatio"]) {
                   addText(" (+" + removeParen(damage["minAPRatio"]));
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 };
                 if (damage["minArmorRatio"]) {
                   addText(" (+" + removeParen(damage["minArmorRatio"]));
-                  colorArmor(" Armor ");
+                  colorArmor(" Armor");
                   addText("ratio)");
                 };
                 if (damage["minEnemyMaxHPRatio"]) {
                   addText(" (+" + removeParen(damage["minEnemyMaxHPRatio"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio)");
                 };
                 if (damage["minEnemyMaxHPRatioPer100AP"]) {
                   addText(" (+" + damage["minEnemyMaxHPRatioPer100AP"]);
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio per");
                   colorAP(' 100 AP');
                   addText(')');
@@ -1108,37 +1135,37 @@ class App extends Component {
                 };
                 if (damage["maxADRatio"]) {
                   addText(" (+" + removeParen(damage["maxADRatio"]));
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio)");
                 };
                 if (damage["maxADRatioByLvl"]) {
                   addText(" (+" + damage["maxADRatioByLvl"][champLevel]);
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio)");
                 };
                 if (damage["maxBonusADRatio"]) {
                   addText(" (+" + removeParen(damage["maxBonusADRatio"]));
-                  colorAD(" Bonus AD ");
+                  colorAD(" Bonus AD");
                   addText("ratio)");
                 };
                 if (damage["maxAPRatio"]) {
                   addText(" (+" + removeParen(damage["maxAPRatio"]));
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 };
                 if (damage["maxArmorRatio"]) {
                   addText(" (+" + removeParen(damage["maxArmorRatio"]));
-                  colorArmor(" Armor ");
+                  colorArmor(" Armor");
                   addText("ratio)");
                 };
                 if (damage["maxEnemyMaxHPRatio"]) {
                   addText(" (+" + removeParen(damage["maxEnemyMaxHPRatio"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio)");
                 };
                 if (damage["maxEnemyMaxHPRatioPer100AP"]) {
                   addText(" (+" + damage["maxEnemyMaxHPRatioPer100AP"]);
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio per");
                   colorAP(' 100 AP');
                   addText(')');
@@ -1164,7 +1191,7 @@ class App extends Component {
                 singleBreak();
                 underLine('Crit Bonus Dmg with Infinity Edge');
                 addText(damage["critADRatioWithIE"]);
-                colorAD(" AD ");
+                colorAD(" AD");
                 addText("ratio");
               };
               if (damage["duration"]) {
@@ -1205,7 +1232,7 @@ class App extends Component {
                   };
                   if (part["ADRatio"]) {
                     addText(" (" + removeParen(part["ADRatio"]));
-                    colorAD(" AD ");
+                    colorAD(" AD");
                     addText("ratio)");
                   };
                   if (part["trueDmgRatioByLvl"]) {
@@ -1259,122 +1286,122 @@ class App extends Component {
               };
               if (damage["APRatio"]) {
                 addText(" (+" + removeParen(damage["APRatio"]));
-                colorAP(" AP ");
+                colorAP(" AP");
                 addText("ratio)");
               };
               if (damage["APRatioByLvl"]) {
                 addText(' (+' + damage["APRatioByLvl"][0] + " to " + damage["APRatioByLvl"][17]);
-                colorAP(" AP ");
+                colorAP(" AP");
                 addText("ratio, based on lvl. ");
                 underLine("Currently");
                 addText(damage["APRatioByLvl"][champLevel] + ') ')
               };
               if (damage["ADRatio"]) {
                 addText(" (+" + removeParen(damage["ADRatio"]));
-                colorAD(" AD ");
+                colorAD(" AD");
                 addText("ratio)");
               };
               if (damage["bonusADRatio"]) {
                 addText(" (+" + removeParen(damage["bonusADRatio"]));
-                colorAD(" Bonus AD ");
+                colorAD(" Bonus AD");
                 addText("ratio)");
               };
               if (damage["bonusManaRatio"]) {
                 addText(" (+" + damage["bonusManaRatio"]);
-                colorMana(" Bonus Mana ");
+                colorMana(" Bonus Mana");
                 addText("ratio)");
               };
               if (damage["enemyMaxHPRatio"]) {
                 addText(" (+" + removeParen(damage["enemyMaxHPRatio"]));
-                colorHP(" Enemy Max HP ");
+                colorHP(" Enemy Max HP");
                 addText("ratio)");
               };
               if (damage["enemyMaxHPRatioByLvl"]) {
                 addText('(' + damage["enemyMaxHPRatioByLvl"][0] + " to " 
                 + damage["enemyMaxHPRatioByLvl"][17]);
-                colorHP(" Enemy Max HP ");
+                colorHP(" Enemy Max HP");
                 addText("ratio, based on lvl. ");
                 underLine("Currently");
                 addText(damage["enemyMaxHPRatioByLvl"][champLevel] + ') ');
               };
               if (damage["enemyMaxHPRatioPer100AP"]) {
                 addText(' (+' + damage["enemyMaxHPRatioPer100AP"]);
-                colorHP(" Enemy Max HP ");
+                colorHP(" Enemy Max HP");
                 addText("ratio per");
                 colorAP(' 100 AP');
                 addText(')');
               };
               if (damage["enemyMaxHPRatioPer100BonusAD"]) {
                 addText(' (+' + damage["enemyMaxHPRatioPer100BonusAD"]);
-                colorHP(" Enemy Max HP ");
+                colorHP(" Enemy Max HP");
                 addText("ratio per");
                 colorAD(' 100 Bonus AD');
                 addText(')');
               };
               if (damage["bonusHPRatio"]) {
                 addText(" (+" + removeParen(damage["bonusHPRatio"]));
-                colorHP(" Bonus HP ");
+                colorHP(" Bonus HP");
                 addText("ratio)");
               };
               if (damage["maxHPRatio"]) {
                 addText(" (+" + removeParen(damage["maxHPRatio"]));
-                colorHP(" Max HP ");
+                colorHP(" Max HP");
                 addText("ratio)");
               };
               if (damage["enemyCurrentHPRatio"]) {
                 addText(" (+" + removeParen(damage["enemyCurrentHPRatio"]));
-                colorHP(" Enemy Current HP ");
+                colorHP(" Enemy Current HP");
                 addText("ratio)");
               };
               if (damage["enemyCurrentHPRatioPerStack"]) {
                 addText(' (+' + damage["enemyCurrentHPRatioPerStack"]);
-                colorHP(" Enemy Current HP ");
+                colorHP(" Enemy Current HP");
                 addText("ratio per stack)");
               };
               if (damage["enemyCurrentHPRatioPer100AP"]) {
                 addText(" (+" + removeParen(damage["enemyCurrentHPRatioPer100AP"]));
-                colorHP(" Enemy Current HP ");
+                colorHP(" Enemy Current HP");
                 addText("ratio per");
                 colorAP(' 100 AP');
                 addText(')');
               };
               if (damage["enemyCurrentHPRatioPer100AD"]) {
                 addText(" (+" + removeParen(damage["enemyCurrentHPRatioPer100AD"]));
-                colorHP(" Enemy Current HP ");
+                colorHP(" Enemy Current HP");
                 addText("ratio per");
                 colorAD(' 100 AD');
                 addText(')');
               };
               if (damage["enemyMissingHPRatio"]) {
                 addText(" (+" + removeParen(damage["enemyMissingHPRatio"]));
-                colorHP(" Enemy Missing HP ");
+                colorHP(" Enemy Missing HP");
                 addText("ratio)");
               };
               if (damage["enemyMissingHPRatioPer100AP"]) {
                 addText(" (+" + removeParen(damage["enemyMissingHPRatioPer100AP"]));
-                colorHP(" Enemy Missing HP ");
+                colorHP(" Enemy Missing HP");
                 addText("ratio per");
                 colorAP(' 100 AP');
                 addText(')');
               };
               if (damage["enemyMissingHPRatioPerStack"]) {
                 addText(' (+' + damage["enemyMissingHPRatioPerStack"]);
-                colorHP(" Enemy Missing HP ");
+                colorHP(" Enemy Missing HP");
                 addText("ratio per stack)");
               };
               if (damage["armorRatio"]) {
                 addText(" (+" + removeParen(damage["armorRatio"]));
-                colorArmor(" Armor ");
+                colorArmor(" Armor");
                 addText("ratio)");
               };
               if (damage["bonusArmorRatio"]) {
                 addText(" (+" + removeParen(damage["bonusArmorRatio"]));
-                colorArmor(" Bonus Armor ");
+                colorArmor(" Bonus Armor");
                 addText("ratio)");
               };
               if (damage["bonusMRRatio"]) {
                 addText(" (+" + removeParen(damage["bonusMRRatio"]));
-                colorMR(" Bonus Magic Resist ");
+                colorMR(" Bonus Magic Resist");
                 addText("ratio)");
               };
               if (damage["bonusMoveSpeedRatioByLvl"]) {
@@ -1390,7 +1417,7 @@ class App extends Component {
                 singleBreak();
                 underLine('Bonus Damage Ratio');
                 addText(damage["bonusDmgRatioPerCritChance"] + ' per');
-                colorCrit(" Crit Chance ");
+                colorCrit(" Crit Chance");
                 addText(")");
                 if (damage["dmgRatioPerStack"]) {
                   addText(' (' + damage["dmgRatioPerStack"] + ' per stack)');
@@ -1441,7 +1468,7 @@ class App extends Component {
                 };
                 if (damage["minDmgAPRatio"]) {
                   addText(' (+' + damage["minDmgAPRatio"]);
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 }
               };
@@ -1459,73 +1486,73 @@ class App extends Component {
                 };
                 if (damage["minAPRatio"]) {
                   addText(" (+" + removeParen(damage["minAPRatio"]));
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 };
                 if (damage["minADRatio"]) {
                   addText(" (+" + removeParen(damage["minADRatio"]));
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio)");
                 };
                 if (damage["minBonusADRatio"]) {
                   addText(" (+" + removeParen(damage["minBonusADRatio"]));
-                  colorAD(" Bonus AD ");
+                  colorAD(" Bonus AD");
                   addText("ratio)");
                 };
                 if (damage["minMaxManaRatio"]) {
                   addText(" (+" + removeParen(damage["minMaxManaRatio"]));
-                  colorMana(" Max Mana ");
+                  colorMana(" Max Mana");
                   addText("ratio)");
                 };
                 if (damage["minBonusHPRatio"]) {
                   addText(" (+" + damage["minBonusHPRatio"]);
-                  colorHP(" Bonus HP ");
+                  colorHP(" Bonus HP");
                   addText("ratio)");
                 };
                 if (damage["minMaxHPRatio"]) {
                   addText(" (+" + damage["minMaxHPRatio"]);
-                  colorHP(" Max HP ");
+                  colorHP(" Max HP");
                   addText("ratio)");
                 };
                 if (damage["minEnemyMaxHPRatio"]) {
                   addText(" (+" + removeParen(damage["minEnemyMaxHPRatio"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio)");
                 };
                 if (damage["minEnemyMaxHPRatioPer100BonusAD"]) {
                   addText(" (+" + removeParen(damage["minEnemyMaxHPRatioPer100BonusAD"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio per");
                   colorAD(' 100 Bonus AD');
                   addText(')');
                 };
                 if (damage["minEnemyMaxHPRatioPer100AP"]) {
                   addText(" (+" + removeParen(damage["minEnemyMaxHPRatioPer100AP"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio per");
                   colorAP(' 100 AP');
                   addText(')');
                 };
                 if (damage["minEnemyBonusHPRatio"]) {
                   addText(" (+" + removeParen(damage["minEnemyBonusHPRatio"]));
-                  colorHP(" Enemy Bonus HP ");
+                  colorHP(" Enemy Bonus HP");
                   addText("ratio)");
                 };
                 if (damage["minEnemyCurrentHPRatio"]) {
                   addText(" (+" + removeParen(damage["minEnemyCurrentHPRatio"]));
-                  colorHP(" Enemy Current HP ");
+                  colorHP(" Enemy Current HP");
                   addText("ratio)");
                 };
                 if (damage["minEnemyCurrentHPRatioPer100AP"]) {
                   addText(" (+" + removeParen(damage["minEnemyCurrentHPRatioPer100AP"]));
-                  colorHP(" Enemy Current HP ");
+                  colorHP(" Enemy Current HP");
                   addText("ratio per");
                   colorAP(' 100 AP');
                   addText(')');
                 };
                 if (damage["minEnemyMissingHPRatio"]) {
                   addText(" (+" + removeParen(damage["minEnemyMissingHPRatio"]));
-                  colorHP(" Enemy Missing HP ");
+                  colorHP(" Enemy Missing HP");
                   addText("ratio)");
                 };
 
@@ -1536,12 +1563,12 @@ class App extends Component {
                   removeSpace(damage["medDmg"]);
                   if (damage["medAPRatio"]) {
                     addText(" (+" + removeParen(damage["medAPRatio"]));
-                    colorAP(" AP ");
+                    colorAP(" AP");
                     addText("ratio)");
                   };
                   if (damage["medBonusADRatio"]) {
                     addText(" (+" + removeParen(damage["medBonusADRatio"]) + " Bonus AD Ratio)");
-                    colorAD(" Bonus AD ");
+                    colorAD(" Bonus AD");
                     addText("ratio)");
                   };
                   singleBreak();
@@ -1559,80 +1586,80 @@ class App extends Component {
                 };
                 if (damage["maxAPRatio"]) {
                   addText(" (+" + removeParen(damage["maxAPRatio"]));
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 };
                 if (damage["maxADRatio"]) {
                   addText(" (+" + removeParen(damage["maxADRatio"]));
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio)");
                 };
                 if (damage["maxBonusADRatio"]) {
                   addText(" (+" + removeParen(damage["maxBonusADRatio"]));
-                  colorAD(" Bonus AD ");
+                  colorAD(" Bonus AD");
                   addText("ratio)");
                 };
                 if (damage["maxMaxManaRatio"]) {
                   addText(" (+" + removeParen(damage["maxMaxManaRatio"]));
-                  colorMana(" Max Mana ");
+                  colorMana(" Max Mana");
                   addText("ratio)");
                 };
                 if (damage["maxBonusHPRatio"]) {
                   addText(" (+" + damage["maxBonusHPRatio"]);
-                  colorHP(" Bonus HP ");
+                  colorHP(" Bonus HP");
                   addText("ratio)");
                 };
                 if (damage["maxMaxHPRatio"]) {
                   addText(" (+" + removeParen(damage["maxMaxHPRatio"]));
-                  colorHP(" Max HP ");
+                  colorHP(" Max HP");
                   addText("ratio)");
                 };
                 if (damage["maxMaxHPRatioPer100BonusAD"]) {
                   addText(" (+" + removeParen(damage["maxMaxHPRatioPer100BonusAD"]));
-                  colorHP(" Max HP ");
+                  colorHP(" Max HP");
                   addText("ratio per");
                   colorAD(' 100 Bonus AD');
                   addText(')');
                 };
                 if (damage["maxEnemyMaxHPRatio"]) {
                   addText(" (+" + removeParen(damage["maxEnemyMaxHPRatio"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio)");
                 };
                 if (damage["maxEnemyMaxHPRatioPer100BonusAD"]) {
                   addText(" (+" + removeParen(damage["maxEnemyMaxHPRatioPer100BonusAD"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio per");
                   colorAD(' 100 Bonus AD');
                   addText(')');
                 };
                 if (damage["maxEnemyMaxHPRatioPer100AP"]) {
                   addText(" (+" + removeParen(damage["maxEnemyMaxHPRatioPer100AP"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio per");
                   colorAP(' 100 AP');
                   addText(')');
                 };
                 if (damage["maxEnemyCurrentHPRatio"]) {
                   addText(" (+" + removeParen(damage["maxEnemyCurrentHPRatio"]));
-                  colorHP(" Enemy Current HP ");
+                  colorHP(" Enemy Current HP");
                   addText("ratio)");
                 };
                 if (damage["maxEnemyCurrentHPRatioPer100AP"]) {
                   addText(" (+" + removeParen(damage["maxEnemyCurrentHPRatioPer100AP"]));
-                  colorHP(" Enemy Current HP ");
+                  colorHP(" Enemy Current HP");
                   addText("ratio per");
                   colorAP(' 100 AP');
                   addText(')');
                 };
                 if (damage["maxEnemyMissingHPRatio"]) {
                   addText(" (+" + removeParen(damage["maxEnemyMissingHPRatio"]));
-                  colorHP(" Enemy Missing HP ");
+                  colorHP(" Enemy Missing HP");
                   addText("ratio)");
                 };  
                 if (damage["maxEnemyBonusHPRatio"]) {
                   addText(" (+" + removeParen(damage["maxEnemyBonusHPRatio"]));
-                  colorHP(" Enemy Bonus HP ");
+                  colorHP(" Enemy Bonus HP");
                   addText("ratio)");
                 }
               };
@@ -1644,13 +1671,13 @@ class App extends Component {
               };
               if (damage["evolveMaxBonusADRatio"]) {
                 addText(" (+" + removeParen(damage["evolveMaxBonusADRatio"]));
-                colorAD(" Bonus AD ");
+                colorAD(" Bonus AD");
                 addText("ratio)");
                 
               };
               if (damage["evolveMaxAPRatio"]) {
                 addText(" (+" + removeParen(damage["evolveMaxAPRatio"]));
-                colorAP(" AP ");
+                colorAP(" AP");
                 addText("ratio)");
               };
 
@@ -1662,7 +1689,7 @@ class App extends Component {
                 };
                 if (damage["ADRatioPerStack"]) {
                   addText(" (+" + removeParen(damage["ADRatioPerStack"]));
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio)");
                 }
               };
@@ -1688,20 +1715,20 @@ class App extends Component {
                 singleBreak();
                 underLine('Crit Bonus Damage');
                 addText('Min: ' + damage["minCritADRatio"]);
-                colorAD(" AD ");
+                colorAD(" AD");
                 addText("ratio");
                 if (damage["minCritADRatioWithIE"]) {
                   addText(' (' + damage["minCritADRatioWithIE"]);
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio with Infinity Edge)");
                 };
                 singleBreak();
                 addText('Max: ' + damage["maxCritADRatio"]);
-                colorAD(" AD ");
+                colorAD(" AD");
                 addText("ratio");
                 if (damage["maxCritADRatioWithIE"]) {
                   addText(' (' + damage["maxCritADRatioWithIE"]);
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio with Infinity Edge)");
                 }
               };
@@ -1717,7 +1744,7 @@ class App extends Component {
                 };
                 if (empPath["bonusADRatio"]) {
                   addText(" (+" + removeParen(empPath["bonusADRatio"]));
-                  colorAD(" Bonus AD ");
+                  colorAD(" Bonus AD");
                   addText("ratio)");
                 };
                 if (empPath["system"] === 'minMax') {
@@ -1729,7 +1756,7 @@ class App extends Component {
                   };
                   if (empPath["minAPRatio"]) {
                     addText(' (+' + empPath["minAPRatio"]);
-                    colorAP(" AP ");
+                    colorAP(" AP");
                     addText("ratio)");
                   };
 
@@ -1744,7 +1771,7 @@ class App extends Component {
                   };
                   if (empPath["maxAPRatio"]) {
                     addText(' (+' + empPath["maxAPRatio"]);
-                    colorAP(" AP ");
+                    colorAP(" AP");
                     addText("ratio)");
                   }
                 }
@@ -1777,32 +1804,32 @@ class App extends Component {
                   };
                   if (part["APRatio"]) {
                     addText(" (+" + part["APRatio"]);
-                    colorAP(" AP ");
+                    colorAP(" AP");
                     addText("ratio)");
                   };
                   if (part["ADRatio"]) {
                     addText(" (+" + removeParen(part["ADRatio"]));
-                    colorAD(" AD ");
+                    colorAD(" AD");
                     addText("ratio)");
                   };
                   if (part["bonusADRatio"]) {
                     addText(" (+" + removeParen(part["bonusADRatio"]));
-                    colorAD(" Bonus AD ");
+                    colorAD(" Bonus AD");
                     addText("ratio)");
                   };
                   if (part["enemyMaxHPRatio"]) {
                     addText(" (+" + removeParen(part["enemyMaxHPRatio"]));
-                    colorHP(" Enemy Max HP ");
+                    colorHP(" Enemy Max HP");
                     addText("ratio)");
                   };
                   if (part["maxHPRatio"]) {
                     addText(" (+" + removeParen(part["maxHPRatio"]));
-                    colorHP(" Max HP ");
+                    colorHP(" Max HP");
                     addText("ratio)");
                   };
                   if (part["enemyCurrentHPRatio"]) {
                     addText(" (+" + removeParen(part["enemyCurrentHPRatio"]));
-                    colorHP(" Enemy Current HP ");
+                    colorHP(" Enemy Current HP");
                     addText("ratio)");
                   };
                   if (part["part1RatioFormula"]) {
@@ -1817,34 +1844,34 @@ class App extends Component {
                     };
                     if (part["minAPRatio"]) {
                       addText(" (+" + removeParen(part["minAPRatio"]));
-                      colorAP(" AP ");
+                      colorAP(" AP");
                       addText("ratio)");
                     };
                     if (part["minADRatio"]) {
                       addText(" (+" + removeParen(part["minADRatio"]));
-                      colorAD(" AD ");
+                      colorAD(" AD");
                       addText("ratio)");
                     };
                     if (part["minBonusADRatio"]) {
                       addText(" (+" + removeParen(part["minBonusADRatio"]));
-                      colorAD(" Bonus AD ");
+                      colorAD(" Bonus AD");
                       addText("ratio)");
                     };
                     if (part["minBonusADPerAttackSpeedRatio"]) {
                       addText(' (+' + part["minBonusADPerAttackSpeedRatio"]);
-                      colorAD(" Bonus AD ");
+                      colorAD(" Bonus AD");
                       addText("ratio per");
                       colorAS(' Attack Speed');
                       addText(')');
                     };
                     if (part["minEnemyMaxHPRatio"]) {
                       addText(' (' + removeParen(part["minEnemyMaxHPRatio"]));
-                      colorHP(" Enemy Max HP ");
+                      colorHP(" Enemy Max HP");
                       addText("ratio)");
                     };
                     if (part["minEnemyMaxHPRatioPer100AP"]) {
                       addText(' (+' + part["minEnemyMaxHPRatioPer100AP"]);
-                      colorHP(" Enemy Max HP ");
+                      colorHP(" Enemy Max HP");
                       addText("ratio per");
                       colorAP(' 100 AP');
                       addText(')');
@@ -1852,7 +1879,7 @@ class App extends Component {
                     if (part["minEnemyMissingHPRatioByLvl"]) {
                       addText('(' + part["minEnemyMissingHPRatioByLvl"][0] + " to " 
                       + part["minEnemyMissingHPRatioByLvl"][17]);
-                      colorHP(" Enemy Missing HP ");
+                      colorHP(" Enemy Missing HP");
                       addText("ratio, based on lvl. ");
                       underLine("Currently");
                       addText(part["minEnemyMissingHPRatioByLvl"][champLevel] + ')')
@@ -1866,34 +1893,34 @@ class App extends Component {
                     };
                     if (part["maxAPRatio"]) {
                       addText(" (+" + removeParen(part["maxAPRatio"]));
-                      colorAP(" AP ");
+                      colorAP(" AP");
                       addText("ratio)");
                     };
                     if (part["maxADRatio"]) {
                       addText(" (+" + removeParen(part["maxADRatio"]));
-                      colorAD(" AD ");
+                      colorAD(" AD");
                       addText("ratio)");
                     };
                     if (part["maxBonusADRatio"]) {
                       addText(" (+" + removeParen(part["maxBonusADRatio"]));
-                      colorAD(" Bonus AD ");
+                      colorAD(" Bonus AD");
                       addText("ratio)");
                     };
                     if (part["maxBonusADPerAttackSpeedRatio"]) {
                       addText(' (+' + part["maxBonusADPerAttackSpeedRatio"]);
-                      colorAD(" Bonus AD ");
+                      colorAD(" Bonus AD");
                       addText("ratio per");
                       colorAS(' Attack Speed');
                       addText(')');
                     };
                     if (part["maxEnemyMaxHPRatio"]) {
                       addText(' (' + removeParen(part["maxEnemyMaxHPRatio"]));
-                      colorHP(" Enemy Max HP ");
+                      colorHP(" Enemy Max HP");
                       addText("ratio)");
                     };
                     if (part["maxEnemyMaxHPRatioPer100AP"]) {
                       addText(' (+' + part["maxEnemyMaxHPRatioPer100AP"]);
-                      colorHP(" Enemy Max HP ");
+                      colorHP(" Enemy Max HP");
                       addText("ratio per");
                       colorAP(' 100 AP');
                       addText(')');
@@ -1901,7 +1928,7 @@ class App extends Component {
                     if (part["maxEnemyMissingHPRatioByLvl"]) {
                       addText('(' + part["maxEnemyMissingHPRatioByLvl"][0] + " to " 
                       + part["maxEnemyMissingHPRatioByLvl"][17]);
-                      colorHP(" Enemy Missing HP ");
+                      colorHP(" Enemy Missing HP");
                       addText("ratio, based on lvl. ");
                       underLine("Currently");
                       addText(part["maxEnemyMissingHPRatioByLvl"][champLevel] + ')');
@@ -1974,51 +2001,51 @@ class App extends Component {
               };
               if (path["APRatio"]) {
                 addText(" (+" + path["APRatio"]);
-                colorAP(" AP ");
+                colorAP(" AP");
                 addText("ratio)");
               };
               if (path["ADRatio"]) {
                 addText(" (+" + removeParen(path["ADRatio"]));
-                colorAD(" AD ");
+                colorAD(" AD");
                 addText("ratio)");
               };
               if (path["bonusADRatio"]) {
                 addText(" (+" + removeParen(path["bonusADRatio"]));
-                colorAD(" Bonus AD ");
+                colorAD(" Bonus AD");
                 addText("ratio)");
               };
               if (path["enemyMaxHPRatio"]) {
                 addText(" (+" + removeParen(path["enemyMaxHPRatio"]));
-                colorHP(" Enemy Max HP ");
+                colorHP(" Enemy Max HP");
                 addText("ratio)");
               };
               if (path["enemyMaxHPRatioByLvl"]) {
                 addText(' [+' + path["enemyMaxHPRatioByLvl"][0] + " to " + path["enemyMaxHPRatioByLvl"][17]);
-                colorHP(" Enemy Max HP ");
+                colorHP(" Enemy Max HP");
                 addText("ratio, based on lvl. ");
                 underLine("Currently");
                 addText(path["enemyMaxHPRatioByLvl"][champLevel] + '] ');
               };
               if (path["enemyMaxHPRatioPer100AP"]) {
                 addText(" (+" + removeParen(path["enemyMaxHPRatioPer100AP"]));
-                colorHP(" Enemy Max HP ");
+                colorHP(" Enemy Max HP");
                 addText("ratio per");
                 colorAP(" 100 AP");
                 addText(")");
               };
               if (path["maxHPRatio"]) {
                 addText(" (+" + removeParen(path["maxHPRatio"]));
-                colorHP(" Max HP ");
+                colorHP(" Max HP");
                 addText("ratio)");
               };
               if (path["bonusHPRatio"]) {
                 addText(" (+" + path["bonusHPRatio"]);
-                colorHP(" Bonus HP ");
+                colorHP(" Bonus HP");
                 addText("ratio)");
               };
               if (path["enemyCurrentHPRatio"]) {
                 addText(" (+" + removeParen(path["enemyCurrentHPRatio"]));
-                colorHP(" Enemy Current HP ");
+                colorHP(" Enemy Current HP");
                 addText("ratio)");
               };
           
@@ -2034,17 +2061,17 @@ class App extends Component {
                 };
                 if (path["minAPRatio"]) {
                   addText(" (+" + removeParen(path["minAPRatio"]));
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 };
                 if (path["minADRatio"]) {
                   addText(" (+" + removeParen(path["minADRatio"]));
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio)");
                 };
                 if (path["minBonusADRatio"]) {
                   addText(" (+" + removeParen(path["minBonusADRatio"]));
-                  colorAD(" Bonus AD ");
+                  colorAD(" Bonus AD");
                   addText("ratio)");
                 };
                 if (path["interval"] && path["ticks"]) {
@@ -2069,17 +2096,17 @@ class App extends Component {
                 };
                 if (path["maxAPRatio"]) {
                   addText(" (+" + removeParen(path["maxAPRatio"]));
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 };
                 if (path["maxADRatio"]) {
                   addText(" (+" + removeParen(path["maxADRatio"]));
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio)");
                 };
                 if (path["maxBonusADRatio"]) {
                   addText(" (+" + removeParen(path["maxBonusADRatio"]));
-                  colorAD(" Bonus AD ");
+                  colorAD(" Bonus AD");
                   addText("ratio)");
                 };
                 if (path["ASForBonusTick"]) {
@@ -2088,7 +2115,7 @@ class App extends Component {
                   underLine('Ticks')
                   addText(path["ticks"]);
                   addText(' (+1 tick per ' + path["ASForBonusTick"]);
-                  colorAS(" Bonus Attack Speed ");
+                  colorAS(" Bonus Attack Speed");
                   addText("ratio)");
                 }
               };
@@ -2131,42 +2158,42 @@ class App extends Component {
                 };
                 if (path["APRatio"]) {
                   addText(" (+" + mapParen(multiplyTicks2(path["APRatio"])));
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 };
                 if (path["ADRatio"]) {
                   addText(" (+" + mapParen(multiplyTicks2(path["ADRatio"])));
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio)");
                 };
                 if (path["bonusADRatio"]) {
                   addText(" (+" + multiplyTicks2(path["bonusADRatio"]));
-                  colorAD(" Bonus AD ");
+                  colorAD(" Bonus AD");
                   addText("ratio)");
                 };
                 if (path["enemyMaxHPRatio"]) {
                   addText(" (+" + mapParen(multiplyTicks2(path["enemyMaxHPRatio"])));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio)");
                 };
                 if (path["maxHPRatio"]) {
                   addText(" (+" + multiplyTicks2(path["maxHPRatio"]));
-                  colorHP(" Max HP ");
+                  colorHP(" Max HP");
                   addText("ratio)");
                 };
                 if (path["bonusHPRatio"]) {
                   addText(" (+" + multiplyTicks2(path["bonusHPRatio"]));
-                  colorHP(" Bonus HP ");
+                  colorHP(" Bonus HP");
                   addText("ratio)");
                 };
                 if (path["enemyCurrentHPRatio"]) {
                   addText(" (+" + multiplyTicks2(path["enemyCurrentHPRatio"]));
-                  colorHP(" Enemy Current HP ");
+                  colorHP(" Enemy Current HP");
                   addText("ratio)");
                 };
                 if (path["enemyMaxHPRatioPer100AP"]) {
                   addText(" (+" + multiplyTicks2(path["enemyMaxHPRatioPer100AP"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio per");
                   colorAP(" 100 AP");
                   addText(")");
@@ -2189,17 +2216,17 @@ class App extends Component {
                   };
                   if (path["minAPRatio"]) {
                     addText(" (+" + mapParen(multiplyTicks2(path["minAPRatio"])));
-                    colorAP(" AP ");
+                    colorAP(" AP");
                     addText("ratio)");
                   };
                   if (path["minADRatio"]) {
                     addText(" (+" + mapParen(multiplyTicks2(path["minADRatio"])));
-                    colorAD(" AD ");
+                    colorAD(" AD");
                     addText("ratio)");
                   };
                   if (path["minBonusADRatio"]) {
                     addText(" (+" + mapParen(multiplyTicks2(path["minBonusADRatio"])));
-                    colorAD(" Bonus AD ");
+                    colorAD(" Bonus AD");
                     addText("ratio)");
                   };
 
@@ -2217,17 +2244,17 @@ class App extends Component {
                   };
                   if (path["maxAPRatio"]) {
                     addText(" (+" + mapParen(multiplyTicks2(path["maxAPRatio"])));
-                    colorAP(" AP ");
+                    colorAP(" AP");
                     addText("ratio)");
                   }
                   if (path["maxADRatio"]) {
                     addText(" (+" + mapParen(multiplyTicks2(path["maxADRatio"])));
-                    colorAD(" AD ");
+                    colorAD(" AD");
                     addText("ratio)");
                   }
                   if (path["maxBonusADRatio"]) {
                     addText(" (+" + mapParen(multiplyTicks2(path["maxBonusADRatio"])));
-                    colorAD(" Bonus AD ");
+                    colorAD(" Bonus AD");
                     addText("ratio)");
                   }
                 };
@@ -2243,7 +2270,7 @@ class App extends Component {
                 };
                 if (path["APRatio"]) {
                   addText(" (+" + removeParen(path["APRatio"]));
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 };
                 if (path["interval"] && path["ticks"]) {
@@ -2258,7 +2285,7 @@ class App extends Component {
                 };
                 if (path["APRatio"]) {
                   addText(' (+' +  mapParen(multiplyTicks2(path["APRatio"])));
-                  colorAP(" AP ");
+                  colorAP(" AP");
                   addText("ratio)");
                 };
 
@@ -2268,12 +2295,12 @@ class App extends Component {
                 
                 if (path["enemyMaxHPRatio"]) {
                   addText(removeParen(path["enemyMaxHPRatio"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio)");
                 };
                 if (path["enemyMaxHPRatioPer100AP"]) {
                   addText(' (+' +  path["enemyMaxHPRatioPer100AP"]);
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio per");
                   colorAP(" 100 AP");
                   addText(")");
@@ -2287,12 +2314,12 @@ class App extends Component {
                 
                 if (path["enemyMaxHPRatio"]) {
                   addText('(' +  mapParen(multiplyTicks2(path["enemyMaxHPRatio"])));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio)");
                 };
                 if (path["enemyMaxHPRatioPer100AP"]) {
                   addText(' (+' +  multiplyTicks2(path["enemyMaxHPRatioPer100AP"]));
-                  colorHP(" Enemy Max HP ");
+                  colorHP(" Enemy Max HP");
                   addText("ratio per");
                   colorAP(" 100 AP");
                   addText(")");
@@ -2310,10 +2337,10 @@ class App extends Component {
               underLine("Currently");
               addText(path["dmgByLvl"][champLevel] + '] ');
               addText(" (+" + path["bonusADRatio"]);
-              colorAD(" Bonus AD ");
+              colorAD(" Bonus AD");
               addText("ratio)");
               addText(" (+" + path["APRatio"]);
-              colorAP(" AP ");
+              colorAP(" AP");
               addText("ratio)");
               addText(' per ' + path["interval"] + ' sec, for ' + multiplyTicks2(path["interval"])   + ' seconds.')
 
@@ -2325,10 +2352,10 @@ class App extends Component {
               underLine("Currently");
               addText(multiplyTicks(path["dmgByLvl"][champLevel]) + '] ');
               addText(" (+" + multiplyTicks2(path["bonusADRatio"]));
-              colorAD(" Bonus AD ");
+              colorAD(" Bonus AD");
               addText("ratio)");
               addText(" (+" + multiplyTicks2(path["APRatio"]));
-              colorAP(" AP ");
+              colorAP(" AP");
               addText("ratio)");
             
               doubleBreak();
@@ -2343,14 +2370,14 @@ class App extends Component {
                 if (path["bonusAttackDamage"]["ADRatioByLvl"]) {
                   addText('[' + path["bonusAttackDamage"]["ADRatioByLvl"][0] 
                   + " to " + path["bonusAttackDamage"]["ADRatioByLvl"][17]);
-                  colorAD(" AD ");
+                  colorAD(" AD");
                   addText("ratio, based on lvl. ");
                   underLine("Currently");
                   addText(path["bonusAttackDamage"]["ADRatioByLvl"][champLevel] + '] ');
                 };
                 if (path["bonusAttackDamage"]["bonusADRatio"]) {
                   addText(' (+' + removeParen(path["bonusAttackDamage"]["bonusADRatio"]));
-                  colorAD(" Bonus AD ");
+                  colorAD(" Bonus AD");
                   addText("ratio)");
                 };
                 if (path["bonusAttackDamage"]["critChanceRatio"]) {
@@ -2360,7 +2387,7 @@ class App extends Component {
                 };
                 if (path["bonusAttackDamage"]["bonusAttackSpeedRatio"]) {
                   addText(' (+' + path["bonusAttackDamage"]["bonusAttackSpeedRatio"]);
-                  colorAS(" Bonus Attack Speed ");
+                  colorAS(" Bonus Attack Speed");
                   addText("ratio)");
                 };
                 if (path["bonusAttackDamage"]["minBonusAD"]) {
@@ -2425,7 +2452,7 @@ class App extends Component {
                 singleBreak();
                 underLine('Bonus Health');
                 addText(path["bonusHPPerAP"] + ' per');
-                colorAP(" Ability Power");
+                colorAP(" AP");
                 singleBreak();
                 underLine('Total');
                 addText(Math.round(path["bonusHPPerAP"] * totalAP));
@@ -2468,9 +2495,9 @@ class App extends Component {
                 singleBreak();
                 addText('Current Bonus ');
                 colorArmor('Armor');
-                addText(': ' + Math.round(path["bonusResistRatio"] * bonusArmor) + ', Current Bonus ');
+                addText('- ' + Math.round(path["bonusResistRatio"] * bonusArmor) + ', Current Bonus ');
                 colorMR('Magic Resist');
-                addText(': ' + Math.round(path["bonusResistRatio"] * bonusMR))
+                addText('- ' + Math.round(path["bonusResistRatio"] * bonusMR))
               };
               if (path["bonusBonusResistHPRatio"]) {
                 underLine('Bonus Armor, MR, and HP');
@@ -2481,11 +2508,11 @@ class App extends Component {
                 singleBreak();
                 addText('Current Bonus ');
                 colorArmor('Armor');
-                addText(': ' + Math.round(path["bonusBonusResistHPRatio"] * bonusArmor) + ', Current Bonus ');
+                addText('- ' + Math.round(path["bonusBonusResistHPRatio"] * bonusArmor) + ', Current Bonus ');
                 colorMR('Magic Resist');
-                addText(': ' + Math.round(path["bonusBonusResistHPRatio"] * bonusMR) + ', Current Bonus ');
+                addText('- ' + Math.round(path["bonusBonusResistHPRatio"] * bonusMR) + ', Current Bonus ');
                 colorHP('HP');
-                addText(': ' + Math.round(path["bonusBonusResistHPRatio"] * bonusHP));
+                addText('- ' + Math.round(path["bonusBonusResistHPRatio"] * bonusHP));
               };
               if (path["bonusResistPerStack"]) {
                 addText(' (+' + path["bonusResistPerStack"] + ' per stack)');
@@ -2496,23 +2523,23 @@ class App extends Component {
                 singleBreak();
                 addText('Current Min: ');
                 colorArmor('Armor');
-                addText(': ' + Math.round(path["minResistRatio"] * totalArmor) + ', ');
+                addText('- ' + Math.round(path["minResistRatio"] * totalArmor) + ', ');
                 colorMR('Magic Resist');
-                addText(': ' + Math.round(path["minResistRatio"] * totalMR))
+                addText('- ' + Math.round(path["minResistRatio"] * totalMR))
                 singleBreak();
                 addText('Current Max: ');
                 colorArmor('Armor');
-                addText(': ' + Math.round(path["maxResistRatio"] * totalArmor) + ', ');
+                addText('- ' + Math.round(path["maxResistRatio"] * totalArmor) + ', ');
                 colorMR('Magic Resist');
-                addText(': ' + Math.round(path["maxResistRatio"] * totalMR))
+                addText('- ' + Math.round(path["maxResistRatio"] * totalMR))
               };
               if (path["bonusArmor"]) {
                 underLine('Bonus Armor');
                 if (path["bonusArmor"]["minArmorRatio"]) {
                   addText('Min: (' + removeParen(path["bonusArmor"]["minArmorRatio"]));
-                  colorArmor(' Armor ');
+                  colorArmor(' Armor');
                   addText('ratio), Max: (' + removeParen(path["bonusArmor"]["maxArmorRatio"]));
-                  colorArmor(' Armor ');
+                  colorArmor(' Armor');
                   addText('ratio)');
                   singleBreak();
                   addText('Current Min: ' + Math.round(path["bonusArmor"]["minArmorRatio"] * totalArmor) 
@@ -2520,7 +2547,7 @@ class App extends Component {
                 }
                 if (path["bonusArmorRatio"]) {
                   addText(' (+' + removeParen(path["bonusArmorRatio"]));
-                  colorArmor(' Bonus Armor ');
+                  colorArmor(' Bonus Armor');
                   addText('ratio)');
                 }
               };
@@ -2530,7 +2557,7 @@ class App extends Component {
                 removeSpace(path["bonusMagicResist"]);
                 if (path["bonusMagicResistRatio"]) {
                   addText(' (+' + removeParen(path["bonusMagicResistRatio"]));
-                  colorMR(' Bonus Magic Resist ');
+                  colorMR(' Bonus Magic Resist');
                   addText('ratio)');
                 }
               };
@@ -2581,7 +2608,7 @@ class App extends Component {
               if (path["attackSpeedPerMissingHPRatio"]) {
                 underLine('Bonus Attack Speed');
                 addText('(' + path["attackSpeedPerMissingHPRatio"] + ' per');
-                colorHP(' Missing HP ');
+                colorHP(' Missing HP');
                 addText('ratio)');
               };
               if (path["minBonusAttackSpeed"]) {
@@ -2610,7 +2637,7 @@ class App extends Component {
                 addText(path["maxHPRegen"] + ' per 5 secs.')
                 singleBreak();
                 addText('Current Value: ' + Math.round(path["maxHPRegen"] * totalHP));
-                colorHP(' HP ');
+                colorHP(' HP');
                 addText('per 5 secs.');
               };
               if (path["minMaxHPRegen"]) {
@@ -2618,8 +2645,8 @@ class App extends Component {
                 addText('Min: ' + path["minMaxHPRegen"] + ', Max: ' + path["maxMaxHPRegen"]);
                 singleBreak();
                 addText('Current');
-                colorHP(' HP per 5');
-                addText(': Min: ' + Math.round(path["minMaxHPRegen"] * totalHP) 
+                colorHP(' HP');
+                addText('per 5: Min: ' + Math.round(path["minMaxHPRegen"] * totalHP) 
                 + ', Max: ' + Math.round(path["maxMaxHPRegen"] * totalHP))
               };
               if (path["tenacity"]) {
@@ -2693,7 +2720,7 @@ class App extends Component {
               };
               if (path["maxHPRatioByLvl"]) {
                 addText(' (+' + path["maxHPRatioByLvl"][0] + " to " + path["maxHPRatioByLvl"][17]);
-                colorHP(' Max HP ');
+                colorHP(' Max HP');
                 addText('ratio, based on lvl. ');
                 underLine("Currently");
                 addText(path["maxHPRatioByLvl"][champLevel] + ')')
@@ -2716,65 +2743,65 @@ class App extends Component {
               };
               if (path["APRatio"]) {
                 addText(" (+" + removeParen(path["APRatio"]));
-                colorAP(' AP ');
+                colorAP(' AP');
                 addText('ratio)');
               };
               if (path["ADRatio"]) {
                 addText(" (+" + removeParen(path["ADRatio"]));
-                colorAD(' AD ');
+                colorAD(' AD');
                 addText('ratio)');
               };
               if (path["bonusADRatio"]) {
                 addText(" (+" + removeParen(path["bonusADRatio"]));
-                colorAD(' Bonus AD ');
+                colorAD(' Bonus AD');
                 addText('ratio)');
               };
               if (path["bonusHPRatio"]) {
                 addText(" (+" + removeParen(path["bonusHPRatio"]));
-                colorHP(' Bonus HP ');
+                colorHP(' Bonus HP');
                 addText('ratio)');
               };
               if (path["maxHPRatio"]) {
                 addText(" (+" + removeParen(path["maxHPRatio"]));
-                colorHP(' Max HP ');
+                colorHP(' Max HP');
                 addText('ratio)');
               };
               if (path["enemyMaxHPRatio"]) {
                 addText(" (+" + removeParen(path["enemyMaxHPRatio"]));
-                colorHP(' Enemy Max HP ');
+                colorHP(' Enemy Max HP');
                 addText('ratio)');
               };
               if (path["enemyMaxHPRatioByLvl"]) {
                 addText(' (+' + path["enemyMaxHPRatioByLvl"][0] + " to " + path["enemyMaxHPRatioByLvl"][17]);
-                colorHP(' Enemy Max HP ');
+                colorHP(' Enemy Max HP');
                 addText('ratio, based on lvl. ');
                 underLine("Currently");
                 addText(path["enemyMaxHPRatioByLvl"][champLevel] + ')')
               };
               if (path["enemyMaxHPRatioPer100AP"]) {
                 addText(" (+" + path["enemyMaxHPRatioPer100AP"]);
-                colorHP(' Enemy Max HP ');
+                colorHP(' Enemy Max HP');
                 addText('ratio per');
                 colorAP(' 100 AP');
                 addText(')');
               };
               if (path["enemyMaxHPRatioPer100BonusAD"]) {
                 addText(" (+" + path["enemyMaxHPRatioPer100BonusAD"]);
-                colorHP(' Enemy Max HP ');
+                colorHP(' Enemy Max HP');
                 addText('ratio per');
                 colorAD(' 100 Bonus AD');
                 addText(')');
               };
               if (path['enemyMaxHPRatioPerBonusAS']) {
                 addText(" (+" + path["enemyMaxHPRatioPerBonusAS"]);
-                colorHP(' Enemy Max HP ');
+                colorHP(' Enemy Max HP');
                 addText('ratio per');
-                colorAS(' Bonus Attack Speed ');
+                colorAS(' Bonus Attack Speed');
                 addText('ratio)');
               };
               if (path["maxHPRatioByUltRank"]) {
                 addText('[' + path["maxHPRatioByUltRank"][0] + " to " + path["maxHPRatioByUltRank"][3]);
-                colorHP(' Max HP ');
+                colorHP(' Max HP');
                 addText('ratio, based on ult rank. ');
                 underLine("Currently");
                 addText(path["maxHPRatioByUltRank"][RRank] + '] ')
@@ -2785,17 +2812,17 @@ class App extends Component {
               if (path["increasePer1%HPLostLast4Sec"]) {
                 singleBreak();
                 addText('Increase by Ratio of ' +  path["increasePer1%HPLostLast4Sec"] + ' per 1%');
-                colorHP(' HP ');
+                colorHP(' HP');
                 addText('lost in the last 4 seconds.');
               };
               if (path["missingHPRatio"]) {
                 addText(" (+" + removeParen(path["missingHPRatio"]));
-                colorHP(' Missing HP ');
+                colorHP(' Missing HP');
                 addText('ratio)');
               };
               if (path['missingHPRatioPer100AP']) {
                 addText(" (+" + removeParen(path["missingHPRatioPer100AP"]));
-                colorHP(' Missing HP ');
+                colorHP(' Missing HP');
                 addText('ratio per');
                 colorAP(' 100 AP');
                 addText(')');
@@ -2818,7 +2845,7 @@ class App extends Component {
                 };
                 if (path["part1"]["APRatio"]) {
                   addText(" (+" + removeParen(path["part1"]["APRatio"]));
-                  colorAP(' AP ');
+                  colorAP(' AP');
                   addText('ratio)');
                 };
                 singleBreak();
@@ -2839,37 +2866,37 @@ class App extends Component {
                 };
                 if (path["minAPRatio"]) {
                   addText(" (+" + removeParen(path["minAPRatio"]));
-                  colorAP(' AP ');
+                  colorAP(' AP');
                   addText('ratio)');
                 };
                 if (path["minADRatio"]) {
                   addText(" (+" + removeParen(path["minADRatio"]));
-                  colorAD(' AD ');
+                  colorAD(' AD');
                   addText('ratio)');
                 };
                 if (path["minBonusADRatio"]) {
                   addText(" (+" + removeParen(path["minBonusADRatio"]));
-                  colorAD(' Bonus AD ');
+                  colorAD(' Bonus AD');
                   addText('ratio)');
                 };
                 if (path["minBonusHPRatio"]) {
                   addText(" (+" + removeParen(path["minBonusHPRatio"]));
-                  colorHP(' Bonus HP ');
+                  colorHP(' Bonus HP');
                   addText('ratio)');
                 };
                 if (path["minMaxHPRatio"]) {
                   addText(" (+" + removeParen(path["minMaxHPRatio"]));
-                  colorHP(' Max HP ');
+                  colorHP(' Max HP');
                   addText('ratio)');
                 };
                 if (path["minMissingHPRatio"]) {
                   addText(" (+" + removeParen(path["minMissingHPRatio"]));
-                  colorHP(' Missing HP ');
+                  colorHP(' Missing HP');
                   addText('ratio)');
                 };
                 if (path["minMissingHPRatioPer100AP"]) {
                   addText(" (+" + removeParen(path["minMissingHPRatioPer100AP"]));
-                  colorHP(' Missing HP ');
+                  colorHP(' Missing HP');
                   addText('ratio per');
                   colorAP(' 100 AP');
                   addText(')');
@@ -2888,37 +2915,37 @@ class App extends Component {
                 };
                 if (path["maxAPRatio"]) {
                   addText(" (+" + removeParen(path["maxAPRatio"]));
-                  colorAP(' AP ');
+                  colorAP(' AP');
                   addText('ratio)');
                 };
                 if (path["maxADRatio"]) {
                   addText(" (+" + removeParen(path["maxADRatio"]));
-                  colorAD(' AD ');
+                  colorAD(' AD');
                   addText('ratio)');
                 };
                 if (path["maxBonusADRatio"]) {
                   addText(" (+" + removeParen(path["maxBonusADRatio"]));
-                  colorAD(' Bonus AD ');
+                  colorAD(' Bonus AD');
                   addText('ratio)');
                 };
                 if (path["maxBonusHPRatio"]) {
                   addText(" (+" + removeParen(path["maxBonusHPRatio"]));
-                  colorHP(' Bonus HP ');
+                  colorHP(' Bonus HP');
                   addText('ratio)');
                 };
                 if (path["maxMaxHPRatio"]) {
                   addText(" (+" + removeParen(path["maxMaxHPRatio"]));
-                  colorHP(' Max HP ');
+                  colorHP(' Max HP');
                   addText('ratio)');
                 };
                 if (path["maxMissingHPRatio"]) {
                   addText(" (+" + removeParen(path["maxMissingHPRatio"]));
-                  colorHP(' Missing HP ');
+                  colorHP(' Missing HP');
                   addText('ratio)');
                 };
                 if (path["maxMissingHPRatioPer100AP"]) {
                   addText(" (+" + removeParen(path["maxMissingHPRatioPer100AP"]));
-                  colorHP(' Missing HP ');
+                  colorHP(' Missing HP');
                   addText('ratio per');
                   colorAP(' 100 AP');
                   addText(')');
@@ -2939,7 +2966,7 @@ class App extends Component {
                 };
                 if (path["APRatio"]) {
                   addText(' (+' + mapParen(multiplyTicks2(path['APRatio'])));
-                  colorAP(' AP ');
+                  colorAP(' AP');
                   addText('ratio)');
                 };
                 if (path["system"] === 'minMax') {
@@ -2948,7 +2975,7 @@ class App extends Component {
                   };
                   if (path["minAPRatio"]) {
                     addText(' (+' + mapParen(multiplyTicks2(path['minAPRatio'])));
-                    colorAP(' AP ');
+                    colorAP(' AP');
                     addText('ratio)');
                   };
                   singleBreak();
@@ -2957,7 +2984,7 @@ class App extends Component {
                   };
                   if (path["maxAPRatio"]) {
                     addText(' (+' + mapParen(multiplyTicks2(path['maxAPRatio'])));
-                    colorAP(' AP ');
+                    colorAP(' AP');
                     addText('ratio)');
                   }
                 }
@@ -2979,7 +3006,7 @@ class App extends Component {
                   }
                   if (empPath["minBonusADRatio"]) {
                     addText(' (+' + removeParen(empPath["minBonusADRatio"]));
-                    colorAD(' Bonus AD ');
+                    colorAD(' Bonus AD');
                     addText('ratio)');
                   }
                   singleBreak();
@@ -3000,12 +3027,12 @@ class App extends Component {
                 };
                 if (empPath["missingHPRatio"]) {
                   addText(" (+" + empPath["missingHPRatio"]);
-                  colorHP(' Missing HP ');
+                  colorHP(' Missing HP');
                   addText('ratio)');
                 };
                 if (empPath["missingHPRatioPer100AP"]) {
                   addText(" (+" + empPath["missingHPRatioPer100AP"]);
-                  colorHP(' Missing HP ');
+                  colorHP(' Missing HP');
                   addText('ratio per');
                   colorAP(' 100 AP');
                   addText(')');
@@ -3038,50 +3065,50 @@ class App extends Component {
               };
               if (path["APRatio"]) {
                 addText(" (+" + removeParen(path["APRatio"]));
-                colorAP(' AP ');
+                colorAP(' AP');
                 addText('ratio)');
               };
               if (path["ADRatio"]) {
                 addText(" (+" + removeParen(path["ADRatio"]));
-                colorAD(' AD ');
+                colorAD(' AD');
                 addText('ratio)');
               };
               if (path["bonusADRatio"]) {
                 addText(" (+" + removeParen(path["bonusADRatio"]));
-                colorAD(' Bonus AD ');
+                colorAD(' Bonus AD');
                 addText('ratio)');
               };
               if (path["bonusHPRatio"]) {
                 addText(" (+" + removeParen(path["bonusHPRatio"]));
-                colorHP(' Bonus HP ');
+                colorHP(' Bonus HP');
                 addText('ratio)');
               };
               if (path["maxHPRatio"]) {
                 addText(" (+" + removeParen(path["maxHPRatio"]));
-                colorHP(' Max HP ');
+                colorHP(' Max HP');
                 addText('ratio)');
               };
               if (path["maxHPRatioByLvl"]) {
                 addText('[' + path["maxHPRatioByLvl"][0] + " to " + path["maxHPRatioByLvl"][17]);
-                colorHP(' Max HP ');
+                colorHP(' Max HP');
                 addText('ratio, based on lvl. ');
                 underLine("Currently");
                 addText(path["maxHPRatioByLvl"][champLevel] + '] ')
               };
               if (path["maxHPRatioPerStack"]) {
                 addText(" (+" + removeParen(path["maxHPRatioPerStack"]));
-                colorHP(' Max HP ');
+                colorHP(' Max HP');
                 addText('ratio per stack)');
               };
               if (path["maxManaRatio"]) {
                 addText(" (+" + removeParen(path["maxManaRatio"]));
-                colorMana(' Max Mana ');
+                colorMana(' Max Mana');
                 addText('ratio)');
               };
               if (path["maxMaxHPRatio"]) {
                 underLine('Max')
                 addText('(' + removeParen(path["maxMaxHPRatio"]));
-                colorHP(' Max HP ');
+                colorHP(' Max HP');
                 addText('ratio)');
               };
               if (path["system"] === "minMax" ) {
@@ -3096,17 +3123,17 @@ class App extends Component {
                 };
                 if (path["minAPRatio"]) {
                   addText(" (+" + removeParen(path["minAPRatio"]));
-                  colorAP(' AP ');
+                  colorAP(' AP');
                   addText('ratio)');
                 };
                 if (path["minADRatio"]) {
                   addText(" (+" + removeParen(path["minADRatio"]));
-                  colorAD(' AD ');
+                  colorAD(' AD');
                   addText('ratio)');
                 };
                 if (path["minBonusADRatio"]) {
                   addText(" (+" + removeParen(path["minBonusADRatio"]));
-                  colorAD(' Bonus AD ');
+                  colorAD(' Bonus AD');
                   addText('ratio)');
                 };
                 singleBreak();
@@ -3122,17 +3149,17 @@ class App extends Component {
                 };
                 if (path["maxAPRatio"]) {
                   addText(" (+" + removeParen(path["maxAPRatio"]));
-                  colorAP(' AP ');
+                  colorAP(' AP');
                   addText('ratio)');
                 };
                 if (path["maxADRatio"]) {
                   addText(" (+" + removeParen(path["maxADRatio"]));
-                  colorAD(' AD ');
+                  colorAD(' AD');
                   addText('ratio)');
                 };
                 if (path["maxBonusADRatio"]) {
                   addText(" (+" + removeParen(path["maxBonusADRatio"]));
-                  colorAD(' Bonus AD ');
+                  colorAD(' Bonus AD');
                   addText('ratio)');
                 }
               };
@@ -3163,38 +3190,38 @@ class App extends Component {
               addBold('Revive: ')
               if (path["reviveTransform"]) {
                 underLine('Transform Stats');
-                colorHP('HP Ratio: ');
-                addText(path["reviveTransform"]["HPRatio"] 
-                + ', Value: ' + Math.round(path["reviveTransform"]["HPRatio"] * totalHP))
+                colorHP('HP Ratio');
+                addText('- ' + path["reviveTransform"]["HPRatio"] 
+                + ' (current value: ' + Math.round(path["reviveTransform"]["HPRatio"] * totalHP) + ')')
                 if (path["reviveTransform"]["bonusArmorByLvl"]) {
                   singleBreak();
-                  colorArmor('Bonus Armor: ');
-                  addText(path["reviveTransform"]["bonusArmorByLvl"][0] 
+                  colorArmor('Bonus Armor');
+                  addText('- ' + path["reviveTransform"]["bonusArmorByLvl"][0] 
                   + " to " + path["reviveTransform"]["bonusArmorByLvl"][17] + ", based on lvl. ")
                   addText('Currently: ' + path["reviveTransform"]["bonusArmorByLvl"][champLevel])
                 };
                 if (path["reviveTransform"]["bonusMagicResistByLvl"]) {
                   singleBreak();
-                  colorMR('Bonus Magic Resist: ');
-                  addText(path["reviveTransform"]
+                  colorMR('Bonus Magic Resist');
+                  addText('- ' + path["reviveTransform"]
                   ["bonusMagicResistByLvl"][0] + " to " + path["reviveTransform"]["bonusMagicResistByLvl"][17]
                   + ', based on lvl. Currently: ' + path["reviveTransform"]["bonusMagicResistByLvl"][champLevel])
                 };
                 if (path["reviveTransform"]["armorRatio"]) {
                   singleBreak();
-                  colorArmor('Armor Ratio: ');
-                  addText(path["reviveTransform"]["armorRatio"]
-                  + ', Value: ' + Math.round(path["reviveTransform"]["armorRatio"] * totalArmor));
+                  colorArmor('Armor Ratio');
+                  addText('- ' + path["reviveTransform"]["armorRatio"]
+                  + ' (current value: ' + Math.round(path["reviveTransform"]["armorRatio"] * totalArmor) + ')');
                 };
                 if (path["reviveTransform"]["magicResistRatio"]) {
                   singleBreak();
-                  colorMR('Magic Resist Ratio: ');
-                  addText(path["reviveTransform"]["magicResistRatio"]
-                  + ', Value: ' + Math.round(path["reviveTransform"]["magicResistRatio"] * totalMR))
+                  colorMR('Magic Resist Ratio');
+                  addText('- ' + path["reviveTransform"]["magicResistRatio"]
+                  + ' (current value: ' + Math.round(path["reviveTransform"]["magicResistRatio"] * totalMR) + ')')
                 };
                 if (path["reviveTransform"]["aoeResist"]) {
                   singleBreak();
-                  addText('AOE Resist Ratio: ' + path["reviveTransform"]["aoeResist"])
+                  addText('AOE Resist Ratio - ' + path["reviveTransform"]["aoeResist"])
                 };
                 singleBreak();
                 underLine("Duration");
@@ -3220,12 +3247,12 @@ class App extends Component {
                 singleBreak();
                 underLine('Health Restored');
                 addText('Min: ' + path["minHPRestoreRatio"]);
-                colorHP(' Max HP ');
-                addText('ratio, Value: ' + Math.round(path["minHPRestoreRatio"] * totalHP));
+                colorHP(' Max HP');
+                addText('ratio (current value: ' + Math.round(path["minHPRestoreRatio"] * totalHP) + ')');
                 singleBreak();
                 addText('Max: ' + path["maxHPRestoreRatio"]);
-                colorHP(' Max HP ');
-                addText('ratio, Value: ' + Math.round(path["maxHPRestoreRatio"] * totalHP))
+                colorHP(' Max HP');
+                addText('ratio (current value: ' + Math.round(path["maxHPRestoreRatio"] * totalHP) +')')
               }
               doubleBreak();
             };
@@ -3247,17 +3274,17 @@ class App extends Component {
               };
               if (path["APRatio"]) {
                 addText(' (+' + removeParen(path["APRatio"]));
-                colorAP(' AP ');
+                colorAP(' AP');
                 addText('ratio)');
               };
               if (path["bonusArmorRatio"]) {
                 addText(' (+' + removeParen(path["bonusArmorRatio"]));
-                colorArmor(' Bonus Armor ');
+                colorArmor(' Bonus Armor');
                 addText('ratio)');
               };
               if (path["bonusMagicResistRatio"]) {
                 addText(' (+' + removeParen(path["bonusMagicResistRatio"]));
-                colorMR(' Bonus Magic Resist ');
+                colorMR(' Bonus Magic Resist');
                 addText('ratio)');
               };
               if (path['maxReduxRatio']) {
@@ -3502,7 +3529,7 @@ class App extends Component {
               if (path["healingPerMissingHPRatio"]) {
                 underLine('Increased Healing');
                 addText('(' + path["healingPerMissingHPRatio"] + ' per');
-                colorHP(' Missing HP ');
+                colorHP(' Missing HP');
                 addText('ratio)');
                 singleBreak();
               };
@@ -3547,7 +3574,7 @@ class App extends Component {
               if (path["APRatio"]) {
                 addText(' (+'); 
                 removeSpace(path["APRatio"]);
-                colorAP(' AP ');
+                colorAP(' AP');
                 addText('ratio)');
               };
               if (path["duration"]) {
@@ -3590,7 +3617,7 @@ class App extends Component {
                 singleBreak();
                 underLine('Max');
                 addText(path["maxHPRatio"]);
-                colorHP(' Max HP ');
+                colorHP(' Max HP');
                 addText('ratio');
               };
               doubleBreak();
@@ -3604,7 +3631,7 @@ class App extends Component {
               };
               if (path["ADRatio"]) {
                 addText(' (+' + removeParen(path["ADRatio"]));
-                colorAD(' AD ');
+                colorAD(' AD');
                 addText('ratio)');
               };
               if (path["attackDamagePerAPRatio"]) {
@@ -3647,12 +3674,12 @@ class App extends Component {
               }
               if (path["allyBonusADRatio"]) {
                 addText(' (+' + removeParen(path["allyBonusADRatio"]));
-                colorAD(' Ally Bonus AD ');
+                colorAD(' Ally Bonus AD');
                 addText('ratio');
               }
               if (path["allyAPRatio"]) {
                 addText(' OR +' + removeParen(path["allyAPRatio"]));
-                colorAP(' Ally AP ');
+                colorAP(' Ally AP');
                 addText('ratio)');
               };
               doubleBreak();
@@ -3662,22 +3689,22 @@ class App extends Component {
               var path = champFile[ability]["allyBonusAdaptiveForce"]
               addBold('Ally Bonus Adaptive Force: ')
               if (path["adaptiveAD"]) {
-                colorAD('AD: ');
-                addText('[' + removeParen(path["adaptiveAD"]) + ']');
+                colorAD('AD');
+                addText('- [' + removeParen(path["adaptiveAD"]) + ']');
               };
               if (path["allyAdaptiveBonusADRatio"]) {
                 addText(' (+' + removeParen(path["allyAdaptiveBonusADRatio"]));
-                colorAD(' Ally Bonus AD ');
+                colorAD(' Ally Bonus AD');
                 addText('ratio)');
               };
               if (path["adaptiveAP"]) {
                 singleBreak();
-                colorAP('AP: ');
-                addText('[' + removeParen(path["adaptiveAP"]) + ']');
+                colorAP('AP');
+                addText('- [' + removeParen(path["adaptiveAP"]) + ']');
               };
               if (path["allyAdaptiveAPRatio"]) {
                 addText(' (+' + removeParen(path["allyAdaptiveAPRatio"]));
-                colorAP(' Ally AP ');
+                colorAP(' Ally AP');
                 addText('ratio)');
               };
               doubleBreak();
@@ -3742,17 +3769,17 @@ class App extends Component {
               };
               if (path["armorRatio"]) {
                 addText(' (+' + removeParen(path["armorRatio"]));
-                colorArmor(' Armor ');
+                colorArmor(' Armor');
                 addText('ratio)');
               };
               if (path["bonusArmorRatio"]) {
                 addText(' (+' + removeParen(path["bonusArmorRatio"]));
-                colorArmor(' Bonus Armor ');
+                colorArmor(' Bonus Armor');
                 addText('ratio)');
               };
               if (path["bonusADRatio"]) {
                 addText(' (+' + removeParen(path["bonusADRatio"]));
-                colorAD(' Bonus AD ');
+                colorAD(' Bonus AD');
                 addText('ratio)');
               }
               if (path["system"] === 'minMax') {
@@ -3777,12 +3804,12 @@ class App extends Component {
               };
               if (path["armorRatio"]) {
                 addText(' (+' + removeParen(path["armorRatio"]));
-                colorArmor(' Armor ');
+                colorArmor(' Armor');
                 addText('ratio)');
               };
               if (path["bonusArmorRatio"]) {
                 addText(' (+' + removeParen(path["bonusArmorRatio"]));
-                colorArmor(' Bonus Armor ');
+                colorArmor(' Bonus Armor');
                 addText('ratio)');
               };
               doubleBreak();
@@ -3796,17 +3823,17 @@ class App extends Component {
               };
               if (path["magicResistRatio"]) {
                 addText(' (+' + removeParen(path["magicResistRatio"]));
-                colorMR(' Magic Resist ');
+                colorMR(' Magic Resist');
                 addText('ratio)');
               };
               if (path["bonusMagicResistRatio"]) {
                 addText(' (+' + removeParen(path["bonusMagicResistRatio"]));
-                colorMR(' Bonus Magic Resist ');
+                colorMR(' Bonus Magic Resist');
                 addText('ratio)');
               };
               if (path["APRatio"]) {
                 addText(' (+' + removeParen(path["APRatio"]));
-                colorAP(' AP ');
+                colorAP(' AP');
                 addText('ratio)');
               };
               doubleBreak();
@@ -3820,12 +3847,12 @@ class App extends Component {
               };
               if (path["magicResistRatio"]) {
                 addText(' (+' + removeParen(path["magicResistRatio"]));
-                colorMR(' Magic Resist ');
+                colorMR(' Magic Resist');
                 addText('ratio)');
               };
               if (path["bonusMagicResistRatio"]) {
                 addText(' (+' + removeParen(path["bonusMagicResistRatio"]));
-                colorMR(' Bonus Magic Resist ');
+                colorMR(' Bonus Magic Resist');
                 addText('ratio)');
               };
               doubleBreak();
@@ -3859,7 +3886,7 @@ class App extends Component {
                 removeSpace(ASPath['minAttackSpeed']);
                 if (ASPath["minBonusAttackSpeedRatio"]) {
                   addText(' (+' + ASPath["minBonusAttackSpeedRatio"]);
-                  colorAS(' Bonus Attack Speed ');
+                  colorAS(' Bonus Attack Speed');
                   addText('ratio)');
                 };
                 if (ASPath["minAttackSpeedPer100AP"]) {
@@ -3874,7 +3901,7 @@ class App extends Component {
                 removeSpace(ASPath['maxAttackSpeed']);
                 if (ASPath["maxBonusAttackSpeedRatio"]) {
                   addText(' (+' + ASPath["maxBonusAttackSpeedRatio"]);
-                  colorAS(' Bonus Attack Speed ');
+                  colorAS(' Bonus Attack Speed');
                   addText('ratio)');
                 }
                 if (ASPath["maxAttackSpeedPer100AP"]) {
@@ -3953,19 +3980,19 @@ class App extends Component {
               addBold('Attack Speed Cripple: ');
               if (path["attackSpeed"]) {
                 removeSpace(path["attackSpeed"]);
-              }
+              };
               if (path["minAttackSpeed"]) {
                 underLine('Min');
                 removeSpace(path["minAttackSpeed"]);
                 singleBreak();
                 underLine('Max');
                 removeSpace(path["maxAttackSpeed"]);
-              }
+              };
               if (path["duration"]) {
                 singleBreak();
                 underLine('Duration');
                 addText(path["duration"]);
-              }
+              };
               doubleBreak();
             };
 
@@ -3977,24 +4004,32 @@ class App extends Component {
                 addText(path["auto"]["type"] + ' Damage: ');
                 if (path["auto"]["dmg"]) {
                   removeSpace(path["auto"]["dmg"]);
-                }
+                };
                 if (path['auto']['dmgByLvl']) {
                   addText(' [' + path["auto"]["dmgByLvl"][0] + " to " + path["auto"]["dmgByLvl"][17] + ", based on lvl. ");
                   underLine("Currently");
                   addText(path["auto"]["dmgByLvl"][champLevel] + ']')
-                }
+                };
                 if (path["auto"]["APRatio"]) {
-                  addText(' (+' + removeParen(path["auto"]["APRatio"]) + ' AP Ratio)');
-                }
+                  addText(' (+' + removeParen(path["auto"]["APRatio"]));
+                  colorAP(' AP');
+                  addText('ratio)');
+                };
                 if (path["auto"]["ADRatio"]) {
-                  addText(' (' + removeParen(path["auto"]["ADRatio"]) + ' AD Ratio)');
-                }
+                  addText(' (' + removeParen(path["auto"]["ADRatio"]));
+                  colorAD(' AD');
+                  addText('ratio)');
+                };
                 if (path["auto"]["bonusADRatio"]) {
-                  addText(' (+' + removeParen(path["auto"]["bonusADRatio"])+ ' Bonus AD Ratio)');
-                }
+                  addText(' (+' + removeParen(path["auto"]["bonusADRatio"]));
+                  colorAD(' Bonus AD');
+                  addText('ratio)');
+                };
                 if (path["auto"]["enemyMaxHPRatio"]) {
-                  addText(' (+' + path["auto"]["enemyMaxHPRatio"] + ' Enemy Max HP Ratio)');
-                }
+                  addText(' (+' + path["auto"]["enemyMaxHPRatio"]);
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
+                };
                 if (path["auto"]["system"] === 'minMax') {
                   addText('Min: ');
                   if (path["auto"]["minDmgByLvl"]) {
@@ -4002,10 +4037,12 @@ class App extends Component {
                     + path["auto"]["minDmgByLvl"][17] + ", based on lvl. ");
                     underLine("Currently");
                     addText(path["auto"]["minDmgByLvl"][champLevel] + ']')
-                  }
+                  };
                   if (path["auto"]["minAPRatio"]) {
-                    addText(' (+' + path["auto"]["minAPRatio"] + ' AP Ratio)');
-                  }
+                    addText(' (+' + path["auto"]["minAPRatio"]);
+                    colorAP(' AP');
+                    addText('ratio)');
+                  };
                   singleBreak();
                   addText('Max: ');
                   if (path["auto"]["maxDmgByLvl"]) {
@@ -4013,11 +4050,13 @@ class App extends Component {
                     + path["auto"]["maxDmgByLvl"][17] + ", based on lvl. ");
                     underLine("Currently");
                     addText(path["auto"]["maxDmgByLvl"][champLevel] + ']')
-                  }
+                  };
                   if (path["auto"]["maxAPRatio"]) {
-                    addText(' (+' + path["auto"]["maxAPRatio"] + ' AP Ratio)');
+                    addText(' (+' + path["auto"]["maxAPRatio"]);
+                    colorAP(' AP ');
+                    addText('ratio)');
                   }
-                }
+                };
                 if (path["auto"]["multiHitDmgRatio"]) {
                   singleBreak();
                   underLine('Multi-Hit Damage Ratio');
@@ -4027,7 +4066,7 @@ class App extends Component {
               if (path["attackSpeed"] || path["attackSpeedByLvl"] || path["minAttackSpeed"]) {
                 singleBreak();
                 underLine('Attack Speed');
-              }
+              };
               if (path["attackSpeed"]) {
                 removeSpace(path["attackSpeed"]);
               };
@@ -4035,7 +4074,7 @@ class App extends Component {
                 addText('[' + path["attackSpeedByLvl"][0] + " to " + path["attackSpeedByLvl"][17] + ", based on lvl. ");
                 underLine("Currently");
                 addText(path["attackSpeedByLvl"][champLevel] + ']')
-              }
+              };
               if (path["minAttackSpeed"]) {
                 addText('Min: ' + path["minAttackSpeed"] + ', Max: ' + path["maxAttackSpeed"]);
               };
@@ -4046,7 +4085,7 @@ class App extends Component {
               };
               if (path["bonusAttackSpeed"]) {
                 addText(' (+' + removeParen(path["bonusAttackSpeed"]) + ')');
-              }
+              };
               if (path["healthRatio"]) {
                 singleBreak();
                 underLine('Health Ratio');
@@ -4076,15 +4115,21 @@ class App extends Component {
               };
               if (path["healthPerAPRatioByLvl"]) {
                 addText(' (+' + path["healthPerAPRatioByLvl"][0] + " to " 
-                + path["healthPerAPRatioByLvl"][17] + " per Ability Power, based on lvl. ");
+                + path["healthPerAPRatioByLvl"][17] + " per");
+                colorAP(' AP');
+                addText(', based on lvl. ');
                 underLine("Currently");
                 addText(path["healthPerAPRatioByLvl"][champLevel] + ')')
-              }
+              };
               if (path["maxHPRatio"]) {
-                addText(' (+' + path["maxHPRatio"] + ' Max HP Ratio)');
-              }
+                addText(' (+' + path["maxHPRatio"]);
+                colorHP(' Max HP');
+                addText('ratio)');
+              };
               if (path["healthPerAPRatio"]) {
-                addText(' (+' + path["healthPerAPRatio"] + ' per AP)');
+                addText(' (+' + path["healthPerAPRatio"] + ' per');
+                colorAP(' AP');
+                addText(')');
               };
               if (path["armor"] || path["armorByLvl"]) {
                 singleBreak();
@@ -4099,12 +4144,14 @@ class App extends Component {
                 addText(path["armorByLvl"][champLevel] + ']')
               };
               if (path["armorPerAPRatio"]) {
-                addText(' (+' + path["armorPerAPRatio"] + ' per AP)');
+                addText(' (+' + path["armorPerAPRatio"] + ' per');
+                colorAP(' AP');
+                addText(')');
               };
               if (path["magicResist"] || path["magicResistByLvl"]) {
                 singleBreak();
                 underLine('Magic Resist');
-              }
+              };
               if (path["magicResist"]) {
                 removeSpace(path["magicResist"]);
               };
@@ -4114,13 +4161,15 @@ class App extends Component {
                 addText(path["magicResistByLvl"][champLevel] + ']')
               };
               if (path["magicResistPerAPRatio"]) {
-                addText(' (+' + path["magicResistPerAPRatio"] + ' per AP)');
-              }
+                addText(' (+' + path["magicResistPerAPRatio"] + ' per');
+                colorAP(' AP');
+                addText(')');
+              };
               if (path["interruptCC"]) {
                 singleBreak();
                 underLine('Crowd Control Duration');
                 addText(path["interruptCC"]);
-              }
+              };
               doubleBreak();
             };
 
@@ -4145,7 +4194,9 @@ class App extends Component {
                       removeSpace(path["auto"]["dmg"]);
                     }
                     if (path["auto"]["APRatio"]) {
-                      addText(' (+' + removeParen(path["auto"]["APRatio"]) + ' AP Ratio)');
+                      addText(' (+' + removeParen(path["auto"]["APRatio"]));
+                      colorAP(' AP');
+                      addText('ratio)');
                     }
                   };
                   if (path["attackSpeed"]) {
@@ -4162,7 +4213,9 @@ class App extends Component {
                   };
                   if (path["healthPerAPRatioByLvl"]) {
                     addText(' (+' + path["healthPerAPRatioByLvl"][0] + " to " 
-                    + path["healthPerAPRatioByLvl"][17] + " per Ability Power, based on lvl. ");
+                    + path["healthPerAPRatioByLvl"][17] + " per");
+                    colorAP(' AP');
+                    addText(', based on lvl. ');
                     underLine("Currently");
                     addText(path["healthPerAPRatioByLvl"][champLevel] + ')')
                   }
@@ -4191,7 +4244,9 @@ class App extends Component {
                     removeSpace(damage["dmg"]);
                   };
                   if (damage["APRatio"]) {
-                    addText(' (+' + removeParen(damage["APRatio"]) + ' AP Ratio)');
+                    addText(' (+' + removeParen(damage["APRatio"]));
+                    colorAP(' AP');
+                    addText('ratio)');
                   }
                   if (damage["system"] === 'minMax') {
                     underLine('Min');
@@ -4199,7 +4254,9 @@ class App extends Component {
                       removeSpace(damage["minDmg"]);
                     }
                     if (damage["minAPRatio"]) {
-                      addText(' (+' + removeParen(damage["minAPRatio"]) + ' AP Ratio)');
+                      addText(' (+' + removeParen(damage["minAPRatio"]));
+                      colorAP(' AP');
+                      addText('ratio)');
                     }
                     singleBreak();
                     underLine('Max');
@@ -4207,10 +4264,12 @@ class App extends Component {
                       removeSpace(damage["maxDmg"]);
                     }
                     if (damage["maxAPRatio"]) {
-                      addText(' (+' + removeParen(damage["maxAPRatio"]) + ' AP Ratio)');
+                      addText(' (+' + removeParen(damage["maxAPRatio"]));
+                      colorAP(' AP');
+                      addText('ratio)');
                     }
                   };
-                }
+                };
                 if (ePath['Q']['bonusDamage']) {
                   singleBreak();
                   var damage = ePath['Q']["bonusDamage"]
@@ -4223,18 +4282,22 @@ class App extends Component {
                       removeSpace(damage["minDmg"]);
                     };
                     if (damage["minAPRatio"]) {
-                      addText(' (+' + removeParen(damage["minAPRatio"]) + ' AP Ratio)');
-                    }
+                      addText(' (+' + removeParen(damage["minAPRatio"]));
+                      colorAP(' AP');
+                      addText('ratio)');
+                    };
                     singleBreak();
                     underLine('Max');
                     if (damage["maxDmg"]) {
                       removeSpace(damage["maxDmg"]);
                     };
                     if (damage["maxAPRatio"]) {
-                      addText(' (+' + removeParen(damage["maxAPRatio"]) + ' AP Ratio)');
+                      addText(' (+' + removeParen(damage["maxAPRatio"]));
+                      colorAP(' AP');
+                      addText('ratio)');
                     }
                   }
-                }
+                };
                 doubleBreak();
               };
               if (ePath['W']) {
@@ -4253,7 +4316,9 @@ class App extends Component {
                     removeSpace(damage["dmg"]);
                   };
                   if (damage["APRatio"]) {
-                    addText(' (+' + removeParen(damage["APRatio"]) + ' AP Ratio)');
+                    addText(' (+' + removeParen(damage["APRatio"]));
+                    colorAP(' AP');
+                    addText('ratio)');
                   }
                   if (damage["system"] === 'minMax') {
                     underLine('Min');
@@ -4261,7 +4326,9 @@ class App extends Component {
                       removeSpace(damage["minDmg"]);
                     }
                     if (damage["minAPRatio"]) {
-                      addText(' (+' + removeParen(damage["minAPRatio"]) + ' AP Ratio)');
+                      addText(' (+' + removeParen(damage["minAPRatio"]));
+                      colorAP(' AP');
+                      addText('ratio)');
                     }
                     singleBreak();
                     underLine('Max');
@@ -4269,7 +4336,9 @@ class App extends Component {
                       removeSpace(damage["maxDmg"]);
                     }
                     if (damage["maxAPRatio"]) {
-                      addText(' (+' + removeParen(damage["maxAPRatio"]) + ' AP Ratio)');
+                      addText(' (+' + removeParen(damage["maxAPRatio"]));
+                      colorAP(' AP');
+                      addText('ratio)');
                     }
                   }
                 };
@@ -4280,18 +4349,30 @@ class App extends Component {
                   if (path['system'] === 'minMax') {
                     underLine('Min');
                     if (path["minMissingHPRatio"]) {
-                      addText('(' + removeParen(path["minMissingHPRatio"]) + ' Missing HP Ratio)');
-                    }
+                      addText('(' + removeParen(path["minMissingHPRatio"]));
+                      colorHP(' Missing HP');
+                      addText('ratio)');
+                    };
                     if (path["minMissingHPRatioPer100AP"]) {
-                      addText(' (+' + removeParen(path["minMissingHPRatioPer100AP"]) + ' Missing HP Ratio per 100 AP)');
-                    }
+                      addText(' (+' + removeParen(path["minMissingHPRatioPer100AP"]));
+                      colorHP(' Missing HP');
+                      addText('ratio per');
+                      colorAP(' 100 AP');
+                      addText(')');
+                    };
                     singleBreak();
                     underLine('Max');
                     if (path["maxMissingHPRatio"]) {
                       addText('(' + removeParen(path["maxMissingHPRatio"]) + ' Missing HP Ratio)');
+                      colorHP(' Missing HP');
+                      addText('ratio)');
                     }
                     if (path["maxMissingHPRatioPer100AP"]) {
-                      addText(' (+' + removeParen(path["maxMissingHPRatioPer100AP"]) + ' Missing HP Ratio per 100 AP)');
+                      addText(' (+' + removeParen(path["maxMissingHPRatioPer100AP"]));
+                      colorHP(' Missing HP');
+                      addText('ratio per');
+                      colorAP(' 100 AP');
+                      addText(')');
                     }
                   }
                 }
@@ -4313,15 +4394,19 @@ class App extends Component {
                     removeSpace(damage["dmg"]);
                   };
                   if (damage["APRatio"]) {
-                    addText(' (+' + removeParen(damage["APRatio"]) + ' AP Ratio)');
-                  }
+                    addText(' (+' + removeParen(damage["APRatio"]));
+                    colorAP(' AP');
+                    addText('ratio)');
+                  };
                   if (damage["system"] === '2Part') {
                     underLine('Part 1');
                     if (damage["part1"]["dmg"]) {
                      removeSpace(damage["part1"]["dmg"]);
                     };
                     if (damage["part1"]["APRatio"]) {
-                      addText(' (+' + removeParen(damage["part1"]["APRatio"]) + ' AP Ratio)');
+                      addText(' (+' + removeParen(damage["part1"]["APRatio"]));
+                      colorAP(' AP');
+                      addText('ratio)');
                     }
                     singleBreak();
                     underLine('Part 2');
@@ -4329,20 +4414,24 @@ class App extends Component {
                       removeSpace(damage["part2"]["dmg"]);
                     };
                     if (damage["part2"]["APRatio"]) {
-                      addText(' (+' + removeParen(damage["part2"]["APRatio"]) + ' AP Ratio)');
+                      addText(' (+' + removeParen(damage["part2"]["APRatio"]));
+                      colorAP(' AP');
+                      addText('ratio)');
                     }
                   }
-                }
+                };
                 if (ePath['E']['bonusShield']) {
                   singleBreak();
                   var shield = ePath['E']["bonusShield"]
                   addBold('Bonus Shield: ');
                   if (shield["shield"]) {
                    removeSpace(shield["shield"]);
-                  }
+                  };
                   if (shield["APRatio"]) {
-                    addText(' (+' + removeParen(shield["APRatio"]) + ' AP Ratio)');
-                  }
+                    addText(' (+' + removeParen(shield["APRatio"]));
+                    colorAP(' AP');
+                    addText('ratio)');
+                  };
                   if (shield["nonTargetRatio"]) {
                     singleBreak();
                     underLine('Non-Target Shield Ratio: ');
@@ -4401,7 +4490,7 @@ class App extends Component {
                 removeSpace(path['duration']);
               };
               doubleBreak();
-            }
+            };
 
             if (champFile[ability]["duration"]) {
               addBold("Duration: ");
@@ -4433,7 +4522,7 @@ class App extends Component {
               addText('Max: ' + champFile[ability]["maxCoolDown"] + ', Min: ' + champFile[ability]["minCoolDown"]);
             };
             if (champFile[ability]["maxCoolDown"] && !champFile[ability]["minCoolDown"]) {
-              addBold("Max Cooldown: ");
+              addGrey("Max Cooldown: ");
               addText(champFile[ability]["maxCoolDown"]);
             };
             if (champFile[ability]["coolDownByLvl"]) {
@@ -4451,16 +4540,16 @@ class App extends Component {
               if (champFile[ability]["coolDown"]) {
                 singleBreak();
               };
-              addBold("Static Cooldown: ");
+              addGrey("Static Cooldown: ");
               removeSpace(champFile[ability]["staticCoolDown"])
             };
             if (champFile[ability]["staticCoolDownByLvl"]) {
-              addBold("Static Cooldown: ");
+              addGrey("Static Cooldown: ");
               addText('[' + champFile[ability]["staticCoolDownByLvl"][0] + " to " 
               + champFile[ability]["staticCoolDownByLvl"][17] + "], based on lvl. ");
               underLine("Currently");
               addText(champFile[ability]["staticCoolDownByLvl"][champLevel])
-            }
+            };
             if (champFile[ability]["autoCoolDown"]) {
               addGrey("Cooldown Number of Auto Attacks: ");
               addText(champFile[ability]["autoCoolDown"]);
@@ -4495,8 +4584,9 @@ class App extends Component {
             };
             if (champFile[ability]["minCoolDownRefund"]) {
               singleBreak();
-              underLine('Cooldown Refund')
-              addText('Min: ' + champFile[ability]["minCoolDownRefund"]+ ', Max: ' + champFile[ability]["maxCoolDownRefund"]);
+              underLine('Cooldown Refund');
+              addText('Min: ' + champFile[ability]["minCoolDownRefund"]
+              + ', Max: ' + champFile[ability]["maxCoolDownRefund"]);
             };
             if (champFile[ability]["minCoolDownRefundByLvl"]) {
               singleBreak();
@@ -4505,7 +4595,7 @@ class App extends Component {
                 + " to " + champFile[ability]["minCoolDownRefundByLvl"][17] + ", based on lvl. ");
               underLine("Currently");
               addText(champFile[ability]["minCoolDownRefundByLvl"][champLevel] + ']')
-            }
+            };
             if (champFile[ability]["maxCoolDownRefundByLvl"]) {
               singleBreak();
               underLine('Max Cooldown Refund')
@@ -4513,7 +4603,7 @@ class App extends Component {
                 + " to " + champFile[ability]["maxCoolDownRefundByLvl"][17] + ", based on lvl. ");
               underLine("Currently");
               addText(champFile[ability]["maxCoolDownRefundByLvl"][champLevel] + ']')
-            }
+            };
             if (champFile[ability]["coolDownRefundRatio"]) {
               singleBreak();
               underLine('Cooldown Refund Ratio')
@@ -4536,13 +4626,14 @@ class App extends Component {
               if (champFile[ability]["coolDown"] || champFile[ability]["staticCoolDown"]) {
                 singleBreak();
               }
-              addBold("Recharge: ");
+              addGrey("Recharge: ");
               removeSpace(champFile[ability]["recharge"]);
             };
             if (champFile[ability]["staticCoolDownFormula"]) {
               singleBreak();
-              addText('Cooldown Formula: ' + champFile[ability]["staticCoolDownFormula"]);
-            }
+              underLine('Cooldown Formula');
+              addText(champFile[ability]["staticCoolDownFormula"]);
+            };
 
             if (champFile[ability]["Rhaast"]) {
               var path = champFile[ability]["Rhaast"];
@@ -4565,34 +4656,54 @@ class App extends Component {
               if (path["damage"]) {
                 underLine(path["damage"]["type"] + ' Damage')
                 if (path["damage"]["enemyMaxHPRatio"]){
-                  addText('(' + path["damage"]["enemyMaxHPRatio"] + ' Enemy Max HP Ratio)');
-                }
+                  addText('(' + path["damage"]["enemyMaxHPRatio"]);
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
+                };
                 if (path["damage"]["enemyMaxHPRatioPer100BonusAD"]) {
-                  addText(' (+' + path["damage"]["enemyMaxHPRatioPer100BonusAD"] + ' Enemy Max HP Ratio per 100 Bonus AD)');
-                }
+                  addText(' (+' + path["damage"]["enemyMaxHPRatioPer100BonusAD"]);
+                  colorHP(' Enemy Max HP');
+                  addText('ratio per');
+                  colorAD(' 100 Bonus AD')
+                  addText(')');
+                };
                 if (path["damage"]["system"] === 'minMax') {
                   addText('Min: ');
                   if (path["damage"]["minADRatio"]) {
-                    addText('(' + path["damage"]["minADRatio"] + ' AD Ratio)');
+                    addText('(' + path["damage"]["minADRatio"]);
+                    colorAD(' AD');
+                    addText('ratio)');
                   };
                   if (path["damage"]["minEnemyMaxHPRatio"]) {
-                    addText(' (+' + path["damage"]["minEnemyMaxHPRatio"]+ ' Enemy Max HP Ratio)');
+                    addText(' (+' + path["damage"]["minEnemyMaxHPRatio"]);
+                    colorHP(' Enemy Max HP');
+                    addText('ratio)');
                   };
                   if (path["damage"]["minEnemyMaxHPRatioPer100BonusAD"]) {
-                    addText(' (+' + path["damage"]["minEnemyMaxHPRatioPer100BonusAD"] 
-                    + ' Enemy Max HP Ratio per 100 Bonus AD)');
+                    addText(' (+' + path["damage"]["minEnemyMaxHPRatioPer100BonusAD"]);
+                    colorHP(' Enemy Max HP');
+                    addText('ratio per');
+                    colorAD(' 100 Bonus AD');
+                    addText(')');
                   };
                   singleBreak();
                   addText('Max: ');
                   if (path["damage"]["maxADRatio"]) {
-                    addText('(' + path["damage"]["maxADRatio"] + ' AD Ratio)');
+                    addText('(' + path["damage"]["maxADRatio"]);
+                    colorAD(' AD');
+                    addText('ratio)');
                   };
                   if (path["damage"]["maxEnemyMaxHPRatio"]) {
-                    addText(' (+' + path["damage"]["maxEnemyMaxHPRatio"]+ ' Enemy Max HP Ratio)');
+                    addText(' (+' + path["damage"]["maxEnemyMaxHPRatio"]);
+                    colorHP(' Enemy Max HP');
+                    addText('ratio)');
                   };
                   if (path["damage"]["maxEnemyMaxHPRatioPer100BonusAD"]) {
-                    addText(' (+' + path["damage"]["maxEnemyMaxHPRatioPer100BonusAD"]
-                    + ' Enemy Max HP Ratio per 100 Bonus AD)');
+                    addText(' (+' + path["damage"]["maxEnemyMaxHPRatioPer100BonusAD"]);
+                    colorHP(' Enemy Max HP');
+                    addText('ratio per');
+                    colorAD(' 100 Bonus AD');
+                    addText(')');
                   };
                 } 
               };
@@ -4600,11 +4711,17 @@ class App extends Component {
                 singleBreak();
                 underLine('Heal')
                 if (path["heal"]["enemyMaxHPRatio"]){
-                  addText('(' + path["heal"]["enemyMaxHPRatio"] + ' Enemy Max HP Ratio)');
-                }
+                  addText('(' + path["heal"]["enemyMaxHPRatio"]);
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
+                };
                 if (path["heal"]["enemyMaxHPRatioPer100BonusAD"]){
                   addText(' (+' + path["heal"]["enemyMaxHPRatioPer100BonusAD"]
                   + ' Enemy Max HP Ratio per 100 Bonus AD)');
+                  colorHP(' Enemy Max HP');
+                  addText('ratio per');
+                  colorAD(' 100 Bonus AD');
+                  addText(')');
                 } 
               };
               if (path["interruptCC"]) {
@@ -4618,26 +4735,27 @@ class App extends Component {
               var hr = document.createElement('hr');
               abilityDiv.appendChild(hr);
               var p = document.createElement('p');
-              p.innerText = 'Shadow'
+              p.innerText = 'Shadow';
               abilityDiv.appendChild(p);
               var hr2 = document.createElement('hr');
               abilityDiv.appendChild(hr2);
               if (path["damage"]) {
-                underLine(path["damage"]["type"] + ' Damage')
+                underLine(path["damage"]["type"] + ' Damage');
                 if (path["damage"]["dmgRatioByLvl"]) {
                   addText('(' + path["damage"]["dmgRatioByLvl"][0]+ " to " + path["damage"]["dmgRatioByLvl"][17]
-                  + " Ratio of damage dealt over 3 seconds, based on lvl. ");
+                  + " ratio of damage dealt over 3 seconds, based on lvl. ");
                   underLine("Currently");
                   addText(path["damage"]["dmgRatioByLvl"][champLevel] + ')')
                 }
               };
               if (path["coolDown"]) {
-                underLine('Cooldown');
+                addGrey('Cooldown: ');
                 addText(path["coolDown"]);
               }
-            }
+            };
 
-          } 
+          };
+
           if (ability !== 'passive' && document.getElementById(`${ability}Rank${side}`).value > 0 ) {
             /* BEGIN RANK 1-5 SECTION */
             if (champFile[ability]["text"]) {
@@ -4653,7 +4771,7 @@ class App extends Component {
                 addBold('Empower 1 in every ' +  damage["autoCoolDown"] + ' Auto Attacks: ')
               } else {
                 addBold('Empower ' +  damage["durationAutos"] + ' Auto Attacks: ')
-              }
+              };
               underLine(damage['type'] + " Damage");
               var totalDmgCount = 0;
               var IEDmgCount = 0;
@@ -4747,10 +4865,14 @@ class App extends Component {
                 maxHPRatioCounter += damage["enemyMaxHPRatioByLvl"][champLevel];
               };
               if (maxHPRatioCounter !== 0) {
-                addText(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
+                addText(' (+' + lengthCheck(maxHPRatioCounter));
+                colorHP(' Enemy Max HP');
+                addText('ratio)');
               };
               if (damage["enemyMaxHPRatioPerStack"] && !enemyStats.hp) {
-                addText(" (+" + arrayCheck(damage["enemyMaxHPRatioPerStack"]) + " Enemy Max HP Ratio per stack)");
+                addText(" (+" + arrayCheck(damage["enemyMaxHPRatioPerStack"]));
+                colorHP(' Enemy Max HP');
+                addText('ratio per stack)');
               };
               if (damage["enemyMaxHPRatioPerStack"] && enemyStats.hp) {
                 addText(" (+" + Math.round(arrayCheck(damage["enemyMaxHPRatioPerStack"]) * enemyTotalHP) + " per stack)");
@@ -4758,13 +4880,17 @@ class App extends Component {
               var currentHPCounter = 0;
               if (damage["enemyCurrentHPRatio"] && !enemyStats.hp) {
                 currentHPCounter += arrayCheck(damage["enemyCurrentHPRatio"]);
-                addText(" (+" + arrayCheck(damage["enemyCurrentHPRatio"]) + " Enemy Current HP Ratio)");
+                addText(" (+" + arrayCheck(damage["enemyCurrentHPRatio"]));
+                colorHP(' Enemy Current HP');
+                addText('ratio)');
               };
               if (damage["enemyCurrentHPRatioByLvl"] && !enemyStats.hp) {
                 currentHPCounter += damage["enemyCurrentHPRatioByLvl"][champLevel];
               };
               if (currentHPCounter !== 0) {
-                addText(" (+" + lengthCheck(currentHPCounter) + " Enemy Current HP Ratio)");
+                addText(" (+" + lengthCheck(currentHPCounter));
+                colorHP(' Enemy Current HP');
+                addText('ratio)');
               };
               var missHPCounter = 0;
               if (damage["enemyMissingHPRatio"]) {
@@ -4777,7 +4903,9 @@ class App extends Component {
                 missHPCounter += arrayCheck(damage["enemyMissingHPRatioPer100AP"]) * totalAP/100;
               };
               if (missHPCounter !== 0) {
-                addText(" (+" + lengthCheck(missHPCounter) + " Enemy Missing HP Ratio)");
+                addText(" (+" + lengthCheck(missHPCounter));
+                colorHP(' Enemy Missing HP');
+                addText('ratio)');
               };
               if (damage["dmgPer5Chimes"]) {
                 addText(" (+" + damage["dmgPer5Chimes"] + ' per 5 chimes)');
@@ -4787,7 +4915,9 @@ class App extends Component {
               };
               if (damage["armorIgnore"]) {
                 singleBreak();
-                addText('Ignores ' + damage["armorIgnore"] + ' Enemy Armor Ratio.');
+                addText('Ignores ' + damage["armorIgnore"]);
+                colorArmor(' Enemy Armor');
+                addText('ratio.');
               };
               if (damage["alwaysCrit"]) {
                 addText('. Always critically strikes.');
@@ -4796,7 +4926,7 @@ class App extends Component {
                 singleBreak();
                 underLine('Bonus Attack Speed Penalty Ratio');
                 addText(damage["attackSpeedPenalty"] );
-              }
+              };
               if (damage["system"] === "min" ) {
                 singleBreak();
                 underLine('Min Damage')
@@ -4842,7 +4972,9 @@ class App extends Component {
                   minMaxHPRatioCounter += arrayCheck(damage["minEnemyMaxHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (minMaxHPRatioCounter !== 0) {
-                  addText(' (+' + lengthCheck(minMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
+                  addText(' (+' + lengthCheck(minMaxHPRatioCounter));
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
                 }
                 if (damage["minDmgPerStack"]) {
                   addText(' (+' + damage["minDmgPerStack"] + ' per stack)');
@@ -4886,7 +5018,9 @@ class App extends Component {
                   maxMaxHPRatioCounter += arrayCheck(damage["maxEnemyMaxHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (maxMaxHPRatioCounter !== 0) {
-                  addText(' (+' + lengthCheck(maxMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
+                  addText(' (+' + lengthCheck(maxMaxHPRatioCounter));
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
                 }
                 if (damage["maxDmgPerStack"]) {
                   addText(' (+' + damage["maxDmgPerStack"] + ' per stack)');
@@ -4979,7 +5113,7 @@ class App extends Component {
               };
               if (damage["staticCoolDownByLvl"]) {
                 singleBreak();
-                underLine("Static Cooldown");
+                addGrey("Static Cooldown: ");
                 addText(damage["staticCoolDownByLvl"][champLevel])
               };
               doubleBreak();
@@ -5106,7 +5240,9 @@ class App extends Component {
                 maxHPRatioCounter += damage["enemyMaxHPRatioByLvl"][champLevel];
               };
               if (maxHPRatioCounter !== 0) {
-                addText(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
+                addText(' (+' + lengthCheck(maxHPRatioCounter));
+                colorHP(' Enemy Max HP');
+                addText('ratio)');
               }
               var missingHPRatioCounter = 0;
               if (damage["enemyMissingHPRatio"]) {
@@ -5116,10 +5252,14 @@ class App extends Component {
                 missingHPRatioCounter += arrayCheck(damage["enemyMissingHPRatioPer100AP"]) * totalAP/100;
               };
               if (missingHPRatioCounter !== 0) {
-                addText(" (+" + lengthCheck(missingHPRatioCounter) + " Enemy Missing HP Ratio)");
+                addText(" (+" + lengthCheck(missingHPRatioCounter));
+                colorHP(' Enemy Missing HP');
+                addText('ratio)');
               };
               if (damage["enemyMissingHPRatioPerStack"]) {
-                addText(' (+' + arrayCheck(damage["enemyMissingHPRatioPerStack"]) + ' Enemy Missing HP Ratio per stack)');
+                addText(' (+' + arrayCheck(damage["enemyMissingHPRatioPerStack"]));
+                colorHP(' Enemy Missing HP');
+                addText('ratio per stack)');
               };
               var currentHPCounter = 0;
               if (damage["enemyCurrentHPRatio"] && !enemyStats.hp) {
@@ -5132,10 +5272,14 @@ class App extends Component {
                 currentHPCounter += arrayCheck(damage["enemyCurrentHPRatioPer100AP"]) * totalAP/100;
               };
               if (currentHPCounter !== 0) {
-                addText(" (+" + lengthCheck(currentHPCounter) + " Enemy Current HP Ratio)");
+                addText(" (+" + lengthCheck(currentHPCounter));
+                colorHP(' Enemy Current HP');
+                addText('ratio)');
               }; 
               if (damage["enemyCurrentHPRatioPerStack"]) {
-                addText(' (+' + arrayCheck(damage["enemyCurrentHPRatioPerStack"]) + ' Enemy Current HP Ratio per stack)');
+                addText(' (+' + arrayCheck(damage["enemyCurrentHPRatioPerStack"]));
+                colorHP(' Enemy Current HP');
+                addText('ratio per stack)');
               };
               if (damage["bonusMoveSpeedRatioByLvl"]) {
                 addText(' (+' + damage["bonusMoveSpeedRatioByLvl"][champLevel] + " Bonus Move Speed Ratio) ");
@@ -5229,11 +5373,15 @@ class App extends Component {
                   minMaxHPRatioCounter += damage["minEnemyMaxHPRatioByLvl"][champLevel];
                 };
                 if (minMaxHPRatioCounter !== 0) {
-                  addText(' (+' + lengthCheck(minMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
+                  addText(' (+' + lengthCheck(minMaxHPRatioCounter));
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
                 };
                 if (damage["minEnemyBonusHPRatio"] && !enemyStats.hp) {
-                  addText(' (+'+ arrayCheck(damage["minEnemyBonusHPRatio"]) + ' Enemy Bonus HP Ratio)');
-                }
+                  addText(' (+'+ arrayCheck(damage["minEnemyBonusHPRatio"]));
+                  colorHP(' Enemy Bonus HP');
+                  addText('ratio)');
+                };
                 var minCurrentHPCounter = 0;
                 if (damage["minEnemyCurrentHPRatio"] && !enemyStats.hp) {
                   minCurrentHPCounter += arrayCheck(damage["minEnemyCurrentHPRatio"]);
@@ -5242,10 +5390,14 @@ class App extends Component {
                   minCurrentHPCounter += arrayCheck(damage["minEnemyCurrentHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (minCurrentHPCounter !== 0) {
-                  addText(' (+' + lengthCheck(minCurrentHPCounter) + ' Enemy Current HP Ratio');
+                  addText(' (+' + lengthCheck(minCurrentHPCounter));
+                  colorHP(' Enemy Current HP');
+                  addText('ratio)');
                 };
                 if (damage["minEnemyMissingHPRatio"]) {
-                  addText(" (+" + arrayCheck(damage["minEnemyMissingHPRatio"]) + " Enemy Missing HP Ratio)");
+                  addText(" (+" + arrayCheck(damage["minEnemyMissingHPRatio"]));
+                  colorHP(' Enemy Missing HP');
+                  addText('ratio)');
                 };  
                 singleBreak();
 
@@ -5336,10 +5488,14 @@ class App extends Component {
                   maxMaxHPRatioCounter += damage["maxEnemyMaxHPRatioByLvl"][champLevel];
                 }
                 if (maxMaxHPRatioCounter !== 0) {
-                  addText(' (+' + lengthCheck(maxMaxHPRatioCounter) + ' Enemy Max HP Ratio)');
+                  addText(' (+' + lengthCheck(maxMaxHPRatioCounter));
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
                 }
                 if (damage["maxEnemyBonusHPRatio"] && !enemyStats.hp) {
-                  addText(' (+' + arrayCheck(damage["maxEnemyBonusHPRatio"]) + ' Enemy Bonus HP Ratio');
+                  addText(' (+' + arrayCheck(damage["maxEnemyBonusHPRatio"]));
+                  colorHP(' Enemy Bonus HP');
+                  addText('ratio)');
                 };
                 var maxCurrentHPCounter = 0;
                 if (damage["maxEnemyCurrentHPRatio"] && !enemyStats.hp) {
@@ -5349,10 +5505,14 @@ class App extends Component {
                   maxCurrentHPCounter += arrayCheck(damage["maxEnemyCurrentHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (maxCurrentHPCounter !== 0) {
-                  addText(' (+' + lengthCheck(maxCurrentHPCounter) + ' Enemy Current HP Ratio');
+                  addText(' (+' + lengthCheck(maxCurrentHPCounter));
+                  colorHP(' Enemy Current HP');
+                  addText('ratio)');
                 };
                 if (damage["maxEnemyMissingHPRatio"]) {
-                  addText(" (+" + arrayCheck(damage["maxEnemyMissingHPRatio"]) + " Enemy Missing HP Ratio)");
+                  addText(" (+" + arrayCheck(damage["maxEnemyMissingHPRatio"]));
+                  colorHP(' Enemy Missing HP');
+                  addText('ratio)');
                 };
               };
 
@@ -5546,10 +5706,14 @@ class App extends Component {
                     addText(Math.round(partDmgCount));
                   };
                   if (part["enemyMaxHPRatio"] && !enemyStats.hp) {
-                    addText(" (+" + arrayCheck(part["enemyMaxHPRatio"]) + " Enemy Max HP Ratio)");
+                    addText(" (+" + arrayCheck(part["enemyMaxHPRatio"]));
+                    colorHP(' Enemy Max HP');
+                    addText('ratio)');
                   };
                   if (part["enemyCurrentHPRatio"] && !enemyStats.hp) {
-                    addText(" (+" + arrayCheck(part["enemyCurrentHPRatio"]) + " Enemy Current HP Ratio)");
+                    addText(" (+" + arrayCheck(part["enemyCurrentHPRatio"]));
+                    colorHP(' Enemy Current HP');
+                    addText('ratio)');
                   };
                   if (part["part1RatioFormula"]) {
                     var part1Dmg = damage["part1"]["dmg"][rankIndex] + damage["part1"]["APRatio"] * totalAP;
@@ -5584,8 +5748,10 @@ class App extends Component {
                     };
                     addText(Math.round(minPartDmgCount));
                     if (part["minEnemyMissingHPRatioByLvl"]) {
-                      addText(' (+' + part["minEnemyMissingHPRatioByLvl"][champLevel] + " Enemy Missing HP Ratio)");
-                    }
+                      addText(' (+' + part["minEnemyMissingHPRatioByLvl"][champLevel]);
+                      colorHP(' Enemy Missing HP');
+                      addText('ratio)');
+                    };
                     singleBreak();
                     addText('Max: ');
                     if (part["maxDmg"]) {
@@ -5614,7 +5780,9 @@ class App extends Component {
                     };
                     addText(Math.round(maxPartDmgCount));
                     if (part["maxEnemyMissingHPRatioByLvl"]) {
-                      addText(' (+' + part["maxEnemyMissingHPRatioByLvl"][champLevel] + " Enemy Missing HP Ratio)");
+                      addText(' (+' + part["maxEnemyMissingHPRatioByLvl"][champLevel]);
+                      colorHP(' Enemy Missing HP');
+                      addText('ratio)');
                     }
                   };
                   if (damage[`part${i + 1}`]) {
@@ -5704,10 +5872,14 @@ class App extends Component {
                 tickMaxHPCounter += arrayCheck(path["enemyMaxHPRatioPer100AP"]) * totalAP/100;
               };
               if (tickMaxHPCounter !== 0) {
-                addText(' (+' + lengthCheck(tickMaxHPCounter) + ' Enemy Max HP Ratio)');
+                addText(' (+' + lengthCheck(tickMaxHPCounter));
+                colorHP(' Enemy Max HP');
+                addText('ratio)');
               };
               if (path["enemyCurrentHPRatio"] && !enemyStats.hp) {
-                addText(' (+' + arrayCheck(path["enemyCurrentHPRatio"]) + ' Enemy Current HP Ratio)');
+                addText(' (+' + arrayCheck(path["enemyCurrentHPRatio"]));
+                colorHP(' Enemy Current HP');
+                addText('ratio)');
               };
               if (path["interval"] && path["ticks"] && path["system"] !== "minMax") {
                 addText(' per ' + path["interval"] + ' sec, for ' + multiplyTicks2(path["interval"]) + ' seconds.');
@@ -5821,10 +5993,14 @@ class App extends Component {
                   maxHPRatioTotal += arrayCheck(path["enemyMaxHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (maxHPRatioTotal !== 0) {
-                  addText(' (+' + lengthCheck(maxHPRatioTotal * ticks) + ' Enemy Max HP Ratio)');
+                  addText(' (+' + lengthCheck(maxHPRatioTotal * ticks));
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
                 };
                 if (path["enemyCurrentHPRatio"] && !enemyStats.hp) {
-                  addText(' (+' + lengthCheck(ticks * arrayCheck(path["enemyCurrentHPRatio"])) + ' Enemy Current HP Ratio)');
+                  addText(' (+' + lengthCheck(ticks * arrayCheck(path["enemyCurrentHPRatio"])));
+                  colorHP(' Enemy Current HP');
+                  addText('ratio)');
                 };
 
                 if (path["system"] === 'min') {
@@ -5888,7 +6064,9 @@ class App extends Component {
                   part2MaxHPCount += arrayCheck(path["part2"]["enemyMaxHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (part2MaxHPCount !== 0) {
-                  addText('(' + lengthCheck(part2MaxHPCount) + ' Enemy Max HP Ratio)');
+                  addText('(' + lengthCheck(part2MaxHPCount));
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
                 };
                 if (path["part2"]["interval"] && path["part2"]["ticks"]) {
                   addText(' per ' + path["part2"]["interval"] + ' sec, for ' + 
@@ -5901,7 +6079,9 @@ class App extends Component {
                   addText(Math.round(part2DmgCount * path["part2"]["ticks"]));
                 };
                 if (part2MaxHPCount !== 0) {
-                  addText('(' + lengthCheck(part2MaxHPCount * path["part2"]["ticks"]) + ' Enemy Max HP Ratio)');
+                  addText('(' + lengthCheck(part2MaxHPCount * path["part2"]["ticks"]));
+                  colorHP(' Enemy Max HP');
+                  addText('ratio)');
                 }
               };
               doubleBreak();
@@ -5938,7 +6118,7 @@ class App extends Component {
                   addText('(' + arrayCheck(path["bonusHealth"]["healthPerStack"]) + ' per stack)');
                 };
                 if (path["bonusHealth"]["healthPerTakedown"]) {
-                  addText(' (+' + arrayCheck(path["bonusHealth"]["healthPerTakedown"]) + ' per Takedown)');
+                  addText(' (+' + arrayCheck(path["bonusHealth"]["healthPerTakedown"]) + ' per takedown)');
                 };
               };
               if (path["armorPenRatio"]) {
@@ -6033,7 +6213,9 @@ class App extends Component {
                 maxHPRatioCounter += arrayCheck(path['enemyMaxHPRatioPerBonusAS']) * bonusASRatio;
               };
               if (maxHPRatioCounter !== 0) {
-                addText(' (+' + lengthCheck(maxHPRatioCounter) + ' Enemy Max HP Ratio)');
+                addText(' (+' + lengthCheck(maxHPRatioCounter));
+                colorHP(' Enemy Max HP');
+                addText('ratio)');
               };
               var missCounter = 0;
               if (path["missingHPRatio"]) {
@@ -6043,7 +6225,9 @@ class App extends Component {
                 missCounter += arrayCheck(path['missingHPRatioPer100AP']) * totalAP/100
               };
               if (missCounter !== 0) {
-                addText(" (+" + lengthCheck(missCounter) + " Missing HP Ratio)");
+                addText(" (+" + lengthCheck(missCounter));
+                colorHP(' Missing HP');
+                addText('ratio)');
               }
               if (path["preMitigation"]) {
                 addText(', pre-mitigation.');
@@ -6066,7 +6250,9 @@ class App extends Component {
               };
               if (path["increasePer1%HPLostLast4Sec"]) {
                 singleBreak();
-                addText('Increase by Ratio of ' +  path["increasePer1%HPLostLast4Sec"] + ' per 1% HP lost in last 4 seconds.');
+                addText('Increase by Ratio of ' +  path["increasePer1%HPLostLast4Sec"] + ' per');
+                colorHP(' 1% HP');
+                addText('lost in last 4 seconds.');
               };
               if (path["system"] === "max") {
                 underLine('Max');
@@ -6128,7 +6314,9 @@ class App extends Component {
                   missCount += arrayCheck(path['minMissingHPRatioPer100AP']) * totalAP/100;
                 };
                 if (missCount !== 0) {
-                  addText(" (+" + lengthCheck(missCount) + " Missing HP Ratio)");
+                  addText(" (+" + lengthCheck(missCount));
+                  colorHP(' Missing HP');
+                  addText('ratio)');
                 };
 
                 singleBreak();
@@ -6166,7 +6354,9 @@ class App extends Component {
                   missCount2 += arrayCheck(path['maxMissingHPRatioPer100AP']) * totalAP/100;
                 }
                 if (missCount2 !== 0) {
-                  addText(" (+" + lengthCheck(missCount2) + " Missing HP Ratio)");
+                  addText(" (+" + lengthCheck(missCount2));
+                  colorHP(' Missing HP');
+                  addText('ratio)');
                 }
               };
               if (path["interval"]) {
@@ -6257,7 +6447,9 @@ class App extends Component {
                   empMissHPCounter += empPath["missingHPRatioPer100AP"] * totalAP/100;
                 };
                 if (empMissHPCounter !== 0) {
-                  addText(' (+' + lengthCheck(empMissHPCounter) + ' Enemy Missing HP Ratio)');
+                  addText(' (+' + lengthCheck(empMissHPCounter));
+                  colorHP(' Enemy Missing HP');
+                  addText('ratio)');
                 };
               }
               doubleBreak();
@@ -6659,7 +6851,9 @@ class App extends Component {
               };
               if (path["healingPerMissingHPRatio"]) {
                 underLine('Increased Healing');
-                addText('(' + arrayCheck(path["healingPerMissingHPRatio"]) + ' per Missing HP Ratio)');
+                addText('(' + arrayCheck(path["healingPerMissingHPRatio"]) + ' per');
+                colorHP(' Missing HP');
+                addText('ratio)');
                 singleBreak();
               };
               if (path["resist"]) {
