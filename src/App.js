@@ -9440,8 +9440,7 @@ class App extends Component {
       document.getElementById(`ksToggle${side}`).textContent = 'Show Keystones';
     } else {
       document.getElementById(`ksToggle${side}`).textContent = 'Hide Keystones';
-      document.getElementById('ksLeft').style.display = 'block';
-      document.getElementById('ksRight').style.display = 'block';
+      document.getElementById(`ks${side}`).style.display = '';
       document.getElementById(`ks${side}`).style.visibility = 'visible';
     }
   };
@@ -9529,7 +9528,7 @@ class App extends Component {
           </div>
 
           <div className="flexDisplay">
-            <div>
+            <div style={{width: '45vw'}}>
               <button type='button' id='ksToggleLeft' onClick={(side) => this.keystoneToggle('Left')}>Hide Keystones</button>
 
               <div id='ksLeft'>
@@ -9597,7 +9596,7 @@ class App extends Component {
               </div> 
             </div>
 
-            <div>
+            <div style={{width: '45vw'}}>
               <button type='button' id='ksToggleRight' onClick={(side) => this.keystoneToggle('Right')}>Hide Keystones</button>
 
               <div id='ksRight'>
@@ -9665,6 +9664,31 @@ class App extends Component {
               </div>
             </div>
           </div>
+
+          
+          <div className="flexDisplay" id='itemsContainer'>
+            <div>
+              <button type='button' id='itemsToggleLeft' onClick={(side) => this.itemsToggle('Left')}>Show Items</button>
+
+              <div id='itemsLeft'>
+                
+                <div className='itemMenu'>
+                </div>
+                
+              </div> 
+            </div>
+
+            <div>
+              <button type='button' id='itemsToggleRight' onClick={(side) => this.itemsToggle('Right')}>Show Items</button>
+
+              <div id='itemsRight'>
+                <div className='itemMenu'>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
 
           <div className="flexDisplay" style={{marginTop: '5px'}}>
             <div className="hiddenLeft">
