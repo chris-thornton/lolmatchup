@@ -165,6 +165,38 @@ class App extends Component {
         as: '[0.06, 0.12, 0.18, 0.24, 0.3, 0.36]',
         lethal: '[3.5, 7, 10.5, 14, 17.5, 21]',
       },
+      itemDisplayLeft: [],
+      itemDisplayRight: [],
+      mythicLeft: '',
+      mythicStatsLeft: {
+        ad: 0,
+        as: 0,
+        arm: 0, 
+        mr: 0,
+        hp: 0,
+        hpRegen: 0,
+        ap: 0,
+        cdr: 0,
+        critChance: 0,
+        mana: 0,
+        manaRegen: 0,
+        lethal: 0
+      },
+      mythicRight: '',
+      mythicStatsRight: {
+        ad: 0,
+        as: 0,
+        arm: 0, 
+        mr: 0,
+        hp: 0,
+        hpRegen: 0,
+        ap: 0,
+        cdr: 0,
+        critChance: 0,
+        mana: 0,
+        manaRegen: 0,
+        lethal: 0
+      },
       QRankLeft: 0,
       QRankRight: 0,
       WRankLeft: 0,
@@ -301,6 +333,8 @@ class App extends Component {
   images = {};
   portraits = {};
   ksIcons = {};
+  mythicIcons = {};
+  itemIcons = {};
   champNameLeft = '';
   champNameRight = '';
   champFileLeft = {
@@ -9409,6 +9443,19 @@ class App extends Component {
     })
   };
 
+  onMythicClick = (side) => {
+    this.setState({[`itemDisplay${side}`]:  Array.from(this.mythicIcons).map(iconSrc => {
+      return <img src={iconSrc}></img>
+    })});
+  }
+
+  onLegendClick = (side) => {
+    this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map(iconSrc => {
+      return <img src={iconSrc}></img>
+    })});
+  }
+
+
   homeToggle = () => {
     if (this.state.about === false) {
       this.setState({
@@ -9452,6 +9499,14 @@ class App extends Component {
     this.portraits = importAll(require.context('./portraits/', false, /\.(png|jpe?g|svg)$/));
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
     this.ksIcons = importAll(require.context('./ksicons/', false, /\.(png|jpe?g|svg)$/));
+    this.mythicIcons = importAll(require.context('./mythicicons/', false, /\.(png|jpe?g|svg)$/));
+    this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map(iconSrc => {
+      return <img src={iconSrc}></img>
+    })});
+    this.setState({itemDisplayRight:  Array.from(this.mythicIcons).map(iconSrc => {
+      return <img src={iconSrc}></img>
+    })})
+    this.itemIcons = importAll(require.context('./itemicons/', false, /\.(png|jpe?g|svg)$/));
   };
 
   render() {
@@ -9667,22 +9722,34 @@ class App extends Component {
 
           
           <div className="flexDisplay" id='itemsContainer'>
-            <div>
-              <button type='button' id='itemsToggleLeft' onClick={(side) => this.itemsToggle('Left')}>Show Items</button>
+            <div style={{width:'45vw', marginTop: '5px'}}>
+              <button type='button' id='itemsToggleLeft' style={{marginBottom: '5px'}} 
+              onClick={(side) => this.itemsToggle('Left')}>Show Items</button>
 
               <div id='itemsLeft'>
                 
                 <div className='itemMenu'>
+                  <button type='button' onClick={side => this.onMythicClick('Left')}>Mythic</button>
+                  <button type='button' onClick={side => this.onLegendClick('Left')}>Legendary</button>
+                  <input type="search" placeholder='Item Name' onChange={this.onItemChange}
+                  style={{width: 120, height: 25, display: 'inline-block', float: 'right'}} onBlur={this.onItemBlur} />
+                </div>
+                <div>
+                {this.state.itemDisplayLeft}
                 </div>
                 
               </div> 
             </div>
 
-            <div>
-              <button type='button' id='itemsToggleRight' onClick={(side) => this.itemsToggle('Right')}>Show Items</button>
+            <div style={{width:'45vw', marginTop: '5px'}}>
+              <button type='button' id='itemsToggleRight' style={{marginBottom: '5px'}}
+              onClick={(side) => this.itemsToggle('Right')}>Show Items</button>
 
               <div id='itemsRight'>
+
                 <div className='itemMenu'>
+                  <button type='button'></button>
+                  <button type='button'></button>
                 </div>
 
               </div>
