@@ -9455,6 +9455,42 @@ class App extends Component {
     })});
   }
 
+  mythicList = [
+    'Crown of the Shattered Queen', 'Divine Sunderer', 'Duskblade of Draktharr', 'Eclipse', 'Evenshroud',
+    'Everfrost', 'Frostfire Gauntlet', 'Galeforce', 'Goredrinker', 'Hextech Rocketbelt', 'Immortal Shieldbow', 
+    'Imperial Mandate', 'Kraken Slayer', "Liandry's Anguish", "Locket of the Iron Solari", "Luden's Tempest",
+    "Moonstone Renewer", "Night Harvester", "Prowler's Claw", "Riftmaker", "Shurelya's Battlesong", "Stridgebreaker",
+    "Sunfire Aegis", "Trinity Force", "Turbo Chemtank"
+  ]
+
+  legendList = [
+    "Abyssal Mask", "Anathema's Chains", "Archangel's Staff", "Ardent Censer", "Axiom Arc", "Banshee's Veil", 
+    "Black Cleaver", "Black Mist Scythe", "Blade of the Ruined King", "Bloodthirster", "Bulwark of the Mountain",
+    "Chempunk Chainsword", "Chemtech Putrifier", "Cosmic Drive", "Dead Man's Plate", "Death's Dance", "Demonic Embrace",
+    "Edge of Night", "Essence Reaver", "Fimbulwinter", "Force of Nature", "Frozen Heart", "Gargoyle Stoneplate",
+    "Guardian Angel", "Guinsoo's Rageblade", "Horizon Focus", "Hullbreaker", "Infinity Edge", "Knight's Vow",
+    "Lich Bane", "Lord Dominik's Regards", "Manamune", "Maw of Malmortius", "Mejai's Soulstealer", "Mercurial Scimitar",
+    "Mikael's Blessing", "Morellonomicon", "Mortal Reminder", "Muramana", "Nashor's Tooth", "Navori Quickblades",
+    "Pauldrons of Whiterock", "Phantom Dancer", "Rabadon's Deathcap", "Randuin's Omen", "Rapid Firecannon",
+    "Ravenous Hydra", "Redemption", "Runaan's Hurricane", "Rylai's Crystal Scepter", "Seraph's Embrace", "Serpent's Fang",
+    "Serylda's Grudge", "Shadowflame", "Shard of True Ice", "Silvermere Dawn", "Spirit Visage", "Staff of Flowing Water",
+    "Sterak's Gage", "Stormrazor", "The Collector", "Thornmail", "Titanic Hydra", "Umbral Glaive", "Vigilant Wardstone",
+    "Void Staff", "Warmog's Armor", "Winter's Approach", "Wit's End", "Youmuu's Ghostblade", "Zeke's Convergence",
+    "Zhonya's Hourglass"
+  ]
+
+  onItemSearch = (event, side) => {
+    this.setState({[`itemDisplay${side}`]:  [...this.mythicList, ...this.legendList].map((itemName, i) => {
+      if (itemName.toLowerCase().includes(event.target.value.toLowerCase()) ) {
+        if (i < 25) {
+          return <img src={Array.from(this.mythicIcons)[i]}></img>
+        } else {
+          return <img src={Array.from(this.itemIcons)[i-25]}></img>
+        }
+      }
+    })})
+  }
+
 
   homeToggle = () => {
     if (this.state.about === false) {
@@ -9490,6 +9526,18 @@ class App extends Component {
       document.getElementById(`ks${side}`).style.display = '';
       document.getElementById(`ks${side}`).style.visibility = 'visible';
     }
+  };
+
+  itemsToggle = (side) => {
+    console.log(document.getElementById(`items${side}`).style.display)
+    if (document.getElementById(`itemsToggle${side}`).textContent === 'Show Items') {
+      document.getElementById(`items${side}`).style.display = 'inherit';
+      document.getElementById(`itemsToggle${side}`).textContent = 'Hide Items'
+    } else {
+      document.getElementById(`items${side}`).style.display = 'none';
+      document.getElementById(`itemsToggle${side}`).textContent = 'Show Items'
+    }
+    console.log(document.getElementById(`items${side}`).style.display)
   };
 
   componentDidMount() {
@@ -9731,7 +9779,7 @@ class App extends Component {
                 <div className='itemMenu'>
                   <button type='button' onClick={side => this.onMythicClick('Left')}>Mythic</button>
                   <button type='button' onClick={side => this.onLegendClick('Left')}>Legendary</button>
-                  <input type="search" placeholder='Item Name' onChange={this.onItemChange}
+                  <input type="search" placeholder='Item Name' onChange={(event, side) => this.onItemSearch(event, 'Left')}
                   style={{width: 120, height: 25, display: 'inline-block', float: 'right'}} onBlur={this.onItemBlur} />
                 </div>
                 <div>
