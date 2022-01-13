@@ -9445,15 +9445,26 @@ class App extends Component {
 
   onMythicClick = (side) => {
     this.setState({[`itemDisplay${side}`]:  Array.from(this.mythicIcons).map(iconSrc => {
-      return <img src={iconSrc}></img>
+      return (
+      <span style={{position: 'relative'}} >
+        <img className='mythicIcon' src={iconSrc}></img>
+        <div className='itemTooltip'>
+          <span>Attack Damage: 50</span>
+          <br></br>
+          <span>Ability Power: </span> 80
+        </div>
+      </span>
+      )
     })});
-  }
+    document.getElementById(`itemSearch${side}`).value = ''
+  };
 
   onLegendClick = (side) => {
     this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map(iconSrc => {
       return <img src={iconSrc}></img>
     })});
-  }
+    document.getElementById(`itemSearch${side}`).value = ''
+  };
 
   mythicList = [
     'Crown of the Shattered Queen', 'Divine Sunderer', 'Duskblade of Draktharr', 'Eclipse', 'Evenshroud',
@@ -9780,7 +9791,8 @@ class App extends Component {
                   <button type='button' onClick={side => this.onMythicClick('Left')}>Mythic</button>
                   <button type='button' onClick={side => this.onLegendClick('Left')}>Legendary</button>
                   <input type="search" placeholder='Item Name' onChange={(event, side) => this.onItemSearch(event, 'Left')}
-                  style={{width: 120, height: 25, display: 'inline-block', float: 'right'}} onBlur={this.onItemBlur} />
+                  style={{width: 120, height: 25, display: 'inline-block', float: 'right'}} onBlur={this.onItemBlur} 
+                  id='itemSearchLeft' />
                 </div>
                 <div>
                 {this.state.itemDisplayLeft}
