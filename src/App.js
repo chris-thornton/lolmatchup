@@ -9443,34 +9443,46 @@ class App extends Component {
     })
   };
 
-  onMythicClick = (side) => {
-    this.setState({[`itemDisplay${side}`]:  Array.from(this.mythicIcons).map(iconSrc => {
-      return (
-      <span style={{position: 'relative'}} >
-        <img className='mythicIcon' src={iconSrc}></img>
-        <div className='itemTooltip'>
-          <span>Attack Damage: 50</span>
-          <br></br>
-          <span>Ability Power: </span> 80
-        </div>
+  mythicItems = {
+    0: <div>
+      <b>Crown of the Shattered Queen</b>
+      <hr></hr>
+      <span>
+        60 <img src={abilityPowerIcon}></img> Ability Power
       </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+    </div>
+  }
+
+  onMythicClick = (side) => {
+    this.setState({[`itemDisplay${side}`]:  Array.from(this.mythicIcons).map((iconSrc, i) => {
+      return (
+        <span style={{position: 'relative'}} key={i}>
+          <img className='itemIcon' src={iconSrc}></img>
+          <div className='itemTooltip' id={`mythic${i}`}>
+            {this.mythicItems[0]}
+          </div>
+        </span>
       )
     })});
-    document.getElementById(`itemSearch${side}`).value = ''
+    document.getElementById(`itemSearch${side}`).value = '';
   };
 
   onLegendClick = (side) => {
     this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map(iconSrc => {
-      return <img src={iconSrc}></img>
+      return <img className='itemIcon' src={iconSrc}></img>
     })});
-    document.getElementById(`itemSearch${side}`).value = ''
+    document.getElementById(`itemSearch${side}`).value = '';
   };
 
   mythicList = [
     'Crown of the Shattered Queen', 'Divine Sunderer', 'Duskblade of Draktharr', 'Eclipse', 'Evenshroud',
     'Everfrost', 'Frostfire Gauntlet', 'Galeforce', 'Goredrinker', 'Hextech Rocketbelt', 'Immortal Shieldbow', 
     'Imperial Mandate', 'Kraken Slayer', "Liandry's Anguish", "Locket of the Iron Solari", "Luden's Tempest",
-    "Moonstone Renewer", "Night Harvester", "Prowler's Claw", "Riftmaker", "Shurelya's Battlesong", "Stridgebreaker",
+    "Moonstone Renewer", "Night Harvester", "Prowler's Claw", "Riftmaker", "Shurelya's Battlesong", "Stridebreaker",
     "Sunfire Aegis", "Trinity Force", "Turbo Chemtank"
   ]
 
@@ -9494,9 +9506,9 @@ class App extends Component {
     this.setState({[`itemDisplay${side}`]:  [...this.mythicList, ...this.legendList].map((itemName, i) => {
       if (itemName.toLowerCase().includes(event.target.value.toLowerCase()) ) {
         if (i < 25) {
-          return <img src={Array.from(this.mythicIcons)[i]}></img>
+          return <img className='itemIcon' src={Array.from(this.mythicIcons)[i]}></img>
         } else {
-          return <img src={Array.from(this.itemIcons)[i-25]}></img>
+          return <img className='itemIcon'src={Array.from(this.itemIcons)[i-25]}></img>
         }
       }
     })})
@@ -9559,8 +9571,15 @@ class App extends Component {
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
     this.ksIcons = importAll(require.context('./ksicons/', false, /\.(png|jpe?g|svg)$/));
     this.mythicIcons = importAll(require.context('./mythicicons/', false, /\.(png|jpe?g|svg)$/));
-    this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map(iconSrc => {
-      return <img src={iconSrc}></img>
+    this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map((iconSrc, i) => {
+      return (
+        <span style={{position: 'relative'}} key={i}>
+          <img className='itemIcon' src={iconSrc}></img>
+          <div className='itemTooltip' id={`mythic${i}`}>
+            {this.mythicItems[0]}
+          </div>
+        </span>
+      )
     })});
     this.setState({itemDisplayRight:  Array.from(this.mythicIcons).map(iconSrc => {
       return <img src={iconSrc}></img>
