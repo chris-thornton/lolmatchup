@@ -13,6 +13,8 @@ import defaultChampIcon from './defaultChampIcon.png';
 import forceIcon from './staticons/force.png';
 import healthIcon from './staticons/health.png';
 import armorIcon from './staticons/armor.png';
+import arPenIcon from './staticons/arPen2.png';
+import mPenIcon from './staticons/mPen.png';
 import magicResIcon from './staticons/magicRes.png';
 import attackDamageIcon from './staticons/attackDamage.png';
 import attackSpeedIcon from './staticons/attackSpeed.png';
@@ -1452,7 +1454,6 @@ class App extends Component {
                 underLine('Bonus Damage Ratio');
                 addText(damage["bonusDmgRatioPerCritChance"] + ' per');
                 colorCrit(" Crit Chance");
-                addText(")");
                 if (damage["dmgRatioPerStack"]) {
                   addText(' (' + damage["dmgRatioPerStack"] + ' per stack)');
                 }
@@ -8773,7 +8774,17 @@ class App extends Component {
         mana: itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio,
         manaRegen: itemStats.manaRegen + statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
         hpRegen: itemStats.hpRegen + statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio
-      }
+      },
+      [`itemDisplay${side}`]:  Array.from(this.mythicIcons).map((iconSrc, i) => {
+        return (
+          <span style={{position: 'relative'}} key={i}>
+            <img className='itemIcon' src={iconSrc}></img>
+            <div className='itemTooltip' id={`mythic${i}`}>
+              {this.mythicItems(this[`level${side}`])[2]}
+            </div>
+          </span>
+        )
+      })
     }));
 
     if (champName === 'Gnar' || champName === 'Kled' ) {
@@ -9443,9 +9454,11 @@ class App extends Component {
     })
   };
 
-  mythicItems = {
-    0: <div>
-      <b>Crown of the Shattered Queen</b>
+  mythicItems = (level) => {
+    return ({
+    0: 
+    <div>
+      <b className='yellow'>Crown of the Shattered Queen</b>
       <hr></hr>
       <span>
         60 <img src={abilityPowerIcon}></img> Ability Power
@@ -9454,7 +9467,105 @@ class App extends Component {
       <span>
         20 <img src={cdrIcon}></img> Ability Haste
       </span>
+      <br></br>
+      <span>
+        250 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        600 <img src={manaIcon}></img> Mana
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Safeguard: </i>
+      <span>
+        Reduce incoming champion damage by 75%
+        for 1.5 seconds after taking damage from a champion.
+      </span>
+      <br></br>
+      <i className='yellow'>Combat Cooldown: </i>
+      <span>
+        40
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Poise: </i>
+      <span>
+      While Safeguarded, gain 10 - 40 (based on level) ability power,
+       lingering for 3 seconds after Safeguard is deactivated.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      1% bonus movement speed and 8 ability power per Legendary item.
+      </span>
+    </div>,
+    1: 
+    <div>
+      <b className='yellow'>Divine Sunderer</b>
+      <hr></hr>
+      <span>
+        40 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        300 <img src={healthIcon}></img> Health
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Spellblade: </i>
+      <span>
+      After using an ability, your next basic attack within 10 seconds deals (Melee 12% / Ranged 9%)
+       of enemy max HP as bonus physical damage, min damage of 150% base AD. Against champs,
+        heal for (Melee 7.8% / Ranged 3.6%) of the enemy max HP, min heal of (Melee 97.5% / Ranged 60%) base AD
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        1.5
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Bonus per Legendary Item: </i>
+      <span>
+      5% armor pen and 5% magic pen.
+      </span>
+    </div>,
+    2:
+    <div>
+      <b className='yellow'>Duskbalde of Draktharr</b>
+      <hr></hr>
+      <span>
+        60 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        18 <img src={arPenIcon}></img> Lethality ({ (18*(0.6 + 0.4*(level/18))).toString().length > 3 ?
+        (18*(0.6 + 0.4*(level/18))).toFixed(1) : 18*(0.6 + 0.4*(level/18)) } Armor Pen)
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Spellblade: </i>
+      <span>
+      After using an ability, your next basic attack within 10 seconds deals (Melee 12% / Ranged 9%)
+       of enemy max HP as bonus physical damage, min damage of 150% base AD. Against champs,
+        heal for (Melee 7.8% / Ranged 3.6%) of the enemy max HP, min heal of (Melee 97.5% / Ranged 60%) base AD
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        1.5
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Bonus per Legendary Item: </i>
+      <span>
+      5% armor pen and 5% magic pen.
+      </span>
     </div>
+    })
   }
 
   onMythicClick = (side) => {
@@ -9463,7 +9574,7 @@ class App extends Component {
         <span style={{position: 'relative'}} key={i}>
           <img className='itemIcon' src={iconSrc}></img>
           <div className='itemTooltip' id={`mythic${i}`}>
-            {this.mythicItems[0]}
+            {this.mythicItems(this.levelLeft)[2]}
           </div>
         </span>
       )
@@ -9576,7 +9687,7 @@ class App extends Component {
         <span style={{position: 'relative'}} key={i}>
           <img className='itemIcon' src={iconSrc}></img>
           <div className='itemTooltip' id={`mythic${i}`}>
-            {this.mythicItems[0]}
+            {this.mythicItems(this.levelLeft)[2]}
           </div>
         </span>
       )

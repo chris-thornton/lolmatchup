@@ -58,6 +58,10 @@ li + li {
   justify-content: space-around;
 }
 
+.yellow {
+  color: #ffffb9
+}
+
 .statsBox {
   text-align: center;
   width: 45vw;
@@ -203,14 +207,28 @@ li + li {
   top: -20px;
   left: 10px;
   display: none;
-  width: 200px;
+  width: 250px;
   border: 3px solid black;
   z-index: 100;
 }
 
-.itemTooltip img {
+.itemTooltip i {
+  font-size: 14px;
+}
+
+.itemTooltip i+span {
+  font-size: 12px;
+}
+
+.itemTooltip img:not([class*=pen]) {
   height: 25px;
   width: 25px;
+  vertical-align: middle;
+}
+
+.penIcon {
+  height: 15px;
+  width: 15px;
   vertical-align: middle;
 }
 

@@ -95,6 +95,7 @@
         "mrPerLvl": 0.5,
         "attackSpeed": 0.682,
         "asRatio": 0.568,
-        "asPerLvl": 0.035
+        "asPerLvl": 0.035,
+        "ranged": true
     }
 }

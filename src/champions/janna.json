@@ -109,6 +109,7 @@
         "attackSpeed": 0.625,
         "asRatio": 0.625,
         "asPerLvl": 0.0295,
-        "moveSpeed": 315
+        "moveSpeed": 315,
+        "ranged": true
     }
 }
