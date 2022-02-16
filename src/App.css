@@ -220,13 +220,13 @@ li + li {
   font-size: 12px;
 }
 
-.itemTooltip img:not([class*=pen]) {
+.itemTooltip img:not([class*=small]) {
   height: 25px;
   width: 25px;
   vertical-align: middle;
 }
 
-.penIcon {
+.smallIcon {
   height: 15px;
   width: 15px;
   vertical-align: middle;

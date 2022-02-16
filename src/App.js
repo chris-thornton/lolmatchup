@@ -15,6 +15,7 @@ import healthIcon from './staticons/health.png';
 import armorIcon from './staticons/armor.png';
 import arPenIcon from './staticons/arPen2.png';
 import mPenIcon from './staticons/mPen.png';
+import vampIcon from './staticons/omnivamp.png';
 import magicResIcon from './staticons/magicRes.png';
 import attackDamageIcon from './staticons/attackDamage.png';
 import attackSpeedIcon from './staticons/attackSpeed.png';
@@ -9495,7 +9496,7 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Mythic Passive: </i>
       <span>
-      1% bonus movement speed and 8 ability power per Legendary item.
+      1% bonus movement speed and 8 ability power
       </span>
     </div>,
     1: 
@@ -9526,14 +9527,14 @@ class App extends Component {
         1.5
       </span>
       <hr></hr>
-      <i className='yellow'>Mythic Bonus per Legendary Item: </i>
+      <i className='yellow'>Mythic Passive: </i>
       <span>
-      5% armor pen and 5% magic pen.
+      5% armor penetration and 5% magic penetration
       </span>
     </div>,
     2:
     <div>
-      <b className='yellow'>Duskbalde of Draktharr</b>
+      <b className='yellow'>Duskblade of Draktharr</b>
       <hr></hr>
       <span>
         60 <img src={attackDamageIcon}></img> Attack Damage
@@ -9548,21 +9549,164 @@ class App extends Component {
         (18*(0.6 + 0.4*(level/18))).toFixed(1) : 18*(0.6 + 0.4*(level/18)) } Armor Pen)
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Spellblade: </i>
+      <i className='yellow'>Unique Passive - Nightstalker: </i>
       <span>
-      After using an ability, your next basic attack within 10 seconds deals (Melee 12% / Ranged 9%)
-       of enemy max HP as bonus physical damage, min damage of 150% base AD. Against champs,
-        heal for (Melee 7.8% / Ranged 3.6%) of the enemy max HP, min heal of (Melee 97.5% / Ranged 60%) base AD
+      Your next basic attack against an enemy champion deals (Melee 75 / Ranged 55) (+ (Melee 30% / Ranged 25%) bonus AD)
+       bonus physical damage on-hit and slows the target by 99% for 0.25 seconds.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-        1.5
+        15 (resets on takedown)
       </span>
       <hr></hr>
-      <i className='yellow'>Mythic Bonus per Legendary Item: </i>
+      <i className='yellow'>Mythic Passive: </i>
       <span>
-      5% armor pen and 5% magic pen.
+      5 ability haste
+      </span>
+    </div>,
+    3:
+    <div>
+      <b className='yellow'>Eclipse</b>
+      <hr></hr>
+      <span>
+        55 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        8% <img src={vampIcon} className='smallIcon'></img> Omnivamp
+      </span>
+      <br></br>
+      <span>
+        18 <img src={arPenIcon}></img> Lethality ({ (18*(0.6 + 0.4*(level/18))).toString().length > 3 ?
+        (18*(0.6 + 0.4*(level/18))).toFixed(1) : 18*(0.6 + 0.4*(level/18)) } Armor Pen)
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Ever Rising Moon: </i>
+      <span>
+      Hitting an enemy champion with 2 separate attacks or abilities within 1.5 seconds deals them 6% of Enemy Max HP as
+       bonus physical damage and grants you 15% bonus movement speed and a shield for 
+       (Melee 180 / Ranged 90) (+ (Melee 40% / Ranged 20%) bonus AD) for 2 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+      (Melee 8 / Ranged 16)
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      4% armor penetration
+      </span>
+    </div>,
+    4:
+    <div>
+      <b className='yellow'>Evenshroud</b>
+      <hr></hr>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        200 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        30 <img src={armorIcon}></img> Armor
+      </span>
+      <br></br>
+      <span>
+        30 <img src={magicResIcon}></img> Magic Resistance
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Coruscation: </i>
+      <span>
+      Becoming affected by or applying an immobilizing effect to or from an enemy champion affects them 
+      and all enemy champions in 600 radius around you with Repent, increasing the damage they take by 9% for 4 seconds.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5 armor and 5 magic resistance
+      </span>
+    </div>,
+    5:
+    <div>
+      <b className='yellow'>Everfrost</b>
+      <hr></hr>
+      <span>
+        70 <img src={abilityPowerIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        250 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        600 <img src={manaIcon}></img> Mana
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Glaciate: </i>
+      <span>
+      Unleash a fan of icy shards in a cone in the target direction, dealing 100 (+ 30% AP) magic damage 
+      to all enemies hit and slowing them by 65% for 1.5 seconds (roots enemies in the center of the cone).
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        30
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      10 ability power
+      </span>
+    </div>,
+    6:
+    <div>
+      <b className='yellow'>Frostfire Gauntlet</b>
+      <hr></hr>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        350 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        25 <img src={armorIcon}></img> Armor
+      </span>
+      <br></br>
+      <span>
+        25 <img src={magicResIcon}></img> Magic Resistance
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Immolate: </i>
+      <span>
+      Taking or dealing damage activates this passive for 3 seconds. Deal 12 (+ 1% bonus health) magic damage
+       per second to enemies within 325 (+ 100% bonus size) units.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Snowbind: </i>
+      <span>
+      Basic attacks create a 250 radius frost field around the target that lasts for 1.5 seconds and deals 
+      (Melee 12 to 85 / Ranged 6 to 42.5) (based on level) magic damage to all enemies inside initially and slows all 
+      enemies within by (Melee 25% / Ranged 12.5%) (+ (Melee 4% / Ranged 2%) per 1000 maximum health) for 1.5 seconds 
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        (Melee 4 / Ranged 6)
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      100 bonus health and 6% increased size
       </span>
     </div>
     })
