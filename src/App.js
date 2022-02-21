@@ -16,6 +16,7 @@ import armorIcon from './staticons/armor.png';
 import arPenIcon from './staticons/arPen2.png';
 import mPenIcon from './staticons/mPen.png';
 import vampIcon from './staticons/omnivamp.png';
+import lifestealIcon from './staticons/lifesteal.png';
 import magicResIcon from './staticons/magicRes.png';
 import attackDamageIcon from './staticons/attackDamage.png';
 import attackSpeedIcon from './staticons/attackSpeed.png';
@@ -9707,6 +9708,318 @@ class App extends Component {
       <i className='yellow'>Mythic Passive: </i>
       <span>
       100 bonus health and 6% increased size
+      </span>
+    </div>,
+    7:
+    <div>
+      <b className='yellow'>Galeforce</b>
+      <hr></hr>
+      <span>
+        60 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        20% <img src={critChanceIcon}></img> Critical Strike Chance
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Cloudburst: </i>
+      <span>
+      Dash to the target location and fire three homing missiles at the most wounded enemy within 750 units.
+       Each missile deals 60 to 105 (based on level) (+ 15% bonus AD) magic damage, for a total of 180 to 315 
+       (based on level) (+ 45% bonus AD), increased by 0% to 50% (based on target's missing health).
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        90
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      2% bonus movement speed
+      </span>
+    </div>,
+    8:
+    <div>
+      <b className='yellow'>Goredrinker</b>
+      <hr></hr>
+      <span>
+        55 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        300 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        10% <img src={vampIcon} className='smallIcon'></img> Omnivamp
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Thirsting Slash: </i>
+      <span>
+      Deal 175% base AD physical damage to enemies in a 450 radius. Heal for 25% AD (+ 10% of your missing health) 
+      for each enemy champion hit.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+      15 (reduced by ability haste)
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5 ability haste
+      </span>
+    </div>,
+    9:
+    <div>
+      <b className='yellow'>Hextech Rocketbelt</b>
+      <hr></hr>
+      <span>
+        90 <img src={abilityPowerIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        15 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        250 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        6 <img src={mPenIcon}></img> Magic Penetration
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Supersonic: </i>
+      <span>
+      Dash 125 to 275 units, unleashing 7 rockets that deal 125 (+ 15% AP) magic damage. Gain 30% bonus movement
+       speed while moving towards nearby enemy champions for 1.5 seconds. Resets basic attack timer.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        40
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5 magic penetration
+      </span>
+    </div>,
+    10:
+    <div>
+      <b className='yellow'>Immortal Shieldbow</b>
+      <hr></hr>
+      <span>
+        50 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        20% <img src={critChanceIcon}></img> Critical Strike Chance
+      </span>
+      <br></br>
+      <span>
+        10% <img src={lifestealIcon} className='smallIcon'></img> Life Steal
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Lifeline: </i>
+      <span>
+      If you would take damage that would reduce you below 30% of your Max HP, you first gain a 275 to 650 (based on level) 
+      shield for 3 seconds and 15 to 35 (based on level) bonus attack damage for 8 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        90
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5 bonus attack damage and 50 bonus health
+      </span>
+    </div>,
+    11:
+    <div>
+      <b className='yellow'>Imperial Mandate</b>
+      <hr></hr>
+      <span>
+        40 <img src={abilityPowerIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        200 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Coordinated Fire: </i>
+      <span>
+      Abilities that slow or immobilize enemy champions deal 45 to 75 (based on level) bonus magic damage and mark 
+      them for 4 seconds. Allied champion damage consumes the mark to deal 90 to 150 (based on ally's level) bonus 
+      magic damage and grant you and the ally 20% bonus movement speed for 2 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        6 (per champion, starts upon mark application) 
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      15 ability power
+      </span>
+    </div>,
+    12:
+    <div>
+      <b className='yellow'>Kraken Slayer</b>
+      <hr></hr>
+      <span>
+        65 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        25% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        20% <img src={critChanceIcon}></img> Critical Strike Chance
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Bring it Down: </i>
+      <span>
+      Every third basic attack deals 60 (+ 45% bonus AD) bonus true damage on-hit. Stacks last 3 seconds.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      10% bonus attack speed
+      </span>
+    </div>,
+    13:
+    <div>
+      <b className='yellow'>Liandry's Anguish</b>
+      <hr></hr>
+      <span>
+        80 <img src={abilityPowerIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        600 <img src={manaIcon}></img> Mana
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Torment: </i>
+      <span>
+      Dealing ability damage burns enemies, dealing 60 (+ 6% AP) (+ 4% target's maximum health) total magic 
+      damage over 4 seconds.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Agony: </i>
+      <span>
+      Deal 0% to 12% (based on target's bonus health) bonus magic damage against enemy champions.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5 ability haste
+      </span>
+    </div>,
+    14:
+    <div>
+      <b className='yellow'>Locket of the Iron Solari</b>
+      <hr></hr>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        200 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        30 <img src={armorIcon}></img> Armor
+      </span>
+      <br></br>
+      <span>
+        30 <img src={magicResIcon}></img> Magic Resistance
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Devotion: </i>
+      <span>
+      Grant allied champions within 850 radius a shield for 230 to 385 (based on target's level), decaying over 2.5 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+      90
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Consecrate: </i>
+      <span>
+      Grant allied champions within 850 radius 5 bonus armor and 5 bonus magic resistance.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      increase Consecrate by 2 armor and 2 magic resistance
+      </span>
+    </div>,
+    15:
+    <div>
+      <b className='yellow'>Luden's Tempest</b>
+      <hr></hr>
+      <span>
+        80 <img src={abilityPowerIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        600 <img src={manaIcon}></img> Mana
+      </span>
+      <br></br>
+      <span>
+        6 <img src={mPenIcon}></img> Magic Penetration
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Echo: </i>
+      <span>
+      Ability damage deals 100 (+ 10% AP) additional magic damage to the enemy and up to 3 other enemies within 600 units 
+      of them, and grants you 15% bonus movement speed for 2 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        10 (reduced by 0.5 seconds per champion you deal ability damage to)
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5 magic penetration
       </span>
     </div>
     })
