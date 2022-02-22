@@ -9765,8 +9765,8 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Active - Thirsting Slash: </i>
       <span>
-      Deal 175% base AD physical damage to enemies in a 450 radius. Heal for 25% AD (+ 10% of your missing health) 
-      for each enemy champion hit.
+      Deal 175% base AD physical damage to enemies in a 450 radius around you. Heal for 25% AD 
+      (+ 10% of your missing health) for each enemy champion hit.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -10020,6 +10020,263 @@ class App extends Component {
       <i className='yellow'>Mythic Passive: </i>
       <span>
       5 magic penetration
+      </span>
+    </div>,
+    16:
+    <div>
+      <b className='yellow'>Moonstone Renewer</b>
+      <hr></hr>
+      <span>
+        40 <img src={abilityPowerIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        200 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Starlit Grace: </i>
+      <span>
+      When affecting champions with attacks or abilities in combat, heal the nearby allied champion (excluding yourself) 
+      with the most missing health for 70. Each second spent in combat with champions grants 7% heal and shield 
+      power, stacking up to 5 times for maximum of 35%.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        2 
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      increase Starlit Grace heal by 10
+      </span>
+    </div>,
+    17:
+    <div>
+      <b className='yellow'>Night Harvester</b>
+      <hr></hr>
+      <span>
+        90 <img src={abilityPowerIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        15 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        300 <img src={healthIcon}></img> Health
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Soulrend: </i>
+      <span>
+      Damaging an enemy champion deals 125 (+ 15% AP) bonus magic damage and grants 25% bonus movement speed for 1.5 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        40 (per champion)
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5 ability haste
+      </span>
+    </div>,
+    18:
+    <div>
+      <b className='yellow'>Prowler's Claw</b>
+      <hr></hr>
+      <span>
+        60 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        18 <img src={arPenIcon}></img> Lethality ({ (18*(0.6 + 0.4*(level/18))).toString().length > 3 ?
+        (18*(0.6 + 0.4*(level/18))).toFixed(1) : 18*(0.6 + 0.4*(level/18)) } Armor Pen)
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Sandswipe: </i>
+      <span>
+      Dash in a line through the target enemy champion's location, and deal 75 (+ 30% bonus AD) physical damage to the 
+      target and increase your damage dealt to them by 15% for the next 3 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+      90
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5 lethality
+      </span>
+    </div>,
+    19:
+    <div>
+      <b className='yellow'>Riftmaker</b>
+      <hr></hr>
+      <span>
+        80 <img src={abilityPowerIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        15 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        300 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        8% <img src={vampIcon} className='smallIcon'></img> Omnivamp
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Void Corruption: </i>
+      <span>
+      For each second in combat with champions, deal 3% bonus damage, stacking up to 3 times for a maximum of 9%.
+       While this effect is fully stacked, convert 100% of the bonus damage into true damage.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      2% omnivamp and 8 ability power
+      </span>
+    </div>,
+    20:
+    <div>
+      <b className='yellow'>Shurelya's Battlesong</b>
+      <hr></hr>
+      <span>
+        40 <img src={abilityPowerIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        200 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Inspire: </i>
+      <span>
+      Grants you and all allies within 1000 units of you 30% bonus movement speed for 4 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        75 
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Motivate: </i>
+      <span>
+      Healing, shielding, or buffing allied champions (excluding yourself) grants you and them 25% bonus movement
+       speed for 1.5 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        4 (per champion) 
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5 ability haste
+      </span>
+    </div>,
+    21:
+    <div>
+      <b className='yellow'>Stridebreaker</b>
+      <hr></hr>
+      <span>
+        50 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        20% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        300 <img src={healthIcon}></img> Health
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Halting Slash: </i>
+      <span>
+      Deal 175% base AD physical damage to enemies in a 450 radius around you and slow them by 40% for 3 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+      15 (reduced by ability haste)
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Heroic Gait: </i>
+      <span>
+      Dealing physical damage grants you 20 bonus movement speed for 2 seconds.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      2% bonus movement speed
+      </span>
+    </div>,
+    22:
+    <div>
+      <b className='yellow'>Sunfire Aegis</b>
+      <hr></hr>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        350 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        35 <img src={armorIcon}></img> Armor
+      </span>
+      <br></br>
+      <span>
+        35 <img src={magicResIcon}></img> Magic Resistance
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Immolate: </i>
+      <span>
+      Taking or dealing damage activates this passive for 3 seconds. Deal 12 to 30 (based on level) (+ 1% bonus health) 
+      magic damage per second to enemies within 325 (+ 100% bonus size) units. Damaging enemy champions or epic monsters 
+      with this effect grants a stack for 5 seconds, increasing subsequent Immolate damage by 12%, stacking up to 6 times 
+      for a 72% increase.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Flametouch: </i>
+      <span>
+      At maximum stacks, your basic attacks explode around you, burning nearby enemies for your current 
+      Immolate damage for 3 seconds. 
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      5% tenacity, 50 bonus health and 5% slow resist
       </span>
     </div>
     })
