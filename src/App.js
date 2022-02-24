@@ -8782,7 +8782,7 @@ class App extends Component {
           <span style={{position: 'relative'}} key={i}>
             <img className='itemIcon' src={iconSrc}></img>
             <div className='itemTooltip' id={`mythic${i}`}>
-              {this.mythicItems(this[`level${side}`])[2]}
+              {this.mythicItems(this[`level${side}`])[i]}
             </div>
           </span>
         )
@@ -10278,6 +10278,92 @@ class App extends Component {
       <span>
       5% tenacity, 50 bonus health and 5% slow resist
       </span>
+    </div>,
+    23:
+    <div>
+      <b className='yellow'>Trinity Force</b>
+      <hr></hr>
+      <span>
+        35 <img src={attackDamageIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        30% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        300 <img src={healthIcon}></img> Health
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Threefold Strike: </i>
+      <span>
+      Basic attacks grant 20 bonus movement speed for 3 seconds and, if the target is a champion or a structure,
+       increase base attack damage by 4% for the same duration, stacking up to 5 times for a 20% increase. 
+       Stacks decay once every 0.5 seconds after the duration ends.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Spellblade: </i>
+      <span>
+      After using an ability, your next basic attack within 10 seconds deals 200% base AD bonus physical damage on-hit.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        1.5
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      3 bonus attack damage, 3 ability haste, and 3 bonus movement speed
+      </span>
+    </div>,
+    24:
+    <div>
+      <b className='yellow'>Turbo Chemtank</b>
+      <hr></hr>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        350 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        25 <img src={armorIcon}></img> Armor
+      </span>
+      <br></br>
+      <span>
+        25 <img src={magicResIcon}></img> Magic Resistance
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Supercharged: </i>
+      <span>
+      For 4 seconds, grants 40% bonus movement speed and ghosting when moving towards a turret or visible enemy
+       champion within 2000 units. After the duration or when an enemy champion is within 225 range,
+        you emit a shockwave, slowing enemy champions within 450 range by 50% for 1.5 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        90
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Refuel: </i>
+      <span>
+      Gain 5 stacks per instance of damage taken from champions and large monsters per cast instance and 1 stack for
+       every 25 units travelled, capped at 10 stacks for dashes or blinks. At 100 stacks, your next basic attack
+        deals 40 to 120 (based on level) (+ 1% maximum health) (+ 3% movement speed) magic damage to all nearby enemies. 
+      </span>
+      <hr></hr>
+      <i className='yellow'>Mythic Passive: </i>
+      <span>
+      50 bonus health and 5 ability haste
+      </span>
     </div>
     })
   }
@@ -10288,7 +10374,7 @@ class App extends Component {
         <span style={{position: 'relative'}} key={i}>
           <img className='itemIcon' src={iconSrc}></img>
           <div className='itemTooltip' id={`mythic${i}`}>
-            {this.mythicItems(this.levelLeft)[2]}
+            {this.mythicItems(this.levelLeft)[i]}
           </div>
         </span>
       )
@@ -10401,7 +10487,7 @@ class App extends Component {
         <span style={{position: 'relative'}} key={i}>
           <img className='itemIcon' src={iconSrc}></img>
           <div className='itemTooltip' id={`mythic${i}`}>
-            {this.mythicItems(this.levelLeft)[2]}
+            {this.mythicItems(this.levelLeft)[i]}
           </div>
         </span>
       )
