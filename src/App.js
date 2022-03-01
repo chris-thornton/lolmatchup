@@ -10573,33 +10573,33 @@ class App extends Component {
 
           <div className="flexDisplay">
             <div style={{width: '45vw'}}>
-              <button type='button' id='ksToggleLeft' onClick={(side) => this.keystoneToggle('Left')}>Hide Keystones</button>
+              <button type='button' id='ksToggleLeft' onClick={() => this.keystoneToggle('Left')}>Hide Keystones</button>
 
               <div id='ksLeft'>
                 <div className='keystone'>
-                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Left')} />
-                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={(side) => this.lethalTempo('Left')} />
-                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={(side) => this.fleetFootwork('Left')} />
-                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={(side) => this.conqueror('Left')} />
+                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Left')} />
+                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Left')} />
+                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Left')} />
+                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Left')} />
                 
                   <hr></hr>
                 
-                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={(side) => this.electrocute('Left')} />
-                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={(side) => this.predator('Left')} />
-                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={(side) => this.darkHarvest('Left')} />
-                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={(side) => this.hailOfBlades('Left')} />
+                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Left')} />
+                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Left')} />
+                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Left')} />
+                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Left')} />
                 
                   <hr></hr>
                 
-                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={(side) => this.summonAery('Left')} />
-                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={(side) => this.arcaneComet('Left')} />
-                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={(side) => this.phaseRush('Left')} />
+                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
+                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
+                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
                 
                   <hr></hr>
                 
-                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={(side) => this.grasp('Left')} />
-                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={(side) => this.aftershock('Left')} />
-                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={(side) => this.guardian('Left')} />
+                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Left')} />
+                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Left')} />
+                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Left')} />
                 </div>
 
                 <b>{this.state.keystoneIDLeft.title}</b>
@@ -10641,33 +10641,33 @@ class App extends Component {
             </div>
 
             <div style={{width: '45vw'}}>
-              <button type='button' id='ksToggleRight' onClick={(side) => this.keystoneToggle('Right')}>Hide Keystones</button>
+              <button type='button' id='ksToggleRight' onClick={() => this.keystoneToggle('Right')}>Hide Keystones</button>
 
               <div id='ksRight'>
                 <div className='keystone'>
-                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={(side) => this.pressTheAttack('Right')} />
-                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={(side) => this.lethalTempo('Right')} />
-                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={(side) => this.fleetFootwork('Right')} />
-                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={(side) => this.conqueror('Right')} />
+                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Right')} />
+                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Right')} />
+                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Right')} />
+                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Right')} />
                 
                   <hr></hr>
                 
-                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={(side) => this.electrocute('Right')} />
-                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={(side) => this.predator('Right')} />
-                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={(side) => this.darkHarvest('Right')} />
-                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={(side) => this.hailOfBlades('Right')} />
+                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Right')} />
+                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Right')} />
+                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Right')} />
+                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Right')} />
                 
                   <hr></hr>
                 
-                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={(side) => this.summonAery('Right')} />
-                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={(side) => this.arcaneComet('Right')} />
-                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={(side) => this.phaseRush('Right')} />
+                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Right')} />
+                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Right')} />
+                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Right')} />
                 
                   <hr></hr>
                 
-                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={(side) => this.grasp('Right')} />
-                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={(side) => this.aftershock('Right')} />
-                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={(side) => this.guardian('Right')} />
+                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Right')} />
+                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Right')} />
+                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Right')} />
                 </div>
 
                 <b>{this.state.keystoneIDRight.title}</b>
@@ -10713,15 +10713,15 @@ class App extends Component {
           <div className="flexDisplay" id='itemsContainer'>
             <div style={{width:'45vw', marginTop: '5px'}}>
               <button type='button' id='itemsToggleLeft' style={{marginBottom: '5px'}} 
-              onClick={(side) => this.itemsToggle('Left')}>Show Items</button>
+              onClick={() => this.itemsToggle('Left')}>Show Items</button>
 
               <div id='itemsLeft'>
                 
                 <div className='itemMenu'>
-                  <button type='button' onClick={side => this.onMythicClick('Left')}>Mythic</button>
-                  <button type='button' onClick={side => this.onLegendClick('Left')}>Legendary</button>
-                  <input type="search" placeholder='Item Name' onChange={(event, side) => this.onItemSearch(event, 'Left')}
-                  style={{width: 120, height: 25, display: 'inline-block', float: 'right'}} onBlur={this.onItemBlur} 
+                  <button type='button' onClick={() => this.onMythicClick('Left')}>Mythic</button>
+                  <button type='button' onClick={() => this.onLegendClick('Left')}>Legendary</button>
+                  <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Left')}
+                  style={{width: '9em', height: 25}} onBlur={this.onItemBlur} 
                   id='itemSearchLeft' />
                 </div>
                 <div>
@@ -10733,7 +10733,7 @@ class App extends Component {
 
             <div style={{width:'45vw', marginTop: '5px'}}>
               <button type='button' id='itemsToggleRight' style={{marginBottom: '5px'}}
-              onClick={(side) => this.itemsToggle('Right')}>Show Items</button>
+              onClick={() => this.itemsToggle('Right')}>Show Items</button>
 
               <div id='itemsRight'>
 
