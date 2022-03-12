@@ -146,10 +146,13 @@ button {
 
 .ksStats {
   width: 45vw;
-  border: 2px solid #f9b54a;
+  border: 1px solid #f9b54a;
   box-shadow: 3px 3px 3px #003747;
   padding: 0px 1em;
   background-color:#003747;
+  border-top: 2px solid #003747;
+  border-bottom: 2px solid #003747;
+  padding-bottom: 5px;
 }
 
 .ksStats span {

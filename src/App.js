@@ -10450,16 +10450,36 @@ class App extends Component {
     if (document.getElementById(`ksToggle${side}`).textContent === 'Hide Keystones') {
       if (document.getElementById(`ksToggle${otherSide}`).textContent === 'Show Keystones') {
         document.getElementById('ksLeft').style.display = 'none';
+        document.getElementById('ksTitleLeft').style.display = 'none';
+        document.getElementById('ksStatsLeft').style.display = 'none';
         document.getElementById('ksRight').style.display = 'none';
+        document.getElementById('ksTitleRight').style.display = 'none';
+        document.getElementById('ksStatsRight').style.display = 'none';
+        document.getElementById(`ks${side}`).style.visibility = 'hidden';
+        document.getElementById(`ksTitle${side}`).style.visibility = 'hidden';
+        document.getElementById(`ksStats${side}`).style.visibility = 'hidden';
       } else {
         document.getElementById(`ks${side}`).style.visibility = 'hidden';
+        document.getElementById(`ksTitle${side}`).style.visibility = 'hidden';
+        document.getElementById(`ksStats${side}`).style.visibility = 'hidden';
       }
       document.getElementById(`ksToggle${side}`).textContent = 'Show Keystones';
     } else {
+      if (document.getElementById(`ksToggle${otherSide}`).textContent === 'Show Keystones') {
+        document.getElementById(`ks${otherSide}`).style.display = '';
+        document.getElementById(`ksTitle${otherSide}`).style.display = '';
+        document.getElementById(`ksStats${otherSide}`).style.display = '';
+      }
       document.getElementById(`ksToggle${side}`).textContent = 'Hide Keystones';
       document.getElementById(`ks${side}`).style.display = '';
       document.getElementById(`ks${side}`).style.visibility = 'visible';
+      document.getElementById(`ksTitle${side}`).style.display = '';
+      document.getElementById(`ksTitle${side}`).style.visibility = 'visible';
+      document.getElementById(`ksStats${side}`).style.display = '';
+      document.getElementById(`ksStats${side}`).style.visibility = 'visible';
     }
+    console.log('side: ' + side);
+    console.log('otherside: ' + otherSide)
   };
 
   itemsToggle = (side) => {
@@ -10533,6 +10553,11 @@ class App extends Component {
             </div>
           </div>
 
+          <div className='flexDisplay'>
+            <b style={{width: '45vw', textAlign: 'center'}}>{this.state.champNameLeft}</b>
+            <b style={{width: '45vw', textAlign: 'center'}}>{this.state.champNameRight}</b>
+          </div>
+
           <div className="flexAround" style={{marginTop: '10px'}}>
             <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
             alt='Champion Icon' style={{position: 'relative'}} />
@@ -10571,140 +10596,134 @@ class App extends Component {
             alt='Champion Icon' style={{position: 'relative'}}/>
           </div>
 
-          <div className="flexDisplay">
-            <div style={{width: '45vw'}}>
+          <div>
               <button type='button' id='ksToggleLeft' onClick={() => this.keystoneToggle('Left')}>Hide Keystones</button>
+              <button type='button' id='ksToggleRight' style={{float: 'right'}} onClick={() => this.keystoneToggle('Right')}>Hide Keystones</button>
+          </div>
 
-              <div id='ksLeft'>
-                <div className='keystone'>
-                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Left')} />
-                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Left')} />
-                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Left')} />
-                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Left')} />
-                
-                  <hr></hr>
-                
-                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Left')} />
-                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Left')} />
-                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Left')} />
-                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Left')} />
-                
-                  <hr></hr>
-                
-                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
-                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
-                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
-                
-                  <hr></hr>
-                
-                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Left')} />
-                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Left')} />
-                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Left')} />
-                </div>
-
-                <b>{this.state.keystoneIDLeft.title}</b>
-                
-                <div className='ksStats' style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
-                  <span>{this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
-                  <br></br>
-                  {this.state.keystoneIDLeft.index !== 7 ? <span>Current Value: </span> : ''} 
-                  {
-                    this.state.keystoneIDLeft.index === 7 ? '' 
-                    : this.state.keystoneIDLeft.index === 1 || this.state.keystoneIDLeft.index === 3 || this.state.keystoneIDLeft.index === 10 ? this.state.ksArrayLeft[this.levelLeft - 1] 
-                    + Math.round(this.state.ksAPRatioLeft * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft 
-                    * (this.runesLeft.ad + this.itemStatsLeft.ad) + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp 
-                    + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp))
-                    : Math.round(this.state.ksArrayLeft[this.levelLeft - 1] + (this.state.ksAPRatioLeft 
-                      * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad) 
-                      + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp 
-                      + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp))) 
-                  }
-                  <div style={{display: this.state.ksPart2DisplayLeft}}>
-                    <br></br>
-                    <span>{this.state.ksPart2Left.type}: </span>{this.state.ksPart2Left.text}
-                    <br></br>
-                    {this.state.keystoneIDLeft.index !== 12 ? <span>Current Value: </span>
-                    : <span>Current Cap: </span>}
-                    {this.state.keystoneIDLeft.index !== 10 ? Math.round(this.state.ksPart2Left.array[this.levelLeft - 1] 
-                    + (this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
-                    + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
-                    + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio)) 
-                    : this.state.ksPart2Left.array[this.levelLeft - 1] }
-                  </div>
-                  <div>
-                    <br></br>
-                    <span>Cooldown: </span>{this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
-                  </div>
-                </div>
-                
-              </div> 
+          <div className='flexDisplay'>
+            <div id='ksLeft' className='keystone' style={{width: '45vw', textAlign: 'center'}}>
+              <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Left')} />
+              <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Left')} />
+              <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Left')} />
+              <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Left')} />
+            
+              <hr></hr>
+            
+              <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Left')} />
+              <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Left')} />
+              <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Left')} />
+              <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Left')} />
+            
+              <hr></hr>
+            
+              <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
+              <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
+              <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
+            
+              <hr></hr>
+            
+              <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Left')} />
+              <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Left')} />
+              <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Left')} />
             </div>
 
-            <div style={{width: '45vw'}}>
-              <button type='button' id='ksToggleRight' onClick={() => this.keystoneToggle('Right')}>Hide Keystones</button>
+            <div id='ksRight' className='keystone' style={{width: '45vw', textAlign: 'center'}}>
+              <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Right')} />
+              <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Right')} />
+              <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Right')} />
+              <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Right')} />
+            
+              <hr></hr>
+            
+              <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Right')} />
+              <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Right')} />
+              <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Right')} />
+              <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Right')} />
+            
+              <hr></hr>
+            
+              <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Right')} />
+              <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Right')} />
+              <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Right')} />
+            
+              <hr></hr>
+            
+              <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Right')} />
+              <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Right')} />
+              <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Right')} />
+            </div>
+          </div>
 
-              <div id='ksRight'>
-                <div className='keystone'>
-                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Right')} />
-                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Right')} />
-                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Right')} />
-                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Right')} />
-                
-                  <hr></hr>
-                
-                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Right')} />
-                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Right')} />
-                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Right')} />
-                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Right')} />
-                
-                  <hr></hr>
-                
-                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Right')} />
-                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Right')} />
-                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Right')} />
-                
-                  <hr></hr>
-                
-                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Right')} />
-                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Right')} />
-                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Right')} />
-                </div>
+          <div className='flexDisplay'>
+            <b id='ksTitleLeft' style={{width: '45vw', textAlign: 'center'}}>{this.state.keystoneIDLeft.title}</b>
+            <b id='ksTitleRight' style={{width: '45vw', textAlign: 'center'}}>{this.state.keystoneIDRight.title}</b>
+          </div>
 
-                <b>{this.state.keystoneIDRight.title}</b>
-                
-                <div className='ksStats' style={{borderTop: '2px solid #003747', borderBottom: '2px solid #003747', paddingBottom: '5px'}}>
-                <span>{this.state.keystoneIDRight.type}: </span>{this.state.keystoneRight}
-                  <br></br>
-                  {this.state.keystoneIDRight.index !== 7 ? <span>Current Value: </span> : ''} 
-                  {
-                    this.state.keystoneIDRight.index === 7 ? '' 
-                    : this.state.keystoneIDRight.index === 1 || this.state.keystoneIDRight.index === 3 || this.state.keystoneIDRight.index === 10 ? this.state.ksArrayRight[this.levelRight - 1] 
-                    + Math.round(this.state.ksAPRatioRight * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight 
-                    * (this.runesRight.ad + this.itemStatsRight.ad) + this.state.ksHPRatioRight * this.state.totalStatsRight.hp 
-                    + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))
-                    : Math.round(this.state.ksArrayRight[this.levelRight - 1] + (this.state.ksAPRatioRight 
-                      * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad) 
-                      + this.state.ksHPRatioRight * this.state.totalStatsRight.hp 
-                      + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))) 
-                  }
-                  <div style={{display: this.state.ksPart2DisplayRight}}>
-                    <br></br>
-                    <span>{this.state.ksPart2Right.type}: </span>{this.state.ksPart2Right.text}
-                    <br></br>
-                    {this.state.keystoneIDRight.index !== 12 ? <span>Current Value: </span>
-                    : <span>Current Cap: </span>}
-                    {this.state.keystoneIDRight.index !== 10 ? Math.round(this.state.ksPart2Right.array[this.levelRight - 1] 
-                    + (this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap 
-                    + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
-                    + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio)) 
-                    : this.state.ksPart2Right.array[this.levelRight - 1] }
-                  </div>
-                  <div>
-                    <br></br>
-                    <span>Cooldown: </span>{this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
-                  </div>
-                </div>
+          <div className='flexDisplay'>      
+            <div className='ksStats' id='ksStatsLeft'>
+              <span>{this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
+              <br></br>
+              {this.state.keystoneIDLeft.index !== 7 ? <span>Current Value: </span> : ''} 
+              {
+                this.state.keystoneIDLeft.index === 7 ? '' 
+                : this.state.keystoneIDLeft.index === 1 || this.state.keystoneIDLeft.index === 3 || this.state.keystoneIDLeft.index === 10 ? this.state.ksArrayLeft[this.levelLeft - 1] 
+                + Math.round(this.state.ksAPRatioLeft * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft 
+                * (this.runesLeft.ad + this.itemStatsLeft.ad) + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp 
+                + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp))
+                : Math.round(this.state.ksArrayLeft[this.levelLeft - 1] + (this.state.ksAPRatioLeft 
+                  * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad) 
+                  + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp 
+                  + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp))) 
+              }
+              <div style={{display: this.state.ksPart2DisplayLeft}}>
+                <br></br>
+                <span>{this.state.ksPart2Left.type}: </span>{this.state.ksPart2Left.text}
+                <br></br>
+                {this.state.keystoneIDLeft.index !== 12 ? <span>Current Value: </span>
+                : <span>Current Cap: </span>}
+                {this.state.keystoneIDLeft.index !== 10 ? Math.round(this.state.ksPart2Left.array[this.levelLeft - 1] 
+                + (this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
+                + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
+                + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio)) 
+                : this.state.ksPart2Left.array[this.levelLeft - 1] }
+              </div>
+              <div>
+                <br></br>
+                <span>Cooldown: </span>{this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
+              </div>
+            </div>
 
+            <div className='ksStats' id='ksStatsRight'>
+              <span>{this.state.keystoneIDRight.type}: </span>{this.state.keystoneRight}
+                <br></br>
+              {this.state.keystoneIDRight.index !== 7 ? <span>Current Value: </span> : ''} 
+              {
+                this.state.keystoneIDRight.index === 7 ? '' 
+                : this.state.keystoneIDRight.index === 1 || this.state.keystoneIDRight.index === 3 || this.state.keystoneIDRight.index === 10 ? this.state.ksArrayRight[this.levelRight - 1] 
+                + Math.round(this.state.ksAPRatioRight * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight 
+                * (this.runesRight.ad + this.itemStatsRight.ad) + this.state.ksHPRatioRight * this.state.totalStatsRight.hp 
+                + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))
+                : Math.round(this.state.ksArrayRight[this.levelRight - 1] + (this.state.ksAPRatioRight 
+                * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad) 
+                + this.state.ksHPRatioRight * this.state.totalStatsRight.hp 
+                + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))) 
+              }
+              <div style={{display: this.state.ksPart2DisplayRight}}>
+                <br></br>
+                <span>{this.state.ksPart2Right.type}: </span>{this.state.ksPart2Right.text}
+                <br></br>
+                {this.state.keystoneIDRight.index !== 12 ? <span>Current Value: </span>
+                : <span>Current Cap: </span>}
+                {this.state.keystoneIDRight.index !== 10 ? Math.round(this.state.ksPart2Right.array[this.levelRight - 1] 
+                + (this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap 
+                + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
+                + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio)) 
+                : this.state.ksPart2Right.array[this.levelRight - 1] }
+              </div>
+              <div>
+                <br></br>
+                <span>Cooldown: </span>{this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
               </div>
             </div>
           </div>
