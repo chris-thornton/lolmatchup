@@ -33,6 +33,10 @@ li + li {
   border-top: none;
 }
 
+.liFocused {
+  background-color: blue;
+}
+
 button {
  border-radius: 0px;
 }
@@ -97,7 +101,7 @@ button {
   display: none;
 }
 
-#ksToggleLeft, #ksToggleRight, #ksLeft, #ksRight {
+#ksToggleLeft, #ksToggleRight, #ksLeft, #ksRight, #ksTitleLeft, #ksTitleRight, #ksStatsLeft, #ksStatsRight {
   visibility: hidden;
 }
 
@@ -153,6 +157,7 @@ button {
   border-top: 2px solid #003747;
   border-bottom: 2px solid #003747;
   padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .ksStats span {
@@ -185,6 +190,17 @@ button {
 	box-shadow: 0px 0px 5px #ffcb5a inset;
 }
 
+.inventory {
+  text-align: center;
+  width: 45vw;
+}
+
+.inventory img {
+  width: 40px;
+  height: 40px;
+  background-color: black;
+}
+
 #itemsLeft, #itemsRight {
   display: none;
   text-align: center;
@@ -193,8 +209,7 @@ button {
 .itemIcon {
   height: 40px;
   width: 40px;
-  border: 1px #ffffb9 solid;
-  margin: 2px 5px;
+  margin: 2px;
   cursor: pointer;
 }
 

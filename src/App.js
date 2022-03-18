@@ -329,6 +329,9 @@ class App extends Component {
     this.setState({ [`filteredChampPairs${side}`]: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) })
     })
+    if (event.keyCode === 40) {
+      alert('arrow down!')
+    }
   };
 
   abilities = ["passive", "Q", "W", "E", "R"];
@@ -8588,11 +8591,12 @@ class App extends Component {
     };
 
     if (prevName === '' && this[`champName${otherSide}`] === '') {
-      document.getElementById('ksLeft').style.visibility = 'visible';
-      document.getElementById('ksRight').style.visibility = 'visible';
-      document.getElementById('ksToggleLeft').style.visibility = 'visible';
-      document.getElementById('ksToggleRight').style.visibility = 'visible';
-    }
+      var ksStuff = ['', 'Toggle', 'Title', 'Stats'];
+      ksStuff.map(x => {
+        document.getElementById(`ks${x}Left`).style.visibility = 'visible';
+        document.getElementById(`ks${x}Right`).style.visibility = 'visible';
+      })
+    };
 
     if (champName === 'Aphelios') {
       var hiddenArray = document.getElementsByClassName(`hidden${side}`);
@@ -9047,10 +9051,40 @@ class App extends Component {
     this.listHoverRight = 'false';
   }
 
-  onListBlur = () => {
+  downArrow = (event, side) => {
+    if (event.keyCode === 40) {
+      if (document.getElementsByClassName(`click${side}`).length) {
+        event.preventDefault();
+        document.getElementsByClassName(`click${side}`)[0].focus();
+        document.getElementsByClassName(`click${side}`)[0].style.backgroundColor = 'lightGray'
+      }
+    };
+    if (event.keyCode === 38) {
+      if (document.getElementsByClassName(`click${side}`).length) {
+        event.preventDefault();
+        var ulLength = document.getElementsByClassName(`click${side}`).length
+        document.getElementsByClassName(`click${side}`)[ulLength-1].focus();
+        document.getElementsByClassName(`click${side}`)[ulLength-1].style.backgroundColor = 'lightGray'
+      }
+    }
+  }
+
+  liKeyPress = (event) => {
+    if (event.keyCode === 40) {
+
+    }
+  }
+
+  onListBlur = (event) => {
+    console.log(event.relatedTarget)
     if (this.listHoverLeft === 'true') {
       return
     };
+    if (document.getElementById('ulLeft')) {
+      if (document.getElementById('ulLeft').contains(event.relatedTarget)) {
+        return
+      }
+    }
     document.getElementsByTagName("input")[0].value = '';
     this.setState({ filteredChampsLeft: [] });
   }
@@ -10417,7 +10451,14 @@ class App extends Component {
     this.setState({[`itemDisplay${side}`]:  [...this.mythicList, ...this.legendList].map((itemName, i) => {
       if (itemName.toLowerCase().includes(event.target.value.toLowerCase()) ) {
         if (i < 25) {
-          return <img className='itemIcon' src={Array.from(this.mythicIcons)[i]}></img>
+          return (
+            <span style={{position: 'relative'}} key={i}>
+              <img className='itemIcon' src={Array.from(this.mythicIcons)[i]}></img>
+              <div className='itemTooltip' id={`mythic${i}`}>
+                {this.mythicItems(this.levelLeft)[i]}
+              </div>
+            </span>
+          )
         } else {
           return <img className='itemIcon'src={Array.from(this.itemIcons)[i-25]}></img>
         }
@@ -10483,7 +10524,6 @@ class App extends Component {
   };
 
   itemsToggle = (side) => {
-    console.log(document.getElementById(`items${side}`).style.display)
     if (document.getElementById(`itemsToggle${side}`).textContent === 'Show Items') {
       document.getElementById(`items${side}`).style.display = 'inherit';
       document.getElementById(`itemsToggle${side}`).textContent = 'Hide Items'
@@ -10491,7 +10531,6 @@ class App extends Component {
       document.getElementById(`items${side}`).style.display = 'none';
       document.getElementById(`itemsToggle${side}`).textContent = 'Show Items'
     }
-    console.log(document.getElementById(`items${side}`).style.display)
   };
 
   componentDidMount() {
@@ -10512,8 +10551,15 @@ class App extends Component {
         </span>
       )
     })});
-    this.setState({itemDisplayRight:  Array.from(this.mythicIcons).map(iconSrc => {
-      return <img src={iconSrc}></img>
+    this.setState({itemDisplayRight:  Array.from(this.mythicIcons).map((iconSrc, i) => {
+      return (
+        <span style={{position: 'relative'}} key={i}>
+          <img className='itemIcon' src={iconSrc}></img>
+          <div className='itemTooltip' id={`mythic${i}`}>
+            {this.mythicItems(this.levelLeft)[i]}
+          </div>
+        </span>
+      )
     })})
     this.itemIcons = importAll(require.context('./itemicons/', false, /\.(png|jpe?g|svg)$/));
   };
@@ -10528,23 +10574,27 @@ class App extends Component {
             <img src={logo} height='80px' alt='Logo'/>
           </div>
           <img src={lolIcon} height='31px' width='30px' alt='League of Legends Icon' />
-          <h2><a href="https://na.leagueoflegends.com/en-us/news/tags/patch-notes" target='_blank'>Patch v11.10</a></h2>
+          <h2><a href="https://na.leagueoflegends.com/en-us/news/tags/patch-notes" 
+          target='_blank' tabIndex='-1'>Patch v11.10</a></h2>
         </header>
 
         {this.state.about ? <About /> : ''}
 
         <div id='homePage'>
           <div style={{marginTop: 10, display: 'flex'}}>
-            <input type="search" placeholder='Champion Name' onChange={this.onSearchChange}
-            style={{width: 120, display: 'inline-block'}} onBlur={this.onListBlur} />
-            <input type="search" placeholder='Champion Name' onChange={this.onSearchChange}
-            style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={this.onListBlur2} />
+            <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} 
+            style={{width: 120, display: 'inline-block'}} onBlur={this.onListBlur} 
+            tabIndex='0' onKeyDown={(event) => this.downArrow(event, 'Left')} />
+            <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} tabIndex='0'
+            style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={this.onListBlur2} 
+            onKeyDown={(event) => this.downArrow(event, 'Right')} />
           </div>
 
           <div style={{display: 'flex'}}>
             <div style={{width: 120, display: 'inline-block'}} >
             <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } onChampClick={this.onChampClick}
-            listMouseEnter={this.listMouseEnter} listMouseLeave={this.listMouseLeave} />
+            listMouseEnter={this.listMouseEnter} listMouseLeave={this.listMouseLeave} 
+            onKeyDown={(event) => this.liKeyPress(event, 'Left')}/>
             </div>
           
             <div style={{width: 120, marginLeft: 'auto', display: 'inline-block'}} >
@@ -10728,11 +10778,40 @@ class App extends Component {
             </div>
           </div>
 
-          
-          <div className="flexDisplay" id='itemsContainer'>
-            <div style={{width:'45vw', marginTop: '5px'}}>
-              <button type='button' id='itemsToggleLeft' style={{marginBottom: '5px'}} 
-              onClick={() => this.itemsToggle('Left')}>Show Items</button>
+          <div className='flexDisplay'>
+            <b style={{width: '45vw', textAlign: 'center'}}>Item Inventory</b>
+            <b style={{width: '45vw', textAlign: 'center'}}>Item Inventory</b>
+          </div>
+
+          <div className='flexDisplay'>
+            <div className='inventory'>
+              <img src=''></img>
+              <img src=''></img>
+              <img src=''></img>
+              <img src=''></img>
+              <img src=''></img>
+              <img src=''></img>
+            </div>
+              
+            <div className='inventory'>
+              <img src=''></img>
+              <img src=''></img>
+              <img src=''></img>
+              <img src=''></img>
+              <img src=''></img>
+              <img src=''></img>
+            </div>
+          </div>
+
+          <div>
+            <button type='button' id='itemsToggleLeft' onClick={() => this.itemsToggle('Left')}>Show Items</button>
+            <button type='button' id='itemsToggleRight' style={{float: 'right'}}
+              onClick={() => this.itemsToggle('Right')}>Show Items</button>
+          </div>
+
+
+          <div className="flexDisplay">
+            <div style={{width:'45vw', marginTop: '10px'}}>
 
               <div id='itemsLeft'>
                 
@@ -10744,21 +10823,24 @@ class App extends Component {
                   id='itemSearchLeft' />
                 </div>
                 <div>
-                {this.state.itemDisplayLeft}
+                  {this.state.itemDisplayLeft}
                 </div>
                 
               </div> 
             </div>
 
             <div style={{width:'45vw', marginTop: '5px'}}>
-              <button type='button' id='itemsToggleRight' style={{marginBottom: '5px'}}
-              onClick={() => this.itemsToggle('Right')}>Show Items</button>
-
               <div id='itemsRight'>
 
                 <div className='itemMenu'>
-                  <button type='button'></button>
-                  <button type='button'></button>
+                  <button type='button' onClick={() => this.onMythicClick('Right')}>Mythic</button>
+                  <button type='button' onClick={() => this.onLegendClick('Right')}>Legendary</button>
+                  <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Right')}
+                  style={{width: '9em', height: 25}} onBlur={this.onItemBlur} 
+                  id='itemSearchRight' />
+                </div>
+                <div>
+                  {this.state.itemDisplayRight}
                 </div>
 
               </div>
