@@ -8831,7 +8831,7 @@ class App extends Component {
     };
     var firstChar = event.currentTarget.id.charAt(0);
     this.setState({ [`${firstChar}Rank${side}`]: event.target.value });
-    
+
     this.calculateAbility(side);
   };
 
@@ -9069,14 +9069,44 @@ class App extends Component {
     }
   }
 
-  liKeyPress = (event) => {
+  liKeyPress = (event, side) => {
+    var ulLength = document.getElementsByClassName(`click${side}`).length
     if (event.keyCode === 40) {
+      if (ulLength === 1) {
+        return
+      };
+      event.preventDefault();
+      event.target.style.backgroundColor = 'white';
+      if (event.target.nextSibling) {
+        event.target.nextSibling.focus();
+        event.target.nextSibling.style.backgroundColor = 'lightGray'
+      } else {
+        document.getElementsByClassName(`click${side}`)[0].focus();
+        document.getElementsByClassName(`click${side}`)[0].style.backgroundColor = 'lightGray'
+      }
+    };
 
+    if (event.keyCode === 38) {
+      if (ulLength === 1) {
+        return
+      };
+      event.preventDefault();
+      event.target.style.backgroundColor = 'white';
+      if (event.target.previousSibling) {
+        event.target.previousSibling.focus();
+        event.target.previousSibling.style.backgroundColor = 'lightGray'
+      } else {
+        document.getElementsByClassName(`click${side}`)[ulLength-1].focus();
+        document.getElementsByClassName(`click${side}`)[ulLength-1].style.backgroundColor = 'lightGray'
+      }
+    }
+
+    if (event.keyCode === 13) {
+      this.onChampClick(event)
     }
   }
 
   onListBlur = (event) => {
-    console.log(event.relatedTarget)
     if (this.listHoverLeft === 'true') {
       return
     };
@@ -9089,10 +9119,15 @@ class App extends Component {
     this.setState({ filteredChampsLeft: [] });
   }
 
-  onListBlur2 = () => {
+  onListBlur2 = (event) => {
     if (this.listHoverRight === 'true') {
       return
     };
+    if (document.getElementById('ulRight')) {
+      if (document.getElementById('ulRight').contains(event.relatedTarget)) {
+        return
+      }
+    }
     document.getElementsByTagName("input")[1].value = '';
     this.setState({ filteredChampsRight: [] });
   }
@@ -10594,12 +10629,13 @@ class App extends Component {
             <div style={{width: 120, display: 'inline-block'}} >
             <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } onChampClick={this.onChampClick}
             listMouseEnter={this.listMouseEnter} listMouseLeave={this.listMouseLeave} 
-            onKeyDown={(event) => this.liKeyPress(event, 'Left')}/>
+            onLiKeyDown={(event) => this.liKeyPress(event, 'Left')}/>
             </div>
           
             <div style={{width: 120, marginLeft: 'auto', display: 'inline-block'}} >
             <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } onChampClick={this.onChampClick}
-            listMouseEnter={this.listMouseEnter2} listMouseLeave={this.listMouseLeave2} />
+            listMouseEnter={this.listMouseEnter2} listMouseLeave={this.listMouseLeave2}
+            onLiKeyDown={(event) => this.liKeyPress(event, 'Right')} />
             </div>
           </div>
 

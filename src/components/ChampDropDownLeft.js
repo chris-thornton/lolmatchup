@@ -1,9 +1,10 @@
 import React from 'react';
 
-const ChampDropDownLeft = ( {filteredChamps, onChampClick, listMouseEnter, listMouseLeave} ) => {
+const ChampDropDownLeft = ( {filteredChamps, onChampClick, listMouseEnter, listMouseLeave, onLiKeyDown} ) => {
   const dropDown = filteredChamps.split(',').map(champ => {
     return (
-      <li style={{cursor: 'pointer', backgroundColor: '#f6f6f6'}} onClick={onChampClick} className='clickLeft' key={champ} tabIndex='-1'>
+      <li style={{cursor: 'pointer', backgroundColor: '#f6f6f6'}} onClick={onChampClick} className='clickLeft' 
+      key={champ} tabIndex='-1' onKeyDown={onLiKeyDown}>
         { champ }
       </li>
     )
