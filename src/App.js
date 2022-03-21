@@ -8573,7 +8573,6 @@ class App extends Component {
     document.getElementsByTagName("input")[0].value = '';
     document.getElementsByTagName("input")[1].value = '';
     this.setState({ [`filteredChamps${side}`]: [] });
-    this[`listHover${side}`] = 'false';
 
     if (prevName === champName) {
       return
@@ -9032,25 +9031,6 @@ class App extends Component {
     event.preventDefault()
   };
 
-  listHoverLeft = 'false';
-  listHoverRight = 'false';
-
-  listMouseEnter = () => {
-    this.listHoverLeft = 'true';
-  }
-
-  listMouseLeave = () => {
-    this.listHoverLeft = 'false';
-  }
-
-  listMouseEnter2 = () => {
-    this.listHoverRight = 'true';
-  }
-
-  listMouseLeave2 = () => {
-    this.listHoverRight = 'false';
-  }
-
   downArrow = (event, side) => {
     if (event.keyCode === 40) {
       if (document.getElementsByClassName(`click${side}`).length) {
@@ -9106,31 +9086,27 @@ class App extends Component {
     }
   }
 
-  onListBlur = (event) => {
-    if (this.listHoverLeft === 'true') {
-      return
-    };
-    if (document.getElementById('ulLeft')) {
-      if (document.getElementById('ulLeft').contains(event.relatedTarget)) {
+  onSearchBlur = (event, side) => {
+    if (document.getElementById(`ul${side}`)) {
+      if (document.getElementById(`ul${side}`).contains(event.relatedTarget)) {
         return
       }
     }
-    document.getElementsByTagName("input")[0].value = '';
-    this.setState({ filteredChampsLeft: [] });
-  }
+    event.target.value = '';
+    this.setState({ [`filteredChamps${side}`]: [] });
+  };
 
-  onListBlur2 = (event) => {
-    if (this.listHoverRight === 'true') {
+  onLiBlur = (event, side) => {
+    if (document.getElementById(`ul${side}`).contains(event.relatedTarget)) {
       return
     };
-    if (document.getElementById('ulRight')) {
-      if (document.getElementById('ulRight').contains(event.relatedTarget)) {
-        return
-      }
-    }
-    document.getElementsByTagName("input")[1].value = '';
-    this.setState({ filteredChampsRight: [] });
-  }
+    if (event.relatedTarget ===  document.getElementsByTagName("input")[side.length-4]) {
+      event.target.style.backgroundColor = 'white';
+      return
+    };
+    document.getElementsByTagName("input")[side.length-4].value = '';
+    this.setState({ [`filteredChamps${side}`]: [] });
+  };
 
   pressTheAttack = (side) => {
     var dmgByLvl = [
@@ -10618,24 +10594,22 @@ class App extends Component {
         <div id='homePage'>
           <div style={{marginTop: 10, display: 'flex'}}>
             <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} 
-            style={{width: 120, display: 'inline-block'}} onBlur={this.onListBlur} 
+            style={{width: 120, display: 'inline-block'}} onBlur={(event) => this.onSearchBlur(event, 'Left')} 
             tabIndex='0' onKeyDown={(event) => this.downArrow(event, 'Left')} />
             <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} tabIndex='0'
-            style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={this.onListBlur2} 
+            style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={(event) => this.onSearchBlur(event, 'Right')} 
             onKeyDown={(event) => this.downArrow(event, 'Right')} />
           </div>
 
           <div style={{display: 'flex'}}>
             <div style={{width: 120, display: 'inline-block'}} >
-            <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } onChampClick={this.onChampClick}
-            listMouseEnter={this.listMouseEnter} listMouseLeave={this.listMouseLeave} 
-            onLiKeyDown={(event) => this.liKeyPress(event, 'Left')}/>
+            <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } onChampClick={this.onChampClick} 
+            onLiKeyDown={(event) => this.liKeyPress(event, 'Left')} onLiBlur={(event) => this.onLiBlur(event, 'Left')}/>
             </div>
           
             <div style={{width: 120, marginLeft: 'auto', display: 'inline-block'}} >
             <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } onChampClick={this.onChampClick}
-            listMouseEnter={this.listMouseEnter2} listMouseLeave={this.listMouseLeave2}
-            onLiKeyDown={(event) => this.liKeyPress(event, 'Right')} />
+            onLiKeyDown={(event) => this.liKeyPress(event, 'Right')} onLiBlur={(event) => this.onLiBlur(event, 'Right')}/>
             </div>
           </div>
 
