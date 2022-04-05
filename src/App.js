@@ -10,6 +10,7 @@ import logo from './images/logoTest.png';
 import lolIcon from './images/lol-icon.png';  
 import versus from './images/versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
+import blackbg from './blackbg.png';
 import forceIcon from './staticons/force.png';
 import healthIcon from './staticons/health.png';
 import armorIcon from './staticons/armor.png';
@@ -482,6 +483,8 @@ class App extends Component {
   };
   forceTypeLeft = 'ad';
   forceTypeRight = 'ad';
+  haveMythicLeft = false;
+  haveMythicRight = false;
 
   calculateAbility(side) {
 
@@ -8767,6 +8770,10 @@ class App extends Component {
     var champName = this[`champName${side}`];
     var runeStats = this[`runes${side}`];
     var statsPath = this[`champFile${side}`][`stats`];
+    var sideStyle = {left: '20px'}
+    if (side === 'Right') {
+      sideStyle = {right: '20px'}
+    }
 
     this.setState(prevState => ({
       [`totalStats${side}`]: {
@@ -8783,8 +8790,9 @@ class App extends Component {
       [`itemDisplay${side}`]:  Array.from(this.mythicIcons).map((iconSrc, i) => {
         return (
           <span style={{position: 'relative'}} key={i}>
-            <img className='itemIcon' src={iconSrc}></img>
-            <div className='itemTooltip' id={`mythic${i}`}>
+            <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc}
+            onClick={(event) => this.onMythicClick(event, side)}></img>
+            <div className='itemTooltip' style={sideStyle}>
               {this.mythicItems(this[`level${side}`])[i]}
             </div>
           </span>
@@ -10413,12 +10421,17 @@ class App extends Component {
     })
   }
 
-  onMythicClick = (side) => {
+  onMythicDisplay = (side) => {
+    var sideStyle = {left: '20px'}
+    if (side === 'Right') {
+      sideStyle = {right: '20px'}
+    }
     this.setState({[`itemDisplay${side}`]:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
         <span style={{position: 'relative'}} key={i}>
-          <img className='itemIcon' src={iconSrc}></img>
-          <div className='itemTooltip' id={`mythic${i}`}>
+          <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc} 
+          onClick={(event) => this.onMythicClick(event, side)}></img>
+          <div className='itemTooltip' style={sideStyle}>
             {this.mythicItems(this.levelLeft)[i]}
           </div>
         </span>
@@ -10427,7 +10440,32 @@ class App extends Component {
     document.getElementById(`itemSearch${side}`).value = '';
   };
 
-  onLegendClick = (side) => {
+  onMythicClick = (event, side) => {
+    if (this[`haveMythic${side}`]) {
+      document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'visible';
+      return
+    } else {
+      this[`haveMythic${side}`] = true
+    }
+    for (var i = 0; i < 6; i++) {
+      if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
+        document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
+        document.getElementById(`inven${side}`).children[i].style.border = '1px solid #ffcb5a';
+        break;
+      } 
+    }
+  };
+
+  onLegendClick = (event, side) => {
+    for (var i = 0; i < 6; i++) {
+      if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
+        document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
+        break;
+      } 
+    }
+  }
+
+  onLegendDisplay = (side) => {
     this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map(iconSrc => {
       return <img className='itemIcon' src={iconSrc}></img>
     })});
@@ -10459,19 +10497,25 @@ class App extends Component {
   ]
 
   onItemSearch = (event, side) => {
+    var sideStyle = {left: '20px'}
+    if (side === 'Right') {
+      sideStyle = {right: '20px'}
+    }
     this.setState({[`itemDisplay${side}`]:  [...this.mythicList, ...this.legendList].map((itemName, i) => {
       if (itemName.toLowerCase().includes(event.target.value.toLowerCase()) ) {
         if (i < 25) {
           return (
             <span style={{position: 'relative'}} key={i}>
-              <img className='itemIcon' src={Array.from(this.mythicIcons)[i]}></img>
-              <div className='itemTooltip' id={`mythic${i}`}>
+              <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={Array.from(this.mythicIcons)[i]}
+              onClick={(event) => this.onMythicClick(event, side)}></img>
+              <div className='itemTooltip' style={sideStyle}>
                 {this.mythicItems(this.levelLeft)[i]}
               </div>
             </span>
           )
         } else {
-          return <img className='itemIcon'src={Array.from(this.itemIcons)[i-25]}></img>
+          return <img className='itemIcon'src={Array.from(this.itemIcons)[i-25]}
+          onClick={(event) => this.onLegendClick(event, side)}></img>
         }
       }
     })})
@@ -10493,6 +10537,10 @@ class App extends Component {
       document.getElementById('homePage').style.display = 'block';
     }
   };
+
+  onLimitClick = (side) => {
+    document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
+  }
 
   keystoneToggle = (side) => {
     var otherSide = 'Left';
@@ -10555,8 +10603,9 @@ class App extends Component {
     this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
         <span style={{position: 'relative'}} key={i}>
-          <img className='itemIcon' src={iconSrc}></img>
-          <div className='itemTooltip' id={`mythic${i}`}>
+          <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc}
+          onClick={(event) => this.onMythicClick(event, 'Left')}></img>
+          <div className='itemTooltip' style={{left: '20px'}}>
             {this.mythicItems(this.levelLeft)[i]}
           </div>
         </span>
@@ -10565,8 +10614,9 @@ class App extends Component {
     this.setState({itemDisplayRight:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
         <span style={{position: 'relative'}} key={i}>
-          <img className='itemIcon' src={iconSrc}></img>
-          <div className='itemTooltip' id={`mythic${i}`}>
+          <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc}
+          onClick={(event) => this.onMythicClick(event, 'Right')}></img>
+          <div className='itemTooltip' style={{right: '20px'}}>
             {this.mythicItems(this.levelLeft)[i]}
           </div>
         </span>
@@ -10794,22 +10844,36 @@ class App extends Component {
           </div>
 
           <div className='flexDisplay'>
-            <div className='inventory'>
-              <img src=''></img>
-              <img src=''></img>
-              <img src=''></img>
-              <img src=''></img>
-              <img src=''></img>
-              <img src=''></img>
+            <div className='inventory' id='invenLeft'>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
             </div>
-              
-            <div className='inventory'>
-              <img src=''></img>
-              <img src=''></img>
-              <img src=''></img>
-              <img src=''></img>
-              <img src=''></img>
-              <img src=''></img>
+                
+            <div className='inventory' id='invenRight'>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
+              <img src={blackbg}></img>
+            </div> 
+          </div>
+
+          <div className='flexDisplay' >
+            <div style={{width: '45vw', textAlign: 'center'}}>
+              <span className='mythicLimit'>
+                Inventory limited to one Mythic item <b onClick={() => this.onLimitClick('Left')}>x</b>
+              </span>
+            </div>
+
+            <div style={{width: '45vw', textAlign: 'center'}}>
+              <span className='mythicLimit'>
+              Inventory limited to one Mythic item <b onClick={() => this.onLimitClick('Right')}>x</b>
+              </span>
             </div>
           </div>
 
@@ -10820,14 +10884,12 @@ class App extends Component {
           </div>
 
 
-          <div className="flexDisplay">
-            <div style={{width:'45vw', marginTop: '10px'}}>
-
+          <div className="flexDisplay" style={{marginTop: '10px'}}>
+            <div style={{width:'45vw'}}>
               <div id='itemsLeft'>
-                
                 <div className='itemMenu'>
-                  <button type='button' onClick={() => this.onMythicClick('Left')}>Mythic</button>
-                  <button type='button' onClick={() => this.onLegendClick('Left')}>Legendary</button>
+                  <button type='button' onClick={() => this.onMythicDisplay('Left')}>Mythic</button>
+                  <button type='button' onClick={() => this.onLegendDisplay('Left')}>Legendary</button>
                   <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Left')}
                   style={{width: '9em', height: 25}} onBlur={this.onItemBlur} 
                   id='itemSearchLeft' />
@@ -10835,16 +10897,14 @@ class App extends Component {
                 <div>
                   {this.state.itemDisplayLeft}
                 </div>
-                
               </div> 
             </div>
 
-            <div style={{width:'45vw', marginTop: '5px'}}>
+            <div style={{width:'45vw'}}>
               <div id='itemsRight'>
-
                 <div className='itemMenu'>
-                  <button type='button' onClick={() => this.onMythicClick('Right')}>Mythic</button>
-                  <button type='button' onClick={() => this.onLegendClick('Right')}>Legendary</button>
+                  <button type='button' onClick={() => this.onMythicDisplay('Right')}>Mythic</button>
+                  <button type='button' onClick={() => this.onLegendDisplay('Right')}>Legendary</button>
                   <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Right')}
                   style={{width: '9em', height: 25}} onBlur={this.onItemBlur} 
                   id='itemSearchRight' />
@@ -10852,7 +10912,6 @@ class App extends Component {
                 <div>
                   {this.state.itemDisplayRight}
                 </div>
-
               </div>
             </div>
           </div>

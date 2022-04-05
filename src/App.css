@@ -39,6 +39,9 @@ li + li {
 
 button {
  border-radius: 0px;
+ border: 2px outset rgb(118, 118, 118);
+ border-right-color: rgb(33, 33, 33);
+ border-bottom-color: rgb(33, 33, 33);
 }
 
 .center {
@@ -198,7 +201,24 @@ button {
 .inventory img {
   width: 40px;
   height: 40px;
-  background-color: black;
+  border: 1px outset black;
+}
+
+.mythicLimit {
+  background-color: white;
+  border: 1px solid red;
+  border-radius: 5px;
+  color: black;
+  padding-left: 5px;
+  visibility: hidden;
+}
+
+.mythicLimit b {
+  color: red;
+  margin: 0px 5px;
+  vertical-align: super;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 #itemsLeft, #itemsRight {
@@ -211,6 +231,7 @@ button {
   width: 40px;
   margin: 2px;
   cursor: pointer;
+  border: 1px outset #134f61;
 }
 
 .itemMenu {
@@ -228,13 +249,20 @@ button {
   position: absolute;
   background: black;
   opacity: 1;
-  top: -20px;
-  left: 10px;
+  top: 20px;
   display: none;
   width: 250px;
   border: 1px solid #ffffb9;
   padding: 5px;
   z-index: 100;
+}
+
+.iTTLeft {
+  left: 20px
+}
+
+.iTTRight {
+  right: 20px
 }
 
 .itemTooltip i {
