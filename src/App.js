@@ -10451,6 +10451,7 @@ class App extends Component {
       if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
         document.getElementById(`inven${side}`).children[i].style.border = '1px solid #ffcb5a';
+        document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
         break;
       } 
     }
@@ -10460,14 +10461,28 @@ class App extends Component {
     for (var i = 0; i < 6; i++) {
       if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
+        document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
         break;
       } 
     }
-  }
+  };
+
+  onInvenClick = (event, side) => {
+    if (event.target.src === blackbg) {
+      return
+    };
+    event.target.setAttribute('src', blackbg);
+    event.target.style.cursor = '';
+    if (event.target.style.border === '1px solid rgb(255, 203, 90)'){
+      event.target.style.border = '1px outset black';
+      this[`haveMythic${side}`] = false;
+      document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
+    }
+  };
 
   onLegendDisplay = (side) => {
     this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map(iconSrc => {
-      return <img className='itemIcon' src={iconSrc}></img>
+      return <img className='itemIcon' src={iconSrc} onClick={(event) => this.onLegendClick(event, side)}></img>
     })});
     document.getElementById(`itemSearch${side}`).value = '';
   };
@@ -10589,6 +10604,7 @@ class App extends Component {
     } else {
       document.getElementById(`items${side}`).style.display = 'none';
       document.getElementById(`itemsToggle${side}`).textContent = 'Show Items'
+      document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
     }
   };
 
@@ -10845,21 +10861,21 @@ class App extends Component {
 
           <div className='flexDisplay'>
             <div className='inventory' id='invenLeft'>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
             </div>
                 
             <div className='inventory' id='invenRight'>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
-              <img src={blackbg}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
             </div> 
           </div>
 
