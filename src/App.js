@@ -10444,16 +10444,25 @@ class App extends Component {
     if (this[`haveMythic${side}`]) {
       document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'visible';
       return
-    } else {
-      this[`haveMythic${side}`] = true
-    }
+    }; 
     for (var i = 0; i < 6; i++) {
       if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
         document.getElementById(`inven${side}`).children[i].style.border = '1px solid #ffcb5a';
         document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
+        this[`haveMythic${side}`] = true
         break;
       } 
+    };
+    var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'))
+    for (var i = 0; i < spanArray.length; i++) {
+      if (spanArray[i].textContent.includes('Attack Damage')) {
+        this[`itemStats${side}`].ad += Number(spanArray[i].textContent.replace( /[^\d].*/, '' ));
+        console.log('item ad: ' + this[`itemStats${side}`].ad)
+      };
+      if (spanArray[i].nextSibling.tagName !== 'BR') {
+        break
+      }
     }
   };
 

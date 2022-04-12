@@ -1,0 +1,17 @@
+{
+    "0": {
+        "name": "Crown of the Shattered Queen",
+        "ad": 0,
+        "as": 0,
+        "arm": 0, 
+        "mr": 0,
+        "hp": 0,
+        "hpRegen": 0,
+        "ap": 8,
+        "cdr": 0,
+        "critChance": 0,
+        "mana": 0,
+        "manaRegen": 0,
+        "lethal": 0
+    }
+}
