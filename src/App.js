@@ -66,7 +66,12 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0
+        lethal: 0,
+        arPenRatio: 0,
+        magicPenFlat: 0,
+        magicPenRatio: 0,
+        omni: 0,
+        lifeSteal: 0
       },
       totalStatsRight: {
         ad: 10.8,
@@ -80,7 +85,12 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0
+        lethal: 0,
+        arPenRatio: 0,
+        magicPenFlat: 0,
+        magicPenRatio: 0,
+        omni: 0,
+        lifeSteal: 0
       },
       tfTotalStatsLeft: {
         ad: 10.8,
@@ -94,7 +104,12 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0
+        lethal: 0,
+        arPenRatio: 0,
+        magicPenFlat: 0,
+        magicPenRatio: 0,
+        omni: 0,
+        lifeSteal: 0
       },
       tfTotalStatsRight: {
         ad: 10.8,
@@ -108,7 +123,12 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0
+        lethal: 0,
+        arPenRatio: 0,
+        magicPenFlat: 0,
+        magicPenRatio: 0,
+        omni: 0,
+        lifeSteal: 0
       },
       keystoneLeft: '40 to 180, based on level.',
       ksArrayLeft: [40,48,56,65,73,81,89,98,106,
@@ -397,8 +417,10 @@ class App extends Component {
     ad: 0,
     as: 0,
     arm: 0,
-    armorRedux: 0,
-    lethality: 0, 
+    arPenRatio: 0,
+    lethality: 0,
+    lifeSteal: 0,
+    omni: 0, 
     mr: 0,
     magicPenFlat: 0,
     magicPenRatio: 0,
@@ -415,8 +437,10 @@ class App extends Component {
     ad: 0,
     as: 0,
     arm: 0,
-    armorRedux: 0,
+    arPenRatio: 0,
     lethality: 0, 
+    lifeSteal: 0,
+    omni: 0, 
     mr: 0,
     magicPenFlat: 0,
     magicPenRatio: 0,
@@ -433,7 +457,7 @@ class App extends Component {
     ad: 0,
     as: 0,
     arm: 0,
-    armorRedux: 0,
+    arPenRatio: 0,
     lethality: 0, 
     mr: 0,
     magicPenFlat: 0,
@@ -450,7 +474,7 @@ class App extends Component {
     ad: 0,
     as: 0,
     arm: 0,
-    armorRedux: 0,
+    arPenRatio: 0,
     lethality: 0, 
     mr: 0,
     magicPenFlat: 0,
@@ -485,6 +509,20 @@ class App extends Component {
   forceTypeRight = 'ad';
   haveMythicLeft = false;
   haveMythicRight = false;
+  itemCounterLeft = 0;
+  itemCounterRight = 0;
+  invenLeftTT1 = '';
+  invenLeftTT2 = '';
+  invenLeftTT3 = '';
+  invenLeftTT4 = '';
+  invenLeftTT5 = '';
+  invenLeftTT6 = '';
+  invenRightTT1 = '';
+  invenRightTT2 = '';
+  invenRightTT3 = '';
+  invenRightTT4 = '';
+  invenRightTT5 = '';
+  invenRightTT6 = '';
 
   calculateAbility(side) {
 
@@ -8791,7 +8829,7 @@ class App extends Component {
         return (
           <span style={{position: 'relative'}} key={i}>
             <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc}
-            onClick={(event) => this.onMythicClick(event, side)}></img>
+            onClick={(event) => this.onMythicClick(event, side, i)}></img>
             <div className='itemTooltip' style={sideStyle}>
               {this.mythicItems(this[`level${side}`])[i]}
             </div>
@@ -10430,7 +10468,7 @@ class App extends Component {
       return (
         <span style={{position: 'relative'}} key={i}>
           <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc} 
-          onClick={(event) => this.onMythicClick(event, side)}></img>
+          onClick={(event) => this.onMythicClick(event, side, i)}></img>
           <div className='itemTooltip' style={sideStyle}>
             {this.mythicItems(this.levelLeft)[i]}
           </div>
@@ -10440,34 +10478,138 @@ class App extends Component {
     document.getElementById(`itemSearch${side}`).value = '';
   };
 
-  onMythicClick = (event, side) => {
+  onMythicClick = (event, side, mythicIndex) => {
+    console.log('mythic index: ' + mythicIndex)
     if (this[`haveMythic${side}`]) {
       document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'visible';
       return
-    }; 
-    for (var i = 0; i < 6; i++) {
+    };
+    if (this[`itemCounter${side}`] === 6) {
+      return
+    };
+    this[`itemCounter${side}`]++;
+    for (var i = 0; i < 12; i += 2) {
       if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
         document.getElementById(`inven${side}`).children[i].style.border = '1px solid #ffcb5a';
         document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
+        this[`inven${side}TT${1 + (i/2)}`] = this.mythicItems(this.levelLeft)[mythicIndex]
         this[`haveMythic${side}`] = true
         break;
       } 
     };
-    var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'))
+    var itemStats = this[`itemStats${side}`];
+    var totalStats = [`totalStats${side}`];
+    var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
     for (var i = 0; i < spanArray.length; i++) {
-      if (spanArray[i].textContent.includes('Attack Damage')) {
-        this[`itemStats${side}`].ad += Number(spanArray[i].textContent.replace( /[^\d].*/, '' ));
-        console.log('item ad: ' + this[`itemStats${side}`].ad)
-      };
-      if (spanArray[i].nextSibling.tagName !== 'BR') {
+      if (i !== 0 && spanArray[i].previousSibling.tagName !== 'BR') {
         break
-      }
+      };
+      var spanText = spanArray[i].textContent;
+      var statQuantity = +spanArray[i].textContent.replace( /[^\d].*/, '' );
+      var addItemStats = (stat, quantity) => {
+        this.setState(prevState => ({
+          [totalStats]: {
+            ...prevState[totalStats],
+            [stat]: +prevState[totalStats][stat] + quantity
+          }
+        }))
+      };
+      if (spanText.includes('Attack Damage')) {
+        itemStats.ad += statQuantity;
+        addItemStats('ad', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Attack Speed')) {
+        itemStats.as += statQuantity/100;
+        if (this.state[`champName${side}`] !== '') {
+          addItemStats('as', (statQuantity * this[`champFile${side}`].stats.asRatio)/100);
+        } else {
+          addItemStats('as', statQuantity/100)
+        };
+        continue;
+      };
+      if (spanText.includes('Critical Strike')) {
+        itemStats.critChance += statQuantity;
+        addItemStats('critChance', statQuantity)
+        continue;
+      };
+      if (spanText.includes('Ability Power')) {
+        itemStats.ap += statQuantity;
+        addItemStats('ap', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Ability Haste')) {
+        itemStats.cdr += statQuantity;
+        addItemStats('cdr', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Health')) {
+        if (!spanText.includes('Regen')) {
+          itemStats.hp += statQuantity;
+          addItemStats('hp', statQuantity);
+        } else {
+          itemStats.hpRegen += statQuantity;
+          addItemStats('hpRegen', statQuantity);
+        }
+        continue;
+      };
+      if (spanText.includes('Mana')) {
+        if (!spanText.includes('Regen')) {
+          itemStats.mana += statQuantity;
+          addItemStats('mana', statQuantity);
+        } else {
+          itemStats.manaRegen += statQuantity;
+          addItemStats('manaRegen', statQuantity);
+        }
+        continue;
+      };
+      if (spanText.includes('Lethality')) {
+        itemStats.lethality += statQuantity;
+        addItemStats('lethal', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Armor')) {
+        itemStats.arm += statQuantity;
+        addItemStats('arm', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Magic Resist')) {
+        itemStats.mr += statQuantity;
+        addItemStats('mr', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Magic Pen')) {
+        if (!spanText.includes('%')) {
+          itemStats.magicPenFlat += statQuantity;
+          addItemStats('magicPenFlat', statQuantity)
+        } else {
+          itemStats.magicPenRatio += statQuantity;
+          addItemStats('magicPenRatio', statQuantity)
+        }
+        continue;
+      };
+      if (spanArray[i].textContent.includes('Omnivamp')) {
+        itemStats.omni += statQuantity/100;
+        addItemStats('omni', statQuantity)
+        continue;
+      };
+      if (spanArray[i].textContent.includes('Life')) {
+        itemStats.lifeSteal += statQuantity/100;
+        addItemStats('lifeSteal', statQuantity)
+        continue;
+      };
     }
   };
 
   onLegendClick = (event, side) => {
-    for (var i = 0; i < 6; i++) {
+    console.log('item counter: ' + this[`itemCounter${side}`]);
+    if (this[`itemCounter${side}`] === 6) {
+      return
+    };
+    this[`itemCounter${side}`]++;
+    document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
+    for (var i = 0; i < 12; i += 2) {
       if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
         document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
@@ -10476,10 +10618,12 @@ class App extends Component {
     }
   };
 
-  onInvenClick = (event, side) => {
+  onInvenClick = (event, side, i) => {
     if (event.target.src === blackbg) {
       return
     };
+    this[`inven${side}TT${i}`] = <div></div>;
+    this[`itemCounter${side}`]--;
     event.target.setAttribute('src', blackbg);
     event.target.style.cursor = '';
     if (event.target.style.border === '1px solid rgb(255, 203, 90)'){
@@ -10531,7 +10675,7 @@ class App extends Component {
           return (
             <span style={{position: 'relative'}} key={i}>
               <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={Array.from(this.mythicIcons)[i]}
-              onClick={(event) => this.onMythicClick(event, side)}></img>
+              onClick={(event) => this.onMythicClick(event, side, i)}></img>
               <div className='itemTooltip' style={sideStyle}>
                 {this.mythicItems(this.levelLeft)[i]}
               </div>
@@ -10629,7 +10773,7 @@ class App extends Component {
       return (
         <span style={{position: 'relative'}} key={i}>
           <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc}
-          onClick={(event) => this.onMythicClick(event, 'Left')}></img>
+          onClick={(event) => this.onMythicClick(event, 'Left', i)}></img>
           <div className='itemTooltip' style={{left: '20px'}}>
             {this.mythicItems(this.levelLeft)[i]}
           </div>
@@ -10640,7 +10784,7 @@ class App extends Component {
       return (
         <span style={{position: 'relative'}} key={i}>
           <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc}
-          onClick={(event) => this.onMythicClick(event, 'Right')}></img>
+          onClick={(event) => this.onMythicClick(event, 'Right', i)}></img>
           <div className='itemTooltip' style={{right: '20px'}}>
             {this.mythicItems(this.levelLeft)[i]}
           </div>
@@ -10870,21 +11014,57 @@ class App extends Component {
 
           <div className='flexDisplay'>
             <div className='inventory' id='invenLeft'>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left')}></img>
+              <img src={blackbg}  onClick={(event) => this.onInvenClick(event, 'Left', 1)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenLeftTT1}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 2)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenLeftTT2}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 3)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenLeftTT3}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 4)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenLeftTT4}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 5)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenLeftTT5}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 6)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenLeftTT6}
+              </div>
             </div>
                 
             <div className='inventory' id='invenRight'>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right')}></img>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 1)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenRightTT1}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 2)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenRightTT2}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 3)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenRightTT3}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 4)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenRightTT4}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 5)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenRightTT5}
+              </div>
+              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 6)}></img>
+              <div className='itemTooltip' style={{left: '20px'}}>
+                {this.invenRightTT6}
+              </div>
             </div> 
           </div>
 
