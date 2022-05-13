@@ -176,7 +176,8 @@ button {
   height: 80px;
   /*border: 1px solid #ffffb9;*/
   box-shadow: 1px 1px 3px #ffffb9;
-  background-color: #003747;
+  /*background-color: #003747;*/
+  background: linear-gradient(#003747, #134f61);
   align-self: center;
 }
 
@@ -252,7 +253,7 @@ button {
 
 .itemTooltip {
   position: absolute;
-  background: linear-gradient(rgb(33, 33, 33), rgb(118, 118, 118));
+  background: linear-gradient(135deg, rgb(33, 33, 33), rgb(118, 118, 118), rgb(33, 33, 33));
   opacity: 1;
   top: 20px;
   display: none;

@@ -33,6 +33,7 @@ import cdrRing from './staticons/cdrRing.png';
 import attackSpeedRing from './staticons/attackSpeedRing.png';
 import healthRegenIcon from './staticons/healthRegen.png';
 import manaRegenIcon from './staticons/manaRegen.png';
+import healShieldIcon from './staticons/healShieldPower.png';
 import ApheliosLeft from './components/ApheliosLeft';
 
 class App extends Component {
@@ -9154,7 +9155,35 @@ class App extends Component {
     this.setState({ [`filteredChamps${side}`]: [] });
   };
 
+  currentKSLeft = {
+    tree: '',
+    index: 0
+  }
+
+  currentKSRight = {
+    tree: '',
+    index: 0
+  }
+
+  ksHighlight = (side, runeTree, ksIndex, borderString) => {
+    if (side === 'Right') {
+      ksIndex += document.getElementsByClassName(runeTree).length / 2
+    };
+    if (this[`currentKS${side}`].tree !== '') {
+      document.getElementsByClassName(this[`currentKS${side}`].tree)[this[`currentKS${side}`].index].style.borderBottom = ''
+    };
+    document.getElementsByClassName(runeTree)[ksIndex].style.borderBottom = borderString;
+    this[`currentKS${side}`] = {
+      tree: runeTree,
+      index: ksIndex
+    }
+  }
+
   pressTheAttack = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'precision', 0, '1px solid rgb(255, 225, 82)');
     var dmgByLvl = [
       40,48,56,65,73,81,89,98,106,
       114,122,131,139,147,155,164,172,180
@@ -9180,6 +9209,10 @@ class App extends Component {
   };
 
   lethalTempo = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'precision', 1, '1px solid rgb(255, 225, 82)');
     var asByLvl = [
       0.4,0.4412,0.4824,0.5235,0.5647,0.6059,0.6471,0.6882,0.7294,
       0.7706,0.8118,0.8529,0.8941,0.9353,0.9765,1.0176,1.0588,1.1
@@ -9205,6 +9238,10 @@ class App extends Component {
   };
 
   fleetFootwork = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'precision', 2, '1px solid rgb(255, 225, 82)');
     var healByLvl = [
       10,15.29,20.59,25.88,31.18,36.47,41.76,47.06,52.35,
       57.65,62.94,68.24,73.53,78.82,84.12,89.41,94.71,100
@@ -9230,6 +9267,10 @@ class App extends Component {
   };
 
   conqueror = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'precision', 3, '1px solid rgb(255, 225, 82)');
     var forceByLvl = [
       2,2.18,2.35,2.53,2.71,2.88,3.06,3.24,3.41,
       3.59,3.76,3.94,4.12,4.29,4.47,4.65,4.82,5
@@ -9255,6 +9296,10 @@ class App extends Component {
   };
 
   electrocute = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'domination', 0, '1px solid rgb(245, 12, 63)');
     var dmgByLvl = [
       30,38.82,47.65,56.47,65.29,74.12,82.94,91.76,100.59,
       109.41,118.24,127.06,135.88,144.71,153.53,162.35,171.18,180
@@ -9280,6 +9325,10 @@ class App extends Component {
   };
 
   predator = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'domination', 1, '1px solid rgb(245, 12, 63)');
     var dmgByLvl = [
       40,44.71,49.41,54.12,58.82,63.53,68.24,72.94,77.65,
       82.35,87.06,91.76,96.47,101.18,105.88,110.59,115.29,120
@@ -9305,6 +9354,10 @@ class App extends Component {
   };
 
   darkHarvest = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'domination', 2, '1px solid rgb(245, 12, 63)');
     var dmgByLvl = [
       20,22.35,24.71,27.06,29.41,31.76,34.12,36.47,38.82,
       41.18,43.53,45.88,48.24,50.59,52.94,55.29,57.65,60
@@ -9330,6 +9383,10 @@ class App extends Component {
   };
 
   hailOfBlades = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'domination', 3, '1px solid rgb(245, 12, 63)');
     var asByLvl = [
       1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,
       1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,
@@ -9355,6 +9412,10 @@ class App extends Component {
   };
 
   summonAery = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'sorcery', 0, '1px solid rgb(177, 41, 238)');
     var dmgByLvl = [
       10,11.76,13.53,15.29,17.06,18.82,20.59,22.35,24.12,
       25.88,27.65,29.41,31.18,32.94,34.71,36.47,38.24,40
@@ -9391,6 +9452,10 @@ class App extends Component {
   };
 
   arcaneComet = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'sorcery', 1, '1px solid rgb(177, 41, 238)');
     var dmgByLvl = [
       30,34.12,38.24,42.35,46.47,50.59,54.71,58.82,62.94,
       67.06,71.18,75.29,79.41,83.53,87.65,91.76,95.88,100
@@ -9416,6 +9481,10 @@ class App extends Component {
   };
 
   phaseRush = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'sorcery', 2, '1px solid rgb(177, 41, 238)');
     var msByLvl = [
       0.3,0.3176,0.3353,0.3529,0.3706,0.3882,0.4059,0.4235,0.4412,
       0.4588,0.4765,0.4941,0.5118,0.5294,0.5471,0.5647,0.5824,0.6
@@ -9452,6 +9521,10 @@ class App extends Component {
   }
 
   grasp = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'resolve', 0, '1px solid rgb(90, 227, 30)');
     this.setState({
       [`keystone${side}`]: 
         '0.04 Max HP Ratio',
@@ -9485,6 +9558,10 @@ class App extends Component {
   };
   
   aftershock = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'resolve', 1, '1px solid rgb(90, 227, 30)');
     var dmgByLvl = [
       25,30.59,36.18,41.76,47.35,52.94,58.53,64.12,69.71,
       75.29,80.88,86.47,92.06,97.65,103.24,108.82,114.41,120
@@ -9521,6 +9598,10 @@ class App extends Component {
   };
 
   guardian = (side) => {
+    if (event.target.style.borderBottom) {
+      return
+    }
+    this.ksHighlight(side, 'resolve', 2, '1px solid rgb(90, 227, 30)');
     var shieldByLvl = [
       50,54.71,59.41,64.12,68.82,73.53,78.24,82.94,87.65,
       92.35,97.06,101.76,106.47,111.18,115.88,120.59,125.29,130
@@ -10456,6 +10537,250 @@ class App extends Component {
       50 bonus health and 5 ability haste
       </span>
     </div>
+    })
+  }
+
+  legendItems = (level) => {
+    return ({
+      0: 
+      <div>
+        <b className='yellow'>Abyssal Mask</b>
+        <hr></hr>
+        <span>
+          10 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          450 <img src={healthIcon}></img> Health
+        </span>
+        <br></br>
+        <span>
+          30 <img src={magicResIcon}></img> Magic Resistance
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Unmake: </i>
+        <span>
+        Reduce enemy champion  magic resistance by 5 (+ 1.2% bonus health), minimum of 10.4, maximum of 25.
+        Gain 7 bonus magic resistance per cursed enemy.
+        </span>
+      </div>,
+      1:
+      <div>
+        <b className='yellow'>Anathema's Chains</b>
+        <hr></hr>
+        <span>
+          20 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          650 <img src={healthIcon}></img> Health
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Active - Vow: </i>
+        <span>
+        Designate the target enemy champion as your Nemesis and gain 1 stack of Vendetta every 2 seconds over 60 seconds.
+        </span>
+        <br></br>
+        <i className='yellow'>Cooldown: </i>
+        <span>
+          90 (Cannot be cast for 15 seconds while in combat with champions and having a Nemesis)
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Vendetta: </i>
+        <span>
+        Take 1% reduced damage per stack of Vendetta from your Nemesis, up to 30% reduced damage.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Vengeance: </i>
+        <span>
+        At maximum stacks, your Nemesis has 20% reduced tenacity while they are within 700 units of you.
+        </span>
+      </div>,
+      2:
+      <div>
+        <b className='yellow'>Archangel's Staff</b>
+        <hr></hr>
+        <span>
+          60 <img src={abilityPowerIcon}></img> Ability Power
+        </span>
+        <br></br>
+        <span>
+          200 <img src={healthIcon}></img> Health
+        </span>
+        <br></br>
+        <span>
+          500 <img src={manaIcon}></img> Mana
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Awe: </i>
+        <span>
+        Grants ability haste equal to 0.5% bonus mana.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Mana Charge: </i>
+        <span>
+        Grants a charge every 8 seconds, up to 4 charges. Affecting an enemy or ally with an ability consumes
+         a charge and grants 3 bonus mana, increased to 6 if it's a champion, up to a maximum of 360 bonus mana.
+        </span>
+      </div>,
+      3:
+      <div>
+        <b className='yellow'>Ardent Censer</b>
+        <hr></hr>
+        <span>
+          60 <img src={abilityPowerIcon}></img> Ability Power
+        </span>
+        <br></br>
+        <span>
+          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+        </span>
+        <br></br>
+        <span>
+          10% <img src={healShieldIcon}></img> Heal and Shield Power
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Sanctify: </i>
+        <span>
+        Healing or shielding allied champions (excluding yourself) gives you and your ally 10% − 30% 
+        (based on target's level) bonus attack speed and 5 − 20 (based on target's level) bonus magic damage on-hit
+        on basic attacks for 6 seconds.
+        </span>
+      </div>,
+      4:
+      <div>
+        <b className='yellow'>Axiom Arc</b>
+        <hr></hr>
+        <span>
+          55 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          25 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          10 <img src={arPenIcon}></img> Lethality ({ (10*(0.6 + 0.4*(level/18))).toString().length > 3 ?
+          (10*(0.6 + 0.4*(level/18))).toFixed(1) : 18*(0.6 + 0.4*(level/18)) } Armor Pen)
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Flux: </i>
+        <span>
+        Enemy champion takedowns within 3 seconds of damaging them refunds 20% of your ultimate's total cooldown.
+        </span>
+      </div>,
+      5:
+      <div>
+        <b className='yellow'>Banshee's Veil</b>
+        <hr></hr>
+        <span>
+          80 <img src={abilityPowerIcon}></img> Ability Power
+        </span>
+        <br></br>
+        <span>
+          10 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          45 <img src={magicResIcon}></img> Magic Resistance
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Annul: </i>
+        <span>
+        Grants a spell shield that blocks the next hostile ability.
+        </span>
+        <br></br>
+        <i className='yellow'>Cooldown: </i>
+        <span>
+          40 (restarts upon taking damage from champions)
+        </span>
+      </div>,
+      6:
+      <div>
+        <b className='yellow'>Black Cleaver</b>
+        <hr></hr>
+        <span>
+          45 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          30 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          350 <img src={healthIcon}></img> Health
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Carve: </i>
+        <span>
+        Dealing physical damage to an enemy champion applies a stack of Carve for 6 seconds, stacking up to 6 times.
+         Each stack reduces the target's armor by 5%, up to 30% at 6 stacks.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Rage: </i>
+        <span>
+        Dealing physical damage to an enemy champion grants 3 bonus movement speed per stack of Carve on them
+         for 2 seconds, up to 18.
+        </span>
+      </div>,
+      7:
+      <div>
+        <b className='yellow'>Black Mist Scythe</b>
+        <hr></hr>
+        <span>
+          20 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          75 <img src={healthIcon}></img> Health
+        </span>
+        <br></br>
+        <span>
+          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+        </span>
+        <br></br>
+        <span>
+          3 Gold per 10 seconds
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Warding: </i>
+        <span>
+        Consumes a charge to place a Stealth Ward at the target location (4 charges; 600 range).
+        </span>
+      </div>,
+      8:
+      <div>
+        <b className='yellow'>Blade of the Ruined King</b>
+        <hr></hr>
+        <span>
+          40 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          25% <img src={attackSpeedIcon}></img> Attack Speed
+        </span>
+        <br></br>
+        <span>
+          8% <img src={lifestealIcon} className='smallIcon'></img> Life Steal
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Mist's Edge: </i>
+        <span>
+        Basic attacks deal (Melee 12% / Ranged 8%) of the target's current health bonus physical damage on-hit,
+         with a minimum of 15 against all units.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Siphon: </i>
+        <span>
+        Basic attacks on-hit against enemy champions apply a stack for 6 seconds. The third stack consumes all stacks
+         to deal 40 − 150 (based on level) bonus magic damage on-hit and slow the target by 25% for 2 seconds,
+          while also granting you 25% bonus movement speed for the same duration.
+        </span>
+        <br></br>
+        <i className='yellow'>Cooldown: </i>
+        <span>
+          20
+        </span>
+      </div>
     })
   }
 
