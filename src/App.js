@@ -11974,6 +11974,384 @@ class App extends Component {
         <span>
         Increases all healing and shielding received by 25%.
         </span>
+      </div>,
+      57:
+      <div>
+        <b className='yellow'>Staff of Flowing Water</b>
+        <hr></hr>
+        <span>
+          50 <img src={abilityPowerIcon}></img> Ability Power
+        </span>
+        <br></br>
+        <span>
+          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+        </span>
+        <br></br>
+        <span>
+          10% <img src={healShieldIcon}></img> Heal and Shield Power
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Rapids: </i>
+        <span>
+        Healing or shielding allied champions (excluding yourself) grants you and them 25 − 45 
+        (based on target's level) ability power and 20 ability haste for 4 seconds.
+        </span>
+      </div>,
+      58:
+      <div>
+        <b className='yellow'>Sterak's Gage</b>
+        <hr></hr>
+        <span>
+          400 <img src={healthIcon}></img> Health
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - The Claws that Catch: </i>
+        <span>
+        Gain 40% base AD as bonus attack damage.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Lifeline: </i>
+        <span>
+        If you would take damage that would reduce you below 30% of your maximum health, gain a shield equal 
+        to 75% of bonus health that decays over 3.75 seconds.
+        </span>
+        <br></br>
+        <i className='yellow'>Cooldown: </i>
+        <span>
+          60
+        </span>
+      </div>,
+      59:
+      <div>
+        <b className='yellow'>Stormrazor</b>
+        <hr></hr>
+        <span>
+          40 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          15% <img src={attackSpeedIcon}></img> Attack Speed
+        </span>
+        <br></br>
+        <span>
+          20% <img src={critChanceIcon}></img> Critical Strike Chance
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Energized: </i>
+        <span>
+        Moving and basic attacking generates Energize stacks, up to 100.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Paralyze: </i>
+        <span>
+        When fully Energized, your next basic attack deals 120 bonus magic damage on-hit. Energized effects 
+        slow by 75% for 0.5 seconds.
+        </span>
+      </div>,
+      60:
+      <div>
+        <b className='yellow'>The Collector</b>
+        <hr></hr>
+        <span>
+          55 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          20% <img src={critChanceIcon}></img> Critical Strike Chance
+        </span>
+        <br></br>
+        <span>
+          12 <img src={arPenIcon}></img> Lethality ({ (12*(0.6 + 0.4*(level/18))).toString().length > 3 ?
+          (12*(0.6 + 0.4*(level/18))).toFixed(1) : 12*(0.6 + 0.4*(level/18)) } Armor Pen)
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Death and Taxes: </i>
+        <span>
+        If you deal post-mitigation damage that would leave a champion below 5% of their maximum health, 
+        execute them. Champion kills grant you an additional 25 Gold.
+        </span>
+      </div>,
+      61:
+      <div>
+        <b className='yellow'>Thornmail</b>
+        <hr></hr>
+        <span>
+          350 <img src={healthIcon}></img> Health
+        </span>
+        <br></br>
+        <span>
+          60 <img src={armorIcon}></img> Armor
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Thorns: </i>
+        <span>
+        When struck by a basic attack on-hit, deal 10 (+ 10% bonus armor) magic damage to the attacker and, if they 
+        are a champion, inflict them with 40% Grievous Wounds for 3 seconds. Immobilizing enemy champions also 
+        inflicts them with 60% Grievous Wounds for 3 seconds.
+        </span>
+      </div>,
+      62:
+      <div>
+        <b className='yellow'>Titanic Hydra</b>
+        <hr></hr>
+        <span>
+          30 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          500 <img src={healthIcon}></img> Health
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Colossus: </i>
+        <span>
+        Gain bonus attack damage equal to 2% of bonus health.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Cleave: </i>
+        <span>
+        Basic attacks deal (Melee 4 / Ranged 3) (+ (Melee 1.5% / Ranged 1.125%) maximum health) bonus physical damage 
+        to the target and (Melee 40 / Ranged 30) (+ (Melee 3% / Ranged 2.25%) maximum health) physical damage to other 
+        enemies in a cone in the direction of the target.
+        </span>
+      </div>,
+      63:
+      <div>
+        <b className='yellow'>Umbral Glaive</b>
+        <hr></hr>
+        <span>
+          50 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          15 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          10 <img src={arPenIcon}></img> Lethality ({ (10*(0.6 + 0.4*(level/18))).toString().length > 3 ?
+          (10*(0.6 + 0.4*(level/18))).toFixed(1) : 10*(0.6 + 0.4*(level/18)) } Armor Pen)
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Blackout: </i>
+        <span>
+        When near an enemy ward or trap, gain Blackout for 8 seconds (400 radius). You disable surrounding stealthed 
+        wards, as well as expose and reveal nearby stealthed wards and traps while Blackout is active.
+        </span>
+        <br></br>
+        <i className='yellow'>Cooldown: </i>
+        <span>
+          35
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive: </i>
+        <span>
+        Your basic attacks instantly kill revealed traps and deal 2 bonus true damage to wards.
+        </span>
+      </div>,
+      64:
+      <div>
+        <b className='yellow'>Vigilant Wardstone</b>
+        <hr></hr>
+        <span>
+          15 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          150 <img src={healthIcon}></img> Health
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Arcane Cache: </i>
+        <span>
+          Stores up to 3 purchased Control Wards.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Behold: </i>
+        <span>
+          Increases Stealth Ward, Totem Ward, and Control Ward caps by 1.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Blessing of Ixtal: </i>
+        <span>
+          Increases bonus attack damage, bonus health, ability power and ability haste by 12%.
+        </span>
+      </div>,
+      65:
+      <div>
+        <b className='yellow'>Void Staff</b>
+        <hr></hr>
+        <span>
+          65 <img src={abilityPowerIcon}></img> Ability Power
+        </span>
+        <br></br>
+        <span>
+          45% <img src={mPenIcon}></img> Magic Penetration
+        </span>
+      </div>,
+      66:
+      <div>
+        <b className='yellow'>Warmog's Armor</b>
+        <hr></hr>
+        <span>
+          10 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          800 <img src={healthIcon}></img> Health
+        </span>
+        <br></br>
+        <span>
+          200% <img src={healthRegenIcon}></img> Base Health Regeneration
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Active - Warmog's Heart: </i>
+        <span>
+        If you have at least 1100 bonus health, regenerate 2.5% maximum health every 0.5 seconds if damage has not 
+        been taken in the last 6 seconds (3 seconds for damage from non-champions).
+        </span>
+      </div>,
+      67:
+      <div>
+        <b className='yellow'>Winter's Approach</b>
+        <hr></hr>
+        <span>
+          15 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          350 <img src={healthIcon}></img> Health
+        </span>
+        <br></br>
+        <span>
+          500 <img src={manaIcon}></img> Mana
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Awe: </i>
+        <span>
+        Grants bonus health equal to 8% maximum mana.
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Mana Charge: </i>
+        <span>
+        Grants a charge every 8 seconds, up to 4 charges. Consumes a charge on-hit and whenever affecting an enemy or 
+        ally with an ability to grant 3 bonus mana, increased to 6 for champion targets, up to a maximum of 360 bonus mana.
+        </span>
+      </div>,
+      68:
+      <div>
+        <b className='yellow'>Wit's End</b>
+        <hr></hr>
+        <span>
+          40 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          40% <img src={attackSpeedIcon}></img> Attack Speed
+        </span>
+        <br></br>
+        <span>
+          40 <img src={magicResIcon}></img> Magic Resistance
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Fray: </i>
+        <span>
+        Basic attacks deal 15 − 80 (based on level) bonus magic damage and grant 20 bonus movement speed for 2 seconds.
+        </span>
+      </div>,
+      69:
+      <div>
+        <b className='yellow'>Youmuu's Ghostblade</b>
+        <hr></hr>
+        <span>
+          55 <img src={attackDamageIcon}></img> Attack Damage
+        </span>
+        <br></br>
+        <span>
+          15 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          18 <img src={arPenIcon}></img> Lethality ({ (18*(0.6 + 0.4*(level/18))).toString().length > 3 ?
+          (18*(0.6 + 0.4*(level/18))).toFixed(1) : 18*(0.6 + 0.4*(level/18)) } Armor Pen)
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Active - Wraith Step: </i>
+        <span>
+        Gain 20% bonus movement speed and ghosting for 6 seconds.
+        </span>
+        <br></br>
+        <i className='yellow'>Cooldown: </i>
+        <span>
+          45
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Haunt: </i>
+        <span>
+        Gain 40 bonus movement speed while out-of-combat.
+        </span>
+      </div>,
+      70:
+      <div>
+        <b className='yellow'>Zeke's Convergence</b>
+        <hr></hr>
+        <span>
+          20 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          250 <img src={healthIcon}></img> Health
+        </span>
+        <br></br>
+        <span>
+          250 <img src={manaIcon}></img> Mana
+        </span>
+        <br></br>
+        <span>
+          25 <img src={armorIcon}></img> Armor
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Active - Conduit: </i>
+        <span>
+          Designate an allied champion as the Accomplice, forming a  tether between you and them. Champions can only 
+          be designated as the Accomplice by one Zeke's Convergence at a time.
+        </span>
+        <br></br>
+        <i className='yellow'>Cooldown: </i>
+        <span>
+          60
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Passive - Convergence: </i>
+        <span>
+          Immobilizing enemy champions marks them for 8 seconds. Your Accomplice's basic attacks and ability hits 
+          against marked enemies fire a missile at them that deals them 30 − 70 (based on level) (+ 7.5% AP) 
+          (+ 1.5% maximum health) bonus magic damage upon arrival.
+        </span>
+      </div>,
+      71:
+      <div>
+        <b className='yellow'>Zhonya's Hourglass</b>
+        <hr></hr>
+        <span>
+          65 <img src={abilityPowerIcon}></img> Ability Power
+        </span>
+        <br></br>
+        <span>
+          10 <img src={cdrIcon}></img> Ability Haste
+        </span>
+        <br></br>
+        <span>
+          45 <img src={armorIcon}></img> Armor
+        </span>
+        <hr></hr>
+        <i className='yellow'>Unique Active - Stasis: </i>
+        <span>
+        Enter stasis for 2.5 seconds, rendering you untargetable and invulnerable for the duration but also 
+        unable to move, declare basic attacks, cast abilities, use summoner spells, or activate items.
+        </span>
+        <br></br>
+        <i className='yellow'>Cooldown: </i>
+        <span>
+          120
+        </span>
       </div>
     })
   }
