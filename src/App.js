@@ -68,7 +68,7 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0,
+        lethality: 0,
         arPenRatio: 0,
         magicPenFlat: 0,
         magicPenRatio: 0,
@@ -87,7 +87,7 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0,
+        lethality: 0,
         arPenRatio: 0,
         magicPenFlat: 0,
         magicPenRatio: 0,
@@ -106,7 +106,7 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0,
+        lethality: 0,
         arPenRatio: 0,
         magicPenFlat: 0,
         magicPenRatio: 0,
@@ -125,7 +125,7 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0,
+        lethality: 0,
         arPenRatio: 0,
         magicPenFlat: 0,
         magicPenRatio: 0,
@@ -207,7 +207,7 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0
+        lethality: 0
       },
       mythicRight: '',
       mythicStatsRight: {
@@ -222,7 +222,7 @@ class App extends Component {
         critChance: 0,
         mana: 0,
         manaRegen: 0,
-        lethal: 0
+        lethality: 0
       },
       QRankLeft: 0,
       QRankRight: 0,
@@ -12367,7 +12367,7 @@ class App extends Component {
           <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc} 
           onClick={(event) => this.onMythicClick(event, side, i)}></img>
           <div className='itemTooltip' style={sideStyle}>
-            {this.mythicItems(this.levelLeft)[i]}
+            {this.mythicItems(this[`level${side}`])[i]}
           </div>
         </span>
       )
@@ -12376,7 +12376,6 @@ class App extends Component {
   };
 
   onMythicClick = (event, side, mythicIndex) => {
-    console.log('mythic index: ' + mythicIndex)
     if (this[`haveMythic${side}`]) {
       document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'visible';
       return
@@ -12390,8 +12389,8 @@ class App extends Component {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
         document.getElementById(`inven${side}`).children[i].style.border = '1px solid #ffcb5a';
         document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
-        this[`inven${side}TT${1 + (i/2)}`] = this.mythicItems(this.levelLeft)[mythicIndex]
-        this[`haveMythic${side}`] = true
+        this[`inven${side}TT${1 + (i/2)}`] = this.mythicItems(this[`level${side}`])[mythicIndex];
+        this[`haveMythic${side}`] = true;
         break;
       } 
     };
@@ -12463,7 +12462,7 @@ class App extends Component {
       };
       if (spanText.includes('Lethality')) {
         itemStats.lethality += statQuantity;
-        addItemStats('lethal', statQuantity);
+        addItemStats('lethality', statQuantity);
         continue;
       };
       if (spanText.includes('Armor')) {
@@ -12486,12 +12485,12 @@ class App extends Component {
         }
         continue;
       };
-      if (spanArray[i].textContent.includes('Omnivamp')) {
+      if (spanText.includes('Omnivamp')) {
         itemStats.omni += statQuantity/100;
         addItemStats('omni', statQuantity)
         continue;
       };
-      if (spanArray[i].textContent.includes('Life')) {
+      if (spanText.includes('Life')) {
         itemStats.lifeSteal += statQuantity/100;
         addItemStats('lifeSteal', statQuantity)
         continue;
@@ -12499,8 +12498,7 @@ class App extends Component {
     }
   };
 
-  onLegendClick = (event, side) => {
-    console.log('item counter: ' + this[`itemCounter${side}`]);
+  onLegendClick = (event, side, legendIndex) => {
     if (this[`itemCounter${side}`] === 6) {
       return
     };
@@ -12510,8 +12508,111 @@ class App extends Component {
       if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
         document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
+        this[`inven${side}TT${1 + (i/2)}`] = this.legendItems(this[`level${side}`])[legendIndex];
         break;
       } 
+    };
+    var itemStats = this[`itemStats${side}`];
+    var totalStats = [`totalStats${side}`];
+    var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
+    for (var i = 0; i < spanArray.length; i++) {
+      if (i !== 0 && spanArray[i].previousSibling.tagName !== 'BR') {
+        break
+      };
+      var spanText = spanArray[i].textContent;
+      var statQuantity = +spanArray[i].textContent.replace( /[^\d].*/, '' );
+      var addItemStats = (stat, quantity) => {
+        this.setState(prevState => ({
+          [totalStats]: {
+            ...prevState[totalStats],
+            [stat]: +prevState[totalStats][stat] + quantity
+          }
+        }))
+      };
+      if (spanText.includes('Attack Damage')) {
+        itemStats.ad += statQuantity;
+        addItemStats('ad', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Attack Speed')) {
+        itemStats.as += statQuantity/100;
+        if (this.state[`champName${side}`] !== '') {
+          addItemStats('as', (statQuantity * this[`champFile${side}`].stats.asRatio)/100);
+        } else {
+          addItemStats('as', statQuantity/100)
+        };
+        continue;
+      };
+      if (spanText.includes('Critical Strike')) {
+        itemStats.critChance += statQuantity;
+        addItemStats('critChance', statQuantity)
+        continue;
+      };
+      if (spanText.includes('Ability Power')) {
+        itemStats.ap += statQuantity;
+        addItemStats('ap', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Ability Haste')) {
+        itemStats.cdr += statQuantity;
+        addItemStats('cdr', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Health')) {
+        if (!spanText.includes('Regen')) {
+          itemStats.hp += statQuantity;
+          addItemStats('hp', statQuantity);
+        } else {
+          itemStats.hpRegen += statQuantity;
+          addItemStats('hpRegen', statQuantity);
+        }
+        continue;
+      };
+      if (spanText.includes('Mana')) {
+        if (!spanText.includes('Regen')) {
+          itemStats.mana += statQuantity;
+          addItemStats('mana', statQuantity);
+        } else {
+          itemStats.manaRegen += statQuantity;
+          addItemStats('manaRegen', statQuantity);
+        }
+        continue;
+      };
+      if (spanText.includes('Lethality')) {
+        itemStats.lethality += statQuantity;
+        addItemStats('lethality', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Armor')) {
+        itemStats.arm += statQuantity;
+        addItemStats('arm', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Magic Resist')) {
+        itemStats.mr += statQuantity;
+        addItemStats('mr', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Magic Pen')) {
+        if (!spanText.includes('%')) {
+          itemStats.magicPenFlat += statQuantity;
+          addItemStats('magicPenFlat', statQuantity)
+        } else {
+          itemStats.magicPenRatio += statQuantity;
+          addItemStats('magicPenRatio', statQuantity)
+        }
+        continue;
+      };
+      if (spanText.includes('Omnivamp')) {
+        itemStats.omni += statQuantity/100;
+        addItemStats('omni', statQuantity)
+        continue;
+      };
+      if (spanText.includes('Life')) {
+        itemStats.lifeSteal += statQuantity/100;
+        addItemStats('lifeSteal', statQuantity)
+        continue;
+      };
     }
   };
 
@@ -12531,8 +12632,21 @@ class App extends Component {
   };
 
   onLegendDisplay = (side) => {
-    this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map(iconSrc => {
-      return <img className='itemIcon' src={iconSrc} onClick={(event) => this.onLegendClick(event, side)}></img>
+    var sideStyle = {left: '20px'};
+    if (side === 'Right') {
+      sideStyle = {right: '20px'}
+    };
+    this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map((iconSrc, i) => {
+      //return <img className='itemIcon' src={iconSrc} onClick={(event) => this.onLegendClick(event, side)}></img>
+      return (
+        <span style={{position: 'relative'}} key={i}>
+          <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc} 
+          onClick={(event) => this.onLegendClick(event, side, i)}></img>
+          <div className='itemTooltip' style={sideStyle}>
+            {this.legendItems(this[`level${side}`])[i]}
+          </div>
+        </span>
+      )
     })});
     document.getElementById(`itemSearch${side}`).value = '';
   };
