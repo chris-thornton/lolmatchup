@@ -35,6 +35,7 @@ import healthRegenIcon from './staticons/healthRegen.png';
 import manaRegenIcon from './staticons/manaRegen.png';
 import healShieldIcon from './staticons/healShieldPower.png';
 import moveSpeedIcon from './staticons/movementspeed.png';
+import goldIcon from './staticons/gold.png';
 import ApheliosLeft from './components/ApheliosLeft';
 
 class App extends Component {
@@ -8682,9 +8683,12 @@ class App extends Component {
           [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],   
               hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
-              manaRegen: itemStats.manaRegen + statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
-              hpRegen: itemStats.hpRegen + statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio,
-              as: runeStats.as + statsPath["attackSpeed"] + (itemStats.as + statsPath["asPerLvl"] * champLvlRatio) * statsPath["asRatio"],
+              manaRegen: (itemStats.manaRegen * statsPath.mana["manaBaseRegen"]/100) + statsPath.mana["manaBaseRegen"] 
+              + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              hpRegen: (itemStats.hpRegen * statsPath["baseHPRegen"]/100) + statsPath["baseHPRegen"] 
+              + statsPath["hpRegenPerLvl"] * champLvlRatio,
+              as: runeStats.as + statsPath["attackSpeed"] + (itemStats.as + statsPath["asPerLvl"] * champLvlRatio) 
+              * statsPath["asRatio"],
               arm: itemStats.arm + runeStats.arm + statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
               ad: itemStats.ad + runeStats.ad + statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
               mr: itemStats.mr + runeStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
@@ -8698,8 +8702,10 @@ class App extends Component {
             [`tfTotalStats${side}`]: {
               ...prevState[`tfTotalStats${side}`],
               hp: itemStats.hp + runeStats.hp + tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
-              manaRegen: itemStats.manaRegen + tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
-              hpRegen: itemStats.hpRegen + tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
+              manaRegen: (itemStats.manaRegen * tfPath.mana["manaBaseRegen"]/100) + tfPath.mana["manaBaseRegen"] 
+              + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
+              hpRegen: (itemStats.hpRegen * tfPath["baseHPRegen"]/100) + tfPath["baseHPRegen"] 
+              + tfPath["hpRegenPerLvl"] * champLvlRatio,
               as: tfPath["attackSpeed"] + (itemStats.as + runeStats.as + tfPath["asPerLvl"] * champLvlRatio) * tfPath["asRatio"],
               arm: itemStats.arm + runeStats.arm + tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
               ad: itemStats.ad + runeStats.ad + tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
@@ -10041,7 +10047,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+        100% <img src={manaRegenIcon}></img> Base Mana Regen.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Coordinated Fire: </i>
@@ -10212,7 +10218,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+        100% <img src={manaRegenIcon}></img> Base Mana Regen.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Starlit Grace: </i>
@@ -10344,7 +10350,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+        100% <img src={manaRegenIcon}></img> Base Mana Regen.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Active - Inspire: </i>
@@ -10633,7 +10639,7 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+          100% <img src={manaRegenIcon}></img> Base Mana Regen.
         </span>
         <br></br>
         <span>
@@ -10736,11 +10742,11 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+          100% <img src={manaRegenIcon}></img> Base Mana Regen.
         </span>
         <br></br>
         <span>
-          3 Gold per 10 seconds
+          3 <img src={goldIcon} style={{width: '20px', height: '15px'}}></img> Gold per 10 seconds
         </span>
         <hr></hr>
         <i className='yellow'>Unique Active - Warding: </i>
@@ -10817,11 +10823,11 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={healthRegenIcon}></img> Base Health Regeneration
+          100% <img src={healthRegenIcon}></img> Base Health Regen.
         </span>
         <br></br>
         <span>
-          3 Gold per 10 seconds
+          3 <img src={goldIcon} style={{width: '20px', height: '15px'}}></img> Gold per 10 seconds
         </span>
         <hr></hr>
         <i className='yellow'>Unique Active - Warding: </i>
@@ -10856,7 +10862,7 @@ class App extends Component {
         <b className='yellow'>Chemtech Putrifier</b>
         <hr></hr>
         <span>
-          55 <img src={abilityPowerIcon}></img> Abillity Power
+          55 <img src={abilityPowerIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -10864,7 +10870,7 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+          100% <img src={manaRegenIcon}></img> Base Mana Regen.
         </span>
         <hr></hr>
         <i className='yellow'>Unique Passive - Puffcap Toxin: </i>
@@ -11233,7 +11239,7 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          150% <img src={healthRegenIcon}></img> Base Health Regeneration
+          150% <img src={healthRegenIcon}></img> Base Health Regen.
         </span>
         <hr></hr>
         <i className='yellow'>Unique Passive - Boarding Party: </i>
@@ -11275,7 +11281,7 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          200% <img src={healthRegenIcon}></img> Base Health Regeneration
+          200% <img src={healthRegenIcon}></img> Base Health Regen.
         </span>
         <hr></hr>
         <i className='yellow'>Unique Passive - Pledge: </i>
@@ -11461,7 +11467,7 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+          100% <img src={manaRegenIcon}></img> Base Mana Regen.
         </span>
         <br></br>
         <span>
@@ -11607,11 +11613,11 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={healthRegenIcon}></img> Base Health Regeneration
+          100% <img src={healthRegenIcon}></img> Base Health Regen.
         </span>
         <br></br>
         <span>
-          3 Gold per 10 seconds
+          3 <img src={goldIcon} style={{width: '20px', height: '15px'}}></img> Gold per 10 seconds
         </span>
         <hr></hr>
         <i className='yellow'>Unique Active - Warding: </i>
@@ -11754,7 +11760,7 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+          100% <img src={manaRegenIcon}></img> Base Mana Regen.
         </span>
         <br></br>
         <span>
@@ -11911,11 +11917,11 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+          100% <img src={manaRegenIcon}></img> Base Mana Regen.
         </span>
         <br></br>
         <span>
-          3 Gold per 10 seconds
+          3 <img src={goldIcon} style={{width: '20px', height: '15px'}}></img> Gold per 10 seconds
         </span>
         <hr></hr>
         <i className='yellow'>Unique Active - Warding: </i>
@@ -11963,7 +11969,7 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={healthRegenIcon}></img> Base Health Regeneration
+          100% <img src={healthRegenIcon}></img> Base Health Regen.
         </span>
         <br></br>
         <span>
@@ -11984,7 +11990,7 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          100% <img src={manaRegenIcon}></img> Base Mana Regeneration
+          100% <img src={manaRegenIcon}></img> Base Mana Regen.
         </span>
         <br></br>
         <span>
@@ -12199,7 +12205,7 @@ class App extends Component {
         </span>
         <br></br>
         <span>
-          200% <img src={healthRegenIcon}></img> Base Health Regeneration
+          200% <img src={healthRegenIcon}></img> Base Health Regen.
         </span>
         <hr></hr>
         <i className='yellow'>Unique Active - Warmog's Heart: </i>
@@ -12446,7 +12452,11 @@ class App extends Component {
           addItemStats('hp', statQuantity);
         } else {
           itemStats.hpRegen += statQuantity;
-          addItemStats('hpRegen', statQuantity);
+          if (this.state[`champName${side}`] !== '') {
+            addItemStats('hpRegen', (statQuantity * this[`champFile${side}`].stats.baseHPRegen)/100);
+          } else {
+            addItemStats('hpRegen', statQuantity)
+          };
         }
         continue;
       };
@@ -12456,7 +12466,11 @@ class App extends Component {
           addItemStats('mana', statQuantity);
         } else {
           itemStats.manaRegen += statQuantity;
-          addItemStats('manaRegen', statQuantity);
+          if (this.state[`champName${side}`] !== '') {
+            addItemStats('manaRegen', (statQuantity * this[`champFile${side}`].stats.mana.manaBaseRegen)/100);
+          } else {
+            addItemStats('manaRegen', statQuantity);
+          };
         }
         continue;
       };
@@ -12564,7 +12578,11 @@ class App extends Component {
           addItemStats('hp', statQuantity);
         } else {
           itemStats.hpRegen += statQuantity;
-          addItemStats('hpRegen', statQuantity);
+          if (this.state[`champName${side}`] !== '') {
+            addItemStats('hpRegen', (statQuantity * this[`champFile${side}`].stats.baseHPRegen)/100);
+          } else {
+            addItemStats('hpRegen', statQuantity)
+          };
         }
         continue;
       };
@@ -12574,7 +12592,11 @@ class App extends Component {
           addItemStats('mana', statQuantity);
         } else {
           itemStats.manaRegen += statQuantity;
-          addItemStats('manaRegen', statQuantity);
+          if (this.state[`champName${side}`] !== '') {
+            addItemStats('manaRegen', (statQuantity * this[`champFile${side}`].stats.mana.manaBaseRegen)/100);
+          } else {
+            addItemStats('manaRegen', statQuantity);
+          };
         }
         continue;
       };
@@ -12628,6 +12650,116 @@ class App extends Component {
       event.target.style.border = '1px outset black';
       this[`haveMythic${side}`] = false;
       document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
+    };
+    var itemStats = this[`itemStats${side}`];
+    var totalStats = [`totalStats${side}`];
+    var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
+    for (var i = 0; i < spanArray.length; i++) {
+      if (i !== 0 && spanArray[i].previousSibling.tagName !== 'BR') {
+        break
+      };
+      var spanText = spanArray[i].textContent;
+      var statQuantity = +spanArray[i].textContent.replace( /[^\d].*/, '' );
+      var subtractItemStats = (stat, quantity) => {
+        this.setState(prevState => ({
+          [totalStats]: {
+            ...prevState[totalStats],
+            [stat]: +prevState[totalStats][stat] - quantity
+          }
+        }))
+      };
+      if (spanText.includes('Attack Damage')) {
+        itemStats.ad -= statQuantity;
+        subtractItemStats('ad', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Attack Speed')) {
+        itemStats.as -= statQuantity/100;
+        if (this.state[`champName${side}`] !== '') {
+          subtractItemStats('as', (statQuantity * this[`champFile${side}`].stats.asRatio)/100);
+        } else {
+          subtractItemStats('as', statQuantity/100)
+        };
+        continue;
+      };
+      if (spanText.includes('Critical Strike')) {
+        itemStats.critChance -= statQuantity;
+        subtractItemStats('critChance', statQuantity)
+        continue;
+      };
+      if (spanText.includes('Ability Power')) {
+        itemStats.ap -= statQuantity;
+        subtractItemStats('ap', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Ability Haste')) {
+        itemStats.cdr -= statQuantity;
+        subtractItemStats('cdr', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Health')) {
+        if (!spanText.includes('Regen')) {
+          itemStats.hp -= statQuantity;
+          subtractItemStats('hp', statQuantity);
+        } else {
+          itemStats.hpRegen -= statQuantity;
+          if (this.state[`champName${side}`] !== '') {
+            subtractItemStats('hpRegen', (statQuantity * this[`champFile${side}`].stats.baseHPRegen)/100);
+          } else {
+            subtractItemStats('hpRegen', statQuantity);
+          };
+        }
+        continue;
+      };
+      if (spanText.includes('Mana')) {
+        if (!spanText.includes('Regen')) {
+          itemStats.mana -= statQuantity;
+          subtractItemStats('mana', statQuantity);
+        } else {
+          itemStats.manaRegen -= statQuantity;
+          if (this.state[`champName${side}`] !== '') {
+            subtractItemStats('manaRegen', (statQuantity * this[`champFile${side}`].stats.mana.manaBaseRegen)/100);
+          } else {
+            subtractItemStats('manaRegen', statQuantity);
+          };
+        }
+        continue;
+      };
+      if (spanText.includes('Lethality')) {
+        itemStats.lethality -= statQuantity;
+        subtractItemStats('lethality', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Armor')) {
+        itemStats.arm -= statQuantity;
+        subtractItemStats('arm', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Magic Resist')) {
+        itemStats.mr -= statQuantity;
+        subtractItemStats('mr', statQuantity);
+        continue;
+      };
+      if (spanText.includes('Magic Pen')) {
+        if (!spanText.includes('%')) {
+          itemStats.magicPenFlat -= statQuantity;
+          subtractItemStats('magicPenFlat', statQuantity)
+        } else {
+          itemStats.magicPenRatio -= statQuantity;
+          subtractItemStats('magicPenRatio', statQuantity)
+        }
+        continue;
+      };
+      if (spanText.includes('Omnivamp')) {
+        itemStats.omni -= statQuantity/100;
+        subtractItemStats('omni', statQuantity)
+        continue;
+      };
+      if (spanText.includes('Life')) {
+        itemStats.lifeSteal -= statQuantity/100;
+        subtractItemStats('lifeSteal', statQuantity)
+        continue;
+      };
     }
   };
 
@@ -13166,9 +13298,11 @@ class App extends Component {
               <img src={manaIcon} alt='Mana Icon'/>
               <span>Mana: </span>{Math.round(this.state.totalStatsLeft.mana)}<br />
               <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              <span>Mana Per 5: </span>{this.state.totalStatsLeft.manaRegen.toFixed(3)}<br />
+              <span>Mana per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.manaRegen.toFixed(1) 
+              : this.state.totalStatsLeft.manaRegen + '%'}<br />
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              <span>Health Per 5: </span>{this.state.totalStatsLeft.hpRegen.toFixed(3)}<br />
+              <span>Health per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.hpRegen.toFixed(1)
+              : this.state.totalStatsLeft.hpRegen + '%'}<br />
               <img src={abilityPowerIcon} alt='Ability Power Icon'/>
               <span>Ability Power: </span>{this.state.totalStatsLeft.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
@@ -13190,9 +13324,11 @@ class App extends Component {
               <img src={manaIcon} alt='Mana Icon'/>
               <span>Mana: </span>{Math.round(this.state.totalStatsRight.mana)}<br />
               <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              <span>Mana Per 5: </span>{this.state.totalStatsRight.manaRegen.toFixed(3)}<br />
+              <span>Mana per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.manaRegen.toFixed(1) 
+              : this.state.totalStatsRight.manaRegen + '%'}<br />
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              <span>Health Per 5: </span>{this.state.totalStatsRight.hpRegen.toFixed(3)}<br />
+              <span>Health per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.hpRegen.toFixed(1) 
+              : this.state.totalStatsRight.hpRegen + '%'}<br />
               <img src={abilityPowerIcon} alt='Ability Power Icon'/>
               <span>Ability Power: </span>{this.state.totalStatsRight.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
@@ -13201,8 +13337,10 @@ class App extends Component {
           </div>
           <div id='transform'>
             <div className="flexDisplay">
-              <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}><b>{this.state.tfWordLeft} Stats</b></span>
-              <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}><b>{this.state.tfWordRight} Stats</b></span>
+              <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}><b>
+                {this.state.tfWordLeft} Stats</b></span>
+              <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}><b>
+                {this.state.tfWordRight} Stats</b></span>
             </div>
             <div className="flexDisplay">
               <div className="statsBox transformLeft">
@@ -13221,9 +13359,9 @@ class App extends Component {
                 <img src={manaIcon} alt='Mana Icon'/>
                 <span>Mana: </span>{Math.round(this.state.tfTotalStatsLeft.mana)}<br />
                 <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-                <span>Mana Per 5: </span>{this.state.tfTotalStatsLeft.manaRegen.toFixed(3)}<br />
+                <span>Mana per 5: </span>{this.state.tfTotalStatsLeft.manaRegen.toFixed(1)}<br />
                 <img src={healthRegenIcon} alt='Health Regen Icon'/>
-                <span>Health Per 5: </span>{this.state.tfTotalStatsLeft.hpRegen.toFixed(3)}<br />
+                <span>Health per 5: </span>{this.state.tfTotalStatsLeft.hpRegen.toFixed(1)}<br />
                 <img src={abilityPowerIcon} alt='Ability Power Icon'/>
                 <span>Ability Power: </span>{this.state.tfTotalStatsLeft.ap}<br />
                 <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
@@ -13245,9 +13383,9 @@ class App extends Component {
                 <img src={manaIcon} alt='Mana Icon'/>
                 <span>Mana: </span>{Math.round(this.state.tfTotalStatsRight.mana)}<br />
                 <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-                <span>Mana Per 5: </span>{this.state.tfTotalStatsRight.manaRegen.toFixed(3)}<br />
+                <span>Mana per 5: </span>{this.state.tfTotalStatsRight.manaRegen.toFixed(1)}<br />
                 <img src={healthRegenIcon} alt='Health Regen Icon'/>
-                <span>Health Per 5: </span>{this.state.tfTotalStatsRight.hpRegen.toFixed(3)}<br />
+                <span>Health per 5: </span>{this.state.tfTotalStatsRight.hpRegen.toFixed(1)}<br />
                 <img src={abilityPowerIcon} alt='Ability Power Icon'/>
                 <span>Ability Power: </span>{this.state.tfTotalStatsRight.ap}<br />
                 <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
