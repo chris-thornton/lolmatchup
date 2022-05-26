@@ -12363,6 +12363,16 @@ class App extends Component {
   }
 
   onMythicDisplay = (side) => {
+    if (document.getElementById(`mythicM${side}`).style.textDecoration === 'underline' 
+    || document.getElementById(`mythicM${side}`).style.textDecoration === '') {
+      return
+    };
+    if (document.getElementById(`legendL${side}`).style.textDecoration === 'underline') {
+      document.getElementById(`legendL${side}`).style.textDecoration = 'none';
+      document.getElementById(`legendL${side}`).style.color = 'black';
+    };
+    document.getElementById(`mythicM${side}`).style.textDecoration = 'underline';
+    document.getElementById(`mythicM${side}`).style.color = '#134f61';
     var sideStyle = {left: '20px'}
     if (side === 'Right') {
       sideStyle = {right: '20px'}
@@ -12764,12 +12774,21 @@ class App extends Component {
   };
 
   onLegendDisplay = (side) => {
+    if (document.getElementById(`legendL${side}`).style.textDecoration === 'underline') {
+      return
+    };
+    console.log(document.getElementById(`mythicM${side}`).style.textDecoration)
+    if ( document.getElementById(`mythicM${side}`).style.textDecoration !== 'none') {
+      document.getElementById(`mythicM${side}`).style.textDecoration = 'none';
+      document.getElementById(`mythicM${side}`).style.color = 'black';
+    };
+    document.getElementById(`legendL${side}`).style.textDecoration = 'underline';
+    document.getElementById(`legendL${side}`).style.color = '#134f61';
     var sideStyle = {left: '20px'};
     if (side === 'Right') {
       sideStyle = {right: '20px'}
     };
     this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map((iconSrc, i) => {
-      //return <img className='itemIcon' src={iconSrc} onClick={(event) => this.onLegendClick(event, side)}></img>
       return (
         <span style={{position: 'relative'}} key={i}>
           <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc} 
@@ -12808,6 +12827,14 @@ class App extends Component {
   ]
 
   onItemSearch = (event, side) => {
+    if ( document.getElementById(`mythicM${side}`).style.textDecoration !== 'none') {
+      document.getElementById(`mythicM${side}`).style.textDecoration = 'none';
+      document.getElementById(`mythicM${side}`).style.color = 'black';
+    };
+    if (document.getElementById(`legendL${side}`).style.textDecoration === 'underline') {
+      document.getElementById(`legendL${side}`).style.textDecoration = 'none';
+      document.getElementById(`legendL${side}`).style.color = 'black';
+    };
     var sideStyle = {left: '20px'}
     if (side === 'Right') {
       sideStyle = {right: '20px'}
@@ -12820,13 +12847,20 @@ class App extends Component {
               <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={Array.from(this.mythicIcons)[i]}
               onClick={(event) => this.onMythicClick(event, side, i)}></img>
               <div className='itemTooltip' style={sideStyle}>
-                {this.mythicItems(this.levelLeft)[i]}
+                {this.mythicItems(this[`level${side}`])[i]}
               </div>
             </span>
           )
         } else {
-          return <img className='itemIcon'src={Array.from(this.itemIcons)[i-25]}
-          onClick={(event) => this.onLegendClick(event, side)}></img>
+          return (
+            <span style={{position: 'relative'}} key={i}>
+              <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={Array.from(this.itemIcons)[i-25]}
+              onClick={(event) => this.onLegendClick(event, side, i)}></img>
+              <div className='itemTooltip' style={sideStyle}>
+                {this.legendItems(this[`level${side}`])[i-25]}
+              </div>
+            </span>
+          )
         }
       }
     })})
@@ -13236,8 +13270,8 @@ class App extends Component {
             <div style={{width:'45vw'}}>
               <div id='itemsLeft'>
                 <div className='itemMenu'>
-                  <button type='button' onClick={() => this.onMythicDisplay('Left')}>Mythic</button>
-                  <button type='button' onClick={() => this.onLegendDisplay('Left')}>Legendary</button>
+                  <button type='button' onClick={() => this.onMythicDisplay('Left')}><span id='mythicMLeft'>M</span>ythic</button>
+                  <button type='button' onClick={() => this.onLegendDisplay('Left')}><span id='legendLLeft'>L</span>egendary</button>
                   <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Left')}
                   style={{width: '9em', height: 25}} onBlur={this.onItemBlur} 
                   id='itemSearchLeft' />
@@ -13251,8 +13285,8 @@ class App extends Component {
             <div style={{width:'45vw'}}>
               <div id='itemsRight'>
                 <div className='itemMenu'>
-                  <button type='button' onClick={() => this.onMythicDisplay('Right')}>Mythic</button>
-                  <button type='button' onClick={() => this.onLegendDisplay('Right')}>Legendary</button>
+                  <button type='button' onClick={() => this.onMythicDisplay('Right')}><span id='mythicMRight'>M</span>ythic</button>
+                  <button type='button' onClick={() => this.onLegendDisplay('Right')}><span id='legendLRight'>L</span>egendary</button>
                   <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Right')}
                   style={{width: '9em', height: 25}} onBlur={this.onItemBlur} 
                   id='itemSearchRight' />
