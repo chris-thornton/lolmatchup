@@ -167,8 +167,15 @@ button {
   margin-bottom: 10px;
 }
 
+.ksStats img {
+  vertical-align: middle;
+  padding-bottom: 3px;
+  height: 25px;
+  width: 25px;
+}
+
 .ksStats span {
-  color: #ffffb9;
+  color: white;
 }
 
 .runeBox {
@@ -449,4 +456,16 @@ h1 {
 
 .rMargin {
   margin-left: -200px;
+}
+
+.textAD {
+  color: rgb(189, 125, 76)
+}
+
+.textAP {
+  color: rgb(156, 255, 247)
+}
+
+.textHP {
+  color: rgb(32, 152, 93)
 }

@@ -19,11 +19,11 @@ import mPenIcon from './staticons/mPen.png';
 import vampIcon from './staticons/omnivamp.png';
 import lifestealIcon from './staticons/lifesteal.png';
 import magicResIcon from './staticons/magicRes.png';
-import attackDamageIcon from './staticons/attackDamage.png';
+import ADIcon from './staticons/attackDamage.png';
 import attackSpeedIcon from './staticons/attackSpeed.png';
 import critChanceIcon from './staticons/critChance.png';
 import manaIcon from './staticons/mana.png';
-import abilityPowerIcon from './staticons/abilityPower.png';
+import APIcon from './staticons/abilityPower.png';
 import cdrIcon from './staticons/cdr.png';
 import forceRing from './staticons/forceRing.png';
 import healthRing from './staticons/healthRing.png';
@@ -53,8 +53,6 @@ class App extends Component {
       champIndexRight: 148,
       champNameLeft: '',
       champNameRight: '',
-      tfWordLeft: '',
-      tfWordRight: '',
       champIconUrlLeft: defaultChampIcon,
       champIconUrlRight: defaultChampIcon,
       totalStatsLeft: {
@@ -735,7 +733,7 @@ class App extends Component {
           c.style.color = 'rgb(189, 125, 76)';
           abilityDiv.appendChild(c);
           var e = document.createElement('img');
-          e.src = attackDamageIcon;
+          e.src = ADIcon;
           abilityDiv.appendChild(e);
         };
         function colorAP(text){
@@ -745,7 +743,7 @@ class App extends Component {
           c.style.color = 'rgb(156, 255, 247)';
           abilityDiv.appendChild(c);
           var e = document.createElement('img');
-          e.src = abilityPowerIcon;
+          e.src = APIcon;
           abilityDiv.appendChild(e);
         };
         function colorHP(text){
@@ -9320,7 +9318,8 @@ class App extends Component {
     ];
     this.setState({
       [`keystone${side}`]: 
-        '10 to 100, based on level +(0.4 Bonus AD Ratio) +(0.3 AP Ratio).',
+        <span>10 to 100, based on level (+0.4 <text className='textAD'>Bonus AD</text><img src={ADIcon}></img>
+        ratio) (+0.3 <text className='textAP'>AP</text><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 2,
         title: 'Fleet Footwork',
@@ -9378,7 +9377,8 @@ class App extends Component {
     ];
     this.setState({
       [`keystone${side}`]: 
-        '30 to 180, based on level +(0.4 Bonus AD Ratio) +(0.25 AP Ratio).',
+        <span>30 to 180, based on level (+0.4 <text className='textAD'>Bonus AD</text><img src={ADIcon}></img>
+        ratio) (+0.25 <text className='textAP'>AP</text><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 4,
         title: 'Electrocute',
@@ -9407,7 +9407,8 @@ class App extends Component {
     ];
     this.setState({
       [`keystone${side}`]: 
-        '40 to 120, based on level +(0.2 Bonus AD Ratio) +(0.1 AP Ratio).',
+        <span>40 to 120, based on level (+0.2 <text className='textAD'>Bonus AD</text><img src={ADIcon}></img>
+        ratio) (+0.1 <text className='textAP'>AP</text><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 5,
         title: 'Predator',
@@ -9436,7 +9437,8 @@ class App extends Component {
     ];
     this.setState({
       [`keystone${side}`]: 
-        '20 to 60, based on level +(5 per soul) +(0.25 Bonus AD Ratio) +(0.15 AP Ratio).',
+        <span>20 to 60, based on level (+5 per soul) (+0.25 <text className='textAD'>Bonus AD</text><img src={ADIcon}>
+          </img>ratio) (+0.15 <text className='textAP'>AP</text><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 6,
         title: 'Dark Harvest',
@@ -9494,14 +9496,16 @@ class App extends Component {
     ];
     this.setState({
       [`keystone${side}`]: 
-        '10 to 40, based on level +(0.15 Bonus AD Ratio) +(0.1 AP Ratio).',
+        <span>10 to 40, based on level (+0.15 <text className='textAD'>Bonus AD</text><img src={ADIcon}></img>
+        ratio) (+0.1 <text className='textAP'>AP</text><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 8,
         title: 'Summon Aery',
         type: 'Adaptive Damage'
       },
       [`ksPart2${side}`]: {
-        text: '35 to 80, based on level +(0.4 Bonus AD Ratio) +(0.25 AP Ratio) for 2 seconds.',
+        text: <span>35 to 80, based on level (+0.4 <text className='textAD'>Bonus AD</text><img src={ADIcon}>
+          </img>ratio) (+0.25 <text className='textAP'>AP</text><img src={APIcon}></img>ratio) for 2 seconds.</span>,
         type: 'Shield',
         bonusADRatio: 0.4,
         APRatio: 0.25,
@@ -9534,7 +9538,8 @@ class App extends Component {
     ];
     this.setState({
       [`keystone${side}`]: 
-        '30 to 100, based on level +(0.35 Bonus AD Ratio) +(0.2 AP Ratio).',
+        <span>30 to 100, based on level (+0.35 <text className='textAD'>Bonus AD</text><img src={ADIcon}>
+          </img>ratio) (+0.2 <text className='textAP'>AP</text><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 9,
         title: 'Arcane Comet',
@@ -9599,14 +9604,15 @@ class App extends Component {
     this.ksHighlight(side, 'resolve', 0, '1px solid rgb(90, 227, 30)');
     this.setState({
       [`keystone${side}`]: 
-        '0.04 Max HP Ratio',
+        <span>0.04 <text className='textHP'>Max HP</text><img src={healthIcon}></img>ratio</span>,
       [`keystoneID${side}`]: {
         index: 11,
         title: 'Grasp of the Undying (60% effective on ranged champions)',
         type: 'Magic Damage'
       },
       [`ksPart2${side}`]: {
-        text: '0.02 Max HP Ratio (permanent +5 HP per stack)',
+        text: <span>0.02 <text className='textHP'>Max HP</text><img src={healthIcon}></img>
+        ratio (permanent +5 <text className='textHP'>HP</text><img src={healthIcon}></img>per stack)</span>,
         type: 'Heal',
         bonusADRatio: 0,
         APRatio: 0,
@@ -9640,7 +9646,8 @@ class App extends Component {
     ];
     this.setState({
       [`keystone${side}`]: 
-        '25 to 120, based on level +(0.08 Bonus HP Ratio).',
+        <span>25 to 120, based on level +(0.08 <text className='textHP'>Bonus HP</text>
+        <img src={healthIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 12,
         title: 'Aftershock',
@@ -9680,7 +9687,8 @@ class App extends Component {
     ];
     this.setState({
       [`keystone${side}`]: 
-        '50 to 130, based on level +(0.09 Bonus HP Ratio) +(0.15 AP Ratio) for 2 seconds.',
+        <span>50 to 130, based on level (+0.09 <text className='textHP'>Bonus HP</text><img src={healthIcon}>
+        </img>ratio) (+0.15 <text className='textAP'>AP</text><img src={APIcon}></img>ratio) for 2 seconds.</span>,
       [`keystoneID${side}`]: {
         index: 13,
         title: 'Guardian',
@@ -9707,7 +9715,7 @@ class App extends Component {
       <b className='yellow'>Crown of the Shattered Queen</b>
       <hr></hr>
       <span>
-        60 <img src={abilityPowerIcon}></img> Ability Power
+        60 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -9749,7 +9757,7 @@ class App extends Component {
       <b className='yellow'>Divine Sunderer</b>
       <hr></hr>
       <span>
-        40 <img src={attackDamageIcon}></img> Attack Damage
+        40 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -9782,7 +9790,7 @@ class App extends Component {
       <b className='yellow'>Duskblade of Draktharr</b>
       <hr></hr>
       <span>
-        60 <img src={attackDamageIcon}></img> Attack Damage
+        60 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -9815,7 +9823,7 @@ class App extends Component {
       <b className='yellow'>Eclipse</b>
       <hr></hr>
       <span>
-        55 <img src={attackDamageIcon}></img> Attack Damage
+        55 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -9880,7 +9888,7 @@ class App extends Component {
       <b className='yellow'>Everfrost</b>
       <hr></hr>
       <span>
-        70 <img src={abilityPowerIcon}></img> Ability Power
+        70 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -9959,7 +9967,7 @@ class App extends Component {
       <b className='yellow'>Galeforce</b>
       <hr></hr>
       <span>
-        60 <img src={attackDamageIcon}></img> Attack Damage
+        60 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -9992,7 +10000,7 @@ class App extends Component {
       <b className='yellow'>Goredrinker</b>
       <hr></hr>
       <span>
-        55 <img src={attackDamageIcon}></img> Attack Damage
+        55 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -10028,7 +10036,7 @@ class App extends Component {
       <b className='yellow'>Hextech Rocketbelt</b>
       <hr></hr>
       <span>
-        90 <img src={abilityPowerIcon}></img> Ability Power
+        90 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -10064,7 +10072,7 @@ class App extends Component {
       <b className='yellow'>Immortal Shieldbow</b>
       <hr></hr>
       <span>
-        50 <img src={attackDamageIcon}></img> Attack Damage
+        50 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -10100,7 +10108,7 @@ class App extends Component {
       <b className='yellow'>Imperial Mandate</b>
       <hr></hr>
       <span>
-        40 <img src={abilityPowerIcon}></img> Ability Power
+        40 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -10137,7 +10145,7 @@ class App extends Component {
       <b className='yellow'>Kraken Slayer</b>
       <hr></hr>
       <span>
-        65 <img src={attackDamageIcon}></img> Attack Damage
+        65 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -10163,7 +10171,7 @@ class App extends Component {
       <b className='yellow'>Liandry's Anguish</b>
       <hr></hr>
       <span>
-        80 <img src={abilityPowerIcon}></img> Ability Power
+        80 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -10235,7 +10243,7 @@ class App extends Component {
       <b className='yellow'>Luden's Tempest</b>
       <hr></hr>
       <span>
-        80 <img src={abilityPowerIcon}></img> Ability Power
+        80 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -10271,7 +10279,7 @@ class App extends Component {
       <b className='yellow'>Moonstone Renewer</b>
       <hr></hr>
       <span>
-        40 <img src={abilityPowerIcon}></img> Ability Power
+        40 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -10308,7 +10316,7 @@ class App extends Component {
       <b className='yellow'>Night Harvester</b>
       <hr></hr>
       <span>
-        90 <img src={abilityPowerIcon}></img> Ability Power
+        90 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -10339,7 +10347,7 @@ class App extends Component {
       <b className='yellow'>Prowler's Claw</b>
       <hr></hr>
       <span>
-        60 <img src={attackDamageIcon}></img> Attack Damage
+        60 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -10372,7 +10380,7 @@ class App extends Component {
       <b className='yellow'>Riftmaker</b>
       <hr></hr>
       <span>
-        80 <img src={abilityPowerIcon}></img> Ability Power
+        80 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -10403,7 +10411,7 @@ class App extends Component {
       <b className='yellow'>Shurelya's Battlesong</b>
       <hr></hr>
       <span>
-        40 <img src={abilityPowerIcon}></img> Ability Power
+        40 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -10449,7 +10457,7 @@ class App extends Component {
       <b className='yellow'>Stridebreaker</b>
       <hr></hr>
       <span>
-        50 <img src={attackDamageIcon}></img> Attack Damage
+        50 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -10528,7 +10536,7 @@ class App extends Component {
       <b className='yellow'>Trinity Force</b>
       <hr></hr>
       <span>
-        35 <img src={attackDamageIcon}></img> Attack Damage
+        35 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -10673,7 +10681,7 @@ class App extends Component {
         <b className='yellow'>Archangel's Staff</b>
         <hr></hr>
         <span>
-          60 <img src={abilityPowerIcon}></img> Ability Power
+          60 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -10700,7 +10708,7 @@ class App extends Component {
         <b className='yellow'>Ardent Censer</b>
         <hr></hr>
         <span>
-          60 <img src={abilityPowerIcon}></img> Ability Power
+          60 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -10723,7 +10731,7 @@ class App extends Component {
         <b className='yellow'>Axiom Arc</b>
         <hr></hr>
         <span>
-          55 <img src={attackDamageIcon}></img> Attack Damage
+          55 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -10745,7 +10753,7 @@ class App extends Component {
         <b className='yellow'>Banshee's Veil</b>
         <hr></hr>
         <span>
-          80 <img src={abilityPowerIcon}></img> Ability Power
+          80 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -10771,7 +10779,7 @@ class App extends Component {
         <b className='yellow'>Black Cleaver</b>
         <hr></hr>
         <span>
-          45 <img src={attackDamageIcon}></img> Attack Damage
+          45 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -10799,7 +10807,7 @@ class App extends Component {
         <b className='yellow'>Black Mist Scythe</b>
         <hr></hr>
         <span>
-          20 <img src={attackDamageIcon}></img> Attack Damage
+          20 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -10824,7 +10832,7 @@ class App extends Component {
         <b className='yellow'>Blade of the Ruined King</b>
         <hr></hr>
         <span>
-          40 <img src={attackDamageIcon}></img> Attack Damage
+          40 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -10858,7 +10866,7 @@ class App extends Component {
         <b className='yellow'>Bloodthirster</b>
         <hr></hr>
         <span>
-          55 <img src={attackDamageIcon}></img> Attack Damage
+          55 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -10880,7 +10888,7 @@ class App extends Component {
         <b className='yellow'>Bulwark of the Mountain</b>
         <hr></hr>
         <span>
-          20 <img src={abilityPowerIcon}></img> Ability Power
+          20 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -10905,7 +10913,7 @@ class App extends Component {
         <b className='yellow'>Chempunk Chainsword</b>
         <hr></hr>
         <span>
-          45 <img src={attackDamageIcon}></img> Attack Damage
+          45 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -10927,7 +10935,7 @@ class App extends Component {
         <b className='yellow'>Chemtech Putrifier</b>
         <hr></hr>
         <span>
-          55 <img src={abilityPowerIcon}></img> Ability Power
+          55 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -10950,7 +10958,7 @@ class App extends Component {
         <b className='yellow'>Cosmic Drive</b>
         <hr></hr>
         <span>
-          65 <img src={abilityPowerIcon}></img> Ability Power
+          65 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11000,7 +11008,7 @@ class App extends Component {
         <b className='yellow'>Death's Dance</b>
         <hr></hr>
         <span>
-          55 <img src={attackDamageIcon}></img> Attack Damage
+          55 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11028,7 +11036,7 @@ class App extends Component {
         <b className='yellow'>Demonic Embrace</b>
         <hr></hr>
         <span>
-          60 <img src={abilityPowerIcon}></img> Ability Power
+          60 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11051,7 +11059,7 @@ class App extends Component {
         <b className='yellow'>Edge of Night</b>
         <hr></hr>
         <span>
-          50 <img src={attackDamageIcon}></img> Attack Damage
+          50 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11078,7 +11086,7 @@ class App extends Component {
         <b className='yellow'>Essence Reaver</b>
         <hr></hr>
         <span>
-          45 <img src={attackDamageIcon}></img> Attack Damage
+          45 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11226,7 +11234,7 @@ class App extends Component {
         <b className='yellow'>Guardian Angel</b>
         <hr></hr>
         <span>
-          40 <img src={attackDamageIcon}></img> Attack Damage
+          40 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11273,7 +11281,7 @@ class App extends Component {
         <b className='yellow'>Horizon Focus</b>
         <hr></hr>
         <span>
-          85 <img src={abilityPowerIcon}></img> Ability Power
+          85 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11296,7 +11304,7 @@ class App extends Component {
         <b className='yellow'>Hullbreaker</b>
         <hr></hr>
         <span>
-          50 <img src={attackDamageIcon}></img> Attack Damage
+          50 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11321,7 +11329,7 @@ class App extends Component {
         <b className='yellow'>Infinity Edge</b>
         <hr></hr>
         <span>
-          70 <img src={attackDamageIcon}></img> Attack Damage
+          70 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11373,7 +11381,7 @@ class App extends Component {
         <b className='yellow'>Lich Bane</b>
         <hr></hr>
         <span>
-          75 <img src={abilityPowerIcon}></img> Ability Power
+          75 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11400,7 +11408,7 @@ class App extends Component {
         <b className='yellow'>Lord Dominik's Regards</b>
         <hr></hr>
         <span>
-          30 <img src={attackDamageIcon}></img> Attack Damage
+          30 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11422,7 +11430,7 @@ class App extends Component {
         <b className='yellow'>Manamune</b>
         <hr></hr>
         <span>
-          35 <img src={attackDamageIcon}></img> Attack Damage
+          35 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11449,7 +11457,7 @@ class App extends Component {
         <b className='yellow'>Maw of Malmortius</b>
         <hr></hr>
         <span>
-          55 <img src={attackDamageIcon}></img> Attack Damage
+          55 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11478,7 +11486,7 @@ class App extends Component {
         <b className='yellow'>Mejai's Soulstealer</b>
         <hr></hr>
         <span>
-          20 <img src={abilityPowerIcon}></img> Ability Power
+          20 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11501,7 +11509,7 @@ class App extends Component {
         <b className='yellow'>Mercurial Scimitar</b>
         <hr></hr>
         <span>
-          40 <img src={attackDamageIcon}></img> Attack Damage
+          40 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11559,7 +11567,7 @@ class App extends Component {
         <b className='yellow'>Morellonomicon</b>
         <hr></hr>
         <span>
-          80 <img src={abilityPowerIcon}></img> Ability Power
+          80 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11577,7 +11585,7 @@ class App extends Component {
         <b className='yellow'>Mortal Reminder</b>
         <hr></hr>
         <span>
-          25 <img src={attackDamageIcon}></img> Attack Damage
+          25 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11604,7 +11612,7 @@ class App extends Component {
         <b className='yellow'>Muramana</b>
         <hr></hr>
         <span>
-          35 <img src={attackDamageIcon}></img> Attack Damage
+          35 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11632,7 +11640,7 @@ class App extends Component {
         <b className='yellow'>Nashor's Tooth</b>
         <hr></hr>
         <span>
-          100 <img src={abilityPowerIcon}></img> Ability Power
+          100 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11649,7 +11657,7 @@ class App extends Component {
         <b className='yellow'>Navori Quickblades</b>
         <hr></hr>
         <span>
-          60 <img src={attackDamageIcon}></img> Attack Damage
+          60 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11670,7 +11678,7 @@ class App extends Component {
         <b className='yellow'>Pauldrons of Whiterock</b>
         <hr></hr>
         <span>
-          15 <img src={attackDamageIcon}></img> Attack Damage
+          15 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11695,7 +11703,7 @@ class App extends Component {
         <b className='yellow'>Phantom Dancer</b>
         <hr></hr>
         <span>
-          20 <img src={attackDamageIcon}></img> Attack Damage
+          20 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11721,7 +11729,7 @@ class App extends Component {
         <b className='yellow'>Rabadon's Deathcap</b>
         <hr></hr>
         <span>
-          120 <img src={abilityPowerIcon}></img> Ability Power
+          120 <img src={APIcon}></img> Ability Power
         </span>
         <hr></hr>
         <i className='yellow'>Unique Passive - Magical Opus: </i>
@@ -11794,7 +11802,7 @@ class App extends Component {
         <b className='yellow'>Ravenous Hydra</b>
         <hr></hr>
         <span>
-          70 <img src={attackDamageIcon}></img> Attack Damage
+          70 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11872,7 +11880,7 @@ class App extends Component {
         <b className='yellow'>Rylai's Crystal Scepter</b>
         <hr></hr>
         <span>
-          75 <img src={abilityPowerIcon}></img> Ability Power
+          75 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11889,7 +11897,7 @@ class App extends Component {
         <b className='yellow'>Seraph's Embrace</b>
         <hr></hr>
         <span>
-          80 <img src={abilityPowerIcon}></img> Ability Power
+          80 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11916,7 +11924,7 @@ class App extends Component {
         <b className='yellow'>Serpent's Fang</b>
         <hr></hr>
         <span>
-          55 <img src={attackDamageIcon}></img> Attack Damage
+          55 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11935,7 +11943,7 @@ class App extends Component {
         <b className='yellow'>Serylda's Grudge</b>
         <hr></hr>
         <span>
-          45 <img src={attackDamageIcon}></img> Attack Damage
+          45 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -11956,7 +11964,7 @@ class App extends Component {
         <b className='yellow'>Shadowflame</b>
         <hr></hr>
         <span>
-          100 <img src={abilityPowerIcon}></img> Ability Power
+          100 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11974,7 +11982,7 @@ class App extends Component {
         <b className='yellow'>Shard of True Ice</b>
         <hr></hr>
         <span>
-          40 <img src={abilityPowerIcon}></img> Ability Power
+          40 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -11999,7 +12007,7 @@ class App extends Component {
         <b className='yellow'>Silvermere Dawn</b>
         <hr></hr>
         <span>
-          40 <img src={attackDamageIcon}></img> Attack Damage
+          40 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -12051,7 +12059,7 @@ class App extends Component {
         <b className='yellow'>Staff of Flowing Water</b>
         <hr></hr>
         <span>
-          50 <img src={abilityPowerIcon}></img> Ability Power
+          50 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -12097,7 +12105,7 @@ class App extends Component {
         <b className='yellow'>Stormrazor</b>
         <hr></hr>
         <span>
-          40 <img src={attackDamageIcon}></img> Attack Damage
+          40 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -12124,7 +12132,7 @@ class App extends Component {
         <b className='yellow'>The Collector</b>
         <hr></hr>
         <span>
-          55 <img src={attackDamageIcon}></img> Attack Damage
+          55 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -12166,7 +12174,7 @@ class App extends Component {
         <b className='yellow'>Titanic Hydra</b>
         <hr></hr>
         <span>
-          30 <img src={attackDamageIcon}></img> Attack Damage
+          30 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -12190,7 +12198,7 @@ class App extends Component {
         <b className='yellow'>Umbral Glaive</b>
         <hr></hr>
         <span>
-          50 <img src={attackDamageIcon}></img> Attack Damage
+          50 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -12250,7 +12258,7 @@ class App extends Component {
         <b className='yellow'>Void Staff</b>
         <hr></hr>
         <span>
-          65 <img src={abilityPowerIcon}></img> Ability Power
+          65 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -12311,7 +12319,7 @@ class App extends Component {
         <b className='yellow'>Wit's End</b>
         <hr></hr>
         <span>
-          40 <img src={attackDamageIcon}></img> Attack Damage
+          40 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -12332,7 +12340,7 @@ class App extends Component {
         <b className='yellow'>Youmuu's Ghostblade</b>
         <hr></hr>
         <span>
-          55 <img src={attackDamageIcon}></img> Attack Damage
+          55 <img src={ADIcon}></img> Attack Damage
         </span>
         <br></br>
         <span>
@@ -12402,7 +12410,7 @@ class App extends Component {
         <b className='yellow'>Zhonya's Hourglass</b>
         <hr></hr>
         <span>
-          65 <img src={abilityPowerIcon}></img> Ability Power
+          65 <img src={APIcon}></img> Ability Power
         </span>
         <br></br>
         <span>
@@ -13185,9 +13193,9 @@ class App extends Component {
 
           <div className='flexDisplay'>      
             <div className='ksStats' id='ksStatsLeft'>
-              <span>{this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
+              <span style={{color: '#ffffb9'}}>{this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
               <br></br>
-              {this.state.keystoneIDLeft.index !== 7 ? <span>Current Value: </span> : ''} 
+              {this.state.keystoneIDLeft.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''} 
               {
                 this.state.keystoneIDLeft.index === 7 ? '' 
                 : this.state.keystoneIDLeft.index === 1 || this.state.keystoneIDLeft.index === 3 || this.state.keystoneIDLeft.index === 10 ? this.state.ksArrayLeft[this.levelLeft - 1] 
@@ -13201,10 +13209,10 @@ class App extends Component {
               }
               <div style={{display: this.state.ksPart2DisplayLeft}}>
                 <br></br>
-                <span>{this.state.ksPart2Left.type}: </span>{this.state.ksPart2Left.text}
+                <span style={{color: '#ffffb9'}}>{this.state.ksPart2Left.type}: </span>{this.state.ksPart2Left.text}
                 <br></br>
-                {this.state.keystoneIDLeft.index !== 12 ? <span>Current Value: </span>
-                : <span>Current Cap: </span>}
+                {this.state.keystoneIDLeft.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
+                : <span style={{color: '#f9b54a'}}>Current Cap: </span>}
                 {this.state.keystoneIDLeft.index !== 10 ? Math.round(this.state.ksPart2Left.array[this.levelLeft - 1] 
                 + (this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap 
                 + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
@@ -13213,17 +13221,18 @@ class App extends Component {
               </div>
               <div>
                 <br></br>
-                <span>Cooldown: </span>{this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
+                <span style={{color: 'lightgray'}}>Cooldown: </span>{this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
               </div>
             </div>
 
             <div className='ksStats' id='ksStatsRight'>
-              <span>{this.state.keystoneIDRight.type}: </span>{this.state.keystoneRight}
+              <span style={{color: '#ffffb9'}}>{this.state.keystoneIDRight.type}: </span>{this.state.keystoneRight}
                 <br></br>
-              {this.state.keystoneIDRight.index !== 7 ? <span>Current Value: </span> : ''} 
+              {this.state.keystoneIDRight.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''} 
               {
                 this.state.keystoneIDRight.index === 7 ? '' 
-                : this.state.keystoneIDRight.index === 1 || this.state.keystoneIDRight.index === 3 || this.state.keystoneIDRight.index === 10 ? this.state.ksArrayRight[this.levelRight - 1] 
+                : this.state.keystoneIDRight.index === 1 || this.state.keystoneIDRight.index === 3 || 
+                this.state.keystoneIDRight.index === 10 ? this.state.ksArrayRight[this.levelRight - 1] 
                 + Math.round(this.state.ksAPRatioRight * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight 
                 * (this.runesRight.ad + this.itemStatsRight.ad) + this.state.ksHPRatioRight * this.state.totalStatsRight.hp 
                 + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))
@@ -13234,10 +13243,10 @@ class App extends Component {
               }
               <div style={{display: this.state.ksPart2DisplayRight}}>
                 <br></br>
-                <span>{this.state.ksPart2Right.type}: </span>{this.state.ksPart2Right.text}
+                <span style={{color: '#ffffb9'}}>{this.state.ksPart2Right.type}: </span>{this.state.ksPart2Right.text}
                 <br></br>
-                {this.state.keystoneIDRight.index !== 12 ? <span>Current Value: </span>
-                : <span>Current Cap: </span>}
+                {this.state.keystoneIDRight.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
+                : <span style={{color: '#f9b54a'}}>Current Cap: </span>}
                 {this.state.keystoneIDRight.index !== 10 ? Math.round(this.state.ksPart2Right.array[this.levelRight - 1] 
                 + (this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap 
                 + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
@@ -13246,7 +13255,7 @@ class App extends Component {
               </div>
               <div>
                 <br></br>
-                <span>Cooldown: </span>{this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
+                <span style={{color: 'lightgray'}}>Cooldown: </span>{this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
               </div>
             </div>
           </div>
@@ -13390,7 +13399,7 @@ class App extends Component {
               <span>Armor: </span>{Math.round(this.state.totalStatsLeft.arm)}<br />
               <img src={magicResIcon} alt='Magic Resist Icon'/>
               <span>Magic Resist: </span>{Math.round(this.state.totalStatsLeft.mr)}<br />
-              <img src={attackDamageIcon} alt='Attack Damage Icon'/>
+              <img src={ADIcon} alt='Attack Damage Icon'/>
               <span>Attack Damage: </span>{Math.round(this.state.totalStatsLeft.ad)}<br />
               <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
               <span>Attack Speed: </span>{this.state.totalStatsLeft.as.toFixed(3)}<br />
@@ -13404,10 +13413,11 @@ class App extends Component {
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
               <span>Health per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.hpRegen.toFixed(1)
               : this.state.totalStatsLeft.hpRegen + '%'}<br />
-              <img src={abilityPowerIcon} alt='Ability Power Icon'/>
+              <img src={APIcon} alt='Ability Power Icon'/>
               <span>Ability Power: </span>{this.state.totalStatsLeft.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              <span>Ability Haste: </span>{Math.round(this.state.totalStatsLeft.cdr)}
+              <span>Ability Haste: </span>{Math.round(this.state.totalStatsLeft.cdr)} / {
+              Math.round(100*(this.state.totalStatsLeft.cdr/(100 + this.state.totalStatsLeft.cdr)))}%
             </div>
             <div className="statsBox">
               <img src={healthIcon} alt='Health Icon'/>
@@ -13416,7 +13426,7 @@ class App extends Component {
               <span>Armor: </span>{Math.round(this.state.totalStatsRight.arm)}<br />
               <img src={magicResIcon} alt='Magic Resist Icon'/>
               <span>Magic Resist: </span>{Math.round(this.state.totalStatsRight.mr)}<br />
-              <img src={attackDamageIcon} alt='Attack Damage Icon'/>
+              <img src={ADIcon} alt='Attack Damage Icon'/>
               <span>Attack Damage: </span>{Math.round(this.state.totalStatsRight.ad)}<br />
               <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
               <span>Attack Speed: </span>{this.state.totalStatsRight.as.toFixed(3)}<br />
@@ -13430,18 +13440,19 @@ class App extends Component {
               <img src={healthRegenIcon} alt='Health Regen Icon'/>
               <span>Health per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.hpRegen.toFixed(1) 
               : this.state.totalStatsRight.hpRegen + '%'}<br />
-              <img src={abilityPowerIcon} alt='Ability Power Icon'/>
+              <img src={APIcon} alt='Ability Power Icon'/>
               <span>Ability Power: </span>{this.state.totalStatsRight.ap}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              <span>Ability Haste: </span>{Math.round(this.state.totalStatsRight.cdr)}
+              <span>Ability Haste: </span>{Math.round(this.state.totalStatsRight.cdr)} / {
+              Math.round(100*(this.state.totalStatsRight.cdr/(100 + this.state.totalStatsRight.cdr)))}%
             </div>
           </div>
           <div id='transform'>
             <div className="flexDisplay">
               <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}><b>
-                {this.state.tfWordLeft} Stats</b></span>
+                {this.tfChampPair[this.state.champNameLeft]} Stats</b></span>
               <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}><b>
-                {this.state.tfWordRight} Stats</b></span>
+                {this.tfChampPair[this.state.champNameRight]} Stats</b></span>
             </div>
             <div className="flexDisplay">
               <div className="statsBox transformLeft">
@@ -13451,7 +13462,7 @@ class App extends Component {
                 <span>Armor: </span>{Math.round(this.state.tfTotalStatsLeft.arm)}<br />
                 <img src={magicResIcon} alt='Magic Resist Icon'/>
                 <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsLeft.mr)}<br />
-                <img src={attackDamageIcon} alt='Attack Damage Icon'/>
+                <img src={ADIcon} alt='Attack Damage Icon'/>
                 <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsLeft.ad)}<br />
                 <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
                 <span>Attack Speed: </span>{this.state.tfTotalStatsLeft.as.toFixed(3)}<br />
@@ -13463,10 +13474,11 @@ class App extends Component {
                 <span>Mana per 5: </span>{this.state.tfTotalStatsLeft.manaRegen.toFixed(1)}<br />
                 <img src={healthRegenIcon} alt='Health Regen Icon'/>
                 <span>Health per 5: </span>{this.state.tfTotalStatsLeft.hpRegen.toFixed(1)}<br />
-                <img src={abilityPowerIcon} alt='Ability Power Icon'/>
+                <img src={APIcon} alt='Ability Power Icon'/>
                 <span>Ability Power: </span>{this.state.tfTotalStatsLeft.ap}<br />
                 <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-                <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsLeft.cdr)}
+                <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsLeft.cdr)} / {
+                Math.round(100*(this.state.tfTotalStatsLeft.cdr/(100 + this.state.tfTotalStatsLeft.cdr)))}%
               </div>
               <div className="statsBox transformRight">
                 <img src={healthIcon} alt='Health Icon'/>
@@ -13475,7 +13487,7 @@ class App extends Component {
                 <span>Armor: </span>{Math.round(this.state.tfTotalStatsRight.arm)}<br />
                 <img src={magicResIcon} alt='Magic Resist Icon'/>
                 <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsRight.mr)}<br />
-                <img src={attackDamageIcon} alt='Attack Damage Icon'/>
+                <img src={ADIcon} alt='Attack Damage Icon'/>
                 <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsRight.ad)}<br />
                 <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
                 <span>Attack Speed: </span>{this.state.tfTotalStatsRight.as.toFixed(3)}<br />
@@ -13487,10 +13499,11 @@ class App extends Component {
                 <span>Mana per 5: </span>{this.state.tfTotalStatsRight.manaRegen.toFixed(1)}<br />
                 <img src={healthRegenIcon} alt='Health Regen Icon'/>
                 <span>Health per 5: </span>{this.state.tfTotalStatsRight.hpRegen.toFixed(1)}<br />
-                <img src={abilityPowerIcon} alt='Ability Power Icon'/>
+                <img src={APIcon} alt='Ability Power Icon'/>
                 <span>Ability Power: </span>{this.state.tfTotalStatsRight.ap}<br />
                 <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-                <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsRight.cdr)}
+                <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsRight.cdr)} / {
+                Math.round(100*(this.state.tfTotalStatsRight.cdr/(100 + this.state.tfTotalStatsRight.cdr)))}%
               </div>
             </div>
           </div>
