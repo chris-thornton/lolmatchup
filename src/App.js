@@ -434,6 +434,14 @@ class App extends Component {
     mana: 0,
     manaRegen: 0
   };
+  dcapLeft = 1;
+  dcapCountLeft = 0;
+  dcapRight = 1;
+  dcapCountRight = 0;
+  sterakLeft = 1;
+  sterakCountLeft = 0;
+  sterakRight = 1;
+  sterakCountRight = 0;
   itemStatsRight = {
     ad: 0,
     as: 0,
@@ -565,9 +573,10 @@ class App extends Component {
       var appliedStats = this[`appliedStats${side}`];
       var enemyAppliedStats = this[`appliedStats${otherSide}`];
 
-      var totalAD = itemStats.ad + runeStats.ad + statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"];
+      var totalAD = itemStats.ad + runeStats.ad + 
+      (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*this[`sterak${side}`];
       var bonusAD = itemStats.ad + runeStats.ad;
-      var totalAP = itemStats.ap + appliedStats.ap + runeStats.ap;
+      var totalAP = (itemStats.ap + appliedStats.ap + runeStats.ap)*this[`dcap${side}`];
       var totalAS = statsPath["attackSpeed"] + runeStats.as
       + (itemStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
       var bonusAS = statsPath["asRatio"] * itemStats.as + runeStats.as;
@@ -8759,7 +8768,8 @@ class App extends Component {
               as: runeStats.as + statsPath["attackSpeed"] + (itemStats.as + statsPath["asPerLvl"] * champLvlRatio) 
               * statsPath["asRatio"],
               arm: itemStats.arm + runeStats.arm + statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
-              ad: itemStats.ad + runeStats.ad + statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
+              ad: itemStats.ad + runeStats.ad 
+              + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
               mr: itemStats.mr + runeStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
               mana: itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio
           }
@@ -8777,7 +8787,8 @@ class App extends Component {
               + tfPath["hpRegenPerLvl"] * champLvlRatio,
               as: tfPath["attackSpeed"] + (itemStats.as + runeStats.as + tfPath["asPerLvl"] * champLvlRatio) * tfPath["asRatio"],
               arm: itemStats.arm + runeStats.arm + tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
-              ad: itemStats.ad + runeStats.ad + tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
+              ad: itemStats.ad + runeStats.ad 
+              + (tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
               mr: itemStats.mr + runeStats.mr + tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
               mana: itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
             }
@@ -8892,7 +8903,8 @@ class App extends Component {
         hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
         as: statsPath["attackSpeed"] + ((statsPath["asPerLvl"] * champLvlRatio) + itemStats.as + runeStats.as) * statsPath["asRatio"],
         arm: itemStats.arm + runeStats.arm + statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
-        ad: itemStats.ad + runeStats.ad + statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio,
+        ad: itemStats.ad + runeStats.ad 
+        + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
         mr: itemStats.mr + runeStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
         mana: itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio,
         manaRegen: itemStats.manaRegen + statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
@@ -8921,7 +8933,8 @@ class App extends Component {
           hpRegen: itemStats.hpRegen + tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
           as: tfPath["attackSpeed"] + (itemStats.as + runeStats.as + tfPath["asPerLvl"] * champLvlRatio) * tfPath["asRatio"],
           arm: itemStats.arm + runeStats.arm + tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
-          ad: itemStats.ad + runeStats.ad + tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio,
+          ad: itemStats.ad + runeStats.ad 
+          + (tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
           mr: itemStats.mr + runeStats.mr + tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
           mana: itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
         }
@@ -12521,7 +12534,7 @@ class App extends Component {
       };
       if (spanText.includes('Ability Power')) {
         itemStats.ap += statQuantity;
-        addItemStats('ap', statQuantity);
+        addItemStats('ap', statQuantity*this[`dcap${side}`]);
         continue;
       };
       if (spanText.includes('Ability Haste')) {
@@ -12593,6 +12606,7 @@ class App extends Component {
         continue;
       };
     }
+    this.calculateAbility(side)
   };
 
   onLegendClick = (event, side, legendIndex) => {
@@ -12611,6 +12625,33 @@ class App extends Component {
     };
     var itemStats = this[`itemStats${side}`];
     var totalStats = [`totalStats${side}`];
+    if (Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent.includes('Deathcap')) {
+      this[`dcap${side}`] = 1.35
+      if (this[`dcapCount${side}`] === 0) {
+        this.setState(prevState => ({
+          [totalStats]: {
+            ...prevState[totalStats],
+            ap: +prevState[totalStats].ap*1.35
+          }
+        }))
+      };
+      this[`dcapCount${side}`]++;
+    };
+    var champLevel = this[`level${side}`] - 1;
+    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    if (Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent.includes('Sterak')) {
+      if (this[`sterakCount${side}`] === 0) {
+        this[`sterak${side}`] = 1.4;
+        var champStats = this[`champFile${side}`].stats;
+        this.setState(prevState => ({
+          [totalStats]: {
+            ...prevState[totalStats],
+            ad: +prevState[totalStats].ad + (champStats.baseDamage + champStats.damagePerLvl*champLvlRatio)*0.4
+          }
+        }))
+      };
+      this[`sterakCount${side}`]++;
+    };
     var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
     for (var i = 0; i < spanArray.length; i++) {
       if (i !== 0 && spanArray[i].previousSibling.tagName !== 'BR') {
@@ -12647,7 +12688,7 @@ class App extends Component {
       };
       if (spanText.includes('Ability Power')) {
         itemStats.ap += statQuantity;
-        addItemStats('ap', statQuantity);
+        addItemStats('ap', statQuantity*this[`dcap${side}`]);
         continue;
       };
       if (spanText.includes('Ability Haste')) {
@@ -12719,6 +12760,7 @@ class App extends Component {
         continue;
       };
     }
+    this.calculateAbility(side)
   };
 
   onInvenClick = (event, side, i) => {
@@ -12736,6 +12778,33 @@ class App extends Component {
     };
     var itemStats = this[`itemStats${side}`];
     var totalStats = [`totalStats${side}`];
+    var champLevel = this[`level${side}`] - 1;
+    var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
+    if (Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent.includes('Deathcap')) {
+      if (this[`dcapCount${side}`] === 1) {
+        this[`dcap${side}`] = 1;
+        this.setState(prevState => ({
+          [totalStats]: {
+            ...prevState[totalStats],
+            ap: +prevState[totalStats].ap/1.35
+          }
+        }))
+      };
+      this[`dcapCount${side}`]--;
+    };
+    if (Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent.includes('Sterak')) {
+      if (this[`sterakCount${side}`] === 1) {
+        this[`sterak${side}`] = 1;
+        var champStats = this[`champFile${side}`].stats;
+        this.setState(prevState => ({
+          [totalStats]: {
+            ...prevState[totalStats],
+            ad: +prevState[totalStats].ad - (champStats.baseDamage + champStats.damagePerLvl*champLvlRatio)*0.4
+          }
+        }))
+      };
+      this[`sterakCount${side}`]--;
+    };
     var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
     for (var i = 0; i < spanArray.length; i++) {
       if (i !== 0 && spanArray[i].previousSibling.tagName !== 'BR') {
@@ -12772,7 +12841,7 @@ class App extends Component {
       };
       if (spanText.includes('Ability Power')) {
         itemStats.ap -= statQuantity;
-        subtractItemStats('ap', statQuantity);
+        subtractItemStats('ap', statQuantity*this[`dcap${side}`]);
         continue;
       };
       if (spanText.includes('Ability Haste')) {
@@ -12844,6 +12913,7 @@ class App extends Component {
         continue;
       };
     }
+    this.calculateAbility(side)
   };
 
   onLegendDisplay = (side) => {
@@ -13083,8 +13153,8 @@ class App extends Component {
           </div>
 
           <div className='flexDisplay'>
-            <b style={{width: '45vw', textAlign: 'center'}}>{this.state.champNameLeft}</b>
-            <b style={{width: '45vw', textAlign: 'center'}}>{this.state.champNameRight}</b>
+            <b style={{width: '45vw', textAlign: 'center', fontSize: '20px'}}>{this.state.champNameLeft}</b>
+            <b style={{width: '45vw', textAlign: 'center', fontSize: '20px'}}>{this.state.champNameRight}</b>
           </div>
 
           <div className="flexAround" style={{marginTop: '10px'}}>
@@ -13414,7 +13484,7 @@ class App extends Component {
               <span>Health per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.hpRegen.toFixed(1)
               : this.state.totalStatsLeft.hpRegen + '%'}<br />
               <img src={APIcon} alt='Ability Power Icon'/>
-              <span>Ability Power: </span>{this.state.totalStatsLeft.ap}<br />
+              <span>Ability Power: </span>{Math.round(this.state.totalStatsLeft.ap)}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
               <span>Ability Haste: </span>{Math.round(this.state.totalStatsLeft.cdr)} / {
               Math.round(100*(this.state.totalStatsLeft.cdr/(100 + this.state.totalStatsLeft.cdr)))}%
@@ -13441,7 +13511,7 @@ class App extends Component {
               <span>Health per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.hpRegen.toFixed(1) 
               : this.state.totalStatsRight.hpRegen + '%'}<br />
               <img src={APIcon} alt='Ability Power Icon'/>
-              <span>Ability Power: </span>{this.state.totalStatsRight.ap}<br />
+              <span>Ability Power: </span>{Math.round(this.state.totalStatsRight.ap)}<br />
               <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
               <span>Ability Haste: </span>{Math.round(this.state.totalStatsRight.cdr)} / {
               Math.round(100*(this.state.totalStatsRight.cdr/(100 + this.state.totalStatsRight.cdr)))}%
@@ -13475,7 +13545,7 @@ class App extends Component {
                 <img src={healthRegenIcon} alt='Health Regen Icon'/>
                 <span>Health per 5: </span>{this.state.tfTotalStatsLeft.hpRegen.toFixed(1)}<br />
                 <img src={APIcon} alt='Ability Power Icon'/>
-                <span>Ability Power: </span>{this.state.tfTotalStatsLeft.ap}<br />
+                <span>Ability Power: </span>{Math.round(this.state.tfTotalStatsLeft.ap)}<br />
                 <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
                 <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsLeft.cdr)} / {
                 Math.round(100*(this.state.tfTotalStatsLeft.cdr/(100 + this.state.tfTotalStatsLeft.cdr)))}%
@@ -13500,7 +13570,7 @@ class App extends Component {
                 <img src={healthRegenIcon} alt='Health Regen Icon'/>
                 <span>Health per 5: </span>{this.state.tfTotalStatsRight.hpRegen.toFixed(1)}<br />
                 <img src={APIcon} alt='Ability Power Icon'/>
-                <span>Ability Power: </span>{this.state.tfTotalStatsRight.ap}<br />
+                <span>Ability Power: </span>{Math.round(this.state.tfTotalStatsRight.ap)}<br />
                 <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
                 <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsRight.cdr)} / {
                 Math.round(100*(this.state.tfTotalStatsRight.cdr/(100 + this.state.tfTotalStatsRight.cdr)))}%
