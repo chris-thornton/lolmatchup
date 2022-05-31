@@ -12486,6 +12486,7 @@ class App extends Component {
       return
     };
     this[`itemCounter${side}`]++;
+    console.log(this[`forceType${side}`]);
     for (var i = 0; i < 12; i += 2) {
       if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
@@ -12605,7 +12606,32 @@ class App extends Component {
         addItemStats('lifeSteal', statQuantity)
         continue;
       };
-    }
+    };
+    if (this[`forceType${side}`] === 'ad' && itemStats.ap > itemStats.ad) {
+      var adFromRunes = this[`runes${side}`].ad;
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`dcap${side}`],
+          ad: +prevState[`totalStats${side}`].ad - +adFromRunes
+        }
+      }))
+      this[`runes${side}`].ap = adFromRunes/0.6;
+      this[`runes${side}`].ad = 0;
+      this[`forceType${side}`] = 'ap';
+    } else if (this[`forceType${side}`] === 'ap' && itemStats.ad > itemStats.ap) {
+      var apFromRunes = this[`runes${side}`].ap;
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          ad: +prevState[`totalStats${side}`].ad + +apFromRunes*0.6,
+          ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`dcap${side}`]
+        }
+      }))
+      this[`runes${side}`].ad = apFromRunes*0.6;
+      this[`runes${side}`].ap = 0;
+      this[`forceType${side}`] = 'ad';
+    };
     this.calculateAbility(side)
   };
 
@@ -12759,7 +12785,32 @@ class App extends Component {
         addItemStats('lifeSteal', statQuantity)
         continue;
       };
-    }
+    };
+    if (this[`forceType${side}`] === 'ad' && itemStats.ap > itemStats.ad) {
+      var adFromRunes = this[`runes${side}`].ad;
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`dcap${side}`],
+          ad: +prevState[`totalStats${side}`].ad - +adFromRunes
+        }
+      }))
+      this[`runes${side}`].ap = adFromRunes/0.6;
+      this[`runes${side}`].ad = 0;
+      this[`forceType${side}`] = 'ap'
+    } else if (this[`forceType${side}`] === 'ap' && itemStats.ad > itemStats.ap) {
+      var apFromRunes = this[`runes${side}`].ap;
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          ad: +prevState[`totalStats${side}`].ad + +apFromRunes*0.6,
+          ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`dcap${side}`]
+        }
+      }))
+      this[`runes${side}`].ad = apFromRunes*0.6;
+      this[`runes${side}`].ap = 0;
+      this[`forceType${side}`] = 'ad'
+    };
     this.calculateAbility(side)
   };
 
@@ -12912,7 +12963,32 @@ class App extends Component {
         subtractItemStats('lifeSteal', statQuantity)
         continue;
       };
-    }
+    };
+    if (this[`forceType${side}`] === 'ad' && itemStats.ap > itemStats.ad) {
+      var adFromRunes = this[`runes${side}`].ad;
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`dcap${side}`],
+          ad: +prevState[`totalStats${side}`].ad - +adFromRunes
+        }
+      }))
+      this[`runes${side}`].ap = adFromRunes/0.6;
+      this[`runes${side}`].ad = 0;
+      this[`forceType${side}`] = 'ap'
+    } else if (this[`forceType${side}`] === 'ap' && itemStats.ad > itemStats.ap) {
+      var apFromRunes = this[`runes${side}`].ap;
+      this.setState(prevState => ({
+        [`totalStats${side}`]: {
+          ...prevState[`totalStats${side}`],
+          ad: +prevState[`totalStats${side}`].ad + +apFromRunes*0.6,
+          ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`dcap${side}`]
+        }
+      }))
+      this[`runes${side}`].ad = apFromRunes*0.6;
+      this[`runes${side}`].ap = 0;
+      this[`forceType${side}`] = 'ad'
+    };
     this.calculateAbility(side)
   };
 
