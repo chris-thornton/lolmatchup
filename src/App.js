@@ -441,6 +441,10 @@ class App extends Component {
   sterakLeft = 1;
   sterakCountLeft = 0;
   sterakRight = 1;
+  winterLeft = 0;
+  winterCountLeft = 0;
+  winterRight = 0;
+  winterCountRight = 0;
   sterakCountRight = 0;
   itemStatsRight = {
     ad: 0,
@@ -8681,7 +8685,6 @@ class App extends Component {
   }
 
   onChampClick = (event) => {
-    
     var side = 'Left';
     var otherSide = 'Right';
     if (event.target.className.includes('Right')) {
@@ -8760,7 +8763,8 @@ class App extends Component {
         this.setState(prevState => ({
           [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],   
-              hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
+              hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio)
+              + (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"]*champLvlRatio)*this[`winter${side}`],
               manaRegen: (itemStats.manaRegen * statsPath.mana["manaBaseRegen"]/100) + statsPath.mana["manaBaseRegen"] 
               + statsPath.mana["manaRegenPerLvl"] * champLvlRatio,
               hpRegen: (itemStats.hpRegen * statsPath["baseHPRegen"]/100) + statsPath["baseHPRegen"] 
@@ -8900,7 +8904,8 @@ class App extends Component {
     this.setState(prevState => ({
       [`totalStats${side}`]: {
         ...prevState[`totalStats${side}`],
-        hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + statsPath["hpPerLvl"] * champLvlRatio,
+        hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio) + 
+        (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`winter${side}`],
         as: statsPath["attackSpeed"] + ((statsPath["asPerLvl"] * champLvlRatio) + itemStats.as + runeStats.as) * statsPath["asRatio"],
         arm: itemStats.arm + runeStats.arm + statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
         ad: itemStats.ad + runeStats.ad 
@@ -12499,6 +12504,7 @@ class App extends Component {
     };
     var itemStats = this[`itemStats${side}`];
     var totalStats = [`totalStats${side}`];
+    var champStats = this[`champFile${side}`].stats;
     var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
     for (var i = 0; i < spanArray.length; i++) {
       if (i !== 0 && spanArray[i].previousSibling.tagName !== 'BR') {
@@ -12522,7 +12528,7 @@ class App extends Component {
       if (spanText.includes('Attack Speed')) {
         itemStats.as += statQuantity/100;
         if (this.state[`champName${side}`] !== '') {
-          addItemStats('as', (statQuantity * this[`champFile${side}`].stats.asRatio)/100);
+          addItemStats('as', (statQuantity * champStats.asRatio)/100);
         } else {
           addItemStats('as', statQuantity/100)
         };
@@ -12550,21 +12556,22 @@ class App extends Component {
         } else {
           itemStats.hpRegen += statQuantity;
           if (this.state[`champName${side}`] !== '') {
-            addItemStats('hpRegen', (statQuantity * this[`champFile${side}`].stats.baseHPRegen)/100);
+            addItemStats('hpRegen', (statQuantity * champStats.baseHPRegen)/100);
           } else {
             addItemStats('hpRegen', statQuantity)
           };
         }
         continue;
       };
-      if (spanText.includes('Mana')) {
+      if (spanText.includes('Mana') && champStats.mana.base) {
         if (!spanText.includes('Regen')) {
           itemStats.mana += statQuantity;
           addItemStats('mana', statQuantity);
+          addItemStats('hp', statQuantity * this[`winter${side}`])
         } else {
           itemStats.manaRegen += statQuantity;
           if (this.state[`champName${side}`] !== '') {
-            addItemStats('manaRegen', (statQuantity * this[`champFile${side}`].stats.mana.manaBaseRegen)/100);
+            addItemStats('manaRegen', (statQuantity * champStats.mana.manaBaseRegen)/100);
           } else {
             addItemStats('manaRegen', statQuantity);
           };
@@ -12651,7 +12658,9 @@ class App extends Component {
     };
     var itemStats = this[`itemStats${side}`];
     var totalStats = [`totalStats${side}`];
-    if (Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent.includes('Deathcap')) {
+    var champStats = this[`champFile${side}`].stats;
+    var itemTitle = Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent
+    if (itemTitle.includes('Deathcap')) {
       this[`dcap${side}`] = 1.35
       if (this[`dcapCount${side}`] === 0) {
         this.setState(prevState => ({
@@ -12665,10 +12674,9 @@ class App extends Component {
     };
     var champLevel = this[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    if (Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent.includes('Sterak')) {
+    if (itemTitle.includes('Sterak')) {
       if (this[`sterakCount${side}`] === 0) {
         this[`sterak${side}`] = 1.4;
-        var champStats = this[`champFile${side}`].stats;
         this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
@@ -12677,6 +12685,18 @@ class App extends Component {
         }))
       };
       this[`sterakCount${side}`]++;
+    };
+    if (itemTitle.includes('Fimbulwinter') || itemTitle.includes(`Winter's Approach`)) {
+      if (this[`winterCount${side}`] === 0) {
+        this[`winter${side}`] = 0.08;
+        this.setState(prevState => ({
+          [totalStats]: {
+            ...prevState[totalStats],
+            hp: +prevState[totalStats].hp + +prevState[totalStats].mana*0.08
+          }
+        }))
+      };
+      this[`winterCount${side}`]++;
     };
     var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
     for (var i = 0; i < spanArray.length; i++) {
@@ -12736,10 +12756,11 @@ class App extends Component {
         }
         continue;
       };
-      if (spanText.includes('Mana')) {
+      if (spanText.includes('Mana') && champStats.mana.base) {
         if (!spanText.includes('Regen')) {
           itemStats.mana += statQuantity;
           addItemStats('mana', statQuantity);
+          addItemStats('hp', statQuantity*this[`winter${side}`])
         } else {
           itemStats.manaRegen += statQuantity;
           if (this.state[`champName${side}`] !== '') {
@@ -12797,7 +12818,7 @@ class App extends Component {
       }))
       this[`runes${side}`].ap = adFromRunes/0.6;
       this[`runes${side}`].ad = 0;
-      this[`forceType${side}`] = 'ap'
+      this[`forceType${side}`] = 'ap';
     } else if (this[`forceType${side}`] === 'ap' && itemStats.ad > itemStats.ap) {
       var apFromRunes = this[`runes${side}`].ap;
       this.setState(prevState => ({
@@ -12829,9 +12850,11 @@ class App extends Component {
     };
     var itemStats = this[`itemStats${side}`];
     var totalStats = [`totalStats${side}`];
+    var champStats = this[`champFile${side}`].stats;
     var champLevel = this[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    if (Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent.includes('Deathcap')) {
+    var itemTitle = Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent
+    if (itemTitle.includes('Deathcap')) {
       if (this[`dcapCount${side}`] === 1) {
         this[`dcap${side}`] = 1;
         this.setState(prevState => ({
@@ -12843,10 +12866,9 @@ class App extends Component {
       };
       this[`dcapCount${side}`]--;
     };
-    if (Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent.includes('Sterak')) {
+    if (itemTitle.includes('Sterak')) {
       if (this[`sterakCount${side}`] === 1) {
         this[`sterak${side}`] = 1;
-        var champStats = this[`champFile${side}`].stats;
         this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
@@ -12855,6 +12877,18 @@ class App extends Component {
         }))
       };
       this[`sterakCount${side}`]--;
+    };
+    if (itemTitle.includes('Fimbulwinter') || itemTitle.includes(`Winter's Approach`)) {
+      if (this[`winterCount${side}`] === 1) {
+        this[`winter${side}`] = 0;
+        this.setState(prevState => ({
+          [totalStats]: {
+            ...prevState[totalStats],
+            hp: +prevState[totalStats].hp - +prevState[totalStats].mana*0.08
+          }
+        }))
+      };
+      this[`winterCount${side}`]--;
     };
     var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
     for (var i = 0; i < spanArray.length; i++) {
@@ -12879,7 +12913,7 @@ class App extends Component {
       if (spanText.includes('Attack Speed')) {
         itemStats.as -= statQuantity/100;
         if (this.state[`champName${side}`] !== '') {
-          subtractItemStats('as', (statQuantity * this[`champFile${side}`].stats.asRatio)/100);
+          subtractItemStats('as', (statQuantity * champStats.asRatio)/100);
         } else {
           subtractItemStats('as', statQuantity/100)
         };
@@ -12907,21 +12941,22 @@ class App extends Component {
         } else {
           itemStats.hpRegen -= statQuantity;
           if (this.state[`champName${side}`] !== '') {
-            subtractItemStats('hpRegen', (statQuantity * this[`champFile${side}`].stats.baseHPRegen)/100);
+            subtractItemStats('hpRegen', (statQuantity * champStats.baseHPRegen)/100);
           } else {
             subtractItemStats('hpRegen', statQuantity);
           };
         }
         continue;
       };
-      if (spanText.includes('Mana')) {
+      if (spanText.includes('Mana') && champStats.mana.base) {
         if (!spanText.includes('Regen')) {
           itemStats.mana -= statQuantity;
           subtractItemStats('mana', statQuantity);
+          subtractItemStats('hp', statQuantity*this[`winter${side}`]);
         } else {
           itemStats.manaRegen -= statQuantity;
           if (this.state[`champName${side}`] !== '') {
-            subtractItemStats('manaRegen', (statQuantity * this[`champFile${side}`].stats.mana.manaBaseRegen)/100);
+            subtractItemStats('manaRegen', (statQuantity * champStats.mana.manaBaseRegen)/100);
           } else {
             subtractItemStats('manaRegen', statQuantity);
           };
