@@ -549,7 +549,6 @@ class App extends Component {
   };
 
   calculateAbility(side) {
-
       var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
       for (var i = 0; i < abilitiesLength; i++) {
         var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
@@ -610,9 +609,11 @@ class App extends Component {
       }; 
       var totalLethality = itemStats.lethality;
       var totalLifeSteal = itemStats.lifeSteal;
-      var totalMana = itemStats.mana + statsPath["mana"]["base"] + statsPath["mana"]["manaPerLvl"] * champLvlRatio;
-      var bonusMana = itemStats.mana;
+      var totalMana = (itemStats.mana + statsPath["mana"]["base"] + statsPath["mana"]["manaPerLvl"] * champLvlRatio)
+      *this[`mana${side}`];
+      var bonusMana = itemStats.mana * this[`mana${side}`];
       var nonBaseAS = runeStats.as + (itemStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
+      var hasteRatio = 100/(100 + itemStats.cdr);
 
       var QRank;
       if (document.getElementById(`QRank${side}`).value == 0) {
@@ -679,13 +680,13 @@ class App extends Component {
             abilityDiv.appendChild(a);
           }
         };
-        function removeParen2(x) {
+        /*function removeParen2(x) {
           if (typeof x !== 'number') {
             return JSON.stringify(x).replace(/,/g, ', ').replace(/^\[|]$/g, '')
           } else {
             return x
           }
-        };
+        };*/
         function removeParen(x) {
           if (typeof x !== 'number') {
             return JSON.stringify(x).replace(/,/g, ' / ').replace(/^\[|]$/g, '')
@@ -741,95 +742,42 @@ class App extends Component {
           var a = document.createTextNode(text);
           abilityDiv.appendChild(a);
         };
-        function colorAD(text){
+        function colorText(text, colorRgb, colorSrc){
           var c = document.createElement('span');
           var d = document.createTextNode(text);
           c.appendChild(d);
-          c.style.color = 'rgb(189, 125, 76)';
+          c.style.color = colorRgb;
           abilityDiv.appendChild(c);
           var e = document.createElement('img');
-          e.src = ADIcon;
+          e.src = colorSrc;
           abilityDiv.appendChild(e);
+        };
+        function colorAD(text){
+          colorText(text, 'rgb(189, 125, 76)', ADIcon)
         };
         function colorAP(text){
-          var c = document.createElement('span');
-          var d = document.createTextNode(text);
-          c.appendChild(d);
-          c.style.color = 'rgb(156, 255, 247)';
-          abilityDiv.appendChild(c);
-          var e = document.createElement('img');
-          e.src = APIcon;
-          abilityDiv.appendChild(e);
+          colorText(text, 'rgb(156, 255, 247)', APIcon)
         };
         function colorHP(text){
-          var c = document.createElement('span');
-          var d = document.createTextNode(text);
-          c.appendChild(d);
-          c.style.color = 'rgb(32, 152, 93)';
-          abilityDiv.appendChild(c);
-          var e = document.createElement('img');
-          e.src = healthIcon;
-          abilityDiv.appendChild(e);
+          colorText(text, 'rgb(32, 152, 93)', healthIcon)
         };
         function colorArmor(text){
-          var c = document.createElement('span');
-          var d = document.createTextNode(text);
-          c.appendChild(d);
-          c.style.color = 'rgb(247, 113, 90)';
-          abilityDiv.appendChild(c);
-          var e = document.createElement('img');
-          e.src = armorIcon;
-          abilityDiv.appendChild(e);
+          colorText(text, 'rgb(247, 113, 90)', armorIcon)
         };
         function colorMR(text){
-          var c = document.createElement('span');
-          var d = document.createTextNode(text);
-          c.appendChild(d);
-          c.style.color = 'rgb(206, 142, 214)';
-          abilityDiv.appendChild(c);
-          var e = document.createElement('img');
-          e.src = magicResIcon;
-          abilityDiv.appendChild(e);
+          colorText(text, 'rgb(206, 142, 214)', magicResIcon)
         };
         function colorAS(text){
-          var c = document.createElement('span');
-          var d = document.createTextNode(text);
-          c.appendChild(d);
-          c.style.color = 'rgb(255, 203, 90)';
-          abilityDiv.appendChild(c);
-          var e = document.createElement('img');
-          e.src = attackSpeedIcon;
-          abilityDiv.appendChild(e);
+          colorText(text, 'rgb(255, 203, 90)', attackSpeedIcon)
         };
         function colorForce(text){
-          var c = document.createElement('span');
-          var d = document.createTextNode(text);
-          c.appendChild(d);
-          c.style.color = 'rgb(132, 69, 255)';
-          abilityDiv.appendChild(c);
-          var e = document.createElement('img');
-          e.src = forceIcon;
-          abilityDiv.appendChild(e);
+          colorText(text, 'rgb(132, 69, 255)', forceIcon)
         };
         function colorCrit(text){
-          var c = document.createElement('span');
-          var d = document.createTextNode(text);
-          c.appendChild(d);
-          c.style.color = 'rgb(213, 58, 66)';
-          abilityDiv.appendChild(c);
-          var e = document.createElement('img');
-          e.src = critChanceIcon;
-          abilityDiv.appendChild(e);
+          colorText(text, 'rgb(213, 58, 66)', critChanceIcon)
         };
         function colorMana(text){
-          var c = document.createElement('span');
-          var d = document.createTextNode(text);
-          c.appendChild(d);
-          c.style.color = 'rgb(29, 169, 255)';
-          abilityDiv.appendChild(c);
-          var e = document.createElement('img');
-          e.src = manaIcon;
-          abilityDiv.appendChild(e);
+          colorText(text, 'rgb(29, 169, 255)', manaIcon)
         };
         function multiplyTicks(x) {
           if (typeof x !== 'number') {
@@ -2644,12 +2592,14 @@ class App extends Component {
                 if (path["bonusArmor"]["minArmorRatio"]) {
                   addText('Min: (' + removeParen(path["bonusArmor"]["minArmorRatio"]));
                   colorArmor(' Armor');
-                  addText('ratio), Max: (' + removeParen(path["bonusArmor"]["maxArmorRatio"]));
-                  colorArmor(' Armor');
                   addText('ratio)');
                   singleBreak();
+                  addText('Max: (' + removeParen(path["bonusArmor"]["maxArmorRatio"]));
+                  colorArmor(' Armor');
+                  addText('ratio)');
+                  /*singleBreak();
                   addText('Current Min: ' + Math.round(path["bonusArmor"]["minArmorRatio"] * totalArmor) 
-                  + ', Max: ' + + Math.round(path["bonusArmor"]["maxArmorRatio"] * totalArmor));
+                  + ', Max: ' + + Math.round(path["bonusArmor"]["maxArmorRatio"] * totalArmor));*/
                 }
                 if (path["bonusArmorRatio"]) {
                   addText(' (+' + removeParen(path["bonusArmorRatio"]));
@@ -6227,6 +6177,13 @@ class App extends Component {
                   addText(' (+' + arrayCheck(path["bonusHealth"]["healthPerTakedown"]) + ' per takedown)');
                 };
               };
+              if (path["bonusArmor"]) {
+                underLine('Bonus Armor');
+                if (path["bonusArmor"]["minArmorRatio"]) {
+                  addText('Min: ' + Math.round(arrayCheck(path["bonusArmor"]["minArmorRatio"]) * totalArmor) 
+                  + ', Max: ' + + Math.round(arrayCheck(path["bonusArmor"]["maxArmorRatio"]) * totalArmor));
+                }
+              };
               if (path["armorPenRatio"]) {
                 underLine('Armor Pen Ratio');
                 addText(arrayCheck(path["armorPenRatio"]));
@@ -7849,20 +7806,25 @@ class App extends Component {
 
             if (champFile[ability]["coolDown"]) {
               addGrey("Cooldown: ");
-              addText(arrayCheck(champFile[ability]["coolDown"]));
+              addText(hasteRatio === 1 ? arrayCheck(champFile[ability]["coolDown"])
+               : (arrayCheck(champFile[ability]["coolDown"])*hasteRatio).toFixed(1));
             };
             if (champFile[ability]["minCoolDown"] && !champFile[ability]["staticCoolDownFormula"]) {
               addGrey("Cooldown: ");
-              addText('Max: ' + arrayCheck(champFile[ability]["maxCoolDown"])
-              + ', Min: ' + arrayCheck(champFile[ability]["minCoolDown"]));
+              addText('Max: ' + hasteRatio === 1 ? arrayCheck(champFile[ability]["maxCoolDown"])
+              : (arrayCheck(champFile[ability]["maxCoolDown"])*hasteRatio).toFixed(1)
+              + ', Min: ' + hasteRatio === 1 ? arrayCheck(champFile[ability]["minCoolDown"])
+              : (arrayCheck(champFile[ability]["minCoolDown"])*hasteRatio).toFixed(1));
             };
             if (champFile[ability]["maxCoolDown"] && !champFile[ability]["minCoolDown"]) {
               addBold("Max Cooldown: ");
-              addText(arrayCheck(champFile[ability]["maxCoolDown"]));
+              addText(hasteRatio === 1 ? arrayCheck(champFile[ability]["maxCoolDown"])
+              : (arrayCheck(champFile[ability]["maxCoolDown"])*hasteRatio).toFixed(1));
             };
             if (champFile[ability]["coolDownByLvl"]) {
               addGrey("Cooldown: ");
-              addText(champFile[ability]["coolDownByLvl"][champLevel])
+              addText(hasteRatio === 1 ? champFile[ability]["coolDownByLvl"][champLevel] 
+              : (champFile[ability]["coolDownByLvl"][champLevel]*hasteRatio).toFixed(1))
             };
             if (champFile[ability]["combatCoolDown"]) {
               addBold("Combat Cooldown: ");
@@ -7944,7 +7906,8 @@ class App extends Component {
                 singleBreak();
               };
               addBold("Recharge: ");
-              addText(arrayCheck(champFile[ability]["recharge"]));
+              addText(hasteRatio === 1 ? arrayCheck(champFile[ability]["recharge"]) 
+              : (arrayCheck(champFile[ability]["recharge"])*hasteRatio).toFixed(1));
             };
             if (champFile[ability]["staticCoolDownFormula"]) {
               addGrey("Cooldown: ");
@@ -8063,8 +8026,9 @@ class App extends Component {
               var hr2 = document.createElement('hr');
               abilityDiv.appendChild(hr2);
               if (path["coolDown"]) {
-                underLine('Cooldown');
-                addText(arrayCheck(path["coolDown"]));
+                addGrey('Cooldown: ');
+                addText(hasteRatio === 1 ? arrayCheck(path["coolDown"]) 
+                : (arrayCheck(path["coolDown"])*hasteRatio).toFixed(1));
               }
             }
           };
@@ -8622,7 +8586,8 @@ class App extends Component {
 
             if (champFile[tfAbility]['coolDown']) {
               addGrey('Cooldown: ');
-              addText(arrayCheck(champFile[tfAbility]['coolDown']));
+              addText(hasteRatio === 1 ? arrayCheck(champFile[tfAbility]['coolDown']) 
+              : (arrayCheck(champFile[tfAbility]['coolDown'])*hasteRatio).toFixed(1));
             };
 
             if (champFile[tfAbility]["coolDownRefundRatio"]) {
@@ -8634,14 +8599,15 @@ class App extends Component {
             if (champFile[tfAbility]["reducedCoolDownByRRank"]) {
               singleBreak();
               underLine('Reduced Cooldown');
-              addText(champFile[tfAbility]["reducedCoolDownByRRank"][RRank]);
+              addText(hasteRatio === 1 ? champFile[tfAbility]["reducedCoolDownByRRank"][RRank]
+              : (champFile[tfAbility]["reducedCoolDownByRRank"][RRank]*hasteRatio).toFixed(1));
             }
 
             if (champFile[tfAbility]['rechargeByLvl']) {
-              var path = champFile[tfAbility]['rechargeByLvl']
               singleBreak();
               underLine('Recharge');
-              addText(path[champLevel]);
+              addText(hasteRatio === 1 ? champFile[tfAbility]['rechargeByLvl'][champLevel]
+              : (champFile[tfAbility]['rechargeByLvl'][champLevel]*hasteRatio).toFixed(1));
             }
           }
         }
@@ -8904,10 +8870,6 @@ class App extends Component {
     var champName = this[`champName${side}`];
     var runeStats = this[`runes${side}`];
     var statsPath = this[`champFile${side}`][`stats`];
-    var sideStyle = {left: '20px'}
-    if (side === 'Right') {
-      sideStyle = {right: '20px'}
-    }
 
     this.setState(prevState => ({
       [`totalStats${side}`]: {
@@ -8933,14 +8895,15 @@ class App extends Component {
         [`tfTotalStats${side}`]: {
           ...prevState[`tfTotalStats${side}`],
           hp: itemStats.hp + runeStats.hp + tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio,
-          manaRegen: itemStats.manaRegen + tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
+          manaRegen: (itemStats.manaRegen + tfPath.mana["manaBaseRegen"] 
+            + tfPath.mana["manaRegenPerLvl"] * champLvlRatio)*this[`mana${side}`],
           hpRegen: itemStats.hpRegen + tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
           as: tfPath["attackSpeed"] + (itemStats.as + runeStats.as + tfPath["asPerLvl"] * champLvlRatio) * tfPath["asRatio"],
           arm: itemStats.arm + runeStats.arm + tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
           ad: itemStats.ad + runeStats.ad 
           + (tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
           mr: itemStats.mr + runeStats.mr + tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
-          mana: itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio
+          mana: (itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]
         }
       }));
       if (champName === 'Kled') {
