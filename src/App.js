@@ -524,6 +524,8 @@ class App extends Component {
   forceTypeRight = 'ad';
   haveMythicLeft = false;
   haveMythicRight = false;
+  mythicBonusLeft = [];
+  mythicBonusRight = [];
   itemCounterLeft = 0;
   itemCounterRight = 0;
   invenLeftTT1 = '';
@@ -9688,6 +9690,34 @@ class App extends Component {
     })
   };
 
+  mythicBonuses = {
+    0: ['ap', 8],
+    1: ['arPenRatio', 0.05, 'magicPenRatio', 0.05],
+    2: ['cdr', 5],
+    3: ['arPenRatio', 0.04],
+    4: ['arm', 5, 'mr', 5],
+    5: ['ap', 10],
+    6: ['hp', 100],
+    7: [],
+    8: ['cdr', 7],
+    9: ['magicPenFlat', 5],
+    10: ['ad', 5, 'hp', 70],
+    11: ['ap', 15],
+    12: ['as', 0.1],
+    13: ['cdr', 5],
+    14: ['arm', 2, 'mr', 2],
+    15: ['magicPenFlat', 5],
+    16: [],
+    17: ['cdr', 5],
+    18: ['lethality', 5],
+    19: ['omni', 0.02, 'ap', 8],
+    20: ['cdr', 5],
+    21: [],
+    22: ['hp', 50],
+    23: ['ad', 3, 'cdr', 3],
+    24: ['hp', 50, 'cdr', 5]
+  };
+
   mythicItems = {
     0: 
     <div>
@@ -12563,6 +12593,16 @@ class App extends Component {
         continue;
       };
     };
+    var bonusArray = this.mythicBonuses[mythicIndex];
+    this[`mythicBonus${side}`] = bonusArray;
+    if (this[`itemCounter${side}`] > 1 && bonusArray[0]) {
+      this[`itemStats${side}`][bonusArray[0]] += bonusArray[1] * (this[`itemCounter${side}`] - 1);
+      addItemStats(bonusArray[0], bonusArray[1] * (this[`itemCounter${side}`] - 1));
+      if (bonusArray[2]) {
+        this[`itemStats${side}`][bonusArray[2]] += bonusArray[3] * (this[`itemCounter${side}`] - 1);
+        addItemStats(bonusArray[2], bonusArray[3] * (this[`itemCounter${side}`] - 1));
+      }
+    };
     if (this[`forceType${side}`] === 'ad' && itemStats.ap > itemStats.ad) {
       var adFromRunes = this[`runes${side}`].ad;
       this.setState(prevState => ({
@@ -12756,6 +12796,17 @@ class App extends Component {
         continue;
       };
     };
+    if (this[`haveMythic${side}`]) {
+      var bonusArray = this[`mythicBonus${side}`];
+      if (bonusArray[0]) {
+        this[`itemStats${side}`][bonusArray[0]] += bonusArray[1];
+        addItemStats(bonusArray[0], bonusArray[1]);
+        if (bonusArray[2]) {
+          this[`itemStats${side}`][bonusArray[2]] += bonusArray[3];
+          addItemStats(bonusArray[2], bonusArray[3]);
+        }
+      }
+    };
     if (this[`forceType${side}`] === 'ad' && itemStats.ap > itemStats.ad) {
       var adFromRunes = this[`runes${side}`].ad;
       this.setState(prevState => ({
@@ -12792,10 +12843,12 @@ class App extends Component {
     this[`itemCounter${side}`]--;
     event.target.setAttribute('src', blackbg);
     event.target.style.cursor = '';
+    var removedMythic = false
     if (event.target.style.border === '1px solid rgb(255, 203, 90)'){
       event.target.style.border = '1px outset black';
       this[`haveMythic${side}`] = false;
       document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
+      removedMythic = true
     };
     var itemStats = this[`itemStats${side}`];
     var totalStats = [`totalStats${side}`];
@@ -12946,6 +12999,29 @@ class App extends Component {
         itemStats.lifeSteal -= statQuantity/100;
         subtractItemStats('lifeSteal', statQuantity)
         continue;
+      };
+    };
+    if (removedMythic) {
+      var bonusArray = this[`mythicBonus${side}`];
+      if (this[`itemCounter${side}`] && bonusArray[0]) {
+        this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1] * this[`itemCounter${side}`];
+        subtractItemStats(bonusArray[0], bonusArray[1] * this[`itemCounter${side}`]);
+        if (bonusArray[2]) {
+          this[`itemStats${side}`][bonusArray[2]] -= bonusArray[3] * this[`itemCounter${side}`];
+          subtractItemStats(bonusArray[2], bonusArray[3] * this[`itemCounter${side}`]);
+        }
+      };
+      this[`mythicBonus${side}`] = [];
+    };
+    if (this[`haveMythic${side}`]) {
+      var bonusArray = this[`mythicBonus${side}`];
+      if (bonusArray[0]) {
+        this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1];
+        subtractItemStats(bonusArray[0], bonusArray[1]);
+        if (bonusArray[2]) {
+          this[`itemStats${side}`][bonusArray[2]] -= bonusArray[3];
+          subtractItemStats(bonusArray[2], bonusArray[3]);
+        }
       };
     };
     if (this[`forceType${side}`] === 'ad' && itemStats.ap > itemStats.ad) {
@@ -13466,9 +13542,9 @@ class App extends Component {
           </div>
 
           <div>
-            <button type='button' id='itemsToggleLeft' onClick={() => this.itemsToggle('Left')}>Show Items</button>
+            <button type='button' id='itemsToggleLeft' onClick={() => this.itemsToggle('Left')}>Hide Items</button>
             <button type='button' id='itemsToggleRight' style={{float: 'right'}}
-              onClick={() => this.itemsToggle('Right')}>Show Items</button>
+              onClick={() => this.itemsToggle('Right')}>Hide Items</button>
           </div>
 
 
