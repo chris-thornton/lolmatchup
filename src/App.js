@@ -12596,8 +12596,13 @@ class App extends Component {
     var bonusArray = this.mythicBonuses[mythicIndex];
     this[`mythicBonus${side}`] = bonusArray;
     if (this[`itemCounter${side}`] > 1 && bonusArray[0]) {
-      this[`itemStats${side}`][bonusArray[0]] += bonusArray[1] * (this[`itemCounter${side}`] - 1);
-      addItemStats(bonusArray[0], bonusArray[1] * (this[`itemCounter${side}`] - 1));
+      if (bonusArray[0] === 'as' && this[`champName${side}`]) {
+        this[`itemStats${side}`][bonusArray[0]] += bonusArray[1] * (this[`itemCounter${side}`] - 1) * champStats.asRatio;
+        addItemStats(bonusArray[0], bonusArray[1] * (this[`itemCounter${side}`] - 1) * champStats.asRatio);
+      } else {
+        this[`itemStats${side}`][bonusArray[0]] += bonusArray[1] * (this[`itemCounter${side}`] - 1);
+        addItemStats(bonusArray[0], bonusArray[1] * (this[`itemCounter${side}`] - 1));
+      }
       if (bonusArray[2]) {
         this[`itemStats${side}`][bonusArray[2]] += bonusArray[3] * (this[`itemCounter${side}`] - 1);
         addItemStats(bonusArray[2], bonusArray[3] * (this[`itemCounter${side}`] - 1));
@@ -12799,8 +12804,13 @@ class App extends Component {
     if (this[`haveMythic${side}`]) {
       var bonusArray = this[`mythicBonus${side}`];
       if (bonusArray[0]) {
-        this[`itemStats${side}`][bonusArray[0]] += bonusArray[1];
-        addItemStats(bonusArray[0], bonusArray[1]);
+        if (bonusArray[0] === 'as' && this[`champName${side}`]) {
+          this[`itemStats${side}`][bonusArray[0]] += bonusArray[1] * champStats.asRatio;
+          addItemStats(bonusArray[0], bonusArray[1] * champStats.asRatio);
+        } else {
+          this[`itemStats${side}`][bonusArray[0]] += bonusArray[1];
+          addItemStats(bonusArray[0], bonusArray[1]);
+        };
         if (bonusArray[2]) {
           this[`itemStats${side}`][bonusArray[2]] += bonusArray[3];
           addItemStats(bonusArray[2], bonusArray[3]);
@@ -13004,8 +13014,13 @@ class App extends Component {
     if (removedMythic) {
       var bonusArray = this[`mythicBonus${side}`];
       if (this[`itemCounter${side}`] && bonusArray[0]) {
-        this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1] * this[`itemCounter${side}`];
-        subtractItemStats(bonusArray[0], bonusArray[1] * this[`itemCounter${side}`]);
+        if (bonusArray[0] === 'as' && this[`champName${side}`]) {
+          this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1] * this[`itemCounter${side}`] * champStats.asRatio;
+          subtractItemStats(bonusArray[0], bonusArray[1] * this[`itemCounter${side}`] * champStats.asRatio);
+        } else {
+          this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1] * this[`itemCounter${side}`];
+          subtractItemStats(bonusArray[0], bonusArray[1] * this[`itemCounter${side}`]);
+        };
         if (bonusArray[2]) {
           this[`itemStats${side}`][bonusArray[2]] -= bonusArray[3] * this[`itemCounter${side}`];
           subtractItemStats(bonusArray[2], bonusArray[3] * this[`itemCounter${side}`]);
@@ -13016,8 +13031,13 @@ class App extends Component {
     if (this[`haveMythic${side}`]) {
       var bonusArray = this[`mythicBonus${side}`];
       if (bonusArray[0]) {
-        this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1];
-        subtractItemStats(bonusArray[0], bonusArray[1]);
+        if (bonusArray[0] === 'as' && this[`champName${side}`]) {
+          this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1] * champStats.asRatio;
+          subtractItemStats(bonusArray[0], bonusArray[1] * champStats.asRatio);
+        } else {
+          this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1];
+          subtractItemStats(bonusArray[0], bonusArray[1]);
+        };
         if (bonusArray[2]) {
           this[`itemStats${side}`][bonusArray[2]] -= bonusArray[3];
           subtractItemStats(bonusArray[2], bonusArray[3]);
