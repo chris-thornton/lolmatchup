@@ -868,7 +868,7 @@ class App extends Component {
 
             if (champFile[ability]["auto"]) {
               var path = champFile[ability]["auto"];
-              addBold('Modified Auto Attack: ');
+              addBold('Modified Basic Attack: ');
               var baseAutoDmg = totalAD;
               var newAutoDmg = baseAutoDmg;
               if (path["dmgRatio"]) {
@@ -910,28 +910,30 @@ class App extends Component {
                 };
                 doubleBreak();
                 addBold('Crit Damage: ');
-                addText(Math.round(newAutoDmg * path["critDmg"]));
+                addText(factorRes('Physical', newAutoDmg * path["critDmg"]));
                 if (path["critDmgWithIE"]) {
-                  addText(' (' + Math.round(newAutoDmg * path["critDmgWithIE"]) + ' with Infinity Edge)');
+                  addText(' (' + factorRes('Physical', newAutoDmg * path["critDmgWithIE"]) + ' with Infinity Edge)');
                 }
               };
               if (path["dmgRatio"]) {
                 doubleBreak();
-                addBold('Auto Damage: ');
-                addText(Math.round(newAutoDmg));
+                addBold('Basic Attack Damage: ');
+                addText(factorRes('Physical', newAutoDmg));
               };
               if (path["system"] === 'minMax') {
                 doubleBreak();
-                addBold('Auto Damage: ');
+                addBold('Basic Attack Damage: ');
                 underLine('Min');
-                addText(Math.round(path["minADRatioByLvl"][champLevel]*(baseAutoDmg))+ ' (Crit: ' 
-                + Math.round(path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg'])) + ', Crit with IE: ' 
-                + Math.round(path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')');
+                addText(factorRes('Physical', path["minADRatioByLvl"][champLevel]*(baseAutoDmg))+ ' (Crit: ' 
+                + factorRes('Physical', path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg'])) 
+                + ', Crit with IE: ' + factorRes('Physical', 
+                path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')');
                 singleBreak();
                 underLine('Max');
-                addText(Math.round(path["maxADRatioByLvl"][champLevel]*(baseAutoDmg))+ ' (Crit: ' + 
-                Math.round(path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg']))+ ', Crit with IE: ' 
-                + Math.round(path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')' );
+                addText(factorRes('Physical', path["maxADRatioByLvl"][champLevel]*(baseAutoDmg))+ ' (Crit: ' + 
+                factorRes('Physical', path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg']))
+                + ', Crit with IE: ' + factorRes('Physical', 
+                path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')' );
               };
               doubleBreak();
             };
@@ -941,9 +943,9 @@ class App extends Component {
               if (!damage["durationAutos"] && !damage['autoCoolDown']) {
                 addBold('Auto Attack Empower: ')
               } else if (damage['autoCoolDown']) {
-                addBold('Empower 1 in every ' +  damage["autoCoolDown"] + ' Auto Attacks: ')
+                addBold('Empower 1 in every ' +  damage["autoCoolDown"] + ' Basic Attacks: ')
               } else {
-                addBold('Empower ' +  damage["durationAutos"] + ' Auto Attacks: ')
+                addBold('Empower ' +  damage["durationAutos"] + ' Basic Attacks: ')
               };
               underLine(damage['type'] + " Damage");
               if (damage["dmg"]) {
@@ -5174,10 +5176,10 @@ class App extends Component {
                     if (part["ADRatio"]) {
                       dmgCount += arrayCheck(part["ADRatio"]) * totalAD;
                     };
-                    addText(Math.round(dmgCount));
+                    addText(factorRes(part['type'] ? part['type'] : damage['type'], dmgCount));
                     if (part["trueDmgRatioByLvl"]) {
                       singleBreak();
-                      addText('Physical: ' + factorRes(part['type'], (1 - part["trueDmgRatioByLvl"][champLevel]) 
+                      addText('Physical: ' + factorRes('Physical', (1 - part["trueDmgRatioByLvl"][champLevel]) 
                       * dmgCount) + ', True: ' + Math.round(part["trueDmgRatioByLvl"][champLevel] * dmgCount));
                     };
                     if (damage[`part${i + 1}`]) {
@@ -5750,7 +5752,7 @@ class App extends Component {
 
                   if (part["type"]) {
                     if (part["postMitigation"] === 'Magic') {
-                      addText(dmgType + ' Damage (part 1 damage, post-mitigation): ');
+                      addText(part["type"] + ' Damage (part 1 damage, post-mitigation): ');
                     } else {
                       addText(part['type'] + " Damage: ")
                     };
@@ -5784,7 +5786,7 @@ class App extends Component {
                     partDmgCount += arrayCheck(part["maxHPRatio"]) * totalHP;
                   };
                   if (partDmgCount !== 0) {
-                    addText(factorRes(part['type'], partDmgCount));
+                    addText(factorRes(part['type'] ? part['type'] : damage['type'], partDmgCount));
                   };
                   if (part["enemyMaxHPRatio"] && !enemyStats.baseHP) {
                     addText(" (+" + arrayCheck(part["enemyMaxHPRatio"]));
@@ -5827,7 +5829,7 @@ class App extends Component {
                     if (part["bonusDmgRatioPerCritChance"]) {
                       minPartDmgCount *= (1 + part["bonusDmgRatioPerCritChance"] * totalCritChance);
                     };
-                    addText(factorRes(part['type'], minPartDmgCount));
+                    addText(factorRes(part['type'] ? part['type'] : damage['type'], minPartDmgCount));
                     if (part["minEnemyMissingHPRatioByLvl"]) {
                       addText(' (+' + part["minEnemyMissingHPRatioByLvl"][champLevel]);
                       colorHP(' Enemy Missing HP');
@@ -5859,7 +5861,7 @@ class App extends Component {
                     if (part["bonusDmgRatioPerCritChance"]) {
                       maxPartDmgCount *= (1 + part["bonusDmgRatioPerCritChance"] * totalCritChance);
                     };
-                    addText(factorRes(part['type'], maxPartDmgCount));
+                    addText(factorRes(part['type'] ? part['type'] : damage['type'], maxPartDmgCount));
                     if (part["maxEnemyMissingHPRatioByLvl"]) {
                       addText(' (+' + part["maxEnemyMissingHPRatioByLvl"][champLevel]);
                       colorHP(' Enemy Missing HP');
