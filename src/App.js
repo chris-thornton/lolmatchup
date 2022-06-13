@@ -570,6 +570,9 @@ class App extends Component {
       var champName = this[`champName${side}`];
 
       var enemyStats = this[`champFile${otherSide}`].stats;
+      var enemyArmor = this.state[`totalStats${otherSide}`].arm;
+      var enemyMR = this.state[`totalStats${otherSide}`].mr;
+      var enemyHP = this.state[`totalStats${otherSide}`].hp;
       var itemStats = this[`itemStats${side}`];
       var enemyItemStats = this[`itemStats${otherSide}`];
       var champLevel = this[`level${side}`] - 1;
@@ -844,6 +847,16 @@ class App extends Component {
               return (x * path["ticks"]).toFixed(countDecimals(x))
           }
         }
+
+        function factorRes (type, totalDmg) {
+          if (!enemyStats.baseHP || type === 'True') {
+            return Math.round(totalDmg);
+          } else if (type === 'Physical') {
+            return Math.round(totalDmg * 100/(100+enemyArmor));
+          } else if (type === 'Magic') {
+            return Math.round(totalDmg * 100/(100+enemyMR));
+          }
+        };
 
         if (champFile[ability]) {
           if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value == 0) {
@@ -4856,31 +4869,31 @@ class App extends Component {
               if (damage["bonusADRatio"]) {
                 totalDmgCount += arrayCheck(damage["bonusADRatio"]) * bonusAD;
               };
-              if (damage["enemyMaxHPRatio"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatio"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyMaxHPRatio"]) * enemyTotalHP;
               };
-              if (damage["enemyMaxHPRatioPer100AD"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100AD"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyMaxHPRatioPer100AD"]) * enemyTotalHP * totalAD/100;
               };
-              if (damage["enemyMaxHPRatioPer100BonusAD"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100BonusAD"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyMaxHPRatioPer100BonusAD"]) * enemyTotalHP * bonusAD/100;
               };
-              if (damage["enemyMaxHPRatioPer100AP"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100AP"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
               };
-              if (damage["enemyMaxHPRatioByLvl"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatioByLvl"] && enemyStats.baseHP) {
                 totalDmgCount += damage["enemyMaxHPRatioByLvl"][champLevel] * enemyTotalHP;
               };
               if (damage["maxHPRatio"]) {
                 totalDmgCount += arrayCheck(damage["maxHPRatio"]) * totalHP;
               };
-              if ((damage["enemyCurrentHPRatio"] || damage["enemyCurrentHPByLvl"]) && enemyStats.hp) {
+              if ((damage["enemyCurrentHPRatio"] || damage["enemyCurrentHPByLvl"]) && enemyStats.baseHP) {
                 addText(' when enemy is full HP: ');
               };
-              if (damage["enemyCurrentHPRatio"] && enemyStats.hp) {
+              if (damage["enemyCurrentHPRatio"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyCurrentHPRatio"]) * enemyTotalHP;
               };
-              if (damage["enemyCurrentHPRatioByLvl"] && enemyStats.hp) {
+              if (damage["enemyCurrentHPRatioByLvl"] && enemyStats.baseHP) {
                 totalDmgCount += damage["enemyCurrentHPRatioByLvl"][champLevel] * enemyTotalHP;
               };
               if (damage["armorRatio"]) {
@@ -4889,7 +4902,7 @@ class App extends Component {
               if (damage["bonusArmorRatio"]) {
                 totalDmgCount += arrayCheck(damage["bonusArmorRatio"]) * bonusArmor;
               };
-              if (damage['enemyResistRatio'] && enemyStats.hp) {
+              if (damage['enemyResistRatio'] && enemyStats.baseHP) {
                 totalDmgCount += damage['enemyResistRatio'] * (enemyTotalArmor + enemyTotalMR);
               }
               if (damage["ADRatioPerCritChance"]) {
@@ -4900,26 +4913,28 @@ class App extends Component {
               };
               
               if (totalDmgCount !== 0) {
-                addText(Math.round(totalDmgCount));
+                //addText(Math.round(totalDmgCount));
+                addText(factorRes(damage['type'], totalDmgCount))
                 if (IEDmgCount !== 0) {
-                  addText(' (' + Math.round(totalDmgCount + IEDmgCount) + 'with IE)');
+                  //addText(' (' + Math.round(totalDmgCount + IEDmgCount) + 'with IE)');
+                  addText(' (' + factorRes(damage['type'], totalDmgCount + IEDmgCount) + 'with IE)');
                 }
               };
 
               var maxHPRatioCounter = 0;
-              if (damage["enemyMaxHPRatio"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatio"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(damage["enemyMaxHPRatio"]);
               };
-              if (damage["enemyMaxHPRatioPer100AD"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100AD"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(damage["enemyMaxHPRatioPer100AD"]) * totalAD/100; 
               };
-              if (damage["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(damage["enemyMaxHPRatioPer100BonusAD"]) * bonusAD/100;
               };
-              if (damage["enemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(damage["enemyMaxHPRatioPer100AP"]) * totalAP/100
               };
-              if (damage["enemyMaxHPRatioByLvl"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatioByLvl"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += damage["enemyMaxHPRatioByLvl"][champLevel];
               };
               if (maxHPRatioCounter !== 0) {
@@ -4927,22 +4942,23 @@ class App extends Component {
                 colorHP(' Enemy Max HP');
                 addText('ratio)');
               };
-              if (damage["enemyMaxHPRatioPerStack"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPerStack"] && !enemyStats.baseHP) {
                 addText(" (+" + arrayCheck(damage["enemyMaxHPRatioPerStack"]));
                 colorHP(' Enemy Max HP');
                 addText('ratio per stack)');
               };
-              if (damage["enemyMaxHPRatioPerStack"] && enemyStats.hp) {
-                addText(" (+" + Math.round(arrayCheck(damage["enemyMaxHPRatioPerStack"]) * enemyTotalHP) + " per stack)");
+              if (damage["enemyMaxHPRatioPerStack"] && enemyStats.baseHP) {
+                addText(" (+" + factorRes(damage['type'], arrayCheck(damage["enemyMaxHPRatioPerStack"]) * enemyTotalHP) 
+                + " per stack)");
               };
               var currentHPCounter = 0;
-              if (damage["enemyCurrentHPRatio"] && !enemyStats.hp) {
+              if (damage["enemyCurrentHPRatio"] && !enemyStats.baseHP) {
                 currentHPCounter += arrayCheck(damage["enemyCurrentHPRatio"]);
                 addText(" (+" + arrayCheck(damage["enemyCurrentHPRatio"]));
                 colorHP(' Enemy Current HP');
                 addText('ratio)');
               };
-              if (damage["enemyCurrentHPRatioByLvl"] && !enemyStats.hp) {
+              if (damage["enemyCurrentHPRatioByLvl"] && !enemyStats.baseHP) {
                 currentHPCounter += damage["enemyCurrentHPRatioByLvl"][champLevel];
               };
               if (currentHPCounter !== 0) {
@@ -5013,20 +5029,20 @@ class App extends Component {
                 if (damage["minArmorRatio"]) {
                   minDmgCount += arrayCheck(damage["minArmorRatio"]) * totalArmor;
                 };
-                if (damage["minEnemyMaxHPRatio"] && enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatio"] && enemyStats.baseHP) {
                   minDmgCount += arrayCheck(damage["minEnemyMaxHPRatio"]) * enemyTotalHP;
                 };
-                if (damage["minEnemyMaxHPRatioPer100AP"] && enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatioPer100AP"] && enemyStats.baseHP) {
                   minDmgCount += arrayCheck(damage["minEnemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                 };
                 if (minDmgCount !== 0) {
-                  addText(Math.round(minDmgCount));
+                  addText(factorRes(damage['type'], minDmgCount));
                 };
                 var minMaxHPRatioCounter = 0;
-                if (damage["minEnemyMaxHPRatio"] && !enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatio"] && !enemyStats.baseHP) {
                   minMaxHPRatioCounter += arrayCheck(damage["minEnemyMaxHPRatio"]);
                 };
-                if (damage["minEnemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                   minMaxHPRatioCounter += arrayCheck(damage["minEnemyMaxHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (minMaxHPRatioCounter !== 0) {
@@ -5059,20 +5075,20 @@ class App extends Component {
                 if (damage["maxArmorRatio"]) {
                   maxDmgCount += arrayCheck(damage["maxArmorRatio"]) * totalArmor;
                 };
-                if (damage["maxEnemyMaxHPRatio"] && enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatio"] && enemyStats.baseHP) {
                   maxDmgCount += arrayCheck(damage["maxEnemyMaxHPRatio"]) * enemyTotalHP;
                 };
-                if (damage["maxEnemyMaxHPRatioPer100AP"] && enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatioPer100AP"] && enemyStats.baseHP) {
                   maxDmgCount += arrayCheck(damage["maxEnemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                 };
                 if (maxDmgCount !== 0) {
-                  addText(Math.round(maxDmgCount));
+                  addText(factorRes(damage['type'], maxDmgCount));
                 };
                 var maxMaxHPRatioCounter = 0;
-                if (damage["maxEnemyMaxHPRatio"] && !enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatio"] && !enemyStats.baseHP) {
                   maxMaxHPRatioCounter += arrayCheck(damage["maxEnemyMaxHPRatio"]);
                 };
-                if (damage["maxEnemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                   maxMaxHPRatioCounter += arrayCheck(damage["maxEnemyMaxHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (maxMaxHPRatioCounter !== 0) {
@@ -5099,34 +5115,35 @@ class App extends Component {
                 } else {
                   underLine('Crit Damage');
                 };
-                abilityDiv.appendChild(critU);
                 if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
                   addText(damage["critDmg"]);
                 };
                 if (totalDmgCount !== 0) {
-                  addText(Math.round(damage["critDmg"] * totalDmgCount));
+                  addText(factorRes(damage['type'], damage["critDmg"] * totalDmgCount));
                 };
                 if (minDmgCount !== 0) {
-                  addText('Min: ' + Math.round(damage["critDmg"] * minDmgCount)
-                  + ', Max: ' + Math.round(damage["critDmg"] * maxDmgCount));
+                  addText('Min: ' + factorRes(damage['type'], damage["critDmg"] * minDmgCount)
+                  + ', Max: ' + factorRes(damage['type'], damage["critDmg"] * maxDmgCount));
                 };
                 if (damage["critDmgWithIE"]) {
                   if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
                     addText(' (' + damage["critDmgWithIE"] + ' with Infinity Edge)');
                   };
                   if (totalDmgCount !== 0) {
-                    addText(' (' + Math.round(damage["critDmgWithIE"] * totalDmgCount) + ' with Infinity Edge)');
+                    addText(' (' + factorRes(damage['type'], damage["critDmgWithIE"] * totalDmgCount) 
+                    + ' with Infinity Edge)');
                   };
                   if (minDmgCount !== 0) {
-                    addText(' (Min: ' + Math.round(damage["critDmgWithIE"] * minDmgCount)
-                    + ', Max: ' + Math.round(damage["critDmgWithIE"] * maxDmgCount) + ' with Infinity Edge)');
+                    addText(' (Min: ' + factorRes(damage['type'], damage["critDmgWithIE"] * minDmgCount)
+                    + ', Max: ' + factorRes(damage['type'], damage["critDmgWithIE"] * maxDmgCount) 
+                    + ' with Infinity Edge)');
                   }
                 }
               };
               if (damage["critADRatioWithIE"]) {
                 singleBreak();
                 underLine('Crit Bonus Dmg with Infinity Edge');
-                addText(Math.round(damage["critADRatioWithIE"]) * totalAD);
+                addText(factorRes(damage['type'], damage["critADRatioWithIE"]) * totalAD);
               };
               if (damage["duration"]) {
                 singleBreak();
@@ -5160,7 +5177,7 @@ class App extends Component {
                     addText(Math.round(dmgCount));
                     if (part["trueDmgRatioByLvl"]) {
                       singleBreak();
-                      addText('Physical: ' + Math.round((1 - part["trueDmgRatioByLvl"][champLevel]) 
+                      addText('Physical: ' + factorRes(part['type'], (1 - part["trueDmgRatioByLvl"][champLevel]) 
                       * dmgCount) + ', True: ' + Math.round(part["trueDmgRatioByLvl"][champLevel] * dmgCount));
                     };
                     if (damage[`part${i + 1}`]) {
@@ -5217,19 +5234,19 @@ class App extends Component {
               if (damage["bonusManaRatio"]) {
                 totalDmgCount += arrayCheck(damage["bonusManaRatio"]) * bonusMana;
               };
-              if (damage["enemyMaxHPRatio"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatio"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyMaxHPRatio"]) * enemyTotalHP;
               };
-              if (damage["enemyMaxHPRatioPer100AD"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100AD"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyMaxHPRatioPer100AD"]) * enemyTotalHP * totalAD/100;
               };
-              if (damage["enemyMaxHPRatioPer100BonusAD"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100BonusAD"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyMaxHPRatioPer100BonusAD"]) * enemyTotalHP * bonusAD/100;
               };
-              if (damage["enemyMaxHPRatioPer100AP"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100AP"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
               };
-              if (damage["enemyMaxHPRatioByLvl"] && enemyStats.hp) {
+              if (damage["enemyMaxHPRatioByLvl"] && enemyStats.baseHP) {
                 totalDmgCount += damage["enemyMaxHPRatioByLvl"][champLevel] * enemyTotalHP;
               };
               if (damage["maxHPRatio"]) {
@@ -5239,16 +5256,16 @@ class App extends Component {
                 totalDmgCount += arrayCheck(damage["bonusHPRatio"]) * bonusHP;
               };
               if ((damage["enemyCurrentHPRatio"] || damage["enemyCurrentHPRatioPer100AD"] 
-              || damage["enemyCurrentHPRatioPer100AP"]) && enemyStats.hp) {
+              || damage["enemyCurrentHPRatioPer100AP"]) && enemyStats.baseHP) {
                 addText(' when enemy is full HP: ');
               };
-              if (damage["enemyCurrentHPRatio"] && enemyStats.hp) {
+              if (damage["enemyCurrentHPRatio"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyCurrentHPRatio"]) * enemyTotalHP;
               };
-              if (damage["enemyCurrentHPRatioPer100AD"] && enemyStats.hp) {
+              if (damage["enemyCurrentHPRatioPer100AD"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyCurrentHPRatioPer100AD"]) * enemyTotalHP * totalAD/100;
               };
-              if (damage["enemyCurrentHPRatioPer100AP"] && enemyStats.hp) {
+              if (damage["enemyCurrentHPRatioPer100AP"] && enemyStats.baseHP) {
                 totalDmgCount += arrayCheck(damage["enemyCurrentHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
               }; 
               if (damage["armorRatio"]) {
@@ -5271,9 +5288,9 @@ class App extends Component {
                 if (damage["dmgRatioByRRank"]) {
                     totalDmgCount *= damage["dmgRatioByRRank"][RRank];
                 };
-                addText(Math.round(totalDmgCount));
+                addText(factorRes(damage['type'], totalDmgCount));
                 if (IEDmgCount !== 0) {
-                  addText(' (' + Math.round(totalDmgCount + IEDmgCount) + 'with IE)');
+                  addText(' (' + factorRes(damage['type'], totalDmgCount + IEDmgCount) + 'with IE)');
                 };
                 if (damage["executeDmgRatio"]) {
                   singleBreak();
@@ -5282,19 +5299,19 @@ class App extends Component {
                 }
               };
               var maxHPRatioCounter = 0;
-              if (damage["enemyMaxHPRatio"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatio"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(damage["enemyMaxHPRatio"]);
               };
-              if (damage["enemyMaxHPRatioPer100AD"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100AD"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(damage["enemyMaxHPRatioPer100AD"]) * totalAD/100; 
               };
-              if (damage["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(damage["enemyMaxHPRatioPer100BonusAD"]) * bonusAD/100;
               };
-              if (damage["enemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(damage["enemyMaxHPRatioPer100AP"]) * totalAP/100;
               };
-              if (damage["enemyMaxHPRatioByLvl"] && !enemyStats.hp) {
+              if (damage["enemyMaxHPRatioByLvl"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += damage["enemyMaxHPRatioByLvl"][champLevel];
               };
               if (maxHPRatioCounter !== 0) {
@@ -5320,13 +5337,13 @@ class App extends Component {
                 addText('ratio per stack)');
               };
               var currentHPCounter = 0;
-              if (damage["enemyCurrentHPRatio"] && !enemyStats.hp) {
+              if (damage["enemyCurrentHPRatio"] && !enemyStats.baseHP) {
                 currentHPCounter += arrayCheck(damage["enemyCurrentHPRatio"]);
               };
-              if (damage["enemyCurrentHPRatioPer100AD"] && !enemyStats.hp) {
+              if (damage["enemyCurrentHPRatioPer100AD"] && !enemyStats.baseHP) {
                 currentHPCounter += arrayCheck(damage["enemyCurrentHPRatioPer100AD"]) * totalAD/100;
               };
-              if (damage["enemyCurrentHPRatioPer100AP"] && !enemyStats.hp) {
+              if (damage["enemyCurrentHPRatioPer100AP"] && !enemyStats.baseHP) {
                 currentHPCounter += arrayCheck(damage["enemyCurrentHPRatioPer100AP"]) * totalAP/100;
               };
               if (currentHPCounter !== 0) {
@@ -5358,7 +5375,7 @@ class App extends Component {
                 if (damage["minDmgAPRatio"]) {
                   minCount += arrayCheck(damage["minDmgAPRatio"]) * totalAP;
                 };
-                addText(Math.round(minCount));
+                addText(factorRes(damage['type'], minCount));
               };
 
               if (damage["system"] === "minMax" ) {
@@ -5387,47 +5404,47 @@ class App extends Component {
                 if (damage["minMaxHPRatio"]) {
                   minDmgCount += arrayCheck(damage["minMaxHPRatio"]) * totalHP;
                 };
-                if (damage["minEnemyMaxHPRatio"] && enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatio"] && enemyStats.baseHP) {
                   minDmgCount += arrayCheck(damage["minEnemyMaxHPRatio"]) * enemyTotalHP;
                 };
-                if (damage["minEnemyMaxHPRatioPer100AP"] && enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatioPer100AP"] && enemyStats.baseHP) {
                   minDmgCount += arrayCheck(damage["minEnemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                 };
-                if (damage["minEnemyMaxHPRatioPer100AD"] && enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatioPer100AD"] && enemyStats.baseHP) {
                   minDmgCount += arrayCheck(damage["minEnemyMaxHPRatioPer100AD"]) * enemyTotalHP * totalAD/100;
                 };
-                if (damage["minEnemyMaxHPRatioPer100BonusAD"] && enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatioPer100BonusAD"] && enemyStats.baseHP) {
                   minDmgCount += arrayCheck(damage["minEnemyMaxHPRatioPer100BonusAD"]) * enemyTotalHP * bonusAD/100
                 };
-                if (damage["minEnemyBonusHPRatio"] && enemyStats.hp) {
+                if (damage["minEnemyBonusHPRatio"] && enemyStats.baseHP) {
                   minDmgCount += arrayCheck(damage["minEnemyBonusHPRatio"]) * enemyTotalHP;
                 };
-                if ((damage["minEnemyCurrentHPRatio"] || damage["minEnemyCurrentHPRatioPer100AP"]) && enemyStats.hp) {
+                if ((damage["minEnemyCurrentHPRatio"] || damage["minEnemyCurrentHPRatioPer100AP"]) && enemyStats.baseHP) {
                   addText(' when enemy is full HP: ');
                 }
-                if (damage["minEnemyCurrentHPRatio"] && enemyStats.hp) {
+                if (damage["minEnemyCurrentHPRatio"] && enemyStats.baseHP) {
                   minDmgCount += arrayCheck(damage["minEnemyCurrentHPRatio"]) * enemyTotalHP;
                 };
-                if (damage["minEnemyCurrentHPRatioPer100AP"] && enemyStats.hp) {
+                if (damage["minEnemyCurrentHPRatioPer100AP"] && enemyStats.baseHP) {
                   minDmgCount += arrayCheck(damage["minEnemyCurrentHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                 };
                 if (minDmgCount !== 0) {
-                  addText(Math.round(minDmgCount));
+                  addText(factorRes(damage['type'], minDmgCount));
                 };
                 var minMaxHPRatioCounter = 0;
-                if (damage["minEnemyMaxHPRatio"] && !enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatio"] && !enemyStats.baseHP) {
                   minMaxHPRatioCounter += arrayCheck(damage["minEnemyMaxHPRatio"]);
                 };
-                if (damage["minEnemyMaxHPRatioPer100AD"] && !enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatioPer100AD"] && !enemyStats.baseHP) {
                   minMaxHPRatioCounter += arrayCheck(damage["minEnemyMaxHPRatioPer100AD"]) * totalAD/100;
                 };
-                if (damage["minEnemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatioPer100BonusAD"] && !enemyStats.baseHP) {
                   minMaxHPRatioCounter += arrayCheck(damage["minEnemyMaxHPRatioPer100BonusAD"]) * bonusAD/100;
                 }
-                if (damage["minEnemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                   minMaxHPRatioCounter += arrayCheck(damage["minEnemyMaxHPRatioPer100AP"]) * totalAP/100;
                 }
-                if (damage["minEnemyMaxHPRatioByLvl"] && !enemyStats.hp) {
+                if (damage["minEnemyMaxHPRatioByLvl"] && !enemyStats.baseHP) {
                   minMaxHPRatioCounter += damage["minEnemyMaxHPRatioByLvl"][champLevel];
                 };
                 if (minMaxHPRatioCounter !== 0) {
@@ -5435,16 +5452,16 @@ class App extends Component {
                   colorHP(' Enemy Max HP');
                   addText('ratio)');
                 };
-                if (damage["minEnemyBonusHPRatio"] && !enemyStats.hp) {
+                if (damage["minEnemyBonusHPRatio"] && !enemyStats.baseHP) {
                   addText(' (+'+ arrayCheck(damage["minEnemyBonusHPRatio"]));
                   colorHP(' Enemy Bonus HP');
                   addText('ratio)');
                 };
                 var minCurrentHPCounter = 0;
-                if (damage["minEnemyCurrentHPRatio"] && !enemyStats.hp) {
+                if (damage["minEnemyCurrentHPRatio"] && !enemyStats.baseHP) {
                   minCurrentHPCounter += arrayCheck(damage["minEnemyCurrentHPRatio"]);
                 };
-                if (damage["minEnemyCurrentHPRatioPer100AP"] && !enemyStats.hp) {
+                if (damage["minEnemyCurrentHPRatioPer100AP"] && !enemyStats.baseHP) {
                   minCurrentHPCounter += arrayCheck(damage["minEnemyCurrentHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (minCurrentHPCounter !== 0) {
@@ -5469,7 +5486,7 @@ class App extends Component {
                   if (damage["medBonusADRatio"]) {
                     medDmgCounter += arrayCheck(damage["medBonusADRatio"]) * bonusAD;
                   };
-                  addText(Math.round(medDmgCounter));
+                  addText(factorRes(damage['type'], medDmgCounter));
                   singleBreak();
                 };
 
@@ -5502,47 +5519,47 @@ class App extends Component {
                 if (damage["maxMaxHPRatioPer100BonusAD"]) {
                   maxDmgCount += arrayCheck(damage["maxMaxHPRatioPer100BonusAD"]) * bonusAD/100;
                 };
-                if (damage["maxEnemyMaxHPRatio"] && enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatio"] && enemyStats.baseHP) {
                   maxDmgCount += arrayCheck(damage["maxEnemyMaxHPRatio"]) * enemyTotalHP;
                 };
-                if (damage["maxEnemyMaxHPRatioPer100AP"] && enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatioPer100AP"] && enemyStats.baseHP) {
                   maxDmgCount += arrayCheck(damage["maxEnemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                 };
-                if (damage["maxEnemyMaxHPRatioPer100AD"] && enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatioPer100AD"] && enemyStats.baseHP) {
                   maxDmgCount += arrayCheck(damage["maxEnemyMaxHPRatioPer100AD"]) * enemyTotalHP * totalAD/100;
                 };
-                if (damage["maxEnemyMaxHPRatioPer100BonusAD"] && enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatioPer100BonusAD"] && enemyStats.baseHP) {
                   maxDmgCount += arrayCheck(damage["maxEnemyMaxHPRatioPer100BonusAD"]) * enemyTotalHP * bonusAD / 100;
                 };
-                if (damage["maxEnemyBonusHPRatio"] && enemyStats.hp) {
+                if (damage["maxEnemyBonusHPRatio"] && enemyStats.baseHP) {
                   maxDmgCount += arrayCheck(damage["maxEnemyBonusHPRatio"]) * enemyBonusHP;
                 };
-                if ((damage["maxEnemyCurrentHPRatio"] || damage["maxEnemyCurrentHPRatioPer100AP"]) && enemyStats.hp) {
+                if ((damage["maxEnemyCurrentHPRatio"] || damage["maxEnemyCurrentHPRatioPer100AP"]) && enemyStats.baseHP) {
                   addText(' when enemy is full HP: ');
                 }
-                if (damage["maxEnemyCurrentHPRatio"] && enemyStats.hp) {
+                if (damage["maxEnemyCurrentHPRatio"] && enemyStats.baseHP) {
                   maxDmgCount += arrayCheck(damage["maxEnemyCurrentHPRatio"]) * enemyTotalHP;
                 };
-                if (damage["maxEnemyCurrentHPRatioPer100AP"] && enemyStats.hp) {
+                if (damage["maxEnemyCurrentHPRatioPer100AP"] && enemyStats.baseHP) {
                   maxDmgCount += arrayCheck(damage["maxEnemyCurrentHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                 };
                 if (maxDmgCount !== 0) {
-                  addText(Math.round(maxDmgCount));
+                  addText(factorRes(damage['type'], maxDmgCount));
                 };
                 var maxMaxHPRatioCounter = 0;
-                if (damage["maxEnemyMaxHPRatio"] && !enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatio"] && !enemyStats.baseHP) {
                   maxMaxHPRatioCounter += arrayCheck(damage["maxEnemyMaxHPRatio"]);
                 };
-                if (damage["maxEnemyMaxHPRatioPer100AD"] && !enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatioPer100AD"] && !enemyStats.baseHP) {
                   maxMaxHPRatioCounter += arrayCheck(damage["maxEnemyMaxHPRatioPer100AD"]) * totalAD/100; 
                 }
-                if (damage["maxEnemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatioPer100BonusAD"] && !enemyStats.baseHP) {
                   maxMaxHPRatioCounter += arrayCheck(damage["maxEnemyMaxHPRatioPer100BonusAD"]) * bonusAD/100;
                 };
-                if (damage["maxEnemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                   maxMaxHPRatioCounter += arrayCheck(damage["maxEnemyMaxHPRatioPer100AP"]) * totalAP/100;
                 };
-                if (damage["maxEnemyMaxHPRatioByLvl"] && !enemyStats.hp) {
+                if (damage["maxEnemyMaxHPRatioByLvl"] && !enemyStats.baseHP) {
                   maxMaxHPRatioCounter += damage["maxEnemyMaxHPRatioByLvl"][champLevel];
                 }
                 if (maxMaxHPRatioCounter !== 0) {
@@ -5550,16 +5567,16 @@ class App extends Component {
                   colorHP(' Enemy Max HP');
                   addText('ratio)');
                 }
-                if (damage["maxEnemyBonusHPRatio"] && !enemyStats.hp) {
+                if (damage["maxEnemyBonusHPRatio"] && !enemyStats.baseHP) {
                   addText(' (+' + arrayCheck(damage["maxEnemyBonusHPRatio"]));
                   colorHP(' Enemy Bonus HP');
                   addText('ratio)');
                 };
                 var maxCurrentHPCounter = 0;
-                if (damage["maxEnemyCurrentHPRatio"] && !enemyStats.hp) {
+                if (damage["maxEnemyCurrentHPRatio"] && !enemyStats.baseHP) {
                   maxCurrentHPCounter += arrayCheck(damage["maxEnemyCurrentHPRatio"]);
                 };
-                if (damage["maxEnemyCurrentHPRatioPer100AP"] && !enemyStats.hp) {
+                if (damage["maxEnemyCurrentHPRatioPer100AP"] && !enemyStats.baseHP) {
                   maxCurrentHPCounter += arrayCheck(damage["maxEnemyCurrentHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (maxCurrentHPCounter !== 0) {
@@ -5587,7 +5604,7 @@ class App extends Component {
                 evolveDmgCounter += arrayCheck(damage["evolveMaxAPRatio"]) * totalAP;
               };
               if (evolveDmgCounter !== 0) {
-                addText(Math.round(evolveDmgCounter));
+                addText(factorRes(damage['type'], evolveDmgCounter));
               };
 
               if (damage["system"] === 'stacking') {
@@ -5600,17 +5617,19 @@ class App extends Component {
                 if (damage["ADRatioPerStack"]) {
                   stackDmgCounter += arrayCheck(damage["ADRatioPerStack"]) * totalAD;
                 };
-                addText(Math.round(stackDmgCounter));
+                addText(factorRes(damage['type'], stackDmgCounter));
               };
 
               if (damage["4thShotDmgRatio"]) {
                 singleBreak();
                 underLine('4th Shot Damage');
-                addText('Min: ' + Math.round(damage["4thShotDmgRatio"] * minDmgCount) 
-                + ' (' + Math.round(damage["4thShotDmgRatioWithIE"] * minDmgCount) + ' with Infinity Edge)');
+                addText('Min: ' + factorRes(damage['type'], damage["4thShotDmgRatio"] * minDmgCount) 
+                + ' (' + factorRes(damage['type'], damage["4thShotDmgRatioWithIE"] * minDmgCount) 
+                + ' with Infinity Edge)');
                 singleBreak();
-                addText('Max: ' + Math.round(damage["4thShotDmgRatio"] * maxDmgCount) 
-                + ' (' + Math.round(damage["4thShotDmgRatioWithIE"] * maxDmgCount) + ' with Infinity Edge)');
+                addText('Max: ' + factorRes(damage['type'], damage["4thShotDmgRatio"] * maxDmgCount) 
+                + ' (' + factorRes(damage['type'], damage["4thShotDmgRatioWithIE"] * maxDmgCount) 
+                + ' with Infinity Edge)');
               };
 
               if (damage["multiHitDmgRatio"]) {
@@ -5621,7 +5640,7 @@ class App extends Component {
               if (damage["minMinDmg"]) {
                 singleBreak();
                 underLine('Minimum Damage');
-                addText(arrayCheck(damage["minMinDmg"]));
+                addText(factorRes(damage['type'], damage["minMinDmg"]));
               };
 
               if (damage["canCrit"]) {
@@ -5639,45 +5658,49 @@ class App extends Component {
                   addText(arrayCheck(damage["critDmg"]));
                 };
                 if (totalDmgCount !== 0) {
-                  addText(Math.round(damage["critDmg"] * totalDmgCount));
+                  addText(factorRes(damage['type'], damage["critDmg"] * totalDmgCount));
                 };
                 if (minDmgCount !== 0) {
-                  addText('Min: ' + Math.round(damage["critDmg"] * minDmgCount)
-                  + ', Max: ' + Math.round(damage["critDmg"] * maxDmgCount));
+                  addText('Min: ' + factorRes(damage['type'], damage["critDmg"] * minDmgCount)
+                  + ', Max: ' + factorRes(damage['type'], damage["critDmg"] * maxDmgCount));
                 };
                 if (damage["critDmgWithIE"]) {
                   if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
                     addText(' (' + damage["critDmgWithIE"] + ' with Infinity Edge)');
                   };
                   if (totalDmgCount !== 0) {
-                    addText(' (' + Math.round(damage["critDmgWithIE"] * totalDmgCount) + ' with Infinity Edge)');
+                    addText(' (' + factorRes(damage['type'], damage["critDmgWithIE"] * totalDmgCount) 
+                    + ' with Infinity Edge)');
                   };
                   if (minDmgCount !== 0) {
-                    addText(' (Min: ' + Math.round(damage["critDmgWithIE"] * minDmgCount) + ', Max: ' 
-                    + Math.round(damage["critDmgWithIE"] * maxDmgCount) + ' with Infinity Edge)');
+                    addText(' (Min: ' + factorRes(damage['type'], damage["critDmgWithIE"] * minDmgCount) + ', Max: ' 
+                    + factorRes(damage['type'], damage["critDmgWithIE"] * maxDmgCount) + ' with Infinity Edge)');
                   };
                 }
               };
               if (damage["critADRatio"]) {
                 singleBreak();
                 underLine('Crit Bonus Damage');
-                addText(Math.round(damage["critADRatio"] * totalAD));
+                addText(factorRes(damage['type'], damage["critADRatio"] * totalAD));
                 if (damage["critADRatioWithIE"]) {
-                  addText(' (' + Math.round(damage["critADRatioWithIE"] * totalAD) + ' with Infinity Edge)');
+                  addText(' (' + factorRes(damage['type'], damage["critADRatioWithIE"] * totalAD) 
+                  + ' with Infinity Edge)');
                 }
               };
 
               if (damage["minCritADRatio"]) {
                 singleBreak();
                 underLine('Crit Bonus Damage');
-                addText('Min: ' + Math.round(damage["minCritADRatio"] * totalAD));
+                addText('Min: ' + factorRes(damage['type'], damage["minCritADRatio"] * totalAD));
                 if (damage["minCritADRatioWithIE"]) {
-                  addText(' (' + Math.round(damage["minCritADRatioWithIE"] * totalAD) + ' with Infinity Edge)');
+                  addText(' (' + factorRes(damage['type'], damage["minCritADRatioWithIE"] * totalAD) 
+                  + ' with Infinity Edge)');
                 };
                 singleBreak();
-                addText('Max: ' + Math.round(damage["maxCritADRatio"] * totalAD));
+                addText('Max: ' + factorRes(damage['type'], damage["maxCritADRatio"] * totalAD));
                 if (damage["maxCritADRatioWithIE"]) {
-                  addText(' (' + Math.round(damage["maxCritADRatioWithIE"] * totalAD) + ' with Infinity Edge)');
+                  addText(' (' + factorRes(damage['type'], damage["maxCritADRatioWithIE"] * totalAD) 
+                  + ' with Infinity Edge)');
                 };
               };
 
@@ -5695,7 +5718,7 @@ class App extends Component {
                   empDmgCounter += arrayCheck(empPath["bonusADRatio"]) * bonusAD;
                 };
                 if (empDmgCounter !== 0) {
-                  addText(Math.round(empDmgCounter));
+                  addText(factorRes(damage['type'], empDmgCounter));
                 };
                 if (empPath["system"] === 'minMax') {
                   if (empPath["minDmgByLvl"]) {
@@ -5704,7 +5727,7 @@ class App extends Component {
                   if (empPath["minAPRatio"]) {
                     minEmpDmgCounter += arrayCheck(empPath["minAPRatio"]) * totalAP;
                   };
-                  addText('Min: ' + Math.round(minEmpDmgCounter));
+                  addText('Min: ' + factorRes(damage['type'], minEmpDmgCounter));
                   singleBreak();
                   if (empPath["maxDmgByLvl"]) {
                     maxEmpDmgCounter += empPath["maxDmgByLvl"][champLevel];
@@ -5712,7 +5735,7 @@ class App extends Component {
                   if (empPath["maxAPRatio"]) {
                     maxEmpDmgCounter += arrayCheck(empPath["maxAPRatio"]) * totalAP;
                   };
-                  addText('Max: ' + Math.round(maxEmpDmgCounter));
+                  addText('Max: ' + factorRes(damage['type'], maxEmpDmgCounter));
                 }
               };
 
@@ -5750,10 +5773,10 @@ class App extends Component {
                   if (part["bonusADRatio"]) {
                     partDmgCount += arrayCheck(part["bonusADRatio"]) * bonusAD;
                   };
-                  if (part["enemyMaxHPRatio"] && enemyStats.hp) {
+                  if (part["enemyMaxHPRatio"] && enemyStats.baseHP) {
                     partDmgCount += arrayCheck(part["enemyMaxHPRatio"]) * enemyTotalHP;
                   };
-                  if (part["enemyCurrentHPRatio"] && enemyStats.hp) {
+                  if (part["enemyCurrentHPRatio"] && enemyStats.baseHP) {
                     addText(' when enemy is full HP: ');
                     partDmgCount += arrayCheck(part["enemyCurrentHPRatio"]) * enemyTotalHP;
                   };
@@ -5761,21 +5784,21 @@ class App extends Component {
                     partDmgCount += arrayCheck(part["maxHPRatio"]) * totalHP;
                   };
                   if (partDmgCount !== 0) {
-                    addText(Math.round(partDmgCount));
+                    addText(factorRes(part['type'], partDmgCount));
                   };
-                  if (part["enemyMaxHPRatio"] && !enemyStats.hp) {
+                  if (part["enemyMaxHPRatio"] && !enemyStats.baseHP) {
                     addText(" (+" + arrayCheck(part["enemyMaxHPRatio"]));
                     colorHP(' Enemy Max HP');
                     addText('ratio)');
                   };
-                  if (part["enemyCurrentHPRatio"] && !enemyStats.hp) {
+                  if (part["enemyCurrentHPRatio"] && !enemyStats.baseHP) {
                     addText(" (+" + arrayCheck(part["enemyCurrentHPRatio"]));
                     colorHP(' Enemy Current HP');
                     addText('ratio)');
                   };
                   if (part["part1RatioFormula"]) {
                     var part1Dmg = damage["part1"]["dmg"][rankIndex] + damage["part1"]["APRatio"] * totalAP;
-                    addText(Math.round(part1Dmg * (1 + ((0.00075 * totalAP) - 0.15))**2));
+                    addText(factorRes(damage['type'], part1Dmg * (1 + ((0.00075 * totalAP) - 0.15))**2));
                   };
 
                   if (part["system"] === "minMax" ) {
@@ -5795,7 +5818,7 @@ class App extends Component {
                     if (part["minBonusADPerAttackSpeedRatio"]) {
                       minPartDmgCount += part["minBonusADPerAttackSpeedRatio"] * totalAS * bonusAD;
                     };
-                    if (part["minEnemyMaxHPRatio"] && enemyStats.hp) {
+                    if (part["minEnemyMaxHPRatio"] && enemyStats.baseHP) {
                       minPartDmgCount += arrayCheck(part["minEnemyMaxHPRatio"]) * enemyTotalHP;
                     };
                     if (part["minEnemyMaxHPRatioPer100AP"]) {
@@ -5804,7 +5827,7 @@ class App extends Component {
                     if (part["bonusDmgRatioPerCritChance"]) {
                       minPartDmgCount *= (1 + part["bonusDmgRatioPerCritChance"] * totalCritChance);
                     };
-                    addText(Math.round(minPartDmgCount));
+                    addText(factorRes(part['type'], minPartDmgCount));
                     if (part["minEnemyMissingHPRatioByLvl"]) {
                       addText(' (+' + part["minEnemyMissingHPRatioByLvl"][champLevel]);
                       colorHP(' Enemy Missing HP');
@@ -5827,7 +5850,7 @@ class App extends Component {
                     if (part["maxBonusADPerAttackSpeedRatio"]) {
                       maxPartDmgCount += part["maxBonusADPerAttackSpeedRatio"] * totalAS * bonusAD;
                     };
-                    if (part["maxEnemyMaxHPRatio"] && enemyStats.hp) {
+                    if (part["maxEnemyMaxHPRatio"] && enemyStats.baseHP) {
                       maxPartDmgCount += arrayCheck(part["maxEnemyMaxHPRatio"]) * enemyTotalHP;
                     };
                     if (part["maxEnemyMaxHPRatioPer100AP"]) {
@@ -5836,7 +5859,7 @@ class App extends Component {
                     if (part["bonusDmgRatioPerCritChance"]) {
                       maxPartDmgCount *= (1 + part["bonusDmgRatioPerCritChance"] * totalCritChance);
                     };
-                    addText(Math.round(maxPartDmgCount));
+                    addText(factorRes(part['type'], maxPartDmgCount));
                     if (part["maxEnemyMissingHPRatioByLvl"]) {
                       addText(' (+' + part["maxEnemyMissingHPRatioByLvl"][champLevel]);
                       colorHP(' Enemy Missing HP');
@@ -5861,7 +5884,8 @@ class App extends Component {
               if (damage["coolDown"]) {
                 singleBreak();
                 underLine('Cooldown');
-                addText(damage["coolDown"]);
+                addText(hasteRatio === 1 ? damage["coolDown"]
+                : (damage["coolDown"]*hasteRatio).toFixed(1));
               }
               doubleBreak();
             };
@@ -5897,13 +5921,13 @@ class App extends Component {
               if (path["bonusADRatio"]) {
                 tickDmgCount += arrayCheck(path["bonusADRatio"]) * bonusAD;
               };
-              if (path["enemyMaxHPRatio"] && enemyStats.hp) {
+              if (path["enemyMaxHPRatio"] && enemyStats.baseHP) {
                 tickDmgCount += arrayCheck(path["enemyMaxHPRatio"]) * enemyTotalHP;
               };
-              if (path["enemyMaxHPRatioByLvl"] && enemyStats.hp) {
+              if (path["enemyMaxHPRatioByLvl"] && enemyStats.baseHP) {
                 tickDmgCount += path["enemyMaxHPRatioByLvl"][champLevel] * enemyTotalHP;
               };
-              if (path["enemyMaxHPRatioPer100AP"] && enemyStats.hp) {
+              if (path["enemyMaxHPRatioPer100AP"] && enemyStats.baseHP) {
                 tickDmgCount += arrayCheck(path["enemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
               };
               if (path["maxHPRatio"]) {
@@ -5912,21 +5936,21 @@ class App extends Component {
               if (path["bonusHPRatio"]) {
                 tickDmgCount += arrayCheck(path["bonusHPRatio"]) * bonusHP;
               };
-              if (path["enemyCurrentHPRatio"] && enemyStats.hp) {
+              if (path["enemyCurrentHPRatio"] && enemyStats.baseHP) {
                 addText(' when enemy is full HP: ');
                 tickDmgCount += path["enemyCurrentHPRatio"] * enemyTotalHP;
               };
               if (tickDmgCount !== 0) {
-                addText(Math.round(tickDmgCount));
+                addText(factorRes(path['type'], tickDmgCount));
               };
               var tickMaxHPCounter = 0;
-              if (path["enemyMaxHPRatio"] && !enemyStats.hp) {
+              if (path["enemyMaxHPRatio"] && !enemyStats.baseHP) {
                 tickMaxHPCounter += arrayCheck(path["enemyMaxHPRatio"]);
               };
-              if (path["enemyMaxHPRatioByLvl"] && !enemyStats.hp) {
+              if (path["enemyMaxHPRatioByLvl"] && !enemyStats.baseHP) {
                 tickMaxHPCounter += path["enemyMaxHPRatioByLvl"][champLevel];
               }
-              if (path["enemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+              if (path["enemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                 tickMaxHPCounter += arrayCheck(path["enemyMaxHPRatioPer100AP"]) * totalAP/100;
               };
               if (tickMaxHPCounter !== 0) {
@@ -5934,7 +5958,7 @@ class App extends Component {
                 colorHP(' Enemy Max HP');
                 addText('ratio)');
               };
-              if (path["enemyCurrentHPRatio"] && !enemyStats.hp) {
+              if (path["enemyCurrentHPRatio"] && !enemyStats.baseHP) {
                 addText(' (+' + arrayCheck(path["enemyCurrentHPRatio"]));
                 colorHP(' Enemy Current HP');
                 addText('ratio)');
@@ -5948,9 +5972,10 @@ class App extends Component {
               if (path["critDmg"]) {
                 singleBreak();
                 underLine('Crit Damage');
-                addText(Math.round(path["critDmg"] * tickDmgCount));
+                addText(factorRes(path['type'], path["critDmg"] * tickDmgCount));
                 if (path["critDmgWithIE"]) {
-                  addText(' (' + Math.round(path["critDmgWithIE"] * tickDmgCount) + ' with Infinity Edge)');
+                  addText(' (' + factorRes(path['type'], path["critDmgWithIE"] * tickDmgCount) 
+                  + ' with Infinity Edge)');
                 };
                 if (path["ticks"] && path["duration"]) {
                   addText(' per tick, ' + ticks + ' times over ' + path["duration"] + ' seconds.');
@@ -5975,7 +6000,7 @@ class App extends Component {
                   minTickDmgCount += arrayCheck(path["minBonusADRatio"]) * bonusAD;
                 };
                 if (minTickDmgCount !== 0) {
-                  addText(Math.round(minTickDmgCount));
+                  addText(factorRes(path['type'], minTickDmgCount));
                 };
                 if (path["interval"] && path["ticks"]) {
                   addText(' per ' + path["interval"] + ' sec, for ' + multiplyTicks2(path["interval"]) + ' seconds.');
@@ -6005,7 +6030,7 @@ class App extends Component {
                   maxTickDmgCount += arrayCheck(path["maxBonusADRatio"]) * bonusAD;
                 };
                 if (maxTickDmgCount !== 0) {
-                  addText(Math.round(maxTickDmgCount));
+                  addText(factorRes(path['type'], maxTickDmgCount));
                 };
                 if (path["interval"] && path["ticks"]) {
                   addText(' per ' + path["interval"] + ' sec, for ' + multiplyTicks2(path["interval"]) + ' seconds.');
@@ -6031,23 +6056,24 @@ class App extends Component {
                 addBold('Total: ');
           
                 if (tickDmgCount !== 0) {
-                  addText(Math.round(tickDmgCount * ticks));
+                  addText(factorRes(path['type'], tickDmgCount * ticks));
                   if (path['critDmg']) {
                     singleBreak();
                     underLine('Crit Total');
                     if (path['critDmgWithIE']) {
-                      addText(Math.round(tickDmgCount * ticks * path['critDmg']) + ' (' 
-                      + Math.round(tickDmgCount * ticks * path['critDmgWithIE']) + ' with Infinity Edge)');
+                      addText(factorRes(path['type'], tickDmgCount * ticks * path['critDmg']) + ' (' 
+                      + factorRes(path['type'], tickDmgCount * ticks * path['critDmgWithIE']) 
+                      + ' with Infinity Edge)');
                     } else {
-                      addText(Math.round(tickDmgCount * ticks * path['critDmg']));
+                      addText(factorRes(path['type'], tickDmgCount * ticks * path['critDmg']));
                     }
                   }
                 };
                 var maxHPRatioTotal = 0;
-                if (path["enemyMaxHPRatio"] && !enemyStats.hp) {
+                if (path["enemyMaxHPRatio"] && !enemyStats.baseHP) {
                   maxHPRatioTotal += arrayCheck(path["enemyMaxHPRatio"]);
                 };
-                if (path["enemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+                if (path["enemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                   maxHPRatioTotal += arrayCheck(path["enemyMaxHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (maxHPRatioTotal !== 0) {
@@ -6055,7 +6081,7 @@ class App extends Component {
                   colorHP(' Enemy Max HP');
                   addText('ratio)');
                 };
-                if (path["enemyCurrentHPRatio"] && !enemyStats.hp) {
+                if (path["enemyCurrentHPRatio"] && !enemyStats.baseHP) {
                   addText(' (+' + lengthCheck(ticks * arrayCheck(path["enemyCurrentHPRatio"])));
                   colorHP(' Enemy Current HP');
                   addText('ratio)');
@@ -6064,18 +6090,18 @@ class App extends Component {
                 if (path["system"] === 'min') {
                   singleBreak();
                   underLine('Min');
-                  addText(multiplyTicks(arrayCheck(path["minDmg"])));
+                  addText(factorRes(path['type'], multiplyTicks(arrayCheck(path["minDmg"]))));
                 };
 
                 if (path["system"] === "minMax" ) {
                   underLine('Min')
                   if (minTickDmgCount !== 0) {
-                    addText(Math.round(minTickDmgCount * ticks));
+                    addText(factorRes(path['type'], minTickDmgCount * ticks));
                   };
                   singleBreak();
                   underLine('Max')
                   if (maxTickDmgCount !== 0) {
-                    addText(Math.round(maxTickDmgCount * ticks));
+                    addText(factorRes(path['type'], maxTickDmgCount * ticks));
                   }
                 }
               };
@@ -6101,24 +6127,24 @@ class App extends Component {
 
                 singleBreak();
                 underLine('Total');
-                addText(Math.round(part1DmgCount * path["part1"]["ticks"]));
+                addText(factorRes(path['type'], part1DmgCount * path["part1"]["ticks"]));
                 
                 doubleBreak();
                 underLine('Part 2');
-                if (path["part2"]["enemyMaxHPRatio"] && enemyStats.hp) {
+                if (path["part2"]["enemyMaxHPRatio"] && enemyStats.baseHP) {
                   part2DmgCount += arrayCheck(path["part2"]["enemyMaxHPRatio"]) * enemyTotalHP;
                 };
-                if (path["part2"]["enemyMaxHPRatioPer100AP"] && enemyStats.hp) {
+                if (path["part2"]["enemyMaxHPRatioPer100AP"] && enemyStats.baseHP) {
                   part2DmgCount += arrayCheck(path["part2"]["enemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
                 };
                 if (part2DmgCount !== 0) {
-                  addText(Math.round(part2DmgCount));
+                  addText(factorRes(path['type'], part2DmgCount));
                 };
                 var part2MaxHPCount = 0;
-                if (path["part2"]["enemyMaxHPRatio"] && !enemyStats.hp) {
+                if (path["part2"]["enemyMaxHPRatio"] && !enemyStats.baseHP) {
                   part2MaxHPCount += arrayCheck(path["part2"]["enemyMaxHPRatio"]);
                 };
-                if (path["part2"]["enemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+                if (path["part2"]["enemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                   part2MaxHPCount += arrayCheck(path["part2"]["enemyMaxHPRatioPer100AP"]) * totalAP/100;
                 };
                 if (part2MaxHPCount !== 0) {
@@ -6134,7 +6160,7 @@ class App extends Component {
                 singleBreak();
                 underLine('Total');
                 if (part2DmgCount !== 0) {
-                  addText(Math.round(part2DmgCount * path["part2"]["ticks"]));
+                  addText(factorRes(path['type'], part2DmgCount * path["part2"]["ticks"]));
                 };
                 if (part2MaxHPCount !== 0) {
                   addText('(' + lengthCheck(part2MaxHPCount * path["part2"]["ticks"]));
@@ -6155,11 +6181,11 @@ class App extends Component {
               deliveryCount += path["bonusADRatio"] * bonusAD;
               deliveryCount += path["APRatio"] * totalAP;
 
-              addText(deliveryCount + ' per ' + path["interval"] + ' sec, for ' + 
+              addText(factorRes(path['type'], deliveryCount) + ' per ' + path["interval"] + ' sec, for ' + 
               multiplyTicks2(path["interval"])   + ' seconds.');
               singleBreak();
               underLine('Total Damage');
-              addText(multiplyTicks(deliveryCount));
+              addText(factorRes(path['type'], multiplyTicks(deliveryCount)));
               doubleBreak();
             };
 
@@ -6249,32 +6275,32 @@ class App extends Component {
               if (path["maxHPRatio"]) {
                 healCounter += arrayCheck(path["maxHPRatio"]) * totalHP;
               };
-              if (path["enemyMaxHPRatio"] && enemyStats.hp) {
+              if (path["enemyMaxHPRatio"] && enemyStats.baseHP) {
                 healCounter += arrayCheck(path["enemyMaxHPRatio"]) * enemyTotalHP;
               };
-              if (path["enemyMaxHPRatioPer100AP"] && enemyStats.hp) {
+              if (path["enemyMaxHPRatioPer100AP"] && enemyStats.baseHP) {
                 healCounter += arrayCheck(path["enemyMaxHPRatioPer100AP"]) * enemyTotalHP * totalAP/100;
               };
-              if (path["enemyMaxHPRatioPer100BonusAD"] && enemyStats.hp) {
+              if (path["enemyMaxHPRatioPer100BonusAD"] && enemyStats.baseHP) {
                 healCounter += arrayCheck(path["enemyMaxHPRatioPer100BonusAD"]) * enemyTotalHP * bonusAD/100;
               };
-              if (path['enemyMaxHPRatioPerBonusAS'] && enemyStats.hp) {
+              if (path['enemyMaxHPRatioPerBonusAS'] && enemyStats.baseHP) {
                 healCounter += arrayCheck(path['enemyMaxHPRatioPerBonusAS']) * enemyTotalHP * bonusASRatio;
               };
               if (healCounter !== 0) {
                 addText(Math.round(healCounter));
               };
               var maxHPRatioCounter = 0;
-              if (path["enemyMaxHPRatio"] && !enemyStats.hp) {
+              if (path["enemyMaxHPRatio"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(path["enemyMaxHPRatio"]); 
               };
-              if (path["enemyMaxHPRatioPer100AP"] && !enemyStats.hp) {
+              if (path["enemyMaxHPRatioPer100AP"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(path["enemyMaxHPRatioPer100AP"]) * totalAP/100;
               };
-              if (path["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp) {
+              if (path["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(path["enemyMaxHPRatioPer100BonusAD"]) * bonusAD/100;
               };
-              if (path['enemyMaxHPRatioPerBonusAS'] && !enemyStats.hp) {
+              if (path['enemyMaxHPRatioPerBonusAS'] && !enemyStats.baseHP) {
                 maxHPRatioCounter += arrayCheck(path['enemyMaxHPRatioPerBonusAS']) * bonusASRatio;
               };
               if (maxHPRatioCounter !== 0) {
@@ -7293,7 +7319,7 @@ class App extends Component {
 
             if (champFile[ability]["bonusOmniVamp"]) {
               var path = champFile[ability]["bonusOmniVamp"];
-              addBold('Bonus Omni Vamp Ratio: ');
+              addBold('Bonus Omnivamp Ratio: ');
               if (path['vamp']) {
                 addText(arrayCheck(path['vamp']));
               };
@@ -7368,13 +7394,13 @@ class App extends Component {
                 if (path["auto"]["bonusADRatio"]) {
                   autoCounter += arrayCheck(path["auto"]["bonusADRatio"]) * bonusAD;
                 };
-                if (path["auto"]["enemyMaxHPRatio"] && enemyStats.hp) {
+                if (path["auto"]["enemyMaxHPRatio"] && enemyStats.baseHP) {
                   autoCounter += arrayCheck(path["auto"]["enemyMaxHPRatio"]) * enemyTotalHP;
                 };
                 if (autoCounter !== 0) {
-                  addText(Math.round(autoCounter));
+                  addText(factorRes(path["auto"]["type"], autoCounter));
                 };
-                if (path["auto"]["enemyMaxHPRatio"] && !enemyStats.hp) {
+                if (path["auto"]["enemyMaxHPRatio"] && !enemyStats.baseHP) {
                   addText(' (+' + arrayCheck(path["auto"]["enemyMaxHPRatio"]) + ' Enemy Max HP Ratio)');
                 };
                 if (path["auto"]["system"] === 'minMax') {
@@ -7386,7 +7412,7 @@ class App extends Component {
                   if (path["auto"]["minAPRatio"]) {
                     minCounter += arrayCheck(path["auto"]["minAPRatio"]) * totalAP;
                   };
-                  addText('Min: ' + Math.round(minCounter));
+                  addText('Min: ' + factorRes(path["auto"]["type"], minCounter));
                   singleBreak();
                   if (path["auto"]["maxDmgByLvl"]) {
                     maxCounter += path["auto"]["maxDmgByLvl"][champLevel]
@@ -7394,7 +7420,7 @@ class App extends Component {
                   if (path["auto"]["maxAPRatio"]) {
                     maxCounter += arrayCheck(path["auto"]["maxAPRatio"]) * totalAP;
                   };
-                  addText('Max: ' + Math.round(maxCounter));
+                  addText('Max: ' + factorRes(path["auto"]["type"], maxCounter));
                 }; 
                 if (path["auto"]["multiHitDmgRatio"]) {
                   singleBreak();
@@ -7523,7 +7549,7 @@ class App extends Component {
                     if (path["auto"]["APRatio"]) {
                       autoCounter += arrayCheck(path["auto"]["APRatio"]) * totalAP;
                     };
-                    addText(Math.round(autoCounter));
+                    addText(factorRes(path["auto"]["type"], autoCounter));
                   };
                   if (path["attackSpeed"]) {
                     singleBreak();
@@ -7565,7 +7591,7 @@ class App extends Component {
                     dmgCounter += arrayCheck(damage["APRatio"]) * totalAP;
                   };
                   if (dmgCounter !== 0) {
-                    addText(Math.round(dmgCounter));
+                    addText(factorRes(damage["type"], dmgCounter));
                   };
                   if (damage["system"] === 'minMax') {
                     underLine('Min');
@@ -7577,7 +7603,7 @@ class App extends Component {
                     if (damage["minAPRatio"]) {
                       minCounter += arrayCheck(damage["minAPRatio"]) * totalAP;
                     };
-                    addText(Math.round(minCounter));
+                    addText(factorRes(damage["type"], minCounter));
                     singleBreak();
                     underLine('Max');
                     if (damage["maxDmg"]) {
@@ -7586,7 +7612,7 @@ class App extends Component {
                     if (damage["maxAPRatio"]) {
                       maxCounter += arrayCheck(damage["maxAPRatio"]) * totalAP;
                     };
-                    addText(Math.round(maxCounter));
+                    addText(factorRes(damage["type"], maxCounter));
                   }
                 };
                 if (ePath['Q']['bonusDamage']) {
@@ -7605,7 +7631,7 @@ class App extends Component {
                     if (damage["minAPRatio"]) {
                       minCounter += arrayCheck(damage["minAPRatio"]) * totalAP;
                     };
-                    addText(Math.round(minCounter));
+                    addText(factorRes(damage["type"], minCounter));
                     singleBreak();
                     underLine('Max');
                     if (damage["maxDmg"]) {
@@ -7614,7 +7640,7 @@ class App extends Component {
                     if (damage["maxAPRatio"]) {
                       maxCounter += arrayCheck(damage["maxAPRatio"]) * totalAP;
                     };
-                    addText(Math.round(maxCounter));
+                    addText(factorRes(damage["type"], maxCounter));
                   }
                 };
                 doubleBreak();
@@ -7639,7 +7665,7 @@ class App extends Component {
                     dmgCounter += arrayCheck(damage["APRatio"]) * totalAP;
                   };
                   if (dmgCounter !== 0) {
-                    addText(Math.round(dmgCounter));
+                    addText(factorRes(damage["type"], dmgCounter));
                   };
                   if (damage["system"] === 'minMax') {
                     underLine('Min');
@@ -7651,7 +7677,7 @@ class App extends Component {
                     if (damage["minAPRatio"]) {
                       minCounter += arrayCheck(damage["minAPRatio"]) * totalAP;
                     };
-                    addText(Math.round(minCounter));
+                    addText(factorRes(damage["type"], minCounter));
                     singleBreak();
                     underLine('Max');
                     if (damage["maxDmg"]) {
@@ -7660,7 +7686,7 @@ class App extends Component {
                     if (damage["maxAPRatio"]) {
                       maxCounter += arrayCheck(damage["maxAPRatio"]) * totalAP;
                     }
-                    addText(Math.round(maxCounter));
+                    addText(factorRes(damage["type"], maxCounter));
                   }
                 };
                 if (ePath['W']['heal']) {
@@ -7711,7 +7737,7 @@ class App extends Component {
                     dmgCounter += arrayCheck(damage["APRatio"]) * totalAP;
                   };
                   if (dmgCounter !== 0) {
-                    addText(Math.round(dmgCounter));
+                    addText(factorRes(damage["type"], dmgCounter));
                   };
                   if (damage["system"] === '2Part') {
                     underLine('Part 1');
@@ -7723,7 +7749,7 @@ class App extends Component {
                     if (damage["part1"]["APRatio"]) {
                       p1Counter += arrayCheck(damage["part1"]["APRatio"]) * totalAP;
                     };
-                    addText(Math.round(p1Counter));
+                    addText(factorRes(damage["type"], p1Counter));
                     singleBreak();
                     underLine('Part 2');
                     if (damage["part2"]["dmg"]) {
@@ -7732,7 +7758,7 @@ class App extends Component {
                     if (damage["part2"]["APRatio"]) {
                       p2Counter += arrayCheck(damage["part2"]["APRatio"]) * totalAP;
                     };
-                    addText(Math.round(p2Counter));
+                    addText(factorRes(damage["type"], p2Counter));
                   }
                 };
                 if (ePath['E']['bonusShield']) {
@@ -7934,19 +7960,19 @@ class App extends Component {
                 underLine(path["damage"]["type"] + ' Damage');
                 var dmgCounter = 0;
                 var enemyMaxHPCounter = 0;
-                if (path["damage"]["enemyMaxHPRatio"] && enemyStats.hp){
+                if (path["damage"]["enemyMaxHPRatio"] && enemyStats.baseHP){
                   dmgCounter += arrayCheck(path["damage"]["enemyMaxHPRatio"]) * enemyTotalHP;
                 };
-                if (path["damage"]["enemyMaxHPRatioPer100BonusAD"] && enemyStats.hp) {
+                if (path["damage"]["enemyMaxHPRatioPer100BonusAD"] && enemyStats.baseHP) {
                   dmgCounter += path["damage"]["enemyMaxHPRatioPer100BonusAD"] * enemyTotalHP * bonusAD/100;
                 };
                 if (dmgCounter !== 0) {
-                  addText(Math.round(dmgCounter));
+                  addText(factorRes(path["damage"]["type"], dmgCounter));
                 };
-                if (path["damage"]["enemyMaxHPRatio"] && !enemyStats.hp){
+                if (path["damage"]["enemyMaxHPRatio"] && !enemyStats.baseHP){
                   enemyMaxHPCounter += arrayCheck(path["damage"]["enemyMaxHPRatio"]);
                 };
-                if (path["damage"]["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp) {
+                if (path["damage"]["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.baseHP) {
                   enemyMaxHPCounter += arrayCheck(path["damage"]["enemyMaxHPRatioPer100BonusAD"]) * bonusAD/100;
                 };
                 if (enemyMaxHPCounter !== 0) {
@@ -7959,20 +7985,20 @@ class App extends Component {
                   if (path["damage"]["minADRatio"]) {
                     minCounter += arrayCheck(path["damage"]["minADRatio"]) * totalAD;
                   };
-                  if (path["damage"]["minEnemyMaxHPRatio"] && enemyStats.hp) {
+                  if (path["damage"]["minEnemyMaxHPRatio"] && enemyStats.baseHP) {
                     minCounter += arrayCheck(path["damage"]["minEnemyMaxHPRatio"]) * enemyTotalHP;
                   };
-                  if (path["damage"]["minEnemyMaxHPRatioPer100BonusAD"] && enemyStats.hp) {
+                  if (path["damage"]["minEnemyMaxHPRatioPer100BonusAD"] && enemyStats.baseHP) {
                     minCounter += arrayCheck(path["damage"]["minEnemyMaxHPRatioPer100BonusAD"]) 
                     * enemyTotalHP * bonusAD/100;
                   };
                   if (minCounter !== 0) {
-                    addText(Math.round(minCounter));
+                    addText(factorRes(path["damage"]["type"], minCounter));
                   };
-                  if (path["damage"]["minEnemyMaxHPRatio"] && !enemyStats.hp) {
+                  if (path["damage"]["minEnemyMaxHPRatio"] && !enemyStats.baseHP) {
                     minHPCounter += arrayCheck(path["damage"]["minEnemyMaxHPRatio"]);
                   };
-                  if (path["damage"]["minEnemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp) {
+                  if (path["damage"]["minEnemyMaxHPRatioPer100BonusAD"] && !enemyStats.baseHP) {
                     minHPCounter += arrayCheck(path["damage"]["minEnemyMaxHPRatioPer100BonusAD"]) * bonusAD/100;
                   };
                   if (minHPCounter !== 0) {
@@ -7981,7 +8007,7 @@ class App extends Component {
                   singleBreak();
                   addText('Max: ');
                   if (minCounter !== 0) {
-                    addText(Math.round(minCounter * 2));
+                    addText(factorRes(path["damage"]["type"], minCounter * 2));
                   };
                   if (minHPCounter !== 0) {
                     addText(' (+' + lengthCheck(minHPCounter * 2) + ' Enemy Max HP Ratio)');
@@ -7993,19 +8019,19 @@ class App extends Component {
                 underLine('Heal');
                 var healCounter = 0;
                 var maxHPCounter = 0;
-                if (path["heal"]["enemyMaxHPRatio"] && enemyStats.hp){
+                if (path["heal"]["enemyMaxHPRatio"] && enemyStats.baseHP){
                   healCounter += arrayCheck(path["heal"]["enemyMaxHPRatio"]) * enemyTotalHP;
                 };
-                if (path["heal"]["enemyMaxHPRatioPer100BonusAD"] && enemyStats.hp){
+                if (path["heal"]["enemyMaxHPRatioPer100BonusAD"] && enemyStats.baseHP){
                   healCounter += arrayCheck(path["heal"]["enemyMaxHPRatio"]) * enemyTotalHP * bonusAD/100;
                 };
                 if (healCounter !== 0) {
                   addText(Math.round(healCounter));
                 };
-                if (path["heal"]["enemyMaxHPRatio"] && !enemyStats.hp){
+                if (path["heal"]["enemyMaxHPRatio"] && !enemyStats.baseHP){
                   maxHPCounter += arrayCheck(path["heal"]["enemyMaxHPRatio"]);
                 };
-                if (path["heal"]["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.hp){
+                if (path["heal"]["enemyMaxHPRatioPer100BonusAD"] && !enemyStats.baseHP){
                   maxHPCounter += arrayCheck(path["heal"]["enemyMaxHPRatio"]) * bonusAD/100;
                 };
                 if (maxHPCounter !== 0) {
@@ -8373,7 +8399,7 @@ class App extends Component {
                 empCounter += arrayCheck(path['APRatio']) * totalAP;
               };
               if (empCounter !== 0) {
-                addText(Math.round(empCounter));
+                addText(factorRes(path['type'], empCounter));
               }
               if (path['system'] === 'minMax') {
                 addText('Min: ');
@@ -8388,7 +8414,7 @@ class App extends Component {
                 if (path['minAPRatio']) {
                   minCount += arrayCheck(path['minAPRatio']) * totalAP;
                 };
-                addText(Math.round(minCount));
+                addText(factorRes(path['type'], minCount));
                 singleBreak();
                 addText('Max: ');
                 if (path['maxDmgByRRank']) {
@@ -8400,7 +8426,7 @@ class App extends Component {
                 if (path['maxAPRatioByRRank']) {
                   maxCount += path['maxAPRatioByRRank'][RRank] * totalAP;
                 };
-                addText(Math.round(maxCount));
+                addText(factorRes(path['type'], maxCount));
               };
               if (path['dmgRatioPerMissingHPByRRank']) {
                 singleBreak();
@@ -8447,13 +8473,13 @@ class App extends Component {
               if (path['maxHPRatio']) {
                 dmgCount += arrayCheck(path['maxHPRatio']) * totalHP;
               };
-              if (path['enemyMaxHPRatio'] && enemyStats.hp) {
+              if (path['enemyMaxHPRatio'] && enemyStats.baseHP) {
                 dmgCount += arrayCheck(path['enemyMaxHPRatio']) * enemyTotalHP;
               };
               if (dmgCount !== 0) {
-                addText(Math.round(dmgCount));
+                addText(factorRes(path['type'], dmgCount));
               };
-              if (path['enemyMaxHPRatio'] && !enemyStats.hp) {
+              if (path['enemyMaxHPRatio'] && !enemyStats.baseHP) {
                 addText(' (+' + arrayCheck(path['enemyMaxHPRatio']));
                 colorHP(' Enemy Max HP');
                 addText("ratio)");
@@ -8484,7 +8510,7 @@ class App extends Component {
                 if (path['minAPRatio']) {
                   minCount += path['minAPRatio'] * totalAP;
                 };
-                addText(Math.round(minCount));
+                addText(factorRes(path['type'], minCount));
                 singleBreak();
                 underLine('Max');
                 if (path['maxDmg']) {
@@ -8496,7 +8522,7 @@ class App extends Component {
                 if (path['maxAPRatio']) {
                   maxCount += arrayCheck(path['maxAPRatio']) * totalAP;
                 };
-                addText(Math.round(maxCount));
+                addText(factorRes(path['type'], maxCount));
               };
               doubleBreak();
             };
@@ -8515,13 +8541,13 @@ class App extends Component {
                 dmgCount += arrayCheck(path['APRatio']) * totalAP;
               };
               if (dmgCount !== 0) {
-                addText(Math.round(dmgCount));
+                addText(factorRes(path['type'], dmgCount));
               };
               if (path['interval']) {
                 addText(' per ' + path['interval'] + ' sec, for ' + multiplyTicks2(path['interval']) + ' seconds.');
                 singleBreak();
                 underLine('Total');
-                addText(mapSpace(multiplyTicks(dmgCount)));
+                addText(factorRes(path['type'], mapSpace(multiplyTicks(dmgCount))));
               };
               doubleBreak();
             };
@@ -8548,7 +8574,7 @@ class App extends Component {
               if (path["reduxRatioByLvl"]) {
                 underLine('Ratio');
                 addText(path["reduxRatioByLvl"][champLevel]);
-                if (enemyStats.hp) {
+                if (enemyStats.baseHP) {
                   singleBreak();
                   underLine('Armor Reduced');
                   addText(path["reduxRatioByLvl"][champLevel] * enemyTotalArmor);
