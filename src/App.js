@@ -5176,7 +5176,12 @@ class App extends Component {
                     if (part["ADRatio"]) {
                       dmgCount += arrayCheck(part["ADRatio"]) * totalAD;
                     };
-                    addText(factorRes(part['type'] ? part['type'] : damage['type'], dmgCount));
+                    if (part["trueDmgRatioByLvl"]) {
+                      addText(Math.round(factorRes('Physical', (1 - part["trueDmgRatioByLvl"][champLevel]) 
+                      * dmgCount) + part["trueDmgRatioByLvl"][champLevel] * dmgCount))
+                    } else {
+                      addText(factorRes(part['type'] ? part['type'] : damage['type'], dmgCount));
+                    }
                     if (part["trueDmgRatioByLvl"]) {
                       singleBreak();
                       addText('Physical: ' + factorRes('Physical', (1 - part["trueDmgRatioByLvl"][champLevel]) 
