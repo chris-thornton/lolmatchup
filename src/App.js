@@ -473,7 +473,9 @@ class App extends Component {
     as: 0,
     arm: 0,
     arPenRatio: 0,
-    lethality: 0, 
+    lethality: 0,
+    lifeSteal: 0,
+    omni: 0,  
     mr: 0,
     magicPenFlat: 0,
     magicPenRatio: 0,
@@ -490,7 +492,9 @@ class App extends Component {
     as: 0,
     arm: 0,
     arPenRatio: 0,
-    lethality: 0, 
+    lethality: 0,
+    lifeSteal: 0,
+    omni: 0,  
     mr: 0,
     magicPenFlat: 0,
     magicPenRatio: 0,
@@ -2445,6 +2449,7 @@ class App extends Component {
                   addText("ratio, based on lvl. ");
                   underLine("Currently");
                   addText(path["bonusAttackDamage"]["ADRatioByLvl"][champLevel] + '] ');
+                  this[`appliedStats${side}`].ad += path["bonusAttackDamage"]["ADRatioByLvl"][champLevel]
                 };
                 if (path["bonusAttackDamage"]["bonusADRatio"]) {
                   addText(' (+' + removeParen(path["bonusAttackDamage"]["bonusADRatio"]));
@@ -13791,6 +13796,11 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='qMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedQLeft'>
+                  <button type='button'>Apply Minimum Stats</button>
+                  <button type='button'>Apply Stats </button>
+                  <button type='button'>Apply Maximum Stats</button>
+                </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
 
@@ -13802,6 +13812,11 @@ class App extends Component {
                 </div>
                 <div className="spriteContainer">
                   <img className='wMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
+                </div>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedWLeft'>
+                  <button type='button'>Apply Minimum Stats</button>
+                  <button type='button'>Apply Stats </button>
+                  <button type='button'>Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
@@ -13815,6 +13830,11 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='eMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedELeft'>
+                  <button type='button'>Apply Minimum Stats</button>
+                  <button type='button'>Apply Stats </button>
+                  <button type='button'>Apply Maximum Stats</button>
+                </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
 
@@ -13826,6 +13846,11 @@ class App extends Component {
                 </div>
                 <div className="spriteContainer">
                   <img className='rMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
+                </div>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedRLeft'>
+                  <button type='button'>Apply Minimum Stats</button>
+                  <button type='button'>Apply Stats </button>
+                  <button type='button'>Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft" style={{marginBottom: '50px'}}></div>
