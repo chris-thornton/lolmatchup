@@ -1,6 +1,8 @@
 import React from 'react';
 import spellIcons from '../spellicons/aphelios.png';
-import './ApheliosLeft.css';
+import ADIcon from '../staticons/attackDamage.png';
+import attackSpeedIcon from '../staticons/attackSpeed.png';
+import './Aphelios.css';
 
 var moonShot = {
   type: 'Physical',
@@ -165,7 +167,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
     <div>
       <div className='abilityTitleBox' style={{paddingTop: '5px'}}>
         <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p> 
-        <div className="spriteContainer">
+        <div className="iconContainer">
           <img style={{marginLeft: '0px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>  
@@ -173,29 +175,30 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         <input id="adRankLeft" type="number" placeholder="0" min="0" max="6" 
         style={{width: "30px", marginLeft: '10px'}} onKeyDown={(event) => event.preventDefault()} 
         onChange={onRankChange} />
-        <b> Bonus Attack Damage: </b><span>{bonuses.ad}</span>
+        <span className='textAD'> Bonus Attack Damage: </span><span>{bonuses.ad}</span>
 
         <br></br>
         <input id="asRankLeft" type="number" placeholder="0" min="0" max="6" 
         style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={onRankChange} />
-        <b> Bonus Attack Speed Ratio: </b><span>{bonuses.as}</span>
+        <span className='textAS'> Bonus Attack Speed Ratio: </span><span>{bonuses.as}</span>
 
         <br></br>
         <input id="lethalRankLeft" type="number" placeholder="0" min="0" max="6" 
         style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={onRankChange} />
-        <b> Bonus Lethality: </b><span>{bonuses.lethal}</span>
+        <span style={{color: 'rgb(247, 113, 90)'}}> Bonus Lethality: </span><span>{bonuses.lethal}</span>
       </div>
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
         <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-          <p style={{margin: 0}}><b><u>Calibrum</u></b>: </p>
+          <p style={{margin: 0}}><b><u>Calibrum</u></b></p>
         </div>
-        <div className="spriteContainer">
+        <div className="iconContainer" style={{borderRadius: '50%'}}>
           <img style={{marginLeft: '-50px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
       <div className="abilityBoxLeft">
-        <span><b>Auto Attack Empower: </b><u>Physical Damage:</u> {calAutoEmp.dmg} (+{calAutoEmp.bonusADRatio} Bonus AD Ratio)</span>
+        <span><b>Empowered Basic Attack: </b><u>Physical Damage:</u> {calAutoEmp.dmg} (+{calAutoEmp.bonusADRatio}
+        <span className='textAD'> Bonus AD</span><img src={ADIcon}></img>ratio)</span>
         <br></br>
         <span><u>Total:</u> {Math.round(calAutoEmp.dmg + calAutoEmp.bonusADRatio * (items.ad + runes.ad + bonus.ad))}</span>
         <hr></hr>
@@ -220,9 +223,9 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
         <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-          <p style={{margin: 0}}><b><u>Severum</u></b>: </p>
+          <p style={{margin: 0}}><b><u>Severum</u></b></p>
         </div>
-        <div className="spriteContainer">
+        <div className="iconContainer">
           <img style={{marginLeft: '-100px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
@@ -263,9 +266,9 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
         <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-          <p style={{margin: 0}}><b><u>Gravitum</u></b>: </p>
+          <p style={{margin: 0}}><b><u>Gravitum</u></b></p>
         </div>
-        <div className="spriteContainer">
+        <div className="iconContainer">
           <img style={{marginLeft: '-150px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
@@ -292,9 +295,9 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
         <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-          <p style={{margin: 0}}><b><u>Infernum</u></b>: </p>
+          <p style={{margin: 0}}><b><u>Infernum</u></b></p>
         </div>
-        <div className="spriteContainer">
+        <div className="iconContainer">
           <img style={{marginLeft: '-200px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
@@ -328,9 +331,9 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
 
       <div className="abilityTitleBox" style={{paddingTop: '5px'}}>
         <div style={{display: 'inline-block', verticalAlign: 'top'}}>
-          <p style={{margin: 0}}><b><u>Crescendum</u></b>: </p>
+          <p style={{margin: 0}}><b><u>Crescendum</u></b></p>
         </div>
-        <div className="spriteContainer">
+        <div className="iconContainer">
           <img style={{marginLeft: '-250px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
@@ -463,7 +466,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         <div style={{display: 'inline-block', verticalAlign: 'top'}}>
           <p style={{margin: 0}}><b><u>R</u></b></p>
         </div>
-        <div className="spriteContainer">
+        <div className="iconContainer">
           <img style={{marginLeft: '-300px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>

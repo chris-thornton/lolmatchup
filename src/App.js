@@ -955,7 +955,7 @@ class App extends Component {
             if (champFile[ability]["autoEmpower"]) {
               var damage = champFile[ability]["autoEmpower"]["damage"];
               if (!damage["durationAutos"] && !damage['autoCoolDown']) {
-                addBold('Auto Attack Empower: ')
+                addBold('Empowered Basic Attack: ')
               } else if (damage['autoCoolDown']) {
                 addBold('Empower 1 in every ' +  damage["autoCoolDown"] + ' Basic Attacks: ')
               } else {
@@ -3390,7 +3390,7 @@ class App extends Component {
               };
               if (path["autoBlock"]) {
                 singleBreak();
-                addText('Blocks auto attacks.');
+                addText('Blocks basic attacks.');
               };
               if (path["duration"] || path["minDuration"]) {
                 singleBreak();
@@ -4088,7 +4088,7 @@ class App extends Component {
               var path = champFile[ability]["petStats"];
               addBold('Pet Stats: ');
               if (path["auto"]) {
-                underLine('Auto Attack');
+                underLine('Basic Attack');
                 addText(path["auto"]["type"] + ' Damage: ');
                 if (path["auto"]["dmg"]) {
                   removeSpace(path["auto"]["dmg"]);
@@ -4276,7 +4276,7 @@ class App extends Component {
                   var path = champFile[ability]["empower"]["Q"]["petStats"];
                   addBold('Pet Stats: ');
                   if (path["auto"]) {
-                    underLine('Auto Attack');
+                    underLine('Basic Attack');
                     addText(path["auto"]["type"] + ' Damage: ');
                     if (path["auto"]["dmg"]) {
                       removeSpace(path["auto"]["dmg"]);
@@ -4639,7 +4639,7 @@ class App extends Component {
               addText(champFile[ability]["staticCoolDownByLvl"][champLevel])
             };
             if (champFile[ability]["autoCoolDown"]) {
-              addGrey("Cooldown Number of Auto Attacks: ");
+              addGrey("Cooldown Number of Basic Attacks: ");
               addText(champFile[ability]["autoCoolDown"]);
             };
             if (champFile[ability]["coolDownRefund"]) {
@@ -4854,11 +4854,11 @@ class App extends Component {
             if (champFile[ability]["autoEmpower"]) {
               var damage = champFile[ability]["autoEmpower"]["damage"]
               if (!damage["durationAutos"] && !damage['autoCoolDown']) {
-                addBold('Auto Attack Empower: ')
+                addBold('Empowered Basic Attack: ')
               } else if (damage['autoCoolDown']) {
-                addBold('Empower 1 in every ' +  damage["autoCoolDown"] + ' Auto Attacks: ')
+                addBold('Empower 1 in every ' +  damage["autoCoolDown"] + ' Basic Attacks: ')
               } else {
-                addBold('Empower ' +  damage["durationAutos"] + ' Auto Attacks: ')
+                addBold('Empower ' +  damage["durationAutos"] + ' Basic Attacks: ')
               };
               underLine(damage['type'] + " Damage");
               var totalDmgCount = 0;
@@ -6742,7 +6742,7 @@ class App extends Component {
               };
               if (path["autoBlock"]) {
                 singleBreak();
-                addText('Blocks auto attacks.');
+                addText('Blocks basic attacks.');
               };
               if (path["duration"] || path["minDuration"]) {
                 singleBreak();
@@ -7398,7 +7398,7 @@ class App extends Component {
               var path = champFile[ability]["petStats"];
               addBold('Pet Stats: ');
               if (path["auto"]) {
-                underLine('Auto Attack');
+                underLine('Basic Attack');
                 addText(path["auto"]["type"] + ' Damage: ');
                 var autoCounter = 0;
                 if (path["auto"]["dmg"]) {
@@ -7562,7 +7562,7 @@ class App extends Component {
                   var path = champFile[ability]["empower"]["Q"]["petStats"];
                   addBold('Pet Stats: ');
                   if (path["auto"]) {
-                    underLine('Auto Attack');
+                    underLine('Basic Attack');
                     addText(path["auto"]["type"] + ' Damage: ');
                     var autoCounter = 0;
                     if (path["auto"]["dmg"]) {
@@ -7892,7 +7892,7 @@ class App extends Component {
               addText(champFile[ability]["staticCoolDownByLvl"][champLevel]);
             };
             if (champFile[ability]["autoCoolDown"]) {
-              addGrey("Cooldown Number of Auto Attacks: ");
+              addGrey("Cooldown Number of Basic Attacks: ");
               addText(champFile[ability]["autoCoolDown"]);
             };
             if (champFile[ability]["coolDownRefund"]) {
@@ -8114,7 +8114,7 @@ class App extends Component {
 
             if (champFile[tfAbility]['autoEmpower']) {
               var path = champFile[tfAbility]['autoEmpower']['damage'];
-              addBold('Auto Attack Empower: ');
+              addBold('Empowered Basic Attack: ');
               underLine(path['type'] + ' Damage');
               if (path['dmgByRRank']) {
                 removeSpace(path["dmgByRRank"]);
@@ -8411,7 +8411,7 @@ class App extends Component {
 
             if (champFile[tfAbility]['autoEmpower']) {
               var path = champFile[tfAbility]['autoEmpower']['damage'];
-              addBold('Auto Attack Empower: ');
+              addBold('Empowered Basic Attack: ');
               underLine(path['type'] + ' Damage');
               var empCounter = 0;
               if (path['dmgByRRank']) {
@@ -8971,8 +8971,7 @@ class App extends Component {
     };
     if (champName === 'Aphelios') {
       return
-    }
-
+    };
     this.calculateAbility(side);
   };
 
@@ -12487,16 +12486,12 @@ class App extends Component {
   }
 
   onMythicDisplay = (side) => {
-    if (document.getElementById(`mythicM${side}`).style.textDecoration === 'underline' 
-    || document.getElementById(`mythicM${side}`).style.textDecoration === '') {
+    if (document.getElementById(`mythicButton${side}`).style.background) {
       return
     };
-    if (document.getElementById(`legendL${side}`).style.textDecoration === 'underline') {
-      document.getElementById(`legendL${side}`).style.textDecoration = 'none';
-      document.getElementById(`legendL${side}`).style.color = 'black';
-    };
-    document.getElementById(`mythicM${side}`).style.textDecoration = 'underline';
-    document.getElementById(`mythicM${side}`).style.color = '#134f61';
+    document.getElementById(`legendButton${side}`).style.background = '';
+    document.getElementById(`mythicButton${side}`).style.background 
+      = 'linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%)';
     var sideStyle = {left: '20px'}
     if (side === 'Right') {
       sideStyle = {right: '20px'}
@@ -13136,16 +13131,12 @@ class App extends Component {
   };
 
   onLegendDisplay = (side) => {
-    if (document.getElementById(`legendL${side}`).style.textDecoration === 'underline') {
+    if (document.getElementById(`legendButton${side}`).style.background) {
       return
     };
-    console.log(document.getElementById(`mythicM${side}`).style.textDecoration)
-    if ( document.getElementById(`mythicM${side}`).style.textDecoration !== 'none') {
-      document.getElementById(`mythicM${side}`).style.textDecoration = 'none';
-      document.getElementById(`mythicM${side}`).style.color = 'black';
-    };
-    document.getElementById(`legendL${side}`).style.textDecoration = 'underline';
-    document.getElementById(`legendL${side}`).style.color = '#134f61';
+    document.getElementById(`mythicButton${side}`).style.background = '';
+    document.getElementById(`legendButton${side}`).style.background 
+    = 'linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%)';
     var sideStyle = {left: '20px'};
     if (side === 'Right') {
       sideStyle = {right: '20px'}
@@ -13189,14 +13180,8 @@ class App extends Component {
   ]
 
   onItemSearch = (event, side) => {
-    if ( document.getElementById(`mythicM${side}`).style.textDecoration !== 'none') {
-      document.getElementById(`mythicM${side}`).style.textDecoration = 'none';
-      document.getElementById(`mythicM${side}`).style.color = 'black';
-    };
-    if (document.getElementById(`legendL${side}`).style.textDecoration === 'underline') {
-      document.getElementById(`legendL${side}`).style.textDecoration = 'none';
-      document.getElementById(`legendL${side}`).style.color = 'black';
-    };
+    document.getElementById(`mythicButton${side}`).style.background = '';
+    document.getElementById(`legendButton${side}`).style.background = '';
     var sideStyle = {left: '20px'}
     if (side === 'Right') {
       sideStyle = {right: '20px'}
@@ -13384,11 +13369,11 @@ class App extends Component {
               <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
               <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
               <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
-              <hr className='runeBoxHR'></hr>
+              
               <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
               <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune4'/>
               <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune5'/>
-              <hr className='runeBoxHR'></hr>
+              
               <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
               <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune7'/>
               <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
@@ -13400,11 +13385,11 @@ class App extends Component {
               <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
               <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune10'/>
               <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune11'/>
-              <hr className='runeBoxHR'></hr>
+              
               <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune12'/>
               <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune13'/>
               <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune14'/>
-              <hr className='runeBoxHR'></hr>
+              
               <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune15'/>
               <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune16'/>
               <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
@@ -13635,11 +13620,14 @@ class App extends Component {
             <div style={{width:'45vw'}}>
               <div id='itemsLeft'>
                 <div className='itemMenu'>
-                  <button type='button' onClick={() => this.onMythicDisplay('Left')}><span id='mythicMLeft'>M</span>ythic</button>
-                  <button type='button' onClick={() => this.onLegendDisplay('Left')}><span id='legendLLeft'>L</span>egendary</button>
+                  <button type='button' id='mythicButtonLeft' onClick={() => this.onMythicDisplay('Left')} style={{
+                    background: 'linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%)'
+                  }}>
+                    <span>M</span>ythic</button>
+                  <button type='button' id='legendButtonLeft' onClick={() => this.onLegendDisplay('Left')}>
+                    <span>L</span>egendary</button>
                   <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Left')}
-                  style={{width: '9em', height: 25}} onBlur={this.onItemBlur} 
-                  id='itemSearchLeft' />
+                  onBlur={this.onItemBlur} id='itemSearchLeft' />
                 </div>
                 <div>
                   {this.state.itemDisplayLeft}
@@ -13650,11 +13638,14 @@ class App extends Component {
             <div style={{width:'45vw'}}>
               <div id='itemsRight'>
                 <div className='itemMenu'>
-                  <button type='button' onClick={() => this.onMythicDisplay('Right')}><span id='mythicMRight'>M</span>ythic</button>
-                  <button type='button' onClick={() => this.onLegendDisplay('Right')}><span id='legendLRight'>L</span>egendary</button>
+                  <button type='button' id='mythicButtonRight' onClick={() => this.onMythicDisplay('Right')} style={{
+                    background: 'linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%)'
+                  }}>
+                    <span>M</span>ythic</button>
+                  <button type='button' id='legendButtonRight' onClick={() => this.onLegendDisplay('Right')}>
+                    <span>L</span>egendary</button>
                   <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Right')}
-                  style={{width: '9em', height: 25}} onBlur={this.onItemBlur} 
-                  id='itemSearchRight' />
+                  onBlur={this.onItemBlur} id='itemSearchRight' />
                 </div>
                 <div>
                   {this.state.itemDisplayRight}

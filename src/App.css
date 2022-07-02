@@ -14,7 +14,19 @@ html {
 
 .abilityTitleBox u {
   color: #ffffb9;
-  text-decoration-color: lightgray;
+  text-decoration-color: white;
+}
+
+.abilityTitleBox b, p {
+  text-shadow: 1px 0 0 #134f61, 0 -1px 0 #134f61, 0 1px 0 #134f61, -1px 0 0 #134f61;
+}
+
+.abilityTitleBox u:before {
+  content: "\00a0"
+}
+
+.abilityTitleBox u:after {
+  content: "\00a0"
 }
 
 .abilityBoxLeft u, .abilityBoxRight u {
@@ -39,10 +51,11 @@ li + li {
 }
 
 button {
- border-radius: 0px;
+ border-radius: 5px;
  border: 2px outset rgb(118, 118, 118);
  border-right-color: rgb(33, 33, 33);
  border-bottom-color: rgb(33, 33, 33);
+ box-shadow: 1px 1px #003747;
 }
 
 .center {
@@ -169,30 +182,27 @@ button {
 
 .ksStats img {
   vertical-align: middle;
-  padding-bottom: 3px;
   height: 25px;
   width: 25px;
 }
 
-.runeBox {
-  width: 80px;
-  height: 80px;
-  /*border: 1px solid #ffffb9;*/
-  box-shadow: 1px 1px 3px #ffffb9;
-  /*background-color: #003747;*/
-  background: linear-gradient(#003747, #134f61);
-  align-self: center;
+span + img {
+  padding-bottom: 3px;
 }
 
-.runeBoxHR {
-  margin: 0;
-  color: #ffffb9;
+.runeBox {
+  width: 87px;
+  height: 87px;
+  box-shadow: 0px 0px 1px #ffffb9;
+  background: linear-gradient(#003747, #134f61);
+  align-self: center;
 }
 
 .runeImgStyle {
   vertical-align: middle;
   height: 25px;
   width: 25px;
+  padding: 2px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -201,10 +211,9 @@ button {
 	box-shadow: 0px 0px 5px #ffcb5a inset;
 }
 
-#mythicMLeft, #mythicMRight {
-  text-decoration: underline;
-  color: #134f61;
-}
+/*#mythicButtonLeft, #mythicButtonRight {
+  background: linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%);
+}*/
 
 .inventory {
   text-align: center;
@@ -250,12 +259,18 @@ button {
 .itemMenu {
   width: 45vw;
   height: 25px;
+  margin-bottom: 5px;
 }
 
 .itemMenu button {
   height: 25px;
   width: 9em;
-  margin-right: 5px;
+}
+
+.itemMenu input {
+  width: 12em;
+  height: 24px;
+  margin-left: 20px;
 }
 
 .itemTooltip {
@@ -361,8 +376,9 @@ hr {
   align-items: center;
   height: 80px;
   color: #003747;
-  box-shadow: 0px 1px 3px #f9b54a;
+  border-bottom: 1px solid #f9b54a;
   background-color: white;
+  background: linear-gradient(155deg, #ffffb9 1%, #f9b54a 2%, white 3%, white 89%, #f9b54a 98%, #ffffb9 99%);
   margin: 0 -1vw;
 }
 
