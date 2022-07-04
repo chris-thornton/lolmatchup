@@ -18,7 +18,7 @@ html {
 }
 
 .abilityTitleBox b, p {
-  text-shadow: 1px 0 0 #134f61, 0 -1px 0 #134f61, 0 1px 0 #134f61, -1px 0 0 #134f61;
+  text-shadow: 2px 0 0 #134f61, 0 -2px 0 #134f61, 0 2px 0 #134f61, -2px 0 0 #134f61;
 }
 
 .abilityTitleBox u:before {
@@ -52,10 +52,13 @@ li + li {
 
 button {
  border-radius: 5px;
- border: 2px outset rgb(118, 118, 118);
+ /*border: 2px outset rgb(118, 118, 118);
  border-right-color: rgb(33, 33, 33);
- border-bottom-color: rgb(33, 33, 33);
- box-shadow: 1px 1px #003747;
+ border-bottom-color: rgb(33, 33, 33);*/
+ border: 1px solid rgb(118, 118, 118);
+ border-right: 2px solid rgb(33, 33, 33);
+ border-bottom: 2px solid rgb(33, 33, 33);
+ box-shadow: 2px 2px #003747;
 }
 
 .center {
@@ -91,11 +94,14 @@ button {
   text-align: center;
   width: 45vw;
   border: 1px solid #ffffb9;
+  border-left: 1px dashed #f9b54a;
+  border-right: 1px dashed #f9b54a;
   box-shadow: 3px 3px 3px #003747;
   padding: 0px 1em;
   margin-top: 1px;
   /*background:linear-gradient(rgba(33, 33, 33, 1), rgba(118, 118, 118, 0.8));*/
   background: linear-gradient(#003747, #134f61);
+  border-radius: 10px;
   column-count: 4;
   color:white;
 }
@@ -155,10 +161,10 @@ button {
 }
 
 .keystone hr {
-  width: 2px;
+  width: 1px;
   height: 32px;
   display: inline-block;
-  margin: 0 5px;
+  margin: 0 10px;
 }
 
 .keystone div {
@@ -172,8 +178,7 @@ button {
   box-shadow: 3px 3px 3px #003747;
   padding: 0px 1em;
   background: linear-gradient(#003747, rgb(19, 79, 97));
-  /*border-top: 2px solid #003747;
-  border-bottom: 2px solid #003747;*/
+  border-radius: 10px;
   border-top: 0px;
   border-bottom: 0px;
   padding-bottom: 5px;
@@ -193,6 +198,7 @@ span + img {
 .runeBox {
   width: 87px;
   height: 87px;
+  border-radius: 10px;
   box-shadow: 0px 0px 1px #ffffb9;
   background: linear-gradient(#003747, #134f61);
   align-self: center;
@@ -211,10 +217,6 @@ span + img {
 	box-shadow: 0px 0px 5px #ffcb5a inset;
 }
 
-/*#mythicButtonLeft, #mythicButtonRight {
-  background: linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%);
-}*/
-
 .inventory {
   text-align: center;
   width: 45vw;
@@ -224,7 +226,7 @@ span + img {
 .inventory > img {
   width: 40px;
   height: 40px;
-  border: 1px outset black;
+  border: 3px double black;
 }
 
 .mythicLimit {
@@ -253,7 +255,6 @@ span + img {
   width: 40px;
   margin: 2px;
   cursor: pointer;
-  border: 1px outset #134f61;
 }
 
 .itemMenu {
@@ -330,13 +331,13 @@ hr {
 .abilityBoxLeft, .abilityBoxRight {
   width: 45vw;
   border: 2px solid black;
-  box-shadow: 3px 3px 3px #003747;
+  box-shadow: 3px 0px 3px #003747;
   padding: 0px 1em;
   margin-top: 1px;
   background: linear-gradient(#003747, #134f61);
   color:white;
   border-image-slice: 27 27 53 50;
-  border-image-width: 5px 5px 5px 4.5px;
+  border-image-width: 5px 5px 4.7px 4.5px;
   border-image-outset: 0px 0px 0px 0px;
   border-image-repeat: stretch stretch;
   border-image-source: url("./images/border-image-2.png"); 

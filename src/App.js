@@ -9276,8 +9276,10 @@ class App extends Component {
     if (side === 'Right') {
       ksIndex += document.getElementsByClassName(runeTree).length / 2
     };
-    document.getElementsByClassName(this[`currentKS${side}`].tree)[this[`currentKS${side}`].index].style.borderBottom = ''
-    document.getElementsByClassName(runeTree)[ksIndex].style.borderBottom = borderString;
+    document.getElementsByClassName(this[`currentKS${side}`].tree)[this[`currentKS${side}`].index].style.boxShadow = ''
+    /*document.getElementsByClassName(runeTree)[ksIndex].style.borderTop = borderString;
+    document.getElementsByClassName(runeTree)[ksIndex].style.borderBottom = borderString;*/
+    document.getElementsByClassName(runeTree)[ksIndex].style.boxShadow = `0px 0px 5px ${borderString} inset`
     this[`currentKS${side}`] = {
       tree: runeTree,
       index: ksIndex
@@ -9288,7 +9290,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'precision', 0, '1px solid rgb(255, 225, 82)');
+    this.ksHighlight(side, 'precision', 0, 'rgb(255, 225, 82)');
     var dmgByLvl = [
       40,48,56,65,73,81,89,98,106,
       114,122,131,139,147,155,164,172,180
@@ -9317,7 +9319,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'precision', 1, '1px solid rgb(255, 225, 82)');
+    this.ksHighlight(side, 'precision', 1, 'rgb(255, 225, 82)');
     var asByLvl = [
       0.4,0.4412,0.4824,0.5235,0.5647,0.6059,0.6471,0.6882,0.7294,
       0.7706,0.8118,0.8529,0.8941,0.9353,0.9765,1.0176,1.0588,1.1
@@ -9346,7 +9348,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'precision', 2, '1px solid rgb(255, 225, 82)');
+    this.ksHighlight(side, 'precision', 2, 'rgb(255, 225, 82)');
     var healByLvl = [
       10,15.29,20.59,25.88,31.18,36.47,41.76,47.06,52.35,
       57.65,62.94,68.24,73.53,78.82,84.12,89.41,94.71,100
@@ -9376,7 +9378,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'precision', 3, '1px solid rgb(255, 225, 82)');
+    this.ksHighlight(side, 'precision', 3, 'rgb(255, 225, 82)');
     var forceByLvl = [
       2,2.18,2.35,2.53,2.71,2.88,3.06,3.24,3.41,
       3.59,3.76,3.94,4.12,4.29,4.47,4.65,4.82,5
@@ -9405,7 +9407,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'domination', 0, '1px solid rgb(245, 12, 63)');
+    this.ksHighlight(side, 'domination', 0, 'rgb(245, 12, 63)');
     var dmgByLvl = [
       30,38.82,47.65,56.47,65.29,74.12,82.94,91.76,100.59,
       109.41,118.24,127.06,135.88,144.71,153.53,162.35,171.18,180
@@ -9435,7 +9437,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'domination', 1, '1px solid rgb(245, 12, 63)');
+    this.ksHighlight(side, 'domination', 1, 'rgb(245, 12, 63)');
     var dmgByLvl = [
       40,44.71,49.41,54.12,58.82,63.53,68.24,72.94,77.65,
       82.35,87.06,91.76,96.47,101.18,105.88,110.59,115.29,120
@@ -9465,7 +9467,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'domination', 2, '1px solid rgb(245, 12, 63)');
+    this.ksHighlight(side, 'domination', 2, 'rgb(245, 12, 63)');
     var dmgByLvl = [
       20,22.35,24.71,27.06,29.41,31.76,34.12,36.47,38.82,
       41.18,43.53,45.88,48.24,50.59,52.94,55.29,57.65,60
@@ -9495,7 +9497,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'domination', 3, '1px solid rgb(245, 12, 63)');
+    this.ksHighlight(side, 'domination', 3, 'rgb(245, 12, 63)');
     var asByLvl = [
       1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,
       1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,
@@ -9524,7 +9526,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'sorcery', 0, '1px solid rgb(177, 41, 238)');
+    this.ksHighlight(side, 'sorcery', 0, 'rgb(177, 41, 238)');
     var dmgByLvl = [
       10,11.76,13.53,15.29,17.06,18.82,20.59,22.35,24.12,
       25.88,27.65,29.41,31.18,32.94,34.71,36.47,38.24,40
@@ -9566,7 +9568,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'sorcery', 1, '1px solid rgb(177, 41, 238)');
+    this.ksHighlight(side, 'sorcery', 1, 'rgb(177, 41, 238)');
     var dmgByLvl = [
       30,34.12,38.24,42.35,46.47,50.59,54.71,58.82,62.94,
       67.06,71.18,75.29,79.41,83.53,87.65,91.76,95.88,100
@@ -9596,7 +9598,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'sorcery', 2, '1px solid rgb(177, 41, 238)');
+    this.ksHighlight(side, 'sorcery', 2, 'rgb(177, 41, 238)');
     var msByLvl = [
       0.3,0.3176,0.3353,0.3529,0.3706,0.3882,0.4059,0.4235,0.4412,
       0.4588,0.4765,0.4941,0.5118,0.5294,0.5471,0.5647,0.5824,0.6
@@ -9636,7 +9638,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'resolve', 0, '1px solid rgb(90, 227, 30)');
+    this.ksHighlight(side, 'resolve', 0, 'rgb(90, 227, 30)');
     this.setState({
       [`keystone${side}`]: 
         <span>0.04 <span className='textHP'>Max HP</span><img src={healthIcon}></img>ratio</span>,
@@ -9674,7 +9676,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'resolve', 1, '1px solid rgb(90, 227, 30)');
+    this.ksHighlight(side, 'resolve', 1, 'rgb(90, 227, 30)');
     var dmgByLvl = [
       25,30.59,36.18,41.76,47.35,52.94,58.53,64.12,69.71,
       75.29,80.88,86.47,92.06,97.65,103.24,108.82,114.41,120
@@ -9715,7 +9717,7 @@ class App extends Component {
     if (event.target.style.borderBottom) {
       return
     }
-    this.ksHighlight(side, 'resolve', 2, '1px solid rgb(90, 227, 30)');
+    this.ksHighlight(side, 'resolve', 2, 'rgb(90, 227, 30)');
     var shieldByLvl = [
       50,54.71,59.41,64.12,68.82,73.53,78.24,82.94,87.65,
       92.35,97.06,101.76,106.47,111.18,115.88,120.59,125.29,130
@@ -12499,7 +12501,7 @@ class App extends Component {
     this.setState({[`itemDisplay${side}`]:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
         <span style={{position: 'relative'}} key={i}>
-          <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc} 
+          <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={iconSrc} 
           onClick={(event) => this.onMythicClick(event, side, i)}></img>
           <div className='itemTooltip' style={sideStyle}>
             {this.mythicItems[i]}
@@ -12523,7 +12525,7 @@ class App extends Component {
     for (var i = 0; i < 12; i += 2) {
       if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
-        document.getElementById(`inven${side}`).children[i].style.border = '1px solid #ffcb5a';
+        document.getElementById(`inven${side}`).children[i].style.border = '3px double #ffcb5a';
         document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
         this[`inven${side}TT${1 + (i/2)}`] = this.mythicItems[mythicIndex];
         this[`haveMythic${side}`] = true;
@@ -12908,9 +12910,9 @@ class App extends Component {
     this[`itemCounter${side}`]--;
     event.target.setAttribute('src', blackbg);
     event.target.style.cursor = '';
-    var removedMythic = false
-    if (event.target.style.border === '1px solid rgb(255, 203, 90)'){
-      event.target.style.border = '1px outset black';
+    var removedMythic = false;
+    if (event.target.style.border === '3px double rgb(255, 203, 90)'){
+      event.target.style.border = '3px double black';
       this[`haveMythic${side}`] = false;
       document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
       removedMythic = true
@@ -13144,7 +13146,7 @@ class App extends Component {
     this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
         <span style={{position: 'relative'}} key={i}>
-          <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc} 
+          <img className='itemIcon' style={{border: '3px double black'}} src={iconSrc} 
           onClick={(event) => this.onLegendClick(event, side, i)}></img>
           <div className='itemTooltip' style={sideStyle}>
             {this.legendItems[i]}
@@ -13191,7 +13193,7 @@ class App extends Component {
         if (i < 25) {
           return (
             <span style={{position: 'relative'}} key={i}>
-              <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={Array.from(this.mythicIcons)[i]}
+              <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={Array.from(this.mythicIcons)[i]}
               onClick={(event) => this.onMythicClick(event, side, i)}></img>
               <div className='itemTooltip' style={sideStyle}>
                 {this.mythicItems[i]}
@@ -13201,8 +13203,8 @@ class App extends Component {
         } else {
           return (
             <span style={{position: 'relative'}} key={i}>
-              <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={Array.from(this.itemIcons)[i-25]}
-              onClick={(event) => this.onLegendClick(event, side, i)}></img>
+              <img className='itemIcon' style={{border: '3px double black'}} src={Array.from(this.itemIcons)[i-25]}
+              onClick={(event) => this.onLegendClick(event, side, i-25)}></img>
               <div className='itemTooltip' style={sideStyle}>
                 {this.legendItems[i-25]}
               </div>
@@ -13296,7 +13298,7 @@ class App extends Component {
     this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
         <span style={{position: 'relative'}} key={i}>
-          <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc}
+          <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={iconSrc}
           onClick={(event) => this.onMythicClick(event, 'Left', i)}></img>
           <div className='itemTooltip' style={{left: '20px'}}>
             {this.mythicItems[i]}
@@ -13307,7 +13309,7 @@ class App extends Component {
     this.setState({itemDisplayRight:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
         <span style={{position: 'relative'}} key={i}>
-          <img className='itemIcon' style={{border: '1px solid #ffcb5a'}} src={iconSrc}
+          <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={iconSrc}
           onClick={(event) => this.onMythicClick(event, 'Right', i)}></img>
           <div className='itemTooltip' style={{right: '20px'}}>
             {this.mythicItems[i]}
@@ -13407,25 +13409,28 @@ class App extends Component {
           <div className='flexDisplay'>
             <div id='ksLeft' className='keystone' style={{width: '45vw', textAlign: 'center'}}>
               <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Left')} 
-              style={{borderBottom: '1px solid rgb(255, 225, 82)'}} />
+              style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
               <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Left')} />
               <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Left')} />
               <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Left')} />
             
-              <hr></hr>
+              <hr style={{background: 'rgb(255, 225, 82', marginRight: 1}}></hr>
+              <hr style={{background: 'rgb(245, 12, 63)', marginLeft: 0}}></hr>
             
               <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Left')} />
               <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Left')} />
               <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Left')} />
               <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Left')} />
             
-              <hr></hr>
+              <hr style={{background: 'rgb(245, 12, 63)', marginRight: 1}}></hr>
+              <hr style={{background: 'rgb(177, 41, 238)', marginLeft: 0}}></hr>
             
               <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
               <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
               <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
             
-              <hr></hr>
+              <hr style={{background: 'rgb(177, 41, 238)', marginRight: 1}}></hr>
+              <hr style={{background: 'rgb(90, 227, 30)', marginLeft: 0}}></hr>
             
               <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Left')} />
               <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Left')} />
@@ -13434,7 +13439,7 @@ class App extends Component {
 
             <div id='ksRight' className='keystone' style={{width: '45vw', textAlign: 'center'}}>
               <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Right')} 
-              style={{borderBottom: '1px solid rgb(255, 225, 82)'}} />
+              style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
               <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Right')} />
               <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Right')} />
               <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Right')} />
@@ -13460,7 +13465,7 @@ class App extends Component {
             </div>
           </div>
 
-          <div className='flexDisplay'>
+          <div className='flexDisplay' style={{marginBottom: '5px'}}>
             <b id='ksTitleLeft' style={{width: '45vw', textAlign: 'center'}}>{this.state.keystoneIDLeft.title}</b>
             <b id='ksTitleRight' style={{width: '45vw', textAlign: 'center'}}>{this.state.keystoneIDRight.title}</b>
           </div>
@@ -13729,10 +13734,12 @@ class App extends Component {
           </div>
           <div id='transform'>
             <div className="flexDisplay">
-              <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}><b>
-                {this.tfChampPair[this.state.champNameLeft]} Stats</b></span>
-              <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}><b>
-                {this.tfChampPair[this.state.champNameRight]} Stats</b></span>
+              <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}>
+                <b>{this.tfChampPair[this.state.champNameLeft]} Stats</b>
+              </span>
+              <span className="transformRight" style={{width: '45vw', textAlign: 'center'}}>
+                <b>{this.tfChampPair[this.state.champNameRight]} Stats</b>
+              </span>
             </div>
             <div className="flexDisplay">
               <div className="statsBox transformLeft">
