@@ -13414,7 +13414,7 @@ class App extends Component {
               <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Left')} />
               <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Left')} />
             
-              <hr style={{background: 'rgb(255, 225, 82', marginRight: 1}}></hr>
+              <hr style={{background: 'rgb(255, 225, 82', marginRight: 5}}></hr>
               <hr style={{background: 'rgb(245, 12, 63)', marginLeft: 0}}></hr>
             
               <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Left')} />
@@ -13422,14 +13422,14 @@ class App extends Component {
               <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Left')} />
               <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Left')} />
             
-              <hr style={{background: 'rgb(245, 12, 63)', marginRight: 1}}></hr>
+              <hr style={{background: 'rgb(245, 12, 63)', marginRight: 5}}></hr>
               <hr style={{background: 'rgb(177, 41, 238)', marginLeft: 0}}></hr>
             
               <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
               <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
               <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
             
-              <hr style={{background: 'rgb(177, 41, 238)', marginRight: 1}}></hr>
+              <hr style={{background: 'rgb(177, 41, 238)', marginRight: 5}}></hr>
               <hr style={{background: 'rgb(90, 227, 30)', marginLeft: 0}}></hr>
             
               <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Left')} />
@@ -13444,20 +13444,23 @@ class App extends Component {
               <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Right')} />
               <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Right')} />
             
-              <hr></hr>
+              <hr style={{background: 'rgb(255, 225, 82', marginRight: 5}}></hr>
+              <hr style={{background: 'rgb(245, 12, 63)', marginLeft: 0}}></hr>
             
               <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Right')} />
               <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Right')} />
               <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Right')} />
               <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Right')} />
             
-              <hr></hr>
+              <hr style={{background: 'rgb(245, 12, 63)', marginRight: 5}}></hr>
+              <hr style={{background: 'rgb(177, 41, 238)', marginLeft: 0}}></hr>
             
               <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Right')} />
               <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Right')} />
               <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Right')} />
             
-              <hr></hr>
+              <hr style={{background: 'rgb(177, 41, 238)', marginRight: 5}}></hr>
+              <hr style={{background: 'rgb(90, 227, 30)', marginLeft: 0}}></hr>
             
               <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Right')} />
               <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Right')} />

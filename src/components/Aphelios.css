@@ -15,7 +15,7 @@ th {
 }
 
 tr ~ tr th {
-    color: #f9b54a;
+    color: rgb(189, 125, 76);
     border: 1px solid white;
 }
 

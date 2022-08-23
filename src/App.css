@@ -17,8 +17,8 @@ html {
   text-decoration-color: white;
 }
 
-.abilityTitleBox b, p {
-  text-shadow: 2px 0 0 #134f61, 0 -2px 0 #134f61, 0 2px 0 #134f61, -2px 0 0 #134f61;
+.abilityTitleBox b {
+  text-shadow: 1px 0 0 #134f61, 0 -2px 0 #134f61, 0 2px 0 #134f61, -2px 0 0 #134f61;
 }
 
 .abilityTitleBox u:before {

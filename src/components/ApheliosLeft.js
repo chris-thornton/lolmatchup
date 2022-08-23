@@ -1,7 +1,9 @@
 import React from 'react';
 import spellIcons from '../spellicons/aphelios.png';
 import ADIcon from '../staticons/attackDamage.png';
-import attackSpeedIcon from '../staticons/attackSpeed.png';
+import APIcon from '../staticons/abilityPower.png';
+import HPIcon from '../staticons/health.png';
+import ASIcon from '../staticons/attackSpeed.png';
 import './Aphelios.css';
 
 var moonShot = {
@@ -197,17 +199,21 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </div>
       </div>
       <div className="abilityBoxLeft">
-        <span><b>Empowered Basic Attack: </b><u>Physical Damage:</u> {calAutoEmp.dmg} (+{calAutoEmp.bonusADRatio}
-        <span className='textAD'> Bonus AD</span><img src={ADIcon}></img>ratio)</span>
+        <span>
+          <b>Empowered Basic Attack: </b><u>Physical Damage:</u> {calAutoEmp.dmg} (+{calAutoEmp.bonusADRatio}
+          <span className='textAD'> Bonus AD</span><img src={ADIcon}></img>ratio)
+        </span>
         <br></br>
         <span><u>Total:</u> {Math.round(calAutoEmp.dmg + calAutoEmp.bonusADRatio * (items.ad + runes.ad + bonus.ad))}</span>
         <hr></hr>
         <p>Moonshot</p>
         <hr></hr>
         <span>
-          <b>Physical Damage: </b>[{moonShot.dmgByLvl[0]} to {moonShot.dmgByLvl[17]}, based on lvl. <u>Currently:
-            </u> {moonShot.dmgByLvl[champLevel-1]}] (+{moonShot.bonusADRatioByLvl[0]} to {moonShot.bonusADRatioByLvl[17]} Bonus AD
-          Ratio, based on lvl. <u>Currently:</u> {moonShot.bonusADRatioByLvl[champLevel-1]}) (+{moonShot.APRatio} AP Ratio)
+        <b>Physical Damage: </b>[{moonShot.dmgByLvl[0]} to {moonShot.dmgByLvl[17]}, based on lvl. <u>Currently:
+            </u> {moonShot.dmgByLvl[champLevel-1]}] (+{moonShot.bonusADRatioByLvl[0]} to {moonShot.bonusADRatioByLvl[17]}
+            <span className='textAD'> Bonus AD</span><img src={ADIcon}></img>ratio, based on lvl. <u>Currently:
+              </u> {moonShot.bonusADRatioByLvl[champLevel-1]}) (+{moonShot.APRatio}<span className='textAP'> AP</span>
+          <img src={APIcon}></img>ratio)
         </span>
         <br></br>
         <span>
@@ -216,8 +222,8 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </span>
         <br></br><br></br>
         <span>
-          <b>Cooldown: </b>{moonShot.coolDownByLvl[0]} to {moonShot.coolDownByLvl[17]}, based on lvl. <u>
-            Currently:</u> {moonShot.coolDownByLvl[champLevel-1]}
+          <b style={{color: 'lightgray'}}>Cooldown: </b>{moonShot.coolDownByLvl[0]} to {moonShot.coolDownByLvl[17]}
+          , based on lvl. <u>Currently:</u> {moonShot.coolDownByLvl[champLevel-1]}
         </span>
       </div>
 
@@ -232,12 +238,13 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
       <div className="abilityBoxLeft">
           <span>
             <b>Life Steal Ratio: </b>[{sev.lifeStealByLvl[0]} to {sev.lifeStealByLvl[17]}, based on lvl. <u>
-              Currently:</u> {sev.lifeStealByLvl[champLevel-1]}] (Tripled for attacks from abilities)
+              Currently:</u> {sev.lifeStealByLvl[champLevel-1]}] (tripled for attacks from abilities)
           </span>
           <br></br><br></br>
           <span>
             <b>Overheal Shield: </b>[{sev.overHeal.overHealByLvl[0]} to {sev.overHeal.overHealByLvl[17]}, based on lvl. <u>
-              Currently:</u> {sev.overHeal.overHealByLvl[champLevel-1]}] (+{sev.overHeal.maxHPRatio} Max HP Ratio)
+              Currently:</u> {sev.overHeal.overHealByLvl[champLevel-1]}] (+{sev.overHeal.maxHPRatio} 
+              <span className='textHP'> Max HP</span><img src={HPIcon}></img>ratio)
           </span>
           <br></br>
           <span><u>Total:</u> {Math.round(sev.overHeal.overHealByLvl[champLevel-1] + sev.overHeal.maxHPRatio*totalStats.hp )}</span>
@@ -245,22 +252,23 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
           <p>Onslaught</p>
           <hr></hr>
           <span>
-            Over 1.75 seconds, attack 6 (+1 per 50% Bonus Attack Speed, rounded at 25%) times. Can crit. Each attack deals [{
+            <b>Physical Damage: </b>
+            Over 1.75 seconds, attack 6 (+1 per 50% <span className='textAS'>Bonus Attack Speed</span><img src={ASIcon}></img>
+            , rounded at 25%) times. Each attack deals [{
             onslaught.dmgByLvl[0]} to {onslaught.dmgByLvl[17]}, based on lvl. <u>Currently:</u> {onslaught.dmgByLvl[champLevel-1]}
-            ] (+ {onslaught.bonusADRatioByLvl[0]} to {onslaught.bonusADRatioByLvl[17]} Bonus AD Ratio, based on lvl. <u>
-              Currently:</u> {onslaught.bonusADRatioByLvl[champLevel-1]}) Physical Damage.
+            ] (+{onslaught.bonusADRatioByLvl[0]} to {onslaught.bonusADRatioByLvl[17]}<span className='textAD'> Bonus AD
+            </span><img src={ADIcon}></img>ratio, based on lvl. <u>Currently:</u> {onslaught.bonusADRatioByLvl[champLevel-1]}). Can crit.
           </span>
           <br></br>
           <span>
-            <u>Total:</u> {(6 + Math.round(2*(items.as + runes.as + bonus.as)))} attacks dealing {Math.round(onslaught.dmgByLvl[champLevel-1] 
-            + onslaught.bonusADRatioByLvl[champLevel-1] * (items.ad + runes.ad + bonus.ad))}, for a total of {Math.round(
-              (6 + Math.round(2*(items.as + runes.as + bonus.as))) * (onslaught.dmgByLvl[champLevel-1] 
-                + onslaught.bonusADRatioByLvl[champLevel-1] * (items.ad + runes.ad + bonus.ad)) )} Physical Damage.
+            <u>Total:</u> {Math.round((6 + Math.round(2*(items.as + runes.as + bonus.as))) 
+            * (onslaught.dmgByLvl[champLevel-1] + onslaught.bonusADRatioByLvl[champLevel-1] 
+            * (items.ad + runes.ad + bonus.ad)) )} (from {(6 + Math.round(2*(items.as + runes.as + bonus.as)))} attacks)
           </span>
           <br></br><br></br>
           <span>
-            <b>Cooldown: </b>{onslaught.coolDownByLvl[0]} to {onslaught.coolDownByLvl[17]}, based on lvl. <u>
-              Currently:</u> {onslaught.coolDownByLvl[champLevel-1]}
+            <b style={{color: 'lightgray'}}>Cooldown: </b>{onslaught.coolDownByLvl[0]} to {onslaught.coolDownByLvl[17]},
+             based on lvl. <u>Currently:</u> {onslaught.coolDownByLvl[champLevel-1]}
           </span>
       </div>
 
@@ -279,7 +287,9 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         <span>
           <b>Magic Damage: </b>[{bindingEclipse.dmgByLvl[0]} to {bindingEclipse.dmgByLvl[17]}, based on lvl. <u>Currently:
           </u> {bindingEclipse.dmgByLvl[champLevel-1]}] (+{bindingEclipse.bonusADRatioByLvl[0]} to {bindingEclipse.bonusADRatioByLvl[17]
-          } Bonus AD Ratio, based on lvl. <u>Currently:</u> {bindingEclipse.bonusADRatioByLvl[champLevel-1]}) (+{bindingEclipse.APRatio} AP Ratio)
+          } <span className='textAD'>Bonus AD</span><img src={ADIcon}></img>ratio, based on lvl. <u>Currently:
+            </u> {bindingEclipse.bonusADRatioByLvl[champLevel-1]}) (+{bindingEclipse.APRatio} <span className='textAP'>
+              AP</span><img src={APIcon}></img>ratio)
         </span>
         <br></br>
         <span>
@@ -288,7 +298,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </span>
         <br></br><br></br>
         <span>
-          <b>Cooldown: </b>{bindingEclipse.coolDownByLvl[0]} to {bindingEclipse.coolDownByLvl[17]}, based on lvl. <u>
+          <b style={{color: 'lightgray'}}>Cooldown: </b>{bindingEclipse.coolDownByLvl[0]} to {bindingEclipse.coolDownByLvl[17]}, based on lvl. <u>
             Currently:</u> {bindingEclipse.coolDownByLvl[champLevel-1]}
         </span>
       </div>
@@ -303,7 +313,8 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
       </div>
       <div className="abilityBoxLeft">
         <span>
-          <b>Auto Attack Empower: </b><u>Physical Damage:</u> {inf.ADRatio} AD Ratio
+          <b>Auto Attack Empower: </b><u>Physical Damage:</u> {inf.ADRatio} <span className='textAD'>AD</span>
+          <img src={ADIcon}></img>ratio
         </span>
         <br></br>
         <span>
@@ -314,8 +325,10 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         <hr></hr>
         <span>
           <b>Physical Damage: </b>[{duskwave.dmgByLvl[0]} to {duskwave.dmgByLvl[17]}, based on lvl. <u>Currently:
-            </u> {duskwave.dmgByLvl[champLevel-1]}] (+{duskwave.bonusADRatioByLvl[0]} to {duskwave.bonusADRatioByLvl[17]} Bonus AD
-          Ratio, based on lvl. <u>Currently:</u> {duskwave.bonusADRatioByLvl[champLevel-1]}) (+{duskwave.APRatio} AP Ratio)
+            </u> {duskwave.dmgByLvl[champLevel-1]}] (+{duskwave.bonusADRatioByLvl[0]} to {duskwave.bonusADRatioByLvl[17]}
+             <span className='textAD'> Bonus AD</span><img src={ADIcon}></img>ratio, based on lvl. <u>Currently:
+              </u> {duskwave.bonusADRatioByLvl[champLevel-1]}) (+{duskwave.APRatio} 
+              <span className='textAP'> AP</span><img src={APIcon}></img>ratio)
         </span>
         <br></br>
         <span>
@@ -324,8 +337,8 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </span>
         <br></br><br></br>
         <span>
-          <b>Cooldown: </b>{duskwave.coolDownByLvl[0]} to {duskwave.coolDownByLvl[17]}, based on lvl. <u>
-            Currently:</u> {duskwave.coolDownByLvl[champLevel-1]}
+          <b style={{color: 'lightgray'}}>Cooldown: </b>{duskwave.coolDownByLvl[0]} to {duskwave.coolDownByLvl[17]},
+           based on lvl. <u>Currently:</u> {duskwave.coolDownByLvl[champLevel-1]}
         </span>
       </div>
 
@@ -339,11 +352,12 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
       </div>
       <div className="abilityBoxLeft">
       <span>
-          <b>Auto Attack Empower: </b><u>Physical Damage:</u> {crescendum.ADRatioByStack[0]} to {crescendum.ADRatioByStack[19]} AD Ratio, 
-          based on stacks:
+          <b>Auto Attack Empower: </b><u>Physical Damage:</u> {crescendum.ADRatioByStack[0]} to {crescendum.ADRatioByStack[19]}
+          <span className='textAD'> AD</span><img src={ADIcon}></img>ratio, based on stacks:
         </span>
         <table>
             <tr>
+              <th>Stacks</th>
               <th>1</th>
               <th>2</th>
               <th>3</th>
@@ -366,6 +380,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
               <th>20</th>
             </tr>
             <tr>
+              <th>AD ratio</th>
               <th>{crescendum.ADRatioByStack[0]}</th>
               <th>{crescendum.ADRatioByStack[1]}</th>
               <th>{crescendum.ADRatioByStack[2]}</th>
@@ -447,8 +462,10 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         <br></br>
         <span>
           <b>Physical Damage per Attack: </b>[{sentry.dmgByLvl[0]} to {sentry.dmgByLvl[17]}, based on lvl. <u>Currently:
-            </u> {sentry.dmgByLvl[champLevel-1]}] (+{sentry.bonusADRatioByLvl[0]} to {sentry.bonusADRatioByLvl[17]} Bonus AD
-          Ratio, based on lvl. <u>Currently:</u> {sentry.bonusADRatioByLvl[champLevel-1]}) (+{sentry.APRatio} AP Ratio)
+            </u> {sentry.dmgByLvl[champLevel-1]}] (+{sentry.bonusADRatioByLvl[0]} to {sentry.bonusADRatioByLvl[17]}
+            <span className='textAD'> Bonus AD</span><img src={ADIcon}></img>ratio, based on lvl. <u>Currently:
+              </u> {sentry.bonusADRatioByLvl[champLevel-1]}) (+{sentry.APRatio} <span className='textAP'>AP</span>
+              <img src={APIcon}></img>ratio)
         </span>
         <br></br>
         <span>
@@ -457,8 +474,8 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </span>
         <br></br><br></br>
         <span>
-          <b>Cooldown: </b>{sentry.coolDownByLvl[0]} to {sentry.coolDownByLvl[17]}, based on lvl. <u>
-            Currently:</u> {sentry.coolDownByLvl[champLevel-1]}
+          <b style={{color: 'lightgray'}}>Cooldown: </b>{sentry.coolDownByLvl[0]} to {sentry.coolDownByLvl[17]},
+           based on lvl. <u>Currently:</u> {sentry.coolDownByLvl[champLevel-1]}
         </span>
       </div>
 
@@ -472,8 +489,9 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
       </div>
       <div className="abilityBoxLeft">
         <span>
-          <b>Physical Damage: </b>[{r.dmg[0]}, {r.dmg[1]}, {r.dmg[2]} at lvl 6, 11, 16] (+{r.bonusADRatio} Bonus AD Ratio) 
-          (+{r.APRatio} AP Ratio)
+          <b>Physical Damage: </b>[{r.dmg[0]}, {r.dmg[1]}, {r.dmg[2]} at lvl 6, 11, 16] (+{r.bonusADRatio}
+          <span className='textAD'> Bonus AD</span><img src={ADIcon}></img>ratio) 
+          (+{r.APRatio} <span className='textAP'>AP</span><img src={APIcon}></img>ratio)
         </span>
         <br></br>
         <span>
@@ -482,7 +500,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         </span>
         <br></br><br></br>
         <span>
-          <b>Cooldown: </b> [{r.coolDown[0]}, {r.coolDown[1]}, {r.coolDown[2]}]
+          <b style={{color: 'lightgray'}}>Cooldown: </b> [{r.coolDown[0]}, {r.coolDown[1]}, {r.coolDown[2]}]
         </span>
         <br></br>
         <span>
@@ -508,8 +526,8 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
         <p>Infernum</p>
         <hr></hr>
         <span>
-          <b>Physical Damage: </b>[{r.infernum.dmg[0]}, {r.infernum.dmg[1]}, {r.infernum.dmg[2]}] (+{r.infernum.bonusADRatio} Bonus 
-          AD Ratio)
+          <b>Physical Damage: </b>[{r.infernum.dmg[0]}, {r.infernum.dmg[1]}, {r.infernum.dmg[2]}] (+{r.infernum.bonusADRatio}
+          <span className='textAD'> Bonus AD</span><img src={ADIcon}></img>ratio)
         </span>
         <br></br>
         <u>Total:</u> {Math.round(r.infernum.dmg[champLvlIndex[champLevel]] + r.infernum.bonusADRatio 
