@@ -12,6 +12,10 @@ html {
   cursor: pointer;
 }
 
+.abilityTitleBox button {
+  visibility: hidden;
+}
+
 .abilityTitleBox u {
   color: #ffffb9;
   text-decoration-color: white;
@@ -174,13 +178,13 @@ button {
 
 .ksStats {
   width: 45vw;
-  border: 1px solid #f9b54a;
+  border: 3px double #ffffb9;
   box-shadow: 3px 3px 3px #003747;
   padding: 0px 1em;
   background: linear-gradient(#003747, rgb(19, 79, 97));
   border-radius: 10px;
-  border-top: 0px;
-  border-bottom: 0px;
+  border-left-color: #f9b54a;
+  border-right-color: #f9b54a;
   padding-bottom: 5px;
   margin-bottom: 10px;
 }
@@ -248,6 +252,14 @@ span + img {
 
 #itemsLeft, #itemsRight {
   text-align: center;
+  border: 4px double #ffffb9;
+  border-top: 4px double black;;
+}
+
+.itemDisplay {
+  background: linear-gradient(#003747, #134f61);
+  height: 110px;
+  overflow-y: auto;
 }
 
 .itemIcon {
@@ -258,9 +270,10 @@ span + img {
 }
 
 .itemMenu {
-  width: 45vw;
   height: 25px;
   margin-bottom: 5px;
+  border-bottom: 4px double black;
+  padding: 3px
 }
 
 .itemMenu button {
@@ -280,7 +293,8 @@ span + img {
   opacity: 1;
   top: 20px;
   display: none;
-  width: 250px;
+  width: 400px;
+  max-height: 500px;
   border: 1px solid #ffffb9;
   padding: 5px;
   z-index: 100;

@@ -37,6 +37,7 @@ import healShieldIcon from './staticons/healShieldPower.png';
 import moveSpeedIcon from './staticons/movementspeed.png';
 import goldIcon from './staticons/gold.png';
 import ApheliosLeft from './components/ApheliosLeft';
+import ApheliosRight from './components/ApheliosRight';
 
 class App extends Component {
   constructor() {
@@ -570,7 +571,10 @@ class App extends Component {
         var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
         while (divToEmpty.firstChild) {
           divToEmpty.removeChild(divToEmpty.firstChild);
-        }
+        };
+        document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'hidden';
+        document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'hidden';
+        document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2].style.visibility = 'hidden';
       };
 
       var otherSide = '';
@@ -3586,6 +3590,7 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusStats"]) {
+              document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'hidden'
               var path = champFile[ability]["bonusStats"];
               addBold('Bonus Stats: ');
               if (path["attackDamageByLvl"]) {
@@ -6935,6 +6940,7 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusStats"]) {
+              document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible'
               var path = champFile[ability]["bonusStats"];
               addBold('Bonus Stats: ');
               if (path["attackDamageByLvl"]) {
@@ -12494,16 +12500,12 @@ class App extends Component {
     document.getElementById(`legendButton${side}`).style.background = '';
     document.getElementById(`mythicButton${side}`).style.background 
       = 'linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%)';
-    var sideStyle = {left: '20px'}
-    if (side === 'Right') {
-      sideStyle = {right: '20px'}
-    }
     this.setState({[`itemDisplay${side}`]:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
-        <span style={{position: 'relative'}} key={i}>
+        <span key={i}>
           <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={iconSrc} 
           onClick={(event) => this.onMythicClick(event, side, i)}></img>
-          <div className='itemTooltip' style={sideStyle}>
+          <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
             {this.mythicItems[i]}
           </div>
         </span>
@@ -13139,16 +13141,12 @@ class App extends Component {
     document.getElementById(`mythicButton${side}`).style.background = '';
     document.getElementById(`legendButton${side}`).style.background 
     = 'linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%)';
-    var sideStyle = {left: '20px'};
-    if (side === 'Right') {
-      sideStyle = {right: '20px'}
-    };
     this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
-        <span style={{position: 'relative'}} key={i}>
+        <span key={i}>
           <img className='itemIcon' style={{border: '3px double black'}} src={iconSrc} 
           onClick={(event) => this.onLegendClick(event, side, i)}></img>
-          <div className='itemTooltip' style={sideStyle}>
+          <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
             {this.legendItems[i]}
           </div>
         </span>
@@ -13184,28 +13182,24 @@ class App extends Component {
   onItemSearch = (event, side) => {
     document.getElementById(`mythicButton${side}`).style.background = '';
     document.getElementById(`legendButton${side}`).style.background = '';
-    var sideStyle = {left: '20px'}
-    if (side === 'Right') {
-      sideStyle = {right: '20px'}
-    }
     this.setState({[`itemDisplay${side}`]:  [...this.mythicList, ...this.legendList].map((itemName, i) => {
       if (itemName.toLowerCase().includes(event.target.value.toLowerCase()) ) {
         if (i < 25) {
           return (
-            <span style={{position: 'relative'}} key={i}>
+            <span key={i}>
               <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={Array.from(this.mythicIcons)[i]}
               onClick={(event) => this.onMythicClick(event, side, i)}></img>
-              <div className='itemTooltip' style={sideStyle}>
+              <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
                 {this.mythicItems[i]}
               </div>
             </span>
           )
         } else {
           return (
-            <span style={{position: 'relative'}} key={i}>
+            <span key={i}>
               <img className='itemIcon' style={{border: '3px double black'}} src={Array.from(this.itemIcons)[i-25]}
               onClick={(event) => this.onLegendClick(event, side, i-25)}></img>
-              <div className='itemTooltip' style={sideStyle}>
+              <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
                 {this.legendItems[i-25]}
               </div>
             </span>
@@ -13297,10 +13291,10 @@ class App extends Component {
     this.mythicIcons = importAll(require.context('./mythicicons/', false, /\.(png|jpe?g|svg)$/));
     this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
-        <span style={{position: 'relative'}} key={i}>
+        <span key={i}>
           <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={iconSrc}
           onClick={(event) => this.onMythicClick(event, 'Left', i)}></img>
-          <div className='itemTooltip' style={{left: '20px'}}>
+          <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
             {this.mythicItems[i]}
           </div>
         </span>
@@ -13308,10 +13302,10 @@ class App extends Component {
     })});
     this.setState({itemDisplayRight:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
-        <span style={{position: 'relative'}} key={i}>
+        <span key={i}>
           <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={iconSrc}
           onClick={(event) => this.onMythicClick(event, 'Right', i)}></img>
-          <div className='itemTooltip' style={{right: '20px'}}>
+          <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
             {this.mythicItems[i]}
           </div>
         </span>
@@ -13624,9 +13618,9 @@ class App extends Component {
           </div>
 
 
-          <div className="flexDisplay" style={{marginTop: '10px'}}>
-            <div style={{width:'45vw'}}>
-              <div id='itemsLeft'>
+          <div className="flexAround" style={{marginTop: '10px'}}>
+            <div style={{width:'40vw'}}>
+              <div id='itemsLeft' style={{position: 'relative'}}>
                 <div className='itemMenu'>
                   <button type='button' id='mythicButtonLeft' onClick={() => this.onMythicDisplay('Left')} style={{
                     background: 'linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%)'
@@ -13637,14 +13631,14 @@ class App extends Component {
                   <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Left')}
                   onBlur={this.onItemBlur} id='itemSearchLeft' />
                 </div>
-                <div>
+                <div className='itemDisplay'>
                   {this.state.itemDisplayLeft}
                 </div>
               </div> 
             </div>
 
-            <div style={{width:'45vw'}}>
-              <div id='itemsRight'>
+            <div style={{width:'40vw'}}>
+              <div id='itemsRight' style={{position: 'relative'}}>
                 <div className='itemMenu'>
                   <button type='button' id='mythicButtonRight' onClick={() => this.onMythicDisplay('Right')} style={{
                     background: 'linear-gradient(145deg, #ffffb9 8%, #f9b54a 9%, white 11%, white 89%, #f9b54a 90%, #ffffb9 92%)'
@@ -13655,7 +13649,7 @@ class App extends Component {
                   <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Right')}
                   onBlur={this.onItemBlur} id='itemSearchRight' />
                 </div>
-                <div>
+                <div className='itemDisplay'>
                   {this.state.itemDisplayRight}
                 </div>
               </div>
@@ -13810,7 +13804,7 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedPassiveLeft'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='passiveLeftApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>
@@ -13827,7 +13821,7 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='qMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedQLeft'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='QLeftApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>
@@ -13844,7 +13838,7 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='wMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedWLeft'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='WLeftApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>
@@ -13861,7 +13855,7 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='eMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedELeft'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='ELeftApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>
@@ -13878,7 +13872,7 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='rMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedRLeft'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='RLeftApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>
@@ -13888,12 +13882,17 @@ class App extends Component {
             </div>
           
             <div>
+              {this.state.champNameRight === 'Aphelios' ?
+                  <ApheliosRight runes={this.runesRight} items={this.itemStatsRight} onRankChange={this.onApheliosRank}
+                  bonuses={this.state.aphelRight} totalStats={this.state.totalStatsRight} />
+                  : ''
+                }
               <div className='hiddenRight abilityTitleBox' style={{paddingTop: '5px'}}>
                 <p style={{margin: 0, display: 'inline-block', verticalAlign: 'top'}}><b><u>Passive </u></b></p>
                 <div className="spriteContainer">
                   <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedPassiveRight'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='passiveRightApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>
@@ -13910,7 +13909,7 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='qMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedQRight'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='QRightApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>
@@ -13927,7 +13926,7 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='wMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedWRight'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='WRightApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>
@@ -13944,7 +13943,7 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='eMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedERight'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='ERightApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>
@@ -13961,7 +13960,7 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='rMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='appliedRRight'>
+                <div style={{textAlign: 'left', marginTop: '-5px'}} id='RRightApplied'>
                   <button type='button'>Apply Minimum Stats</button>
                   <button type='button'>Apply Stats </button>
                   <button type='button'>Apply Maximum Stats</button>

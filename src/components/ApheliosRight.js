@@ -149,8 +149,8 @@ var champLvlIndex = {
   11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 2, 17: 2, 18: 2
 }
 
-const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
-  var champLevel = document.getElementById('levelBoxLeft').value;
+const ApheliosRight = ({runes, items, onRankChange, bonuses, totalStats}) => {
+  var champLevel = document.getElementById('levelBoxRight').value;
   var bonus = {
     ad: bonuses.ad,
     as: bonuses.as,
@@ -173,19 +173,19 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
           <img style={{marginLeft: '0px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>  
-      <div className="abilityBoxLeft">
-        <input id="adRankLeft" type="number" placeholder="0" min="0" max="6" 
+      <div className="abilityBoxRight">
+        <input id="adRankRight" type="number" placeholder="0" min="0" max="6" 
         style={{width: "30px", marginLeft: '10px'}} onKeyDown={(event) => event.preventDefault()} 
         onChange={onRankChange} />
         <span className='textAD'> Bonus Attack Damage: </span><span>{bonuses.ad}</span>
 
         <br></br>
-        <input id="asRankLeft" type="number" placeholder="0" min="0" max="6" 
+        <input id="asRankRight" type="number" placeholder="0" min="0" max="6" 
         style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={onRankChange} />
         <span className='textAS'> Bonus Attack Speed Ratio: </span><span>{bonuses.as}</span>
 
         <br></br>
-        <input id="lethalRankLeft" type="number" placeholder="0" min="0" max="6" 
+        <input id="lethalRankRight" type="number" placeholder="0" min="0" max="6" 
         style={{width: "30px", marginLeft: '10px'}} onKeyDown={(e) => e.preventDefault()} onChange={onRankChange} />
         <span style={{color: 'rgb(247, 113, 90)'}}> Bonus Lethality: </span><span>{bonuses.lethal}</span>
       </div>
@@ -198,7 +198,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
           <img style={{marginLeft: '-50px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
-      <div className="abilityBoxLeft">
+      <div className="abilityBoxRight">
         <span>
           <b>Empowered Basic Attack: </b><u>Physical Damage:</u> {calAutoEmp.dmg} (+{calAutoEmp.bonusADRatio}
           <span className='textAD'> Bonus AD</span><img src={ADIcon} alt=''></img>ratio)
@@ -235,14 +235,14 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
           <img style={{marginLeft: '-100px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
-      <div className="abilityBoxLeft">
+      <div className="abilityBoxRight">
           <span>
             <b>Life Steal Ratio: </b>[{sev.lifeStealByLvl[0]} to {sev.lifeStealByLvl[17]}, based on lvl. <u>
               Currently:</u> {sev.lifeStealByLvl[champLevel-1]}] (tripled for attacks from abilities)
           </span>
           <br></br><br></br>
           <span>
-            <b> Overheal Shield: </b>[{sev.overHeal.overHealByLvl[0]} to {sev.overHeal.overHealByLvl[17]}, based on lvl. <u>
+            <b>Overheal Shield: </b>[{sev.overHeal.overHealByLvl[0]} to {sev.overHeal.overHealByLvl[17]}, based on lvl. <u>
               Currently:</u> {sev.overHeal.overHealByLvl[champLevel-1]}] (+{sev.overHeal.maxHPRatio} 
               <span className='textHP'> Max HP</span><img src={HPIcon} alt=''></img>ratio)
           </span>
@@ -280,7 +280,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
           <img style={{marginLeft: '-150px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
-      <div className="abilityBoxLeft">
+      <div className="abilityBoxRight">
         <hr></hr>
           <p>Binding Eclipse</p>
         <hr></hr>
@@ -311,7 +311,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
           <img style={{marginLeft: '-200px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
-      <div className="abilityBoxLeft">
+      <div className="abilityBoxRight">
         <span>
           <b>Auto Attack Empower: </b><u>Physical Damage:</u> {inf.ADRatio} <span className='textAD'>AD</span>
           <img src={ADIcon} alt=''></img>ratio
@@ -350,7 +350,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
           <img style={{marginLeft: '-250px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
-      <div className="abilityBoxLeft">
+      <div className="abilityBoxRight">
       <span>
           <b>Auto Attack Empower: </b><u>Physical Damage:</u> {crescendum.ADRatioByStack[0]} to {crescendum.ADRatioByStack[19]}
           <span className='textAD'> AD</span><img src={ADIcon} alt=''></img>ratio, based on stacks:
@@ -487,7 +487,7 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
           <img style={{marginLeft: '-300px'}} src={ spellIcons } alt='Ability icon'/>
         </div>
       </div>
-      <div className="abilityBoxLeft">
+      <div className="abilityBoxRight">
         <span>
           <b>Physical Damage: </b>[{r.dmg[0]}, {r.dmg[1]}, {r.dmg[2]} at lvl 6, 11, 16] (+{r.bonusADRatio}
           <span className='textAD'> Bonus AD</span><img src={ADIcon} alt=''></img>ratio) 
@@ -543,4 +543,4 @@ const ApheliosLeft = ({runes, items, onRankChange, bonuses, totalStats}) => {
   )
 }
 
-export default ApheliosLeft;
+export default ApheliosRight;
