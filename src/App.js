@@ -8743,6 +8743,8 @@ class App extends Component {
       ksStuff.map(x => {
         document.getElementById(`ks${x}Left`).style.visibility = 'visible';
         document.getElementById(`ks${x}Right`).style.visibility = 'visible';
+        document.getElementById(`ks${x}Left`).style.display = '';
+        document.getElementById(`ks${x}Right`).style.display = '';
       })
     };
 
@@ -13289,6 +13291,11 @@ class App extends Component {
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
     this.ksIcons = importAll(require.context('./ksicons/', false, /\.(png|jpe?g|svg)$/));
     this.mythicIcons = importAll(require.context('./mythicicons/', false, /\.(png|jpe?g|svg)$/));
+    var ksStuff = ['', 'Toggle', 'Title', 'Stats'];
+    ksStuff.map(x => {
+      document.getElementById(`ks${x}Left`).style.display = 'none';
+      document.getElementById(`ks${x}Right`).style.display = 'none';
+    })
     this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
         <span key={i}>
