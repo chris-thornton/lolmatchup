@@ -12916,7 +12916,7 @@ class App extends Component {
     event.target.style.cursor = '';
     var removedMythic = false;
     if (event.target.style.border === '3px double rgb(255, 203, 90)'){
-      event.target.style.border = '3px double black';
+      event.target.style.border = '3px double white';
       this[`haveMythic${side}`] = false;
       document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
       removedMythic = true
@@ -13146,7 +13146,7 @@ class App extends Component {
     this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
         <span key={i}>
-          <img className='itemIcon' style={{border: '3px double black'}} src={iconSrc} 
+          <img className='itemIcon' style={{border: '3px double white'}} src={iconSrc} 
           onClick={(event) => this.onLegendClick(event, side, i)}></img>
           <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
             {this.legendItems[i]}
@@ -13199,7 +13199,7 @@ class App extends Component {
         } else {
           return (
             <span key={i}>
-              <img className='itemIcon' style={{border: '3px double black'}} src={Array.from(this.itemIcons)[i-25]}
+              <img className='itemIcon' style={{border: '3px double white'}} src={Array.from(this.itemIcons)[i-25]}
               onClick={(event) => this.onLegendClick(event, side, i-25)}></img>
               <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
                 {this.legendItems[i-25]}
