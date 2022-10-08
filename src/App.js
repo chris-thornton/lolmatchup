@@ -13233,21 +13233,16 @@ class App extends Component {
   }
 
   keystoneToggle = () => {
+    var ksStuff = ['ksLeft', 'ksRight', 'ksTitleLeft', 'ksTitleRight', 'ksStatsLeft', 'ksStatsRight'];
     if (document.getElementById('ksToggle').textContent === 'Hide Keystones') {
-      document.getElementById('ksLeft').style.display = 'none';
-      document.getElementById('ksTitleLeft').style.display = 'none';
-      document.getElementById('ksStatsLeft').style.display = 'none';
-      document.getElementById('ksRight').style.display = 'none';
-      document.getElementById('ksTitleRight').style.display = 'none';
-      document.getElementById('ksStatsRight').style.display = 'none';
+      ksStuff.map(x => {
+        document.getElementById(`${x}`).style.display = 'none'
+      });
       document.getElementById('ksToggle').textContent = 'Show Keystones';
     } else {
-      document.getElementById('ksLeft').style.display = '';
-      document.getElementById('ksTitleLeft').style.display = '';
-      document.getElementById('ksStatsLeft').style.display = '';
-      document.getElementById('ksRight').style.display = '';
-      document.getElementById('ksTitleRight').style.display = '';
-      document.getElementById('ksStatsRight').style.display = '';
+      ksStuff.map(x => {
+        document.getElementById(`${x}`).style.display = ''
+      });
       document.getElementById('ksToggle').textContent = 'Hide Keystones';
     }
   };
