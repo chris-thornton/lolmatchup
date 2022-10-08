@@ -8739,13 +8739,13 @@ class App extends Component {
     };
 
     if (prevName === '' && this[`champName${otherSide}`] === '') {
-      var ksStuff = ['', 'Toggle', 'Title', 'Stats'];
+      var ksStuff = ['', 'Title', 'Stats'];
       ksStuff.map(x => {
-        document.getElementById(`ks${x}Left`).style.visibility = 'visible';
-        document.getElementById(`ks${x}Right`).style.visibility = 'visible';
         document.getElementById(`ks${x}Left`).style.display = '';
         document.getElementById(`ks${x}Right`).style.display = '';
       })
+      document.getElementById('aboveItemHr').style.display = '';
+      document.getElementById('ksToggle').style.display = '';
     };
 
     if (champName === 'Aphelios') {
@@ -13232,54 +13232,37 @@ class App extends Component {
     document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
   }
 
-  keystoneToggle = (side) => {
-    var otherSide = 'Left';
-    if (side === 'Left') {
-      otherSide = 'Right'
-    };
-    if (document.getElementById(`ksToggle${side}`).textContent === 'Hide Keystones') {
-      if (document.getElementById(`ksToggle${otherSide}`).textContent === 'Show Keystones') {
-        document.getElementById('ksLeft').style.display = 'none';
-        document.getElementById('ksTitleLeft').style.display = 'none';
-        document.getElementById('ksStatsLeft').style.display = 'none';
-        document.getElementById('ksRight').style.display = 'none';
-        document.getElementById('ksTitleRight').style.display = 'none';
-        document.getElementById('ksStatsRight').style.display = 'none';
-        document.getElementById(`ks${side}`).style.visibility = 'hidden';
-        document.getElementById(`ksTitle${side}`).style.visibility = 'hidden';
-        document.getElementById(`ksStats${side}`).style.visibility = 'hidden';
-      } else {
-        document.getElementById(`ks${side}`).style.visibility = 'hidden';
-        document.getElementById(`ksTitle${side}`).style.visibility = 'hidden';
-        document.getElementById(`ksStats${side}`).style.visibility = 'hidden';
-      }
-      document.getElementById(`ksToggle${side}`).textContent = 'Show Keystones';
+  keystoneToggle = () => {
+    if (document.getElementById('ksToggle').textContent === 'Hide Keystones') {
+      document.getElementById('ksLeft').style.display = 'none';
+      document.getElementById('ksTitleLeft').style.display = 'none';
+      document.getElementById('ksStatsLeft').style.display = 'none';
+      document.getElementById('ksRight').style.display = 'none';
+      document.getElementById('ksTitleRight').style.display = 'none';
+      document.getElementById('ksStatsRight').style.display = 'none';
+      document.getElementById('ksToggle').textContent = 'Show Keystones';
     } else {
-      if (document.getElementById(`ksToggle${otherSide}`).textContent === 'Show Keystones') {
-        document.getElementById(`ks${otherSide}`).style.display = '';
-        document.getElementById(`ksTitle${otherSide}`).style.display = '';
-        document.getElementById(`ksStats${otherSide}`).style.display = '';
-      }
-      document.getElementById(`ksToggle${side}`).textContent = 'Hide Keystones';
-      document.getElementById(`ks${side}`).style.display = '';
-      document.getElementById(`ks${side}`).style.visibility = 'visible';
-      document.getElementById(`ksTitle${side}`).style.display = '';
-      document.getElementById(`ksTitle${side}`).style.visibility = 'visible';
-      document.getElementById(`ksStats${side}`).style.display = '';
-      document.getElementById(`ksStats${side}`).style.visibility = 'visible';
+      document.getElementById('ksLeft').style.display = '';
+      document.getElementById('ksTitleLeft').style.display = '';
+      document.getElementById('ksStatsLeft').style.display = '';
+      document.getElementById('ksRight').style.display = '';
+      document.getElementById('ksTitleRight').style.display = '';
+      document.getElementById('ksStatsRight').style.display = '';
+      document.getElementById('ksToggle').textContent = 'Hide Keystones';
     }
-    console.log('side: ' + side);
-    console.log('otherside: ' + otherSide)
   };
 
-  itemsToggle = (side) => {
-    if (document.getElementById(`itemsToggle${side}`).textContent === 'Show Items') {
-      document.getElementById(`items${side}`).style.display = 'inherit';
-      document.getElementById(`itemsToggle${side}`).textContent = 'Hide Items'
+  itemsToggle = () => {
+    if (document.getElementById('itemsToggle').textContent === 'Show Items') {
+      document.getElementById('itemsLeft').style.display = 'inherit';
+      document.getElementById('itemsRight').style.display = 'inherit';
+      document.getElementById('itemsToggle').textContent = 'Hide Items';
     } else {
-      document.getElementById(`items${side}`).style.display = 'none';
-      document.getElementById(`itemsToggle${side}`).textContent = 'Show Items'
-      document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
+      document.getElementById('itemsLeft').style.display = 'none';
+      document.getElementById('itemsRight').style.display = 'none';
+      document.getElementById('itemsToggle').textContent = 'Show Items'
+      document.getElementsByClassName('mythicLimit')[0].style.visibility = 'hidden';
+      document.getElementsByClassName('mythicLimit')[1].style.visibility = 'hidden';
     }
   };
 
@@ -13291,11 +13274,12 @@ class App extends Component {
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
     this.ksIcons = importAll(require.context('./ksicons/', false, /\.(png|jpe?g|svg)$/));
     this.mythicIcons = importAll(require.context('./mythicicons/', false, /\.(png|jpe?g|svg)$/));
-    var ksStuff = ['', 'Toggle', 'Title', 'Stats'];
+    var ksStuff = ['', 'Title', 'Stats'];
     ksStuff.map(x => {
       document.getElementById(`ks${x}Left`).style.display = 'none';
       document.getElementById(`ks${x}Right`).style.display = 'none';
     })
+    document.getElementById('ksToggle').style.display = 'none'
     this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
         <span key={i}>
@@ -13366,7 +13350,7 @@ class App extends Component {
 
           <div className="flexAround" style={{marginTop: '10px'}}>
             <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
-            alt='Champion Icon' style={{position: 'relative'}} />
+            alt='Champion Icon' style={{position: 'relative', border: '1px solid #ffffb9'}} />
           
             <div className='runeBox'>
               <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
@@ -13399,12 +13383,13 @@ class App extends Component {
             </div>
 
             <img id='champIconRight' src={ defaultChampIcon } height="120px" width="120px"
-            alt='Champion Icon' style={{position: 'relative'}}/>
+            alt='Champion Icon' style={{position: 'relative', border: '1px solid #ffffb9'}}/>
           </div>
 
-          <div>
-              <button type='button' id='ksToggleLeft' onClick={() => this.keystoneToggle('Left')}>Hide Keystones</button>
-              <button type='button' id='ksToggleRight' style={{float: 'right'}} onClick={() => this.keystoneToggle('Right')}>Hide Keystones</button>
+          <hr style={{marginTop: '20px'}}></hr>
+
+          <div style={{textAlign: 'center'}}>
+              <button type='button' id='ksToggle' onClick={this.keystoneToggle}>Hide Keystones</button>
           </div>
 
           <div className='flexDisplay'>
@@ -13474,7 +13459,7 @@ class App extends Component {
             <b id='ksTitleRight' style={{width: '45vw', textAlign: 'center'}}>{this.state.keystoneIDRight.title}</b>
           </div>
 
-          <div className='flexDisplay'>      
+          <div className='flexDisplay' style={{marginBottom: '20px'}}>      
             <div className='ksStats' id='ksStatsLeft'>
               <span style={{color: '#ffffb9'}}>{this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
               <br></br>
@@ -13542,6 +13527,8 @@ class App extends Component {
               </div>
             </div>
           </div>
+
+          <hr id='aboveItemHr' style={{display: 'none'}}></hr>
 
           <div className='flexDisplay'>
             <b style={{width: '45vw', textAlign: 'center'}}>Item Inventory</b>
@@ -13618,10 +13605,8 @@ class App extends Component {
             </div>
           </div>
 
-          <div>
-            <button type='button' id='itemsToggleLeft' onClick={() => this.itemsToggle('Left')}>Hide Items</button>
-            <button type='button' id='itemsToggleRight' style={{float: 'right'}}
-              onClick={() => this.itemsToggle('Right')}>Hide Items</button>
+          <div style={{textAlign: 'center'}}>
+            <button type='button' id='itemsToggle' onClick={this.itemsToggle}>Hide Items</button>
           </div>
 
 
@@ -13662,6 +13647,8 @@ class App extends Component {
               </div>
             </div>
           </div>
+
+          <hr style={{marginTop: '20px'}}></hr>
 
 
           <div className="flexDisplay" style={{marginTop: '5px'}}>

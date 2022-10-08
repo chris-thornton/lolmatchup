@@ -129,10 +129,6 @@ button {
   display: none;
 }
 
-#ksToggleLeft, #ksToggleRight, #ksLeft, #ksRight, #ksTitleLeft, #ksTitleRight, #ksStatsLeft, #ksStatsRight {
-  visibility: hidden;
-}
-
 #ksLeft u, #ksRight u {
   text-decoration-color: #ffffb9;
 }
@@ -343,7 +339,7 @@ span + img {
 hr {
   border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, rgba(255, 255, 185, 1), rgba(0, 0, 0, 0.2) 10%, rgba(255, 255, 185, 1) 90%);
+  background-image: linear-gradient(to right, #f9b54a, rgba(0, 0, 0, 0.2) 10%, #f9b54a 70%);
 }
 
 .abilityBoxLeft, .abilityBoxRight {
@@ -395,7 +391,7 @@ hr {
   align-items: center;
   height: 80px;
   color: #003747;
-  border-bottom: 1px solid #f9b54a;
+  border-bottom: 2px solid #f9b54a;
   background-color: white;
   background: linear-gradient(155deg, #ffffb9 1%, #f9b54a 2%, white 3%, white 89%, #f9b54a 98%, #ffffb9 99%);
   margin: 0 -1vw;
