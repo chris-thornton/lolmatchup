@@ -16,6 +16,10 @@ html {
   visibility: hidden;
 }
 
+.abilityTitleBox input {
+  margin-top: 10px;
+}
+
 .abilityTitleBox u {
   color: #ffffb9;
   text-decoration-color: white;
@@ -62,7 +66,7 @@ button {
  border: 1px solid rgb(118, 118, 118);
  border-right: 2px solid rgb(33, 33, 33);
  border-bottom: 2px solid rgb(33, 33, 33);
- box-shadow: 2px 2px #003747;
+ box-shadow: 1px 1px #f9b54a;
 }
 
 .center {
@@ -97,10 +101,10 @@ button {
 .statsBox {
   text-align: center;
   width: 45vw;
-  border: 1px solid #ffffb9;
+  /*border: 1px solid #ffffb9;
   border-left: 1px dashed #f9b54a;
   border-right: 1px dashed #f9b54a;
-  box-shadow: 3px 3px 3px #003747;
+  box-shadow: 3px 3px 3px #003747;*/
   padding: 0px 1em;
   margin-top: 1px;
   /*background:linear-gradient(rgba(33, 33, 33, 1), rgba(118, 118, 118, 0.8));*/
@@ -173,9 +177,9 @@ button {
 }
 
 .ksStats {
-  width: 45vw;
-  border: 3px double #ffffb9;
-  box-shadow: 3px 3px 3px #003747;
+  width: calc(45vw - 150px);
+  /*border: 3px double #ffffb9;
+  box-shadow: 3px 3px 3px #003747;*/
   padding: 0px 1em;
   background: linear-gradient(#003747, rgb(19, 79, 97));
   border-radius: 10px;
@@ -183,6 +187,7 @@ button {
   border-right-color: #f9b54a;
   padding-bottom: 5px;
   margin-bottom: 10px;
+  display: inline-block;
 }
 
 .ksStats img {
@@ -201,7 +206,9 @@ span + img {
   border-radius: 10px;
   box-shadow: 0px 0px 1px #ffffb9;
   background: linear-gradient(#003747, #134f61);
-  align-self: center;
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
 }
 
 .runeImgStyle {
@@ -248,8 +255,8 @@ span + img {
 
 #itemsLeft, #itemsRight {
   text-align: center;
-  border: 3px double white;
-  /*border-top: 4px double black;*/
+  width: 45vw;
+  /*border: 3px double white;*/
 }
 
 .itemDisplay {
@@ -257,6 +264,7 @@ span + img {
   height: 108px;
   overflow-y: auto;
   padding-top: 4px;
+  border-radius: 0px 0px 10px 10px;
 }
 
 .itemIcon {
@@ -270,6 +278,7 @@ span + img {
   height: 25px;
   border-bottom: 1px solid white;
   background: repeating-linear-gradient(155deg,white 10%, #ffffb9 20%);
+  border-radius: 10px 10px 0px 0px;
 }
 
 .itemMenu button {
@@ -284,7 +293,10 @@ span + img {
 
 .itemMenu input {
   width: 12em;
-  height: 25px;
+  height: 23px;
+  float: left;
+  margin-left: 5px;
+  margin-top: 1px;
 }
 
 .itemTooltip {
@@ -339,22 +351,25 @@ span + img {
 hr {
   border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, #f9b54a, rgba(0, 0, 0, 0.2) 10%, #f9b54a 70%);
+  background-image: linear-gradient(to right, #f9b54a 0%, #f9b54a 9%, rgba(0, 0, 0, 0.2) 10%,
+   #f9b54a 15%, #f9b54a 84%, rgba(0, 0, 0, 0.2) 90%, #f9b54a 91%);
 }
 
 .abilityBoxLeft, .abilityBoxRight {
   width: 45vw;
-  border: 2px solid black;
-  box-shadow: 3px 0px 3px #003747;
-  padding: 0px 1em;
+  /*border: 2px solid #ffffb9;
+  box-shadow: 3px 3px 3px #003747;*/
+  border-radius: 10px;
+  padding: 0.5em;
   margin-top: 1px;
   background: linear-gradient(#003747, #134f61);
   color:white;
-  border-image-slice: 27 27 53 50;
+  /*border-image-slice: 27 27 53 50;
   border-image-width: 5px 5px 4.7px 4.5px;
-  border-image-outset: 0px 0px 0px 0px;
+  border-image-outset: 2px 2px 2px 2px;
   border-image-repeat: stretch stretch;
-  border-image-source: url("./images/border-image-2.png"); 
+  border-image-source: url("./images/border-image-2.png");
+  border-image-width: 5px;*/
 }
 
 .abilityBoxLeft hr, .abilityBoxRight hr {
@@ -382,6 +397,7 @@ hr {
 
 .abilityTitleBox {
   margin-top: 20px;
+  margin-bottom: -15px;
   text-align: center;
 }
 
