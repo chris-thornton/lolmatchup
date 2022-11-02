@@ -17,16 +17,12 @@ html {
 }
 
 .abilityTitleBox input {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .abilityTitleBox u {
   color: #ffffb9;
   text-decoration-color: white;
-}
-
-.abilityTitleBox b {
-  text-shadow: 1px 0 0 #134f61, 0 -2px 0 #134f61, 0 2px 0 #134f61, -2px 0 0 #134f61;
 }
 
 .abilityTitleBox u:before {
@@ -109,6 +105,7 @@ button {
   margin-top: 1px;
   /*background:linear-gradient(rgba(33, 33, 33, 1), rgba(118, 118, 118, 0.8));*/
   background: linear-gradient(#003747, #134f61);
+  box-shadow: 0px 0px 1px #ffffb9;
   border-radius: 10px;
   column-count: 4;
   color:white;
@@ -178,13 +175,10 @@ button {
 
 .ksStats {
   width: calc(45vw - 150px);
-  /*border: 3px double #ffffb9;
-  box-shadow: 3px 3px 3px #003747;*/
+  box-shadow: 0px 0px 1px #ffffb9;
   padding: 0px 1em;
   background: linear-gradient(#003747, rgb(19, 79, 97));
   border-radius: 10px;
-  border-left-color: #f9b54a;
-  border-right-color: #f9b54a;
   padding-bottom: 5px;
   margin-bottom: 10px;
   display: inline-block;
@@ -234,6 +228,7 @@ span + img {
   width: 40px;
   height: 40px;
   border: 3px double white;
+  margin-left: 5px;
 }
 
 .mythicLimit {
@@ -265,6 +260,7 @@ span + img {
   overflow-y: auto;
   padding-top: 4px;
   border-radius: 0px 0px 10px 10px;
+  box-shadow: 0px 0px 1px #ffffb9;
 }
 
 .itemIcon {
@@ -276,9 +272,10 @@ span + img {
 
 .itemMenu {
   height: 25px;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #f9b54a;
   background: repeating-linear-gradient(155deg,white 10%, #ffffb9 20%);
   border-radius: 10px 10px 0px 0px;
+  box-shadow: 1px 1px #f9b54a;
 }
 
 .itemMenu button {
@@ -352,7 +349,7 @@ hr {
   border: 0;
   height: 1px;
   background-image: linear-gradient(to right, #f9b54a 0%, #f9b54a 9%, rgba(0, 0, 0, 0.2) 10%,
-   #f9b54a 15%, #f9b54a 84%, rgba(0, 0, 0, 0.2) 90%, #f9b54a 91%);
+   #f9b54a 15%, #f9b54a 85%, rgba(0, 0, 0, 0.2) 90%, #f9b54a 91%);
 }
 
 .abilityBoxLeft, .abilityBoxRight {
@@ -364,6 +361,7 @@ hr {
   margin-top: 1px;
   background: linear-gradient(#003747, #134f61);
   color:white;
+  box-shadow: 0px 0px 1px #ffffb9;
   /*border-image-slice: 27 27 53 50;
   border-image-width: 5px 5px 4.7px 4.5px;
   border-image-outset: 2px 2px 2px 2px;
@@ -471,7 +469,7 @@ h1 {
   height: 50px;
   overflow: hidden;
   display: inline-block;
-  margin-left: 5px;
+  margin-left: 10px;
   border: 1px double #ffffb9;
   border-radius: 10px;
 }

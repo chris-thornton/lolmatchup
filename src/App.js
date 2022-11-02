@@ -35,7 +35,12 @@ import healthRegenIcon from './staticons/healthRegen.png';
 import manaRegenIcon from './staticons/manaRegen.png';
 import healShieldIcon from './staticons/healShieldPower.png';
 import moveSpeedIcon from './staticons/movementspeed.png';
+import healIcon from './staticons/healEffect2.png';
+import ccIcon from './staticons/crowdControl2.png';
+import shieldIcon from './staticons/shield.png';
 import goldIcon from './staticons/gold.png';
+import trueDmgIcon from './staticons/trueDmg.png';
+import attackIcon from './staticons/attack.png';
 import ApheliosLeft from './components/ApheliosLeft';
 import ApheliosRight from './components/ApheliosRight';
 
@@ -626,7 +631,7 @@ class App extends Component {
       var enemyBonusHP = enemyItemStats.hp + enemyRuneStats.hp;
       var enemyTotalArmor = enemyStats.arm + enemyItemStats.arm + enemyRuneStats.arm;
       var enemyTotalMR = enemyStats.mr + enemyItemStats.mr + enemyRuneStats.mr;
-      var totalCritChance = itemStats.critChance;
+      var totalCritChance = itemStats.critChance/100;
       if (champName === 'Tryndamere' || champName === 'Yone') {
         totalCritChance *= 2
       }; 
@@ -722,7 +727,7 @@ class App extends Component {
         };
         function mapSpace(x) {
           return JSON.stringify(x).replace(/,/g, ', ').replace(/"/g,"")
-        }
+        };
         function countDecimals(value) {
           if(Math.floor(value) === value){ 
             return 0
@@ -740,22 +745,37 @@ class App extends Component {
           var br2 = document.createElement('br');
           abilityDiv.appendChild(br2)
         };
-        function colon() {
-          var a = document.createTextNode(': ');
-          abilityDiv.appendChild(a);
-        };
         function underLine(string) {
-          var underL = document.createElement('u');
-          underL.innerText = string;
-          abilityDiv.appendChild(underL);
-          colon();
+          /*var underL = document.createElement('u');
+          underL.innerText = string + ':';
+          var underL = document.createTextNode(string + ':');
+          underL.style.color = '#f9b54a'
+          abilityDiv.appendChild(underL);*/
+          var c = document.createElement('span');
+          var d = document.createTextNode(string + ': ');
+          c.appendChild(d);
+          c.style.color = '#f9b54a';
+          abilityDiv.appendChild(c);
         };
-        function addGrey(x) {
+        function addPink(x) {
           var b = document.createElement('b');
           b.innerText = x;
-          b.style.color = 'lightGrey';
+          b.style.color = 'lightpink';
           abilityDiv.appendChild(b);
         };
+        function colorPart(x) {
+          var b = document.createElement('b');
+          b.innerText = x;
+          b.style.color = 'cornflowerblue';
+          abilityDiv.appendChild(b);
+        };
+        function colorMin(x) {
+          var c = document.createElement('span');
+          var d = document.createTextNode(x);
+          c.appendChild(d);
+          c.style.color = 'crimson';
+          abilityDiv.appendChild(c);
+        }
         function addBold(text) {
           var b = document.createElement('b');
           b.innerText = text;
@@ -765,6 +785,27 @@ class App extends Component {
           var a = document.createTextNode(text);
           abilityDiv.appendChild(a);
         };
+        function prependIcon(iconSrc) {
+          var e = document.createElement('img');
+          e.src = iconSrc;
+          abilityDiv.appendChild(e);
+        };
+        function prependType(dmgType) {
+          switch (dmgType) {
+            case 'Magic':
+              prependIcon(APIcon);
+              break;
+            case 'Physical':
+              prependIcon(ADIcon);
+              break;
+            case 'True':
+              prependIcon(trueDmgIcon);
+              break;
+            case 'Mixed':
+              prependIcon(forceIcon);
+              break;
+          }
+        }
         function colorText(text, colorRgb, colorSrc){
           var c = document.createElement('span');
           var d = document.createTextNode(text);
@@ -886,6 +927,7 @@ class App extends Component {
 
             if (champFile[ability]["auto"]) {
               var path = champFile[ability]["auto"];
+              prependIcon(attackIcon);
               addBold('Modified Basic Attack: ');
               var baseAutoDmg = totalAD;
               var newAutoDmg = baseAutoDmg;
@@ -896,12 +938,14 @@ class App extends Component {
               };
               if (path["dmgRatioPerCritChance"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
                 underLine('Damage Ratio per Crit Chance');
                 addText(path["dmgRatioPerCritChance"]);
-                newAutoDmg *= path["dmgRatioPerCritChance"] * totalCritChance;
+                newAutoDmg += baseAutoDmg * path["dmgRatioPerCritChance"] * totalCritChance;
               };
               if (path["system"] === 'minMax') {
-                underLine('Min');
+                singleBreak();
+                colorMin('Min: ');
                 if (path["minADRatioByLvl"]) {
                   addText('(' + path["minADRatioByLvl"][0] + " to " + path["minADRatioByLvl"][17]);
                   colorAD(' AD');
@@ -910,9 +954,9 @@ class App extends Component {
                   addText(path["minADRatioByLvl"][champLevel] + ') ');
                 };
                 singleBreak();
-                addText('Max Damage');
+                colorMin('Max: ');
                 if (path["maxADRatioByLvl"]) {
-                  addText(': (' + path["maxADRatioByLvl"][0] + " to " + path["maxADRatioByLvl"][17]);
+                  addText('(' + path["maxADRatioByLvl"][0] + " to " + path["maxADRatioByLvl"][17]);
                   colorAD(' AD'); 
                   addText("ratio, based on lvl. ");
                   underLine('Currently');
@@ -921,6 +965,7 @@ class App extends Component {
               };
               if (path["critDmg"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
                 underLine('Crit Damage Ratio');
                 addText(path["critDmg"]);
                 if (path["critDmgWithIE"]) {
@@ -1304,7 +1349,8 @@ class App extends Component {
                     return;
                   }
                   var part = damage[`part${i}`];
-                  underLine('Part '  + i);  
+                  //underLine('Part '  + i);
+                  colorPart('Part ' + i + ' ');  
                   
                 /*function partDamageMap(partNumber, i, array) {
                   if (!damage[partNumber]) {
@@ -1873,7 +1919,8 @@ class App extends Component {
                       return;
                     }
                     var part = damage[`part${i}`];
-                    underLine('Part '  + i);  
+                    //underLine('Part '  + i);
+                    colorPart('Part ' + i + ' ');  
 
                   if (part["type"]) {
                     if (!part['postMitigation']) {
@@ -2801,6 +2848,7 @@ class App extends Component {
             
             if (champFile[ability]["heal"]) {
               var path = champFile[ability]["heal"];
+              prependIcon(healIcon);
               addBold('Heal: ');
               if (path["heal"]) {
                 removeSpace(path["heal"])
@@ -3135,6 +3183,7 @@ class App extends Component {
 
             if (champFile[ability]["shield"]) {
               var path = champFile[ability]["shield"];
+              prependIcon(shieldIcon);
               if (path["type"] !== 'all') {
                 addBold(path["type"] + ' Shield: ');
               } else {
@@ -3501,6 +3550,7 @@ class App extends Component {
 
             if(champFile[ability]["interruptCC"] || champFile[ability]["interruptCCByLvl"] 
             || champFile[ability]["minInterruptCC"]) {
+              prependIcon(ccIcon);
               addBold('Crowd Control Duration: ')
             };
 
@@ -3590,7 +3640,7 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusStats"]) {
-              document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'hidden'
+              document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'hidden';
               var path = champFile[ability]["bonusStats"];
               addBold('Bonus Stats: ');
               if (path["attackDamageByLvl"]) {
@@ -4260,6 +4310,7 @@ class App extends Component {
               };
               if (path["interruptCC"]) {
                 singleBreak();
+                prependIcon(ccIcon);
                 underLine('Crowd Control Duration');
                 addText(path["interruptCC"]);
               };
@@ -4438,6 +4489,7 @@ class App extends Component {
                 if (ePath['W']['heal']) {
                   singleBreak();
                   var path = ePath['W']['heal']
+                  prependIcon(healIcon);
                   addBold('Heal: ')
                   if (path['system'] === 'minMax') {
                     underLine('Min');
@@ -4516,6 +4568,7 @@ class App extends Component {
                 if (ePath['E']['bonusShield']) {
                   singleBreak();
                   var shield = ePath['E']["bonusShield"]
+                  prependIcon(shieldIcon);
                   addBold('Bonus Shield: ');
                   if (shield["shield"]) {
                    removeSpace(shield["shield"]);
@@ -4607,44 +4660,51 @@ class App extends Component {
             };
 
             if (champFile[ability]["coolDown"]) {
-              addGrey("Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Cooldown: ");
               removeSpace(champFile[ability]["coolDown"]);
             };
             if (champFile[ability]["minCoolDown"]) {
-              addGrey("Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Cooldown: ");
               addText('Max: ' + champFile[ability]["maxCoolDown"] + ', Min: ' + champFile[ability]["minCoolDown"]);
             };
             if (champFile[ability]["maxCoolDown"] && !champFile[ability]["minCoolDown"]) {
-              addGrey("Max Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Max Cooldown: ");
               addText(champFile[ability]["maxCoolDown"]);
             };
             if (champFile[ability]["coolDownByLvl"]) {
-              addGrey("Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Cooldown: ");
               addText('[' + champFile[ability]["coolDownByLvl"][0] + " to " 
               + champFile[ability]["coolDownByLvl"][17] + "], based on lvl. ");
               underLine("Currently");
               addText(champFile[ability]["coolDownByLvl"][champLevel])
             };
             if (champFile[ability]["combatCoolDown"]) {
-              addGrey("Combat Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Combat Cooldown: ");
               removeSpace(champFile[ability]["combatCoolDown"])
             };
             if (champFile[ability]["staticCoolDown"]) {
               if (champFile[ability]["coolDown"]) {
                 singleBreak();
               };
-              addGrey("Static Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Static Cooldown: ");
               removeSpace(champFile[ability]["staticCoolDown"])
             };
             if (champFile[ability]["staticCoolDownByLvl"]) {
-              addGrey("Static Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Static Cooldown: ");
               addText('[' + champFile[ability]["staticCoolDownByLvl"][0] + " to " 
               + champFile[ability]["staticCoolDownByLvl"][17] + "], based on lvl. ");
               underLine("Currently");
               addText(champFile[ability]["staticCoolDownByLvl"][champLevel])
             };
             if (champFile[ability]["autoCoolDown"]) {
-              addGrey("Cooldown Number of Basic Attacks: ");
+              addPink("Cooldown Number of Basic Attacks: ");
               addText(champFile[ability]["autoCoolDown"]);
             };
             if (champFile[ability]["coolDownRefund"]) {
@@ -4719,7 +4779,8 @@ class App extends Component {
               if (champFile[ability]["coolDown"] || champFile[ability]["staticCoolDown"]) {
                 singleBreak();
               }
-              addGrey("Recharge: ");
+              prependIcon(cdrIcon);
+              addPink("Recharge: ");
               removeSpace(champFile[ability]["recharge"]);
             };
             if (champFile[ability]["staticCoolDownFormula"]) {
@@ -4818,6 +4879,7 @@ class App extends Component {
                 } 
               };
               if (path["interruptCC"]) {
+                prependIcon(ccIcon);
                 underLine('Crowd Control Duration')
                 addText(path["interruptCC"]);
               }
@@ -4842,7 +4904,8 @@ class App extends Component {
                 }
               };
               if (path["coolDown"]) {
-                addGrey('Cooldown: ');
+                prependIcon(cdrIcon);
+                addPink('Cooldown: ');
                 addText(path["coolDown"]);
               }
             };
@@ -5187,7 +5250,8 @@ class App extends Component {
                       return;
                     }
                     var part = damage[`part${i}`];
-                    underLine('Part '  + i);  
+                    //underLine('Part '  + i);  
+                    colorPart('Part ' + i + ' '); 
                     var dmgCount = 0;
 
                     if (part["type"]) {
@@ -5215,7 +5279,8 @@ class App extends Component {
               };
               if (damage["staticCoolDownByLvl"]) {
                 singleBreak();
-                addGrey("Static Cooldown: ");
+                prependIcon(cdrIcon);
+                addPink("Static Cooldown: ");
                 addText(damage["staticCoolDownByLvl"][champLevel])
               };
               doubleBreak();
@@ -5773,7 +5838,8 @@ class App extends Component {
                       return;
                     }
                     var part = damage[`part${i}`];
-                    underLine('Part '  + i);  
+                    //underLine('Part '  + i);  
+                    colorPart('Part ' + i + ' '); 
 
                   if (part["type"]) {
                     if (part["postMitigation"] === 'Magic') {
@@ -6276,6 +6342,7 @@ class App extends Component {
             
             if (champFile[ability]["heal"]) {
               var path = champFile[ability]["heal"];
+              prependIcon(healIcon);
               addBold('Heal: ');
               var healCounter = 0;
               if (path["heal"]) {
@@ -6575,6 +6642,7 @@ class App extends Component {
 
             if (champFile[ability]["shield"]) {
               var path = champFile[ability]["shield"];
+              prependIcon(shieldIcon);
               if (path["type"] !== 'all') {
                 addBold(path["type"] + ' Shield: ')
               } else {
@@ -6848,6 +6916,7 @@ class App extends Component {
 
             if(champFile[ability]["interruptCC"] || champFile[ability]["interruptCCByLvl"] 
             || champFile[ability]["minInterruptCC"]) {
+              prependIcon(ccIcon);
               addBold('Crowd Control Duration: ');
             };
 
@@ -7547,6 +7616,7 @@ class App extends Component {
               };
               if (path["interruptCC"]) {
                 singleBreak();
+                prependIcon(ccIcon);
                 underLine('Crowd Control Duration');
                 addText(arrayCheck(path["interruptCC"]));
               };
@@ -7720,6 +7790,7 @@ class App extends Component {
                 if (ePath['W']['heal']) {
                   singleBreak();
                   var path = ePath['W']['heal'];
+                  prependIcon(healIcon);
                   addBold('Heal: ');
                   if (path['system'] === 'minMax') {
                     underLine('Min');
@@ -7792,6 +7863,7 @@ class App extends Component {
                 if (ePath['E']['bonusShield']) {
                   singleBreak();
                   var shield = ePath['E']["bonusShield"];
+                  prependIcon(shieldIcon);
                   addBold('Bonus Shield: ');
                   var shieldCounter = 0;
                   if (shield["shield"]) {
@@ -7861,12 +7933,14 @@ class App extends Component {
             };
 
             if (champFile[ability]["coolDown"]) {
-              addGrey("Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Cooldown: ");
               addText(hasteRatio === 1 ? arrayCheck(champFile[ability]["coolDown"])
                : (arrayCheck(champFile[ability]["coolDown"])*hasteRatio).toFixed(1));
             };
             if (champFile[ability]["minCoolDown"] && !champFile[ability]["staticCoolDownFormula"]) {
-              addGrey("Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Cooldown: ");
               addText('Max: ' + hasteRatio === 1 ? arrayCheck(champFile[ability]["maxCoolDown"])
               : (arrayCheck(champFile[ability]["maxCoolDown"])*hasteRatio).toFixed(1)
               + ', Min: ' + hasteRatio === 1 ? arrayCheck(champFile[ability]["minCoolDown"])
@@ -7878,7 +7952,8 @@ class App extends Component {
               : (arrayCheck(champFile[ability]["maxCoolDown"])*hasteRatio).toFixed(1));
             };
             if (champFile[ability]["coolDownByLvl"]) {
-              addGrey("Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Cooldown: ");
               addText(hasteRatio === 1 ? champFile[ability]["coolDownByLvl"][champLevel] 
               : (champFile[ability]["coolDownByLvl"][champLevel]*hasteRatio).toFixed(1))
             };
@@ -7898,7 +7973,7 @@ class App extends Component {
               addText(champFile[ability]["staticCoolDownByLvl"][champLevel]);
             };
             if (champFile[ability]["autoCoolDown"]) {
-              addGrey("Cooldown Number of Basic Attacks: ");
+              addPink("Cooldown Number of Basic Attacks: ");
               addText(champFile[ability]["autoCoolDown"]);
             };
             if (champFile[ability]["coolDownRefund"]) {
@@ -7966,7 +8041,8 @@ class App extends Component {
               : (arrayCheck(champFile[ability]["recharge"])*hasteRatio).toFixed(1));
             };
             if (champFile[ability]["staticCoolDownFormula"]) {
-              addGrey("Cooldown: ");
+              prependIcon(cdrIcon);
+              addPink("Cooldown: ");
               var value = 4 * (1 - (0.6 * (itemStats.as + statsPath["asPerLvl"] * champLevel 
               * (0.7025 + 0.0175 * champLevel))));
               if (value.toString().length > 4) {
@@ -8067,6 +8143,7 @@ class App extends Component {
                 } 
               };
               if (path["interruptCC"]) {
+                prependIcon(ccIcon);
                 underLine('Crowd Control Duration');
                 addText(arrayCheck(path["interruptCC"]));
               }
@@ -8082,7 +8159,8 @@ class App extends Component {
               var hr2 = document.createElement('hr');
               abilityDiv.appendChild(hr2);
               if (path["coolDown"]) {
-                addGrey('Cooldown: ');
+                prependIcon(cdrIcon);
+                addPink('Cooldown: ');
                 addText(hasteRatio === 1 ? arrayCheck(path["coolDown"]) 
                 : (arrayCheck(path["coolDown"])*hasteRatio).toFixed(1));
               }
@@ -8372,6 +8450,7 @@ class App extends Component {
             };
 
             if (champFile[tfAbility]['interruptCC']) {
+              prependIcon(ccIcon);
               addBold('Crowd Control Duration: ');
               removeSpace(champFile[tfAbility]['interruptCC']);
               doubleBreak();
@@ -8383,7 +8462,8 @@ class App extends Component {
             };
 
             if (champFile[tfAbility]['coolDown']) {
-              addGrey('Cooldown: ');
+              prependIcon(cdrIcon);
+              addPink('Cooldown: ');
               removeSpace(champFile[tfAbility]['coolDown']);
             };
 
@@ -8630,6 +8710,7 @@ class App extends Component {
             };
 
             if (champFile[tfAbility]['interruptCC']) {
+              prependIcon(ccIcon);
               addBold('Crowd Control Duration: ');
               addText(arrayCheck(champFile[tfAbility]['interruptCC']));
               doubleBreak();
@@ -8641,7 +8722,8 @@ class App extends Component {
             };
 
             if (champFile[tfAbility]['coolDown']) {
-              addGrey('Cooldown: ');
+              prependIcon(cdrIcon);
+              addPink('Cooldown: ');
               addText(hasteRatio === 1 ? arrayCheck(champFile[tfAbility]['coolDown']) 
               : (arrayCheck(champFile[tfAbility]['coolDown'])*hasteRatio).toFixed(1));
             };
@@ -13518,8 +13600,8 @@ class App extends Component {
           <hr id='aboveItemHr' style={{margin: '20px -1vw'}}></hr>
 
           <div className='flexDisplay'>
-            <b style={{width: '45vw', textAlign: 'center'}}>Item Inventory</b>
-            <b style={{width: '45vw', textAlign: 'center'}}>Item Inventory</b>
+            <b style={{width: '45vw', textAlign: 'center'}}>Inventory</b>
+            <b style={{width: '45vw', textAlign: 'center'}}>Inventory</b>
           </div>
 
           <div className='flexDisplay'>
@@ -13635,22 +13717,24 @@ class App extends Component {
 
           <hr style={{margin: '20px -1vw'}}></hr>
 
-          <div className="flexDisplay" style={{margin: '5px 0px'}}>
-            <div className="hiddenLeft" style={{width: '45vw', textAlign: 'center'}}>
-              <span>Champion Level: </span>
+          <div className="flexDisplay" style={{marginBottom: '-1rem'}}>
+            <div className="hiddenLeft">
+              <span>Level: </span>
               <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px"}}
               onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
             </div>
-            <div className="hiddenRight" style={{width: '45vw', textAlign: 'center'}}>
-              <span>Champion Level: </span>
+            <div className="hiddenRight" style={{marginLeft: 'auto'}}>
+              <span>Level: </span>
               <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px"}}
               onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
             </div>
           </div>
+
           <div className="flexDisplay">
             <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameLeft} Stats</b></span>
             <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameRight} Stats</b></span>
           </div>
+
           <div className="flexDisplay">
             <div className="statsBox">
               <img src={healthIcon}  alt='Health Icon'/>
