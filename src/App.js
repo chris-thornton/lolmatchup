@@ -41,6 +41,7 @@ import shieldIcon from './staticons/shield.png';
 import goldIcon from './staticons/gold.png';
 import trueDmgIcon from './staticons/trueDmg.png';
 import attackIcon from './staticons/attack.png';
+import ieIcon from './itemicons/Infinity Edge.png';
 import ApheliosLeft from './components/ApheliosLeft';
 import ApheliosRight from './components/ApheliosRight';
 
@@ -765,15 +766,25 @@ class App extends Component {
         };
         function colorPart(x) {
           var b = document.createElement('b');
-          b.innerText = x;
-          b.style.color = 'cornflowerblue';
+          var u = document.createElement('u');
+          u.innerText = x;
+          u.style.color = 'cornflowerblue';
+          b.appendChild(u);
           abilityDiv.appendChild(b);
+          addText(' ');
         };
         function colorMin(x) {
           var c = document.createElement('span');
           var d = document.createTextNode(x);
           c.appendChild(d);
           c.style.color = 'crimson';
+          abilityDiv.appendChild(c);
+        };
+        function colorOrchid(x) {
+          var c = document.createElement('span');
+          var d = document.createTextNode(x + ': ');
+          c.appendChild(d);
+          c.style.color = 'mediumorchid';
           abilityDiv.appendChild(c);
         }
         function addBold(text) {
@@ -785,9 +796,17 @@ class App extends Component {
           var a = document.createTextNode(text);
           abilityDiv.appendChild(a);
         };
+        function addIE() {
+          var e = document.createElement('img');
+          e.src = ieIcon;
+          e.style.width = '16px';
+          e.style.height = '16px';
+          abilityDiv.appendChild(e);
+        }
         function prependIcon(iconSrc) {
           var e = document.createElement('img');
           e.src = iconSrc;
+          e.style.paddingBottom = '3px';
           abilityDiv.appendChild(e);
         };
         function prependType(dmgType) {
@@ -840,6 +859,9 @@ class App extends Component {
         function colorCrit(text){
           colorText(text, 'rgb(213, 58, 66)', critChanceIcon)
         };
+        function colorArPen(text){
+          colorText(text, 'rgb(247, 113, 90)', arPenIcon)
+        }
         function colorMana(text){
           colorText(text, 'rgb(29, 169, 255)', manaIcon)
         };
@@ -944,7 +966,6 @@ class App extends Component {
                 newAutoDmg += baseAutoDmg * path["dmgRatioPerCritChance"] * totalCritChance;
               };
               if (path["system"] === 'minMax') {
-                singleBreak();
                 colorMin('Min: ');
                 if (path["minADRatioByLvl"]) {
                   addText('(' + path["minADRatioByLvl"][0] + " to " + path["minADRatioByLvl"][17]);
@@ -969,33 +990,46 @@ class App extends Component {
                 underLine('Crit Damage Ratio');
                 addText(path["critDmg"]);
                 if (path["critDmgWithIE"]) {
-                  addText(' (' + path["critDmgWithIE"] + ' with Infinity Edge)');
+                  addText(' (' + path["critDmgWithIE"] + ' with ');
+                  addIE();
+                  addText(' IE)');
                 };
-                doubleBreak();
-                addBold('Crit Damage: ');
-                addText(factorRes('Physical', newAutoDmg * path["critDmg"]));
-                if (path["critDmgWithIE"]) {
-                  addText(' (' + factorRes('Physical', newAutoDmg * path["critDmgWithIE"]) + ' with Infinity Edge)');
+                if (!path['system']) {
+                  doubleBreak();
+                  prependIcon(critChanceIcon);
+                  addBold('Crit Damage: ');
+                  addText(factorRes('Physical', newAutoDmg * path["critDmg"]));
+                  if (path["critDmgWithIE"]) {
+                    addText(' (' + factorRes('Physical', newAutoDmg * path["critDmgWithIE"]) + ' with ');
+                    addIE();
+                    addText(' IE)');
+                  }
                 }
               };
               if (path["dmgRatio"]) {
                 doubleBreak();
+                prependIcon(attackIcon);
                 addBold('Basic Attack Damage: ');
                 addText(factorRes('Physical', newAutoDmg));
               };
               if (path["system"] === 'minMax') {
                 doubleBreak();
+                prependIcon(attackIcon);
                 addBold('Basic Attack Damage: ');
-                underLine('Min');
+                colorMin('Min: ');
                 addText(factorRes('Physical', path["minADRatioByLvl"][champLevel]*(baseAutoDmg))+ ' (Crit: ' 
                 + factorRes('Physical', path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg'])) 
-                + ', Crit with IE: ' + factorRes('Physical', 
+                + ', with ')
+                addIE();
+                addText(' IE: ' + factorRes('Physical', 
                 path["minADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')');
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
                 addText(factorRes('Physical', path["maxADRatioByLvl"][champLevel]*(baseAutoDmg))+ ' (Crit: ' + 
                 factorRes('Physical', path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmg']))
-                + ', Crit with IE: ' + factorRes('Physical', 
+                + ', with ')
+                addIE();
+                addText(' IE: ' + factorRes('Physical', 
                 path["maxADRatioByLvl"][champLevel]*(baseAutoDmg)*(path['critDmgWithIE'])) + ')' );
               };
               doubleBreak();
@@ -1003,6 +1037,7 @@ class App extends Component {
 
             if (champFile[ability]["autoEmpower"]) {
               var damage = champFile[ability]["autoEmpower"]["damage"];
+              prependIcon(attackIcon);
               if (!damage["durationAutos"] && !damage['autoCoolDown']) {
                 addBold('Empowered Basic Attack: ')
               } else if (damage['autoCoolDown']) {
@@ -1010,6 +1045,7 @@ class App extends Component {
               } else {
                 addBold('Empower ' +  damage["durationAutos"] + ' Basic Attacks: ')
               };
+              prependType(damage['type']);
               underLine(damage['type'] + " Damage");
               if (damage["dmg"]) {
                 removeSpace(damage["dmg"]);
@@ -1095,7 +1131,9 @@ class App extends Component {
               };
               if (damage["bonusMoveSpeedRatioByLvl"]) {
                 addText('(' + damage["bonusMoveSpeedRatioByLvl"][0] + " to " 
-                + damage["bonusMoveSpeedRatioByLvl"][17] + " Bonus Move Speed ratio, based on lvl. ");
+                + damage["bonusMoveSpeedRatioByLvl"][17] + " Bonus Move Speed ");
+                prependIcon(moveSpeedIcon);
+                addText(" ratio, based on lvl. ");
                 underLine('Currently');
                 addText(damage["bonusMoveSpeedRatioByLvl"][champLevel] + ") ")
               };
@@ -1119,7 +1157,7 @@ class App extends Component {
                 colorHP(" Enemy Current HP"); 
                 addText("ratio, based on lvl. ");
                 underLine('Currently');
-                addText(': ' + damage["enemyCurrentHPRatioByLvl"][champLevel] + ") ");
+                addText(damage["enemyCurrentHPRatioByLvl"][champLevel] + ") ");
               };
               if (damage["enemyMissingHPRatio"]) {
                 addText(" (+" + removeParen(damage["enemyMissingHPRatio"]));
@@ -1138,7 +1176,7 @@ class App extends Component {
                 colorHP(' Enemy Missing HP');
                 addText("ratio, based on lvl. ");
                 underLine('Currently');
-                addText(': ' + damage["enemyMissingHPRatioByLvl"][champLevel] + ")");
+                addText(damage["enemyMissingHPRatioByLvl"][champLevel] + ")");
               };
               if (damage["armorRatio"]) {
                 addText(" (+" + removeParen(damage["armorRatio"]));
@@ -1163,10 +1201,13 @@ class App extends Component {
                 addText('ratio per');
                 colorCrit(" Crit Chance");
                 if (damage["ADRatioPerCritChanceWithIE"]) {
-                  addText('. With Infinity Edge: ' + damage["ADRatioPerCritChanceWithIE"] + ')')
-                } else {
-                  addText(')');
-                };
+                  addText('. With ')
+                  addIE();
+                  addText(' IE: ' + damage["ADRatioPerCritChanceWithIE"]);
+                  colorAD(" AD");
+                  addText('ratio');
+                }; 
+                addText(')');
                 if (ability === 'passive') {
                   var dmgCounter = 0;
                   var IECounter = 0;
@@ -1179,7 +1220,9 @@ class App extends Component {
                   addText(Math.round(dmgCounter));
                   if (damage["ADRatioPerCritChanceWithIE"]) {
                     IECounter += damage["ADRatioPerCritChanceWithIE"] * totalCritChance * totalAD;
-                    addText(' (' + Math.round(IECounter + dmgCounter) + ' with IE)');
+                    addText(' (' + Math.round(IECounter + dmgCounter) + ' with ');
+                    addIE();
+                    addText(' IE)');
                   };
                 }
               };
@@ -1193,18 +1236,19 @@ class App extends Component {
               };
               if (damage["attackSpeedPenalty"]) {
                 singleBreak();
+                prependIcon(attackSpeedIcon);
                 underLine('Bonus Attack Speed Penalty Ratio');
                 addText(damage["attackSpeedPenalty"]);
               };
               if (damage["system"] === "min" ) {
                 singleBreak();
-                underLine('Min Damage');
+                colorMin('Min Damage: ');
                 if (damage["minDmg"]) {
                   removeSpace(damage["minDmg"]);
                 }
               };
               if (damage["system"] === "minMax" ) {
-                underLine('Min');
+                colorMin('Min: ');
                 if (damage["minDmg"]) {
                   removeSpace(damage["minDmg"]);
                 };
@@ -1251,11 +1295,11 @@ class App extends Component {
                   addText(')');
                 };
                 if (damage["minDmgPerStack"]) {
-                  addText(': (' + damage["minDmgPerStack"] + ' per stack)');
+                  addText(' (' + damage["minDmgPerStack"] + ' per stack)');
                 };
 
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
 
                 if (damage["maxDmg"]) {
                   removeSpace(damage["maxDmg"]);
@@ -1316,14 +1360,18 @@ class App extends Component {
               };
               if (damage["critDmg"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
                 underLine('Crit Damage Ratio');
                 addText(damage["critDmg"]);
                 if (damage["critDmgWithIE"]) {
-                  addText(' (' + damage["critDmgWithIE"] + ' with Infinity Edge)');
+                  addText(' (' + damage["critDmgWithIE"] + ' with ')
+                  addIE();
+                  addText(' IE)');
                 }
               };
               if (damage["critADRatioWithIE"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
                 underLine('Crit Bonus Dmg with Infinity Edge');
                 addText(damage["critADRatioWithIE"]);
                 colorAD(" AD");
@@ -1336,9 +1384,9 @@ class App extends Component {
               };
               if (damage["minDuration"]) {
                 singleBreak();
-                underLine('Min Duration');
+                colorMin('Min Duration: ');
                 addText(damage["minDuration"] + ', ')
-                underLine('Max Duration')
+                colorMin('Max Duration: ')
                 addText(damage["maxDuration"])
               };
               
@@ -1349,21 +1397,10 @@ class App extends Component {
                     return;
                   }
                   var part = damage[`part${i}`];
-                  //underLine('Part '  + i);
-                  colorPart('Part ' + i + ' ');  
-                  
-                /*function partDamageMap(partNumber, i, array) {
-                  if (!damage[partNumber]) {
-                      return;
-                  }
-                  var part = damage[partNumber];
-                  var partU = document.createElement('u');
-                  partU.innerText = partNumber[0].toUpperCase() + partNumber.slice(1, 4) + ' '  + partNumber[4];  
-                  abilityDiv.appendChild(partU);
-                  var text = document.createTextNode(': ');
-                  abilityDiv.appendChild(text);*/
+                  colorPart('Part ' + i);  
 
                   if (part["type"]) {
+                    prependType(part["type"]);
                     addText(part["type"] + " Damage: ");
                   };
                   if (part["ADRatio"]) {
@@ -1381,11 +1418,11 @@ class App extends Component {
                   }
                 }
                 })();
-                /*this.partNumberArray.map(partDamageMap);*/
               };
               if (damage["staticCoolDownByLvl"]) {
                 singleBreak();
-                underLine("Static Cooldown");
+                prependIcon(cdrIcon);
+                addPink("Static Cooldown");
                 addText('[' + damage["staticCoolDownByLvl"][0] + " to " 
                 + damage["staticCoolDownByLvl"][17] + "], based on lvl. ");
                 underLine("Currently");
@@ -1400,6 +1437,7 @@ class App extends Component {
                 addBold("Damage: ");
               };
               if (damage["type"]) {
+                prependType(damage["type"]);
                 addBold(damage['type'] + " Damage: ")
               };
               if (damage["dmg"]) {
@@ -1411,7 +1449,7 @@ class App extends Component {
                 addText(damage["dmgByLvl"][champLevel] + '] ');
               };
               if (damage["totalDmgRatio"]) {
-                underLine('Total Damage Ratio');
+                colorOrchid('Total Damage Ratio');
                 removeSpace(damage["totalDmgRatio"]);
               };
               if (damage["dmgByWRank"]) {
@@ -1542,12 +1580,16 @@ class App extends Component {
               };
               if (damage["bonusMoveSpeedRatioByLvl"]) {
                 addText(' (+' + damage["bonusMoveSpeedRatioByLvl"][0] + " to " 
-                + damage["bonusMoveSpeedRatioByLvl"][17] + " Bonus Move Speed ratio, based on lvl. ");
+                + damage["bonusMoveSpeedRatioByLvl"][17] + " Bonus Move Speed ")
+                prependIcon(moveSpeedIcon);
+                addText(" ratio, based on lvl. ");
                 underLine('Currently');
                 addText(damage["bonusMoveSpeedRatioByLvl"][champLevel] + ") ");
               };
               if (damage["dmgPerLethality"]) {
-                addText(" (+" + damage["dmgPerLethality"] + " Lethality ratio)");
+                addText(" (+" + damage["dmgPerLethality"])
+                colorArPen(" Lethality");
+                addText("ratio)");
               };
               if (damage["bonusDmgRatioPerCritChance"]) {
                 singleBreak();
@@ -1569,10 +1611,13 @@ class App extends Component {
               };
               if (damage["critDmg"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
                 underLine('Crit Damage Ratio');
                 addText(damage["critDmg"]);
                 if (damage["critDmgWithIE"]) {
-                  addText(' (' + damage["critDmgWithIE"] + ' with Infinity Edge)');
+                  addText(' (' + damage["critDmgWithIE"] + ' with ');
+                  addIE();
+                  addText(' IE)');
                 }
               };
               if (damage["critADRatio"]) {
@@ -1580,11 +1625,14 @@ class App extends Component {
                 underLine('Crit AD Ratio');
                 addText(damage["critADRatio"]);
                 if (damage["critADRatioWithIE"]) {
-                  addText(' (' + damage["critADRatioWithIE"] + ' with Infinity Edge)');
+                  addText(' (' + damage["critADRatioWithIE"] + ' with ');
+                  addIE();
+                  addText(' IE)');
                 }
               };
               if (damage["asPerBonusAS"]) {
                 singleBreak();
+                prependIcon(attackSpeedIcon);
                 underLine('Wolf Bonus Attack Speed per Kindred Bonus Attack Speed');
                 addText(damage["asPerBonusAS"]);
               };
@@ -1596,10 +1644,9 @@ class App extends Component {
 
               if (damage["system"] === "min" ) {
                 singleBreak();
-                underLine('Min Damage')
+                colorMin('Min Damage: ')
                 if (damage["minDmg"]) {
                   removeSpace(damage["minDmg"]);
-
                 };
                 if (damage["minDmgAPRatio"]) {
                   addText(' (+' + damage["minDmgAPRatio"]);
@@ -1609,7 +1656,7 @@ class App extends Component {
               };
 
               if (damage["system"] === "minMax" ) {
-                underLine('Min');
+                colorMin('Min: ');
                 if (damage["minDmg"]) {
                   //addText(removeSpace(damage["minDmg"]));
                   removeSpace(damage["minDmg"]);
@@ -1694,7 +1741,7 @@ class App extends Component {
                 singleBreak();
 
                 if (damage["medDmg"]) {
-                  underLine('Med');
+                  colorMin('Med: ');
                   removeSpace(damage["medDmg"]);
                   if (damage["medAPRatio"]) {
                     addText(" (+" + removeParen(damage["medAPRatio"]));
@@ -1709,7 +1756,7 @@ class App extends Component {
                   singleBreak();
                 };
 
-                underLine('Max');
+                colorMin('Max: ');
 
                 if (damage["maxDmg"]) {
                  removeSpace(damage["maxDmg"]);
@@ -1801,7 +1848,7 @@ class App extends Component {
 
               if (damage["evolveMaxDmg"]) {
                 singleBreak();
-                underLine('Evolve Max Damage');
+                colorMin('Evolve Max Damage: ');
                 removeSpace(damage["evolveMaxDmg"]);
               };
               if (damage["evolveMaxBonusADRatio"]) {
@@ -1832,7 +1879,9 @@ class App extends Component {
               if (damage["4thShotDmgRatio"]) {
                 singleBreak();
                 underLine('4th Shot Damage Ratio');
-                addText(damage["4thShotDmgRatio"] + ' (' + damage["4thShotDmgRatioWithIE"] + ' with Infinity Edge)');
+                addText(damage["4thShotDmgRatio"] + ' (' + damage["4thShotDmgRatioWithIE"] + ' with ');
+                addIE();
+                addText(' IE)');
               };
 
               if (damage["multiHitDmgRatio"]) {
@@ -1842,29 +1891,36 @@ class App extends Component {
 
               if (damage["minMinDmg"]) {
                 singleBreak();
-                underLine('Minimum Damage');
+                colorMin('Minimum Damage: ');
                 removeSpace(damage["minMinDmg"]);
               };
 
               if (damage["minCritADRatio"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
                 underLine('Crit Bonus Damage');
-                addText('Min: ' + damage["minCritADRatio"]);
+                colorMin('Min: ');
+                addText(damage["minCritADRatio"]);
                 colorAD(" AD");
                 addText("ratio");
                 if (damage["minCritADRatioWithIE"]) {
                   addText(' (' + damage["minCritADRatioWithIE"]);
                   colorAD(" AD");
-                  addText("ratio with Infinity Edge)");
+                  addText("ratio with ");
+                  addIE();
+                  addText(" IE)");
                 };
                 singleBreak();
-                addText('Max: ' + damage["maxCritADRatio"]);
+                colorMin('Max: ');
+                addText(damage["maxCritADRatio"]);
                 colorAD(" AD");
                 addText("ratio");
                 if (damage["maxCritADRatioWithIE"]) {
                   addText(' (' + damage["maxCritADRatioWithIE"]);
                   colorAD(" AD");
-                  addText("ratio with Infinity Edge)");
+                  addText("ratio with ");
+                  addIE();
+                  addText(" IE)");
                 }
               };
 
@@ -1883,7 +1939,7 @@ class App extends Component {
                   addText("ratio)");
                 };
                 if (empPath["system"] === 'minMax') {
-                  addText('Min: ');
+                  colorMin('Min: ');
                   if (empPath["minDmgByLvl"]) {
                     addText(' [' + empPath["minDmgByLvl"][0] + " to " + empPath["minDmgByLvl"][17] + ", based on lvl. ");
                     underLine("Currently");
@@ -1896,7 +1952,7 @@ class App extends Component {
                   };
 
                   singleBreak();
-                  addText('Max: ');
+                  colorMin('Max: ');
 
                   if (empPath["maxDmgByLvl"]) {
                     addText(' [' + empPath["maxDmgByLvl"][0] + " to " 
@@ -1919,15 +1975,15 @@ class App extends Component {
                       return;
                     }
                     var part = damage[`part${i}`];
-                    //underLine('Part '  + i);
-                    colorPart('Part ' + i + ' ');  
+                    colorPart('Part ' + i);  
 
                   if (part["type"]) {
+                    prependType(part["type"]);
                     if (!part['postMitigation']) {
-                      addText(part["type"] + " Damage: ");
+                      underLine(part["type"] + " Damage");
                     };
                     if (part["postMitigation"] === 'Magic') {
-                      addText(part["type"] + ' Damage (part 1 damage, post-mitigation): ');
+                      underLine(part["type"] + ' Damage (part 1 damage, post-mitigation)');
                     }
                   };
                   if (part["dmg"]) {
@@ -1973,7 +2029,7 @@ class App extends Component {
                   };
 
                   if (part["system"] === "minMax" ) {
-                    addText('Min: ');
+                    colorMin('Min: ');
                     if (part["minDmg"]) {
                       //addText(removeSpace(part["minDmg"]))
                       removeSpace(part["minDmg"]);
@@ -2022,7 +2078,7 @@ class App extends Component {
                     };
 
                     singleBreak();
-                    addText('Max: ');
+                    colorMin('Max: ');
 
                     if (part["maxDmg"]) {
                       removeSpace(part["maxDmg"])
@@ -2095,6 +2151,7 @@ class App extends Component {
               };
               if (damage["coolDown"]) {
                 singleBreak();
+                prependIcon(cdrIcon);
                 underLine('Cooldown');
                 addText(damage["coolDown"]);
               }
@@ -2123,6 +2180,7 @@ class App extends Component {
             if (champFile[ability]["tickDamage"]) {
               var path = champFile[ability]["tickDamage"]
               if (path["type"]) {
+                prependType(path["type"]);
                 addBold(path['type'] + " Damage Over Time: ")
               } else {
                 addBold("Damage Over Time: ")
@@ -2186,7 +2244,7 @@ class App extends Component {
               };
           
               if (path["system"] === "minMax" ) {
-                underLine('Min')
+                colorMin('Min: ');
                 if (path["minDmg"]) {
                   removeSpace(path["minDmg"])
                 };
@@ -2220,7 +2278,7 @@ class App extends Component {
                 };
 
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
 
                 if (path["maxDmg"]) {
                   removeSpace(path["maxDmg"]);
@@ -2265,24 +2323,26 @@ class App extends Component {
               };
               if (path["critDmg"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
                 underLine('Crit Damage Ratio')
                 addText(path["critDmg"]);
                 if (path["critDmgWithIE"]) {
-                  addText(' (' + path["critDmgWithIE"] + ' with Infinity Edge)');
+                  addText(' (' + path["critDmgWithIE"] + ' with ');
+                  addIE();
+                  addText('IE)');
                 }
               };
               if (path["system"] === 'min') {
                 singleBreak();
-                underLine('Min');
+                colorMin('Min: ');
                 removeSpace(path["minDmg"]);
                 if (path["interval"] && path["ticks"]) {
                   addText(' per ' + path["interval"] + ' sec, for ' + multiplyTicks2(path["interval"]) + ' seconds.')
                 };
-              }
+              };
               if (path["ticks"]) {
                 singleBreak();
-                addBold('Total: ')
-          
+                colorOrchid('Total');
                 if (path["dmg"]) {
                   addText(mapSpace(multiplyTicks(path["dmg"])));
                 };
@@ -2336,18 +2396,18 @@ class App extends Component {
                 };
                 if (path["system"] === 'min') {
                   singleBreak();
-                  underLine('Min')
+                  colorMin('Min: ')
                   addText(mapSpace(multiplyTicks(path["minDmg"])))
                 };
                 if (path["system"] === "minMax" ) {
-                  underLine('Min')
+                  colorMin('Min: ');
                   if (path["minDmg"]) {
-                    var array = mapSpace(multiplyTicks(path["minDmg"]))
+                    var array = mapSpace(multiplyTicks(path["minDmg"]));
                     if (path["minDmgByLvl"]) {
                       array = mapSpace(path['minDmg'].map(x => {
                         return Math.round(path["ticks"] * (x + path["minDmgByLvl"][champLevel]))
                       }))
-                    }
+                    };
                     addText(array)
                   };
                   if (path["minAPRatio"]) {
@@ -2367,16 +2427,16 @@ class App extends Component {
                   };
 
                   singleBreak();
-                  underLine('Max');
+                  colorMin('Max: ');
 
                   if (path["maxDmg"]) {
-                    var array = mapSpace(multiplyTicks(path["maxDmg"]))
+                    var array = mapSpace(multiplyTicks(path["maxDmg"]));
                     if (path["maxDmgByLvl"]) {
                       array = mapSpace(path['maxDmg'].map(x => {
                         return Math.round(path["ticks"] * (x + path["maxDmgByLvl"][champLevel]))
                       }))
-                    }
-                    addText(": " + array)
+                    };
+                    addText(array)
                   };
                   if (path["maxAPRatio"]) {
                     addText(" (+" + mapParen(multiplyTicks2(path["maxAPRatio"])));
@@ -2393,13 +2453,13 @@ class App extends Component {
                     colorAD(" Bonus AD");
                     addText("ratio)");
                   }
-                };
-              }
+                }
+              };
               if (path["interval"] && !path["ticks"]) {
                 addText(' per ' + path["interval"] + ' sec.')
               };
               if (path["part1"]) {
-                underLine('Part 1');
+                colorPart('Part 1');
                 var path = champFile[ability]["tickDamage"]["part1"];
                 if (path["dmg"]) {
                   removeSpace(path["dmg"]);
@@ -2414,7 +2474,7 @@ class App extends Component {
                 };
 
                 singleBreak();
-                underLine('Total');
+                colorOrchid('Total');
                 
                 if (path["dmg"]) {
                   addText(mapSpace(multiplyTicks(path["dmg"])) );
@@ -2426,7 +2486,7 @@ class App extends Component {
                 };
 
                 doubleBreak();
-                underLine('Part 2');
+                colorPart('Part 2');
                 path = champFile[ability]["tickDamage"]['part2']
                 
                 if (path["enemyMaxHPRatio"]) {
@@ -2446,7 +2506,7 @@ class App extends Component {
                 };
 
                 singleBreak();
-                underLine('Total');
+                colorOrchid('Total');
                 
                 if (path["enemyMaxHPRatio"]) {
                   addText('(' +  mapParen(multiplyTicks2(path["enemyMaxHPRatio"])));
@@ -2481,7 +2541,7 @@ class App extends Component {
               addText(' per ' + path["interval"] + ' sec, for ' + multiplyTicks2(path["interval"])   + ' seconds.')
 
               singleBreak();
-              underLine('Total Damage');
+              colorOrchid('Total Damage');
 
               addText('[' + multiplyTicks(path["dmgByLvl"][0]) + " to " 
               + multiplyTicks(path["dmgByLvl"][17]) + ", based on lvl. ");
@@ -2540,7 +2600,7 @@ class App extends Component {
                 };
                 if (!path["bonusAttackDamage"]["ADPerStack"] && ability === 'passive') {
                   singleBreak();
-                  underLine('Total');
+                  colorOrchid('Total');
                 };
                 var bonusADCount = 0;
                 if (path["bonusAttackDamage"]["ADRatioByLvl"]) {
@@ -2582,7 +2642,7 @@ class App extends Component {
                 addText(path["bonusAPPerBonusHP"] + ' per');
                 colorHP(" Bonus Health");
                 singleBreak();
-                underLine('Total');
+                colorOrchid('Total');
                 addText(Math.round(path["bonusAPPerBonusHP"] * bonusHP));
               };
               if (path["bonusHPPerAP"]) {
@@ -2591,7 +2651,7 @@ class App extends Component {
                 addText(path["bonusHPPerAP"] + ' per');
                 colorAP(" AP");
                 singleBreak();
-                underLine('Total');
+                colorOrchid('Total');
                 addText(Math.round(path["bonusHPPerAP"] * totalAP));
               };
               if (path["bonusArmorPerStack"]) {
@@ -3100,7 +3160,7 @@ class App extends Component {
                 if (path["system"] === 'minMax') {
                   singleBreak();
                 };
-                underLine('Total');
+                colorOrchid('Total');
                 if (path["heal"]) {
                   addText(mapSpace(multiplyTicks(path["heal"])));
                 };
@@ -5251,7 +5311,7 @@ class App extends Component {
                     }
                     var part = damage[`part${i}`];
                     //underLine('Part '  + i);  
-                    colorPart('Part ' + i + ' '); 
+                    colorPart('Part ' + i); 
                     var dmgCount = 0;
 
                     if (part["type"]) {
@@ -5305,7 +5365,7 @@ class App extends Component {
                 totalDmgCount += damage["dmgByLvl"][champLevel];
               };
               if (damage["totalDmgRatio"]) {
-                underLine('Total Damage Ratio');
+                colorOrchid('Total Damage Ratio');
                 addText(arrayCheck(damage["totalDmgRatio"]));
               };
               if (damage["dmgByWRank"]) {
@@ -5839,7 +5899,7 @@ class App extends Component {
                     }
                     var part = damage[`part${i}`];
                     //underLine('Part '  + i);  
-                    colorPart('Part ' + i + ' '); 
+                    colorPart('Part ' + i); 
 
                   if (part["type"]) {
                     if (part["postMitigation"] === 'Magic') {
@@ -6146,7 +6206,7 @@ class App extends Component {
               };
               if (path["ticks"]) {
                 singleBreak();
-                addBold('Total: ');
+                colorOrchid('Total');
           
                 if (tickDmgCount !== 0) {
                   addText(factorRes(path['type'], tickDmgCount * ticks));
@@ -6219,7 +6279,7 @@ class App extends Component {
                 };
 
                 singleBreak();
-                underLine('Total');
+                colorOrchid('Total');
                 addText(factorRes(path['type'], part1DmgCount * path["part1"]["ticks"]));
                 
                 doubleBreak();
@@ -6251,7 +6311,7 @@ class App extends Component {
                 };
 
                 singleBreak();
-                underLine('Total');
+                colorOrchid('Total');
                 if (part2DmgCount !== 0) {
                   addText(factorRes(path['type'], part2DmgCount * path["part2"]["ticks"]));
                 };
@@ -6277,7 +6337,7 @@ class App extends Component {
               addText(factorRes(path['type'], deliveryCount) + ' per ' + path["interval"] + ' sec, for ' + 
               multiplyTicks2(path["interval"])   + ' seconds.');
               singleBreak();
-              underLine('Total Damage');
+              colorOrchid('Total Damage');
               addText(factorRes(path['type'], multiplyTicks(deliveryCount)));
               doubleBreak();
             };
@@ -6553,7 +6613,7 @@ class App extends Component {
                 if (path["system"] === 'minMax') {
                   singleBreak();
                 };
-                underLine('Total');
+                colorOrchid('Total');
                 var totalHealCounter = 0;
                 if (path["heal"]) {
                   totalHealCounter += arrayCheck(path["heal"]);
@@ -8391,7 +8451,7 @@ class App extends Component {
               if (path['interval']) {
                 addText(' per ' + path['interval'] + ' sec, for ' + multiplyTicks2(path['interval']) + ' seconds.');
                 singleBreak();
-                underLine('Total');
+                colorOrchid('Total');
                 if (path['dmg']) {
                   addText(mapSpace(multiplyTicks(path["dmg"])));
                 };
@@ -8654,7 +8714,7 @@ class App extends Component {
               if (path['interval']) {
                 addText(' per ' + path['interval'] + ' sec, for ' + multiplyTicks2(path['interval']) + ' seconds.');
                 singleBreak();
-                underLine('Total');
+                colorOrchid('Total');
                 addText(factorRes(path['type'], mapSpace(multiplyTicks(dmgCount))));
               };
               doubleBreak();
