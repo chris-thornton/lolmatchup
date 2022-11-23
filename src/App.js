@@ -38,6 +38,7 @@ import moveSpeedIcon from './staticons/movementspeed.png';
 import healIcon from './staticons/healEffect2.png';
 import ccIcon from './staticons/crowdControl2.png';
 import shieldIcon from './staticons/shield.png';
+import tenacityIcon from './staticons/tenacity.png';
 import goldIcon from './staticons/gold.png';
 import trueDmgIcon from './staticons/trueDmg.png';
 import attackIcon from './staticons/attack.png';
@@ -806,6 +807,11 @@ class App extends Component {
         function prependIcon(iconSrc) {
           var e = document.createElement('img');
           e.src = iconSrc;
+          if (iconSrc === vampIcon) {
+            e.style.width = '15px';
+            e.style.height = '15px';
+            e.style.paddingRight = '4px';
+          }
           e.style.paddingBottom = '3px';
           abilityDiv.appendChild(e);
         };
@@ -2487,7 +2493,7 @@ class App extends Component {
 
                 doubleBreak();
                 colorPart('Part 2');
-                path = champFile[ability]["tickDamage"]['part2']
+                path = champFile[ability]["tickDamage"]['part2'];
                 
                 if (path["enemyMaxHPRatio"]) {
                   addText(removeParen(path["enemyMaxHPRatio"]));
@@ -2520,7 +2526,7 @@ class App extends Component {
                   colorAP(" 100 AP");
                   addText(")");
                 };
-              }
+              };
               doubleBreak();
             };
 
@@ -2562,6 +2568,7 @@ class App extends Component {
               addBold('Passive: ');
               
               if (path["bonusAttackDamage"]) {
+                prependIcon(ADIcon);
                 underLine('Bonus Attack Damage');
                 if (path["bonusAttackDamage"]["ADRatioByLvl"]) {
                   addText('[' + path["bonusAttackDamage"]["ADRatioByLvl"][0] 
@@ -2588,16 +2595,21 @@ class App extends Component {
                   addText("ratio)");
                 };
                 if (path["bonusAttackDamage"]["minBonusAD"]) {
-                  addText('Min: ');
+                  colorMin('Min: ');
                   removeSpace(path["bonusAttackDamage"]["minBonusAD"]);
                   singleBreak();
-                  addText('Max: ');
+                  colorMin('Max: ');
                   removeSpace(path["bonusAttackDamage"]["maxBonusAD"]);
                 };
                 if (path["bonusAttackDamage"]["ADPerOverCrit"]) {
                   addText(path["bonusAttackDamage"]["ADPerOverCrit"] + ' per');
                   colorCrit(" Crit Chance over 100%");
                 };
+                if (path["bonusAttackDamage"]["ADPerBonusHPRatio"]) {
+                  addText(path["bonusAttackDamage"]["ADPerBonusHPRatio"] + ' per');
+                  colorHP(' Bonus HP');
+                  addText('ratio');
+                }
                 if (!path["bonusAttackDamage"]["ADPerStack"] && ability === 'passive') {
                   singleBreak();
                   colorOrchid('Total');
@@ -2622,9 +2634,11 @@ class App extends Component {
                   addText(Math.round(bonusADCount));
                 };
                 if (path["bonusAttackDamage"]["minBonusAD"] && ability === 'passive') {
-                  addText('Min: ' + arrayCheck(path["bonusAttackDamage"]["minBonusAD"]));
+                  colorMin('Min: ');
+                  addText(arrayCheck(path["bonusAttackDamage"]["minBonusAD"]));
                   singleBreak();
-                  addText('Max: ' + arrayCheck(path["bonusAttackDamage"]["maxBonusAD"]));
+                  colorMin('Max: ');
+                  addText(arrayCheck(path["bonusAttackDamage"]["maxBonusAD"]));
                 }
                 if (path["bonusAttackDamage"]["ADPerStack"]) {
                   addText(path["bonusAttackDamage"]["ADPerStack"] + ' per stack');
@@ -2638,6 +2652,7 @@ class App extends Component {
                 }
               }
               if (path["bonusAPPerBonusHP"]) {
+                prependIcon(APIcon);
                 underLine('Bonus Ability Power');
                 addText(path["bonusAPPerBonusHP"] + ' per');
                 colorHP(" Bonus Health");
@@ -2647,6 +2662,7 @@ class App extends Component {
               };
               if (path["bonusHPPerAP"]) {
                 singleBreak();
+                prependIcon(healthIcon);
                 underLine('Bonus Health');
                 addText(path["bonusHPPerAP"] + ' per');
                 colorAP(" AP");
@@ -2655,89 +2671,118 @@ class App extends Component {
                 addText(Math.round(path["bonusHPPerAP"] * totalAP));
               };
               if (path["bonusArmorPerStack"]) {
+                prependIcon(armorIcon);
                 underLine('Bonus Armor');
                 addText(path["bonusArmorPerStack"] + ' per stack');
                 singleBreak();
               };
               if (path["bonusAPPerStack"]) {
+                prependIcon(APIcon);
                 underLine('Bonus Ability Power');
                 addText(path["bonusAPPerStack"] + ' per stack');
               };
               if (path["bonusCritChancePerFury"]) {
+                prependIcon(critChanceIcon);
                 underLine('Bonus Crit Chance');
                 addText(path["bonusCritChancePerFury"] + '% per Fury')
               };
               if (path["critChancePer20Stacks"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
                 underLine('Bonus Crit Chance Ratio');
                 addText(path["critChancePer20Stacks"] + ' per 20 stacks');
               };
               if (path["lifestealPerOverCrit"]) {
                 singleBreak();
+                prependIcon(lifestealIcon);
                 underLine('Life Steal per Overcrit');
                 addText(path["lifestealPerOverCrit"]);
               };
               if (path["itemCritChanceMultiplier"]) {
                 doubleBreak();
+                prependIcon(critChanceIcon);
                 underLine('Item Crit Chance Multiplier');
                 addText(path["itemCritChanceMultiplier"]);
               };
               if (path["bonusResist"]) {
+                prependIcon(armorIcon);
+                prependIcon(magicResIcon);
                 underLine('Bonus Armor and Magic Resist');
                 removeSpace(path["bonusResist"]);
               };
               if (path["bonusResistRatio"]) {
+                prependIcon(armorIcon);
+                prependIcon(magicResIcon);
                 underLine('Bonus Armor and Magic Resist');
                 addText('(' + path["bonusResistRatio"] + ' Bonus Ratio)');
                 singleBreak();
-                addText('Current Bonus ');
-                colorArmor('Armor');
-                addText('- ' + Math.round(path["bonusResistRatio"] * bonusArmor) + ', Current Bonus ');
-                colorMR('Magic Resist');
-                addText('- ' + Math.round(path["bonusResistRatio"] * bonusMR))
+                prependIcon(armorIcon);
+                colorOrchid('Total Bonus Armor');
+                addText(Math.round(path["bonusResistRatio"] * bonusArmor));
+                singleBreak();
+                prependIcon(magicResIcon);
+                colorOrchid('Total Bonus Magic Resist');
+                addText(Math.round(path["bonusResistRatio"] * bonusMR))
               };
               if (path["bonusBonusResistHPRatio"]) {
+                prependIcon(armorIcon);
+                prependIcon(magicResIcon);
+                prependIcon(healthIcon);
                 underLine('Bonus Armor, MR, and HP');
-                addText('(' + path["bonusBonusResistHPRatio"] + ' Bonus Ratio)');
+                addText('(' + path["bonusBonusResistHPRatio"] + ' Bonus ratio)');
                 if (path["bonusBonusPerStack"]) {
                   addText(' (+' + path["bonusBonusPerStack"] + ' per stack)');
                 };
                 singleBreak();
-                addText('Current Bonus ');
-                colorArmor('Armor');
-                addText('- ' + Math.round(path["bonusBonusResistHPRatio"] * bonusArmor) + ', Current Bonus ');
-                colorMR('Magic Resist');
-                addText('- ' + Math.round(path["bonusBonusResistHPRatio"] * bonusMR) + ', Current Bonus ');
-                colorHP('HP');
-                addText('- ' + Math.round(path["bonusBonusResistHPRatio"] * bonusHP));
+                prependIcon(armorIcon);
+                colorOrchid('Total Bonus Armor');
+                addText(Math.round(path["bonusBonusResistHPRatio"] * bonusArmor));
+                singleBreak();
+                prependIcon(magicResIcon);
+                colorOrchid('Total Bonus Magic Resist');
+                addText(Math.round(path["bonusBonusResistHPRatio"] * bonusMR));
+                singleBreak();
+                prependIcon(healthIcon);
+                colorOrchid('Total Bonus HP');
+                addText(Math.round(path["bonusBonusResistHPRatio"] * bonusHP));
               };
               if (path["bonusResistPerStack"]) {
                 addText(' (+' + path["bonusResistPerStack"] + ' per stack)');
               };
               if (path["minResistRatio"]) {
+                prependIcon(armorIcon);
+                prependIcon(magicResIcon);
                 underLine('Bonus Armor and Magic Resist');
-                addText('Min: ' + path["minResistRatio"] + ' total ratio, Max: ' + path["maxResistRatio"] + ' total ratio');
+                colorMin('Min: ');
+                addText(path["minResistRatio"] + ' total ratio, ')
+                colorMin('Max: ');
+                addText(path["maxResistRatio"] + ' total ratio');
                 singleBreak();
-                addText('Current Min: ');
-                colorArmor('Armor');
-                addText('- ' + Math.round(path["minResistRatio"] * totalArmor) + ', ');
-                colorMR('Magic Resist');
-                addText('- ' + Math.round(path["minResistRatio"] * totalMR))
+                prependIcon(armorIcon);
+                colorOrchid('Total Bonus Armor');
+                colorMin('Min: ');
+                addText(Math.round(path["minResistRatio"] * totalArmor) + ', ');
+                colorMin('Max: ');
+                addText(Math.round(path["maxResistRatio"] * totalArmor));
                 singleBreak();
-                addText('Current Max: ');
-                colorArmor('Armor');
-                addText('- ' + Math.round(path["maxResistRatio"] * totalArmor) + ', ');
-                colorMR('Magic Resist');
-                addText('- ' + Math.round(path["maxResistRatio"] * totalMR))
+                prependIcon(magicResIcon);
+                colorOrchid('Total Bonus Magic Resist');
+                colorMin('Min: ');
+                addText(Math.round(path["minResistRatio"] * totalMR) + ', ')
+                colorMin('Max: ');
+                addText(Math.round(path["maxResistRatio"] * totalMR))
               };
               if (path["bonusArmor"]) {
+                prependIcon(armorIcon);
                 underLine('Bonus Armor');
                 if (path["bonusArmor"]["minArmorRatio"]) {
-                  addText('Min: (' + removeParen(path["bonusArmor"]["minArmorRatio"]));
+                  colorMin('Min: ');
+                  addText('(' + removeParen(path["bonusArmor"]["minArmorRatio"]));
                   colorArmor(' Armor');
                   addText('ratio)');
                   singleBreak();
-                  addText('Max: (' + removeParen(path["bonusArmor"]["maxArmorRatio"]));
+                  colorMin('Max: ');
+                  addText('(' + removeParen(path["bonusArmor"]["maxArmorRatio"]));
                   colorArmor(' Armor');
                   addText('ratio)');
                   /*singleBreak();
@@ -2752,6 +2797,7 @@ class App extends Component {
               };
               if (path["bonusMagicResist"]) {
                 singleBreak();
+                prependIcon(magicResIcon);
                 underLine('Bonus Magic Resist');
                 removeSpace(path["bonusMagicResist"]);
                 if (path["bonusMagicResistRatio"]) {
@@ -2761,6 +2807,7 @@ class App extends Component {
                 }
               };
               if (path["bonusHealth"]) {
+                prependIcon(healthIcon);
                 underLine('Bonus Health')
                 if (path["bonusHealth"]["healthPerStack"]) {
                   addText('(' + path["bonusHealth"]["healthPerStack"] + ' per stack)');
@@ -2770,6 +2817,7 @@ class App extends Component {
                 }
               };
               if (path["bonusMoveSpeedRatio"]) {
+                prependIcon(moveSpeedIcon);
                 underLine('Bonus Move Speed Ratio');
                 removeSpace(path["bonusMoveSpeedRatio"])
               };
@@ -2779,76 +2827,93 @@ class App extends Component {
                 addText(')');
               };
               if (path["lifeStealByLvl"]) {
+                prependIcon(lifestealIcon);
                 underLine('Life Steal Ratio');
                 addText('[' + path["lifeStealByLvl"][0] + " to " + path["lifeStealByLvl"][17] + ", based on lvl. ");
                 underLine("Currently");
                 addText(path["lifeStealByLvl"][champLevel] + '] ')
               };
               if (path["spellVamp"]) {
+                prependIcon(vampIcon);
                 underLine('Spell Vamp Ratio')
                 addText('(' + removeParen(path["spellVamp"]) + ')')
               };
               if (path["omniVamp"]) {
+                prependIcon(vampIcon);
                 underLine('Omni Vamp Ratio')
                 addText('(' + removeParen(path["omniVamp"]) + ')')
               };
               if (path["armorPenRatio"]) {
+                prependIcon(arPenIcon);
                 underLine('Armor Pen Ratio')
                 addText('(' + removeParen(path["armorPenRatio"]) + ')');
               };
               if (path["magicPenRatio"]) {
+                prependIcon(mPenIcon);
                 underLine('Magic Pen Ratio')
                 addText('(' + removeParen(path["magicPenRatio"]) + ')')
               };
               if (path["bonusAttackSpeed"]) {
+                prependIcon(attackSpeedIcon);
                 underLine('Bonus Attack Speed Ratio')
                 removeSpace(path["bonusAttackSpeed"])
               };
               if (path["attackSpeedPerMissingHPRatio"]) {
+                prependIcon(attackSpeedIcon);
                 underLine('Bonus Attack Speed');
                 addText('(' + path["attackSpeedPerMissingHPRatio"] + ' per');
                 colorHP(' Missing HP');
                 addText('ratio)');
               };
               if (path["minBonusAttackSpeed"]) {
+                prependIcon(attackSpeedIcon);
                 underLine('Bonus Attack Speed');
                 addText('Min: ' + path["minBonusAttackSpeed"]);
                 singleBreak();
                 addText('Max: ' + path["maxBonusAttackSpeed"]);
               };
               if (path["minBonusAttackSpeedByLvl"]) {
-                underLine('Min Bonus Attack Speed');
+                prependIcon(attackSpeedIcon);
+                underLine('Bonus Attack Speed');
+                colorMin('Min: ');
                 addText('[' + path["minBonusAttackSpeedByLvl"][0] + " to " 
                 + path["minBonusAttackSpeedByLvl"][17] + ", based on lvl. ");
                 underLine("Currently");
                 addText(path["minBonusAttackSpeedByLvl"][champLevel] + '] ')
-              };
-              if (path["maxBonusAttackSpeedByLvl"]) {
+
                 singleBreak();
-                underLine('Max Bonus Attack Speed');
+                colorMin('Max: ');
                 addText('[' + path["maxBonusAttackSpeedByLvl"][0] + " to " 
                 + path["maxBonusAttackSpeedByLvl"][17] + ", based on lvl. ");
                 underLine("Currently");
                 addText(path["maxBonusAttackSpeedByLvl"][champLevel] + '] ')
               };
               if (path["maxHPRegen"]) {
+                prependIcon(healthRegenIcon);
                 underLine('Max HP Regen Ratio');
-                addText(path["maxHPRegen"] + ' per 5 secs.')
+                addText(path["maxHPRegen"] + ' per 5');
                 singleBreak();
-                addText('Current Value: ' + Math.round(path["maxHPRegen"] * totalHP));
-                colorHP(' HP');
-                addText('per 5 secs.');
+                colorOrchid('Total');
+                addText(Math.round(path["maxHPRegen"] * totalHP) + ' per 5');
               };
               if (path["minMaxHPRegen"]) {
+                prependIcon(healthRegenIcon);
                 underLine('Max HP Regen Ratio');
-                addText('Min: ' + path["minMaxHPRegen"] + ', Max: ' + path["maxMaxHPRegen"]);
+                colorMin('Min: ');
+                addText(path["minMaxHPRegen"] + ', ')
+                colorMin('Max: ');
+                addText(path["maxMaxHPRegen"]);
                 singleBreak();
-                addText('Current');
+                colorOrchid('Total');
                 colorHP(' HP');
-                addText('per 5: Min: ' + Math.round(path["minMaxHPRegen"] * totalHP) 
-                + ', Max: ' + Math.round(path["maxMaxHPRegen"] * totalHP))
+                addText('per 5: ')
+                colorMin('Min: ');
+                addText(Math.round(path["minMaxHPRegen"] * totalHP) + ', ');
+                colorMin('Max: '); 
+                addText(Math.round(path["maxMaxHPRegen"] * totalHP))
               };
               if (path["tenacity"]) {
+                prependIcon(tenacityIcon);
                 underLine('Tenacity Ratio');
                 addText(path["tenacity"])
               };
@@ -10286,7 +10351,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        10% <img src={lifestealIcon} className='smallIcon'></img> Life Steal
+        10% <img src={lifestealIcon}></img> Life Steal
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Lifeline: </i>
@@ -11038,7 +11103,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        8% <img src={lifestealIcon} className='smallIcon'></img> Life Steal
+        8% <img src={lifestealIcon}></img> Life Steal
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Mist's Edge: </i>
@@ -11072,7 +11137,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        20% <img src={lifestealIcon} className='smallIcon'></img> Life Steal
+        20% <img src={lifestealIcon}></img> Life Steal
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Ichorshield: </i>
