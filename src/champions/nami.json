@@ -24,14 +24,14 @@
                 "APRatio": 0.5
             },
             "part2": {
-                "part1RatioFormula": "Part 1 Dmg * (1 + ((0.00075 * AP) - 0.15))^2" 
+                "part1RatioFormula": "(Part 1 Dmg) * (1 + ((0.00075 * AP) - 0.15))^2" 
             }
         },
         "heal": {
             "targets": "all",
             "system":"2Part",
             "part2": {
-                "part1RatioFormula": "Part 1 Heal * (1 + ((0.00075 * AP) - 0.15))^2"
+                "part1RatioFormula": "(Part 1 Heal) * (1 + ((0.00075 * AP) - 0.15))^2"
             },
             "part1": {
                 "heal": [

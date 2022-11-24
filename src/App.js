@@ -837,9 +837,11 @@ class App extends Component {
           c.appendChild(d);
           c.style.color = colorRgb;
           abilityDiv.appendChild(c);
-          var e = document.createElement('img');
-          e.src = colorSrc;
-          abilityDiv.appendChild(e);
+          if (colorSrc) {
+            var e = document.createElement('img');
+            e.src = colorSrc;
+            abilityDiv.appendChild(e);
+          }
         };
         function colorAD(text){
           colorText(text, 'rgb(189, 125, 76)', ADIcon)
@@ -850,11 +852,23 @@ class App extends Component {
         function colorHP(text){
           colorText(text, 'rgb(32, 152, 93)', healthIcon)
         };
+        function hpColor(text){
+          prependIcon(healthIcon);
+          colorText(text, 'rgb(32, 152, 93)')
+        };
         function colorArmor(text){
           colorText(text, 'rgb(247, 113, 90)', armorIcon)
         };
+        function armorColor(text){
+          prependIcon(armorIcon);
+          colorText(text, 'rgb(247, 113, 90)')
+        }
         function colorMR(text){
           colorText(text, 'rgb(206, 142, 214)', magicResIcon)
+        };
+        function mrColor(text){
+          prependIcon(magicResIcon);
+          colorText(text, 'rgb(206, 142, 214)')
         };
         function colorAS(text){
           colorText(text, 'rgb(255, 203, 90)', attackSpeedIcon)
@@ -2918,12 +2932,14 @@ class App extends Component {
                 addText(path["tenacity"])
               };
               if (path["maxHPRegenByLvl"]) {
+                prependIcon(healthRegenIcon);
                 underLine('Max Health Regen Ratio');
                 addText('[' + path["maxHPRegenByLvl"][0] + " to " + path["maxHPRegenByLvl"][17] + ", based on lvl. ");
                 underLine("Currently");
                 addText(path["maxHPRegenByLvl"][champLevel] + '] ')
               };
               if (path["HPRegenPer5MissHPByLvl"]) {
+                prependIcon(healthRegenIcon);
                 underLine('Health Regen');
                 addText('[' + path["HPRegenPer5MissHPByLvl"][0] + " to " + path["HPRegenPer5MissHPByLvl"][17] 
                 + " per second, ");
@@ -2933,6 +2949,7 @@ class App extends Component {
                 addText(path["HPRegenPer5MissHPByLvl"][champLevel] + '] ')
               };
               if (path["bonusMSToBonusADRatioByLvl"]) {
+                prependIcon(ADIcon);
                 underLine('Bonus AD per Bonus Movespeed');
                 addText('[' + path["bonusMSToBonusADRatioByLvl"][0] + " to " 
                 + path["bonusMSToBonusADRatioByLvl"][17] + ", based on lvl. ");
@@ -2940,17 +2957,20 @@ class App extends Component {
                 addText(path["bonusMSToBonusADRatioByLvl"][champLevel] + '] ')
               };
               if (path["bonusManaPer100AP"]) {
+                prependIcon(manaIcon);
                 underLine('Bonus Mana Ratio');
                 addText(path["bonusManaPer100AP"] + ' per ');
                 colorAP('100 AP');
                 singleBreak();
-                addText('Current Bonus Mana: ' + Math.round(path["bonusManaPer100AP"] * totalAP / 100));
+                colorOrchid('Total Bonus Mana'); 
+                addText(Math.round(totalMana * path["bonusManaPer100AP"] * totalAP / 100));
               };
               doubleBreak();
             };
 
             if (champFile[ability]["selfHeal"]) {
-              var path = champFile[ability]["selfHeal"]
+              var path = champFile[ability]["selfHeal"];
+              prependIcon(healIcon);
               addBold('Self Heal: ')
               if (path["healByLvl"]) {
                 addText('[' + path["healByLvl"][0] + " to " + path["healByLvl"][17] + ", based on lvl. ");
@@ -2961,7 +2981,8 @@ class App extends Component {
             };
 
             if (champFile[ability]["allyHeal"]) {
-              var path = champFile[ability]["allyHeal"]
+              var path = champFile[ability]["allyHeal"];
+              prependIcon(healIcon);
               addBold('Ally Heal: ')
               if (path["healByLvl"]) {
                 addText('[' + path["healByLvl"][0] + " to " + path["healByLvl"][17] + ", based on lvl. ");
@@ -2992,7 +3013,7 @@ class App extends Component {
               };
               if (path["lifeStealRatio"]) {
                 underLine('Damage Ratio');
-                addText(path["lifeStealRatio"] + ' of Life Steal ratio');
+                addText(path["lifeStealRatio"] + ' of Life Stolen');
               };
               if (path["dmgRatio"]) {
                 underLine('Damage Ratio');
@@ -3076,7 +3097,7 @@ class App extends Component {
               };
               if (path["increasePer1%HPLostLast4Sec"]) {
                 singleBreak();
-                addText('Increase by Ratio of ' +  path["increasePer1%HPLostLast4Sec"] + ' per 1%');
+                addText('Increase by ratio of ' +  path["increasePer1%HPLostLast4Sec"] + ' per 1%');
                 colorHP(' HP');
                 addText('lost in the last 4 seconds.');
               };
@@ -3096,7 +3117,7 @@ class App extends Component {
                 addText(', pre-mitigation.');
               };
               if (path["system"] === "max") {
-                underLine('Max');
+                colorMin('Max: ');
                 if (path["maxHealByLvl"]) {
                   addText('[' + path["maxHealByLvl"][0] + " to " + path["maxHealByLvl"][17] + ", based on lvl. ");
                   underLine("Currently");
@@ -3104,7 +3125,7 @@ class App extends Component {
                 }
               };
               if (path["system"] === '2Part') {
-                underLine('Part 1');
+                colorPart('Part 1');
                 if (path["part1"]["heal"]) {
                   removeSpace(path["part1"]["heal"])
                 };
@@ -3114,13 +3135,13 @@ class App extends Component {
                   addText('ratio)');
                 };
                 singleBreak();
-                underLine('Part 2');
+                colorPart('Part 2');
                 if (path["part2"]["part1RatioFormula"]) {
                   addText('Formula: ' + path["part2"]["part1RatioFormula"]);
                 }
               };
               if (path["system"] === "minMax" ) {
-                underLine('Min')
+                colorMin('Min: ')
                 if (path["minHeal"]) {
                   removeSpace(path["minHeal"])
                 };
@@ -3168,7 +3189,7 @@ class App extends Component {
                 };
 
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
 
                 if (path["maxHeal"]) {
                   removeSpace(path["maxHeal"])
@@ -3236,7 +3257,8 @@ class App extends Component {
                 };
                 if (path["system"] === 'minMax') {
                   if (path["minHeal"]) {
-                    addText('Min: ' + mapSpace(multiplyTicks(path["minHeal"])));
+                    colorMin('Min: ');
+                    addText(mapSpace(multiplyTicks(path["minHeal"])));
                   };
                   if (path["minAPRatio"]) {
                     addText(' (+' + mapParen(multiplyTicks2(path['minAPRatio'])));
@@ -3245,7 +3267,8 @@ class App extends Component {
                   };
                   singleBreak();
                   if (path["maxHeal"]) {
-                    addText('Max: ' + mapSpace(multiplyTicks(path["maxHeal"])));
+                    colorMin('Max: ');
+                    addText(mapSpace(multiplyTicks(path["maxHeal"])));
                   };
                   if (path["maxAPRatio"]) {
                     addText(' (+' + mapParen(multiplyTicks2(path['maxAPRatio'])));
@@ -3261,11 +3284,12 @@ class App extends Component {
                 addText(' over ' + path["duration"] + ' seconds.')
               };
               if (path["empower"]) {
-                var empPath = path["empower"]
+                var empPath = path["empower"];
                 singleBreak();
+                prependIcon(healIcon);
                 addBold('Empowered Heal: ');
                 if (empPath["system"] === 'minMax') {
-                  underLine('Min');
+                  colorMin('Min: ');
                   if (empPath["minHeal"]) {
                     removeSpace(empPath["minHeal"]);
                   }
@@ -3275,7 +3299,7 @@ class App extends Component {
                     addText('ratio)');
                   }
                   singleBreak();
-                  underLine('Max');
+                  colorMin('Max: ');
                   if (empPath["maxHeal"]) {
                     removeSpace(empPath["maxHeal"]);
                   }
@@ -3284,6 +3308,7 @@ class App extends Component {
               if (path["empowerBonus"]) {
                 var empPath = path["empowerBonus"];
                 singleBreak();
+                prependIcon(healIcon);
                 underLine('Empower Bonus Heal');
                 if (empPath["healByLvl"]) {
                   addText('[' + empPath["healByLvl"][0] + " to " + empPath["healByLvl"][17] + ", based on lvl. ");
@@ -3372,13 +3397,13 @@ class App extends Component {
                 addText('ratio)');
               };
               if (path["maxMaxHPRatio"]) {
-                underLine('Max')
+                colorMin('Max: ')
                 addText('(' + removeParen(path["maxMaxHPRatio"]));
                 colorHP(' Max HP');
                 addText('ratio)');
               };
               if (path["system"] === "minMax" ) {
-                underLine('Min')
+                colorMin('Min: ')
                 if (path["minShield"]) {
                   removeSpace(path["minShield"])
                 };
@@ -3403,7 +3428,7 @@ class App extends Component {
                   addText('ratio)');
                 };
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
                 
                 if (path["maxShield"]) {
                   removeSpace(path["maxShield"])
@@ -3438,12 +3463,14 @@ class App extends Component {
               }
               if (path["combatCoolDown"]) {
                 singleBreak();
-                underLine('Combat Cooldown');
+                prependIcon(cdrIcon);
+                addPink('Combat Cooldown');
                 addText(path["combatCoolDown"])
-              }
+              };
               if (path["combatCoolDownByLvl"]) {
                 singleBreak();
-                underLine('Combat Cooldown');
+                prependIcon(cdrIcon);
+                addPink('Combat Cooldown');
                 addText('[' + path["combatCoolDownByLvl"][0] + " to " 
                 + path["combatCoolDownByLvl"][17] + "], based on lvl. ");
                 addText('Currently: ' + path["combatCoolDownByLvl"][champLevel])
@@ -3456,38 +3483,45 @@ class App extends Component {
               addBold('Revive: ')
               if (path["reviveTransform"]) {
                 underLine('Transform Stats');
-                colorHP('HP Ratio');
-                addText('- ' + path["reviveTransform"]["HPRatio"] 
-                + ' (current value: ' + Math.round(path["reviveTransform"]["HPRatio"] * totalHP) + ')')
+                hpColor('HP Ratio: ');
+                addText(path["reviveTransform"]["HPRatio"] + ' (');
+                colorOrchid('Total');
+                addText(Math.round(path["reviveTransform"]["HPRatio"] * totalHP) + ')');
                 if (path["reviveTransform"]["bonusArmorByLvl"]) {
                   singleBreak();
-                  colorArmor('Bonus Armor');
-                  addText('- ' + path["reviveTransform"]["bonusArmorByLvl"][0] 
+                  armorColor('Bonus Armor: ');
+                  addText(path["reviveTransform"]["bonusArmorByLvl"][0] 
                   + " to " + path["reviveTransform"]["bonusArmorByLvl"][17] + ", based on lvl. ")
-                  addText('Currently: ' + path["reviveTransform"]["bonusArmorByLvl"][champLevel])
+                  underLine('Currently');
+                  addText(path["reviveTransform"]["bonusArmorByLvl"][champLevel])
                 };
                 if (path["reviveTransform"]["bonusMagicResistByLvl"]) {
                   singleBreak();
-                  colorMR('Bonus Magic Resist');
-                  addText('- ' + path["reviveTransform"]
+                  mrColor('Bonus Magic Resist: ');
+                  addText(path["reviveTransform"]
                   ["bonusMagicResistByLvl"][0] + " to " + path["reviveTransform"]["bonusMagicResistByLvl"][17]
-                  + ', based on lvl. Currently: ' + path["reviveTransform"]["bonusMagicResistByLvl"][champLevel])
+                  + ', based on lvl. ');
+                  underLine('Currently');
+                  addText(path["reviveTransform"]["bonusMagicResistByLvl"][champLevel])
                 };
                 if (path["reviveTransform"]["armorRatio"]) {
                   singleBreak();
-                  colorArmor('Armor Ratio');
-                  addText('- ' + path["reviveTransform"]["armorRatio"]
-                  + ' (current value: ' + Math.round(path["reviveTransform"]["armorRatio"] * totalArmor) + ')');
+                  armorColor('Armor Ratio: ');
+                  addText(path["reviveTransform"]["armorRatio"] + ' (');
+                  colorOrchid('Total');
+                  addText(Math.round(path["reviveTransform"]["armorRatio"] * totalArmor) + ')');
                 };
                 if (path["reviveTransform"]["magicResistRatio"]) {
                   singleBreak();
-                  colorMR('Magic Resist Ratio');
-                  addText('- ' + path["reviveTransform"]["magicResistRatio"]
-                  + ' (current value: ' + Math.round(path["reviveTransform"]["magicResistRatio"] * totalMR) + ')')
+                  mrColor('Magic Resist Ratio: ');
+                  addText(path["reviveTransform"]["magicResistRatio"] + ' (');
+                  colorOrchid('Total');
+                  addText(Math.round(path["reviveTransform"]["magicResistRatio"] * totalMR) + ')')
                 };
                 if (path["reviveTransform"]["aoeResist"]) {
                   singleBreak();
-                  addText('AOE Resist Ratio - ' + path["reviveTransform"]["aoeResist"])
+                  underLine('AOE Resist Ratio');
+                  addText(path["reviveTransform"]["aoeResist"])
                 };
                 singleBreak();
                 underLine("Duration");
@@ -3501,24 +3535,32 @@ class App extends Component {
                 }
               };
               if (path["health"]) {
+                prependIcon(healthIcon);
                 underLine('Health Restored');
                 removeSpace(path["health"])
-              }
+              };
               if (path["healthPerAP"]) {
                 addText(' (+' + path["healthPerAP"] + ' per ');
                 colorAP('AP');
                 addText(')');
               };
               if (path["minHPRestoreRatio"]) {
-                singleBreak();
+                doubleBreak();
+                prependIcon(healthIcon);
                 underLine('Health Restored');
-                addText('Min: ' + path["minHPRestoreRatio"]);
+                colorMin('Min: ');
+                addText(path["minHPRestoreRatio"]);
                 colorHP(' Max HP');
-                addText('ratio (current value: ' + Math.round(path["minHPRestoreRatio"] * totalHP) + ')');
+                addText('ratio (');
+                colorOrchid('Total');
+                addText(Math.round(path["minHPRestoreRatio"] * totalHP) + ')');
                 singleBreak();
-                addText('Max: ' + path["maxHPRestoreRatio"]);
+                colorMin('Max: ');
+                addText(path["maxHPRestoreRatio"]);
                 colorHP(' Max HP');
-                addText('ratio (current value: ' + Math.round(path["maxHPRestoreRatio"] * totalHP) +')')
+                addText('ratio (');
+                colorOrchid('Total');
+                addText(Math.round(path["maxHPRestoreRatio"] * totalHP) +')')
               }
               doubleBreak();
             };
