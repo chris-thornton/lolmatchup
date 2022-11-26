@@ -3568,6 +3568,7 @@ class App extends Component {
             if (champFile[ability]["damageRedux"]) {
               var path = champFile[ability]["damageRedux"]
               if (path["type"] !== 'all') {
+                prependType(path["type"]);
                 addBold('Reduced ' + path["type"] + ' Damage Taken: ')
               } else {
                 addBold('Reduced Damage Taken: ')
@@ -3620,7 +3621,10 @@ class App extends Component {
                 removeSpace(path["duration"])
               };
               if (path["minDuration"]) {
-                addText('Min: ' + path["minDuration"] + ', Max: ' + path["maxDuration"]);
+                colorMin('Min: ');
+                addText(path["minDuration"] + ', ')
+                colorMin('Max: ');
+                addText(path["maxDuration"]);
               };
               if (path["calculateFrom"]) {
                 singleBreak();
@@ -3631,6 +3635,7 @@ class App extends Component {
 
             if (champFile[ability]["magicDamageRedux"]) {
               var path = champFile[ability]["magicDamageRedux"];
+              prependIcon(APIcon);
               addBold('Reduced Magic Damage Taken: ');
               if (path["reduxRatio"]) {
                 addText('Reduced by ratio of ');
@@ -3653,8 +3658,9 @@ class App extends Component {
             };
 
             if (champFile[ability]["physDamageRedux"]) {
-              var path = champFile[ability]["physDamageRedux"]
-              addBold('Reduced Physical Damage Taken: ')
+              var path = champFile[ability]["physDamageRedux"];
+              prependIcon(ADIcon);
+              addBold('Reduced Physical Damage Taken: ');
               if (path["reduxRatio"]) {
                 addText('Reduced by ratio of ');
                 removeSpace(path["reduxRatio"])
@@ -3688,17 +3694,19 @@ class App extends Component {
             };
 
             if (champFile[ability]["ccImmune"]) {
+              prependIcon(ccIcon);
               addBold('Crowd Control Immune Duration: ')
               removeSpace(champFile[ability]["ccImmune"]);
               doubleBreak();
             };
 
             if (champFile[ability]["minDmgImmune"]) {
+              prependIcon(ccIcon);
               addBold('Crowd Control Immune Duration: ')
-              underLine('Min')
+              colorMin('Min: ')
               addText(champFile[ability]["minDmgImmune"])
               singleBreak();
-              underLine('Max')
+              colorMin('Max: ')
               addText(champFile[ability]["maxDmgImmune"])
               doubleBreak();
             };
@@ -3724,7 +3732,9 @@ class App extends Component {
             if (champFile[ability]["interruptCC"]) {
               removeSpace(champFile[ability]["interruptCC"]);
               if (champFile[ability]["interruptCCPer10Lethality"]) {
-                addText(' (+' + champFile[ability]["interruptCCPer10Lethality"] + ' per 10 Lethality)');
+                addText(' (+' + champFile[ability]["interruptCCPer10Lethality"] + ' per');
+                colorArPen(' 10 Lethality');
+                addText(')');
               }
               doubleBreak();
             };
@@ -3737,10 +3747,10 @@ class App extends Component {
             };
 
             if (champFile[ability]["minInterruptCC"]) {
-              underLine('Min')
+              colorMin('Min: ')
               removeSpace(champFile[ability]["minInterruptCC"]);
               singleBreak();
-              underLine('Max')
+              colorMin('Max: ')
               removeSpace(champFile[ability]["maxInterruptCC"]);
               doubleBreak();
             };
@@ -3750,13 +3760,14 @@ class App extends Component {
               addBold('Damage Amp Ratio: ');
               addText(ampPath["amp"]);
               singleBreak();
-              underLine('Duration)');
+              underLine('Duration');
               addText(ampPath["duration"]);
               doubleBreak();
             };
 
             if (champFile[ability]["ADRedux"]) {
-              var path = champFile[ability]["ADRedux"]
+              var path = champFile[ability]["ADRedux"];
+              prependIcon(ADIcon);
               addBold('Attack Damage Reduction: ');
               if (path["redux"]) {
                 removeSpace(path["redux"]);
@@ -3767,12 +3778,16 @@ class App extends Component {
             if (champFile[ability]["resistRedux"]) {
               var path = champFile[ability]["resistRedux"]
               if (path["type"] === 'both') {
+                prependIcon(armorIcon);
+                prependIcon(magicResIcon);
                 addBold('Armor and Magic Resist Reduction: ');
               };
               if (path["type"] === 'magicResist') {
+                prependIcon(magicResIcon);
                 addBold('Magic Resist Reduction: ');
               };
               if (path["type"] === 'armor') {
+                prependIcon(armorIcon);
                 addBold('Armor Reduction: ');
               };
               if (path["resist"]) {
@@ -3783,12 +3798,12 @@ class App extends Component {
                 removeSpace(path["reduxRatio"])
               };
               if (path["system"] === 'minMax') {
-                underLine('Min')
+                colorMin('Min: ');
                 if (path["minResistRedux"]) {
                   removeSpace(path["minResistRedux"])
                 };
                 singleBreak();
-                underLine('Max')
+                colorMin('Max: ');
                 if (path["maxResistRedux"]) {
                   removeSpace(path["maxResistRedux"])
                 };
@@ -3800,7 +3815,7 @@ class App extends Component {
               };
               if (path["maxDuration"]) {
                 singleBreak();
-                underLine('Max Duration')
+                colorMin('Max Duration: ')
                 removeSpace(path["maxDuration"])
               };
               doubleBreak();
@@ -3811,32 +3826,38 @@ class App extends Component {
               var path = champFile[ability]["bonusStats"];
               addBold('Bonus Stats: ');
               if (path["attackDamageByLvl"]) {
+                prependIcon(ADIcon);
                 underLine('Attack Damage');
                 addText('[' + path["attackDamageByLvl"][0] + " to " + path["attackDamageByLvl"][17] 
                 + "], based on lvl. Currently: " + path["attackDamageByLvl"][champLevel]);
                 singleBreak();
               };
               if (path["attackSpeed"]) {
+                prependIcon(attackSpeedIcon);
                 underLine('Attack Speed Ratio');
                 addText('(' + removeParen(path["attackSpeed"]) + ')')
                 singleBreak();
               };
               if (path["ADRatio"]) {
+                prependIcon(ADIcon);
                 underLine('Attack Damage Ratio');
                 addText('(' + removeParen(path["ADRatio"]) + ')')
                 singleBreak();
               };
               if (path["lifeSteal"]) {
+                prependIcon(lifestealIcon);
                 underLine('Life Steal Ratio');
                 addText('(' + removeParen(path["lifeSteal"]) + ')')
                 singleBreak();
               };
               if (path["healingRatio"]) {
+                prependIcon(healIcon);
                 underLine('Increased Healing Ratio');
                 addText('(' + removeParen(path["healingRatio"]) + ')')
                 singleBreak();
               };
               if (path["healingPerMissingHPRatio"]) {
+                prependIcon(healIcon);
                 underLine('Increased Healing');
                 addText('(' + path["healingPerMissingHPRatio"] + ' per');
                 colorHP(' Missing HP');
@@ -3844,16 +3865,20 @@ class App extends Component {
                 singleBreak();
               };
               if (path["resist"]) {
+                prependIcon(armorIcon);
+                prependIcon(magicResIcon);
                 underLine('Armor and Magic Resist');
                 removeSpace(path["resist"]);
                 singleBreak();
               };
               if (path["abilityPower"]) {
+                prependIcon(APIcon);
                 underLine('Ability Power');
                 removeSpace(path["abilityPower"]);
                 singleBreak();
               }
               if (path["healthRegen"]) {
+                prependIcon(healthRegenIcon);
                 underLine('Health Regen');
                 removeSpace(path["healthRegen"]);
                 addText(' per second');
@@ -3871,8 +3896,9 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusHealth"]) {
-              var path = champFile[ability]["bonusHealth"]
-              addBold('Bonus Health: ')
+              var path = champFile[ability]["bonusHealth"];
+              prependIcon(healthIcon);
+              addBold('Bonus Health: ');
               if (path["health"]) {
                removeSpace(path["health"])
               };
@@ -3896,6 +3922,7 @@ class App extends Component {
             };
 
             if (champFile[ability]["maxHPRegen"]) {
+              prependIcon(healthRegenIcon);
               addBold('Max HP Ratio Regenerated: ');
               removeSpace(champFile[ability]["maxHPRegen"]);
               doubleBreak();
@@ -3904,6 +3931,7 @@ class App extends Component {
             if (champFile[ability]["healthRegen"]) {
               var path = champFile[ability]["healthRegen"];
               singleBreak();
+              prependIcon(healthRegenIcon);
               addBold('Health Regen: ');
               if (path["dmgTakenRatio"]) {
                 underLine('Damage Taken Ratio');
@@ -3925,7 +3953,7 @@ class App extends Component {
               };
               if (path["maxHPRatio"]) {
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
                 addText(path["maxHPRatio"]);
                 colorHP(' Max HP');
                 addText('ratio');
@@ -3934,8 +3962,9 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusAttackDamage"]) {
-              var path = champFile[ability]["bonusAttackDamage"]
-              addBold('Bonus Attack Damage: ')
+              var path = champFile[ability]["bonusAttackDamage"];
+              prependIcon(ADIcon);
+              addBold('Bonus Attack Damage: ');
               if (path['attackDamage']) {
                 removeSpace(path['attackDamage']);
               };
@@ -3950,12 +3979,12 @@ class App extends Component {
                 addText(')');
               };
               if (path['minAttackDamage']) {
-                underLine('Min');
+                colorMin('Min: ');
                 removeSpace(path['minAttackDamage'])
               };
               if (path['maxAttackDamage']) {
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
                 removeSpace(path['maxAttackDamage'])
               };
               if (path["duration"]) {
@@ -3968,6 +3997,7 @@ class App extends Component {
 
             if (champFile[ability]["bonusHPRegen"]) {
               var path = champFile[ability]["bonusHPRegen"];
+              prependIcon(healthRegenIcon);
               addBold('Bonus Health Regen: ');
               if (path["HPRegenPerSecondByLvl"]) {
                 addText('[' + path["HPRegenPerSecondByLvl"][0] + " to " + path["HPRegenPerSecondByLvl"][17] 
@@ -3977,7 +4007,8 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusAdaptiveForce"]) {
-              var path = champFile[ability]["bonusAdaptiveForce"]
+              var path = champFile[ability]["bonusAdaptiveForce"];
+              prependIcon(forceIcon);
               addBold('Self Bonus Adaptive Force: ');
               if (path["adaptiveForce"]) {
                 removeSpace(path["adaptiveForce"]);
@@ -3996,11 +4027,12 @@ class App extends Component {
             };
 
             if (champFile[ability]["allyBonusAdaptiveForce"]) {
-              var path = champFile[ability]["allyBonusAdaptiveForce"]
+              var path = champFile[ability]["allyBonusAdaptiveForce"];
+              prependIcon(forceIcon);
               addBold('Ally Bonus Adaptive Force: ')
               if (path["adaptiveAD"]) {
                 colorAD('AD');
-                addText('- [' + removeParen(path["adaptiveAD"]) + ']');
+                addText(': [' + removeParen(path["adaptiveAD"]) + ']');
               };
               if (path["allyAdaptiveBonusADRatio"]) {
                 addText(' (+' + removeParen(path["allyAdaptiveBonusADRatio"]));
@@ -4010,7 +4042,7 @@ class App extends Component {
               if (path["adaptiveAP"]) {
                 singleBreak();
                 colorAP('AP');
-                addText('- [' + removeParen(path["adaptiveAP"]) + ']');
+                addText(': [' + removeParen(path["adaptiveAP"]) + ']');
               };
               if (path["allyAdaptiveAPRatio"]) {
                 addText(' (+' + removeParen(path["allyAdaptiveAPRatio"]));
@@ -4021,7 +4053,9 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusResist"]) {
-              var path = champFile[ability]["bonusResist"]
+              var path = champFile[ability]["bonusResist"];
+              prependIcon(armorIcon);
+              prependIcon(magicResIcon);
               addBold('Bonus Armor & Magic Resist: ');
               if (path["resist"]) {
                 removeSpace(path["resist"]);
@@ -4031,11 +4065,11 @@ class App extends Component {
                 + "], based on lvl. Currently: " + path["bonusResistByLvl"][champLevel]);
               };
               if (path["minResistByLvl"]) {
-                underLine('Min');
+                colorMin('Min: ');
                 addText('[' + path["minResistByLvl"][0] + " to " + path["minResistByLvl"][17] 
                 + ", based on lvl. Currently: " + path["minResistByLvl"][champLevel] + ']');
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
                 addText('[' + path["maxResistByLvl"][0] + " to " + path["maxResistByLvl"][17] 
                 + ", based on lvl. Currently: " + path["maxResistByLvl"][champLevel] + ']');
               }
@@ -4047,10 +4081,10 @@ class App extends Component {
                 addText(' ratio)');
               };
               if (path["minResist"]) {
-                underLine('Min');
+                colorMin('Min: ');
                 removeSpace(path["minResist"]);
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
                 removeSpace(path["maxResist"]);
               }
               if (path["duration"]) {
@@ -4062,17 +4096,20 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusArmorPenOnCrit"]) {
-              var penPath = champFile[ability]["bonusArmorPenOnCrit"]
+              var penPath = champFile[ability]["bonusArmorPenOnCrit"];
+              prependIcon(arPenIcon);
+              prependIcon(critChanceIcon);
               addBold('Bonus-Armor Pen Ratio on Crits: ')
               addText(penPath["penRatio"]);
               singleBreak();
               underLine('Duration');
               addText(penPath["duration"]);
               doubleBreak();
-            }
+            };
 
             if (champFile[ability]["bonusArmor"]) {
-              var path = champFile[ability]["bonusArmor"]
+              var path = champFile[ability]["bonusArmor"];
+              prependIcon(armorIcon);
               addBold('Bonus Armor: ')
               if (path["armor"]) {
                 removeSpace(path["armor"])
@@ -4093,12 +4130,12 @@ class App extends Component {
                 addText('ratio)');
               }
               if (path["system"] === 'minMax') {
-                underLine('Min');
+                colorMin('Min: ');
                 if (path["minArmor"]) {
                   removeSpace(path["minArmor"]);
                 };
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
                 if (path["maxArmor"]) {
                   removeSpace(path["maxArmor"]);
                 };
@@ -4107,8 +4144,9 @@ class App extends Component {
             };
 
             if (champFile[ability]["allyBonusArmor"]) {
-              var path = champFile[ability]["allyBonusArmor"]
-              addBold('Ally Bonus Armor: ')
+              var path = champFile[ability]["allyBonusArmor"];
+              prependIcon(armorIcon);
+              addBold('Ally Bonus Armor: ');
               if (path["armor"]) {
                 removeSpace(path["armor"])
               };
@@ -4126,8 +4164,9 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusMagicResist"]) {
-              var path = champFile[ability]["bonusMagicResist"]
-              addBold('Bonus Magic Resist: ')
+              var path = champFile[ability]["bonusMagicResist"];
+              prependIcon(magicResIcon);
+              addBold('Bonus Magic Resist: ');
               if (path["magicResist"]) {
                 removeSpace(path["magicResist"])
               };
@@ -4150,8 +4189,9 @@ class App extends Component {
             };
 
             if (champFile[ability]["allyBonusMagicResist"]) {
-              var path = champFile[ability]["allyBonusMagicResist"]
-              addBold('Ally Bonus Magic Resist: ')
+              var path = champFile[ability]["allyBonusMagicResist"];
+              prependIcon(magicResIcon);
+              addBold('Ally Bonus Magic Resist: ');
               if (path["magicResist"]) {
                 removeSpace(path["magicResist"])
               };
@@ -4170,7 +4210,8 @@ class App extends Component {
 
             if (champFile[ability]["bonusAttackSpeed"]) {
               var ASPath = champFile[ability]["bonusAttackSpeed"];
-              addBold('Bonus Attack Speed Ratio: ')
+              prependIcon(attackSpeedIcon);
+              addBold('Bonus Attack Speed Ratio: ');
               if (ASPath['attackSpeed']) {
                 removeSpace(ASPath['attackSpeed'])
               };
@@ -4192,7 +4233,7 @@ class App extends Component {
                 addText(' (+' + ASPath["attackSpeedPerStack"] + ' per stack)');
               }
               if (ASPath['minAttackSpeed']) {
-                underLine('Min')
+                colorMin('Min: ');
                 removeSpace(ASPath['minAttackSpeed']);
                 if (ASPath["minBonusAttackSpeedRatio"]) {
                   addText(' (+' + ASPath["minBonusAttackSpeedRatio"]);
@@ -4206,14 +4247,14 @@ class App extends Component {
                 };
 
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
                 
                 removeSpace(ASPath['maxAttackSpeed']);
                 if (ASPath["maxBonusAttackSpeedRatio"]) {
                   addText(' (+' + ASPath["maxBonusAttackSpeedRatio"]);
                   colorAS(' Bonus Attack Speed');
                   addText('ratio)');
-                }
+                };
                 if (ASPath["maxAttackSpeedPer100AP"]) {
                   addText(' (+' + ASPath["maxAttackSpeedPer100AP"] + ' per');
                   colorAP(' 100 AP');
@@ -4221,11 +4262,11 @@ class App extends Component {
                 }
               };
               if (ASPath["minAttackSpeedByLvl"]) {
-                underLine('Min')
+                colorMin('Min: ');
                 addText('[' + ASPath["minAttackSpeedByLvl"][0] + " to " + ASPath["minAttackSpeedByLvl"][17] 
                 + "], based on lvl. Currently: " + ASPath["minAttackSpeedByLvl"][champLevel]);
                 singleBreak();
-                underLine('Max')
+                colorMin('Max: ');
                 if (ASPath["maxAttackSpeedByLvl"]) {
                   addText('[' + ASPath["maxAttackSpeedByLvl"][0] + " to " + ASPath["maxAttackSpeedByLvl"][17] 
                   + "], based on lvl. Currently: " + ASPath["maxAttackSpeedByLvl"][champLevel]);
@@ -4238,13 +4279,13 @@ class App extends Component {
               };
               if (ASPath["minDuration"]) {
                 singleBreak();
-                underLine('Min Duration')
+                colorMin('Min Duration: ');
                 addText(ASPath["minDuration"])
                 if (ASPath['maxDuration']) {
-                  underLine(', Max Duration')
+                  colorMin(', Max Duration: ');
                   addText(ASPath["maxDuration"])
                 }
-              }
+              };
               if (ASPath["durationAutos"]) {
                 addText(' for ' + ASPath["durationAutos"] + ' attacks.');
               }
@@ -4253,7 +4294,8 @@ class App extends Component {
 
             if (champFile[ability]["bonusOmniVamp"]) {
               var path = champFile[ability]["bonusOmniVamp"];
-              addBold('Bonus Omni Vamp Ratio: ')
+              prependIcon(vampIcon);
+              addBold('Bonus Omni Vamp Ratio: ');
               if (path['vamp']) {
                 removeSpace(path['vamp'])
               };
@@ -4266,20 +4308,21 @@ class App extends Component {
             };
 
             if (champFile[ability]["bonusMoveSpeed"]) {
-              var msPath = champFile[ability]["bonusMoveSpeed"]
+              var msPath = champFile[ability]["bonusMoveSpeed"];
+              prependIcon(moveSpeedIcon);
               addBold('Bonus Movement Speed: ');
               if (msPath["minBonusMSRatio"]) {
-                underLine('Min Ratio');
+                colorMin('Min Ratio: ');
                 addText(msPath["minBonusMSRatio"]);
               };
               if (msPath["maxBonusMSRatio"]) {
                 singleBreak();
-                underLine('Max Ratio');
+                colorMin('Max Ratio: ');
                 addText(msPath["maxBonusMSRatio"]);
               };
               if (msPath["duration"]) {
                 singleBreak();
-                underLine("Duration")
+                underLine("Duration");
                 addText(msPath["duration"])
               }
               doubleBreak();
@@ -4287,15 +4330,16 @@ class App extends Component {
 
             if (champFile[ability]["cripple"]) {
               var path = champFile[ability]["cripple"];
+              prependIcon(attackSpeedIcon);
               addBold('Attack Speed Cripple: ');
               if (path["attackSpeed"]) {
                 removeSpace(path["attackSpeed"]);
               };
               if (path["minAttackSpeed"]) {
-                underLine('Min');
+                colorMin('Min: ');
                 removeSpace(path["minAttackSpeed"]);
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
                 removeSpace(path["maxAttackSpeed"]);
               };
               if (path["duration"]) {
@@ -4310,7 +4354,9 @@ class App extends Component {
               var path = champFile[ability]["petStats"];
               addBold('Pet Stats: ');
               if (path["auto"]) {
+                prependIcon(attackIcon);
                 underLine('Basic Attack');
+                prependType(path["auto"]["type"]);
                 addText(path["auto"]["type"] + ' Damage: ');
                 if (path["auto"]["dmg"]) {
                   removeSpace(path["auto"]["dmg"]);
@@ -4341,7 +4387,7 @@ class App extends Component {
                   addText('ratio)');
                 };
                 if (path["auto"]["system"] === 'minMax') {
-                  addText('Min: ');
+                  colorMin('Min: ');
                   if (path["auto"]["minDmgByLvl"]) {
                     addText('[' + path["auto"]["minDmgByLvl"][0] + " to " 
                     + path["auto"]["minDmgByLvl"][17] + ", based on lvl. ");
@@ -4354,7 +4400,7 @@ class App extends Component {
                     addText('ratio)');
                   };
                   singleBreak();
-                  addText('Max: ');
+                  colorMin('Max: ');
                   if (path["auto"]["maxDmgByLvl"]) {
                     addText('[' + path["auto"]["maxDmgByLvl"][0] + " to " 
                     + path["auto"]["maxDmgByLvl"][17] + ", based on lvl. ");
@@ -4375,6 +4421,7 @@ class App extends Component {
               };
               if (path["attackSpeed"] || path["attackSpeedByLvl"] || path["minAttackSpeed"]) {
                 singleBreak();
+                prependIcon(attackSpeedIcon);
                 underLine('Attack Speed');
               };
               if (path["attackSpeed"]) {
@@ -4386,10 +4433,14 @@ class App extends Component {
                 addText(path["attackSpeedByLvl"][champLevel] + ']')
               };
               if (path["minAttackSpeed"]) {
-                addText('Min: ' + path["minAttackSpeed"] + ', Max: ' + path["maxAttackSpeed"]);
+                colorMin('Min: ');
+                addText(path["minAttackSpeed"] + ', ');
+                colorMin('Max: ');
+                addText(path["maxAttackSpeed"]);
               };
               if (path["attackSpeedRatio"]) {
                 singleBreak();
+                prependIcon(attackSpeedIcon);
                 underLine('Attack Speed Ratio');
                 addText(path["attackSpeedRatio"]);
               };
@@ -4398,21 +4449,25 @@ class App extends Component {
               };
               if (path["healthRatio"]) {
                 singleBreak();
+                prependIcon(healthIcon);
                 underLine('Health Ratio');
                 addText(path["healthRatio"]);
               };
               if (path["armorRatio"]) {
                 singleBreak();
+                prependIcon(armorIcon);
                 underLine('Armor Ratio');
                 addText(path["armorRatio"]);
               };
               if (path["magicResistRatio"]) {
                 singleBreak();
+                prependIcon(magicResIcon);
                 underLine('Magic Resist Ratio');
                 addText(path["magicResistRatio"]);
               };
               if (path['health'] || path['healthByLvl']) {
                 singleBreak();
+                prependIcon(healthIcon);
                 underLine('Health');
               };
               if (path["health"]) {
@@ -4443,6 +4498,7 @@ class App extends Component {
               };
               if (path["armor"] || path["armorByLvl"]) {
                 singleBreak();
+                prependIcon(armorIcon);
                 underLine('Armor');
               }
               if (path["armor"]) {
@@ -4460,6 +4516,7 @@ class App extends Component {
               };
               if (path["magicResist"] || path["magicResistByLvl"]) {
                 singleBreak();
+                prependIcon(magicResIcon);
                 underLine('Magic Resist');
               };
               if (path["magicResist"]) {
@@ -4499,7 +4556,9 @@ class App extends Component {
                   var path = champFile[ability]["empower"]["Q"]["petStats"];
                   addBold('Pet Stats: ');
                   if (path["auto"]) {
+                    prependIcon(attackIcon);
                     underLine('Basic Attack');
+                    prependType(path["auto"]["type"]);
                     addText(path["auto"]["type"] + ' Damage: ');
                     if (path["auto"]["dmg"]) {
                       removeSpace(path["auto"]["dmg"]);
@@ -4512,11 +4571,13 @@ class App extends Component {
                   };
                   if (path["attackSpeed"]) {
                     singleBreak();
+                    prependIcon(attackSpeedIcon);
                     underLine('Attack Speed');
                     addText(path["attackSpeed"]);
                   };
                   if (path["healthByLvl"]) {
                     singleBreak();
+                    prependIcon(healthIcon);
                     underLine('Health');
                     addText('[' + path["healthByLvl"][0] + " to " + path["healthByLvl"][17] + ", based on lvl. ");
                     underLine("Currently");
@@ -4532,6 +4593,7 @@ class App extends Component {
                   }
                   if (path["armorByLvl"]) {
                     singleBreak();
+                    prependIcon(armorIcon);
                     underLine('Armor');
                     addText('[' + path["armorByLvl"][0] + " to " + path["armorByLvl"][17] + ", based on lvl. ");
                     underLine("Currently");
@@ -4539,8 +4601,10 @@ class App extends Component {
                   };
                   if (path["magicResistByLvl"]) {
                     singleBreak();
+                    prependIcon(magicResIcon);
                     underLine('Magic Resist');
-                    addText('[' + path["magicResistByLvl"][0] + " to " + path["magicResistByLvl"][17] + ", based on lvl. ");
+                    addText('[' + path["magicResistByLvl"][0] + " to " + path["magicResistByLvl"][17] 
+                    + ", based on lvl. ");
                     underLine("Currently");
                     addText(path["magicResistByLvl"][champLevel] + ']')
                   }
@@ -4549,6 +4613,7 @@ class App extends Component {
                   singleBreak();
                   var damage = ePath['Q']["damage"]
                   if (damage["type"]) {
+                    prependType(damage["type"]);
                     addBold(damage["type"] + " Damage: ")
                   };
                   if (damage["dmg"]) {
@@ -4558,9 +4623,9 @@ class App extends Component {
                     addText(' (+' + removeParen(damage["APRatio"]));
                     colorAP(' AP');
                     addText('ratio)');
-                  }
+                  };
                   if (damage["system"] === 'minMax') {
-                    underLine('Min');
+                    colorMin('Min: ');
                     if (damage["minDmg"]) {
                       removeSpace(damage["minDmg"]);
                     }
@@ -4570,7 +4635,7 @@ class App extends Component {
                       addText('ratio)');
                     }
                     singleBreak();
-                    underLine('Max');
+                    colorMin('Max: ');
                     if (damage["maxDmg"]) {
                       removeSpace(damage["maxDmg"]);
                     }
@@ -4585,10 +4650,11 @@ class App extends Component {
                   singleBreak();
                   var damage = ePath['Q']["bonusDamage"]
                   if (damage["type"]) {
+                    prependType(damage["type"]);
                     addBold('Bonus ' + damage["type"] + " Damage: ")
                   };
                   if (damage["system"] === 'minMax') {
-                    underLine('Min');
+                    colorMin('Min: ');
                     if (damage["minDmg"]) {
                       removeSpace(damage["minDmg"]);
                     };
@@ -4598,7 +4664,7 @@ class App extends Component {
                       addText('ratio)');
                     };
                     singleBreak();
-                    underLine('Max');
+                    colorMin('Max: ');
                     if (damage["maxDmg"]) {
                       removeSpace(damage["maxDmg"]);
                     };
@@ -4621,6 +4687,7 @@ class App extends Component {
                   singleBreak();
                   var damage = ePath['W']["damage"]
                   if (damage["type"]) {
+                    prependType(damage["type"]);
                     addBold(damage["type"] + " Damage: ")
                   };
                   if (damage["dmg"]) {
@@ -4632,7 +4699,7 @@ class App extends Component {
                     addText('ratio)');
                   }
                   if (damage["system"] === 'minMax') {
-                    underLine('Min');
+                    colorMin('Min: ');
                     if (damage["minDmg"]) {
                       removeSpace(damage["minDmg"]);
                     }
@@ -4642,7 +4709,7 @@ class App extends Component {
                       addText('ratio)');
                     }
                     singleBreak();
-                    underLine('Max');
+                    colorMin('Max: ');
                     if (damage["maxDmg"]) {
                       removeSpace(damage["maxDmg"]);
                     }
@@ -4659,7 +4726,7 @@ class App extends Component {
                   prependIcon(healIcon);
                   addBold('Heal: ')
                   if (path['system'] === 'minMax') {
-                    underLine('Min');
+                    colorMin('Min: ');
                     if (path["minMissingHPRatio"]) {
                       addText('(' + removeParen(path["minMissingHPRatio"]));
                       colorHP(' Missing HP');
@@ -4673,7 +4740,7 @@ class App extends Component {
                       addText(')');
                     };
                     singleBreak();
-                    underLine('Max');
+                    colorMin('Max: ');
                     if (path["maxMissingHPRatio"]) {
                       addText('(' + removeParen(path["maxMissingHPRatio"]) + ' Missing HP Ratio)');
                       colorHP(' Missing HP');
@@ -4700,6 +4767,7 @@ class App extends Component {
                   singleBreak();
                   var damage = ePath['E']["damage"]
                   if (damage["type"]) {
+                    prependType(damage["type"]);
                     addBold(damage["type"] + " Damage: ")
                   };
                   if (damage["dmg"]) {
@@ -4711,7 +4779,7 @@ class App extends Component {
                     addText('ratio)');
                   };
                   if (damage["system"] === '2Part') {
-                    underLine('Part 1');
+                    colorPart('Part 1');
                     if (damage["part1"]["dmg"]) {
                      removeSpace(damage["part1"]["dmg"]);
                     };
@@ -4721,7 +4789,7 @@ class App extends Component {
                       addText('ratio)');
                     }
                     singleBreak();
-                    underLine('Part 2');
+                    colorPart('Part 2');
                     if (damage["part2"]["dmg"]) {
                       removeSpace(damage["part2"]["dmg"]);
                     };
@@ -4793,7 +4861,7 @@ class App extends Component {
               };
               if (path['minByLvl']) {
                 singleBreak();
-                underLine('Min');
+                colorMin('Min: ');
                 addText('[' + path['minByLvl'][0] + ' to ' + path['minByLvl'][17]
                 + ', based on lvl. Currently: ' + path['minByLvl'][champLevel] + ']');
               };
@@ -4813,15 +4881,16 @@ class App extends Component {
 
             if (champFile[ability]["minDuration"]) {
               addBold("Duration: ")
-              addText('Min: ');
-              removeSpace(champFile[ability]["minDuration"]) 
-              addText(', Max: ');
+              colorMin('Min: ');
+              removeSpace(champFile[ability]["minDuration"]);
+              singleBreak(); 
+              colorMin('Max: ');
               removeSpace(champFile[ability]["maxDuration"]);
               doubleBreak();
             };
 
             if (champFile[ability]["maxDuration"] && !champFile[ability]["minDuration"]) {
-              addBold("Max Duration: ");
+              colorMin("Max Duration: ");
               removeSpace(champFile[ability]["maxDuration"]);
               doubleBreak();
             };
@@ -4834,7 +4903,10 @@ class App extends Component {
             if (champFile[ability]["minCoolDown"]) {
               prependIcon(cdrIcon);
               addPink("Cooldown: ");
-              addText('Max: ' + champFile[ability]["maxCoolDown"] + ', Min: ' + champFile[ability]["minCoolDown"]);
+              colorMin('Min: ');
+              addText(champFile[ability]["maxCoolDown"] + ', ')
+              colorMin('Max: ');
+              addText(champFile[ability]["minCoolDown"]);
             };
             if (champFile[ability]["maxCoolDown"] && !champFile[ability]["minCoolDown"]) {
               prependIcon(cdrIcon);
@@ -4871,6 +4943,8 @@ class App extends Component {
               addText(champFile[ability]["staticCoolDownByLvl"][champLevel])
             };
             if (champFile[ability]["autoCoolDown"]) {
+              prependIcon(cdrIcon);
+              prependIcon(attackIcon);
               addPink("Cooldown Number of Basic Attacks: ");
               addText(champFile[ability]["autoCoolDown"]);
             };
@@ -4878,25 +4952,29 @@ class App extends Component {
               if (champFile[ability]["coolDownByLvl"] || champFile[ability]["coolDown"] 
               || champFile[ability]["staticCoolDownByLvl"] || champFile[ability]["staticCoolDown"]) {
                 singleBreak();
-              }
-              underLine('Cooldown Refund')
+              };
+              prependIcon(cdrIcon);
+              underLine('Cooldown Refund');
               addText(champFile[ability]["coolDownRefund"]);
             };
             if (champFile[ability]["allCDRefund"]) {
               if (champFile[ability]["coolDown"]) {
                 singleBreak();
               };
+              prependIcon(cdrIcon);
               underLine('All Abilities Cooldown Refund')
               addText(champFile[ability]["allCDRefund"]);
             };
             if (champFile[ability]["basicCDMaxRefundRatioPerStack"]) {
               singleBreak();
+              prependIcon(cdrIcon);
               underLine('Basic Abilities Max Cooldown Refund Ratio');
               addText(champFile[ability]["basicCDMaxRefundRatioPerStack"]+ ' per stack');
             };
             if (champFile[ability]["coolDownRefundByLvl"]) {
               singleBreak();
-              underLine('Cooldown Refund')
+              prependIcon(cdrIcon);
+              underLine('Cooldown Refund');
               addText('[' + champFile[ability]["coolDownRefundByLvl"][0] + " to " 
               + champFile[ability]["coolDownRefundByLvl"][17] + "], based on lvl. ");
               underLine("Currently");
@@ -4904,12 +4982,16 @@ class App extends Component {
             };
             if (champFile[ability]["minCoolDownRefund"]) {
               singleBreak();
+              prependIcon(cdrIcon);
               underLine('Cooldown Refund');
-              addText('Min: ' + champFile[ability]["minCoolDownRefund"]
-              + ', Max: ' + champFile[ability]["maxCoolDownRefund"]);
+              colorMin('Min: ');
+              addText(champFile[ability]["minCoolDownRefund"]+ ', ');
+              colorMin('Max: ');
+              addText(champFile[ability]["maxCoolDownRefund"]);
             };
             if (champFile[ability]["minCoolDownRefundByLvl"]) {
               singleBreak();
+              prependIcon(cdrIcon);
               underLine('Min Cooldown Refund')
               addText('[' + champFile[ability]["minCoolDownRefundByLvl"][0]
                 + " to " + champFile[ability]["minCoolDownRefundByLvl"][17] + ", based on lvl. ");
@@ -4918,6 +5000,7 @@ class App extends Component {
             };
             if (champFile[ability]["maxCoolDownRefundByLvl"]) {
               singleBreak();
+              prependIcon(cdrIcon);
               underLine('Max Cooldown Refund')
               addText('[' + champFile[ability]["maxCoolDownRefundByLvl"][0]
                 + " to " + champFile[ability]["maxCoolDownRefundByLvl"][17] + ", based on lvl. ");
