@@ -5009,11 +5009,13 @@ class App extends Component {
             };
             if (champFile[ability]["coolDownRefundRatio"]) {
               singleBreak();
+              prependIcon(cdrIcon);
               underLine('Cooldown Refund Ratio')
               removeSpace(champFile[ability]["coolDownRefundRatio"]);
             };
             if (champFile[ability]["coolDownRefundRatioByLvl"]) {
               singleBreak();
+              prependIcon(cdrIcon);
               underLine('Cooldown Refund Ratio')
               addText('[' + champFile[ability]["coolDownRefundRatioByLvl"][0]
                 + " to " + champFile[ability]["coolDownRefundRatioByLvl"][17] + ", based on lvl. ");
@@ -5022,7 +5024,8 @@ class App extends Component {
             };
             if (champFile[ability]["maxCoolDownRefundRatio"]) {
               singleBreak();
-              underLine('Max Cooldown Refund Ratio')
+              prependIcon(cdrIcon);
+              underLine('Max Cooldown Refund Ratio');
               addText(champFile[ability]["maxCoolDownRefundRatio"]);
             };
             if (champFile[ability]["recharge"]) {
@@ -5035,7 +5038,7 @@ class App extends Component {
             };
             if (champFile[ability]["staticCoolDownFormula"]) {
               singleBreak();
-              underLine('Cooldown Formula');
+              underLine('Formula');
               addText(champFile[ability]["staticCoolDownFormula"]);
             };
 
@@ -5049,6 +5052,7 @@ class App extends Component {
               var hr2 = document.createElement('hr');
               abilityDiv.appendChild(hr2);
               if (path["spellVamp"]) {
+                prependIcon(vampIcon);
                 underLine('Spell Vamp Ratio');
                 if (path["spellVamp"]["vampByLvl"]) {
                   addText('[' + path["spellVamp"]["vampByLvl"][0]
@@ -5058,7 +5062,8 @@ class App extends Component {
                 }
               };
               if (path["damage"]) {
-                underLine(path["damage"]["type"] + ' Damage')
+                prependType(path["damage"]["type"]);
+                addBold(path["damage"]["type"] + ' Damage: ');
                 if (path["damage"]["enemyMaxHPRatio"]){
                   addText('(' + path["damage"]["enemyMaxHPRatio"]);
                   colorHP(' Enemy Max HP');
@@ -5072,7 +5077,7 @@ class App extends Component {
                   addText(')');
                 };
                 if (path["damage"]["system"] === 'minMax') {
-                  addText('Min: ');
+                  colorMin('Min: ');
                   if (path["damage"]["minADRatio"]) {
                     addText('(' + path["damage"]["minADRatio"]);
                     colorAD(' AD');
@@ -5091,7 +5096,7 @@ class App extends Component {
                     addText(')');
                   };
                   singleBreak();
-                  addText('Max: ');
+                  colorMin('Max: ');
                   if (path["damage"]["maxADRatio"]) {
                     addText('(' + path["damage"]["maxADRatio"]);
                     colorAD(' AD');
@@ -5112,8 +5117,9 @@ class App extends Component {
                 } 
               };
               if (path["heal"]) {
-                singleBreak();
-                underLine('Heal')
+                doubleBreak();
+                prependIcon(healIcon);
+                addBold('Heal: ');
                 if (path["heal"]["enemyMaxHPRatio"]){
                   addText('(' + path["heal"]["enemyMaxHPRatio"]);
                   colorHP(' Enemy Max HP');
@@ -5130,7 +5136,7 @@ class App extends Component {
               };
               if (path["interruptCC"]) {
                 prependIcon(ccIcon);
-                underLine('Crowd Control Duration')
+                underLine('Crowd Control Duration');
                 addText(path["interruptCC"]);
               }
             };
@@ -5145,7 +5151,8 @@ class App extends Component {
               var hr2 = document.createElement('hr');
               abilityDiv.appendChild(hr2);
               if (path["damage"]) {
-                underLine(path["damage"]["type"] + ' Damage');
+                prependType(path["damage"]["type"]);
+                addBold(path["damage"]["type"] + ' Damage: ');
                 if (path["damage"]["dmgRatioByLvl"]) {
                   addText('(' + path["damage"]["dmgRatioByLvl"][0]+ " to " + path["damage"]["dmgRatioByLvl"][17]
                   + " ratio of damage dealt over 3 seconds, based on lvl. ");
@@ -5170,7 +5177,8 @@ class App extends Component {
             };
 
             if (champFile[ability]["autoEmpower"]) {
-              var damage = champFile[ability]["autoEmpower"]["damage"]
+              var damage = champFile[ability]["autoEmpower"]["damage"];
+              prependIcon(attackIcon);
               if (!damage["durationAutos"] && !damage['autoCoolDown']) {
                 addBold('Empowered Basic Attack: ')
               } else if (damage['autoCoolDown']) {
@@ -5178,6 +5186,7 @@ class App extends Component {
               } else {
                 addBold('Empower ' +  damage["durationAutos"] + ' Basic Attacks: ')
               };
+              prependType(damage['type']);
               underLine(damage['type'] + " Damage");
               var totalDmgCount = 0;
               var IEDmgCount = 0;
@@ -5252,7 +5261,9 @@ class App extends Component {
                 addText(factorRes(damage['type'], totalDmgCount))
                 if (IEDmgCount !== 0) {
                   //addText(' (' + Math.round(totalDmgCount + IEDmgCount) + 'with IE)');
-                  addText(' (' + factorRes(damage['type'], totalDmgCount + IEDmgCount) + 'with IE)');
+                  addText(' (' + factorRes(damage['type'], totalDmgCount + IEDmgCount) + 'with ')
+                  addIE();
+                  addText(' IE)');
                 }
               };
 
@@ -5333,19 +5344,20 @@ class App extends Component {
               };
               if (damage["attackSpeedPenalty"]) {
                 singleBreak();
+                prependIcon(attackSpeedIcon);
                 underLine('Bonus Attack Speed Penalty Ratio');
-                addText(damage["attackSpeedPenalty"] );
+                addText(damage["attackSpeedPenalty"]);
               };
               if (damage["system"] === "min" ) {
                 singleBreak();
-                underLine('Min Damage')
+                colorMin('Min Damage: ')
                 if (damage["minDmg"]) {
                   addText(arrayCheck(damage["minDmg"]));
                 }
               };
               
               if (damage["system"] === "minMax" ) {
-                underLine('Min')
+                colorMin('Min: ')
                 if (damage["minDmg"]) {
                   minDmgCount += arrayCheck(damage["minDmg"])
                 };
@@ -5390,7 +5402,7 @@ class App extends Component {
                 };
 
                 singleBreak();
-                underLine('Max');
+                colorMin('Max: ');
 
                 if (damage["maxDmg"]) {
                   maxDmgCount += arrayCheck(damage["maxDmg"])
@@ -5445,6 +5457,7 @@ class App extends Component {
               };
               if (damage["critDmg"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
                 if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
                   underLine('Crit Damage Ratio');
                 } else {
@@ -5457,26 +5470,33 @@ class App extends Component {
                   addText(factorRes(damage['type'], damage["critDmg"] * totalDmgCount));
                 };
                 if (minDmgCount !== 0) {
-                  addText('Min: ' + factorRes(damage['type'], damage["critDmg"] * minDmgCount)
-                  + ', Max: ' + factorRes(damage['type'], damage["critDmg"] * maxDmgCount));
+                  colorMin('Min: ');
+                  addText(factorRes(damage['type'], damage["critDmg"] * minDmgCount) + ', ');
+                  colorMin('Max: ');
+                  addText(factorRes(damage['type'], damage["critDmg"] * maxDmgCount));
                 };
                 if (damage["critDmgWithIE"]) {
                   if (totalDmgCount === 0 && minDmgCount === 0 && maxDmgCount === 0) {
-                    addText(' (' + damage["critDmgWithIE"] + ' with Infinity Edge)');
+                    addText(' (' + damage["critDmgWithIE"] + ' with ')
                   };
                   if (totalDmgCount !== 0) {
-                    addText(' (' + factorRes(damage['type'], damage["critDmgWithIE"] * totalDmgCount) 
-                    + ' with Infinity Edge)');
+                    addText(' (' + factorRes(damage['type'], damage["critDmgWithIE"] * totalDmgCount) + ' with ');
                   };
                   if (minDmgCount !== 0) {
-                    addText(' (Min: ' + factorRes(damage['type'], damage["critDmgWithIE"] * minDmgCount)
-                    + ', Max: ' + factorRes(damage['type'], damage["critDmgWithIE"] * maxDmgCount) 
-                    + ' with Infinity Edge)');
-                  }
+                    addText(' (');
+                    colorMin('Min: ')
+                    addText(factorRes(damage['type'], damage["critDmgWithIE"] * minDmgCount) + ', ')
+                    colorMin('Max: ');
+                    addText(factorRes(damage['type'], damage["critDmgWithIE"] * maxDmgCount) + ' with ');
+                  };
+                  addIE();
+                  addText(' IE)');
                 }
               };
               if (damage["critADRatioWithIE"]) {
                 singleBreak();
+                prependIcon(critChanceIcon);
+                addIE();
                 underLine('Crit Bonus Dmg with Infinity Edge');
                 addText(factorRes(damage['type'], damage["critADRatioWithIE"]) * totalAD);
               };
