@@ -481,9 +481,9 @@ class App extends Component {
     as: 0,
     arm: 0,
     arPenRatio: 0,
-    lethality: 0,
+    lethality: 0, 
     lifeSteal: 0,
-    omni: 0,  
+    omni: 0, 
     mr: 0,
     magicPenFlat: 0,
     magicPenRatio: 0,
@@ -510,9 +510,9 @@ class App extends Component {
     as: 0,
     arm: 0,
     arPenRatio: 0,
-    lethality: 0,
+    lethality: 0, 
     lifeSteal: 0,
-    omni: 0,  
+    omni: 0, 
     mr: 0,
     magicPenFlat: 0,
     magicPenRatio: 0,
@@ -1031,9 +1031,9 @@ class App extends Component {
                 addText(' IE)');
               };
               if (!path['system']) {
-                doubleBreak();
+                singleBreak();
                 prependIcon(critChanceIcon);
-                addBold('Crit Damage: ');
+                colorOrchid('Total Crit Damage');
                 addText(factorRes('Physical', newAutoDmg * path["critDmg"]));
                 if (path["critDmgWithIE"]) {
                   addText(' (' + factorRes('Physical', newAutoDmg * path["critDmgWithIE"]) + ' with ');
@@ -9279,6 +9279,26 @@ class App extends Component {
       return
     };
 
+    this[`appliedStats${side}`] = {
+      ad: 0,
+      as: 0,
+      arm: 0,
+      arPenRatio: 0,
+      lethality: 0, 
+      lifeSteal: 0,
+      omni: 0, 
+      mr: 0,
+      magicPenFlat: 0,
+      magicPenRatio: 0,
+      hp: 0,
+      hpRegen: 0,
+      ap: 0,
+      cdr: 0,
+      critChance: 0,
+      mana: 0,
+      manaRegen: 0
+    };
+
     if (prevName === '' || prevName === 'Aphelios') {
       var hiddenArray = document.getElementsByClassName(`hidden${side}`);
       for (var i = 0; i < hiddenArray.length; i++) {
@@ -9456,9 +9476,101 @@ class App extends Component {
     }));
   };
 
-  appliedStatToggle = (event, side, ability) => {
-    
-  }
+  appliedStatsToggle = (event, side, ability) => {
+    if (event.target.textContent.includes('Remove')){
+      this.appliedStatsUpdate(side, ability, 'remove')
+    } else {
+      this.appliedStatsUpdate(side, ability, 'apply')
+    }
+  };
+
+  appliedStatsUpdate = (side, ability, applyRemoveUpdate) => {
+    var champLevel = this[`level${side}`] - 1;
+    var abilityRank;
+    if (ability !== 'Passive'){
+      abilityRank = document.getElementById(`${ability}Rank${side}`).value
+    }
+    switch(applyRemoveUpdate) {
+      case 'apply':
+        this[`applied${ability}${side}`].statTypes.map(x => {
+          if (this[`applied${ability}${side}`][x].flat){
+            this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].flat;
+          };
+          if (this[`applied${ability}${side}`][x].byLvl){
+            this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].byLvl[champLevel]
+          };
+          if (this[`applied${ability}${side}`][x].byRank){
+            this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].byRank[abilityRank]
+          };
+          if (this[`applied${ability}${side}`][x].ratio){
+            this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio 
+            * this[`totalStats${side}`][x];
+          };
+          this.setState(prevState => ({
+            [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],
+              [x]: +prevState[`totalStats${side}`][x] + +this[`appliedStats${side}`][x]
+            }
+          }))
+        });
+        break;
+      case 'remove':
+        this[`applied${ability}${side}`].statTypes.map(x => {
+          if (this[`applied${ability}${side}`][x].flat){
+            this[`appliedStats${side}`][x] -= this[`applied${ability}${side}`][x].flat;
+          };
+          if (this[`applied${ability}${side}`][x].byLvl){
+            this[`appliedStats${side}`][x] -= this[`applied${ability}${side}`][x].byLvl[champLevel]
+          };
+          if (this[`applied${ability}${side}`][x].byRank){
+            this[`appliedStats${side}`][x] -= this[`applied${ability}${side}`][x].byRank[abilityRank]
+          };
+          if (this[`applied${ability}${side}`][x].ratio){
+            this[`appliedStats${side}`][x] -= this[`applied${ability}${side}`][x].ratio 
+            * this[`totalStats${side}`][x];
+          };
+          this.setState(prevState => ({
+            [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],
+              [x]: +prevState[`totalStats${side}`][x] - +this[`appliedStats${side}`][x]
+            }
+          }));
+        });
+        break;
+      case 'update':
+        this[`applied${ability}${side}`].statTypes.map(x => {
+          var prevStatValue = this[`appliedStats${side}`][x];
+          var newStatValue = 0;
+          if (this[`applied${ability}${side}`][x].flat){
+            newStatValue += this[`applied${ability}${side}`][x].flat;
+          };
+          if (this[`applied${ability}${side}`][x].byLvl){
+            newStatValue += this[`applied${ability}${side}`][x].byLvl[champLevel]
+          };
+          if (this[`applied${ability}${side}`][x].byRank){
+            newStatValue += this[`applied${ability}${side}`][x].byRank[abilityRank]
+          };
+          if (this[`applied${ability}${side}`][x].ratio){
+            newStatValue += this[`applied${ability}${side}`][x].ratio * this[`totalStats${side}`][x];
+          };
+          this.setState(prevState => ({
+            [`totalStats${side}`]: {
+              ...prevState[`totalStats${side}`],
+              [x]: +prevState[`totalStats${side}`][x] + (newStatValue - prevStatValue)
+            }
+          }));
+          this[`appliedStats${side}`][x] = newStatValue;
+        });
+        break;
+        //code to place on functions that call appliedstats update:
+        /* if (this[`applied${ability}${side}`].statTypes) {
+          this[`applied${ability}${side}`].statTypes.map(x => {
+            if (this[`applied${ability}${side}`].statTypes[x])
+          })
+        }
+        */
+    }
+  };
 
   onLevelChange = (event) => {
     var side = 'Left';
@@ -14340,9 +14452,12 @@ class App extends Component {
                   <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='passiveLeftApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Passive')}>
+                    Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Passive')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Passive')}>
+                    Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
@@ -14357,9 +14472,12 @@ class App extends Component {
                   <img className='qMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='QLeftApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Q')}>
+                    Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Q')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Q')}>
+                    Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
@@ -14374,9 +14492,12 @@ class App extends Component {
                   <img className='wMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='WLeftApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'W')}
+                  >Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'W')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'W')}>
+                    Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
@@ -14391,9 +14512,12 @@ class App extends Component {
                   <img className='eMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='ELeftApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'E')}>
+                    Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'E')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'E')}>
+                    Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenLeft abilityBoxLeft"></div>
@@ -14410,9 +14534,12 @@ class App extends Component {
                 
               </div>
               <div style={{textAlign: 'left'}} id='RLeftApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'R')}>
+                    Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'R')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'R')}>
+                    Apply Maximum Stats</button>
                 </div>
               <div className="hiddenLeft abilityBoxLeft" style={{marginBottom: '50px'}}></div>
             </div>
@@ -14429,9 +14556,12 @@ class App extends Component {
                   <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='passiveRightApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Passive')}>
+                    Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Passive')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Passive')}>
+                    Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenRight abilityBoxRight"></div>
@@ -14446,9 +14576,12 @@ class App extends Component {
                   <img className='qMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='QRightApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Q')}>
+                    Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Q')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Q')}>
+                    Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenRight abilityBoxRight"></div>
@@ -14463,9 +14596,12 @@ class App extends Component {
                   <img className='wMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='WRightApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'W')}>
+                    Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'W')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'W')}>
+                    Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenRight abilityBoxRight"></div>
@@ -14480,9 +14616,12 @@ class App extends Component {
                   <img className='eMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='ERightApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'E')}>
+                    Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'E')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'E')}>
+                    Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenRight abilityBoxRight"></div>
@@ -14497,9 +14636,12 @@ class App extends Component {
                   <img className='rMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='RRightApplied'>
-                  <button type='button'>Apply Minimum Stats</button>
-                  <button type='button'>Apply Stats </button>
-                  <button type='button'>Apply Maximum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'R')}>
+                    Apply Minimum Stats</button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'R')}>
+                    Apply Stats </button>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'R')}>
+                    Apply Maximum Stats</button>
                 </div>
               </div>
               <div className="hiddenRight abilityBoxRight" style={{marginBottom: '50px'}}></div>

@@ -76,8 +76,7 @@
                 300,320,340,370,400,430,460,490,520
             ],
             "APRatio": 0.5
-        },
-        "coolDown": "enemyDeath"
+        }
     },
     "stats": {
         "baseHP": 550,
