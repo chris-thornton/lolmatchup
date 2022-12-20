@@ -12,7 +12,7 @@ html {
   cursor: pointer;
 }
 
-.abilityTitleBox button {
+div[id$=Applied] button {
   visibility: hidden;
 }
 

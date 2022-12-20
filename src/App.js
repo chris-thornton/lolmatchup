@@ -495,16 +495,36 @@ class App extends Component {
     mana: 0,
     manaRegen: 0
   };
-  appliedPassiveLeft = {};
-  appliedQLeft = {};
-  appliedWLeft = {};
-  appliedELeft = {};
-  appliedRLeft = {};
-  appliedPassiveRight = {};
-  appliedQRight = {};
-  appliedWRight = {};
-  appliedERight = {};
-  appliedRRight = {};
+  appliedPassiveLeft = {
+    statTypes: []
+  };
+  appliedQLeft = {
+    statTypes: []
+  };
+  appliedWLeft = {
+    statTypes: []
+  };
+  appliedELeft = {
+    statTypes: []
+  };
+  appliedRLeft = {
+    statTypes: []
+  };
+  appliedPassiveRight = {
+    statTypes: []
+  };
+  appliedQRight = {
+    statTypes: []
+  };
+  appliedWRight = {
+    statTypes: []
+  };
+  appliedERight = {
+    statTypes: []
+  };
+  appliedRRight = {
+    statTypes: []
+  };
   appliedStatsRight = {
     ad: 0,
     as: 0,
@@ -972,6 +992,16 @@ class App extends Component {
           return Math.round(totalDmg * 100/(100+enemyArmor));
         } else if (type === 'Magic') {
           return Math.round(totalDmg * 100/(100+enemyMR));
+        }
+      };
+
+      const applyAbility = (statType, quantityType, quantityValue) => {
+        if (!this[`applied${ability}${side}`].statTypes.includes(statType)) {
+          this[`applied${ability}${side}`].statTypes.push(statType);
+          this[`applied${ability}${side}`][statType] = {}
+        };
+        if (!this[`applied${ability}${side}`][statType][quantityType]) {
+          this[`applied${ability}${side}`][statType][quantityType] = quantityValue
         }
       };
 
@@ -7361,7 +7391,7 @@ class App extends Component {
           };
 
           if (champFile[ability]["bonusStats"]) {
-            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible'
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible';
             var path = champFile[ability]["bonusStats"];
             addBold('Bonus Stats: ');
             if (path["attackDamageByLvl"]) {
@@ -7380,6 +7410,7 @@ class App extends Component {
               prependIcon(ADIcon);
               underLine('Attack Damage Ratio');
               addText(arrayCheck(path["ADRatio"]));
+              applyAbility('ad', 'ratio', path["ADRatio"]);
               singleBreak();
             };
             if (path["lifeSteal"]) {
@@ -9478,9 +9509,11 @@ class App extends Component {
 
   appliedStatsToggle = (event, side, ability) => {
     if (event.target.textContent.includes('Remove')){
-      this.appliedStatsUpdate(side, ability, 'remove')
+      this.appliedStatsUpdate(side, ability, 'remove');
+      event.target.textContent = event.target.textContent.replace('Remove', 'Apply')
     } else {
-      this.appliedStatsUpdate(side, ability, 'apply')
+      this.appliedStatsUpdate(side, ability, 'apply');
+      event.target.textContent = event.target.textContent.replace('Apply', 'Remove')
     }
   };
 
@@ -9488,8 +9521,8 @@ class App extends Component {
     var champLevel = this[`level${side}`] - 1;
     var abilityRank;
     if (ability !== 'Passive'){
-      abilityRank = document.getElementById(`${ability}Rank${side}`).value
-    }
+      abilityRank = document.getElementById(`${ability}Rank${side}`).value - 1
+    };
     switch(applyRemoveUpdate) {
       case 'apply':
         this[`applied${ability}${side}`].statTypes.map(x => {
@@ -9503,8 +9536,13 @@ class App extends Component {
             this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].byRank[abilityRank]
           };
           if (this[`applied${ability}${side}`][x].ratio){
-            this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio 
-            * this[`totalStats${side}`][x];
+            if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
+              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio 
+              * this.state[`totalStats${side}`][x];
+            } else {
+              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[abilityRank] 
+              * this.state[`totalStats${side}`][x];
+            }
           };
           this.setState(prevState => ({
             [`totalStats${side}`]: {
@@ -9516,25 +9554,14 @@ class App extends Component {
         break;
       case 'remove':
         this[`applied${ability}${side}`].statTypes.map(x => {
-          if (this[`applied${ability}${side}`][x].flat){
-            this[`appliedStats${side}`][x] -= this[`applied${ability}${side}`][x].flat;
-          };
-          if (this[`applied${ability}${side}`][x].byLvl){
-            this[`appliedStats${side}`][x] -= this[`applied${ability}${side}`][x].byLvl[champLevel]
-          };
-          if (this[`applied${ability}${side}`][x].byRank){
-            this[`appliedStats${side}`][x] -= this[`applied${ability}${side}`][x].byRank[abilityRank]
-          };
-          if (this[`applied${ability}${side}`][x].ratio){
-            this[`appliedStats${side}`][x] -= this[`applied${ability}${side}`][x].ratio 
-            * this[`totalStats${side}`][x];
-          };
+          var prevStatValue = this[`appliedStats${side}`][x];
           this.setState(prevState => ({
             [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],
-              [x]: +prevState[`totalStats${side}`][x] - +this[`appliedStats${side}`][x]
+              [x]: +prevState[`totalStats${side}`][x] - prevStatValue
             }
           }));
+          this[`appliedStats${side}`][x] = 0
         });
         break;
       case 'update':
@@ -9551,7 +9578,12 @@ class App extends Component {
             newStatValue += this[`applied${ability}${side}`][x].byRank[abilityRank]
           };
           if (this[`applied${ability}${side}`][x].ratio){
-            newStatValue += this[`applied${ability}${side}`][x].ratio * this[`totalStats${side}`][x];
+            if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
+              newStatValue += this[`applied${ability}${side}`][x].ratio * this.state[`totalStats${side}`][x];
+            } else {
+              newStatValue += this[`applied${ability}${side}`][x].ratio[abilityRank] 
+              * this.state[`totalStats${side}`][x];
+            }
           };
           this.setState(prevState => ({
             [`totalStats${side}`]: {
@@ -9562,14 +9594,8 @@ class App extends Component {
           this[`appliedStats${side}`][x] = newStatValue;
         });
         break;
-        //code to place on functions that call appliedstats update:
-        /* if (this[`applied${ability}${side}`].statTypes) {
-          this[`applied${ability}${side}`].statTypes.map(x => {
-            if (this[`applied${ability}${side}`].statTypes[x])
-          })
-        }
-        */
-    }
+    };
+    this.calculateAbility(side)
   };
 
   onLevelChange = (event) => {
