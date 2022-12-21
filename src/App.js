@@ -617,7 +617,10 @@ class App extends Component {
     var enemyStats = this[`champFile${otherSide}`].stats;
     var enemyArmor = this.state[`totalStats${otherSide}`].arm;
     var enemyMR = this.state[`totalStats${otherSide}`].mr;
-    var enemyHP = this.state[`totalStats${otherSide}`].hp;
+    var enemyTotalHP = this.state[`totalStats${otherSide}`].hp;
+    if (this.state[`champName${otherSide}`] === 'Kled') {
+      enemyTotalHP = this.state[`totalStats${otherSide}`].hp + this.state[`tfTotalStats${otherSide}`].hp;
+    };
     var itemStats = this[`itemStats${side}`];
     var enemyItemStats = this[`itemStats${otherSide}`];
     var champLevel = this[`level${side}`] - 1;
@@ -628,42 +631,40 @@ class App extends Component {
     var appliedStats = this[`appliedStats${side}`];
     var enemyAppliedStats = this[`appliedStats${otherSide}`];
 
-    var totalAD = itemStats.ad + runeStats.ad + 
+    var totalAD = itemStats.ad + runeStats.ad + appliedStats.ad +
     (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*this[`sterak${side}`];
-    var bonusAD = itemStats.ad + runeStats.ad;
+    var bonusAD = itemStats.ad + runeStats.ad + appliedStats.ad +
+    (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*this[`sterak${side}`];
     var totalAP = (itemStats.ap + appliedStats.ap + runeStats.ap)*this[`dcap${side}`];
     var totalAS = statsPath["attackSpeed"] + runeStats.as
-    + (itemStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
-    var bonusAS = statsPath["asRatio"] * itemStats.as + runeStats.as;
-    var bonusASRatio = itemStats.as + runeStats.as;
-    var totalArmor = itemStats.arm + runeStats.arm + statsPath["baseArmor"] + champLvlRatio * statsPath["armorPerLvl"];
-    var bonusArmor = itemStats.arm + runeStats.arm;
-    var totalMR = itemStats.mr + runeStats.mr + statsPath["baseMR"] + champLvlRatio * statsPath["mrPerLvl"];
-    var bonusMR = itemStats.mr + runeStats.mr;
-    var totalHP = itemStats.hp + runeStats.hp + statsPath["baseHP"] + champLvlRatio * statsPath["hpPerLvl"];
+    + (itemStats.as + appliedStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
+    var bonusAS = statsPath["asRatio"] * (itemStats.as + appliedStats.as) + runeStats.as;
+    var bonusASRatio = itemStats.as + appliedStats.as + runeStats.as/statsPath["asRatio"];
+    var totalArmor = itemStats.arm + runeStats.arm + statsPath["baseArmor"] + appliedStats.arm
+    + champLvlRatio * statsPath["armorPerLvl"];
+    var bonusArmor = itemStats.arm + runeStats.arm + appliedStats.arm;
+    var totalMR = itemStats.mr + runeStats.mr + statsPath["baseMR"] + appliedStats.mr
+    + champLvlRatio * statsPath["mrPerLvl"];
+    var bonusMR = itemStats.mr + runeStats.mr + appliedStats.mr;
+    var totalHP = itemStats.hp + runeStats.hp + statsPath["baseHP"] + appliedStats.hp
+    + champLvlRatio * statsPath["hpPerLvl"];
     if (champName === 'Kled') {
       totalHP += champFile['statsTransform']['baseHP'] + champFile['statsTransform']['hpPerLvl'] * champLvlRatio
-    }
-    var bonusHP = itemStats.hp + runeStats.hp;
-    var enemyTotalHP = enemyStats["baseHP"] + (enemyLvlRatio * enemyStats["hpPerLvl"]) + enemyItemStats.hp + enemyRuneStats.hp;
-    if (this.state[`champName${otherSide}`] === 'Kled') {
-      enemyTotalHP += this[`champFile${otherSide}`]['statsTransform']['baseHP'] 
-      + this[`champFile${otherSide}`]['statsTransform']['hpPerLvl'] * champLvlRatio
     };
-    var enemyBonusHP = enemyItemStats.hp + enemyRuneStats.hp;
-    var enemyTotalArmor = enemyStats.arm + enemyItemStats.arm + enemyRuneStats.arm;
-    var enemyTotalMR = enemyStats.mr + enemyItemStats.mr + enemyRuneStats.mr;
+    var bonusHP = itemStats.hp + appliedStats.hp + runeStats.hp;
+    var enemyBonusHP = enemyItemStats.hp + enemyRuneStats.hp + enemyAppliedStats.hp;
     var totalCritChance = itemStats.critChance/100;
     if (champName === 'Tryndamere' || champName === 'Yone') {
       totalCritChance *= 2
     }; 
-    var totalLethality = itemStats.lethality;
-    var totalLifeSteal = itemStats.lifeSteal;
-    var totalMana = (itemStats.mana + statsPath["mana"]["base"] + statsPath["mana"]["manaPerLvl"] * champLvlRatio)
-    *this[`mana${side}`];
-    var bonusMana = itemStats.mana * this[`mana${side}`];
-    var nonBaseAS = runeStats.as + (itemStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
-    var hasteRatio = 100/(100 + itemStats.cdr);
+    var totalLethality = itemStats.lethality + appliedStats.lethality;
+    var totalLifeSteal = itemStats.lifeSteal + appliedStats.lifeSteal;
+    var totalMana = (itemStats.mana + statsPath["mana"]["base"] + appliedStats.mana
+    + statsPath["mana"]["manaPerLvl"] * champLvlRatio)*this[`mana${side}`];
+    var bonusMana = (itemStats.mana + appliedStats.mana) * this[`mana${side}`];
+    var nonBaseAS = runeStats.as + (itemStats.as + appliedStats.as 
+      + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
+    var hasteRatio = 100/(100 + itemStats.cdr + appliedStats.cdr);
 
     var QRank;
     if (document.getElementById(`QRank${side}`).value == 0) {
@@ -5280,7 +5281,7 @@ class App extends Component {
               totalDmgCount += arrayCheck(damage["bonusArmorRatio"]) * bonusArmor;
             };
             if (damage['enemyResistRatio'] && enemyStats.baseHP) {
-              totalDmgCount += damage['enemyResistRatio'] * (enemyTotalArmor + enemyTotalMR);
+              totalDmgCount += damage['enemyResistRatio'] * (enemyArmor + enemyMR);
             }
             if (damage["ADRatioPerCritChance"]) {
               totalDmgCount += damage["ADRatioPerCritChance"] * totalCritChance * totalAD;
@@ -9183,11 +9184,11 @@ class App extends Component {
                 singleBreak();
                 prependIcon(armorIcon);
                 underLine('Armor Reduced');
-                addText(path["reduxRatioByLvl"][champLevel] * enemyTotalArmor);
+                addText(path["reduxRatioByLvl"][champLevel] * enemyArmor);
                 singleBreak();
                 prependIcon(magicResIcon);
                 underLine('Magic Resist Reduced');
-                addText(path["reduxRatioByLvl"][champLevel] * enemyTotalMR);
+                addText(path["reduxRatioByLvl"][champLevel] * enemyMR);
               }
             };
             if (path['duration']) {
@@ -9670,6 +9671,15 @@ class App extends Component {
     };
     var firstChar = event.currentTarget.id.charAt(0);
     this.setState({ [`${firstChar}Rank${side}`]: event.target.value });
+    if (event.target.value === "0" && this[`applied${firstChar}${side}`].statTypes.length) {
+      for (let i = 0; i < 2; i++) {
+        if (document.getElementById(`${firstChar}${side}Applied`).childNodes[i].textContent.includes('Remove')){
+          this.appliedStatsUpdate(side, firstChar, 'remove')
+          document.getElementById(`${firstChar}${side}Applied`).childNodes[i].textContent = 
+          document.getElementById(`${firstChar}${side}Applied`).childNodes[i].textContent.replace('Remove', 'Apply')
+        }
+      }
+    };
 
     this.calculateAbility(side);
   };
