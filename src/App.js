@@ -618,6 +618,9 @@ class App extends Component {
     var enemyArmor = this.state[`totalStats${otherSide}`].arm;
     var enemyMR = this.state[`totalStats${otherSide}`].mr;
     var enemyTotalHP = this.state[`totalStats${otherSide}`].hp;
+    console.log('enemy total hp: ' + enemyTotalHP);
+    //replace delete this.state.totalstats and create this.totalstats
+    //functions with this.calculateability followed by calcability for otherside result in not-updated stats used
     if (this.state[`champName${otherSide}`] === 'Kled') {
       enemyTotalHP = this.state[`totalStats${otherSide}`].hp + this.state[`tfTotalStats${otherSide}`].hp;
     };
@@ -9437,6 +9440,9 @@ class App extends Component {
           return
         };
         this.calculateAbility(side);
+        if (this[`champName${otherSide}`]) {
+          this.calculateAbility(otherSide);
+        }
       })
   };
 
@@ -9596,7 +9602,14 @@ class App extends Component {
         });
         break;
     };
-    this.calculateAbility(side)
+    this.calculateAbility(side);
+    var otherSide = 'Left';
+    if (side === 'Left'){
+      otherSide = 'Right'
+    };
+    if (this[`champName${otherSide}`]) {
+      this.calculateAbility(otherSide);
+    }
   };
 
   onLevelChange = (event) => {
@@ -9662,6 +9675,13 @@ class App extends Component {
       return
     };
     this.calculateAbility(side);
+    var otherSide = 'Left'
+    if (side === 'Left'){
+      otherSide = 'Right'
+    };
+    if (this[`champName${otherSide}`]) {
+      this.calculateAbility(otherSide);
+    }
   };
 
   onRankChange = (event) => {
@@ -9682,6 +9702,13 @@ class App extends Component {
     };
 
     this.calculateAbility(side);
+    var otherSide = 'Left'
+    if (side === 'Left'){
+      otherSide = 'Right'
+    };
+    if (this[`champName${otherSide}`]) {
+      this.calculateAbility(otherSide);
+    }
   };
 
   onRuneChange = (event) => {
@@ -9876,7 +9903,14 @@ class App extends Component {
     if (this[`champName${side}`] === 'Aphelios') {
       return
     };
-    this.calculateAbility(side)
+    this.calculateAbility(side);
+    var otherSide = 'Left';
+    if (side === 'Left'){
+      otherSide = 'Right'
+    };
+    if (this[`champName${otherSide}`]) {
+      this.calculateAbility(otherSide);
+    }
   };
 
   preventKeyPress = (event) => {
@@ -13381,7 +13415,14 @@ class App extends Component {
     if (this[`champName${side}`] === 'Aphelios') {
       return
     };
-    this.calculateAbility(side)
+    this.calculateAbility(side);
+    var otherSide = 'Left';
+    if (side === 'Left'){
+      otherSide = 'Right'
+    };
+    if (this[`champName${otherSide}`]) {
+      this.calculateAbility(otherSide);
+    }
   };
 
   onLegendClick = (event, side, legendIndex) => {
@@ -13593,7 +13634,14 @@ class App extends Component {
     if (this[`champName${side}`] === 'Aphelios') {
       return
     };
-    this.calculateAbility(side)
+    this.calculateAbility(side);
+    var otherSide = 'Left';
+    if (side === 'Left'){
+      otherSide = 'Right'
+    };
+    if (this[`champName${otherSide}`]) {
+      this.calculateAbility(otherSide);
+    }
   };
 
   onInvenClick = (event, side, i) => {
@@ -13823,7 +13871,14 @@ class App extends Component {
     if (this[`champName${side}`] === 'Aphelios') {
       return
     };
-    this.calculateAbility(side)
+    this.calculateAbility(side);
+    var otherSide = 'Left';
+    if (side === 'Left'){
+      otherSide = 'Right'
+    };
+    if (this[`champName${otherSide}`]) {
+      this.calculateAbility(otherSide);
+    }
   };
 
   onLegendDisplay = (side) => {
@@ -14335,7 +14390,7 @@ class App extends Component {
 
           <hr style={{margin: '20px -1vw'}}></hr>
 
-          <div className="flexDisplay" style={{marginBottom: '-1rem'}}>
+          <div className="flexDisplay">
             <div className="hiddenLeft">
               <span>Level: </span>
               <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px"}}
