@@ -614,21 +614,11 @@ class App extends Component {
     var statsPath = champFile[`stats`];
     var champName = this[`champName${side}`];
 
-    var enemyStats = this[`champFile${otherSide}`].stats;
-    var enemyArmor = this.state[`totalStats${otherSide}`].arm;
-    var enemyMR = this.state[`totalStats${otherSide}`].mr;
-    var enemyTotalHP = this.state[`totalStats${otherSide}`].hp;
-    console.log('enemy total hp: ' + enemyTotalHP);
-    //replace delete this.state.totalstats and create this.totalstats
-    //functions with this.calculateability followed by calcability for otherside result in not-updated stats used
-    if (this.state[`champName${otherSide}`] === 'Kled') {
-      enemyTotalHP = this.state[`totalStats${otherSide}`].hp + this.state[`tfTotalStats${otherSide}`].hp;
-    };
-    var itemStats = this[`itemStats${side}`];
-    var enemyItemStats = this[`itemStats${otherSide}`];
     var champLevel = this[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
     var enemyLvlRatio = (this[`level${otherSide}`] - 1) * (0.7025 + 0.0175 * (this[`level${otherSide}`] - 1));
+    var itemStats = this[`itemStats${side}`];
+    var enemyItemStats = this[`itemStats${otherSide}`];
     var runeStats = this[`runes${side}`];
     var enemyRuneStats = this[`runes${otherSide}`];
     var appliedStats = this[`appliedStats${side}`];
@@ -637,7 +627,7 @@ class App extends Component {
     var totalAD = itemStats.ad + runeStats.ad + appliedStats.ad +
     (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*this[`sterak${side}`];
     var bonusAD = itemStats.ad + runeStats.ad + appliedStats.ad +
-    (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*this[`sterak${side}`];
+    (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*(this[`sterak${side}`]-1);
     var totalAP = (itemStats.ap + appliedStats.ap + runeStats.ap)*this[`dcap${side}`];
     var totalAS = statsPath["attackSpeed"] + runeStats.as
     + (itemStats.as + appliedStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
@@ -655,7 +645,6 @@ class App extends Component {
       totalHP += champFile['statsTransform']['baseHP'] + champFile['statsTransform']['hpPerLvl'] * champLvlRatio
     };
     var bonusHP = itemStats.hp + appliedStats.hp + runeStats.hp;
-    var enemyBonusHP = enemyItemStats.hp + enemyRuneStats.hp + enemyAppliedStats.hp;
     var totalCritChance = itemStats.critChance/100;
     if (champName === 'Tryndamere' || champName === 'Yone') {
       totalCritChance *= 2
@@ -668,6 +657,19 @@ class App extends Component {
     var nonBaseAS = runeStats.as + (itemStats.as + appliedStats.as 
       + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
     var hasteRatio = 100/(100 + itemStats.cdr + appliedStats.cdr);
+
+    var enemyStats = this[`champFile${otherSide}`].stats;
+    var enemyArmor = enemyItemStats.arm + enemyRuneStats.arm + enemyStats["baseArmor"] + enemyAppliedStats.arm
+    + enemyLvlRatio * enemyStats["armorPerLvl"];
+    var enemyMR = enemyItemStats.mr + enemyRuneStats.mr + enemyStats["baseMR"] + enemyAppliedStats.mr
+    + enemyLvlRatio * enemyStats["mrPerLvl"];
+    var enemyTotalHP = enemyItemStats.hp + enemyRuneStats.hp + enemyStats["baseHP"] + enemyAppliedStats.hp
+    + enemyLvlRatio * enemyStats["hpPerLvl"];
+    if (this.state[`champName${otherSide}`] === 'Kled') {
+      enemyTotalHP += this[`champFile${otherSide}`]['statsTransform']['baseHP'] 
+      + this[`champFile${otherSide}`]['statsTransform']['hpPerLvl'] * enemyLvlRatio;
+    };
+    var enemyBonusHP = enemyItemStats.hp + enemyRuneStats.hp + enemyAppliedStats.hp;
 
     var QRank;
     if (document.getElementById(`QRank${side}`).value == 0) {
