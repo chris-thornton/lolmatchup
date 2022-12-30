@@ -42,7 +42,7 @@
             "duration": 4
         },
         "coolDown": 12,
-        "minCoolDown": 6
+        "coolDownRefundRatio": 0.5
     },
     "E": {
         "damage": {

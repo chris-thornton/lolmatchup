@@ -7404,6 +7404,7 @@ class App extends Component {
               prependIcon(ADIcon);
               underLine('Attack Damage');
               addText(path["attackDamageByLvl"][champLevel]);
+              applyAbility('ad', 'byLvl', path["attackDamageByLvl"]);
               singleBreak();
             };
             if (path["attackSpeed"]) {
@@ -7423,6 +7424,7 @@ class App extends Component {
               prependIcon(lifestealIcon);
               underLine('Life Steal Ratio');
               addText(arrayCheck(path["lifeSteal"]));
+              applyAbility('lifeSteal', 'flat', path["lifeSteal"]);
               singleBreak();
             };
             if (path["healingRatio"]) {
@@ -7444,18 +7446,22 @@ class App extends Component {
               prependIcon(magicResIcon);
               underLine('Armor and Magic Resist');
               addText(arrayCheck(path["resist"]));
+              applyAbility('arm', 'flat', path["resist"]);
+              applyAbility('mr', 'flat', path["resist"]);
               singleBreak();
             };
             if (path["abilityPower"]) {
               prependIcon(APIcon);
               underLine('Ability Power');
               addText(arrayCheck(path["abilityPower"]));
+              applyAbility('ap', 'flat', path["abilityPower"]);
               singleBreak();
             };
             if (path["healthRegen"]) {
               prependIcon(healthRegenIcon);
               underLine('Health Regen');
               addText(arrayCheck(path["healthRegen"]));
+              applyAbility('hpRegen', 'flat', path["healthRegen"]);
               singleBreak();
             };
             if (path["duration"]) {
@@ -8397,33 +8403,16 @@ class App extends Component {
             doubleBreak();
           };
 
-          if (champFile[ability]["coolDown"]) {
+          if (champFile[ability]["coolDown"] || champFile[ability]["minCoolDown"] 
+          || champFile[ability]["maxCoolDown"] || champFile[ability]["coolDownByLvl"]) {
             prependIcon(cdrIcon);
             addPink("Cooldown: ");
+          };
+          if (champFile[ability]["coolDown"]) {
             addText(hasteRatio === 1 ? arrayCheck(champFile[ability]["coolDown"])
               : (arrayCheck(champFile[ability]["coolDown"])*hasteRatio).toFixed(1));
           };
-          if (champFile[ability]["minCoolDown"] && !champFile[ability]["staticCoolDownFormula"]) {
-            prependIcon(cdrIcon);
-            addPink("Cooldown: ");
-            colorMin('Max: ');
-            addText(hasteRatio === 1 ? arrayCheck(champFile[ability]["maxCoolDown"])
-            : (arrayCheck(champFile[ability]["maxCoolDown"])*hasteRatio).toFixed(1));
-            singleBreak();
-            colorMin('Min: ');
-            addText(hasteRatio === 1 ? arrayCheck(champFile[ability]["minCoolDown"])
-            : (arrayCheck(champFile[ability]["minCoolDown"])*hasteRatio).toFixed(1));
-          };
-          if (champFile[ability]["maxCoolDown"] && !champFile[ability]["minCoolDown"]) {
-            prependIcon(cdrIcon);
-            addPink("Cooldown: ");
-            colorMin('Max: ');
-            addText(hasteRatio === 1 ? arrayCheck(champFile[ability]["maxCoolDown"])
-            : (arrayCheck(champFile[ability]["maxCoolDown"])*hasteRatio).toFixed(1));
-          };
           if (champFile[ability]["coolDownByLvl"]) {
-            prependIcon(cdrIcon);
-            addPink("Cooldown: ");
             addText(hasteRatio === 1 ? champFile[ability]["coolDownByLvl"][champLevel] 
             : (champFile[ability]["coolDownByLvl"][champLevel]*hasteRatio).toFixed(1))
           };
@@ -8513,8 +8502,6 @@ class App extends Component {
             : (arrayCheck(champFile[ability]["recharge"])*hasteRatio).toFixed(1));
           };
           if (champFile[ability]["staticCoolDownFormula"]) {
-            prependIcon(cdrIcon);
-            addPink("Cooldown: ");
             var value = 4 * (1 - (0.6 * (itemStats.as + statsPath["asPerLvl"] * champLevel 
             * (0.7025 + 0.0175 * champLevel))));
             if (value.toString().length > 4) {
@@ -9536,13 +9523,14 @@ class App extends Component {
       case 'apply':
         this[`applied${ability}${side}`].statTypes.map(x => {
           if (this[`applied${ability}${side}`][x].flat){
-            this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].flat;
+            if (typeof this[`applied${ability}${side}`][x].flat !== 'number') {
+              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].flat[abilityRank]
+            } else {
+              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].flat;
+            }
           };
           if (this[`applied${ability}${side}`][x].byLvl){
             this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].byLvl[champLevel]
-          };
-          if (this[`applied${ability}${side}`][x].byRank){
-            this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].byRank[abilityRank]
           };
           if (this[`applied${ability}${side}`][x].ratio){
             if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
@@ -9578,13 +9566,14 @@ class App extends Component {
           var prevStatValue = this[`appliedStats${side}`][x];
           var newStatValue = 0;
           if (this[`applied${ability}${side}`][x].flat){
-            newStatValue += this[`applied${ability}${side}`][x].flat;
+            if (typeof this[`applied${ability}${side}`][x].flat !== 'number') {
+              newStatValue += this[`applied${ability}${side}`][x].flat[abilityRank]
+            } else {
+              newStatValue += this[`applied${ability}${side}`][x].flat;
+            }
           };
           if (this[`applied${ability}${side}`][x].byLvl){
             newStatValue += this[`applied${ability}${side}`][x].byLvl[champLevel]
-          };
-          if (this[`applied${ability}${side}`][x].byRank){
-            newStatValue += this[`applied${ability}${side}`][x].byRank[abilityRank]
           };
           if (this[`applied${ability}${side}`][x].ratio){
             if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
@@ -9695,10 +9684,17 @@ class App extends Component {
     this.setState({ [`${firstChar}Rank${side}`]: event.target.value });
     if (event.target.value === "0" && this[`applied${firstChar}${side}`].statTypes.length) {
       for (let i = 0; i < 2; i++) {
-        if (document.getElementById(`${firstChar}${side}Applied`).childNodes[i].textContent.includes('Remove')){
+        if (document.getElementById(`${firstChar}${side}Applied`).childNodes[i].textContent.includes('Remove')) {
           this.appliedStatsUpdate(side, firstChar, 'remove')
           document.getElementById(`${firstChar}${side}Applied`).childNodes[i].textContent = 
           document.getElementById(`${firstChar}${side}Applied`).childNodes[i].textContent.replace('Remove', 'Apply')
+        }
+      }
+    };
+    if (event.target.value !== "0" && this[`applied${firstChar}${side}`].statTypes.length) {
+      for (let i = 0; i < 2; i++) {
+        if (document.getElementById(`${firstChar}${side}Applied`).childNodes[i].textContent.includes('Remove')) {
+          this.appliedStatsUpdate(side, firstChar, 'update')
         }
       }
     };
