@@ -495,7 +495,7 @@ class App extends Component {
     mana: 0,
     manaRegen: 0
   };
-  appliedPassiveLeft = {
+  appliedpassiveLeft = {
     statTypes: []
   };
   appliedQLeft = {
@@ -510,7 +510,7 @@ class App extends Component {
   appliedRLeft = {
     statTypes: []
   };
-  appliedPassiveRight = {
+  appliedpassiveRight = {
     statTypes: []
   };
   appliedQRight = {
@@ -1001,14 +1001,22 @@ class App extends Component {
         }
       };
 
-      const applyAbility = (statType, quantityType, quantityValue) => {
-        if (!this[`applied${ability}${side}`].statTypes.includes(statType)) {
-          this[`applied${ability}${side}`].statTypes.push(statType);
-          this[`applied${ability}${side}`][statType] = {}
-        };
-        if (!this[`applied${ability}${side}`][statType][quantityType]) {
-          this[`applied${ability}${side}`][statType][quantityType] = quantityValue
-        }
+      const applyAbility = (statType, quantityType, quantityValue, buttonType) => {
+        if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value != 0) {
+          if (buttonType) {
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'visible';
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2].style.visibility = 'visible';
+          } else {
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible';
+          };
+          if (!this[`applied${ability}${side}`].statTypes.includes(statType)) {
+            this[`applied${ability}${side}`].statTypes.push(statType);
+            this[`applied${ability}${side}`][statType] = {}
+          };
+          if (!this[`applied${ability}${side}`][statType][quantityType]) {
+            this[`applied${ability}${side}`][statType][quantityType] = quantityValue
+          }
+       }
       };
 
       if (champFile[ability]) {
@@ -2642,6 +2650,7 @@ class App extends Component {
               prependIcon(ADIcon);
               underLine('Bonus Attack Damage');
               if (path["bonusAttackDamage"]["ADRatioByLvl"]) {
+                applyAbility('ad', 'ratio', path["bonusAttackDamage"]["ADRatioByLvl"]);
                 addText('[' + path["bonusAttackDamage"]["ADRatioByLvl"][0] 
                 + " to " + path["bonusAttackDamage"]["ADRatioByLvl"][17]);
                 colorAD(" AD");
@@ -2651,6 +2660,7 @@ class App extends Component {
                 this[`appliedStats${side}`].ad += path["bonusAttackDamage"]["ADRatioByLvl"][champLevel]
               };
               if (path["bonusAttackDamage"]["bonusADRatio"]) {
+                applyAbility('ad', 'ratio', path["bonusAttackDamage"]["bonusADRatio"]);
                 addText(' (+' + removeParen(path["bonusAttackDamage"]["bonusADRatio"]));
                 colorAD(" Bonus AD");
                 addText("ratio)");
@@ -2721,7 +2731,7 @@ class App extends Component {
                 }
                 addText(Math.round(overCrit * 100 * path["bonusAttackDamage"]["ADPerOverCrit"]));
               }
-            }
+            };
             if (path["bonusAPPerBonusHP"]) {
               prependIcon(APIcon);
               underLine('Bonus Ability Power');
@@ -7397,7 +7407,6 @@ class App extends Component {
           };
 
           if (champFile[ability]["bonusStats"]) {
-            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible';
             var path = champFile[ability]["bonusStats"];
             addBold('Bonus Stats: ');
             if (path["attackDamageByLvl"]) {
@@ -9425,11 +9434,10 @@ class App extends Component {
           }
         };
 
-        if (champName === 'Aphelios') {
-          return
+        if (champName !== 'Aphelios') {
+          this.calculateAbility(side);
         };
-        this.calculateAbility(side);
-        if (this[`champName${otherSide}`]) {
+        if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
           this.calculateAbility(otherSide);
         }
       })
@@ -9516,7 +9524,7 @@ class App extends Component {
   appliedStatsUpdate = (side, ability, applyRemoveUpdate) => {
     var champLevel = this[`level${side}`] - 1;
     var abilityRank;
-    if (ability !== 'Passive'){
+    if (ability !== 'passive'){
       abilityRank = document.getElementById(`${ability}Rank${side}`).value - 1
     };
     switch(applyRemoveUpdate) {
@@ -9536,8 +9544,11 @@ class App extends Component {
             if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
               this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio 
               * this.state[`totalStats${side}`][x];
-            } else {
+            } else if (this[`applied${ability}${side}`][x].ratio.length < 10) {
               this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[abilityRank] 
+              * this.state[`totalStats${side}`][x];
+            } else {
+              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[champLevel] 
               * this.state[`totalStats${side}`][x];
             }
           };
@@ -9578,8 +9589,11 @@ class App extends Component {
           if (this[`applied${ability}${side}`][x].ratio){
             if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
               newStatValue += this[`applied${ability}${side}`][x].ratio * this.state[`totalStats${side}`][x];
-            } else {
+            } else if (this[`applied${ability}${side}`][x].ratio.length < 10) {
               newStatValue += this[`applied${ability}${side}`][x].ratio[abilityRank] 
+              * this.state[`totalStats${side}`][x];
+            } else {
+              newStatValue += this[`applied${ability}${side}`][x].ratio[champLevel] 
               * this.state[`totalStats${side}`][x];
             }
           };
@@ -9598,7 +9612,7 @@ class App extends Component {
     if (side === 'Left'){
       otherSide = 'Right'
     };
-    if (this[`champName${otherSide}`]) {
+    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
       this.calculateAbility(otherSide);
     }
   };
@@ -9617,22 +9631,27 @@ class App extends Component {
     var champName = this[`champName${side}`];
     var runeStats = this[`runes${side}`];
     var statsPath = this[`champFile${side}`][`stats`];
+    var appliedStats = this[`appliedStats${side}`];
 
     this.setState(prevState => ({
       [`totalStats${side}`]: {
         ...prevState[`totalStats${side}`],
         hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio) + 
-          (itemStats.mana + statsPath.mana["base"] 
+          appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
           + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`winter${side}`]*this[`mana${side}`],
-        as: statsPath["attackSpeed"] + ((statsPath["asPerLvl"] * champLvlRatio) + itemStats.as + runeStats.as) * statsPath["asRatio"],
-        arm: itemStats.arm + runeStats.arm + statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
-        ad: itemStats.ad + runeStats.ad 
+        as: statsPath["attackSpeed"] + ((statsPath["asPerLvl"] * champLvlRatio) 
+          + itemStats.as + runeStats.as + appliedStats.as) * statsPath["asRatio"],
+        arm: itemStats.arm + runeStats.arm + appliedStats.arm + statsPath["baseArmor"] 
+          + statsPath["armorPerLvl"] * champLvlRatio,
+        ad: itemStats.ad + runeStats.ad + appliedStats.ad
           + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
-        mr: itemStats.mr + runeStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
-        mana: (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`],
-        manaRegen: (itemStats.manaRegen + statsPath.mana["manaBaseRegen"] 
+        mr: itemStats.mr + runeStats.mr + appliedStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+        mana: (itemStats.mana + appliedStats.mana + statsPath.mana["base"] 
+          + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`],
+        manaRegen: (itemStats.manaRegen + statsPath.mana["manaBaseRegen"] + appliedStats.manaRegen 
           + statsPath.mana["manaRegenPerLvl"] * champLvlRatio)*this[`mana${side}`],
-        hpRegen: itemStats.hpRegen + statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio
+        hpRegen: itemStats.hpRegen + appliedStats.hpRegen + statsPath["baseHPRegen"] 
+          + statsPath["hpRegenPerLvl"] * champLvlRatio
       }
     }));
 
@@ -9662,15 +9681,14 @@ class App extends Component {
         }))
       }
     };
-    if (champName === 'Aphelios') {
-      return
+    if (champName !== 'Aphelios') {
+      this.calculateAbility(side);
     };
-    this.calculateAbility(side);
     var otherSide = 'Left'
     if (side === 'Left'){
       otherSide = 'Right'
     };
-    if (this[`champName${otherSide}`]) {
+    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
       this.calculateAbility(otherSide);
     }
   };
@@ -9704,7 +9722,7 @@ class App extends Component {
     if (side === 'Left'){
       otherSide = 'Right'
     };
-    if (this[`champName${otherSide}`]) {
+    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
       this.calculateAbility(otherSide);
     }
   };
@@ -9898,15 +9916,14 @@ class App extends Component {
           }))
       }
     };
-    if (this[`champName${side}`] === 'Aphelios') {
-      return
+    if (this[`champName${side}`] !== 'Aphelios') {
+      this.calculateAbility(side);
     };
-    this.calculateAbility(side);
     var otherSide = 'Left';
     if (side === 'Left'){
       otherSide = 'Right'
     };
-    if (this[`champName${otherSide}`]) {
+    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
       this.calculateAbility(otherSide);
     }
   };
@@ -13410,15 +13427,14 @@ class App extends Component {
       this[`runes${side}`].ap = 0;
       this[`forceType${side}`] = 'ad';
     };
-    if (this[`champName${side}`] === 'Aphelios') {
-      return
+    if (this[`champName${side}`] !== 'Aphelios') {
+      this.calculateAbility(side);
     };
-    this.calculateAbility(side);
     var otherSide = 'Left';
     if (side === 'Left'){
       otherSide = 'Right'
     };
-    if (this[`champName${otherSide}`]) {
+    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
       this.calculateAbility(otherSide);
     }
   };
@@ -13629,15 +13645,14 @@ class App extends Component {
       this[`runes${side}`].ap = 0;
       this[`forceType${side}`] = 'ad'
     };
-    if (this[`champName${side}`] === 'Aphelios') {
-      return
+    if (this[`champName${side}`] !== 'Aphelios') {
+      this.calculateAbility(side);
     };
-    this.calculateAbility(side);
     var otherSide = 'Left';
     if (side === 'Left'){
       otherSide = 'Right'
     };
-    if (this[`champName${otherSide}`]) {
+    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
       this.calculateAbility(otherSide);
     }
   };
@@ -13866,15 +13881,14 @@ class App extends Component {
       this[`runes${side}`].ap = 0;
       this[`forceType${side}`] = 'ad'
     };
-    if (this[`champName${side}`] === 'Aphelios') {
-      return
+    if (this[`champName${side}`] !== 'Aphelios') {
+      this.calculateAbility(side);
     };
-    this.calculateAbility(side);
     var otherSide = 'Left';
     if (side === 'Left'){
       otherSide = 'Right'
     };
-    if (this[`champName${otherSide}`]) {
+    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
       this.calculateAbility(otherSide);
     }
   };
@@ -14541,11 +14555,11 @@ class App extends Component {
                   <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='passiveLeftApplied'>
-                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Passive')}>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'passive')}>
                     Apply Minimum Stats</button>
-                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Passive')}>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'passive')}>
                     Apply Stats </button>
-                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Passive')}>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'passive')}>
                     Apply Maximum Stats</button>
                 </div>
               </div>
@@ -14645,11 +14659,11 @@ class App extends Component {
                   <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
                 <div style={{textAlign: 'left', marginTop: '-5px'}} id='passiveRightApplied'>
-                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Passive')}>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'passive')}>
                     Apply Minimum Stats</button>
-                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Passive')}>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'passive')}>
                     Apply Stats </button>
-                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Passive')}>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'passive')}>
                     Apply Maximum Stats</button>
                 </div>
               </div>
