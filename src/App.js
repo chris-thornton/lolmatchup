@@ -2657,7 +2657,6 @@ class App extends Component {
                 addText("ratio, based on lvl. ");
                 underLine("Currently");
                 addText(path["bonusAttackDamage"]["ADRatioByLvl"][champLevel] + '] ');
-                this[`appliedStats${side}`].ad += path["bonusAttackDamage"]["ADRatioByLvl"][champLevel]
               };
               if (path["bonusAttackDamage"]["bonusADRatio"]) {
                 applyAbility('ad', 'ratio', path["bonusAttackDamage"]["bonusADRatio"]);
@@ -9543,13 +9542,13 @@ class App extends Component {
           if (this[`applied${ability}${side}`][x].ratio){
             if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
               this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio 
-              * this.state[`totalStats${side}`][x];
+              * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             } else if (this[`applied${ability}${side}`][x].ratio.length < 10) {
               this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[abilityRank] 
-              * this.state[`totalStats${side}`][x];
+              * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             } else {
               this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[champLevel] 
-              * this.state[`totalStats${side}`][x];
+              * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             }
           };
           this.setState(prevState => ({
@@ -9588,13 +9587,14 @@ class App extends Component {
           };
           if (this[`applied${ability}${side}`][x].ratio){
             if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
-              newStatValue += this[`applied${ability}${side}`][x].ratio * this.state[`totalStats${side}`][x];
+              newStatValue += this[`applied${ability}${side}`][x].ratio 
+              * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             } else if (this[`applied${ability}${side}`][x].ratio.length < 10) {
               newStatValue += this[`applied${ability}${side}`][x].ratio[abilityRank] 
-              * this.state[`totalStats${side}`][x];
+              * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             } else {
               newStatValue += this[`applied${ability}${side}`][x].ratio[champLevel] 
-              * this.state[`totalStats${side}`][x];
+              * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             }
           };
           this.setState(prevState => ({
@@ -9623,6 +9623,7 @@ class App extends Component {
       side = 'Right';
     };
     document.getElementById(`levelBox${side}`).setAttribute('value', event.target.value);
+    var prevLvl = this[`level${side}`];
     this[`level${side}`] = event.target.value;
 
     var champLevel = event.target.value - 1;
@@ -9632,6 +9633,18 @@ class App extends Component {
     var runeStats = this[`runes${side}`];
     var statsPath = this[`champFile${side}`][`stats`];
     var appliedStats = this[`appliedStats${side}`];
+
+    var checkAppliedUpdate = () => {
+      this.abilities.map(ability => {
+        if (this[`applied${ability}${side}`].statTypes.length) {
+          if (document.getElementById(`${ability}${side}Applied`).childNodes[0].textContent.includes('Remove')
+          || document.getElementById(`${ability}${side}Applied`).childNodes[1].textContent.includes('Remove')
+          || document.getElementById(`${ability}${side}Applied`).childNodes[2].textContent.includes('Remove')) {
+            this.appliedStatsUpdate(side, ability, 'update')
+          }
+        }
+      });
+    }
 
     this.setState(prevState => ({
       [`totalStats${side}`]: {
@@ -9653,7 +9666,8 @@ class App extends Component {
         hpRegen: itemStats.hpRegen + appliedStats.hpRegen + statsPath["baseHPRegen"] 
           + statsPath["hpRegenPerLvl"] * champLvlRatio
       }
-    }));
+    }), () => checkAppliedUpdate());
+
 
     if (champName === 'Gnar' || champName === 'Kled' ) {
       var tfPath = this[`champFile${side}`]['statsTransform'];
@@ -9681,6 +9695,7 @@ class App extends Component {
         }))
       }
     };
+
     if (champName !== 'Aphelios') {
       this.calculateAbility(side);
     };
