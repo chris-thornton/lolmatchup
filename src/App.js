@@ -422,60 +422,30 @@ class App extends Component {
   };
   levelLeft = 1;
   levelRight = 1;
-  itemStatsLeft = {
-    ad: 0,
-    as: 0,
-    arm: 0,
-    arPenRatio: 0,
-    lethality: 0,
-    lifeSteal: 0,
-    omni: 0, 
-    mr: 0,
-    magicPenFlat: 0,
-    magicPenRatio: 0,
-    hp: 0,
-    hpRegen: 0,
-    ap: 0,
-    cdr: 0,
-    critChance: 0,
-    IECrit: false,
-    mana: 0,
-    manaRegen: 0
-  };
+
+  totalStatsLeft = {};
+  totalStatsRight = {};
+  bonusStatsLeft = {};
+  bonusStatsRight = {};
+  tfTotalStatsLeft = {};
+  tfTotalStatsRight = {};
+  itemStatsLeft = {};
+  itemStatsRight = {};
+
   manaLeft = 1;
   manaRight = 1;
-  dcapLeft = 1;
+  apMultiplierLeft = 1;
   dcapCountLeft = 0;
-  dcapRight = 1;
+  apMultiplierRight = 1;
   dcapCountRight = 0;
-  sterakLeft = 1;
+  adMultiplierLeft = 1;
   sterakCountLeft = 0;
-  sterakRight = 1;
-  winterLeft = 0;
+  adMultiplierRight = 1;
+  hpMultiplierLeft = 0;
   winterCountLeft = 0;
-  winterRight = 0;
+  hpMultiplierRight = 0;
   winterCountRight = 0;
   sterakCountRight = 0;
-  itemStatsRight = {
-    ad: 0,
-    as: 0,
-    arm: 0,
-    arPenRatio: 0,
-    lethality: 0, 
-    lifeSteal: 0,
-    omni: 0, 
-    mr: 0,
-    magicPenFlat: 0,
-    magicPenRatio: 0,
-    hp: 0,
-    hpRegen: 0,
-    ap: 0,
-    cdr: 0,
-    critChance: 0,
-    IECrit: false,
-    mana: 0,
-    manaRegen: 0
-  };
   appliedStatsLeft = {
     ad: 0,
     as: 0,
@@ -625,26 +595,28 @@ class App extends Component {
     var enemyAppliedStats = this[`appliedStats${otherSide}`];
 
     var totalAD = itemStats.ad + runeStats.ad + appliedStats.ad +
-    (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*this[`sterak${side}`];
+      (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*this[`adMultiplier${side}`];
     var bonusAD = itemStats.ad + runeStats.ad + appliedStats.ad +
-    (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*(this[`sterak${side}`]-1);
-    var totalAP = (itemStats.ap + appliedStats.ap + runeStats.ap)*this[`dcap${side}`];
+      (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*(this[`adMultiplier${side}`]-1);
+    var totalAP = (itemStats.ap + appliedStats.ap + runeStats.ap)*this[`apMultiplier${side}`];
     var totalAS = statsPath["attackSpeed"] + runeStats.as
-    + (itemStats.as + appliedStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
+      + (itemStats.as + appliedStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
     var bonusAS = statsPath["asRatio"] * (itemStats.as + appliedStats.as) + runeStats.as;
     var bonusASRatio = itemStats.as + appliedStats.as + runeStats.as/statsPath["asRatio"];
     var totalArmor = itemStats.arm + runeStats.arm + statsPath["baseArmor"] + appliedStats.arm
-    + champLvlRatio * statsPath["armorPerLvl"];
+      + champLvlRatio * statsPath["armorPerLvl"];
     var bonusArmor = itemStats.arm + runeStats.arm + appliedStats.arm;
     var totalMR = itemStats.mr + runeStats.mr + statsPath["baseMR"] + appliedStats.mr
-    + champLvlRatio * statsPath["mrPerLvl"];
+      + champLvlRatio * statsPath["mrPerLvl"];
     var bonusMR = itemStats.mr + runeStats.mr + appliedStats.mr;
-    var totalHP = itemStats.hp + runeStats.hp + statsPath["baseHP"] + appliedStats.hp
-    + champLvlRatio * statsPath["hpPerLvl"];
+    var totalHP = itemStats.hp + runeStats.hp + appliedStats.hp + statsPath["baseHP"] 
+      + (statsPath["hpPerLvl"] * champLvlRatio) + (itemStats.mana + statsPath.mana["base"] + 
+      statsPath.mana["manaPerLvl"]*champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`];
     if (champName === 'Kled') {
       totalHP += champFile['statsTransform']['baseHP'] + champFile['statsTransform']['hpPerLvl'] * champLvlRatio
     };
-    var bonusHP = itemStats.hp + appliedStats.hp + runeStats.hp;
+    var bonusHP = itemStats.hp + appliedStats.hp + runeStats.hp + (itemStats.mana + statsPath.mana["base"] + 
+      statsPath.mana["manaPerLvl"]*champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`];
     var totalCritChance = itemStats.critChance/100;
     if (champName === 'Tryndamere' || champName === 'Yone') {
       totalCritChance *= 2
@@ -9385,23 +9357,35 @@ class App extends Component {
           this[`mana${side}`] = 0
         }
 
+        this[`totalStats${side}`] = {
+          ...this[`totalStats${side}`],
+          hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio)
+            + (itemStats.mana + statsPath.mana["base"] + 
+            statsPath.mana["manaPerLvl"]*champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`],
+          manaRegen: ((itemStats.manaRegen * statsPath.mana["manaBaseRegen"]/100) + statsPath.mana["manaBaseRegen"] 
+            + statsPath.mana["manaRegenPerLvl"] * champLvlRatio)*this[`mana${side}`],
+          hpRegen: (itemStats.hpRegen * statsPath["baseHPRegen"]/100) + statsPath["baseHPRegen"] 
+            + statsPath["hpRegenPerLvl"] * champLvlRatio,
+          as: runeStats.as + statsPath["attackSpeed"] + (itemStats.as + statsPath["asPerLvl"] * champLvlRatio) 
+            * statsPath["asRatio"],
+          arm: itemStats.arm + runeStats.arm + statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
+          ad: itemStats.ad + runeStats.ad 
+            + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`],
+          mr: itemStats.mr + runeStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+          mana: (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]
+        };
+
         this.setState(prevState => ({
           [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],   
-              hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio)
-                + (itemStats.mana + statsPath.mana["base"] + 
-                statsPath.mana["manaPerLvl"]*champLvlRatio)*this[`winter${side}`]*this[`mana${side}`],
-              manaRegen: ((itemStats.manaRegen * statsPath.mana["manaBaseRegen"]/100) + statsPath.mana["manaBaseRegen"] 
-                + statsPath.mana["manaRegenPerLvl"] * champLvlRatio)*this[`mana${side}`],
-              hpRegen: (itemStats.hpRegen * statsPath["baseHPRegen"]/100) + statsPath["baseHPRegen"] 
-                + statsPath["hpRegenPerLvl"] * champLvlRatio,
-              as: runeStats.as + statsPath["attackSpeed"] + (itemStats.as + statsPath["asPerLvl"] * champLvlRatio) 
-                * statsPath["asRatio"],
-              arm: itemStats.arm + runeStats.arm + statsPath["baseArmor"] + statsPath["armorPerLvl"] * champLvlRatio,
-              ad: itemStats.ad + runeStats.ad 
-                + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
-              mr: itemStats.mr + runeStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
-              mana: (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]
+              hp: this[`totalStats${side}`].hp,
+              manaRegen: this[`totalStats${side}`].manaRegen,
+              hpRegen: this[`totalStats${side}`].hpRegen,
+              as: this[`totalStats${side}`].as,
+              arm: this[`totalStats${side}`].arm,
+              ad: this[`totalStats${side}`].ad,
+              mr: this[`totalStats${side}`].mr,
+              mana: this[`totalStats${side}`].mana
           }
         }));
 
@@ -9418,7 +9402,7 @@ class App extends Component {
               as: tfPath["attackSpeed"] + (itemStats.as + runeStats.as + tfPath["asPerLvl"] * champLvlRatio) * tfPath["asRatio"],
               arm: itemStats.arm + runeStats.arm + tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
               ad: itemStats.ad + runeStats.ad 
-              + (tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
+              + (tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`],
               mr: itemStats.mr + runeStats.mr + tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
               mana: (itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]
             }
@@ -9597,6 +9581,23 @@ class App extends Component {
               * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             }
           };
+          if (this[`applied${ability}${side}`][x].bonusRatio){
+            if (typeof this[`applied${ability}${side}`][x].bonusRatio === 'number') {
+              newStatValue += this[`applied${ability}${side}`][x].bonusRatio 
+              * (this[`runes${side}`][x] + this[`itemStats${side}`][x]);
+            } else if (this[`applied${ability}${side}`][x].ratio.length < 10) {
+              newStatValue += this[`applied${ability}${side}`][x].ratio[abilityRank] 
+              * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
+            } else {
+              newStatValue += this[`applied${ability}${side}`][x].ratio[champLevel] 
+              * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
+            }
+          };
+          this[`applied${ability}${side}`][x].keys().map(y => {
+            if (y.includes('ratioPer')) {
+
+            }
+          })
           this.setState(prevState => ({
             [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],
@@ -9651,13 +9652,13 @@ class App extends Component {
         ...prevState[`totalStats${side}`],
         hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio) + 
           appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
-          + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`winter${side}`]*this[`mana${side}`],
+          + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`],
         as: statsPath["attackSpeed"] + ((statsPath["asPerLvl"] * champLvlRatio) 
           + itemStats.as + runeStats.as + appliedStats.as) * statsPath["asRatio"],
         arm: itemStats.arm + runeStats.arm + appliedStats.arm + statsPath["baseArmor"] 
           + statsPath["armorPerLvl"] * champLvlRatio,
         ad: itemStats.ad + runeStats.ad + appliedStats.ad
-          + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
+          + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`],
         mr: itemStats.mr + runeStats.mr + appliedStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
         mana: (itemStats.mana + appliedStats.mana + statsPath.mana["base"] 
           + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`],
@@ -9681,7 +9682,7 @@ class App extends Component {
           as: tfPath["attackSpeed"] + (itemStats.as + runeStats.as + tfPath["asPerLvl"] * champLvlRatio) * tfPath["asRatio"],
           arm: itemStats.arm + runeStats.arm + tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
           ad: itemStats.ad + runeStats.ad 
-          + (tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio)*this[`sterak${side}`],
+          + (tfPath["baseDamage"] + tfPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`],
           mr: itemStats.mr + runeStats.mr + tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
           mana: (itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]
         }
@@ -13329,7 +13330,7 @@ class App extends Component {
       };
       if (spanText.includes('Ability Power')) {
         itemStats.ap += statQuantity;
-        addItemStats('ap', statQuantity*this[`dcap${side}`]);
+        addItemStats('ap', statQuantity*this[`apMultiplier${side}`]);
         continue;
       };
       if (spanText.includes('Ability Haste')) {
@@ -13355,7 +13356,7 @@ class App extends Component {
         if (!spanText.includes('Regen')) {
           itemStats.mana += statQuantity;
           addItemStats('mana', statQuantity);
-          addItemStats('hp', statQuantity * this[`winter${side}`])
+          addItemStats('hp', statQuantity * this[`hpMultiplier${side}`])
         } else {
           itemStats.manaRegen += statQuantity;
           if (this.state[`champName${side}`] !== '') {
@@ -13422,7 +13423,7 @@ class App extends Component {
       this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
-          ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`dcap${side}`],
+          ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`apMultiplier${side}`],
           ad: +prevState[`totalStats${side}`].ad - +adFromRunes
         }
       }))
@@ -13435,7 +13436,7 @@ class App extends Component {
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
           ad: +prevState[`totalStats${side}`].ad + +apFromRunes*0.6,
-          ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`dcap${side}`]
+          ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`apMultiplier${side}`]
         }
       }))
       this[`runes${side}`].ad = apFromRunes*0.6;
@@ -13473,7 +13474,7 @@ class App extends Component {
     var champStats = this[`champFile${side}`].stats;
     var itemTitle = Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent
     if (itemTitle.includes('Deathcap')) {
-      this[`dcap${side}`] = 1.35
+      this[`apMultiplier${side}`] = 1.35
       if (this[`dcapCount${side}`] === 0) {
         this.setState(prevState => ({
           [totalStats]: {
@@ -13488,7 +13489,7 @@ class App extends Component {
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
     if (itemTitle.includes('Sterak')) {
       if (this[`sterakCount${side}`] === 0) {
-        this[`sterak${side}`] = 1.4;
+        this[`adMultiplier${side}`] = 1.4;
         this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
@@ -13500,7 +13501,7 @@ class App extends Component {
     };
     if (itemTitle.includes('Fimbulwinter') || itemTitle.includes(`Winter's Approach`)) {
       if (this[`winterCount${side}`] === 0) {
-        this[`winter${side}`] = 0.08;
+        this[`hpMultiplier${side}`] = 0.08;
         this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
@@ -13546,7 +13547,7 @@ class App extends Component {
       };
       if (spanText.includes('Ability Power')) {
         itemStats.ap += statQuantity;
-        addItemStats('ap', statQuantity*this[`dcap${side}`]);
+        addItemStats('ap', statQuantity*this[`apMultiplier${side}`]);
         continue;
       };
       if (spanText.includes('Ability Haste')) {
@@ -13572,7 +13573,7 @@ class App extends Component {
         if (!spanText.includes('Regen')) {
           itemStats.mana += statQuantity;
           addItemStats('mana', statQuantity);
-          addItemStats('hp', statQuantity*this[`winter${side}`])
+          addItemStats('hp', statQuantity*this[`hpMultiplier${side}`])
         } else {
           itemStats.manaRegen += statQuantity;
           if (this.state[`champName${side}`] !== '') {
@@ -13640,7 +13641,7 @@ class App extends Component {
       this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
-          ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`dcap${side}`],
+          ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`apMultiplier${side}`],
           ad: +prevState[`totalStats${side}`].ad - +adFromRunes
         }
       }))
@@ -13653,7 +13654,7 @@ class App extends Component {
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
           ad: +prevState[`totalStats${side}`].ad + +apFromRunes*0.6,
-          ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`dcap${side}`]
+          ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`apMultiplier${side}`]
         }
       }))
       this[`runes${side}`].ad = apFromRunes*0.6;
@@ -13695,7 +13696,7 @@ class App extends Component {
     var itemTitle = Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent
     if (itemTitle.includes('Deathcap')) {
       if (this[`dcapCount${side}`] === 1) {
-        this[`dcap${side}`] = 1;
+        this[`apMultiplier${side}`] = 1;
         this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
@@ -13707,7 +13708,7 @@ class App extends Component {
     };
     if (itemTitle.includes('Sterak')) {
       if (this[`sterakCount${side}`] === 1) {
-        this[`sterak${side}`] = 1;
+        this[`adMultiplier${side}`] = 1;
         this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
@@ -13719,7 +13720,7 @@ class App extends Component {
     };
     if (itemTitle.includes('Fimbulwinter') || itemTitle.includes(`Winter's Approach`)) {
       if (this[`winterCount${side}`] === 1) {
-        this[`winter${side}`] = 0;
+        this[`hpMultiplier${side}`] = 0;
         this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
@@ -13765,7 +13766,7 @@ class App extends Component {
       };
       if (spanText.includes('Ability Power')) {
         itemStats.ap -= statQuantity;
-        subtractItemStats('ap', statQuantity*this[`dcap${side}`]);
+        subtractItemStats('ap', statQuantity*this[`apMultiplier${side}`]);
         continue;
       };
       if (spanText.includes('Ability Haste')) {
@@ -13791,7 +13792,7 @@ class App extends Component {
         if (!spanText.includes('Regen')) {
           itemStats.mana -= statQuantity;
           subtractItemStats('mana', statQuantity);
-          subtractItemStats('hp', statQuantity*this[`winter${side}`]);
+          subtractItemStats('hp', statQuantity*this[`hpMultiplier${side}`]);
         } else {
           itemStats.manaRegen -= statQuantity;
           if (this.state[`champName${side}`] !== '') {
@@ -13876,7 +13877,7 @@ class App extends Component {
       this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
-          ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`dcap${side}`],
+          ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`apMultiplier${side}`],
           ad: +prevState[`totalStats${side}`].ad - +adFromRunes
         }
       }))
@@ -13889,7 +13890,7 @@ class App extends Component {
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
           ad: +prevState[`totalStats${side}`].ad + +apFromRunes*0.6,
-          ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`dcap${side}`]
+          ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`apMultiplier${side}`]
         }
       }))
       this[`runes${side}`].ad = apFromRunes*0.6;
@@ -14039,6 +14040,52 @@ class App extends Component {
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
     this.ksIcons = importAll(require.context('./ksicons/', false, /\.(png|jpe?g|svg)$/));
     this.mythicIcons = importAll(require.context('./mythicicons/', false, /\.(png|jpe?g|svg)$/));
+    var itemObjects = ['itemStatsLeft', 'itemStatsRight'];
+    var statObjects = ['totalStatsLeft', 'totalStatsRight', 'bonusStatsLeft', 'bonusStatsRight',
+      'tfTotalStatsLeft', 'tfTotalStatsRight'];
+    itemObjects.map(x => 
+      this[x] = {
+        ad: 0,
+        as: 0,
+        arm: 0,
+        arPenRatio: 0,
+        lethality: 0,
+        lifeSteal: 0,
+        omni: 0, 
+        mr: 0,
+        magicPenFlat: 0,
+        magicPenRatio: 0,
+        hp: 0,
+        hpRegen: 0,
+        ap: 0,
+        cdr: 0,
+        critChance: 0,
+        IECrit: false,
+        mana: 0,
+        manaRegen: 0
+      }
+    );
+    statObjects.map(x => 
+      this[x] = {
+        ad: 10.8,
+        as: 0,
+        arm: 0, 
+        mr: 0,
+        hp: 15,
+        hpRegen: 0,
+        ap: 0,
+        cdr: 0,
+        critChance: 0,
+        mana: 0,
+        manaRegen: 0,
+        lethality: 0,
+        arPenRatio: 0,
+        magicPenFlat: 0,
+        magicPenRatio: 0,
+        omni: 0,
+        lifeSteal: 0
+      }
+    );
     this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map((iconSrc, i) => {
       return (
         <span key={i}>
