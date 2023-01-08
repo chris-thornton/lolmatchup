@@ -9375,6 +9375,20 @@ class App extends Component {
           mana: (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]
         };
 
+        this[`bonusStats${side}`] = {
+          ...this[`bonusStats${side}`],
+          hp: itemStats.hp + runeStats.hp + (itemStats.mana + statsPath.mana["base"] + 
+            statsPath.mana["manaPerLvl"]*champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`],
+          manaRegen: ((itemStats.manaRegen*statsPath.mana["manaBaseRegen"]/100))*this[`mana${side}`],
+          hpRegen: (itemStats.hpRegen*statsPath["baseHPRegen"]/100),
+          as: runeStats.as + itemStats.as*statsPath["asRatio"],
+          arm: itemStats.arm + runeStats.arm,
+          ad: itemStats.ad + runeStats.ad 
+            + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1),
+          mr: itemStats.mr + runeStats.mr,
+          mana: itemStats.mana*this[`mana${side}`]
+        };
+
         this.setState(prevState => ({
           [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],   
@@ -9450,26 +9464,26 @@ class App extends Component {
     if (event.target.id.includes('lethal')) {
       hash = 'lethal'
     };
-    var targetRank = document.getElementById(event.target.id).value
+    var targetRank = document.getElementById(event.target.id).value;
     var prevBonus = this.state[`aphel${side}`][hash];
     if (hash === 'as' && !prevBonus.length) {
       prevBonus *= this[`champFile${side}`].stats.asRatio
-    }
+    };
     var newBonus = this[`${hash}Aphel`][targetRank];
     if (hash === 'as' && !newBonus.length) {
       newBonus *= this[`champFile${side}`].stats.asRatio
-    }
-    console.log('prevBonus: ' + prevBonus)
-    console.log(prevBonus.length)
+    };
     if (!newBonus.length && prevBonus.length) {
+      this[`totalStats${side}`][hash] += +newBonus;
       this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
           [hash]: this.state[`totalStats${side}`][hash] + +newBonus
         }
       }));
-    }
+    };
     if (!prevBonus.length && newBonus.length) {
+      this[`totalStats${side}`][hash] -= +prevBonus;
       this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
@@ -9477,8 +9491,8 @@ class App extends Component {
         }
       }))
     };
-    console.log('newBonus: ' + newBonus)
     if (!newBonus.length && !prevBonus.length) {
+      this[`totalStats${side}`][hash] += (newBonus - prevBonus);
       this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
@@ -9535,6 +9549,8 @@ class App extends Component {
               * (this.state[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             }
           };
+          this[`totalStats${side}`][x] += +this[`appliedStats${side}`][x];
+          this[`bonusStats${side}`][x] += +this[`appliedStats${side}`][x];
           this.setState(prevState => ({
             [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],
@@ -9546,6 +9562,8 @@ class App extends Component {
       case 'remove':
         this[`applied${ability}${side}`].statTypes.map(x => {
           var prevStatValue = this[`appliedStats${side}`][x];
+          this[`totalStats${side}`][x] -= prevStatValue;
+          this[`bonusStats${side}`][x] -= prevStatValue;
           this.setState(prevState => ({
             [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],
@@ -9598,6 +9616,8 @@ class App extends Component {
 
             }
           })
+          this[`totalStats${side}`][x] += (newStatValue - prevStatValue);
+          this[`bonusStats${side}`][x] += (newStatValue - prevStatValue);
           this.setState(prevState => ({
             [`totalStats${side}`]: {
               ...prevState[`totalStats${side}`],
@@ -9646,6 +9666,46 @@ class App extends Component {
         }
       });
     }
+
+    this[`totalStats${side}`] = {
+      ...this[`totalStats${side}`],
+      hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio) + 
+      appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
+      + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`],
+      as: statsPath["attackSpeed"] + ((statsPath["asPerLvl"] * champLvlRatio) 
+        + itemStats.as + runeStats.as + appliedStats.as) * statsPath["asRatio"],
+      arm: itemStats.arm + runeStats.arm + appliedStats.arm + statsPath["baseArmor"] 
+        + statsPath["armorPerLvl"] * champLvlRatio,
+      ad: itemStats.ad + runeStats.ad + appliedStats.ad
+        + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`],
+      mr: itemStats.mr + runeStats.mr + appliedStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+      mana: (itemStats.mana + appliedStats.mana + statsPath.mana["base"] 
+        + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`],
+      manaRegen: (itemStats.manaRegen + statsPath.mana["manaBaseRegen"] + appliedStats.manaRegen 
+        + statsPath.mana["manaRegenPerLvl"] * champLvlRatio)*this[`mana${side}`],
+      hpRegen: itemStats.hpRegen + appliedStats.hpRegen + statsPath["baseHPRegen"] 
+        + statsPath["hpRegenPerLvl"] * champLvlRatio
+    };
+
+    console.log('total as: ' + this[`totalStats${side}`].as);
+
+    this[`bonusStats${side}`] = {
+      ...this[`bonusStats${side}`],
+      hp: itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
+        + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`],
+      as: (itemStats.as + runeStats.as + appliedStats.as) * statsPath["asRatio"],
+      arm: itemStats.arm + runeStats.arm + appliedStats.arm + statsPath["baseArmor"] 
+        + statsPath["armorPerLvl"] * champLvlRatio,
+      ad: itemStats.ad + runeStats.ad + appliedStats.ad
+        + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`],
+      mr: itemStats.mr + runeStats.mr + appliedStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+      mana: (itemStats.mana + appliedStats.mana + statsPath.mana["base"] 
+        + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`],
+      manaRegen: (itemStats.manaRegen + statsPath.mana["manaBaseRegen"] + appliedStats.manaRegen 
+        + statsPath.mana["manaRegenPerLvl"] * champLvlRatio)*this[`mana${side}`],
+      hpRegen: itemStats.hpRegen + appliedStats.hpRegen + statsPath["baseHPRegen"] 
+        + statsPath["hpRegenPerLvl"] * champLvlRatio
+    };
 
     this.setState(prevState => ({
       [`totalStats${side}`]: {
