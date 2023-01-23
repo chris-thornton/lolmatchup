@@ -13682,7 +13682,7 @@ class App extends Component {
       var spanText = spanArray[i].textContent;
       var statQuantity = +spanArray[i].textContent.replace( /[^\d].*/, '' );
       var addItemStats = (stat, quantity) => {
-        console.log('legend clicked!');
+        console.log('stat: ' + stat + ', quantity: ' + quantity);
         /*this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
@@ -13800,28 +13800,30 @@ class App extends Component {
         }
       }
     };
-    if (this[`forceType${side}`] === 'ad' && itemStats.ap > itemStats.ad) {
+    var adaptAD = itemStats.ad + (champStats["baseDamage"] 
+    + champStats["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1);
+    if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`apMultiplier${side}`] > adaptAD) {
       var adFromRunes = this[`runes${side}`].ad;
-      this.setState(prevState => ({
+      /*this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
           ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`apMultiplier${side}`],
           ad: +prevState[`totalStats${side}`].ad - +adFromRunes
         }
-      }))
+      }))*/
       this[`runes${side}`].ap = adFromRunes/0.6;
       this[`runes${side}`].ad = 0;
       this[`forceType${side}`] = 'ap';
     };
-    if (this[`forceType${side}`] === 'ap' && itemStats.ad > itemStats.ap) {
+    if (this[`forceType${side}`] === 'ap' && adaptAD > itemStats.ap*this[`apMultiplier${side}`]) {
       var apFromRunes = this[`runes${side}`].ap;
-      this.setState(prevState => ({
+      /*this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
           ad: +prevState[`totalStats${side}`].ad + +apFromRunes*0.6,
           ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`apMultiplier${side}`]
         }
-      }))
+      }))*/
       this[`runes${side}`].ad = apFromRunes*0.6;
       this[`runes${side}`].ap = 0;
       this[`forceType${side}`] = 'ad'
@@ -13865,36 +13867,36 @@ class App extends Component {
     if (itemTitle.includes('Deathcap')) {
       if (this[`dcapCount${side}`] === 1) {
         this[`apMultiplier${side}`] = 1;
-        this.setState(prevState => ({
+        /*this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
             ap: +prevState[totalStats].ap/1.35
           }
-        }))
+        }))*/
       };
       this[`dcapCount${side}`]--;
     };
     if (itemTitle.includes('Sterak')) {
       if (this[`sterakCount${side}`] === 1) {
         this[`adMultiplier${side}`] = 1;
-        this.setState(prevState => ({
+        /*this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
             ad: +prevState[totalStats].ad - (champStats.baseDamage + champStats.damagePerLvl*champLvlRatio)*0.4
           }
-        }))
+        }))*/
       };
       this[`sterakCount${side}`]--;
     };
     if (itemTitle.includes('Fimbulwinter') || itemTitle.includes(`Winter's Approach`)) {
       if (this[`winterCount${side}`] === 1) {
         this[`hpMultiplier${side}`] = 0;
-        this.setState(prevState => ({
+        /*this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
             hp: +prevState[totalStats].hp - +prevState[totalStats].mana*0.08
           }
-        }))
+        }))*/
       };
       this[`winterCount${side}`]--;
     };
@@ -13906,12 +13908,13 @@ class App extends Component {
       var spanText = spanArray[i].textContent;
       var statQuantity = +spanArray[i].textContent.replace( /[^\d].*/, '' );
       var subtractItemStats = (stat, quantity) => {
-        this.setState(prevState => ({
+        console.log('stat: ' + stat + ', quantity: ' + quantity);
+        /*this.setState(prevState => ({
           [totalStats]: {
             ...prevState[totalStats],
             [stat]: +prevState[totalStats][stat] - quantity
           }
-        }))
+        }))*/
       };
       if (spanText.includes('Attack Damage')) {
         itemStats.ad -= statQuantity;
@@ -14040,31 +14043,38 @@ class App extends Component {
         }
       };
     };
-    if (this[`forceType${side}`] === 'ad' && itemStats.ap > itemStats.ad) {
+
+    var adaptAD = itemStats.ad + (champStats["baseDamage"] 
+      + champStats["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1);
+    if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`apMultiplier${side}`] > adaptAD) {
       var adFromRunes = this[`runes${side}`].ad;
-      this.setState(prevState => ({
+      /*this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
           ap: +prevState[`totalStats${side}`].ap + +(adFromRunes/0.6)*this[`apMultiplier${side}`],
           ad: +prevState[`totalStats${side}`].ad - +adFromRunes
         }
-      }))
+      }))*/
       this[`runes${side}`].ap = adFromRunes/0.6;
       this[`runes${side}`].ad = 0;
       this[`forceType${side}`] = 'ap'
-    } else if (this[`forceType${side}`] === 'ap' && itemStats.ad > itemStats.ap) {
+    };
+    if (this[`forceType${side}`] === 'ap' && adaptAD > itemStats.ap*this[`apMultiplier${side}`]) {
       var apFromRunes = this[`runes${side}`].ap;
-      this.setState(prevState => ({
+      /*this.setState(prevState => ({
         [`totalStats${side}`]: {
           ...prevState[`totalStats${side}`],
           ad: +prevState[`totalStats${side}`].ad + +apFromRunes*0.6,
           ap: +prevState[`totalStats${side}`].ap - +apFromRunes*this[`apMultiplier${side}`]
         }
-      }))
+      }))*/
       this[`runes${side}`].ad = apFromRunes*0.6;
       this[`runes${side}`].ap = 0;
       this[`forceType${side}`] = 'ad'
     };
+
+    this.setGlobalStats(side);
+    
     if (this[`champName${side}`] !== 'Aphelios') {
       this.calculateAbility(side);
     };
