@@ -446,6 +446,10 @@ class App extends Component {
   hpMultiplierRight = 0;
   winterCountRight = 0;
   sterakCountRight = 0;
+  muraLeft = 0;
+  muraCountLeft = 0;
+  muraRight = 0;
+  muraCountRight = 0;
   appliedStatsLeft = {
     ad: 0,
     as: 0,
@@ -579,7 +583,9 @@ class App extends Component {
       arm: itemStats.arm + runeStats.arm + appliedStats.arm + statsPath["baseArmor"] 
         + statsPath["armorPerLvl"] * champLvlRatio,
       ad: itemStats.ad + runeStats.ad + appliedStats.ad
-        + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`],
+        + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`] 
+        + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
+        + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mura${side}`]*this[`mana${side}`],
       mr: itemStats.mr + runeStats.mr + appliedStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
       mana: (itemStats.mana + appliedStats.mana + statsPath.mana["base"] 
         + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`],
@@ -604,7 +610,7 @@ class App extends Component {
         + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`],
       as: (itemStats.as + runeStats.as + appliedStats.as) * statsPath["asRatio"],
       arm: itemStats.arm + runeStats.arm + appliedStats.arm,
-      ad: itemStats.ad + runeStats.ad + appliedStats.ad
+      ad: itemStats.ad + runeStats.ad + appliedStats.ad + this[`totalStats${side}`].mana * this[`mura${side}`]
         + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1),
       mr: itemStats.mr + runeStats.mr + appliedStats.mr,
       mana: (itemStats.mana + appliedStats.mana)*this[`mana${side}`],
@@ -648,7 +654,9 @@ class App extends Component {
             + tfPath["asPerLvl"] * champLvlRatio) * tfPath["asRatio"],
           arm: this[`bonusStats${side}`].arm + tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
           ad: this[`bonusStats${side}`].ad + (tfPath["baseDamage"] 
-            + tfPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`],
+            + tfPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`]
+            + (this[`bonusStats${side}`].mana + tfPath.mana["base"] 
+            + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`mura${side}`]*this[`mana${side}`],
           mr: this[`bonusStats${side}`].mr + tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
           mana: (this[`bonusStats${side}`].mana + tfPath.mana["base"] 
             + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`],
@@ -13175,122 +13183,77 @@ class App extends Component {
       };
       var spanText = spanArray[i].textContent;
       var statQuantity = +spanArray[i].textContent.replace( /[^\d].*/, '' );
-      var addItemStats = (stat, quantity) => {
-        console.log('stat: ' + stat + ', quantity: ' + quantity);
-        /*this.setState(prevState => ({
-          [totalStats]: {
-            ...prevState[totalStats],
-            [stat]: +prevState[totalStats][stat] + quantity
-          }
-        }))*/
-      };
       if (spanText.includes('Attack Damage')) {
         itemStats.ad += statQuantity;
-        addItemStats('ad', statQuantity);
         continue;
       };
       if (spanText.includes('Attack Speed')) {
         itemStats.as += statQuantity/100;
-        if (this.state[`champName${side}`] !== '') {
-          addItemStats('as', (statQuantity * champStats.asRatio)/100);
-        } else {
-          addItemStats('as', statQuantity/100)
-        };
         continue;
       };
       if (spanText.includes('Critical Strike')) {
         itemStats.critChance += statQuantity;
-        addItemStats('critChance', statQuantity)
         continue;
       };
       if (spanText.includes('Ability Power')) {
         itemStats.ap += statQuantity;
-        addItemStats('ap', statQuantity*this[`apMultiplier${side}`]);
         continue;
       };
       if (spanText.includes('Ability Haste')) {
         itemStats.cdr += statQuantity;
-        addItemStats('cdr', statQuantity);
         continue;
       };
       if (spanText.includes('Health')) {
         if (!spanText.includes('Regen')) {
           itemStats.hp += statQuantity;
-          addItemStats('hp', statQuantity);
         } else {
           itemStats.hpRegen += statQuantity;
-          if (this.state[`champName${side}`] !== '') {
-            addItemStats('hpRegen', (statQuantity * champStats.baseHPRegen)/100);
-          } else {
-            addItemStats('hpRegen', statQuantity)
-          };
         }
         continue;
       };
       if (spanText.includes('Mana') && champStats.mana.base) {
         if (!spanText.includes('Regen')) {
           itemStats.mana += statQuantity;
-          addItemStats('mana', statQuantity);
-          addItemStats('hp', statQuantity * this[`hpMultiplier${side}`])
         } else {
           itemStats.manaRegen += statQuantity;
-          if (this.state[`champName${side}`] !== '') {
-            addItemStats('manaRegen', (statQuantity * champStats.mana.manaBaseRegen)/100);
-          } else {
-            addItemStats('manaRegen', statQuantity);
-          };
         }
         continue;
       };
       if (spanText.includes('Lethality')) {
         itemStats.lethality += statQuantity;
-        addItemStats('lethality', statQuantity);
         continue;
       };
       if (spanText.includes('Armor')) {
         itemStats.arm += statQuantity;
-        addItemStats('arm', statQuantity);
         continue;
       };
       if (spanText.includes('Magic Resist')) {
         itemStats.mr += statQuantity;
-        addItemStats('mr', statQuantity);
         continue;
       };
       if (spanText.includes('Magic Pen')) {
         if (!spanText.includes('%')) {
           itemStats.magicPenFlat += statQuantity;
-          addItemStats('magicPenFlat', statQuantity)
         } else {
           itemStats.magicPenRatio += statQuantity;
-          addItemStats('magicPenRatio', statQuantity)
         }
         continue;
       };
       if (spanText.includes('Omnivamp')) {
         itemStats.omni += statQuantity/100;
-        addItemStats('omni', statQuantity)
         continue;
       };
       if (spanText.includes('Life')) {
         itemStats.lifeSteal += statQuantity/100;
-        addItemStats('lifeSteal', statQuantity)
         continue;
       };
     };
     var bonusArray = this.mythicBonuses[mythicIndex];
     this[`mythicBonus${side}`] = bonusArray;
     if (this[`itemCounter${side}`] > 1 && bonusArray[0]) {
-      if (bonusArray[0] === 'as' && this[`champName${side}`]) {
-        this[`itemStats${side}`][bonusArray[0]] += bonusArray[1] * (this[`itemCounter${side}`] - 1) * champStats.asRatio;
-        addItemStats(bonusArray[0], bonusArray[1] * (this[`itemCounter${side}`] - 1) * champStats.asRatio);
-      } else {
-        this[`itemStats${side}`][bonusArray[0]] += bonusArray[1] * (this[`itemCounter${side}`] - 1);
-        addItemStats(bonusArray[0], bonusArray[1] * (this[`itemCounter${side}`] - 1));
-      }
+      this[`itemStats${side}`][bonusArray[0]] += bonusArray[1] * (this[`itemCounter${side}`] - 1);
       if (bonusArray[2]) {
         this[`itemStats${side}`][bonusArray[2]] += bonusArray[3] * (this[`itemCounter${side}`] - 1);
-        addItemStats(bonusArray[2], bonusArray[3] * (this[`itemCounter${side}`] - 1));
       }
     };
     
@@ -13349,6 +13312,12 @@ class App extends Component {
         this[`hpMultiplier${side}`] = 0.08;
       };
       this[`winterCount${side}`]++;
+    };
+    if (itemTitle.includes('Manamune') || itemTitle.includes('Muramana')) {
+      if (this[`muraCount${side}`] === 0) {
+        this[`mura${side}`] = 0.025;
+      };
+      this[`muraCount${side}`]++;
     };
 
     var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
@@ -13492,6 +13461,12 @@ class App extends Component {
         this[`hpMultiplier${side}`] = 0;
       };
       this[`winterCount${side}`]--;
+    };
+    if (itemTitle.includes('Manamune') || itemTitle.includes('Muramana')) {
+      if (this[`muraCount${side}`] === 1) {
+        this[`mura${side}`] = 0;
+      };
+      this[`muraCount${side}`]--;
     };
 
     var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
