@@ -684,6 +684,9 @@ class App extends Component {
   };
 
   calculateAbility(side) {
+    if (this[`champName${side}`] === 'Aphelios' || this[`champName${side}`] === '') {
+      return
+    };
     var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
     for (var i = 0; i < abilitiesLength; i++) {
       var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
@@ -695,11 +698,9 @@ class App extends Component {
       document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2].style.visibility = 'hidden';
     };
 
-    var otherSide = '';
+    var otherSide = 'Left';
     if (side === 'Left') {
       otherSide = 'Right'
-    } else {
-      otherSide = 'Left'
     };
     var champFile = this[`champFile${side}`];
     var statsPath = champFile[`stats`];
@@ -709,60 +710,8 @@ class App extends Component {
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
     var enemyLvlRatio = (this[`level${otherSide}`] - 1) * (0.7025 + 0.0175 * (this[`level${otherSide}`] - 1));
     var itemStats = this[`itemStats${side}`];
-    //var enemyItemStats = this[`itemStats${otherSide}`];
     var runeStats = this[`runes${side}`];
-    //var enemyRuneStats = this[`runes${otherSide}`];
     var appliedStats = this[`appliedStats${side}`];
-    //var enemyAppliedStats = this[`appliedStats${otherSide}`];
-
-    /*var totalAD = itemStats.ad + runeStats.ad + appliedStats.ad +
-      (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*this[`adMultiplier${side}`];
-    var bonusAD = itemStats.ad + runeStats.ad + appliedStats.ad +
-      (statsPath["baseDamage"] + champLvlRatio * statsPath["damagePerLvl"])*(this[`adMultiplier${side}`]-1);
-    var totalAP = (itemStats.ap + appliedStats.ap + runeStats.ap)*this[`apMultiplier${side}`];
-    var totalAS = statsPath["attackSpeed"] + runeStats.as
-      + (itemStats.as + appliedStats.as + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
-    var bonusAS = statsPath["asRatio"] * (itemStats.as + appliedStats.as) + runeStats.as;
-    var bonusASRatio = itemStats.as + appliedStats.as + runeStats.as/statsPath["asRatio"];
-    var totalArmor = itemStats.arm + runeStats.arm + statsPath["baseArmor"] + appliedStats.arm
-      + champLvlRatio * statsPath["armorPerLvl"];
-    var bonusArmor = itemStats.arm + runeStats.arm + appliedStats.arm;
-    var totalMR = itemStats.mr + runeStats.mr + statsPath["baseMR"] + appliedStats.mr
-      + champLvlRatio * statsPath["mrPerLvl"];
-    var bonusMR = itemStats.mr + runeStats.mr + appliedStats.mr;
-    var totalHP = itemStats.hp + runeStats.hp + appliedStats.hp + statsPath["baseHP"] 
-      + (statsPath["hpPerLvl"] * champLvlRatio) + (itemStats.mana + statsPath.mana["base"] + 
-      statsPath.mana["manaPerLvl"]*champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`];
-    if (champName === 'Kled') {
-      totalHP += champFile['statsTransform']['baseHP'] + champFile['statsTransform']['hpPerLvl'] * champLvlRatio
-    };
-    var bonusHP = itemStats.hp + appliedStats.hp + runeStats.hp + (itemStats.mana + statsPath.mana["base"] + 
-      statsPath.mana["manaPerLvl"]*champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`];
-    var totalCritChance = itemStats.critChance/100;
-    if (champName === 'Tryndamere' || champName === 'Yone') {
-      totalCritChance *= 2
-    }; 
-    var totalLethality = itemStats.lethality + appliedStats.lethality;
-    var totalLifeSteal = itemStats.lifeSteal + appliedStats.lifeSteal;
-    var totalMana = (itemStats.mana + statsPath["mana"]["base"] + appliedStats.mana
-    + statsPath["mana"]["manaPerLvl"] * champLvlRatio)*this[`mana${side}`];
-    var bonusMana = (itemStats.mana + appliedStats.mana) * this[`mana${side}`];
-    var nonBaseAS = runeStats.as + (itemStats.as + appliedStats.as 
-      + champLvlRatio * statsPath["asPerLvl"]) * statsPath["asRatio"];
-    var hasteRatio = 100/(100 + itemStats.cdr + appliedStats.cdr);
-
-    var enemyStats = this[`champFile${otherSide}`].stats;
-    var enemyArmor = enemyItemStats.arm + enemyRuneStats.arm + enemyStats["baseArmor"] + enemyAppliedStats.arm
-    + enemyLvlRatio * enemyStats["armorPerLvl"];
-    var enemyMR = enemyItemStats.mr + enemyRuneStats.mr + enemyStats["baseMR"] + enemyAppliedStats.mr
-    + enemyLvlRatio * enemyStats["mrPerLvl"];
-    var enemyTotalHP = enemyItemStats.hp + enemyRuneStats.hp + enemyStats["baseHP"] + enemyAppliedStats.hp
-    + enemyLvlRatio * enemyStats["hpPerLvl"];
-    if (this.state[`champName${otherSide}`] === 'Kled') {
-      enemyTotalHP += this[`champFile${otherSide}`]['statsTransform']['baseHP'] 
-      + this[`champFile${otherSide}`]['statsTransform']['hpPerLvl'] * enemyLvlRatio;
-    };
-    var enemyBonusHP = enemyItemStats.hp + enemyRuneStats.hp + enemyAppliedStats.hp;*/
 
     var totalAD = this[`totalStats${side}`].ad;
     var bonusAD = this[`bonusStats${side}`].ad;
@@ -9511,13 +9460,8 @@ class App extends Component {
         }
 
         this.setGlobalStats(side);
-
-        if (champName !== 'Aphelios') {
-          this.calculateAbility(side);
-        };
-        if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
-          this.calculateAbility(otherSide);
-        }
+        this.calculateAbility('Left');
+        this.calculateAbility('Right');
       })
   };
 
@@ -9685,14 +9629,8 @@ class App extends Component {
     };
 
     this.setGlobalStats(side);
-    this.calculateAbility(side);
-    var otherSide = 'Left';
-    if (side === 'Left'){
-      otherSide = 'Right'
-    };
-    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
-      this.calculateAbility(otherSide);
-    }
+    this.calculateAbility('Left');
+    this.calculateAbility('Right');
   };
 
   onLevelChange = (event) => {
@@ -9702,8 +9640,6 @@ class App extends Component {
     };
     document.getElementById(`levelBox${side}`).setAttribute('value', event.target.value);
     this[`level${side}`] = event.target.value;
-
-    var champName = this[`champName${side}`];
 
     var checkAppliedUpdate = () => {
       this.abilities.map(ability => {
@@ -9719,17 +9655,8 @@ class App extends Component {
 
     this.setGlobalStats(side);
     checkAppliedUpdate();
-
-    if (champName !== 'Aphelios') {
-      this.calculateAbility(side);
-    };
-    var otherSide = 'Left'
-    if (side === 'Left'){
-      otherSide = 'Right'
-    };
-    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
-      this.calculateAbility(otherSide);
-    }
+    this.calculateAbility('Left');
+    this.calculateAbility('Right');
   };
 
   onRankChange = (event) => {
@@ -9756,14 +9683,8 @@ class App extends Component {
       }
     };
 
-    this.calculateAbility(side);
-    var otherSide = 'Left'
-    if (side === 'Left'){
-      otherSide = 'Right'
-    };
-    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
-      this.calculateAbility(otherSide);
-    }
+    this.calculateAbility('Left');
+    this.calculateAbility('Right');
   };
 
   onRuneChange = (event) => {
@@ -9892,16 +9813,8 @@ class App extends Component {
       }
     }));
 
-    if (this[`champName${side}`] !== 'Aphelios') {
-      this.calculateAbility(side);
-    };
-    var otherSide = 'Left';
-    if (side === 'Left'){
-      otherSide = 'Right'
-    };
-    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
-      this.calculateAbility(otherSide);
-    }
+    this.calculateAbility('Left');
+    this.calculateAbility('Right');
   };
 
   preventKeyPress = (event) => {
@@ -13397,17 +13310,8 @@ class App extends Component {
     };
 
     this.setGlobalStats(side);
-
-    if (this[`champName${side}`] !== 'Aphelios') {
-      this.calculateAbility(side);
-    };
-    var otherSide = 'Left';
-    if (side === 'Left'){
-      otherSide = 'Right'
-    };
-    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
-      this.calculateAbility(otherSide);
-    }
+    this.calculateAbility('Left');
+    this.calculateAbility('Right');
   };
 
   onLegendClick = (event, side, legendIndex) => {
@@ -13546,16 +13450,8 @@ class App extends Component {
     };
 
     this.setGlobalStats(side);
-    if (this[`champName${side}`] !== 'Aphelios') {
-      this.calculateAbility(side);
-    };
-    var otherSide = 'Left';
-    if (side === 'Left'){
-      otherSide = 'Right'
-    };
-    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
-      this.calculateAbility(otherSide);
-    }
+    this.calculateAbility('Left');
+    this.calculateAbility('Right');
   };
 
   onInvenClick = (event, side, i) => {
@@ -13707,16 +13603,8 @@ class App extends Component {
     };
 
     this.setGlobalStats(side);
-    if (this[`champName${side}`] !== 'Aphelios') {
-      this.calculateAbility(side);
-    };
-    var otherSide = 'Left';
-    if (side === 'Left'){
-      otherSide = 'Right'
-    };
-    if (this[`champName${otherSide}`] && this[`champName${otherSide}`] !== 'Aphelios') {
-      this.calculateAbility(otherSide);
-    }
+    this.calculateAbility('Left');
+    this.calculateAbility('Right');
   };
 
   onLegendDisplay = (side) => {
