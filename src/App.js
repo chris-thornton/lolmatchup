@@ -1106,6 +1106,34 @@ class App extends Component {
        }
       };
 
+      const applyRatioPer = (statType, perStatType, perQuantityType,
+         perQuantityValue, buttonType) => { 
+        if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value != 0) {
+          if (buttonType) {
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'visible';
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2].style.visibility = 'visible';
+          } else {
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible';
+          };
+          if (!this[`applied${ability}${side}`].statTypes.includes(statType)) {
+            this[`applied${ability}${side}`].statTypes.push(statType);
+            this[`applied${ability}${side}`][statType] = {}
+          };
+          if (!this[`applied${ability}${side}`][statType].ratioPer) {
+            this[`applied${ability}${side}`][statType][ratioPer] = {
+              perStatTypes: [perStatType],
+              perQuantityTypes: [perQuantityType],
+              perQuantityValues: [perQuantityValue]
+            }
+          };
+          if (!this[`applied${ability}${side}`][statType].ratioPer.perStatTypes.includes(perStatType)) {
+            this[`applied${ability}${side}`][statType].ratioPer.perStatTypes.push(perStatType);
+            this[`applied${ability}${side}`][statType].ratioPer.perQuantityTypes.push(perQuantityType);
+            this[`applied${ability}${side}`][statType].ratioPer.perQuantityValues.push(perQuantityValue);
+          }
+       }
+      };
+
       if (champFile[ability]) {
         if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value == 0) {
 
@@ -9626,11 +9654,9 @@ class App extends Component {
               * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             }
           };
-          /*this[`applied${ability}${side}`][x].keys().map(y => {
-            if (y.includes('ratioPer')) {
+          if (this[`applied${ability}${side}`][x].ratioPer){
 
-            }
-          })*/
+          };
           this[`appliedStats${side}`][x] = newStatValue;
         });
         break;
