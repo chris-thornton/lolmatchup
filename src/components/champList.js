@@ -3,6 +3,7 @@
 const champListLineBreak = `Aatrox
 Ahri
 Akali
+Akshan
 Alistar
 Amumu
 Anivia
@@ -12,9 +13,11 @@ Ashe
 Aurelion Sol
 Azir
 Bard
+Bel'Veth
 Blitzcrank
 Brand
 Braum
+Briar
 Caitlyn
 Camille
 Cassiopeia
@@ -37,6 +40,7 @@ Garen
 Gnar
 Gragas
 Graves
+Gwen
 Hecarim
 Heimerdinger
 Illaoi
@@ -61,6 +65,7 @@ Kha'Zix
 Kindred
 Kled
 Kog'Maw
+K'Sante
 LeBlanc
 Lee Sin
 Leona
@@ -73,14 +78,17 @@ Malphite
 Malzahar
 Maokai
 Master Yi
+Milio
 Miss Fortune
 Mordekaiser
 Morgana
+Naafiri
 Nami
 Nasus
 Nautilus
 Neeko
 Nidalee
+Nilah
 Nocturne
 Nunu
 Olaf
@@ -95,6 +103,7 @@ Rakan
 Rammus
 Rek'Sai
 Rell
+Renata Glasc
 Renekton
 Rengar
 Riven
@@ -134,6 +143,7 @@ Varus
 Vayne
 Veigar
 Vel'Koz
+Vex
 Vi
 Viego
 Viktor
@@ -150,6 +160,7 @@ Yorick
 Yuumi
 Zac
 Zed
+Zeri
 Ziggs
 Zilean
 Zoe

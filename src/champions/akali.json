@@ -1,10 +1,45 @@
 {
+    "stats": {
+        "baseHP": 570,
+        "hpPerLvl": 119,
+        "baseHPRegen": 9,
+        "hpRegenPerLvl": 0.9,
+        "mana": {
+            "base": 0,
+            "manaPerLvl": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLvl": 0
+        },
+        "baseDamage": 62,
+        "damagePerLvl": 3.3,
+        "baseArmor": 23,
+        "armorPerLvl": 4.7,
+        "baseMR": 37,
+        "mrPerLvl": 2.05,
+        "attackSpeed": 0.625,
+        "asRatio": 0.625,
+        "asPerLvl": 0.032,
+        "ranged": false
+    },
+    "passive": {
+        "autoEmpower": {
+            "damage": {
+                "type": "Magic",
+                "dmgByLvl": [
+                    35,38,41,44,47,50,53,62,71,
+                    80,89,98,107,122,137,152,167,182
+                ],
+                "APRatio": 0.55,
+                "bonusADRatio": 0.6
+            }
+        }
+    },
     "Q": {
         "damage": {
             "type": "Magic",
             "system": "single",
             "dmg": [
-                30,55,80,105,130
+                45, 70, 95, 120, 145
             ],
             "APRatio": 0.6,
             "ADRatio": 0.65
@@ -16,93 +51,45 @@
             "type": "Magic",
             "system": "minMax",
             "minDmg": [
-                50, 85, 120, 155, 190
+                30, 56.25, 82.5, 108.75, 135
             ],
             "maxDmg": [
-                100, 170, 240, 310, 380
+                100, 187.5, 275, 362.5, 450
             ],
-            "minADRatio": 0.35,
-            "maxADRatio": 0.7,
-            "minAPRatio": 0.5,
-            "maxAPRatio": 1
+            "minADRatio": 0.255,
+            "maxADRatio": 0.85,
+            "minAPRatio": 0.36,
+            "maxAPRatio": 1.2
         },
         "coolDown": [
-            16,
-            14.5,
-            13,
-            11.5,
-            10
+            16, 14.5, 13, 11.5, 10
         ]
     },
     "R": {
         "damage": {
-            "type": "Mixed",
+            "type": "Magic",
             "system": "2Part",
             "part1": {
-                "type": "Physical",
                 "dmg": [
-                    85,
-                    150,
-                    215
+                    80, 220, 360
                 ],
-                "bonusADRatio": 0.5
+                "bonusADRatio": 0.5,
+                "APRatio": 0.3
             },
             "part2": {
-                "type": "Magic",
                 "system": "minMax",
                 "minDmg": [
-                    75,
-                    145,
-                    215
+                    60, 130, 200
                 ],
                 "maxDmg": [
-                    225,
-                    435,
-                    645
+                    180, 390, 600
                 ],
                 "minAPRatio": 0.3,
                 "maxAPRatio": 0.9
             }
         },
         "coolDown": [
-            100,
-            80,
-            60
+            100, 80, 60
         ]
-    },
-    "passive": {
-        "autoEmpower": {
-            "damage": {
-                "type": "Magic",
-                "dmgByLvl": [
-                    29,32,35,38,41,44,47,50,59,
-                    68,77,86,95,110,125,140,155,170
-                ],
-                "APRatio": 0.4,
-                "bonusADRatio": 0.6
-            }
-        }
-    },
-    "stats": {
-        "baseHP": 575,
-        "hpPerLvl": 95,
-        "baseHPRegen": 8,
-        "hpRegenPerLvl": 0.5,
-        "mana": {
-            "base": 0,
-            "manaPerLvl": 0,
-            "manaBaseRegen": 0,
-            "manaRegenPerLvl": 0
-        },
-        "baseDamage": 62.4,
-        "damagePerLvl": 3.3,
-        "baseArmor": 23,
-        "armorPerLvl": 3.5,
-        "baseMR": 37,
-        "mrPerLvl": 1.25,
-        "attackSpeed": 0.625,
-        "asRatio": 0.625,
-        "asPerLvl": 0.032,
-        "ranged": false
     }
 }

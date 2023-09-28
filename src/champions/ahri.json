@@ -1,4 +1,42 @@
 {
+    "stats": {
+        "baseHP": 590,
+        "hpPerLvl": 96,
+        "baseHPRegen": 2.5,
+        "hpRegenPerLvl": 0.6,
+        "mana": {
+            "base": 418,
+            "manaPerLvl": 25,
+            "manaBaseRegen": 8,
+            "manaRegenPerLvl": 0.8
+        },
+        "baseDamage": 53,
+        "damagePerLvl": 3,
+        "baseArmor": 21,
+        "armorPerLvl": 4.7,
+        "baseMR": 30,
+        "mrPerLvl": 1.3,
+        "attackSpeed": 0.668,
+        "asRatio": 0.668,
+        "asPerLvl": 0.02,
+        "ranged": true
+    },
+    "passive": {
+        "heal": {
+            "targets": "Self",
+            "system": "minMax",
+            "minHealByLvl": [
+                35,38.53,42.06,45.59,49.12,52.65,56.18,59.71,63.24,
+                66.76,70.29,73.82,77.35,80.88,84.41,87.94,91.47,95
+            ],
+            "maxHealByLvl": [
+                75,80.29,85.59,90.88,96.18,101.47,106.76,112.06,117.35,
+                122.65,127.94,133.24,138.53,143.82,149.12,154.41,159.71,165 
+            ],
+            "minAPRatio": 0.2,
+            "maxAPRatio": 0.3
+        }
+    },
     "Q": {
         "damage": {
             "type": "Mixed",
@@ -6,24 +44,16 @@
             "part1": {
                 "type": "Magic",
                 "dmg": [
-                    40,
-                    65,
-                    90,
-                    115,
-                    140
+                    40, 65, 90, 115, 140
                 ],
-                "APRatio": 0.35
+                "APRatio": 0.45
             },
             "part2": {
                 "type": "True",
                 "dmg": [
-                    40,
-                    65,
-                    90,
-                    115,
-                    140
+                    40, 65, 90, 115, 140
                 ],
-                "APRatio": 0.35
+                "APRatio": 0.45
             }
         },
         "coolDown": 7
@@ -33,18 +63,10 @@
             "type": "Magic",
             "system": "minMax",
             "minDmg": [
-                40,
-                65,
-                90,
-                115,
-                140
+                50, 75, 100, 125, 150
             ],
             "maxDmg": [
-                64,
-                104,
-                144,
-                184,
-                224
+                80, 120, 160, 200, 240
             ],
             "minAPRatio": 0.3,
             "maxAPRatio": 0.48
@@ -54,85 +76,34 @@
         ]
     },
     "E": {
-        "spellAmp": {
-            "duration": 3,
-            "amp": 0.2
-        },
         "damage": {
             "type": "Magic",
             "system": "single",
             "dmg": [
-                60,
-                90,
-                120,
-                150,
-                180
+                80, 110, 140, 170, 200
             ],
-            "APRatio": 0.4
+            "APRatio": 0.6
         },
         "interruptCC": [
-            1.4,
-            1.55,
-            1.7,
-            1.85,
-            2
+            1.2, 1.4, 1.6, 1.8, 2
         ],
-        "coolDown": 12
+        "coolDown": 14
     },
     "R": {
         "damage": {
             "type": "Magic",
             "system": "minMax",
             "minDmg": [
-                60,
-                90,
-                120
+                60, 90, 120
             ],
             "maxDmg": [
-                180,
-                270,
-                360
+                180, 270, 360
             ],
             "minAPRatio": 0.35,
             "maxAPRatio": 1.05
         },
         "coolDown": [
-            130,
-            105,
-            80
+            130, 105, 80
         ]
-    },
-    "passive": {
-        "heal": {
-            "targets": "Self",
-            "system": "perTarget",
-            "healByLvl": [
-                3, 3, 3, 3, 3, 5, 5, 5, 5, 
-                5, 9, 9, 9, 9, 9, 18, 18, 18
-            ],
-            "APRatio": 0.09
-        }
-    },
-    "stats": {
-        "baseHP": 526,
-        "hpPerLvl": 92,
-        "baseHPRegen": 5.5,
-        "hpRegenPerLvl": 0.6,
-        "mana": {
-            "base": 418,
-            "manaPerLvl": 25,
-            "manaBaseRegen": 8,
-            "manaRegenPerLvl": 0.8
-        },
-        "baseDamage": 53.04,
-        "damagePerLvl": 3,
-        "baseArmor": 20.88,
-        "armorPerLvl": 3.5,
-        "baseMR": 30,
-        "mrPerLvl": 0.5,
-        "attackSpeed": 0.668,
-        "asRatio": 0.668,
-        "asPerLvl": 0.02,
-        "ranged": true
     }
 }

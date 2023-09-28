@@ -6,8 +6,7 @@ import About from './components/About';
 import champList from './components/champList';
 import ChampDropDownLeft from './components/ChampDropDownLeft';
 import ChampDropDownRight from './components/ChampDropDownRight';
-import logo from './images/logoTest.png';
-import lolIcon from './images/lol-icon.png';  
+import logo from './images/logoTest.png';  
 import versus from './images/versus.png';
 import defaultChampIcon from './defaultChampIcon.png';
 import blackbg from './blackbg.png';
@@ -3037,6 +3036,15 @@ class App extends Component {
               prependIcon(vampIcon);
               underLine('Omni Vamp Ratio')
               addText('(' + removeParen(path["omniVamp"]) + ')')
+            };
+            if (path["minOmniVamp"]) {
+              prependIcon(vampIcon);
+              underLine('Omni Vamp Ratio')
+              colorMin('Min: ');
+              addText('(' + removeParen(path["minOmniVamp"]) + ')');
+              singleBreak();
+              colorMin('Max: ');
+              addText('(' + removeParen(path["maxOmniVamp"]) + ')');
             };
             if (path["armorPenRatio"]) {
               prependIcon(arPenIcon);
@@ -13819,9 +13827,8 @@ class App extends Component {
           <div className='logoDiv'>
             <img src={logo} height='80px' alt='Logo'/>
           </div>
-          <img src={lolIcon} height='31px' width='30px' alt='League of Legends Icon' />
           <h2><a href="https://na.leagueoflegends.com/en-us/news/tags/patch-notes" 
-          target='_blank' tabIndex='-1'>Patch v11.10</a></h2>
+          target='_blank' tabIndex='-1'>Patch v13.18</a></h2>
         </header>
 
         {this.state.about ? <About /> : ''}

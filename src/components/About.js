@@ -9,6 +9,8 @@ const About = () => {
             runes, keystones, and items.</p>
             <p>The study of movement, distance, and projectile speed was considered outside the 
             scope of this project; related calculations are thus omitted.</p>
+            <p>When rank 0 is selected for an ability, the base values and ratios are shown 
+                (stats from runes/items are not applied)</p>
         </div>
     )
 }
