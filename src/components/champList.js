@@ -52,6 +52,7 @@ Jax
 Jayce
 Jhin
 Jinx
+K'Sante
 Kai'Sa
 Kalista
 Karma
@@ -65,7 +66,6 @@ Kha'Zix
 Kindred
 Kled
 Kog'Maw
-K'Sante
 LeBlanc
 Lee Sin
 Leona

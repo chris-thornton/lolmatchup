@@ -1,25 +1,49 @@
 {
+    "stats": {
+        "baseHP": 685,
+        "hpPerLvl": 94,
+        "baseHPRegen": 9,
+        "hpRegenPerLvl": 0.85,
+        "mana": {
+            "base": 285,
+            "manaPerLvl": 40,
+            "manaBaseRegen": 7.4,
+            "manaRegenPerLvl": 0.55
+        },
+        "baseDamage": 53,
+        "damagePerLvl": 3.8,
+        "baseArmor": 30,
+        "armorPerLvl": 4,
+        "baseMR": 32,
+        "mrPerLvl": 2.05,
+        "attackSpeed": 0.736,
+        "asRatio": 0.638,
+        "asPerLvl": 0.0218,
+        "ranged": false
+    },
+    "passive": {
+        "text": "Targets receive 10% bonus true damage from all incoming pre-mitigation magic damage."
+    },
     "Q": {
         "damage": {
             "type": "Magic",
             "system": "single",
             "dmg": [
-                80 , 130 , 180 , 230 , 280
+                70, 95, 120, 145, 170
             ],
-            "APRatio": 0.7
+            "APRatio": 0.85
         },
         "interruptCC": 1,
-        "coolDown": [
-            10 , 9.5 , 9 , 8.5 , 8
-        ]
+        "recharge": [
+            16, 15.5, 15, 14.5, 14
+        ],
+        "staticCoolDown": 3
     },
     "W": {
         "tickDamage": {
             "type": "Magic",
             "interval": 0.5,
-            "dmg": [
-                4,6,8,10,12
-            ],
+            "dmg": 7,
             "enemyMaxHPRatioPer100AP": 0.0025,
             "enemyMaxHPRatio": [0.005 , 0.00625 , 0.0075 , 0.00875 , 0.01]
         }
@@ -27,8 +51,8 @@
     "E": {
         "damageRedux": {
             "type": "Physical",
-            "calculateFrom": "post-mitigation",
-            "dmg": [2 , 4 , 6 , 8 , 10],
+            "calculateFrom": "pre-mitigation",
+            "dmg": [5, 7, 9, 11, 13],
             "bonusArmorRatio": 0.03,
             "bonusMagicResistRatio": 0.03
         },
@@ -36,61 +60,27 @@
             "type": "Magic",
             "system": "single",
             "dmg": [
-                75,95,115,135,155
+                65, 100, 135, 170, 205
             ],
             "APRatio": 0.5
         },
         "coolDown": [
-            10,
-            9,
-            8,
-            7,
-            6
-        ]
+            9,8,7,6,5
+        ],
+        "coolDownRefund": 0.75
     },
     "R": {
         "damage": {
             "type": "Magic",
             "system": "single",
             "dmg": [
-                150,
-                250,
-                350
+                200, 300, 400
             ],
             "APRatio": 0.8
         },
         "coolDown": [
-            150,
-            125,
-            100
+            150, 125, 100
         ],
-        "interruptCC": [
-            1.5, 1.75, 2
-        ]
-    },
-    "passive": {
-        "text": "Targets receive 10% bonus true damage from all incoming pre-mitigation magic damage."
-    },
-    "stats": {
-        "baseHP": 613.12,
-        "hpPerLvl": 80,
-        "baseHPRegen": 9,
-        "hpRegenPerLvl": 0.85,
-        "mana": {
-            "base": 287.2,
-            "manaPerLvl": 40,
-            "manaBaseRegen": 7.382,
-            "manaRegenPerLvl": 0.525
-        },
-        "baseDamage": 53.38,
-        "damagePerLvl": 3.8,
-        "baseArmor": 30,
-        "armorPerLvl": 3.8,
-        "baseMR": 32.1,
-        "mrPerLvl": 1.25,
-        "attackSpeed": 0.736,
-        "asRatio": 0.638,
-        "asPerLvl": 0.0218,
-        "ranged": false
+        "interruptCC": 1.5
     }
 }

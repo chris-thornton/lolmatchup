@@ -43,7 +43,7 @@
                 ],
                 "minAPRatio": 0.5,
                 "maxAPRatio": 1.1,
-                "bonusDmgRatioPerCritChance": 0.0033
+                "bonusDmgRatioPerCritChance": 0.0033                
             },
             "part2": {
                 "type":"Magic",

@@ -449,6 +449,8 @@ class App extends Component {
   muraCountLeft = 0;
   muraRight = 0;
   muraCountRight = 0;
+  ieCountLeft = 0;
+  ieCountRight = 0;
   appliedStatsLeft = {
     ad: 0,
     as: 0,
@@ -725,7 +727,7 @@ class App extends Component {
     var totalAP = this[`totalStats${side}`].ap;
     var totalAS = this[`totalStats${side}`].as;
     var bonusAS = this[`bonusStats${side}`].as;
-    var bonusASRatio = itemStats.as + appliedStats.as + runeStats.as/statsPath["asRatio"];
+    var bonusASRatio = itemStats.as + appliedStats.as + runeStats.as;
     var totalArmor = this[`totalStats${side}`].arm;
     var bonusArmor = this[`bonusStats${side}`].arm;
     var totalMR = this[`totalStats${side}`].mr;
@@ -2405,6 +2407,13 @@ class App extends Component {
               colorAD(" Bonus AD");
               addText("ratio)");
             };
+            if (path["bonusADRatioPerBonusAttackSpeedRatio"]) {
+              addText(" (+" + removeParen(path["bonusADRatioPerBonusAttackSpeedRatio"]));
+              colorAD(" Bonus AD");
+              addText("ratio per");
+              colorAS(" Bonus Attack Speed");
+              addText("ratio)");
+            };
             if (path["enemyMaxHPRatio"]) {
               addText(" (+" + removeParen(path["enemyMaxHPRatio"]));
               colorHP(" Enemy Max HP");
@@ -2526,7 +2535,7 @@ class App extends Component {
               if (path["critDmgWithIE"]) {
                 addText(' (' + path["critDmgWithIE"] + ' with ');
                 addIE();
-                addText('IE)');
+                addText(' IE)');
               }
             };
             if (path["system"] === 'min') {
@@ -2654,6 +2663,17 @@ class App extends Component {
             };
             if (path["interval"] && !path["ticks"]) {
               addText(' per ' + path["interval"] + ' sec.')
+            };
+            if (path["bonusDmgRatioPerCritChance"]) {
+              singleBreak();
+              underLine('Bonus Damage Ratio');
+              addText(path["bonusDmgRatioPerCritChance"] + ' per');
+              colorCrit(" Crit Chance");
+              if (path["bonusDmgRatioPerCritChanceWithIE"]) {
+                addText('(' + path["bonusDmgRatioPerCritChanceWithIE"] + ' with ');
+                addIE();
+                addText(' IE)');
+              }
             };
             if (path["part1"]) {
               colorPart('Part 1');
@@ -3165,8 +3185,16 @@ class App extends Component {
               addText('[' + path["healByLvl"][0] + " to " + path["healByLvl"][17] + ", based on lvl. ");
               underLine("Currently");
               addText(path["healByLvl"][champLevel] + '] ')
-              doubleBreak();
-            }
+            };
+            if (path["maxHPRatio"]) {
+              addText(" (+" + removeParen(path["maxHPRatio"]));
+              colorHP(' Max HP');
+              addText('ratio)');
+              singleBreak();
+              colorOrchid("Total");
+              addText(Math.round(path["maxHPRatio"] * totalHP));
+            };
+            doubleBreak();
           };
 
           if (champFile[ability]["allyHeal"]) {
@@ -3177,8 +3205,16 @@ class App extends Component {
               addText('[' + path["healByLvl"][0] + " to " + path["healByLvl"][17] + ", based on lvl. ");
               underLine("Currently");
               addText(path["healByLvl"][champLevel] + '] ')
-              doubleBreak();
-            }
+            };
+            if (path["maxHPRatio"]) {
+              addText(" (+" + removeParen(path["maxHPRatio"]));
+              colorHP(' Max HP');
+              addText('ratio)');
+              singleBreak();
+              colorOrchid("Total");
+              addText(Math.round(path["maxHPRatio"] * totalHP));
+            };
+            doubleBreak();
           };
           
           if (champFile[ability]["heal"]) {
@@ -6493,6 +6529,10 @@ class App extends Component {
             if (path["bonusADRatio"]) {
               tickDmgCount += arrayCheck(path["bonusADRatio"]) * bonusAD;
             };
+            if (path["bonusADRatioPerBonusAttackSpeedRatio"]) {
+              tickDmgCount += arrayCheck(path["bonusADRatioPerBonusAttackSpeedRatio"]) 
+              * bonusAD * ((statsPath["asPerLvl"] * champLvlRatio) + bonusASRatio);
+            };
             if (path["enemyMaxHPRatio"] && enemyStats.baseHP) {
               tickDmgCount += arrayCheck(path["enemyMaxHPRatio"]) * enemyTotalHP;
             };
@@ -6573,6 +6613,13 @@ class App extends Component {
               if (path["minBonusADRatio"]) {
                 minTickDmgCount += arrayCheck(path["minBonusADRatio"]) * bonusAD;
               };
+              if (path["bonusDmgRatioPerCritChance"]) {
+                if (path["bonusDmgRatioPerCritChanceWithIE"] && this[`ieCount${side}`]) {
+                  minTickDmgCount *= (1 + path["bonusDmgRatioPerCritChanceWithIE"] * totalCritChance);
+                } else {
+                  minTickDmgCount *= (1 + path["bonusDmgRatioPerCritChance"] * totalCritChance);
+                }
+              };
               if (minTickDmgCount !== 0) {
                 addText(factorRes(path['type'], minTickDmgCount));
               };
@@ -6602,6 +6649,13 @@ class App extends Component {
               };
               if (path["maxBonusADRatio"]) {
                 maxTickDmgCount += arrayCheck(path["maxBonusADRatio"]) * bonusAD;
+              };
+              if (path["bonusDmgRatioPerCritChance"]) {
+                if (path["bonusDmgRatioPerCritChanceWithIE"] && this[`ieCount${side}`]) {
+                  maxTickDmgCount *= (1 + path["bonusDmgRatioPerCritChanceWithIE"] * totalCritChance);
+                } else {
+                  maxTickDmgCount *= (1 + path["bonusDmgRatioPerCritChance"] * totalCritChance);
+                }
               };
               if (maxTickDmgCount !== 0) {
                 addText(factorRes(path['type'], maxTickDmgCount));
@@ -6817,6 +6871,9 @@ class App extends Component {
             if (path["healByLvl"]) {
               healCounter += path["healByLvl"][champLevel]; 
             };
+            if (path["maxHPRatio"]) {
+              healCounter += path["maxHPRatio"] * totalHP;
+            };
             if (healCounter !== 0) {
               addText(Math.round(healCounter));
             }
@@ -6829,6 +6886,9 @@ class App extends Component {
             var healCounter = 0;
             if (path["healByLvl"]) {
               healCounter += path["healByLvl"][champLevel];
+            };
+            if (path["maxHPRatio"]) {
+              healCounter += path["maxHPRatio"] * totalHP;
             };
             if (healCounter !== 0) {
               addText(Math.round(healCounter));
@@ -13329,6 +13389,9 @@ class App extends Component {
     var itemStats = this[`itemStats${side}`];
     var champStats = this[`champFile${side}`].stats;
     var itemTitle = Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent
+    if (itemTitle.includes('Infinity Edge')) {
+      this[`ieCount${side}`]++
+    };
     if (itemTitle.includes('Deathcap')) {
       this[`apMultiplier${side}`] = 1.35
       this[`dcapCount${side}`]++;
@@ -13477,7 +13540,10 @@ class App extends Component {
     var champStats = this[`champFile${side}`].stats;
     var champLevel = this[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
-    var itemTitle = Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent
+    var itemTitle = Array.from(event.target.nextSibling.getElementsByTagName('b'))[0].textContent;
+    if (itemTitle.includes('Infinity Edge')) {
+      this[`ieCount${side}`]--;
+    };
     if (itemTitle.includes('Deathcap')) {
       if (this[`dcapCount${side}`] === 1) {
         this[`apMultiplier${side}`] = 1;
@@ -14520,6 +14586,11 @@ class App extends Component {
           </div>
 
         </div>
+
+        <footer style={{textAlign: 'center'}}>
+          LoL Matchup was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games.
+           Riot Games does not endorse or sponsor this project.
+        </footer>
 
       </div>
     );
