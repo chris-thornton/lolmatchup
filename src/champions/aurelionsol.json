@@ -1,90 +1,97 @@
 {
+    "stats": {
+        "baseHP": 620,
+        "hpPerLvl": 90,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLvl": 0.55,
+        "mana": {
+            "base": 530,
+            "manaPerLvl": 40,
+            "manaBaseRegen": 8,
+            "manaRegenPerLvl": 0.75
+        },
+        "baseDamage": 55,
+        "damagePerLvl": 3.2,
+        "baseArmor": 22,
+        "armorPerLvl": 4,
+        "baseMR": 30,
+        "mrPerLvl": 1.3,
+        "attackSpeed": 0.625,
+        "asRatio": 0.625,
+        "asPerLvl": 0.015,
+        "ranged": true
+    },
     "Q": {
+        "tickDamage": {
+            "type": "Magic",
+            "system": "minMax",
+            "interval": 0.125,
+            "minDmg": [
+                2.8125, 3.75, 4.6875, 5.625, 6.5625
+            ],
+            "minAPRatio": 0.034375,
+            "maxDmg": [
+                5.625, 7.5, 9.375, 11.25, 13.125
+            ],
+            "maxAPRatio": 0.06875
+        },
         "damage": {
             "type": "Magic",
             "system": "single",
             "dmg": [
-                70 , 110 , 150 , 190 , 230
+                60, 70, 80, 90, 100
             ],
-            "APRatio": 0.65
+            "APRatio": 0.35,
+            "enemyMaxHPRatioPerStack": 0.00031,
+            "staticCoolDown": 1
         },
-        "minInterruptCC": [
-            0.55 , 0.6 , 0.65 , 0.7 , 0.75
-        ],
-        "maxInterruptCC": [
-            2.2 , 2.4 , 2.6 , 2.8 , 3
-        ],
-        "coolDown": [
-            11 , 10 , 9 , 8 , 7
-        ]
+        "coolDown": 3
     },
     "W": {
-        "damage": {
-            "type": "Magic",
-            "system": "orbit",
-            "dmgByLvl": [
-                16.8, 19.6, 22.4, 25.2, 28, 32.2, 36.4, 44.8, 53.2, 
-                61.6, 70, 84, 98, 112, 126, 140, 154, 168
-            ],
-            "dmg": [
-                7.5 , 15 , 22.5 , 30 , 37.5
-            ],
-            "APRatio": 0.375
-        },
+        "text": "Q damage modifier: 114, 115.5, 117, 118.5, 120%",
         "coolDown": [
-            8 , 6.5 , 5 , 3.5 , 2
-        ],
-        "duration": 3
+            22, 20.5, 19, 17.5, 16
+        ]
+    },
+    "E": {
+        "tickDamage": {
+            "type": "Magic",
+            "system": "single",
+            "interval": 0.25,
+            "ticks": 20,
+            "dmg": [
+                2.5, 3.75, 5, 6.25, 7.5
+            ],
+            "APRatio": 0.05
+        },
+        "text": "Enemy Max HP Execute: 5% (+2.6% stardust)",
+        "coolDown": 12
     },
     "R": {
         "damage": {
             "type": "Magic",
-            "system": "single",
-            "dmg": [
-                150 , 250 , 350
-            ],
-            "APRatio": 0.7
+            "system": "2Part",
+            "part1": {
+                "dmg": [
+                    150 , 250 , 350
+                ],
+                "APRatio": 0.65
+            },
+            "part2": {
+                "system": "minMax",
+                "minDmg": [
+                    150, 250, 350
+                ],
+                "minAPRatio": 0.6,
+                "maxDmg": [
+                    187.5, 312.5, 437.5
+                ],
+                "maxAPRatio": 0.8125
+            }
         },
+        "interruptCC": 1,
         "coolDown": [
-            110,
-            90,
-            70
+            120, 110, 100
         ]
-    },
-    "passive": {
-        "damage": {
-           "type":"Magic",
-           "system": "orbit",
-           "dmgByLvl": [
-            12,14,16,18,20,23,26,32,38,44,50,60,70,80,90,100,110,120
-           ],
-           "dmgByWRank": [
-               5, 10, 15, 20, 25
-           ],
-           "APRatio": 0.25
-        },
-        "coolDown": 1.75
-    },
-    "stats": {
-        "baseHP": 575,
-        "hpPerLvl": 92,
-        "baseHPRegen": 7,
-        "hpRegenPerLvl": 0.6,
-        "mana": {
-            "base": 350,
-            "manaPerLvl": 50,
-            "manaBaseRegen": 6,
-            "manaRegenPerLvl": 0.8
-        },
-        "baseDamage": 57,
-        "damagePerLvl": 3.2,
-        "baseArmor": 19,
-        "armorPerLvl": 3.6,
-        "baseMR": 30,
-        "mrPerLvl": 0.5,
-        "attackSpeed": 0.625,
-        "asRatio": 0.625,
-        "asPerLvl": 0.0136,
-        "ranged": true
     }
 }

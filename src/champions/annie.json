@@ -1,12 +1,39 @@
 {
+    "stats": {
+        "baseHP": 560,
+        "hpPerLvl": 102,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLvl": 0.55,
+        "mana": {
+            "base": 418,
+            "manaPerLvl": 25,
+            "manaBaseRegen": 8,
+            "manaRegenPerLvl": 0.8
+        },
+        "baseDamage": 50,
+        "damagePerLvl": 2.65,
+        "baseArmor": 19,
+        "armorPerLvl": 4.7,
+        "baseMR": 30,
+        "mrPerLvl": 1.3,
+        "attackSpeed": 0.61,
+        "asRatio": 0.625,
+        "asPerLvl": 0.0136,
+        "ranged": true
+    },
+    "passive": {
+        "interruptCC": [
+            1.25 , 1.5 , 1.75
+        ]
+    },
     "Q": {
         "damage": {
             "type": "Magic",
             "system": "single",
             "dmg": [
-                80 , 115 , 150 , 185 , 220
+                70 , 105 , 140 , 175 , 210
             ],
-            "APRatio": 0.8
+            "APRatio": 0.75
         },
         "coolDown": 4
     },
@@ -25,7 +52,7 @@
         "shield": {
             "type": "all",
             "targets": "all",
-            "shield": [40, 90, 140, 190, 240],
+            "shield": [60, 95, 130, 165, 200],
             "APRatio": 0.4,
             "duration": 3
         },
@@ -33,12 +60,12 @@
             "type": "Magic",
             "system": "single",
             "dmg": [
-                20, 30, 40, 50, 60
+                25, 35, 45, 55, 65
             ],
-            "APRatio": 0.2
+            "APRatio": 0.4
         },
         "coolDown": [
-            14, 13, 12, 11, 10
+            12, 11.5, 11, 10.5, 10
         ]
     },
     "R": {
@@ -48,21 +75,19 @@
             "dmg": [
                 150 , 275 , 400
             ],
-            "APRatio": 0.65
+            "APRatio": 0.75
         },
         "coolDown": [
-            120,
-            100,
-            80
+            130, 115, 100
         ],
         "petStats": {
             "tickDamage": {
-                "interval": 1,
+                "interval": 0.25,
                 "type": "Magic",
                 "dmg": [
-                    20, 30, 40
+                    5, 7.5, 10
                 ],
-                "APRatio": 0.12
+                "APRatio": 0.03
             },
             "auto": {
                 "type":"Magic",
@@ -73,37 +98,20 @@
             },
             "minAttackSpeed": 0.625,
             "maxAttackSpeed": 1.736,
-            "health": [1200 , 2100 , 3000],
-            "armor": [30, 50, 70],
-            "magicResist": [30, 50, 70]
+            "healthByLvl": [
+                1150,1150,1150,1150,1150,1150,1200,1250,1300,
+                1350,1600,1850,2100,2350,2600,2900,3200,3500
+            ],
+            "healthPerAPRatio": 0.5,
+            "armorByLvl": [
+                30,30,30,30,30,30,35,40,45,
+                50,55,60,65,70,75,80,85,90
+            ],
+            "magicResistByLvl": [
+                30,30,30,30,30,30,35,40,45,
+                50,55,60,65,70,75,80,85,90
+            ]
         },
         "duration": 45
-    },
-    "passive": {
-            "interruptCC": [
-                1.25 , 1.5 , 1.75
-            ]
-    },
-    "stats": {
-        "baseHP": 524,
-        "hpPerLvl": 88,
-        "baseHPRegen": 5.5,
-        "hpRegenPerLvl": 0.55,
-        "mana": {
-            "base": 418,
-            "manaPerLvl": 25,
-            "manaBaseRegen": 8,
-            "manaRegenPerLvl": 0.8
-        },
-        "baseDamage": 50.41,
-        "damagePerLvl": 2.625,
-        "baseArmor": 19.22,
-        "armorPerLvl": 4,
-        "baseMR": 30,
-        "mrPerLvl": 0.5,
-        "attackSpeed": 0.579,
-        "asRatio": 0.579,
-        "asPerLvl": 0.0136,
-        "ranged": true
     }
 }

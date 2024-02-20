@@ -17,8 +17,8 @@
         "baseMR": 30,
         "mrPerLvl": 1.3,
         "attackSpeed": 0.668,
-        "asRatio": 0.668,
-        "asPerLvl": 0.02,
+        "asRatio": 0.625,
+        "asPerLvl": 0.022,
         "ranged": true
     },
     "passive": {

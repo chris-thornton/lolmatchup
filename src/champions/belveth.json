@@ -1,0 +1,145 @@
+{
+    "stats": {
+        "baseHP": 610,
+        "hpPerLvl": 99,
+        "baseHPRegen": 6,
+        "hpRegenPerLvl": 0.6,
+        "mana": {
+            "base": 0,
+            "manaPerLvl": 0,
+            "manaBaseRegen": 0,
+            "manaRegenPerLvl": 0
+        },
+        "baseDamage": 60,
+        "damagePerLvl": 1.5,
+        "baseArmor": 32,
+        "armorPerLvl": 4.7,
+        "baseMR": 32,
+        "mrPerLvl": 2.05,
+        "attackSpeed": 0.85,
+        "asRatio": 0.85,
+        "asPerLvl": 0,
+        "ranged": false
+    },
+    "passive": {
+        "bonusAttackSpeed": {
+            "attackSpeedByLvl": [
+                0.20, 0.2085, 0.2174, 0.2266, 0.2364, 0.2465, 0.257, 0.2679, 0.2793,
+                0.2911, 0.3032, 0.3158, 0.3288, 0.3422, 0.3561, 0.3703, 0.3849, 0.4
+            ],
+            "attackSpeedByLvlPerStack": [
+                0.0028,0.0034,0.004,0.0046,0.0052,0.0058,0.0064,0.007,0.0076,
+                0.0082,0.0088,0.0094,0.01,0.01,0.01,0.01,0.01,0.01
+            ]
+        },
+        "auto": {
+            "dmgRatio": 0.75
+        }
+    },
+    "Q": {
+        "damage": {
+            "type": "Physical",
+            "system": "single",
+            "dmg": [
+                10, 15, 20, 25, 30
+            ],
+            "ADRatio": 1.1,
+            "critDmg": 1.75,
+            "critDmgWithIE": 2.2
+        },
+        "coolDown": 1,
+        "staticCoolDown": [
+            16, 15, 14, 13, 12
+        ],
+        "text": "Static cooldown reduced 0.25 ability haste per 1% bonus attack speed"
+    },
+    "W": {
+        "damage": {
+            "type": "Magic",
+            "system":"single",
+            "dmg": [
+                70, 110, 150, 190, 230
+            ],
+            "bonusADRatio": 1,
+            "APRatio": 1.25
+        },
+        "interruptCC": 0.75,
+        "coolDown": [
+            12, 11, 10, 9, 8
+        ]
+    },
+    "E": {
+        "text": "Attacks 6 times (+1 per 33.3% Bonus Attack Speed). Applies on-hit, on-attack, and spell effects at 8% - 32% effectiveness (based on enemy missing health).",
+        "damageRedux": {
+            "type": "all",
+            "reduxRatio": [
+                0.42, 0.49, 0.56, 0.63, 0.7
+            ],
+            "duration": 1.5
+        },
+        "bonusStats": {
+            "lifeSteal": 0.2,
+            "lifeStealMultiplier": 1,
+            "duration": 1.5
+        },
+        "damage": {
+                "type": "Physical",
+                "system":"minMax",
+                "minDmg": [
+                    6, 7, 8, 9, 10
+                ],
+                "minADRatio": 0.08,
+                "maxDmg": [
+                   24, 28, 32, 36, 40 
+                ],
+                "maxADRatio": 0.32
+        },
+        "coolDown": [
+            20, 19, 18, 17, 16
+        ]
+    },
+    "R": {
+        "damage": {
+            "type":"True",
+            "system":"single",
+            "dmg": [
+                150, 200, 250
+            ],
+            "APRatio": 1,
+            "enemyMissingHPRatio": 0.25
+        },
+        "autoEmpower": {
+            "damage": {
+                "type": "True",
+                "system": "infiniteStack",
+                "dmg": [
+                    6, 8, 10
+                ],
+                "bonusADRatio": 0.12,
+                "autoCoolDown": 2
+            }
+        },
+        "heal": {
+            "targets": "Self",
+            "heal": [
+                100, 150, 200
+            ],
+            "bonusADRatio": 1.2,
+            "APRatio": 0.9
+        },
+        "bonusHealth": {
+            "duration": 60,
+            "health": [
+                100, 150, 200
+            ],
+            "APRatio": 0.9,
+            "bonusADRatio": 1.2
+        },
+        "bonusAttackSpeed": {
+            "totalAttackSpeed": [
+                0.1, 0.15, 0.2
+            ],
+            "duration": 60
+        }
+    }
+}

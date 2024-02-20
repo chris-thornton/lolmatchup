@@ -1,14 +1,45 @@
 {
+    "stats": {
+        "baseHP": 650,
+        "hpPerLvl": 109,
+        "baseHPRegen": 7.5,
+        "hpRegenPerLvl": 0.75,
+        "mana": {
+            "base": 267,
+            "manaPerLvl": 40,
+            "manaBaseRegen": 8.5,
+            "manaRegenPerLvl": 0.8
+        },
+        "baseDamage": 62,
+        "damagePerLvl": 3.5,
+        "baseArmor": 40,
+        "armorPerLvl": 4.7,
+        "baseMR": 32,
+        "mrPerLvl": 2.05,
+        "attackSpeed": 0.625,
+        "asRatio": 0.625,
+        "asPerLvl": 0.0113,
+        "ranged": false
+    },
+    "passive": {
+        "shield": {
+            "maxManaRatio": 0.3,
+            "type":"all",
+            "targets": "Self",
+            "duration": 10
+        },
+        "staticCoolDown": 90
+    },
     "Q": {
         "damage": {
             "type": "Magic",
             "system": "single",
             "dmg": [
-                70 , 120 , 170 , 220 , 270
+                105 , 150 , 195 , 240 , 285
             ],
-            "APRatio": 1
+            "APRatio": 1.2
         },
-        "interruptCC": 0.5,
+        "interruptCC": 0.65,
         "coolDown": [
             20 , 19 , 18 , 17 , 16
         ]
@@ -16,7 +47,7 @@
     "W": {
         "bonusAttackSpeed": {
             "attackSpeed": [
-                0.3, 0.38, 0.46, 0.54, 0.62
+                0.3, 0.4, 0.5, 0.6, 0.7
             ],
             "duration": 5
         },
@@ -27,7 +58,9 @@
             "damage": {
                 "type": "Physical",
                 "system":"single",
-                "ADRatio": 1
+                "ADRatio": 1,
+                "APRatio": 0.25,
+                "canCrit": true
             }
         },
         "interruptCC": 1,
@@ -40,7 +73,7 @@
             "type":"Magic",
             "system":"single",
             "dmg":[
-                250, 375, 500
+                275, 400, 525
             ],
             "APRatio": 1
         },
@@ -50,42 +83,14 @@
             "dmg": [
                 50, 100, 150
             ],
-            "APRatio": 0.3
+            "APRatio": [
+                0.3, 0.4, 0.5
+            ],
+            "maxManaRatio": 0.02
         },
         "silence": 0.5,
         "coolDown": [
             60, 40, 20
         ]
-    },
-    "passive": {
-        "shield": {
-            "maxManaRatio": 0.3,
-            "type":"all",
-            "targets": "Self",
-            "duration": 10
-        },
-        "staticCoolDown": 90
-    },
-    "stats": {
-        "baseHP": 582.6,
-        "hpPerLvl": 95,
-        "baseHPRegen": 8.5,
-        "hpRegenPerLvl": 0.75,
-        "mana": {
-            "base": 267.2,
-            "manaPerLvl": 40,
-            "manaBaseRegen": 8.5,
-            "manaRegenPerLvl": 0.8
-        },
-        "baseDamage": 61.54,
-        "damagePerLvl": 3.5,
-        "baseArmor": 37,
-        "armorPerLvl": 3.5,
-        "baseMR": 32.1,
-        "mrPerLvl": 1.25,
-        "attackSpeed": 0.625,
-        "asRatio": 0.625,
-        "asPerLvl": 0.0113,
-        "ranged": false
     }
 }

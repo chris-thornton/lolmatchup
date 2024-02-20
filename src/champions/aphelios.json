@@ -1,17 +1,39 @@
 {
+    "stats": {
+        "baseHP": 580,
+        "hpPerLvl": 102,
+        "baseHPRegen": 3.25,
+        "hpRegenPerLvl": 0.55,
+        "mana": {
+            "base": 348,
+            "manaPerLvl": 42,
+            "manaBaseRegen": 6.5,
+            "manaRegenPerLvl": 0.4
+        },
+        "baseDamage": 55,
+        "damagePerLvl": 3,
+        "baseArmor": 26,
+        "armorPerLvl": 4.2,
+        "baseMR": 30,
+        "mrPerLvl": 1.3,
+        "attackSpeed": 0.64,
+        "asRatio": 0.64,
+        "asPerLvl": 0.021,
+        "ranged": true
+    },
     "Q": {
         "passivePermanent": {
-            "damage": [4 , 8 , 12 , 16 , 20 , 24]
+            "damage": [4.5, 9, 13.5, 18, 22.5, 27]
         }
     },
     "W": {
         "passivePermanent": {
-            "attackSpeed": [0.06 , 0.12 , 0.18 , 0.24 , 0.30 , 0.36]
+            "attackSpeed": [0.09, 0.18, 0.27, 0.36, 0.45, 0.54]
         }
     },
     "E": {
         "passivePermanent": {
-            "lethality": [3,6,9,12,15,18]
+            "lethality": [5.5, 11, 16.5, 22, 27.5, 33]
         }
     },
     "R": {
@@ -19,43 +41,37 @@
            "type": "Physical",
            "system": "single",
            "dmg": [
-               125, 
-               175, 
-               225
+               125, 175, 225
             ],
             "bonusADRatio": 0.2,
             "APRatio": 1
         },
         "critADRatio": 0.2,
-        "critADRatioWithIE": 0.325,
+        "critADRatioWithIE": 0.65,
         "calibrum": {
             "bonusMarkDamage": [
-                40,70,100
+                50, 80, 110
             ]
         },
         "severum": {
             "selfHeal": [
-                250,375,500
+                250, 350, 450
             ]
         },
         "infernum": {
             "damage": {
                 "dmg": [
-                    50,
-                    100,
-                    150
+                    50, 100, 150
                 ],
                 "bonusADRatio": 0.25,
-                "autoSplashDmg": 0.85
+                "autoSplashDmg": 0.9
             }
         },
         "crescendum": {
-            "bonusStacksFromFirstTarget": 3
+            "bonusStacksFromFirstTarget": 5
         },
         "coolDown": [
-            120,
-            110,
-            100
+            120, 110, 100
         ]
     },
     "calibrum": {
@@ -64,12 +80,13 @@
                 "type": "Physical",
                 "system":"single",
                 "dmgByLvl": [
-                    60, 60, 85, 85, 110, 110, 135, 135, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160
+                    60, 60, 76.67, 76.67, 93.33, 93.33, 110, 110, 126.67,
+                    126.67, 143.33, 143.33, 160, 160, 160, 160, 160, 160
                 ],
                 "APRatio": 1,
                 "bonusADRatioByLvl": [
                     0.42,0.42,0.45,0.45,0.48,0.48,0.51,0.51,0.54,
-                    0.54, 0.57,0.57,0.60,0.60,0.60,0.60,0.60,0.60
+                    0.54,0.57,0.57,0.60,0.60,0.60,0.60,0.60,0.60
                 ]
             },
             "coolDownByLvl": [
@@ -82,10 +99,8 @@
                 "damage": {
                     "type":"Physical",
                     "system":"perMark",
-                    "dmgByLvl": [
-                        20, 20, 25, 25, 30, 30, 35, 35, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40
-                    ],
-                    "bonusADRatio": 0.3
+                    "dmg": 15,
+                    "bonusADRatio": 0.2
                 },
                 "useOff-HandWeapon": "true"
             }
@@ -96,15 +111,16 @@
             "damage": {
                 "type": "Physical",
                 "dmgByLvl": [
-                    10, 10, 15, 15, 20, 20, 25, 25, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30
+                    10, 10, 15, 15, 20, 20, 25, 25, 30,
+                     30, 35, 35, 40, 40, 40, 40, 40, 40
                 ],
                 "onHitRatio": 0.25,
                 "bonusADRatioByLvl": [
-                    0.21, 0.21, 0.225, 0.225, 0.24, 0.24, 0.255, 0.255, 0.27,
-                    0.27, 0.285, 0.285, 0.3,0.3,0.3,0.3,0.3,0.3
+                    0.2, 0.2, 0.225, 0.225, 0.25, 0.25, 0.275, 0.275, 0.3,
+                    0.3, 0.325, 0.325, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35
                 ]
             },
-            "text": "Attacks 7 times (+1 per 0.3 Bonus Attack Speed",
+            "text": "Attacks 6 times (+2 per 100% Bonus Attack Speed",
             "duration": 1.75,
             "coolDownByLvl": [
                 10, 10, 9.67, 9.67, 9.33, 9.33, 9, 9, 8.67,
@@ -207,27 +223,5 @@
                 "canCrit": true
             }
         }
-    },
-    "stats": {
-        "baseHP": 530,
-        "hpPerLvl": 88,
-        "baseHPRegen": 3.25,
-        "hpRegenPerLvl": 0.55,
-        "mana": {
-            "base": 348,
-            "manaPerLvl": 42,
-            "manaBaseRegen": 6.5,
-            "manaRegenPerLvl": 0.4
-        },
-        "baseDamage": 57,
-        "damagePerLvl": 2.4,
-        "baseArmor": 28,
-        "armorPerLvl": 3,
-        "baseMR": 26,
-        "mrPerLvl": 0.5,
-        "attackSpeed": 0.64,
-        "asRatio": 0.64,
-        "asPerLvl": 0.021,
-        "ranged": true
     }
 }

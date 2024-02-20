@@ -189,47 +189,17 @@ class App extends Component {
       },
       ksPart2DisplayRight: 'none',
       aphelLeft: {
-        ad: '[4, 8, 12, 16, 20, 24]',
-        as: '[0.06, 0.12, 0.18, 0.24, 0.3, 0.36]',
-        lethal: '[3.5, 7, 10.5, 14, 17.5, 21]',
+        ad: '[4.5, 9, 13.5, 18, 22.5, 27]',
+        as: '[0.09, 0.18, 0.27, 0.36, 0.45, 0.54]',
+        lethal: '[5.5, 11, 16.5, 22, 27.5, 33]'
       },
       aphelRight: {
-        ad: '[4, 8, 12, 16, 20, 24]',
-        as: '[0.06, 0.12, 0.18, 0.24, 0.3, 0.36]',
-        lethal: '[3.5, 7, 10.5, 14, 17.5, 21]',
+        ad: '[4.5, 9, 13.5, 18, 22.5, 27]',
+        as: '[0.09, 0.18, 0.27, 0.36, 0.45, 0.54]',
+        lethal: '[5.5, 11, 16.5, 22, 27.5, 33]'
       },
       itemDisplayLeft: [],
       itemDisplayRight: [],
-      mythicLeft: '',
-      mythicStatsLeft: {
-        ad: 0,
-        as: 0,
-        arm: 0, 
-        mr: 0,
-        hp: 0,
-        hpRegen: 0,
-        ap: 0,
-        cdr: 0,
-        critChance: 0,
-        mana: 0,
-        manaRegen: 0,
-        lethality: 0
-      },
-      mythicRight: '',
-      mythicStatsRight: {
-        ad: 0,
-        as: 0,
-        arm: 0, 
-        mr: 0,
-        hp: 0,
-        hpRegen: 0,
-        ap: 0,
-        cdr: 0,
-        critChance: 0,
-        mana: 0,
-        manaRegen: 0,
-        lethality: 0
-      },
       QRankLeft: 0,
       QRankRight: 0,
       WRankLeft: 0,
@@ -369,7 +339,6 @@ class App extends Component {
   images = {};
   portraits = {};
   ksIcons = {};
-  mythicIcons = {};
   itemIcons = {};
   champNameLeft = '';
   champNameRight = '';
@@ -539,10 +508,6 @@ class App extends Component {
   };
   forceTypeLeft = 'ad';
   forceTypeRight = 'ad';
-  haveMythicLeft = false;
-  haveMythicRight = false;
-  mythicBonusLeft = [];
-  mythicBonusRight = [];
   itemCounterLeft = 0;
   itemCounterRight = 0;
   invenLeftTT1 = '';
@@ -1161,6 +1126,11 @@ class App extends Component {
               addText(path["dmgRatioPerCritChance"]);
               newAutoDmg += baseAutoDmg * path["dmgRatioPerCritChance"] * totalCritChance;
             };
+            if (path["dmgRatioPerCritChanceWithIE"]) {
+              addText(' (' + path["dmgRatioPerCritChanceWithIE"] + ' with ');
+              addIE();
+              addText(' IE)');
+            };
             if (path["system"] === 'minMax') {
               colorMin('Min: ');
               if (path["minADRatioByLvl"]) {
@@ -1207,6 +1177,12 @@ class App extends Component {
               prependIcon(attackIcon);
               addBold('Basic Attack Damage: ');
               addText(factorRes('Physical', newAutoDmg));
+              if (path["dmgRatioPerCritChanceWithIE"]) {
+                addText(' (' + factorRes('Physical', (path["dmgRatio"] * baseAutoDmg) 
+                + (baseAutoDmg * path["dmgRatioPerCritChanceWithIE"] * totalCritChance) ) + ' with ');
+                addIE();
+                addText(' IE)');
+              };
             };
             if (path["system"] === 'minMax') {
               doubleBreak();
@@ -1618,6 +1594,9 @@ class App extends Component {
               }
               })();
             };
+            if (damage["system"] === 'infiniteStack') {
+              addText(' (stacks infinitely)')
+            };
             if (damage["staticCoolDownByLvl"]) {
               singleBreak();
               prependIcon(cdrIcon);
@@ -1643,7 +1622,12 @@ class App extends Component {
               removeSpace(damage["dmg"]);
             };
             if (damage["dmgByLvl"]) {
-              addText('[' + damage["dmgByLvl"][0] + " to " + damage["dmgByLvl"][17] + ", based on lvl. ");
+              if (damage["dmg"]) {
+                addText(' [+')
+              } else {
+                addText('[')
+              }
+              addText(damage["dmgByLvl"][0] + " to " + damage["dmgByLvl"][17] + ", based on lvl. ");
               underLine("Currently");
               addText(damage["dmgByLvl"][champLevel] + '] ');
             };
@@ -1710,6 +1694,11 @@ class App extends Component {
               addText("ratio per");
               colorAD(' 100 Bonus AD');
               addText(')');
+            };
+            if (damage["enemyMaxHPRatioPerStack"]) {
+              addText(" (+" + removeParen(damage["enemyMaxHPRatioPerStack"]));
+              colorHP(' Enemy Max HP');
+              addText("ratio per stack)");
             };
             if (damage["bonusHPRatio"]) {
               addText(" (+" + removeParen(damage["bonusHPRatio"]));
@@ -2353,7 +2342,13 @@ class App extends Component {
               prependIcon(cdrIcon);
               underLine('Cooldown');
               addText(damage["coolDown"]);
-            }
+            };
+            if (damage["staticCoolDown"]) {
+              singleBreak();
+              prependIcon(cdrIcon);
+              underLine('Static Cooldown');
+              addText(damage["staticCoolDown"]);
+            };
             doubleBreak();
           };
 
@@ -2393,8 +2388,13 @@ class App extends Component {
               addText(path["dmgByLvl"][champLevel] + '] ')
             };
             if (path["APRatio"]) {
-              addText(" (+" + path["APRatio"]);
+              addText(" (+" + removeParen(path["APRatio"]));
               colorAP(" AP");
+              addText("ratio)");
+            };
+            if (path["maxManaRatio"]) {
+              addText(" (+" + removeParen(path["maxManaRatio"]));
+              colorMana(" Max Mana");
               addText("ratio)");
             };
             if (path["ADRatio"]) {
@@ -4077,6 +4077,12 @@ class App extends Component {
               addText('(' + removeParen(path["lifeSteal"]) + ')')
               singleBreak();
             };
+            if (path["lifeStealMultiplier"]) {
+              prependIcon(lifestealIcon);
+              underLine('Life Steal Multiplier');
+              addText('(' + removeParen(path["lifeStealMultiplier"]) + ')')
+              singleBreak();
+            };
             if (path["healingRatio"]) {
               prependIcon(healIcon);
               underLine('Increased Healing Ratio');
@@ -4138,6 +4144,12 @@ class App extends Component {
               addText(' (+'); 
               removeSpace(path["APRatio"]);
               colorAP(' AP');
+              addText('ratio)');
+            };
+            if (path["bonusADRatio"]) {
+              addText(' (+'); 
+              removeSpace(path["bonusADRatio"]);
+              colorAD(' Bonus AD');
               addText('ratio)');
             };
             if (path["duration"]) {
@@ -4451,6 +4463,12 @@ class App extends Component {
               addText('[' + ASPath["attackSpeedByLvl"][0] + " to " + ASPath["attackSpeedByLvl"][17] + ", based on lvl. ");
               underLine('Currently');
               addText(ASPath["attackSpeedByLvl"][champLevel] + ']');
+            };
+            if (ASPath["attackSpeedByLvlPerStack"]) {
+              addText(' [+' + ASPath["attackSpeedByLvlPerStack"][0] + " to " 
+              + ASPath["attackSpeedByLvlPerStack"][17] + " per stack, based on lvl. ");
+              underLine('Currently');
+              addText(ASPath["attackSpeedByLvlPerStack"][champLevel] + ']');
             };
             if (ASPath["attackSpeedByRRank"]) {
               removeSpace(ASPath['attackSpeedByRRank']);
@@ -5134,9 +5152,9 @@ class App extends Component {
             prependIcon(cdrIcon);
             addPink("Cooldown: ");
             colorMin('Min: ');
-            addText(champFile[ability]["maxCoolDown"] + ', ')
+            addText(champFile[ability]["minCoolDown"] + ', ')
             colorMin('Max: ');
-            addText(champFile[ability]["minCoolDown"]);
+            addText(champFile[ability]["maxCoolDown"]);
           };
           if (champFile[ability]["maxCoolDown"] && !champFile[ability]["minCoolDown"]) {
             prependIcon(cdrIcon);
@@ -5757,6 +5775,9 @@ class App extends Component {
                 }
               })();
             };
+            if (damage["system"] === 'infiniteStack') {
+              addText(' (stacks infinitely)')
+            };
             if (damage["staticCoolDownByLvl"]) {
               singleBreak();
               prependIcon(cdrIcon);
@@ -5894,7 +5915,16 @@ class App extends Component {
               addText(' (+' + lengthCheck(maxHPRatioCounter));
               colorHP(' Enemy Max HP');
               addText('ratio)');
-            }
+            };
+            if (damage["enemyMaxHPRatioPerStack"] && !enemyStats.baseHP) {
+              addText(" (+" + arrayCheck(damage["enemyMaxHPRatioPerStack"]));
+              colorHP(' Enemy Max HP');
+              addText('ratio per stack)');
+            };
+            if (damage["enemyMaxHPRatioPerStack"] && enemyStats.baseHP) {
+              addText(" (+" + factorRes(damage['type'], arrayCheck(damage["enemyMaxHPRatioPerStack"]) * enemyTotalHP) 
+              + " per stack)");
+            };
             var missingHPRatioCounter = 0;
             if (damage["enemyMissingHPRatio"]) {
               missingHPRatioCounter += arrayCheck(damage["enemyMissingHPRatio"]);
@@ -6494,6 +6524,12 @@ class App extends Component {
               addText(hasteRatio === 1 ? damage["coolDown"]
               : (damage["coolDown"]*hasteRatio).toFixed(1));
             };
+            if (damage["staticCoolDown"]) {
+              singleBreak();
+              prependIcon(cdrIcon);
+              underLine('Static Cooldown');
+              addText(damage["staticCoolDown"]);
+            };
             doubleBreak();
           };
 
@@ -6522,6 +6558,9 @@ class App extends Component {
             };
             if (path["APRatio"]) {
               tickDmgCount += arrayCheck(path["APRatio"]) * totalAP;
+            };
+            if (path["maxManaRatio"]) {
+              tickDmgCount += arrayCheck(path["maxManaRatio"]) * totalMana
             };
             if (path["ADRatio"]) {
               tickDmgCount += arrayCheck(path["ADRatio"]) * totalAD;
@@ -7618,6 +7657,14 @@ class App extends Component {
               applyAbility('lifeSteal', 'flat', path["lifeSteal"]);
               singleBreak();
             };
+            if (path["lifeStealMultiplier"]) {
+              prependIcon(lifestealIcon);
+              underLine('Life Steal Multiplier');
+              addText(arrayCheck(path["lifeStealMultiplier"]));
+              applyAbility('lifeSteal', 'ratio', path["lifeStealMultiplier"]);
+              singleBreak();
+              /*this will need revisiting for Belveth E*/
+            };
             if (path["healingRatio"]) {
               prependIcon(healIcon);
               underLine('Increased Healing Ratio');
@@ -7676,6 +7723,9 @@ class App extends Component {
             };
             if (path["APRatio"]) {
               healthCounter += arrayCheck(path["APRatio"]) * totalAP;
+            };
+            if (path["bonusADRatio"]) {
+              healthCounter += arrayCheck(path["bonusADRatio"]) * bonusAD;
             };
             if (healthCounter !== 0) {
               addText(Math.round(healthCounter));
@@ -7983,7 +8033,7 @@ class App extends Component {
               addText((asRatioCounter * statsPath["asRatio"]).toFixed(3));
             };
             if (totalASRatioCounter !== 0) {
-              addText(totalAS * totalASRatioCounter * statsPath["asRatio"]).toFixed(3);
+              addText((totalAS * totalASRatioCounter * statsPath["asRatio"]).toFixed(3));
             };
             if (ASPath["attackSpeedPerStack"]) {
               addText(' (+' + (ASPath["attackSpeedPerStack"] * statsPath["asRatio"]).toFixed(3) + ' per stack)');
@@ -10483,110 +10533,7 @@ class App extends Component {
     })
   };
 
-  mythicBonuses = {
-    0: ['ap', 8],
-    1: ['arPenRatio', 0.05, 'magicPenRatio', 0.05],
-    2: ['cdr', 5],
-    3: ['arPenRatio', 0.04],
-    4: ['arm', 5, 'mr', 5],
-    5: ['ap', 10],
-    6: ['hp', 100],
-    7: [],
-    8: ['cdr', 7],
-    9: ['magicPenFlat', 5],
-    10: ['ad', 5, 'hp', 70],
-    11: ['ap', 15],
-    12: ['as', 0.1],
-    13: ['cdr', 5],
-    14: ['arm', 2, 'mr', 2],
-    15: ['magicPenFlat', 5],
-    16: [],
-    17: ['cdr', 5],
-    18: ['lethality', 5],
-    19: ['omni', 0.02, 'ap', 8],
-    20: ['cdr', 5],
-    21: [],
-    22: ['hp', 50],
-    23: ['ad', 3, 'cdr', 3],
-    24: ['hp', 50, 'cdr', 5]
-  };
-
   mythicItems = {
-    0: 
-    <div>
-      <b className='yellow'>Crown of the Shattered Queen</b>
-      <hr></hr>
-      <span>
-        60 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        250 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        600 <img src={manaIcon}></img> Mana
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Safeguard: </i>
-      <span>
-        Reduce incoming champion damage by 75%
-        for 1.5 seconds after taking damage from a champion.
-      </span>
-      <br></br>
-      <i className='yellow'>Combat Cooldown: </i>
-      <span>
-        40
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Poise: </i>
-      <span>
-      While Safeguarded, gain 10 - 40 (based on level) ability power,
-       lingering for 3 seconds after Safeguard is deactivated.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      1% bonus movement speed and 8 ability power
-      </span>
-    </div>,
-    1: 
-    <div>
-      <b className='yellow'>Divine Sunderer</b>
-      <hr></hr>
-      <span>
-        40 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        300 <img src={healthIcon}></img> Health
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Spellblade: </i>
-      <span>
-      After using an ability, your next basic attack within 10 seconds deals (Melee 12% / Ranged 9%)
-       of enemy max HP as bonus physical damage, min damage of 150% base AD. Against champs,
-        heal for (Melee 7.8% / Ranged 3.6%) of the enemy max HP, min heal of (Melee 97.5% / Ranged 60%) base AD
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        1.5
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5% armor penetration and 5% magic penetration
-      </span>
-    </div>,
     2:
     <div>
       <b className='yellow'>Duskblade of Draktharr</b>
@@ -10612,11 +10559,6 @@ class App extends Component {
       <i className='yellow'>Cooldown: </i>
       <span>
         15 (resets on takedown)
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 ability haste
       </span>
     </div>,
     3:
@@ -10646,82 +10588,11 @@ class App extends Component {
       <span>
       (Melee 8 / Ranged 16)
       </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      4% armor penetration
-      </span>
     </div>,
-    4:
-    <div>
-      <b className='yellow'>Evenshroud</b>
-      <hr></hr>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        200 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        30 <img src={armorIcon}></img> Armor
-      </span>
-      <br></br>
-      <span>
-        30 <img src={magicResIcon}></img> Magic Resistance
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Coruscation: </i>
-      <span>
-      Becoming affected by or applying an immobilizing effect to or from an enemy champion affects them 
-      and all enemy champions in 600 radius around you with Repent, increasing the damage they take by 9% for 4 seconds.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 armor and 5 magic resistance
-      </span>
-    </div>,
-    5:
-    <div>
-      <b className='yellow'>Everfrost</b>
-      <hr></hr>
-      <span>
-        70 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        250 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        600 <img src={manaIcon}></img> Mana
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Glaciate: </i>
-      <span>
-      Unleash a fan of icy shards in a cone in the target direction, dealing 100 (+ 30% AP) magic damage 
-      to all enemies hit and slowing them by 65% for 1.5 seconds (roots enemies in the center of the cone).
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        30
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      10 ability power
-      </span>
-    </div>,
+
     6:
     <div>
-      <b className='yellow'>Frostfire Gauntlet</b>
+      <b className='yellow'>Iceborn Gauntlet</b>
       <hr></hr>
       <span>
         20 <img src={cdrIcon}></img> Ability Haste
@@ -10756,81 +10627,8 @@ class App extends Component {
       <span>
         (Melee 4 / Ranged 6)
       </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      100 bonus health and 6% increased size
-      </span>
     </div>,
-    7:
-    <div>
-      <b className='yellow'>Galeforce</b>
-      <hr></hr>
-      <span>
-        60 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        20% <img src={attackSpeedIcon}></img> Attack Speed
-      </span>
-      <br></br>
-      <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Cloudburst: </i>
-      <span>
-      Dash to the target location and fire three homing missiles at the most wounded enemy within 750 units.
-       Each missile deals 60 to 105 (based on level) (+ 15% bonus AD) magic damage, for a total of 180 to 315 
-       (based on level) (+ 45% bonus AD), increased by 0% to 50% (based on target's missing health).
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        90
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      2% bonus movement speed
-      </span>
-    </div>,
-    8:
-    <div>
-      <b className='yellow'>Goredrinker</b>
-      <hr></hr>
-      <span>
-        55 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        300 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        10% <img src={vampIcon} className='smallIcon'></img> Omnivamp
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Thirsting Slash: </i>
-      <span>
-      Deal 175% base AD physical damage to enemies in a 450 radius around you. Heal for 25% AD 
-      (+ 10% of your missing health) for each enemy champion hit.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-      15 (reduced by ability haste)
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 ability haste
-      </span>
-    </div>,
+    
     9:
     <div>
       <b className='yellow'>Hextech Rocketbelt</b>
@@ -10860,11 +10658,6 @@ class App extends Component {
       <i className='yellow'>Cooldown: </i>
       <span>
         40
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 magic penetration
       </span>
     </div>,
     10:
@@ -10896,11 +10689,6 @@ class App extends Component {
       <i className='yellow'>Cooldown: </i>
       <span>
         90
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 bonus attack damage and 50 bonus health
       </span>
     </div>,
     11:
@@ -10934,11 +10722,6 @@ class App extends Component {
       <span>
         6 (per champion, starts upon mark application) 
       </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      15 ability power
-      </span>
     </div>,
     12:
     <div>
@@ -10959,11 +10742,6 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Bring it Down: </i>
       <span>
       Every third basic attack deals 60 (+ 45% bonus AD) bonus true damage on-hit. Stacks last 3 seconds.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      10% bonus attack speed
       </span>
     </div>,
     13:
@@ -10991,11 +10769,6 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Agony: </i>
       <span>
       Deal 0% to 12% (based on target's bonus health) bonus magic damage against enemy champions.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 ability haste
       </span>
     </div>,
     14:
@@ -11032,15 +10805,10 @@ class App extends Component {
       <span>
       Grant allied champions within 850 radius 5 bonus armor and 5 bonus magic resistance.
       </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      increase Consecrate by 2 armor and 2 magic resistance
-      </span>
     </div>,
     15:
     <div>
-      <b className='yellow'>Luden's Tempest</b>
+      <b className='yellow'>Luden's Companion</b>
       <hr></hr>
       <span>
         80 <img src={APIcon}></img> Ability Power
@@ -11067,11 +10835,6 @@ class App extends Component {
       <i className='yellow'>Cooldown: </i>
       <span>
         10 (reduced by 0.5 seconds per champion you deal ability damage to)
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 magic penetration
       </span>
     </div>,
     16:
@@ -11105,75 +10868,8 @@ class App extends Component {
       <span>
         2 
       </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      increase Starlit Grace heal by 10
-      </span>
     </div>,
-    17:
-    <div>
-      <b className='yellow'>Night Harvester</b>
-      <hr></hr>
-      <span>
-        90 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        15 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        300 <img src={healthIcon}></img> Health
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Soulrend: </i>
-      <span>
-      Damaging an enemy champion deals 125 (+ 15% AP) bonus magic damage and grants 25% bonus movement speed for 1.5 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        40 (per champion)
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 ability haste
-      </span>
-    </div>,
-    18:
-    <div>
-      <b className='yellow'>Prowler's Claw</b>
-      <hr></hr>
-      <span>
-        60 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        18 <img src={arPenIcon}></img> Lethality
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Sandswipe: </i>
-      <span>
-      Dash in a line through the target enemy champion's location, and deal 75 (+ 30% bonus AD) physical damage to the 
-      target and increase your damage dealt to them by 15% for the next 3 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-      90
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 lethality
-      </span>
-    </div>,
+    
     19:
     <div>
       <b className='yellow'>Riftmaker</b>
@@ -11198,11 +10894,6 @@ class App extends Component {
       <span>
       For each second in combat with champions, deal 3% bonus damage, stacking up to 3 times for a maximum of 9%.
        While this effect is fully stacked, convert 100% of the bonus damage into true damage.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      2% omnivamp and 8 ability power
       </span>
     </div>,
     20:
@@ -11245,11 +10936,6 @@ class App extends Component {
       <span>
         4 (per champion) 
       </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5 ability haste
-      </span>
     </div>,
     21:
     <div>
@@ -11285,11 +10971,6 @@ class App extends Component {
       <span>
       Dealing physical damage grants you 20 bonus movement speed for 2 seconds.
       </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      2% bonus movement speed
-      </span>
     </div>,
     22:
     <div>
@@ -11323,11 +11004,6 @@ class App extends Component {
       <span>
       At maximum stacks, your basic attacks explode around you, burning nearby enemies for your current 
       Immolate damage for 3 seconds. 
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      5% tenacity, 50 bonus health and 5% slow resist
       </span>
     </div>,
     23:
@@ -11365,55 +11041,6 @@ class App extends Component {
       <i className='yellow'>Cooldown: </i>
       <span>
         1.5
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      3 bonus attack damage, 3 ability haste, and 3 bonus movement speed
-      </span>
-    </div>,
-    24:
-    <div>
-      <b className='yellow'>Turbo Chemtank</b>
-      <hr></hr>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        350 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        25 <img src={armorIcon}></img> Armor
-      </span>
-      <br></br>
-      <span>
-        25 <img src={magicResIcon}></img> Magic Resistance
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Supercharged: </i>
-      <span>
-      For 4 seconds, grants 40% bonus movement speed and ghosting when moving towards a turret or visible enemy
-       champion within 2000 units. After the duration or when an enemy champion is within 225 range,
-        you emit a shockwave, slowing enemy champions within 450 range by 50% for 1.5 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        90
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Refuel: </i>
-      <span>
-      Gain 5 stacks per instance of damage taken from champions and large monsters per cast instance and 1 stack for
-       every 25 units travelled, capped at 10 stacks for dashes or blinks. At 100 stacks, your next basic attack
-        deals 40 to 120 (based on level) (+ 1% maximum health) (+ 3% movement speed) magic damage to all nearby enemies. 
-      </span>
-      <hr></hr>
-      <i className='yellow'>Mythic Passive: </i>
-      <span>
-      50 bonus health and 5 ability haste
       </span>
     </div>
   }
@@ -13225,158 +12852,11 @@ class App extends Component {
     </div>
   }
 
-  onMythicDisplay = (side) => {
-    if (document.getElementById(`mythicButton${side}`).style.background) {
-      return
-    };
-    document.getElementById(`legendButton${side}`).style.background = '';
-    document.getElementById(`mythicButton${side}`).style.background 
-      = 'linear-gradient(145deg, white 89%, #f9b54a 90%, #ffffb9 92%)';
-    this.setState({[`itemDisplay${side}`]:  Array.from(this.mythicIcons).map((iconSrc, i) => {
-      return (
-        <span key={i}>
-          <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={iconSrc} 
-          onClick={(event) => this.onMythicClick(event, side, i)}></img>
-          <div className='itemTooltip' style={{top: '150px'}}>
-            {this.mythicItems[i]}
-          </div>
-        </span>
-      )
-    })});
-    document.getElementById(`itemSearch${side}`).value = '';
-  };
-
-  onMythicClick = (event, side, mythicIndex) => {
-    if (this[`haveMythic${side}`]) {
-      document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'visible';
-      return
-    };
-    if (this[`itemCounter${side}`] === 6) {
-      return
-    };
-    this[`itemCounter${side}`]++;
-    console.log(this[`forceType${side}`]);
-    for (var i = 0; i < 12; i += 2) {
-      if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
-        document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
-        document.getElementById(`inven${side}`).children[i].style.border = '3px double #ffcb5a';
-        document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
-        this[`inven${side}TT${1 + (i/2)}`] = this.mythicItems[mythicIndex];
-        this[`haveMythic${side}`] = true;
-        break;
-      } 
-    };
-    var itemStats = this[`itemStats${side}`];
-    //var totalStats = [`totalStats${side}`];
-    var champStats = this[`champFile${side}`].stats;
-    var champLvlRatio = (this[`level${side}`] - 1) * (0.7025 + 0.0175 * (this[`level${side}`] - 1));
-    var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
-    for (var i = 0; i < spanArray.length; i++) {
-      if (i !== 0 && spanArray[i].previousSibling.tagName !== 'BR') {
-        break
-      };
-      var spanText = spanArray[i].textContent;
-      var statQuantity = +spanArray[i].textContent.replace( /[^\d].*/, '' );
-      if (spanText.includes('Attack Damage')) {
-        itemStats.ad += statQuantity;
-        continue;
-      };
-      if (spanText.includes('Attack Speed')) {
-        itemStats.as += statQuantity/100;
-        continue;
-      };
-      if (spanText.includes('Critical Strike')) {
-        itemStats.critChance += statQuantity;
-        continue;
-      };
-      if (spanText.includes('Ability Power')) {
-        itemStats.ap += statQuantity;
-        continue;
-      };
-      if (spanText.includes('Ability Haste')) {
-        itemStats.cdr += statQuantity;
-        continue;
-      };
-      if (spanText.includes('Health')) {
-        if (!spanText.includes('Regen')) {
-          itemStats.hp += statQuantity;
-        } else {
-          itemStats.hpRegen += statQuantity;
-        }
-        continue;
-      };
-      if (spanText.includes('Mana') && champStats.mana.base) {
-        if (!spanText.includes('Regen')) {
-          itemStats.mana += statQuantity;
-        } else {
-          itemStats.manaRegen += statQuantity;
-        }
-        continue;
-      };
-      if (spanText.includes('Lethality')) {
-        itemStats.lethality += statQuantity;
-        continue;
-      };
-      if (spanText.includes('Armor')) {
-        itemStats.arm += statQuantity;
-        continue;
-      };
-      if (spanText.includes('Magic Resist')) {
-        itemStats.mr += statQuantity;
-        continue;
-      };
-      if (spanText.includes('Magic Pen')) {
-        if (!spanText.includes('%')) {
-          itemStats.magicPenFlat += statQuantity;
-        } else {
-          itemStats.magicPenRatio += statQuantity;
-        }
-        continue;
-      };
-      if (spanText.includes('Omnivamp')) {
-        itemStats.omni += statQuantity/100;
-        continue;
-      };
-      if (spanText.includes('Life')) {
-        itemStats.lifeSteal += statQuantity/100;
-        continue;
-      };
-    };
-    var bonusArray = this.mythicBonuses[mythicIndex];
-    this[`mythicBonus${side}`] = bonusArray;
-    if (this[`itemCounter${side}`] > 1 && bonusArray[0]) {
-      this[`itemStats${side}`][bonusArray[0]] += bonusArray[1] * (this[`itemCounter${side}`] - 1);
-      if (bonusArray[2]) {
-        this[`itemStats${side}`][bonusArray[2]] += bonusArray[3] * (this[`itemCounter${side}`] - 1);
-      }
-    };
-    
-    var adaptAD = itemStats.ad + (champStats["baseDamage"] 
-    + champStats["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1);
-    if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`apMultiplier${side}`] > adaptAD) {
-      var adFromRunes = this[`runes${side}`].ad;
-      this[`runes${side}`].ap = adFromRunes/0.6;
-      this[`runes${side}`].ad = 0;
-      this[`forceType${side}`] = 'ap';
-    };
-    if (this[`forceType${side}`] === 'ap' && adaptAD > itemStats.ap*this[`apMultiplier${side}`]) {
-      var apFromRunes = this[`runes${side}`].ap;
-      this[`runes${side}`].ad = apFromRunes*0.6;
-      this[`runes${side}`].ap = 0;
-      this[`forceType${side}`] = 'ad';
-    };
-
-    this.setGlobalStats(side);
-    this.calculateAbility('Left');
-    this.calculateAbility('Right');
-  };
-
   onLegendClick = (event, side, legendIndex) => {
     if (this[`itemCounter${side}`] === 6) {
       return
     };
     this[`itemCounter${side}`]++;
-    document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
     for (var i = 0; i < 12; i += 2) {
       if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
         document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
@@ -13490,16 +12970,6 @@ class App extends Component {
       };
     };
 
-    if (this[`haveMythic${side}`]) {
-      var bonusArray = this[`mythicBonus${side}`];
-      if (bonusArray[0]) {
-        this[`itemStats${side}`][bonusArray[0]] += bonusArray[1];
-        if (bonusArray[2]) {
-          this[`itemStats${side}`][bonusArray[2]] += bonusArray[3];
-        }
-      }
-    };
-
     var adaptAD = itemStats.ad + (champStats["baseDamage"]
       + champStats["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1);
     if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`apMultiplier${side}`] > adaptAD) {
@@ -13528,13 +12998,6 @@ class App extends Component {
     this[`itemCounter${side}`]--;
     event.target.setAttribute('src', blackbg);
     event.target.style.cursor = '';
-    var removedMythic = false;
-    if (event.target.style.border === '3px double rgb(255, 203, 90)'){
-      event.target.style.border = '3px double white';
-      this[`haveMythic${side}`] = false;
-      document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
-      removedMythic = true
-    };
 
     var itemStats = this[`itemStats${side}`];
     var champStats = this[`champFile${side}`].stats;
@@ -13642,26 +13105,6 @@ class App extends Component {
       };
     };
 
-    if (removedMythic) {
-      var bonusArray = this[`mythicBonus${side}`];
-      if (this[`itemCounter${side}`] && bonusArray[0]) {
-        this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1] * this[`itemCounter${side}`];
-        if (bonusArray[2]) {
-          this[`itemStats${side}`][bonusArray[2]] -= bonusArray[3] * this[`itemCounter${side}`];
-        }
-      };
-      this[`mythicBonus${side}`] = [];
-    };
-    if (this[`haveMythic${side}`]) {
-      var bonusArray = this[`mythicBonus${side}`];
-      if (bonusArray[0]) {
-        this[`itemStats${side}`][bonusArray[0]] -= bonusArray[1];
-        if (bonusArray[2]) {
-          this[`itemStats${side}`][bonusArray[2]] -= bonusArray[3];
-        }
-      };
-    };
-
     var adaptAD = itemStats.ad + (champStats["baseDamage"] 
       + champStats["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1);
     if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`apMultiplier${side}`] > adaptAD) {
@@ -13680,27 +13123,6 @@ class App extends Component {
     this.setGlobalStats(side);
     this.calculateAbility('Left');
     this.calculateAbility('Right');
-  };
-
-  onLegendDisplay = (side) => {
-    if (document.getElementById(`legendButton${side}`).style.background) {
-      return
-    };
-    document.getElementById(`mythicButton${side}`).style.background = '';
-    document.getElementById(`legendButton${side}`).style.background 
-    = 'linear-gradient(145deg, white 89%, #f9b54a 90%, #ffffb9 92%)';
-    this.setState({[`itemDisplay${side}`]:  Array.from(this.itemIcons).map((iconSrc, i) => {
-      return (
-        <span key={i}>
-          <img className='itemIcon' style={{border: '3px double white'}} src={iconSrc} 
-          onClick={(event) => this.onLegendClick(event, side, i)}></img>
-          <div className='itemTooltip' style={{top: '150px'}}>
-            {this.legendItems[i]}
-          </div>
-        </span>
-      )
-    })});
-    document.getElementById(`itemSearch${side}`).value = '';
   };
 
   mythicList = [
@@ -13728,34 +13150,20 @@ class App extends Component {
   ]
 
   onItemSearch = (event, side) => {
-    document.getElementById(`mythicButton${side}`).style.background = '';
-    document.getElementById(`legendButton${side}`).style.background = '';
-    this.setState({[`itemDisplay${side}`]:  [...this.mythicList, ...this.legendList].map((itemName, i) => {
+    this.setState({[`itemDisplay${side}`]:  this.legendList.map((itemName, i) => {
       if (itemName.toLowerCase().includes(event.target.value.toLowerCase()) ) {
-        if (i < 25) {
-          return (
-            <span key={i}>
-              <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={Array.from(this.mythicIcons)[i]}
-              onClick={(event) => this.onMythicClick(event, side, i)}></img>
-              <div className='itemTooltip' style={{top: '150px'}}>
-                {this.mythicItems[i]}
-              </div>
-            </span>
-          )
-        } else {
-          return (
-            <span key={i}>
-              <img className='itemIcon' style={{border: '3px double white'}} src={Array.from(this.itemIcons)[i-25]}
-              onClick={(event) => this.onLegendClick(event, side, i-25)}></img>
-              <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
-                {this.legendItems[i-25]}
-              </div>
-            </span>
-          )
-        }
+        return (
+          <span key={i}>
+            <img className='itemIcon' style={{border: '3px double white'}} src={Array.from(this.itemIcons)[i]}
+            onClick={(event) => this.onLegendClick(event, side, i)}></img>
+            <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
+              {this.legendItems[i]}
+            </div>
+          </span>
+        )
       }
     })})
-  }
+  };
 
 
   homeToggle = () => {
@@ -13773,10 +13181,6 @@ class App extends Component {
       document.getElementById('homePage').style.display = 'block';
     }
   };
-
-  onLimitClick = (side) => {
-    document.getElementsByClassName('mythicLimit')[side.length-4].style.visibility = 'hidden';
-  }
 
   keystoneToggle = () => {
     var ksStuff = ['ksLeft', 'ksRight', 'ksTitleLeft', 'ksTitleRight', 'runesContainer'];
@@ -13800,8 +13204,6 @@ class App extends Component {
     } else {
       document.getElementById('itemContainer').style.display = 'none';
       document.getElementById('itemsToggle').textContent = 'Show Item List'
-      document.getElementsByClassName('mythicLimit')[0].style.visibility = 'hidden';
-      document.getElementsByClassName('mythicLimit')[1].style.visibility = 'hidden';
     }
   };
 
@@ -13812,7 +13214,6 @@ class App extends Component {
     this.portraits = importAll(require.context('./portraits/', false, /\.(png|jpe?g|svg)$/));
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
     this.ksIcons = importAll(require.context('./ksicons/', false, /\.(png|jpe?g|svg)$/));
-    this.mythicIcons = importAll(require.context('./mythicicons/', false, /\.(png|jpe?g|svg)$/));
     var itemObjects = ['itemStatsLeft', 'itemStatsRight'];
     var statObjects = ['totalStatsLeft', 'totalStatsRight', 'bonusStatsLeft', 'bonusStatsRight',
       'tfTotalStatsLeft', 'tfTotalStatsRight'];
@@ -13859,29 +13260,29 @@ class App extends Component {
         lifeSteal: 0
       }
     );
-    this.setState({itemDisplayLeft:  Array.from(this.mythicIcons).map((iconSrc, i) => {
+    this.itemIcons = importAll(require.context('./itemicons/', false, /\.(png|jpe?g|svg)$/));
+    this.setState({itemDisplayLeft:  Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
         <span key={i}>
-          <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={iconSrc}
-          onClick={(event) => this.onMythicClick(event, 'Left', i)}></img>
+          <img className='itemIcon' style={{border: '3px double white'}} src={iconSrc}
+          onClick={(event) => this.onLegendClick(event, 'Left', i)}></img>
           <div className='itemTooltip' style={{top: '150px'}}>
-            {this.mythicItems[i]}
+            {this.legendItems[i]}
           </div>
         </span>
       )
     })});
-    this.setState({itemDisplayRight:  Array.from(this.mythicIcons).map((iconSrc, i) => {
+    this.setState({itemDisplayRight:  Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
         <span key={i}>
-          <img className='itemIcon' style={{border: '3px double #ffcb5a'}} src={iconSrc}
-          onClick={(event) => this.onMythicClick(event, 'Right', i)}></img>
+          <img className='itemIcon' style={{border: '3px double white'}} src={iconSrc}
+          onClick={(event) => this.onLegendClick(event, 'Right', i)}></img>
           <div className='itemTooltip' style={{top: '150px'}}>
-            {this.mythicItems[i]}
+            {this.legendItems[i]}
           </div>
         </span>
       )
     })})
-    this.itemIcons = importAll(require.context('./itemicons/', false, /\.(png|jpe?g|svg)$/));
   };
 
   render() {
@@ -14179,20 +13580,6 @@ class App extends Component {
             </div> 
           </div>
 
-          <div className='flexDisplay' >
-            <div style={{width: '45vw', textAlign: 'center'}}>
-              <span className='mythicLimit'>
-                Inventory limited to one Mythic item <b onClick={() => this.onLimitClick('Left')}>x</b>
-              </span>
-            </div>
-
-            <div style={{width: '45vw', textAlign: 'center'}}>
-              <span className='mythicLimit'>
-              Inventory limited to one Mythic item <b onClick={() => this.onLimitClick('Right')}>x</b>
-              </span>
-            </div>
-          </div>
-
           <div style={{textAlign: 'center'}}>
             <button type='button' id='itemsToggle' onClick={this.itemsToggle}>Hide Item List</button>
           </div>
@@ -14201,14 +13588,6 @@ class App extends Component {
           <div id='itemContainer' className="flexDisplay" style={{marginTop: '10px'}}>
             <div id='itemsLeft' style={{position: 'relative'}}>
               <div className='itemMenu'>
-                <button type='button' id='mythicButtonLeft' onClick={() => this.onMythicDisplay('Left')} style={{
-                background: 'linear-gradient(145deg, white 89%, #f9b54a 90%, #ffffb9 92%)',
-                borderTopLeftRadius: '10px'}}>
-                  <span>M</span>ythic
-                </button>
-                <button type='button' id='legendButtonLeft' onClick={() => this.onLegendDisplay('Left')}>
-                  <span>L</span>egendary
-                </button>
                 <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Left')}
                 onBlur={this.onItemBlur} id='itemSearchLeft' />
               </div>
@@ -14219,12 +13598,6 @@ class App extends Component {
 
             <div id='itemsRight' style={{position: 'relative'}}>
               <div className='itemMenu'>
-                <button type='button' id='mythicButtonRight' onClick={() => this.onMythicDisplay('Right')} style={{
-                  background: 'linear-gradient(145deg, white 89%, #f9b54a 90%, #ffffb9 92%)',
-                  borderTopLeftRadius: '10px'}}>
-                  <span>M</span>ythic</button>
-                <button type='button' id='legendButtonRight' onClick={() => this.onLegendDisplay('Right')}>
-                  <span>L</span>egendary</button>
                 <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Right')}
                 onBlur={this.onItemBlur} id='itemSearchRight' />
               </div>

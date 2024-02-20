@@ -16,7 +16,7 @@
         "armorPerLvl": 4.9,
         "baseMR": 30,
         "mrPerLvl": 1.3,
-        "attackSpeed": 0.625,
+        "attackSpeed": 0.658,
         "asRatio": 0.625,
         "asPerLvl": 0.0168,
         "ranged": true

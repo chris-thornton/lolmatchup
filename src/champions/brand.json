@@ -1,4 +1,42 @@
 {
+    "stats": {
+        "baseHP": 570,
+        "hpPerLvl": 105,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLvl": 0.55,
+        "mana": {
+            "base": 469,
+            "manaPerLvl": 21,
+            "manaBaseRegen": 10.65,
+            "manaRegenPerLvl": 0.6
+        },
+        "baseDamage": 57,
+        "damagePerLvl": 3,
+        "baseArmor": 27,
+        "armorPerLvl": 4.2,
+        "baseMR": 30,
+        "mrPerLvl": 1.3,
+        "attackSpeed": 0.681,
+        "asRatio": 0.625,
+        "asPerLvl": 0.02,
+        "ranged": true
+    },
+    "passive": {
+        "tickDamage": {
+            "type": "Magic",
+            "interval": 1.083,
+            "ticks": 3,
+            "enemyMaxHPRatio": 0.00833
+        },
+        "damage": {
+            "type":"Magic",
+            "enemyMaxHPRatioByLvl": [
+                0.09,0.0925,0.095,0.0975,0.1,0.1025,0.105,0.1075,0.11,
+                0.1125,0.115,0.1175,0.12,0.1225,0.125,0.1275,0.13,0.13
+            ],
+            "enemyMaxHPRatioPer100AP": 0.02
+        }
+    },
     "Q": {
         "damage": {
             "type": "Magic",
@@ -59,44 +97,5 @@
         "coolDown": [
             105, 90, 75
         ]
-    },
-    "passive": {
-        "tickDamage": {
-            "type": "Magic",
-            "interval": 1.083,
-            "ticks": 3,
-            "refresh": "onSpellHit",
-            "enemyMaxHPRatio": 0.01
-        },
-        "damage": {
-            "type":"Magic",
-            "enemyMaxHPRatioByLvl": [
-                0.1,0.1025,0.105,0.1075,0.11,0.1125,0.115,0.1175,0.12,
-                0.1225,0.125,0.1275,0.13,0.1325,0.135,0.1375,0.14,0.14
-            ],
-            "enemyMaxHPRatioPer100AP": 0.02
-        }
-    },
-    "stats": {
-        "baseHP": 519.68,
-        "hpPerLvl": 88,
-        "baseHPRegen": 5.5,
-        "hpRegenPerLvl": 0.55,
-        "mana": {
-            "base": 469,
-            "manaPerLvl": 21,
-            "manaBaseRegen": 10.665,
-            "manaRegenPerLvl": 0.6
-        },
-        "baseDamage": 57.04,
-        "damagePerLvl": 3,
-        "baseArmor": 21.88,
-        "armorPerLvl": 3.5,
-        "baseMR": 30,
-        "mrPerLvl": 0.5,
-        "attackSpeed": 0.625,
-        "asRatio": 0.625,
-        "asPerLvl": 0.0136,
-        "ranged": true
     }
 }

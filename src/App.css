@@ -407,7 +407,8 @@ hr {
   color: #003747;
   border-bottom: 2px solid #f9b54a;
   background-color: white;
-  background: linear-gradient(155deg, #ffffb9 1%, #f9b54a 2%, white 3%, white 89%, #f9b54a 98%, #ffffb9 99%);
+  /*background: linear-gradient(155deg, #ffffb9 1%, #f9b54a 2%, white 3%, white 89%, #f9b54a 98%, #ffffb9 99%);*/
+  background: linear-gradient(155deg, white 97%, #f9b54a 98%, #ffffb9 99%);
   margin: 0 -1vw;
 }
 
