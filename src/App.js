@@ -11055,17 +11055,17 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        450 <img src={healthIcon}></img> Health
+        300 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
-        30 <img src={magicResIcon}></img> Magic Resistance
+        60 <img src={magicResIcon}></img> Magic Resistance
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Unmake: </i>
       <span>
-      Reduce enemy champion  magic resistance by 5 (+ 1.2% bonus health), minimum of 10.4, maximum of 25.
-      Gain 7 bonus magic resistance per cursed enemy.
+      Reduce enemy champion  magic resistance by 5 (+ 1.2% bonus health) (min: 8.6, max: 25).
+      Gain 9 bonus magic resistance per cursed enemy.
       </span>
     </div>,
     1:
@@ -11105,26 +11105,26 @@ class App extends Component {
       <b className='yellow'>Archangel's Staff</b>
       <hr></hr>
       <span>
-        60 <img src={APIcon}></img> Ability Power
+        80 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        200 <img src={healthIcon}></img> Health
+        20 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        500 <img src={manaIcon}></img> Mana
+        600 <img src={manaIcon}></img> Mana
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Awe: </i>
       <span>
-      Grants ability haste equal to 0.5% bonus mana.
+      Grants ability haste equal to 1% bonus mana.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Mana Charge: </i>
       <span>
-      Grants a charge every 8 seconds, up to 4 charges. Affecting an enemy or ally with an ability consumes
-        a charge and grants 3 bonus mana, increased to 6 if it's a champion, up to a maximum of 360 bonus mana.
+      Grants a charge every 8 seconds, up to 5 charges. Affecting an enemy or ally with an ability consumes
+        a charge and grants 5 bonus mana, increased to 10 if it's a champion, up to a maximum of 360 bonus mana.
       </span>
     </div>,
     3:
@@ -11132,22 +11132,25 @@ class App extends Component {
       <b className='yellow'>Ardent Censer</b>
       <hr></hr>
       <span>
-        60 <img src={APIcon}></img> Ability Power
+        50 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regen.
+        125% <img src={manaRegenIcon}></img> Base Mana Regen.
       </span>
       <br></br>
       <span>
-        10% <img src={healShieldIcon}></img> Heal and Shield Power
+        8% <img src={healShieldIcon}></img> Heal and Shield Power
+      </span>
+      <br></br>
+      <span>
+        8% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Sanctify: </i>
       <span>
-      Healing or shielding allied champions (excluding yourself) gives you and your ally 10% − 30% 
-      (based on target's level) bonus attack speed and 5 − 20 (based on target's level) bonus magic damage on-hit
-      on basic attacks for 6 seconds.
+      Healing or shielding allied champions (excluding yourself) gives you and your ally 25% 
+      bonus attack speed and 20 bonus magic damage on-hit on basic attacks for 6 seconds.
       </span>
     </div>,
     4:
@@ -11163,12 +11166,13 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        10 <img src={arPenIcon}></img> Lethality
+        18 <img src={arPenIcon}></img> Lethality
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Flux: </i>
       <span>
-      Enemy champion takedowns within 3 seconds of damaging them refunds 20% of your ultimate's total cooldown.
+      Enemy champion takedowns within 3 seconds of damaging them refunds 
+      10% (+ 0.3% per 1 lethality) of your ultimate's total cooldown.
       </span>
     </div>,
     5:
@@ -11176,15 +11180,11 @@ class App extends Component {
       <b className='yellow'>Banshee's Veil</b>
       <hr></hr>
       <span>
-        80 <img src={APIcon}></img> Ability Power
+        120 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        10 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        45 <img src={magicResIcon}></img> Magic Resistance
+        50 <img src={magicResIcon}></img> Magic Resistance
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Annul: </i>
@@ -11194,7 +11194,7 @@ class App extends Component {
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-        40 (restarts upon taking damage from champions)
+        30 (restarts upon taking damage from champions)
       </span>
     </div>,
     6:
@@ -11202,55 +11202,29 @@ class App extends Component {
       <b className='yellow'>Black Cleaver</b>
       <hr></hr>
       <span>
-        45 <img src={ADIcon}></img> Attack Damage
+        55 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        30 <img src={cdrIcon}></img> Ability Haste
+        20 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        350 <img src={healthIcon}></img> Health
+        400 <img src={healthIcon}></img> Health
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Carve: </i>
       <span>
       Dealing physical damage to an enemy champion applies a stack of Carve for 6 seconds, stacking up to 6 times.
-        Each stack reduces the target's armor by 5%, up to 30% at 6 stacks.
+        Each stack reduces the target's armor by 4%, up to 24% at 6 stacks.
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Rage: </i>
+      <i className='yellow'>Unique Passive - Fervor: </i>
       <span>
-      Dealing physical damage to an enemy champion grants 3 bonus movement speed per stack of Carve on them
-        for 2 seconds, up to 18.
+      Dealing physical damage grants 20 bonus movement speed for 2 seconds.
       </span>
     </div>,
     7:
-    <div>
-      <b className='yellow'>Black Mist Scythe</b>
-      <hr></hr>
-      <span>
-        20 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        75 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regen.
-      </span>
-      <br></br>
-      <span>
-        3 <img src={goldIcon} style={{width: '20px', height: '15px'}}></img> Gold per 10 seconds
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Warding: </i>
-      <span>
-      Consumes a charge to place a Stealth Ward at the target location (4 charges; 600 range).
-      </span>
-    </div>,
-    8:
     <div>
       <b className='yellow'>Blade of the Ruined King</b>
       <hr></hr>
@@ -11268,20 +11242,43 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Mist's Edge: </i>
       <span>
-      Basic attacks deal (Melee 12% / Ranged 8%) of the target's current health bonus physical damage on-hit,
-        with a minimum of 15 against all units.
+      Basic attacks deal (Melee 12% / Ranged 9%) of the target's current health bonus 
+      physical damage on-hit, with a minimum of 15 against all units.
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Siphon: </i>
+      <i className='yellow'>Unique Passive - Clawing Shadows: </i>
       <span>
-      Basic attacks on-hit against enemy champions apply a stack for 6 seconds. The third stack consumes all stacks
-        to deal 40 − 150 (based on level) bonus magic damage on-hit and slow the target by 25% for 2 seconds,
-        while also granting you 25% bonus movement speed for the same duration.
+      Next basic attack on-hit against an enemy champion slows by (Melee 30% / Ranged 15%) for 1 second.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-        20
+        15
+      </span>
+    </div>,
+    8:
+    <div>
+      <b className='yellow'>Bloodsong</b>
+      <hr></hr>
+      <span>
+        200 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        75% <img src={healthRegenIcon}></img> Base Health Regen.
+      </span>
+      <br></br>
+      <span>
+        75% <img src={manaRegenIcon}></img> Base Mana Regen.
+      </span>
+      <br></br>
+      <span>
+        5 <img src={goldIcon} style={{width: '20px', height: '15px'}}></img> Gold per 10 seconds
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Ward: </i>
+      <span>
+      Consumes a charge to place a Stealth Ward at the target location (4 charges; 600 range).
       </span>
     </div>,
     9:
@@ -13183,7 +13180,7 @@ class App extends Component {
   };
 
   keystoneToggle = () => {
-    var ksStuff = ['ksLeft', 'ksRight', 'ksTitleLeft', 'ksTitleRight', 'runesContainer'];
+    var ksStuff = ['ksLeft', 'ksRight', 'runesContainer'];
     if (document.getElementById('ksToggle').textContent === 'Hide Runes') {
       ksStuff.map(x => {
         document.getElementById(`${x}`).style.display = 'none'
@@ -13266,7 +13263,7 @@ class App extends Component {
         <span key={i}>
           <img className='itemIcon' style={{border: '3px double white'}} src={iconSrc}
           onClick={(event) => this.onLegendClick(event, 'Left', i)}></img>
-          <div className='itemTooltip' style={{top: '150px'}}>
+          <div className='itemTooltip' style={{top: '200px'}}>
             {this.legendItems[i]}
           </div>
         </span>
@@ -13277,7 +13274,7 @@ class App extends Component {
         <span key={i}>
           <img className='itemIcon' style={{border: '3px double white'}} src={iconSrc}
           onClick={(event) => this.onLegendClick(event, 'Right', i)}></img>
-          <div className='itemTooltip' style={{top: '150px'}}>
+          <div className='itemTooltip' style={{top: '200px'}}>
             {this.legendItems[i]}
           </div>
         </span>
@@ -13303,12 +13300,12 @@ class App extends Component {
         <div id='homePage'>
           <div style={{marginTop: 10, display: 'flex'}}>
             
-              <input type="search" placeholder='Champion Name' onChange={this.onSearchChange}
+              <input type="search" placeholder='Search Champion' onChange={this.onSearchChange}
               style={{width: 120, display: 'inline-block'}} onBlur={(event) => this.onSearchBlur(event, 'Left')}
               tabIndex='0' onKeyDown={(event) => this.downArrow(event, 'Left')} />
             
             
-              <input type="search" placeholder='Champion Name' onChange={this.onSearchChange} tabIndex='0'
+              <input type="search" placeholder='Search Champion' onChange={this.onSearchChange} tabIndex='0'
               style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={(event) => this.onSearchBlur(event, 'Right')}
               onKeyDown={(event) => this.downArrow(event, 'Right')} />
             
@@ -13342,19 +13339,12 @@ class App extends Component {
             </div>
           </div>
 
-          <hr style={{margin: '20px -1vw'}}></hr>
-
           <div style={{textAlign: 'center'}}>
               <button type='button' id='ksToggle' onClick={this.keystoneToggle}>Hide Runes</button>
           </div>
 
-          <div className='flexDisplay' style={{marginBottom: '5px', marginTop: '5px'}}>
-            <b id='ksTitleLeft' style={{width: '45vw', textAlign: 'center'}}>{this.state.keystoneIDLeft.title}</b>
-            <b id='ksTitleRight' style={{width: '45vw', textAlign: 'center'}}>{this.state.keystoneIDRight.title}</b>
-          </div>
-
           <div className='flexDisplay' style={{marginBottom: '10px'}}>
-            <div id='ksLeft' className='keystone' style={{width: '45vw', textAlign: 'center'}}>
+            <div id='ksLeft' className='keystone' style={{width: '45vw', textAlign: "center"}}>
               <span style={{borderBottom: '1px dashed rgb(255, 225, 82)', marginRight: '10px'}}>
                 <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Left')}
                 style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
@@ -13419,6 +13409,7 @@ class App extends Component {
           <div id='runesContainer' className='flexDisplay' style={{marginBottom: '20px'}}>      
             <div style={{width: '45vw'}}>
               <div className='ksStats' id='ksStatsLeft'>
+                <b id='ksTitleLeft' style={{display: 'block', textAlign: 'center'}}>{this.state.keystoneIDLeft.title}</b>
                 <span style={{color: '#ffffb9'}}>{this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
                 <br></br>
                 {this.state.keystoneIDLeft.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
@@ -13468,6 +13459,7 @@ class App extends Component {
 
             <div>
               <div className='ksStats' id='ksStatsRight'>
+                <b id='ksTitleRight' style={{display: 'block', textAlign: 'center'}}>{this.state.keystoneIDRight.title}</b>
                 <span style={{color: '#ffffb9'}}>{this.state.keystoneIDRight.type}: </span>{this.state.keystoneRight}
                   <br></br>
                 {this.state.keystoneIDRight.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
@@ -13516,8 +13508,6 @@ class App extends Component {
               </div>
             </div>
           </div>
-
-          <hr id='aboveItemHr' style={{margin: '20px -1vw'}}></hr>
 
           <div className='flexDisplay'>
             <b style={{width: '45vw', textAlign: 'center'}}>Inventory</b>
@@ -13607,9 +13597,7 @@ class App extends Component {
             </div>
           </div>
 
-          <hr style={{margin: '20px -1vw'}}></hr>
-
-          <div className="flexDisplay">
+          <div className="flexDisplay" style={{marginTop: '20px'}}>
             <div className="hiddenLeft">
               <span>Level: </span>
               <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px"}}
@@ -13746,9 +13734,7 @@ class App extends Component {
             </div>
           </div>
 
-          <hr style={{margin: '20px -1vw'}}></hr>
-
-          <div className="flexDisplay">
+          <div className="flexDisplay" style={{marginTop: '32px'}}>
             <div>
           
               {this.state.champNameLeft === 'Aphelios' ?
