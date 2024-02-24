@@ -312,13 +312,7 @@ class App extends Component {
     }
   }
 
-  onSearchChange = (event) => {
-    var side = '';
-    if (event.target.nextSibling) {
-      side = 'Left';
-    } else {
-      side = 'Right';
-    };
+  onSearchChange = (event, side) => {
     this.setState({ [`searchField${side}`]: event.target.value });
     this.setState({ [`filteredChamps${side}`]: champList.filter(champ => {
       return champ.name.toLowerCase().startsWith(event.target.value.toLowerCase()) }).map(champ => {
@@ -10075,9 +10069,9 @@ class App extends Component {
   }
 
   pressTheAttack = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 0) {
       return
-    }
+    };
     this.ksHighlight(side, 'precision', 0, 'rgb(255, 225, 82)');
     var dmgByLvl = [
       40,48,56,65,73,81,89,98,106,
@@ -10104,7 +10098,7 @@ class App extends Component {
   };
 
   lethalTempo = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 1) {
       return
     }
     this.ksHighlight(side, 'precision', 1, 'rgb(255, 225, 82)');
@@ -10133,7 +10127,7 @@ class App extends Component {
   };
 
   fleetFootwork = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 2) {
       return
     }
     this.ksHighlight(side, 'precision', 2, 'rgb(255, 225, 82)');
@@ -10163,7 +10157,7 @@ class App extends Component {
   };
 
   conqueror = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 3) {
       return
     }
     this.ksHighlight(side, 'precision', 3, 'rgb(255, 225, 82)');
@@ -10192,7 +10186,7 @@ class App extends Component {
   };
 
   electrocute = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 4) {
       return
     }
     this.ksHighlight(side, 'domination', 0, 'rgb(245, 12, 63)');
@@ -10222,7 +10216,7 @@ class App extends Component {
   };
 
   predator = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 5) {
       return
     }
     this.ksHighlight(side, 'domination', 1, 'rgb(245, 12, 63)');
@@ -10252,7 +10246,7 @@ class App extends Component {
   };
 
   darkHarvest = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 6) {
       return
     }
     this.ksHighlight(side, 'domination', 2, 'rgb(245, 12, 63)');
@@ -10282,7 +10276,7 @@ class App extends Component {
   };
 
   hailOfBlades = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 7) {
       return
     }
     this.ksHighlight(side, 'domination', 3, 'rgb(245, 12, 63)');
@@ -10311,7 +10305,7 @@ class App extends Component {
   };
 
   summonAery = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 8) {
       return
     }
     this.ksHighlight(side, 'sorcery', 0, 'rgb(177, 41, 238)');
@@ -10353,7 +10347,7 @@ class App extends Component {
   };
 
   arcaneComet = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 9) {
       return
     }
     this.ksHighlight(side, 'sorcery', 1, 'rgb(177, 41, 238)');
@@ -10383,7 +10377,7 @@ class App extends Component {
   };
 
   phaseRush = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 10) {
       return
     }
     this.ksHighlight(side, 'sorcery', 2, 'rgb(177, 41, 238)');
@@ -10423,7 +10417,7 @@ class App extends Component {
   }
 
   grasp = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 11) {
       return
     }
     this.ksHighlight(side, 'resolve', 0, 'rgb(90, 227, 30)');
@@ -10461,7 +10455,7 @@ class App extends Component {
   };
   
   aftershock = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 12) {
       return
     }
     this.ksHighlight(side, 'resolve', 1, 'rgb(90, 227, 30)');
@@ -10502,7 +10496,7 @@ class App extends Component {
   };
 
   guardian = (side) => {
-    if (event.target.style.borderBottom) {
+    if (this.state[`keystoneID${side}`].index === 13) {
       return
     }
     this.ksHighlight(side, 'resolve', 2, 'rgb(90, 227, 30)');
@@ -12853,15 +12847,11 @@ class App extends Component {
     if (this[`itemCounter${side}`] === 6) {
       return
     };
+    var invenSlot = document.querySelectorAll(`#inven${side} > img`)[this[`itemCounter${side}`]];
+    invenSlot.setAttribute('src', event.target.src);
+    invenSlot.style.cursor = 'pointer';
     this[`itemCounter${side}`]++;
-    for (var i = 0; i < 12; i += 2) {
-      if (document.getElementById(`inven${side}`).children[i].src === blackbg) {
-        document.getElementById(`inven${side}`).children[i].setAttribute('src', event.target.src);
-        document.getElementById(`inven${side}`).children[i].style.cursor = 'pointer';
-        this[`inven${side}TT${1 + (i/2)}`] = this.legendItems[legendIndex];
-        break;
-      } 
-    };
+    this[`inven${side}TT${this[`itemCounter${side}`]}`] = this.legendItems[legendIndex];
 
     var itemStats = this[`itemStats${side}`];
     var champStats = this[`champFile${side}`].stats;
@@ -13180,7 +13170,7 @@ class App extends Component {
   };
 
   keystoneToggle = () => {
-    var ksStuff = ['ksLeft', 'ksRight', 'runesContainer'];
+    var ksStuff = ['ksIconContainer', 'runesContainer'];
     if (document.getElementById('ksToggle').textContent === 'Hide Runes') {
       ksStuff.map(x => {
         document.getElementById(`${x}`).style.display = 'none'
@@ -13298,32 +13288,16 @@ class App extends Component {
         {this.state.about ? <About /> : ''}
 
         <div id='homePage'>
-          <div style={{marginTop: 10, display: 'flex'}}>
-            
-              <input type="search" placeholder='Search Champion' onChange={this.onSearchChange}
+
+          <div className="flexDisplay" style={{marginTop: '32px'}}>
+            <div style={{width: 120, display: 'inline-block'}}>
+              <input type="search" placeholder='Search Champion' onChange={(event) => this.onSearchChange(event, 'Left')}
               style={{width: 120, display: 'inline-block'}} onBlur={(event) => this.onSearchBlur(event, 'Left')}
               tabIndex='0' onKeyDown={(event) => this.downArrow(event, 'Left')} />
-            
-            
-              <input type="search" placeholder='Search Champion' onChange={this.onSearchChange} tabIndex='0'
-              style={{width: 120, display: 'inline-block', marginLeft: 'auto'}} onBlur={(event) => this.onSearchBlur(event, 'Right')}
-              onKeyDown={(event) => this.downArrow(event, 'Right')} />
-            
-          </div>
-
-          <div style={{display: 'flex'}}>
-            <div style={{width: 120, display: 'inline-block'}}>
               <ChampDropDownLeft filteredChamps={ `${this.state.filteredChampsLeft}` } onChampClick={this.onChampClick} 
               onLiKeyDown={(event) => this.liKeyPress(event, 'Left')} onLiBlur={(event) => this.onLiBlur(event, 'Left')}/>
             </div>
-          
-            <div style={{width: 120, marginLeft: 'auto', display: 'inline-block'}}>
-              <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } onChampClick={this.onChampClick}
-              onLiKeyDown={(event) => this.liKeyPress(event, 'Right')} onLiBlur={(event) => this.onLiBlur(event, 'Right')}/>
-            </div>
-          </div>
 
-          <div className="flexAround" style={{marginTop: '10px'}}>
             <div>
               <b style={{fontSize: '20px', display: 'block', textAlign: 'center'}}>{this.state.champNameLeft}</b>
               <img id='champIconLeft' src={ defaultChampIcon } height="120px" width="120px"
@@ -13337,34 +13311,42 @@ class App extends Component {
               <img id='champIconRight' src={ defaultChampIcon } height="120px" width="120px"
               alt='Champion Icon' style={{position: 'relative', border: '1px solid #ffffb9'}}/>
             </div>
+
+            <div style={{width: 120, display: 'inline-block'}}>
+              <input type="search" placeholder='Search Champion' onChange={(event) => this.onSearchChange(event, 'Right')} tabIndex='0'
+              style={{width: 120, display: 'inline-block'}} onBlur={(event) => this.onSearchBlur(event, 'Right')}
+              onKeyDown={(event) => this.downArrow(event, 'Right')} />
+              <ChampDropDownRight filteredChamps2={ `${this.state.filteredChampsRight}` } onChampClick={this.onChampClick}
+              onLiKeyDown={(event) => this.liKeyPress(event, 'Right')} onLiBlur={(event) => this.onLiBlur(event, 'Right')}/>
+            </div>
           </div>
 
-          <div style={{textAlign: 'center'}}>
+          <div style={{textAlign: 'center', marginTop: '32px'}}>
               <button type='button' id='ksToggle' onClick={this.keystoneToggle}>Hide Runes</button>
           </div>
 
-          <div className='flexDisplay' style={{marginBottom: '10px'}}>
-            <div id='ksLeft' className='keystone' style={{width: '45vw', textAlign: "center"}}>
-              <span style={{borderBottom: '1px dashed rgb(255, 225, 82)', marginRight: '10px'}}>
+          <div id='ksIconContainer' className='flexDisplay' style={{marginBottom: '10px'}}>
+            <div id='ksLeft' className='keystone' style={{width: '45vw', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
+              <div style={{borderBottom: '1px dashed rgb(255, 225, 82)'}}>
                 <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Left')}
                 style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
                 <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Left')} />
                 <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Left')} />
                 <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Left')} />
-              </span>
+              </div>
             
-              <span style={{borderBottom: '1px dashed rgb(245, 12, 63)', marginRight: '10px'}}>
+              <div style={{borderBottom: '1px dashed rgb(245, 12, 63)'}}>
                 <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Left')} />
                 <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Left')} />
                 <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Left')} />
                 <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Left')} />
-              </span>
+              </div>
             
-              <span style={{borderBottom: '1px dashed rgb(177, 41, 238)', marginRight: '10px'}}>
+              <div style={{borderBottom: '1px dashed rgb(177, 41, 238)'}}>
                 <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
                 <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
                 <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
-              </span>
+              </div>
             
             
               <span style={{borderBottom: '1px dashed rgb(90, 227, 30)'}}>
@@ -13374,39 +13356,39 @@ class App extends Component {
               </span>
             </div>
 
-            <div id='ksRight' className='keystone' style={{width: '45vw', textAlign: 'center'}}>
-              <span style={{borderBottom: '1px dashed rgb(255, 225, 82)', marginRight: '10px'}}>
+            <div id='ksRight' className='keystone' style={{width: '45vw', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
+              <div style={{borderBottom: '1px dashed rgb(255, 225, 82)'}}>
                 <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Right')}
                 style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
                 <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Right')} />
                 <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Right')} />
                 <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Right')} />
-              </span>
+              </div>
             
-              <span style={{borderBottom: '1px dashed rgb(245, 12, 63)', marginRight: '10px'}}>
+              <div style={{borderBottom: '1px dashed rgb(245, 12, 63)'}}>
                 <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Right')} />
                 <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Right')} />
                 <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Right')} />
                 <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Right')} />
-              </span>
+              </div>
             
-              <span style={{borderBottom: '1px dashed rgb(177, 41, 238)', marginRight: '10px'}}>
+              <div style={{borderBottom: '1px dashed rgb(177, 41, 238)'}}>
                 <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Right')} />
                 <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Right')} />
                 <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Right')} />
-              </span>
+              </div>
             
-              <span style={{borderBottom: '1px dashed rgb(90, 227, 30)'}}>
+              <div style={{borderBottom: '1px dashed rgb(90, 227, 30)'}}>
                 <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Right')} />
                 <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Right')} />
                 <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Right')} />
-              </span>
+              </div>
             </div>
           </div>
 
           
 
-          <div id='runesContainer' className='flexDisplay' style={{marginBottom: '20px'}}>      
+          <div id='runesContainer' className='flexDisplay'>      
             <div style={{width: '45vw'}}>
               <div className='ksStats' id='ksStatsLeft'>
                 <b id='ksTitleLeft' style={{display: 'block', textAlign: 'center'}}>{this.state.keystoneIDLeft.title}</b>
@@ -13509,7 +13491,7 @@ class App extends Component {
             </div>
           </div>
 
-          <div className='flexDisplay'>
+          <div className='flexDisplay' style={{marginTop: '32px'}}>
             <b style={{width: '45vw', textAlign: 'center'}}>Inventory</b>
             <b style={{width: '45vw', textAlign: 'center'}}>Inventory</b>
           </div>
@@ -13528,6 +13510,7 @@ class App extends Component {
               <div className='itemTooltip' style={{left: '20px'}}>
                 {this.invenLeftTT3}
               </div>
+              <br></br>
               <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 4)}></img>
               <div className='itemTooltip' style={{left: '20px'}}>
                 {this.invenLeftTT4}
@@ -13555,6 +13538,7 @@ class App extends Component {
               <div className='itemTooltip' style={{left: '20px'}}>
                 {this.invenRightTT3}
               </div>
+              <br></br>
               <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 4)}></img>
               <div className='itemTooltip' style={{left: '20px'}}>
                 {this.invenRightTT4}
@@ -13597,78 +13581,88 @@ class App extends Component {
             </div>
           </div>
 
-          <div className="flexDisplay" style={{marginTop: '20px'}}>
-            <div className="hiddenLeft">
+          <div className='flexDisplay' style={{marginTop: '32px', marginBottom: '8px'}}>
+            <div className="hiddenLeft" style={{width: '45vw', textAlign: 'center'}}>
               <span>Level: </span>
-              <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px"}}
+              <input id="levelBoxLeft" type="number" min="1" max="18" style={{width: "50px", marginRight: '12px'}}
               onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
+              <span><b>{this.state.champNameLeft} Stats</b></span>
             </div>
-            <div className="hiddenRight" style={{marginLeft: 'auto'}}>
+
+            <div className="hiddenRight" style={{width: '45vw', textAlign: 'center'}}>
               <span>Level: </span>
               <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px"}}
               onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
+              <span><b>{this.state.champNameRight} Stats</b></span>
             </div>
           </div>
 
           <div className="flexDisplay">
-            <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameLeft} Stats</b></span>
-            <span style={{width: '45vw', textAlign: 'center'}}><b>{this.state.champNameRight} Stats</b></span>
-          </div>
-
-          <div className="flexDisplay">
             <div className="statsBox">
-              <img src={healthIcon}  alt='Health Icon'/>
-              <span>Health: </span>{Math.round(this.state.totalStatsLeft.hp)}<br />
-              <img src={armorIcon} alt='Armor Icon'/>
-              <span>Armor: </span>{Math.round(this.state.totalStatsLeft.arm)}<br />
-              <img src={magicResIcon} alt='Magic Resist Icon'/>
-              <span>Magic Resist: </span>{Math.round(this.state.totalStatsLeft.mr)}<br />
-              <img src={ADIcon} alt='Attack Damage Icon'/>
-              <span>Attack Damage: </span>{Math.round(this.state.totalStatsLeft.ad)}<br />
-              <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-              <span>Attack Speed: </span>{this.state.totalStatsLeft.as.toFixed(3)}<br />
-              <img src={critChanceIcon} alt='Crit Chance Icon'/>
-              <span>Crit Chance: </span>{Math.round(this.state.totalStatsLeft.critChance)}%<br />
-              <img src={manaIcon} alt='Mana Icon'/>
-              <span>Mana: </span>{Math.round(this.state.totalStatsLeft.mana)}<br />
-              <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              <span>Mana per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.manaRegen.toFixed(1) 
-              : this.state.totalStatsLeft.manaRegen + '%'}<br />
-              <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              <span>Health per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.hpRegen.toFixed(1)
-              : this.state.totalStatsLeft.hpRegen + '%'}<br />
-              <img src={APIcon} alt='Ability Power Icon'/>
-              <span>Ability Power: </span>{Math.round(this.state.totalStatsLeft.ap)}<br />
-              <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              <span>Ability Haste: </span>{Math.round(this.state.totalStatsLeft.cdr)} / {
-              Math.round(100*(this.state.totalStatsLeft.cdr/(100 + this.state.totalStatsLeft.cdr)))}%
+              <div>
+                <img src={healthIcon}  alt='Health Icon'/>
+                <span>Health: </span>{Math.round(this.state.totalStatsLeft.hp)}<br />
+                <img src={healthRegenIcon} alt='Health Regen Icon'/>
+                <span>Health per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.hpRegen.toFixed(1)
+                : this.state.totalStatsLeft.hpRegen + '%'}<br />
+                <img src={armorIcon} alt='Armor Icon'/>
+                <span>Armor: </span>{Math.round(this.state.totalStatsLeft.arm)}<br />
+                <img src={magicResIcon} alt='Magic Resist Icon'/>
+                <span>Magic Resist: </span>{Math.round(this.state.totalStatsLeft.mr)}<br />
+              </div>
+              <div>
+                <img src={ADIcon} alt='Attack Damage Icon'/>
+                <span>Attack Damage: </span>{Math.round(this.state.totalStatsLeft.ad)}<br />
+                <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
+                <span>Attack Speed: </span>{this.state.totalStatsLeft.as.toFixed(3)}<br />
+                <img src={critChanceIcon} alt='Crit Chance Icon'/>
+                <span>Crit Chance: </span>{Math.round(this.state.totalStatsLeft.critChance)}%<br />
+              </div>
+              <div>
+                <img src={APIcon} alt='Ability Power Icon'/>
+                <span>Ability Power: </span>{Math.round(this.state.totalStatsLeft.ap)}<br />
+                <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
+                <span>Ability Haste: </span>{Math.round(this.state.totalStatsLeft.cdr)} / {
+                Math.round(100*(this.state.totalStatsLeft.cdr/(100 + this.state.totalStatsLeft.cdr)))}%<br />
+                <img src={manaIcon} alt='Mana Icon'/>
+                <span>Mana: </span>{Math.round(this.state.totalStatsLeft.mana)}<br />
+                <img src={manaRegenIcon} alt='Mana Regen Icon'/>
+                <span>Mana per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.manaRegen.toFixed(1)
+                : this.state.totalStatsLeft.manaRegen + '%'}
+              </div>
             </div>
             <div className="statsBox">
-              <img src={healthIcon} alt='Health Icon'/>
-              <span>Health: </span>{Math.round(this.state.totalStatsRight.hp)}<br />
-              <img src={armorIcon} alt='Armor Icon'/>
-              <span>Armor: </span>{Math.round(this.state.totalStatsRight.arm)}<br />
-              <img src={magicResIcon} alt='Magic Resist Icon'/>
-              <span>Magic Resist: </span>{Math.round(this.state.totalStatsRight.mr)}<br />
-              <img src={ADIcon} alt='Attack Damage Icon'/>
-              <span>Attack Damage: </span>{Math.round(this.state.totalStatsRight.ad)}<br />
-              <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-              <span>Attack Speed: </span>{this.state.totalStatsRight.as.toFixed(3)}<br />
-              <img src={critChanceIcon} alt='Crit Chance Icon'/>
-              <span>Crit Chance: </span>{Math.round(this.state.totalStatsRight.critChance)}%<br />
-              <img src={manaIcon} alt='Mana Icon'/>
-              <span>Mana: </span>{Math.round(this.state.totalStatsRight.mana)}<br />
-              <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-              <span>Mana per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.manaRegen.toFixed(1) 
-              : this.state.totalStatsRight.manaRegen + '%'}<br />
-              <img src={healthRegenIcon} alt='Health Regen Icon'/>
-              <span>Health per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.hpRegen.toFixed(1) 
-              : this.state.totalStatsRight.hpRegen + '%'}<br />
-              <img src={APIcon} alt='Ability Power Icon'/>
-              <span>Ability Power: </span>{Math.round(this.state.totalStatsRight.ap)}<br />
-              <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-              <span>Ability Haste: </span>{Math.round(this.state.totalStatsRight.cdr)} / {
-              Math.round(100*(this.state.totalStatsRight.cdr/(100 + this.state.totalStatsRight.cdr)))}%
+              <div>
+                <img src={healthIcon} alt='Health Icon'/>
+                <span>Health: </span>{Math.round(this.state.totalStatsRight.hp)}<br />
+                <img src={healthRegenIcon} alt='Health Regen Icon'/>
+                <span>Health per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.hpRegen.toFixed(1)
+                : this.state.totalStatsRight.hpRegen + '%'}<br />
+                <img src={armorIcon} alt='Armor Icon'/>
+                <span>Armor: </span>{Math.round(this.state.totalStatsRight.arm)}<br />
+                <img src={magicResIcon} alt='Magic Resist Icon'/>
+                <span>Magic Resist: </span>{Math.round(this.state.totalStatsRight.mr)}<br />
+              </div>
+              <div>
+                <img src={ADIcon} alt='Attack Damage Icon'/>
+                <span>Attack Damage: </span>{Math.round(this.state.totalStatsRight.ad)}<br />
+                <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
+                <span>Attack Speed: </span>{this.state.totalStatsRight.as.toFixed(3)}<br />
+                <img src={critChanceIcon} alt='Crit Chance Icon'/>
+                <span>Crit Chance: </span>{Math.round(this.state.totalStatsRight.critChance)}%<br />
+              </div>
+              <div>
+                <img src={APIcon} alt='Ability Power Icon'/>
+                <span>Ability Power: </span>{Math.round(this.state.totalStatsRight.ap)}<br />
+                <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
+                <span>Ability Haste: </span>{Math.round(this.state.totalStatsRight.cdr)} / {Math.round
+                (100*(this.state.totalStatsRight.cdr/(100 + this.state.totalStatsRight.cdr)))}%<br />
+                <img src={manaIcon} alt='Mana Icon'/>
+                <span>Mana: </span>{Math.round(this.state.totalStatsRight.mana)}<br />
+                <img src={manaRegenIcon} alt='Mana Regen Icon'/>
+                <span>Mana per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.manaRegen.toFixed(1)
+                : this.state.totalStatsRight.manaRegen + '%'}
+              </div>
             </div>
           </div>
           <div id='transform'>
