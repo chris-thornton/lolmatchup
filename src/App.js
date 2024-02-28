@@ -152,10 +152,12 @@ class App extends Component {
         title: 'Press the Attack',
         index: 0,
         text: '',
+        typeIcon: forceIcon,
         type: 'Adaptive Damage'
       },
       ksPart2Left: {
         text: '',
+        typeIcon: '',
         type: '',
         bonusADRatio: 0,
         APRatio: 0,
@@ -177,10 +179,12 @@ class App extends Component {
         title: 'Press the Attack',
         index: 0,
         text: '',
+        typeIcon: forceIcon,
         type: 'Adaptive Damage'
       },
       ksPart2Right: {
         text: '',
+        typeIcon: '',
         type: '',
         bonusADRatio: 0,
         APRatio: 0,
@@ -10083,6 +10087,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 0,
         title: 'Press the Attack',
+        typeIcon: forceIcon,
         type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
@@ -10112,6 +10117,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 1,
         title: 'Lethal Tempo',
+        typeIcon: attackSpeedIcon,
         type: 'Attack Speed Ratio'
       },
       [`ksArray${side}`]: asByLvl,
@@ -10142,6 +10148,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 2,
         title: 'Fleet Footwork',
+        typeIcon: healIcon,
         type: 'Heal'
       },
       [`ksArray${side}`]: healByLvl,
@@ -10171,6 +10178,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 3,
         title: 'Conqueror',
+        typeIcon: forceIcon,
         type: 'Adaptive Force'
       },
       [`ksArray${side}`]: forceByLvl,
@@ -10201,6 +10209,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 4,
         title: 'Electrocute',
+        typeIcon: forceIcon,
         type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
@@ -10231,6 +10240,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 5,
         title: 'Predator',
+        typeIcon: forceIcon,
         type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
@@ -10261,6 +10271,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 6,
         title: 'Dark Harvest',
+        typeIcon: forceIcon,
         type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
@@ -10290,6 +10301,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 7,
         title: 'Hail of Blades',
+        typeIcon: attackSpeedIcon,
         type: 'Attack Speed Ratio'
       },
       [`ksArray${side}`]: asByLvl,
@@ -10320,11 +10332,13 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 8,
         title: 'Summon Aery',
+        typeIcon: forceIcon,
         type: 'Adaptive Damage'
       },
       [`ksPart2${side}`]: {
         text: <span>35 to 80, based on level (+0.4 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
           </img>ratio) (+0.25 <span className='textAP'>AP</span><img src={APIcon}></img>ratio) for 2 seconds.</span>,
+        typeIcon: shieldIcon,
         type: 'Shield',
         bonusADRatio: 0.4,
         APRatio: 0.25,
@@ -10362,6 +10376,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 9,
         title: 'Arcane Comet',
+        typeIcon: forceIcon,
         type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
@@ -10391,10 +10406,12 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 10,
         title: 'Phase Rush',
+        typeIcon: moveSpeedIcon,
         type: 'Bonus Movement Speed Ratio'
       },
       [`ksPart2${side}`]: {
         text: '0.15 to 0.4, based on level, and 75% slow resist for 3 seconds.',
+        typeIcon: moveSpeedIcon,
         type: 'Bonus Movement Speed Ratio (ranged)',
         bonusADRatio: 0,
         APRatio: 0,
@@ -10427,11 +10444,13 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 11,
         title: 'Grasp of the Undying (60% effective on ranged champions)',
+        typeIcon: APIcon,
         type: 'Magic Damage'
       },
       [`ksPart2${side}`]: {
         text: <span>0.02 <span className='textHP'>Max HP</span><img src={healthIcon}></img>
         ratio (permanent +5 <span className='textHP'>HP</span><img src={healthIcon}></img>per stack)</span>,
+        typeIcon: healIcon,
         type: 'Heal',
         bonusADRatio: 0,
         APRatio: 0,
@@ -10470,10 +10489,12 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 12,
         title: 'Aftershock',
+        typeIcon: APIcon,
         type: 'Magic Damage'
       },
       [`ksPart2${side}`]: {
         text: '35 +(0.8 bonus ratio) for 2.5 seconds. Capped at 80 to 150, based on level.',
+        typeIcon: armorIcon,
         type: 'Bonus Armor and Magic Resistance',
         bonusADRatio: 0,
         APRatio: 0,
@@ -10511,6 +10532,7 @@ class App extends Component {
       [`keystoneID${side}`]: {
         index: 13,
         title: 'Guardian',
+        typeIcon: shieldIcon,
         type: 'Shield'
       },
       [`ksArray${side}`]: shieldByLvl,
@@ -13143,7 +13165,7 @@ class App extends Component {
           <span key={i}>
             <img className='itemIcon' style={{border: '3px double white'}} src={Array.from(this.itemIcons)[i]}
             onClick={(event) => this.onLegendClick(event, side, i)}></img>
-            <div className='itemTooltip' style={{top: '160px', right: '20vw'}}>
+            <div className='itemTooltip' style={{top: '200px'}}>
               {this.legendItems[i]}
             </div>
           </span>
@@ -13326,8 +13348,8 @@ class App extends Component {
           </div>
 
           <div id='ksIconContainer' className='flexDisplay' style={{marginBottom: '10px'}}>
-            <div id='ksLeft' className='keystone' style={{width: '45vw', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
-              <div style={{borderBottom: '1px dashed rgb(255, 225, 82)'}}>
+            <div id='ksLeft' className='keystone' style={{width: '45vw', display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+              <div>
                 <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Left')}
                 style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
                 <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Left')} />
@@ -13335,29 +13357,28 @@ class App extends Component {
                 <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Left')} />
               </div>
             
-              <div style={{borderBottom: '1px dashed rgb(245, 12, 63)'}}>
+              <div>
                 <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Left')} />
                 <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Left')} />
                 <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Left')} />
                 <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Left')} />
               </div>
             
-              <div style={{borderBottom: '1px dashed rgb(177, 41, 238)'}}>
+              <div>
                 <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
                 <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
                 <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
               </div>
             
-            
-              <span style={{borderBottom: '1px dashed rgb(90, 227, 30)'}}>
+              <div>
                 <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Left')} />
                 <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Left')} />
                 <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Left')} />
-              </span>
+              </div>
             </div>
 
-            <div id='ksRight' className='keystone' style={{width: '45vw', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
-              <div style={{borderBottom: '1px dashed rgb(255, 225, 82)'}}>
+            <div id='ksRight' className='keystone' style={{width: '45vw', display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+              <div>
                 <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Right')}
                 style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
                 <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Right')} />
@@ -13365,23 +13386,29 @@ class App extends Component {
                 <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Right')} />
               </div>
             
-              <div style={{borderBottom: '1px dashed rgb(245, 12, 63)'}}>
+              <div>
                 <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Right')} />
                 <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Right')} />
                 <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Right')} />
                 <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Right')} />
               </div>
             
-              <div style={{borderBottom: '1px dashed rgb(177, 41, 238)'}}>
+              <div>
                 <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Right')} />
                 <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Right')} />
                 <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Right')} />
               </div>
             
-              <div style={{borderBottom: '1px dashed rgb(90, 227, 30)'}}>
+              <div>
                 <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Right')} />
                 <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Right')} />
                 <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Right')} />
+              </div>
+
+              <div>
+                <img className='inspiration' src={`${this.ksIcons[14]}`}></img>
+                <img className='inspiration' src={`${this.ksIcons[15]}`}></img>
+                <img className='inspiration' src={`${this.ksIcons[16]}`}></img>
               </div>
             </div>
           </div>
@@ -13389,42 +13416,8 @@ class App extends Component {
           
 
           <div id='runesContainer' className='flexDisplay'>      
-            <div style={{width: '45vw'}}>
-              <div className='ksStats' id='ksStatsLeft'>
-                <b id='ksTitleLeft' style={{display: 'block', textAlign: 'center'}}>{this.state.keystoneIDLeft.title}</b>
-                <span style={{color: '#ffffb9'}}>{this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
-                <br></br>
-                {this.state.keystoneIDLeft.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
-                {
-                  this.state.keystoneIDLeft.index === 7 ? ''
-                  : this.state.keystoneIDLeft.index === 1 || this.state.keystoneIDLeft.index === 3 || this.state.keystoneIDLeft.index === 10 ? this.state.ksArrayLeft[this.levelLeft - 1]
-                  + Math.round(this.state.ksAPRatioLeft * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft
-                  * (this.runesLeft.ad + this.itemStatsLeft.ad) + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp
-                  + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp))
-                  : Math.round(this.state.ksArrayLeft[this.levelLeft - 1] + (this.state.ksAPRatioLeft
-                    * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad)
-                    + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp
-                    + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp)))
-                }
-                <div style={{display: this.state.ksPart2DisplayLeft}}>
-                  <br></br>
-                  <span style={{color: '#ffffb9'}}>{this.state.ksPart2Left.type}: </span>{this.state.ksPart2Left.text}
-                  <br></br>
-                  {this.state.keystoneIDLeft.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
-                  : <span style={{color: '#f9b54a'}}>Current Cap: </span>}
-                  {this.state.keystoneIDLeft.index !== 10 ? Math.round(this.state.ksPart2Left.array[this.levelLeft - 1]
-                  + (this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap
-                  + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
-                  + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio))
-                  : this.state.ksPart2Left.array[this.levelLeft - 1] }
-                </div>
-                <div>
-                  <br></br>
-                  <span style={{color: 'lightgray'}}>Cooldown: </span>{this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
-                </div>
-              </div>
-
-              <div className='runeBox'>
+            <div className='ksStats' id='ksStatsLeft'>
+              <div className='runeBox' style={{float: 'right'}}>
                 <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
                 <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
                 <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
@@ -13437,45 +13430,52 @@ class App extends Component {
                 <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune7'/>
                 <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
               </div>
+              <div style={{textAlign: 'center', marginBottom: '10px'}}>
+                <img src={this.ksIcons[this.state.keystoneIDLeft.index]}
+                style={{marginRight: '5px'}}></img>
+                <b id='ksTitleLeft' style={{fontSize: '18px', verticalAlign: 'top'}}>
+                  {this.state.keystoneIDLeft.title}</b>
+              </div>
+              <img src={this.state.keystoneIDLeft.typeIcon}></img><span style={{color: '#ffffb9'}}> 
+              {this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
+              <br></br>
+              {this.state.keystoneIDLeft.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
+              {
+                this.state.keystoneIDLeft.index === 7 ? ''
+                : this.state.keystoneIDLeft.index === 1 || this.state.keystoneIDLeft.index === 3 || this.state.keystoneIDLeft.index === 10 ? this.state.ksArrayLeft[this.levelLeft - 1]
+                + Math.round(this.state.ksAPRatioLeft * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft
+                * (this.runesLeft.ad + this.itemStatsLeft.ad) + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp
+                + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp))
+                : Math.round(this.state.ksArrayLeft[this.levelLeft - 1] + (this.state.ksAPRatioLeft
+                  * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad)
+                  + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp
+                  + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp)))
+              }
+              <div style={{display: this.state.ksPart2DisplayLeft}}>
+                <br></br>
+                <img src={this.state.ksPart2Left.typeIcon}></img>
+                {this.state.ksPart2Left.type !== 'Bonus Armor and Magic Resistance'
+                ? '': <img src={magicResIcon}></img>}
+                <span style={{color: '#ffffb9'}}>
+                  {this.state.ksPart2Left.type}: </span>{this.state.ksPart2Left.text}
+                <br></br>
+                {this.state.keystoneIDLeft.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
+                : <span style={{color: '#f9b54a'}}>Current Cap: </span>}
+                {this.state.keystoneIDLeft.index !== 10 ? Math.round(this.state.ksPart2Left.array[this.levelLeft - 1]
+                + (this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap
+                + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
+                + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio))
+                : this.state.ksPart2Left.array[this.levelLeft - 1] }
+              </div>
+              <div>
+                <br></br>
+                <img src={cdrIcon}></img><span style={{color: 'lightpink'}}>
+                  Cooldown: </span>{this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
+              </div>
             </div>
 
-            <div>
-              <div className='ksStats' id='ksStatsRight'>
-                <b id='ksTitleRight' style={{display: 'block', textAlign: 'center'}}>{this.state.keystoneIDRight.title}</b>
-                <span style={{color: '#ffffb9'}}>{this.state.keystoneIDRight.type}: </span>{this.state.keystoneRight}
-                  <br></br>
-                {this.state.keystoneIDRight.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
-                {
-                  this.state.keystoneIDRight.index === 7 ? ''
-                  : this.state.keystoneIDRight.index === 1 || this.state.keystoneIDRight.index === 3 ||
-                  this.state.keystoneIDRight.index === 10 ? this.state.ksArrayRight[this.levelRight - 1]
-                  + Math.round(this.state.ksAPRatioRight * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight
-                  * (this.runesRight.ad + this.itemStatsRight.ad) + this.state.ksHPRatioRight * this.state.totalStatsRight.hp
-                  + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))
-                  : Math.round(this.state.ksArrayRight[this.levelRight - 1] + (this.state.ksAPRatioRight
-                  * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)
-                  + this.state.ksHPRatioRight * this.state.totalStatsRight.hp
-                  + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp)))
-                }
-                <div style={{display: this.state.ksPart2DisplayRight}}>
-                  <br></br>
-                  <span style={{color: '#ffffb9'}}>{this.state.ksPart2Right.type}: </span>{this.state.ksPart2Right.text}
-                  <br></br>
-                  {this.state.keystoneIDRight.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
-                  : <span style={{color: '#f9b54a'}}>Current Cap: </span>}
-                  {this.state.keystoneIDRight.index !== 10 ? Math.round(this.state.ksPart2Right.array[this.levelRight - 1]
-                  + (this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap
-                  + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
-                  + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio))
-                  : this.state.ksPart2Right.array[this.levelRight - 1] }
-                </div>
-                <div>
-                  <br></br>
-                  <span style={{color: 'lightgray'}}>Cooldown: </span>{this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
-                </div>
-              </div>
-
-              <div className='runeBox'>
+            <div className='ksStats' id='ksStatsRight'>
+              <div className='runeBox' style={{float: 'right'}}>
                 <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
                 <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune10'/>
                 <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune11'/>
@@ -13488,15 +13488,54 @@ class App extends Component {
                 <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune16'/>
                 <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
               </div>
+              <div style={{textAlign: 'center', marginBottom: '10px'}}>
+                <img src={this.ksIcons[this.state.keystoneIDRight.index]}
+                style={{marginRight: '5px'}}></img>
+                <b id='ksTitleRight' style={{fontSize: '18px', verticalAlign: 'top'}}>
+                  {this.state.keystoneIDRight.title}</b>
+              </div>
+              <img src={this.state.keystoneIDRight.typeIcon}></img><span style={{color: '#ffffb9'}}>
+                {this.state.keystoneIDRight.type}: </span>{this.state.keystoneRight}
+              <br></br>
+              {this.state.keystoneIDRight.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
+              {
+                this.state.keystoneIDRight.index === 7 ? ''
+                : this.state.keystoneIDRight.index === 1 || this.state.keystoneIDRight.index === 3 ||
+                this.state.keystoneIDRight.index === 10 ? this.state.ksArrayRight[this.levelRight - 1]
+                + Math.round(this.state.ksAPRatioRight * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight
+                * (this.runesRight.ad + this.itemStatsRight.ad) + this.state.ksHPRatioRight * this.state.totalStatsRight.hp
+                + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))
+                : Math.round(this.state.ksArrayRight[this.levelRight - 1] + (this.state.ksAPRatioRight
+                * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)
+                + this.state.ksHPRatioRight * this.state.totalStatsRight.hp
+                + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp)))
+              }
+              <div style={{display: this.state.ksPart2DisplayRight}}>
+                <br></br>
+                <img src={this.state.ksPart2Right.typeIcon}></img>
+                {this.state.ksPart2Right.type !== 'Bonus Armor and Magic Resistance'
+                ? '': <img src={magicResIcon}></img>}
+                <span style={{color: '#ffffb9'}}>
+                  {this.state.ksPart2Right.type}: </span>{this.state.ksPart2Right.text}
+                <br></br>
+                {this.state.keystoneIDRight.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
+                : <span style={{color: '#f9b54a'}}>Current Cap: </span>}
+                {this.state.keystoneIDRight.index !== 10 ? Math.round(this.state.ksPart2Right.array[this.levelRight - 1]
+                + (this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap
+                + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
+                + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio))
+                : this.state.ksPart2Right.array[this.levelRight - 1] }
+              </div>
+              <div>
+                <br></br>
+                <img src={cdrIcon}></img><span style={{color: 'lightpink'}}>
+                  Cooldown: </span>{this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
+              </div>
             </div>
+
           </div>
 
           <div className='flexDisplay' style={{marginTop: '32px'}}>
-            <b style={{width: '45vw', textAlign: 'center'}}>Inventory</b>
-            <b style={{width: '45vw', textAlign: 'center'}}>Inventory</b>
-          </div>
-
-          <div className='flexDisplay'>
             <div className='inventory' id='invenLeft'>
               <img src={blackbg}  onClick={(event) => this.onInvenClick(event, 'Left', 1)}></img>
               <div className='itemTooltip' style={{left: '20px'}}>
@@ -13553,13 +13592,13 @@ class App extends Component {
               </div>
             </div> 
           </div>
-
+          
           <div style={{textAlign: 'center'}}>
             <button type='button' id='itemsToggle' onClick={this.itemsToggle}>Hide Item List</button>
           </div>
 
 
-          <div id='itemContainer' className="flexDisplay" style={{marginTop: '10px'}}>
+          <div id='itemContainer' className="flexDisplay">
             <div id='itemsLeft' style={{position: 'relative'}}>
               <div className='itemMenu'>
                 <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Left')}
@@ -13591,7 +13630,7 @@ class App extends Component {
 
             <div className="hiddenRight" style={{width: '45vw', textAlign: 'center'}}>
               <span>Level: </span>
-              <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px"}}
+              <input id="levelBoxRight" type="number" min="1" max="18" style={{width: "50px", marginRight: '12px'}}
               onKeyDown={this.preventKeyPress} onChange={this.onLevelChange}/>
               <span><b>{this.state.champNameRight} Stats</b></span>
             </div>

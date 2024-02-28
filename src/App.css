@@ -9,6 +9,34 @@ html {
   color: white;
 }
 
+@font-face {
+  font-family: Halifax;
+  src: url('fonts/Halifax/OTF/Halifax-Regular.otf') format('opentype'),
+       url('fonts/Halifax/TTF/Halifax-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Halifax;
+  src: url('fonts/Halifax/OTF/Halifax-Bold.otf') format('opentype'),
+       url('fonts/Halifax/TTF/Halifax-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Halifax;
+  src: url('fonts/Halifax/OTF/Halifax-Thin.otf') format('opentype'),
+       url('fonts/Halifax/TTF/Halifax-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+span, b, h2 {
+  font-family: Halifax, "Fira Sans", Arial, Helvetica, sans-serif;
+}
+
 #homeAbout {
   cursor: pointer;
 }
@@ -60,9 +88,9 @@ button {
  /*border: 2px outset rgb(118, 118, 118);
  border-right-color: rgb(33, 33, 33);
  border-bottom-color: rgb(33, 33, 33);*/
- border: 1px solid rgb(118, 118, 118);
+ /*border: 1px solid rgb(118, 118, 118);
  border-right: 2px solid rgb(33, 33, 33);
- border-bottom: 2px solid rgb(33, 33, 33);
+ border-bottom: 2px solid rgb(33, 33, 33);*/
  box-shadow: 1px 1px #f9b54a;
 }
 
@@ -100,8 +128,15 @@ button {
   display: flex;
   justify-content: space-evenly;
   padding: 10px 0;
+  box-shadow: 0 0 5px #f9b54a;
   /*background:linear-gradient(rgba(33, 33, 33, 1), rgba(118, 118, 118, 0.8));*/
   background: linear-gradient(#003747, #134f61);
+  border-image-slice: 27 27 53 50;
+  border-image-width: 5px 5px 4.7px 4.5px;
+  border-image-outset: 2px 2px 2px 2px;
+  border-image-repeat: stretch stretch;
+  border-image-source: url("./images/border-image-2.png");
+  border-image-width: 5px;
 }
 
 .statsBox span {
@@ -125,6 +160,10 @@ button {
 
 #ksLeft u, #ksRight u {
   text-decoration-color: #ffffb9;
+}
+
+#ksLeft > div, #ksRight > div {
+  margin-right: 32px;
 }
 
 .keystone {
@@ -154,6 +193,10 @@ button {
   box-shadow: 0px 0px 5px rgb(90, 227, 30) inset;
 }
 
+.inspiration:hover{
+  box-shadow: 0px 0px 5px rgb(63, 204, 234) inset;
+}
+
 .keystone hr {
   width: 1px;
   height: 32px;
@@ -167,12 +210,12 @@ button {
 }
 
 .ksStats {
-  width: calc(45vw - 150px);
+  /*width: calc(45vw - 150px);*/
+  width: calc(45vw - 2em);
   box-shadow: 0px 0px 5px #f9b54a;
-  padding: 0px 1em;
+  padding: 1em;
   background: linear-gradient(#003747, rgb(19, 79, 97));
   border-radius: 6px;
-  padding-bottom: 5px;
   display: inline-block;
   border-image-slice: 27 27 53 50;
   border-image-width: 5px 5px 4.7px 4.5px;
@@ -183,7 +226,7 @@ button {
 }
 
 .ksStats img {
-  vertical-align: middle;
+  vertical-align: text-top;
   height: 25px;
   width: 25px;
 }
@@ -193,15 +236,19 @@ span + img {
 }
 
 .runeBox {
-  width: 87px;
-  height: 87px;
-  border: 3px double #ffffb9;
-  border-radius: 10px;
+  width: 99px;
+  height:  95px;
+  text-align: center;
+  border: 1px solid #ffffb9;
+  border-right: 0;
+  border-top: 0;
+  box-shadow: -1px 1px 1px #f9b54a;
+  /*border: 1px solid #ffffb9;
   box-shadow: 0px 0px 5px #f9b54a;
   background: linear-gradient(#003747, #134f61);
   display: inline-block;
   margin-left: 10px;
-  vertical-align: top;
+  vertical-align: top;*/
 }
 
 @media screen and (max-width: 800px) {
@@ -221,10 +268,9 @@ span + img {
 }
 
 .runeImgStyle {
-  vertical-align: middle;
   height: 25px;
   width: 25px;
-  padding: 2px;
+  padding: 3px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -269,7 +315,7 @@ span + img {
 }
 
 .itemMenu {
-  height: 25px;
+  /*height: 25px;*/
   margin-bottom: 5px;
 }
 
