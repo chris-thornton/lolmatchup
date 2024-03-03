@@ -337,6 +337,11 @@ class App extends Component {
   images = {};
   portraits = {};
   ksIcons = {};
+  ksPathIcons = {};
+  ksPathIndexLeft = 0;
+  ksPathIndexRight = 0;
+  ksPathColors = ['rgb(255, 225, 82)', 'rgb(245, 12, 63)',
+     'rgb(177, 41, 238)', 'rgb(90, 227, 30)', 'rgb(63, 204, 234)'];
   itemIcons = {};
   champNameLeft = '';
   champNameRight = '';
@@ -10072,6 +10077,20 @@ class App extends Component {
     }
   }
 
+  ksPathChange = (side, index) => {
+    if (this[`ksPathIndex${side}`] === index) {
+      return
+    };
+    var prevIndex = this[`ksPathIndex${side}`];
+    document.getElementById(`ksPath${side}`).getElementsByTagName('img')[prevIndex].style.border = 'none';
+    document.getElementById(`ksPath${side}`).getElementsByTagName('img')[prevIndex].style.padding = '3px';
+    document.getElementById(`ksPath${side}`).getElementsByTagName('img')[index].style.border = '1px solid ' + this.ksPathColors[index];
+    document.getElementById(`ksPath${side}`).getElementsByTagName('img')[index].style.padding = '2px';
+    document.getElementById(`ksContainer${side}`).getElementsByTagName('div')[prevIndex].style.display = 'none';
+    document.getElementById(`ksContainer${side}`).getElementsByTagName('div')[index].style.display = '';
+    this[`ksPathIndex${side}`] = index;
+  };
+
   pressTheAttack = (side) => {
     if (this.state[`keystoneID${side}`].index === 0) {
       return
@@ -13191,31 +13210,6 @@ class App extends Component {
     }
   };
 
-  keystoneToggle = () => {
-    var ksStuff = ['ksIconContainer', 'runesContainer'];
-    if (document.getElementById('ksToggle').textContent === 'Hide Runes') {
-      ksStuff.map(x => {
-        document.getElementById(`${x}`).style.display = 'none'
-      });
-      document.getElementById('ksToggle').textContent = 'Show Runes';
-    } else {
-      ksStuff.map(x => {
-        document.getElementById(`${x}`).style.display = ''
-      });
-      document.getElementById('ksToggle').textContent = 'Hide Runes';
-    }
-  };
-
-  itemsToggle = () => {
-    if (document.getElementById('itemsToggle').textContent === 'Show Item List') {
-      document.getElementById('itemContainer').style.display = '';
-      document.getElementById('itemsToggle').textContent = 'Hide Item List';
-    } else {
-      document.getElementById('itemContainer').style.display = 'none';
-      document.getElementById('itemsToggle').textContent = 'Show Item List'
-    }
-  };
-
   componentDidMount() {
     function importAll(r) {
       return r.keys().map(r);
@@ -13223,6 +13217,7 @@ class App extends Component {
     this.portraits = importAll(require.context('./portraits/', false, /\.(png|jpe?g|svg)$/));
     this.images = importAll(require.context('./spellicons/', false, /\.(png|jpe?g|svg)$/));
     this.ksIcons = importAll(require.context('./ksicons/', false, /\.(png|jpe?g|svg)$/));
+    this.ksPathIcons = importAll(require.context('./kspathicons/', false, /\.(png|jpe?g|svg)$/));
     var itemObjects = ['itemStatsLeft', 'itemStatsRight'];
     var statObjects = ['totalStatsLeft', 'totalStatsRight', 'bonusStatsLeft', 'bonusStatsRight',
       'tfTotalStatsLeft', 'tfTotalStatsRight'];
@@ -13272,10 +13267,10 @@ class App extends Component {
     this.itemIcons = importAll(require.context('./itemicons/', false, /\.(png|jpe?g|svg)$/));
     this.setState({itemDisplayLeft:  Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
-        <span key={i}>
-          <img className='itemIcon' style={{border: '3px double white'}} src={iconSrc}
+        <span key={i} style={{display: 'inline-block'}} className='itt'>
+          <img className='itemIcon' style={{border: '3px double white', position: 'relative'}} src={iconSrc}
           onClick={(event) => this.onLegendClick(event, 'Left', i)}></img>
-          <div className='itemTooltip' style={{top: '200px'}}>
+          <div className='itemTooltip' style={{marginLeft: '46px'}}>
             {this.legendItems[i]}
           </div>
         </span>
@@ -13283,10 +13278,10 @@ class App extends Component {
     })});
     this.setState({itemDisplayRight:  Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
-        <span key={i}>
-          <img className='itemIcon' style={{border: '3px double white'}} src={iconSrc}
+        <span key={i} style={{display: 'inline-block'}} className='itt'>
+          <img className='itemIcon' style={{border: '3px double white', position: 'relative'}} src={iconSrc}
           onClick={(event) => this.onLegendClick(event, 'Right', i)}></img>
-          <div className='itemTooltip' style={{top: '200px'}}>
+          <div className='itemTooltip' style={{marginLeft: '-400px'}}>
             {this.legendItems[i]}
           </div>
         </span>
@@ -13326,7 +13321,11 @@ class App extends Component {
               alt='Champion Icon' style={{position: 'relative', border: '1px solid #ffffb9'}} />
             </div>
 
+            <div></div>
+
             <img src={versus} alt='Versus Icon' height="64px" width="64px" style={{alignSelf: 'center'}} />
+
+            <div></div>
 
             <div>
               <b style={{fontSize: '20px', display: 'block', textAlign: 'center'}}>{this.state.champNameRight}</b>
@@ -13343,77 +13342,117 @@ class App extends Component {
             </div>
           </div>
 
-          <div style={{textAlign: 'center', marginTop: '32px'}}>
-              <button type='button' id='ksToggle' onClick={this.keystoneToggle}>Hide Runes</button>
-          </div>
+          <div style={{marginTop: '64px'}}></div>
 
-          <div id='ksIconContainer' className='flexDisplay' style={{marginBottom: '10px'}}>
-            <div id='ksLeft' className='keystone' style={{width: '45vw', display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
-              <div>
-                <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Left')}
-                style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
-                <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Left')} />
-                <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Left')} />
-                <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Left')} />
+          <div className='flexDisplay'>
+            <div style={{width: '45vw'}} className='flexDisplay'>
+              <div id='ksPathLeft'>
+                <img className='precision' src={this.ksPathIcons[0]}
+                style={{border: '1px solid rgb(255, 225, 82)', padding: '2px'}}
+                onClick={() => this.ksPathChange('Left', 0)}></img>
+                <img className='domination' src={this.ksPathIcons[1]}
+                onClick={() => this.ksPathChange('Left', 1)}></img>
+                <img className='sorcery' src={this.ksPathIcons[2]}
+                onClick={() => this.ksPathChange('Left', 2)}></img>
+                <img className='resolve' src={this.ksPathIcons[3]}
+                onClick={() => this.ksPathChange('Left', 3)}></img>
+                <img className='inspiration' src={this.ksPathIcons[4]}
+                onClick={() => this.ksPathChange('Left', 4)}></img>
               </div>
-            
-              <div>
-                <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Left')} />
-                <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Left')} />
-                <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Left')} />
-                <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Left')} />
+
+              <div id='ksContainerLeft'>
+                <div>
+                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Left')}
+                  style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
+                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Left')} />
+                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Left')} />
+                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Left')} />
+                </div>
+
+                <div style={{display: 'none'}}>
+                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Left')} />
+                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Left')} />
+                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Left')} />
+                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Left')} />
+                </div>
+
+                <div style={{display: 'none'}}>
+                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
+                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
+                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
+                </div>
+
+                <div style={{display: 'none'}}>
+                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Left')} />
+                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Left')} />
+                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Left')} />
+                </div>
+
+                <div style={{display: 'none'}}>
+                  <img className='inspiration' src={`${this.ksIcons[14]}`}></img>
+                  <img className='inspiration' src={`${this.ksIcons[15]}`}></img>
+                  <img className='inspiration' src={`${this.ksIcons[16]}`}></img>
+                </div>
               </div>
-            
-              <div>
-                <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
-                <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
-                <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
-              </div>
-            
-              <div>
-                <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Left')} />
-                <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Left')} />
-                <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Left')} />
-              </div>
+
+              <div></div>
+              <div></div>
             </div>
 
-            <div id='ksRight' className='keystone' style={{width: '45vw', display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
-              <div>
-                <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Right')}
-                style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
-                <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Right')} />
-                <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Right')} />
-                <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Right')} />
-              </div>
-            
-              <div>
-                <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Right')} />
-                <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Right')} />
-                <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Right')} />
-                <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Right')} />
-              </div>
-            
-              <div>
-                <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Right')} />
-                <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Right')} />
-                <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Right')} />
-              </div>
-            
-              <div>
-                <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Right')} />
-                <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Right')} />
-                <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Right')} />
+            <div style={{width: '45vw'}} className='flexDisplay'>
+              <div id='ksPathRight'>
+                <img className='precision' src={this.ksPathIcons[0]} 
+                style={{border: '1px solid rgb(255, 225, 82)', padding: '2px'}}
+                onClick={() => this.ksPathChange('Right', 0)}></img>
+                <img className='domination' src={this.ksPathIcons[1]}
+                onClick={() => this.ksPathChange('Right', 1)}></img>
+                <img className='sorcery' src={this.ksPathIcons[2]}
+                onClick={() => this.ksPathChange('Right', 2)}></img>
+                <img className='resolve' src={this.ksPathIcons[3]}
+                onClick={() => this.ksPathChange('Right', 3)}></img>
+                <img className='inspiration' src={this.ksPathIcons[4]}
+                onClick={() => this.ksPathChange('Right', 4)}></img>
               </div>
 
-              <div>
-                <img className='inspiration' src={`${this.ksIcons[14]}`}></img>
-                <img className='inspiration' src={`${this.ksIcons[15]}`}></img>
-                <img className='inspiration' src={`${this.ksIcons[16]}`}></img>
+              <div id='ksContainerRight'>
+                <div>
+                  <img className='precision' src={`${this.ksIcons[0]}`} onClick={() => this.pressTheAttack('Right')}
+                  style={{boxShadow: '0px 0px 5px rgb(255, 225, 82) inset'}} />
+                  <img className='precision' src={`${this.ksIcons[1]}`} onClick={() => this.lethalTempo('Right')} />
+                  <img className='precision' src={`${this.ksIcons[2]}`} onClick={() => this.fleetFootwork('Right')} />
+                  <img className='precision' src={`${this.ksIcons[3]}`} onClick={() => this.conqueror('Right')} />
+                </div>
+              
+                <div style={{display: 'none'}}>
+                  <img className='domination' src={`${this.ksIcons[4]}`} onClick={() => this.electrocute('Right')} />
+                  <img className='domination' src={`${this.ksIcons[5]}`} onClick={() => this.predator('Right')} />
+                  <img className='domination' src={`${this.ksIcons[6]}`} onClick={() => this.darkHarvest('Right')} />
+                  <img className='domination' src={`${this.ksIcons[7]}`} onClick={() => this.hailOfBlades('Right')} />
+                </div>
+              
+                <div style={{display: 'none'}}>
+                  <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Right')} />
+                  <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Right')} />
+                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Right')} />
+                </div>
+              
+                <div style={{display: 'none'}}>
+                  <img className='resolve' src={`${this.ksIcons[11]}`} onClick={() => this.grasp('Right')} />
+                  <img className='resolve' src={`${this.ksIcons[12]}`} onClick={() => this.aftershock('Right')} />
+                  <img className='resolve' src={`${this.ksIcons[13]}`} onClick={() => this.guardian('Right')} />
+                </div>
+
+                <div style={{display: 'none'}}>
+                  <img className='inspiration' src={`${this.ksIcons[14]}`}></img>
+                  <img className='inspiration' src={`${this.ksIcons[15]}`}></img>
+                  <img className='inspiration' src={`${this.ksIcons[16]}`}></img>
+                </div>
               </div>
+
+              <div></div>
+              <div></div>
             </div>
           </div>
-
-          
 
           <div id='runesContainer' className='flexDisplay'>      
             <div className='ksStats' id='ksStatsLeft'>
@@ -13535,87 +13574,89 @@ class App extends Component {
 
           </div>
 
-          <div className='flexDisplay' style={{marginTop: '32px'}}>
-            <div className='inventory' id='invenLeft'>
-              <img src={blackbg}  onClick={(event) => this.onInvenClick(event, 'Left', 1)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenLeftTT1}
+          <div style={{marginTop: '64px'}}></div>
+
+          <div className='flexDisplay'>
+            <div style={{width: '45vw', display: 'flex', justifyContent: 'center'}}>
+              <div>
+                <input type="search"  placeholder='Search Item' onChange={(event) => this.onItemSearch(event, 'Left')}
+                  onBlur={this.onItemBlur} id='itemSearchLeft' style={{margin: '50px 20px 0 0', width: '120px'}}/>
               </div>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 2)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenLeftTT2}
-              </div>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 3)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenLeftTT3}
-              </div>
-              <br></br>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 4)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenLeftTT4}
-              </div>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 5)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenLeftTT5}
-              </div>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 6)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenLeftTT6}
+              <div className='inventory' id='invenLeft'>
+                <img src={blackbg}  onClick={(event) => this.onInvenClick(event, 'Left', 1)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenLeftTT1}
+                </div>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 2)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenLeftTT2}
+                </div>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 3)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenLeftTT3}
+                </div>
+                <br></br>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 4)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenLeftTT4}
+                </div>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 5)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenLeftTT5}
+                </div>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 6)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenLeftTT6}
+                </div>
               </div>
             </div>
                 
-            <div className='inventory' id='invenRight'>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 1)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenRightTT1}
+            <div style={{width: '45vw', display: 'flex', justifyContent: 'center'}}>
+              <div className='inventory' id='invenRight'>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 1)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenRightTT1}
+                </div>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 2)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenRightTT2}
+                </div>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 3)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenRightTT3}
+                </div>
+                <br></br>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 4)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenRightTT4}
+                </div>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 5)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenRightTT5}
+                </div>
+                <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 6)}></img>
+                <div className='itemTooltip' style={{left: '20px'}}>
+                  {this.invenRightTT6}
+                </div>
               </div>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 2)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenRightTT2}
+              <div>
+                <input type="search" placeholder='Search Item' onChange={(event) => this.onItemSearch(event, 'Right')}
+                onBlur={this.onItemBlur} id='itemSearchRight' style={{margin: '50px 0 0 20px', width: '120px'}} />
               </div>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 3)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenRightTT3}
-              </div>
-              <br></br>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 4)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenRightTT4}
-              </div>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 5)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenRightTT5}
-              </div>
-              <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 6)}></img>
-              <div className='itemTooltip' style={{left: '20px'}}>
-                {this.invenRightTT6}
-              </div>
-            </div> 
-          </div>
-          
-          <div style={{textAlign: 'center'}}>
-            <button type='button' id='itemsToggle' onClick={this.itemsToggle}>Hide Item List</button>
-          </div>
+            </div>
 
+          </div>
 
           <div id='itemContainer' className="flexDisplay">
             <div id='itemsLeft' style={{position: 'relative'}}>
-              <div className='itemMenu'>
-                <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Left')}
-                onBlur={this.onItemBlur} id='itemSearchLeft' />
-              </div>
               <div className='itemDisplay'>
                 {this.state.itemDisplayLeft}
               </div>
             </div> 
 
             <div id='itemsRight' style={{position: 'relative'}}>
-              <div className='itemMenu'>
-                <input type="search" placeholder='Item Search' onChange={(event) => this.onItemSearch(event, 'Right')}
-                onBlur={this.onItemBlur} id='itemSearchRight' />
-              </div>
-              <div className='itemDisplay'>
-                {this.state.itemDisplayRight}
+              <div className='itemDisplay' style={{textAlign: 'center'}}>
+                <div style={{textAlign: 'left'}}>{this.state.itemDisplayRight}</div>
               </div>
             </div>
           </div>
