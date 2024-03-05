@@ -156,15 +156,15 @@ class App extends Component {
         type: 'Adaptive Damage'
       },
       ksPart2Left: {
-        text: '',
+        text: <span>8% (excluding true damage) for 6 seconds.</span>,
         typeIcon: '',
-        type: '',
+        type: 'Damage Amplification',
         bonusADRatio: 0,
         APRatio: 0,
         HPRatio: 0,
-        array: []
+        array: ''
       },
-      ksPart2DisplayLeft: 'none',
+      ksPart2DisplayLeft: 'block',
       keystoneRight: '40 to 180, based on level.',
       ksArrayRight: [40,48,56,65,73,81,89,98,106,
         114,122,131,139,147,155,164,172,180],
@@ -183,15 +183,15 @@ class App extends Component {
         type: 'Adaptive Damage'
       },
       ksPart2Right: {
-        text: '',
+        text: <span>8% (excluding true damage) for 6 seconds.</span>,
         typeIcon: '',
-        type: '',
+        type: 'Damage Amplification',
         bonusADRatio: 0,
         APRatio: 0,
         HPRatio: 0,
-        array: []
+        array: ''
       },
-      ksPart2DisplayRight: 'none',
+      ksPart2DisplayRight: 'block',
       aphelLeft: {
         ad: '[4.5, 9, 13.5, 18, 22.5, 27]',
         as: '[0.09, 0.18, 0.27, 0.36, 0.45, 0.54]',
@@ -10060,22 +10060,17 @@ class App extends Component {
 
   currentKSRight = {
     tree: 'precision',
-    index: 4
+    index: 0
   }
 
   ksHighlight = (side, runeTree, ksIndex, borderString) => {
-    if (side === 'Right') {
-      ksIndex += document.getElementsByClassName(runeTree).length / 2
-    };
-    document.getElementsByClassName(this[`currentKS${side}`].tree)[this[`currentKS${side}`].index].style.boxShadow = ''
-    /*document.getElementsByClassName(runeTree)[ksIndex].style.borderTop = borderString;
-    document.getElementsByClassName(runeTree)[ksIndex].style.borderBottom = borderString;*/
-    document.getElementsByClassName(runeTree)[ksIndex].style.boxShadow = `0px 0px 5px ${borderString} inset`
+    document.getElementById(`ksContainer${side}`).getElementsByClassName(this[`currentKS${side}`].tree)[this[`currentKS${side}`].index].style.boxShadow = '';
+    document.getElementById(`ksContainer${side}`).getElementsByClassName(runeTree)[ksIndex].style.boxShadow = `0px 0px 5px ${borderString} inset`;
     this[`currentKS${side}`] = {
       tree: runeTree,
       index: ksIndex
     }
-  }
+  };
 
   ksPathChange = (side, index) => {
     if (this[`ksPathIndex${side}`] === index) {
@@ -10117,37 +10112,57 @@ class App extends Component {
       [`ksCD${side}`]: [6,6,6,6,6,6,6,6,6,
       6,6,6,6,6,6,6,6,6],
       [`ksCDText${side}`]: '',
-      [`ksPart2Display${side}`]: 'none'
+      [`ksPart2${side}`]: {
+        text: <span>8% (excluding true damage) for 6 seconds.</span>,
+        typeIcon: '',
+        type: 'Damage Amplification',
+        bonusADRatio: 0,
+        APRatio: 0,
+        HPRatio: 0,
+        array: ''
+      },
+      [`ksPart2Display${side}`]: 'block'
     })
   };
 
   lethalTempo = (side) => {
     if (this.state[`keystoneID${side}`].index === 1) {
       return
-    }
+    };
     this.ksHighlight(side, 'precision', 1, 'rgb(255, 225, 82)');
     var asByLvl = [
-      0.4,0.4412,0.4824,0.5235,0.5647,0.6059,0.6471,0.6882,0.7294,
-      0.7706,0.8118,0.8529,0.8941,0.9353,0.9765,1.0176,1.0588,1.1
+      0.30,0.3388,0.3776,0.4165,0.4553,0.4941,0.5329,0.5718,0.6106,
+      0.6494,0.6882,0.7271,0.7659,0.8047,0.8435,0.8824,0.9212,0.96
     ];
     this.setState({
       [`keystone${side}`]: 
-        '0.4 to 1.1, based on level. Lasts 3 seconds, extended to 6 by attacking an enemy champion.',
+        '0.3 to 0.96, based on level, for 6 seconds.',
       [`keystoneID${side}`]: {
         index: 1,
         title: 'Lethal Tempo',
         typeIcon: attackSpeedIcon,
-        type: 'Attack Speed Ratio'
+        type: 'Attack Speed Ratio (full stacks)'
+      },
+      [`ksPart2${side}`]: {
+        text: '0.216 to 0.48, based on level, for 6 seconds.',
+        typeIcon: attackSpeedIcon,
+        type: 'Attack Speed Ratio (full stacks) (ranged)',
+        bonusADRatio: 0,
+        APRatio: 0,
+        HPRatio: 0,
+        array: [
+          0.216,0.2315,0.2471,0.2626,0.2781,0.2936,0.3092,0.3247,0.3402,
+          0.3558,0.3713,0.3868,0.4024,0.4179,0.4334,0.4489,0.4645,0.48
+        ]
       },
       [`ksArray${side}`]: asByLvl,
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: [6,6,6,6,6,6,6,6,6,
-      6,6,6,6,6,6,6,6,6],
+      [`ksCD${side}`]: '',
       [`ksCDText${side}`]: '',
-      [`ksPart2Display${side}`]: 'none'
+      [`ksPart2Display${side}`]: 'block'
     })
   };
 
@@ -10175,9 +10190,8 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0.3,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: ['','','','','','','','','',
-      '','','','','','','','',''],
-      [`ksCDText${side}`]: 'Energized',
+      [`ksCD${side}`]: '',
+      [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -10205,9 +10219,8 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: ['','','','','','','','','',
-      '','','','','','','','',''],
-      [`ksCDText${side}`]: 'None',
+      [`ksCD${side}`]: '',
+      [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -10310,10 +10323,6 @@ class App extends Component {
       return
     }
     this.ksHighlight(side, 'domination', 3, 'rgb(245, 12, 63)');
-    var asByLvl = [
-      1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,
-      1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,
-    ];
     this.setState({
       [`keystone${side}`]: 
         '1.1 for 3 attacks.',
@@ -10323,7 +10332,7 @@ class App extends Component {
         typeIcon: attackSpeedIcon,
         type: 'Attack Speed Ratio'
       },
-      [`ksArray${side}`]: asByLvl,
+      [`ksArray${side}`]: '',
       [`ksBonusADRatio${side}`]: 0,
       [`ksAPRatio${side}`]: 0,
       [`ksHPRatio${side}`]: 0,
@@ -10373,9 +10382,8 @@ class App extends Component {
       [`ksAPRatio${side}`]: 0.1,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: ['','','','','','','','','',
-      '','','','','','','','',''],
-      [`ksCDText${side}`]: 'Return'
+      [`ksCD${side}`]: '',
+      [`ksCDText${side}`]: ''
     })
   };
 
@@ -10450,7 +10458,7 @@ class App extends Component {
       [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'block'
     })
-  }
+  };
 
   grasp = (side) => {
     if (this.state[`keystoneID${side}`].index === 11) {
@@ -10562,6 +10570,62 @@ class App extends Component {
       [`ksCD${side}`]: [
         70,68.24,66.47,64.71,62.94,61.18,59.41,57.65,55.88,
         54.12,52.35,50.59,48.82,47.06,45.29,43.53,41.76,40
+      ],
+      [`ksCDText${side}`]: '',
+      [`ksPart2Display${side}`]: 'none'
+    })
+  };
+
+  glacialAugment = (side) => {
+    if (this.state[`keystoneID${side}`].index === 14) {
+      return
+    };
+    this.ksHighlight(side, 'inspiration', 0, 'rgb(63, 204, 234)');
+    this.setState({
+      [`keystone${side}`]: '15% (self excluded)',
+      [`keystoneID${side}`]: {
+        index: 14,
+        title: 'Glacial Augment',
+        typeIcon: '',
+        type: 'Damage Reduction to Allies'
+      },
+      [`ksArray${side}`]: '',
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
+      [`ksCD${side}`]: [
+        25,25,25,25,25,25,25,25,25,
+        25,25,25,25,25,25,25,25,25
+      ],
+      [`ksCDText${side}`]: '',
+      [`ksPart2Display${side}`]: 'none'
+    })
+  };
+
+  firstStrike = (side) => {
+    if (this.state[`keystoneID${side}`].index === 16) {
+      return
+    };
+    this.ksHighlight(side, 'inspiration', 1, 'rgb(63, 204, 234)');
+    this.setState({
+      [`keystone${side}`]: <span>7% of post-mitigation dealt over 3 seconds. Grants 5 <img src={goldIcon} 
+      style={{width: '20px', height: '15px', marginTop: '2px'}}>
+        </img> gold + (100% Melee / 70% Ranged) of bonus damage.</span>,
+      [`keystoneID${side}`]: {
+        index: 16,
+        title: 'First Strike',
+        typeIcon: trueDmgIcon,
+        type: 'True Damage'
+      },
+      [`ksArray${side}`]: '',
+      [`ksBonusADRatio${side}`]: 0,
+      [`ksAPRatio${side}`]: 0,
+      [`ksHPRatio${side}`]: 0,
+      [`ksBonusHPRatio${side}`]: 0,
+      [`ksCD${side}`]: [
+        25,24.41,23.82,23.24,22.65,22.06,21.47,20.88,20.29,
+        19.71,19.12,18.53,17.94,17.35,16.76,16.18,15.59,15
       ],
       [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
@@ -13178,13 +13242,17 @@ class App extends Component {
   ]
 
   onItemSearch = (event, side) => {
+    var marginForSide = '46px';
+    if (side === 'Right') {
+      marginForSide = '-400px'
+    };
     this.setState({[`itemDisplay${side}`]:  this.legendList.map((itemName, i) => {
       if (itemName.toLowerCase().includes(event.target.value.toLowerCase()) ) {
         return (
-          <span key={i}>
+          <span key={i} style={{display: 'inline-block'}}>
             <img className='itemIcon' style={{border: '3px double white'}} src={Array.from(this.itemIcons)[i]}
             onClick={(event) => this.onLegendClick(event, side, i)}></img>
-            <div className='itemTooltip' style={{top: '200px'}}>
+            <div className='itemTooltip' style={{marginLeft: marginForSide}}>
               {this.legendItems[i]}
             </div>
           </span>
@@ -13265,7 +13333,7 @@ class App extends Component {
       }
     );
     this.itemIcons = importAll(require.context('./itemicons/', false, /\.(png|jpe?g|svg)$/));
-    this.setState({itemDisplayLeft:  Array.from(this.itemIcons).map((iconSrc, i) => {
+    this.setState({itemDisplayLeft: Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
         <span key={i} style={{display: 'inline-block'}} className='itt'>
           <img className='itemIcon' style={{border: '3px double white', position: 'relative'}} src={iconSrc}
@@ -13389,9 +13457,10 @@ class App extends Component {
                 </div>
 
                 <div style={{display: 'none'}}>
-                  <img className='inspiration' src={`${this.ksIcons[14]}`}></img>
-                  <img className='inspiration' src={`${this.ksIcons[15]}`}></img>
-                  <img className='inspiration' src={`${this.ksIcons[16]}`}></img>
+                  <img className='inspiration' src={`${this.ksIcons[14]}`} 
+                  onClick={() => this.glacialAugment('Left')}></img>
+                  <img className='inspiration' src={`${this.ksIcons[16]}`}
+                  onClick={() => this.firstStrike('Left')}></img>
                 </div>
               </div>
 
@@ -13443,9 +13512,10 @@ class App extends Component {
                 </div>
 
                 <div style={{display: 'none'}}>
-                  <img className='inspiration' src={`${this.ksIcons[14]}`}></img>
-                  <img className='inspiration' src={`${this.ksIcons[15]}`}></img>
-                  <img className='inspiration' src={`${this.ksIcons[16]}`}></img>
+                  <img className='inspiration' src={`${this.ksIcons[14]}`}
+                  onClick={() => this.glacialAugment('Right')}></img>
+                  <img className='inspiration' src={`${this.ksIcons[16]}`}
+                  onClick={() => this.firstStrike('Right')}></img>
                 </div>
               </div>
 
@@ -13475,16 +13545,18 @@ class App extends Component {
                 <b id='ksTitleLeft' style={{fontSize: '18px', verticalAlign: 'top'}}>
                   {this.state.keystoneIDLeft.title}</b>
               </div>
-              <img src={this.state.keystoneIDLeft.typeIcon}></img><span style={{color: '#ffffb9'}}> 
+              {this.state.keystoneIDLeft.typeIcon === '' ? '' : 
+              <img src={this.state.keystoneIDLeft.typeIcon}></img>}
+              <span style={{color: '#ffffb9'}}> 
               {this.state.keystoneIDLeft.type}: </span>{this.state.keystoneLeft}
               <br></br>
-              {this.state.keystoneIDLeft.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
+              {this.state.ksArrayLeft === '' ? '' :
+              this.state.keystoneIDLeft.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
               {
-                this.state.keystoneIDLeft.index === 7 ? ''
-                : this.state.keystoneIDLeft.index === 1 || this.state.keystoneIDLeft.index === 3 || this.state.keystoneIDLeft.index === 10 ? this.state.ksArrayLeft[this.levelLeft - 1]
-                + Math.round(this.state.ksAPRatioLeft * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft
-                * (this.runesLeft.ad + this.itemStatsLeft.ad) + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp
-                + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp))
+                this.state.ksArrayLeft === '' ? '' : 
+                (!this.state.ksAPRatioLeft && !this.state.ksBonusADRatioLeft 
+                  && !this.state.ksHPRatioLeft && !this.state.ksBonusHPRatioLeft)
+                ? this.state.ksArrayLeft[this.levelLeft - 1]
                 : Math.round(this.state.ksArrayLeft[this.levelLeft - 1] + (this.state.ksAPRatioLeft
                   * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad)
                   + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp
@@ -13492,25 +13564,29 @@ class App extends Component {
               }
               <div style={{display: this.state.ksPart2DisplayLeft}}>
                 <br></br>
-                <img src={this.state.ksPart2Left.typeIcon}></img>
+                {this.state.ksPart2Left.typeIcon === '' ? '' : <img src={this.state.ksPart2Left.typeIcon}></img>}
                 {this.state.ksPart2Left.type !== 'Bonus Armor and Magic Resistance'
                 ? '': <img src={magicResIcon}></img>}
                 <span style={{color: '#ffffb9'}}>
                   {this.state.ksPart2Left.type}: </span>{this.state.ksPart2Left.text}
                 <br></br>
-                {this.state.keystoneIDLeft.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
+                {this.state.ksPart2Left.array === '' ? '' :
+                this.state.keystoneIDLeft.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
                 : <span style={{color: '#f9b54a'}}>Current Cap: </span>}
-                {this.state.keystoneIDLeft.index !== 10 ? Math.round(this.state.ksPart2Left.array[this.levelLeft - 1]
+                {this.state.ksPart2Left.array === '' ? '' : (this.state.ksPart2Left.APRatio 
+                || this.state.ksPart2Left.bonusADRatio || this.state.ksPart2Left.HPRatio)
+                ? Math.round(this.state.ksPart2Left.array[this.levelLeft - 1]
                 + (this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap
                 + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
                 + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio))
                 : this.state.ksPart2Left.array[this.levelLeft - 1] }
               </div>
-              <div>
+              {this.state.ksCDLeft === '' ? '' :
+                <div>
                 <br></br>
                 <img src={cdrIcon}></img><span style={{color: 'lightpink'}}>
                   Cooldown: </span>{this.state.ksCDLeft[this.levelLeft - 1]}{this.state.ksCDTextLeft}
-              </div>
+              </div>}
             </div>
 
             <div className='ksStats' id='ksStatsRight'>
@@ -13533,17 +13609,18 @@ class App extends Component {
                 <b id='ksTitleRight' style={{fontSize: '18px', verticalAlign: 'top'}}>
                   {this.state.keystoneIDRight.title}</b>
               </div>
-              <img src={this.state.keystoneIDRight.typeIcon}></img><span style={{color: '#ffffb9'}}>
+              {this.state.keystoneIDRight.typeIcon === '' ? '' :
+              <img src={this.state.keystoneIDRight.typeIcon}></img>}
+              <span style={{color: '#ffffb9'}}>
                 {this.state.keystoneIDRight.type}: </span>{this.state.keystoneRight}
               <br></br>
-              {this.state.keystoneIDRight.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
+              {this.state.ksArrayRight === '' ? '' :
+              this.state.keystoneIDRight.index !== 7 ? <span style={{color: '#f9b54a'}}>Current Value: </span> : ''}
               {
-                this.state.keystoneIDRight.index === 7 ? ''
-                : this.state.keystoneIDRight.index === 1 || this.state.keystoneIDRight.index === 3 ||
-                this.state.keystoneIDRight.index === 10 ? this.state.ksArrayRight[this.levelRight - 1]
-                + Math.round(this.state.ksAPRatioRight * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight
-                * (this.runesRight.ad + this.itemStatsRight.ad) + this.state.ksHPRatioRight * this.state.totalStatsRight.hp
-                + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp))
+                this.state.ksArrayRight === '' ? '' :
+                (!this.state.ksAPRatioRight && !this.state.ksBonusADRatioRight 
+                  && !this.state.ksHPRatioRight && !this.state.ksBonusHPRatioRight)
+                 ? this.state.ksArrayRight[this.levelRight - 1]
                 : Math.round(this.state.ksArrayRight[this.levelRight - 1] + (this.state.ksAPRatioRight
                 * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)
                 + this.state.ksHPRatioRight * this.state.totalStatsRight.hp
@@ -13551,25 +13628,30 @@ class App extends Component {
               }
               <div style={{display: this.state.ksPart2DisplayRight}}>
                 <br></br>
-                <img src={this.state.ksPart2Right.typeIcon}></img>
+                {this.state.ksPart2Right.typeIcon === '' ? '' : <img src={this.state.ksPart2Right.typeIcon}></img>}
                 {this.state.ksPart2Right.type !== 'Bonus Armor and Magic Resistance'
                 ? '': <img src={magicResIcon}></img>}
                 <span style={{color: '#ffffb9'}}>
                   {this.state.ksPart2Right.type}: </span>{this.state.ksPart2Right.text}
                 <br></br>
-                {this.state.keystoneIDRight.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
+                {this.state.ksPart2Right.array === '' ? '' : 
+                this.state.keystoneIDRight.index !== 12 ? <span style={{color: '#f9b54a'}}>Current Value: </span>
                 : <span style={{color: '#f9b54a'}}>Current Cap: </span>}
-                {this.state.keystoneIDRight.index !== 10 ? Math.round(this.state.ksPart2Right.array[this.levelRight - 1]
+                {this.state.ksPart2Right.array === '' ? '' : 
+                (this.state.ksPart2Right.APRatio || this.state.ksPart2Right.bonusADRatio 
+                  || this.state.ksPart2Right.HPRatio)
+                ? Math.round(this.state.ksPart2Right.array[this.levelRight - 1]
                 + (this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap
                 + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
                 + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio))
                 : this.state.ksPart2Right.array[this.levelRight - 1] }
               </div>
-              <div>
+              {this.state.ksCDRight === '' ? '' :
+                <div>
                 <br></br>
                 <img src={cdrIcon}></img><span style={{color: 'lightpink'}}>
                   Cooldown: </span>{this.state.ksCDRight[this.levelRight - 1]}{this.state.ksCDTextRight}
-              </div>
+              </div>}
             </div>
 
           </div>
@@ -13655,8 +13737,8 @@ class App extends Component {
             </div> 
 
             <div id='itemsRight' style={{position: 'relative'}}>
-              <div className='itemDisplay' style={{textAlign: 'center'}}>
-                <div style={{textAlign: 'left'}}>{this.state.itemDisplayRight}</div>
+              <div className='itemDisplay'>
+                {this.state.itemDisplayRight}
               </div>
             </div>
           </div>
