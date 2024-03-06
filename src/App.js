@@ -10172,13 +10172,13 @@ class App extends Component {
     }
     this.ksHighlight(side, 'precision', 2, 'rgb(255, 225, 82)');
     var healByLvl = [
-      10,15.29,20.59,25.88,31.18,36.47,41.76,47.06,52.35,
-      57.65,62.94,68.24,73.53,78.82,84.12,89.41,94.71,100
+      10,17.06,24.12,31.18,38.24,45.29,52.35,59.41,66.47,
+      73.53,80.59,87.65,94.71,101.76,108.82,115.88,122.94,130
     ];
     this.setState({
       [`keystone${side}`]: 
-        <span>10 to 100, based on level (+0.4 <span className='textAD'>Bonus AD</span><img src={ADIcon}></img>
-        ratio) (+0.3 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
+        <span>10 to 130, based on level (+0.1 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
+        </img>ratio) (+0.05 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 2,
         title: 'Fleet Footwork',
@@ -10186,8 +10186,8 @@ class App extends Component {
         type: 'Heal'
       },
       [`ksArray${side}`]: healByLvl,
-      [`ksBonusADRatio${side}`]: 0.4,
-      [`ksAPRatio${side}`]: 0.3,
+      [`ksBonusADRatio${side}`]: 0.1,
+      [`ksAPRatio${side}`]: 0.05,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: '',
@@ -10202,12 +10202,12 @@ class App extends Component {
     }
     this.ksHighlight(side, 'precision', 3, 'rgb(255, 225, 82)');
     var forceByLvl = [
-      2,2.18,2.35,2.53,2.71,2.88,3.06,3.24,3.41,
-      3.59,3.76,3.94,4.12,4.29,4.47,4.65,4.82,5
+      1.8,1.93,2.06,2.19,2.32,2.45,2.58,2.71,2.84,
+      2.96,3.09,3.22,3.35,3.48,3.61,3.74,3.87,4
     ];
     this.setState({
       [`keystone${side}`]: 
-        '2 to 5 per stack, based on level. Stacks up to 12 times for 24-60 max.',
+        '1.8 to 4 per stack, based on level. Stacks up to 12 times for 21.6-48 max.',
       [`keystoneID${side}`]: {
         index: 3,
         title: 'Conqueror',
@@ -10231,13 +10231,13 @@ class App extends Component {
     }
     this.ksHighlight(side, 'domination', 0, 'rgb(245, 12, 63)');
     var dmgByLvl = [
-      30,38.82,47.65,56.47,65.29,74.12,82.94,91.76,100.59,
-      109.41,118.24,127.06,135.88,144.71,153.53,162.35,171.18,180
+      30,41.18,52.35,63.53,74.71,85.88,97.06,108.24,119.41,
+      130.59,141.76,152.94,164.12,175.29,186.47,197.65,208.82,220
     ];
     this.setState({
       [`keystone${side}`]: 
-        <span>30 to 180, based on level (+0.4 <span className='textAD'>Bonus AD</span><img src={ADIcon}></img>
-        ratio) (+0.25 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
+        <span>30 to 220, based on level (+0.1 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
+        </img>ratio) (+0.05 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 4,
         title: 'Electrocute',
@@ -10245,8 +10245,8 @@ class App extends Component {
         type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
-      [`ksBonusADRatio${side}`]: 0.4,
-      [`ksAPRatio${side}`]: 0.25,
+      [`ksBonusADRatio${side}`]: 0.1,
+      [`ksAPRatio${side}`]: 0.05,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: [25,24.71,24.41,24.12,23.82,23.53,23.24,22.94,22.65,
@@ -10262,13 +10262,13 @@ class App extends Component {
     }
     this.ksHighlight(side, 'domination', 1, 'rgb(245, 12, 63)');
     var dmgByLvl = [
-      40,44.71,49.41,54.12,58.82,63.53,68.24,72.94,77.65,
-      82.35,87.06,91.76,96.47,101.18,105.88,110.59,115.29,120
+      20,29.41,38.82,48.24,57.65,67.06,76.47,85.88,95.29,
+      104.71,114.12,123.53,132.94,142.35,151.76,161.18,170.59,180
     ];
     this.setState({
       [`keystone${side}`]: 
-        <span>40 to 120, based on level (+0.2 <span className='textAD'>Bonus AD</span><img src={ADIcon}></img>
-        ratio) (+0.1 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
+        <span>20 to 180, based on level (+0.25 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
+        </img>ratio) (+0.15 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 5,
         title: 'Predator',
@@ -10276,12 +10276,12 @@ class App extends Component {
         type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
-      [`ksBonusADRatio${side}`]: 0.2,
-      [`ksAPRatio${side}`]: 0.1,
+      [`ksBonusADRatio${side}`]: 0.25,
+      [`ksAPRatio${side}`]: 0.15,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: [90,88.24,86.47,84.71,82.94,81.18,79.41,77.65,75.88,
-        74.12,72.35,70.59,68.82,67.06,65.29,63.53,61.76,60],
+      [`ksCD${side}`]: [120,116.47,112.94,109.41,105.88,102.35,98.82,95.29,91.76,
+        88.24,84.71,81.18,77.65,74.12,70.59,67.06,63.53,60],
       [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
     })
@@ -10293,13 +10293,13 @@ class App extends Component {
     }
     this.ksHighlight(side, 'domination', 2, 'rgb(245, 12, 63)');
     var dmgByLvl = [
-      20,22.35,24.71,27.06,29.41,31.76,34.12,36.47,38.82,
-      41.18,43.53,45.88,48.24,50.59,52.94,55.29,57.65,60
+      20,23.53,27.06,30.59,34.12,37.65,41.18,44.71,48.24,
+      51.76,55.29,58.82,62.35,65.88,69.41,72.94,76.47,80
     ];
     this.setState({
       [`keystone${side}`]: 
-        <span>20 to 60, based on level (+5 per soul) (+0.25 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
-          </img>ratio) (+0.15 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
+        <span>20 to 80, based on level (+5 per soul) (+0.1 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
+        </img>ratio) (+0.05 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 6,
         title: 'Dark Harvest',
@@ -10307,13 +10307,13 @@ class App extends Component {
         type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
-      [`ksBonusADRatio${side}`]: 0.25,
-      [`ksAPRatio${side}`]: 0.15,
+      [`ksBonusADRatio${side}`]: 0.1,
+      [`ksAPRatio${side}`]: 0.05,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: [45,45,45,45,45,45,45,45,45,
         45,45,45,45,45,45,45,45,45],
-      [`ksCDText${side}`]: ', reduced to 1.5 on takedown.',
+      [`ksCDText${side}`]: ' (reduced to 1.5 on takedown)',
       [`ksPart2Display${side}`]: 'none'
     })
   };
@@ -10350,13 +10350,13 @@ class App extends Component {
     }
     this.ksHighlight(side, 'sorcery', 0, 'rgb(177, 41, 238)');
     var dmgByLvl = [
-      10,11.76,13.53,15.29,17.06,18.82,20.59,22.35,24.12,
-      25.88,27.65,29.41,31.18,32.94,34.71,36.47,38.24,40
+      10,12.35,14.71,17.06,19.41,21.76,24.12,26.47,28.82,
+      31.18,33.53,35.88,38.24,40.59,42.94,45.29,47.65,50
     ];
     this.setState({
       [`keystone${side}`]: 
-        <span>10 to 40, based on level (+0.15 <span className='textAD'>Bonus AD</span><img src={ADIcon}></img>
-        ratio) (+0.1 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
+        <span>10 to 50, based on level (+0.1 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
+        </img>ratio) (+0.05 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 8,
         title: 'Summon Aery',
@@ -10364,22 +10364,22 @@ class App extends Component {
         type: 'Adaptive Damage'
       },
       [`ksPart2${side}`]: {
-        text: <span>35 to 80, based on level (+0.4 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
-          </img>ratio) (+0.25 <span className='textAP'>AP</span><img src={APIcon}></img>ratio) for 2 seconds.</span>,
+        text: <span>30 to 100, based on level (+0.1 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
+          </img>ratio) (+0.05 <span className='textAP'>AP</span><img src={APIcon}></img>ratio) for 2 seconds.</span>,
         typeIcon: shieldIcon,
         type: 'Shield',
-        bonusADRatio: 0.4,
-        APRatio: 0.25,
+        bonusADRatio: 0.1,
+        APRatio: 0.05,
         HPRatio: 0,
         array: [
-          35,37.65,40.29,42.94,45.59,48.24,50.88,53.53,56.18,
-          58.82,61.47,64.12,66.76,69.41,72.06,74.71,77.35,80
+          30,34.12,38.24,42.35,46.47,50.59,54.71,58.82,62.94,
+          67.06,71.18,75.29,79.41,83.53,87.65,91.76,95.88,100
         ]
       },
       [`ksPart2Display${side}`]: 'block',
       [`ksArray${side}`]: dmgByLvl,
-      [`ksBonusADRatio${side}`]: 0.15,
-      [`ksAPRatio${side}`]: 0.1,
+      [`ksBonusADRatio${side}`]: 0.1,
+      [`ksAPRatio${side}`]: 0.05,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: '',
@@ -10393,13 +10393,13 @@ class App extends Component {
     }
     this.ksHighlight(side, 'sorcery', 1, 'rgb(177, 41, 238)');
     var dmgByLvl = [
-      30,34.12,38.24,42.35,46.47,50.59,54.71,58.82,62.94,
-      67.06,71.18,75.29,79.41,83.53,87.65,91.76,95.88,100
+      30,35.88,41.76,47.65,53.53,59.41,65.29,71.18,77.06,
+      82.94,88.82,94.71,100.59,106.47,112.35,118.24,124.12,130
     ];
     this.setState({
       [`keystone${side}`]: 
-        <span>30 to 100, based on level (+0.35 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
-          </img>ratio) (+0.2 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
+        <span>30 to 130, based on level (+0.1 <span className='textAD'>Bonus AD</span><img src={ADIcon}>
+        </img>ratio) (+0.05 <span className='textAP'>AP</span><img src={APIcon}></img>ratio).</span>,
       [`keystoneID${side}`]: {
         index: 9,
         title: 'Arcane Comet',
@@ -10407,56 +10407,14 @@ class App extends Component {
         type: 'Adaptive Damage'
       },
       [`ksArray${side}`]: dmgByLvl,
-      [`ksBonusADRatio${side}`]: 0.35,
-      [`ksAPRatio${side}`]: 0.2,
+      [`ksBonusADRatio${side}`]: 0.1,
+      [`ksAPRatio${side}`]: 0.05,
       [`ksHPRatio${side}`]: 0,
       [`ksBonusHPRatio${side}`]: 0,
       [`ksCD${side}`]: [20,19.29,18.59,17.88,17.18,16.47,15.76,15.06,14.35,
         13.65,12.94,12.24,11.53,10.82,10.12,9.41,8.71,8],
       [`ksCDText${side}`]: ' (reduced by dmg: spells 20%, AoE 10% per enemy, DoT 5%)',
       [`ksPart2Display${side}`]: 'none'
-    })
-  };
-
-  phaseRush = (side) => {
-    if (this.state[`keystoneID${side}`].index === 10) {
-      return
-    }
-    this.ksHighlight(side, 'sorcery', 2, 'rgb(177, 41, 238)');
-    var msByLvl = [
-      0.3,0.3176,0.3353,0.3529,0.3706,0.3882,0.4059,0.4235,0.4412,
-      0.4588,0.4765,0.4941,0.5118,0.5294,0.5471,0.5647,0.5824,0.6
-    ];
-    this.setState({
-      [`keystone${side}`]: 
-        '0.3 to 0.6, based on level, and 75% slow resist for 3 seconds.',
-      [`keystoneID${side}`]: {
-        index: 10,
-        title: 'Phase Rush',
-        typeIcon: moveSpeedIcon,
-        type: 'Bonus Movement Speed Ratio'
-      },
-      [`ksPart2${side}`]: {
-        text: '0.15 to 0.4, based on level, and 75% slow resist for 3 seconds.',
-        typeIcon: moveSpeedIcon,
-        type: 'Bonus Movement Speed Ratio (ranged)',
-        bonusADRatio: 0,
-        APRatio: 0,
-        HPRatio: 0,
-        array: [
-          0.15,0.1647,0.1794,0.1941,0.2088,0.2235,0.2382,0.2529,0.2676,
-          0.2824,0.2971,0.3118,0.3265,0.3412,0.3559,0.3706,0.3853,0.4
-        ]
-      },
-      [`ksArray${side}`]: msByLvl,
-      [`ksBonusADRatio${side}`]: 0,
-      [`ksAPRatio${side}`]: 0,
-      [`ksHPRatio${side}`]: 0,
-      [`ksBonusHPRatio${side}`]: 0,
-      [`ksCD${side}`]: [30,28.82,27.65,26.47,25.29,24.12,22.94,21.76,20.59,
-        19.41,18.24,17.06,15.88,14.71,13.53,12.35,11.18,10],
-      [`ksCDText${side}`]: '',
-      [`ksPart2Display${side}`]: 'block'
     })
   };
 
@@ -10467,7 +10425,7 @@ class App extends Component {
     this.ksHighlight(side, 'resolve', 0, 'rgb(90, 227, 30)');
     this.setState({
       [`keystone${side}`]: 
-        <span>0.04 <span className='textHP'>Max HP</span><img src={healthIcon}></img>ratio</span>,
+        <span>0.035 <span className='textHP'>Max HP</span><img src={healthIcon}></img>ratio</span>,
       [`keystoneID${side}`]: {
         index: 11,
         title: 'Grasp of the Undying (60% effective on ranged champions)',
@@ -10475,15 +10433,15 @@ class App extends Component {
         type: 'Magic Damage'
       },
       [`ksPart2${side}`]: {
-        text: <span>0.02 <span className='textHP'>Max HP</span><img src={healthIcon}></img>
-        ratio (permanent +5 <span className='textHP'>HP</span><img src={healthIcon}></img>per stack)</span>,
+        text: <span>3 + 0.012 <span className='textHP'>Max HP</span><img src={healthIcon}></img>
+        ratio (permanent +7 <span className='textHP'>HP</span><img src={healthIcon}></img>per stack)</span>,
         typeIcon: healIcon,
         type: 'Heal',
         bonusADRatio: 0,
         APRatio: 0,
-        HPRatio: 0.02,
+        HPRatio: 0.012,
         array: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
         ]
       },
       [`ksPart2Display${side}`]: 'block',
@@ -10549,13 +10507,13 @@ class App extends Component {
     }
     this.ksHighlight(side, 'resolve', 2, 'rgb(90, 227, 30)');
     var shieldByLvl = [
-      50,54.71,59.41,64.12,68.82,73.53,78.24,82.94,87.65,
-      92.35,97.06,101.76,106.47,111.18,115.88,120.59,125.29,130
+      45,49.41,53.82,58.24,62.65,67.06,71.47,75.88,80.29,
+      84.71,89.12,93.53,97.94,102.35,106.76,111.18,115.59,120
     ];
     this.setState({
       [`keystone${side}`]: 
-        <span>50 to 130, based on level (+0.09 <span className='textHP'>Bonus HP</span><img src={healthIcon}>
-        </img>ratio) (+0.15 <span className='textAP'>AP</span><img src={APIcon}></img>ratio) for 2 seconds.</span>,
+        <span>45 to 120, based on level (+0.08 <span className='textHP'>Bonus HP</span><img src={healthIcon}>
+        </img>ratio) (+0.125 <span className='textAP'>AP</span><img src={APIcon}></img>ratio) for 2 seconds.</span>,
       [`keystoneID${side}`]: {
         index: 13,
         title: 'Guardian',
@@ -10564,12 +10522,12 @@ class App extends Component {
       },
       [`ksArray${side}`]: shieldByLvl,
       [`ksBonusADRatio${side}`]: 0,
-      [`ksAPRatio${side}`]: 0.15,
+      [`ksAPRatio${side}`]: 0.125,
       [`ksHPRatio${side}`]: 0,
-      [`ksBonusHPRatio${side}`]: 0.09,
+      [`ksBonusHPRatio${side}`]: 0.08,
       [`ksCD${side}`]: [
-        70,68.24,66.47,64.71,62.94,61.18,59.41,57.65,55.88,
-        54.12,52.35,50.59,48.82,47.06,45.29,43.53,41.76,40
+        90,87.06,84.12,81.18,78.24,75.29,72.35,69.41,66.47,
+        63.53,60.59,57.65,54.71,51.76,48.82,45.88,42.94,40
       ],
       [`ksCDText${side}`]: '',
       [`ksPart2Display${side}`]: 'none'
@@ -13447,7 +13405,6 @@ class App extends Component {
                 <div style={{display: 'none'}}>
                   <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Left')} />
                   <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Left')} />
-                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Left')} />
                 </div>
 
                 <div style={{display: 'none'}}>
@@ -13502,7 +13459,6 @@ class App extends Component {
                 <div style={{display: 'none'}}>
                   <img className='sorcery' src={`${this.ksIcons[8]}`} onClick={() => this.summonAery('Right')} />
                   <img className='sorcery' src={`${this.ksIcons[9]}`} onClick={() => this.arcaneComet('Right')} />
-                  <img className='sorcery' src={`${this.ksIcons[10]}`} onClick={() => this.phaseRush('Right')} />
                 </div>
               
                 <div style={{display: 'none'}}>
