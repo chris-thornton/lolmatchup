@@ -307,7 +307,7 @@ span + img {
   background: linear-gradient(#003747, #134f61);
   max-height: 208px;
   overflow-y: auto;
-  text-align: left;
+  text-align: center;
   padding-top: 4px;
   border-image-slice: 27 27 53 50;
   border-image-width: 5px 5px 4.7px 4.5px;
@@ -353,11 +353,11 @@ span + img {
 }
 
 .itemTooltip i {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .itemTooltip i+span {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .itemTooltip img:not([class*=small]) {
