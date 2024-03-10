@@ -322,7 +322,7 @@ span + img {
 .itemIcon {
   height: 40px;
   width: 40px;
-  margin: 2px 3px 0px 3px;
+  margin: 1px 3px 0px 3px;
   cursor: pointer;
 }
 
