@@ -10591,518 +10591,6 @@ class App extends Component {
     })
   };
 
-  mythicItems = {
-    2:
-    <div>
-      <b className='yellow'>Duskblade of Draktharr</b>
-      <hr></hr>
-      <span>
-        60 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        18 <img src={arPenIcon}></img> Lethality
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Nightstalker: </i>
-      <span>
-      Your next basic attack against an enemy champion deals (Melee 75 / Ranged 55) (+ (Melee 30% / Ranged 25%) bonus AD)
-       bonus physical damage on-hit and slows the target by 99% for 0.25 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        15 (resets on takedown)
-      </span>
-    </div>,
-    3:
-    <div>
-      <b className='yellow'>Eclipse</b>
-      <hr></hr>
-      <span>
-        55 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        8% <img src={vampIcon} className='smallIcon'></img> Omnivamp
-      </span>
-      <br></br>
-      <span>
-        18 <img src={arPenIcon}></img> Lethality
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Ever Rising Moon: </i>
-      <span>
-      Hitting an enemy champion with 2 separate attacks or abilities within 1.5 seconds deals them 6% of Enemy Max HP as
-       bonus physical damage and grants you 15% bonus movement speed and a shield for 
-       (Melee 180 / Ranged 90) (+ (Melee 40% / Ranged 20%) bonus AD) for 2 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-      (Melee 8 / Ranged 16)
-      </span>
-    </div>,
-
-    6:
-    <div>
-      <b className='yellow'>Iceborn Gauntlet</b>
-      <hr></hr>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        350 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        25 <img src={armorIcon}></img> Armor
-      </span>
-      <br></br>
-      <span>
-        25 <img src={magicResIcon}></img> Magic Resistance
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Immolate: </i>
-      <span>
-      Taking or dealing damage activates this passive for 3 seconds. Deal 12 (+ 1% bonus health) magic damage
-       per second to enemies within 325 (+ 100% bonus size) units.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Snowbind: </i>
-      <span>
-      Basic attacks create a 250 radius frost field around the target that lasts for 1.5 seconds and deals 
-      (Melee 12 to 85 / Ranged 6 to 42.5) (based on level) magic damage to all enemies inside initially and slows all 
-      enemies within by (Melee 25% / Ranged 12.5%) (+ (Melee 4% / Ranged 2%) per 1000 maximum health) for 1.5 seconds 
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        (Melee 4 / Ranged 6)
-      </span>
-    </div>,
-    
-    9:
-    <div>
-      <b className='yellow'>Hextech Rocketbelt</b>
-      <hr></hr>
-      <span>
-        90 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        15 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        250 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        6 <img src={mPenIcon}></img> Magic Penetration
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Supersonic: </i>
-      <span>
-      Dash 125 to 275 units, unleashing 7 rockets that deal 125 (+ 15% AP) magic damage. Gain 30% bonus movement
-       speed while moving towards nearby enemy champions for 1.5 seconds. Resets basic attack timer.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        40
-      </span>
-    </div>,
-    10:
-    <div>
-      <b className='yellow'>Immortal Shieldbow</b>
-      <hr></hr>
-      <span>
-        50 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        20% <img src={attackSpeedIcon}></img> Attack Speed
-      </span>
-      <br></br>
-      <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
-      </span>
-      <br></br>
-      <span>
-        10% <img src={lifestealIcon}></img> Life Steal
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Lifeline: </i>
-      <span>
-      If you would take damage that would reduce you below 30% of your Max HP, you first gain a 275 to 650 (based on level) 
-      shield for 3 seconds and 15 to 35 (based on level) bonus attack damage for 8 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        90
-      </span>
-    </div>,
-    11:
-    <div>
-      <b className='yellow'>Imperial Mandate</b>
-      <hr></hr>
-      <span>
-        40 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        200 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regen.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Coordinated Fire: </i>
-      <span>
-      Abilities that slow or immobilize enemy champions deal 45 to 75 (based on level) bonus magic damage and mark 
-      them for 4 seconds. Allied champion damage consumes the mark to deal 90 to 150 (based on ally's level) bonus 
-      magic damage and grant you and the ally 20% bonus movement speed for 2 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        6 (per champion, starts upon mark application) 
-      </span>
-    </div>,
-    12:
-    <div>
-      <b className='yellow'>Kraken Slayer</b>
-      <hr></hr>
-      <span>
-        65 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        25% <img src={attackSpeedIcon}></img> Attack Speed
-      </span>
-      <br></br>
-      <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Bring it Down: </i>
-      <span>
-      Every third basic attack deals 60 (+ 45% bonus AD) bonus true damage on-hit. Stacks last 3 seconds.
-      </span>
-    </div>,
-    13:
-    <div>
-      <b className='yellow'>Liandry's Anguish</b>
-      <hr></hr>
-      <span>
-        80 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        600 <img src={manaIcon}></img> Mana
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Torment: </i>
-      <span>
-      Dealing ability damage burns enemies, dealing 60 (+ 6% AP) (+ 4% target's maximum health) total magic 
-      damage over 4 seconds.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Agony: </i>
-      <span>
-      Deal 0% to 12% (based on target's bonus health) bonus magic damage against enemy champions.
-      </span>
-    </div>,
-    14:
-    <div>
-      <b className='yellow'>Locket of the Iron Solari</b>
-      <hr></hr>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        200 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        30 <img src={armorIcon}></img> Armor
-      </span>
-      <br></br>
-      <span>
-        30 <img src={magicResIcon}></img> Magic Resistance
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Devotion: </i>
-      <span>
-      Grant allied champions within 850 radius a shield for 230 to 385 (based on target's level), decaying over 2.5 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-      90
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Consecrate: </i>
-      <span>
-      Grant allied champions within 850 radius 5 bonus armor and 5 bonus magic resistance.
-      </span>
-    </div>,
-    15:
-    <div>
-      <b className='yellow'>Luden's Companion</b>
-      <hr></hr>
-      <span>
-        80 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        600 <img src={manaIcon}></img> Mana
-      </span>
-      <br></br>
-      <span>
-        6 <img src={mPenIcon}></img> Magic Penetration
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Echo: </i>
-      <span>
-      Ability damage deals 100 (+ 10% AP) additional magic damage to the enemy and up to 3 other enemies within 600 units 
-      of them, and grants you 15% bonus movement speed for 2 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        10 (reduced by 0.5 seconds per champion you deal ability damage to)
-      </span>
-    </div>,
-    16:
-    <div>
-      <b className='yellow'>Moonstone Renewer</b>
-      <hr></hr>
-      <span>
-        40 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        200 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regen.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Starlit Grace: </i>
-      <span>
-      When affecting champions with attacks or abilities in combat, heal the nearby allied champion (excluding yourself) 
-      with the most missing health for 70. Each second spent in combat with champions grants 7% heal and shield 
-      power, stacking up to 5 times for maximum of 35%.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        2 
-      </span>
-    </div>,
-    
-    19:
-    <div>
-      <b className='yellow'>Riftmaker</b>
-      <hr></hr>
-      <span>
-        80 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        15 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        300 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        8% <img src={vampIcon} className='smallIcon'></img> Omnivamp
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Void Corruption: </i>
-      <span>
-      For each second in combat with champions, deal 3% bonus damage, stacking up to 3 times for a maximum of 9%.
-       While this effect is fully stacked, convert 100% of the bonus damage into true damage.
-      </span>
-    </div>,
-    20:
-    <div>
-      <b className='yellow'>Shurelya's Battlesong</b>
-      <hr></hr>
-      <span>
-        40 <img src={APIcon}></img> Ability Power
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        200 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regen.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Inspire: </i>
-      <span>
-      Grants you and all allies within 1000 units of you 30% bonus movement speed for 4 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        75 
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Motivate: </i>
-      <span>
-      Healing, shielding, or buffing allied champions (excluding yourself) grants you and them 25% bonus movement
-       speed for 1.5 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        4 (per champion) 
-      </span>
-    </div>,
-    21:
-    <div>
-      <b className='yellow'>Stridebreaker</b>
-      <hr></hr>
-      <span>
-        50 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        20% <img src={attackSpeedIcon}></img> Attack Speed
-      </span>
-      <br></br>
-      <span>
-        300 <img src={healthIcon}></img> Health
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Halting Slash: </i>
-      <span>
-      Deal 175% base AD physical damage to enemies in a 450 radius around you and slow them by 40% for 3 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-      15 (reduced by ability haste)
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Heroic Gait: </i>
-      <span>
-      Dealing physical damage grants you 20 bonus movement speed for 2 seconds.
-      </span>
-    </div>,
-    22:
-    <div>
-      <b className='yellow'>Sunfire Aegis</b>
-      <hr></hr>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        350 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        35 <img src={armorIcon}></img> Armor
-      </span>
-      <br></br>
-      <span>
-        35 <img src={magicResIcon}></img> Magic Resistance
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Immolate: </i>
-      <span>
-      Taking or dealing damage activates this passive for 3 seconds. Deal 12 to 30 (based on level) (+ 1% bonus health) 
-      magic damage per second to enemies within 325 (+ 100% bonus size) units. Damaging enemy champions or epic monsters 
-      with this effect grants a stack for 5 seconds, increasing subsequent Immolate damage by 12%, stacking up to 6 times 
-      for a 72% increase.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Flametouch: </i>
-      <span>
-      At maximum stacks, your basic attacks explode around you, burning nearby enemies for your current 
-      Immolate damage for 3 seconds. 
-      </span>
-    </div>,
-    23:
-    <div>
-      <b className='yellow'>Trinity Force</b>
-      <hr></hr>
-      <span>
-        35 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        30% <img src={attackSpeedIcon}></img> Attack Speed
-      </span>
-      <br></br>
-      <span>
-        300 <img src={healthIcon}></img> Health
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Threefold Strike: </i>
-      <span>
-      Basic attacks grant 20 bonus movement speed for 3 seconds and, if the target is a champion or a structure,
-       increase base attack damage by 4% for the same duration, stacking up to 5 times for a 20% increase. 
-       Stacks decay once every 0.5 seconds after the duration ends.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Spellblade: </i>
-      <span>
-      After using an ability, your next basic attack within 10 seconds deals 200% base AD bonus physical damage on-hit.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        1.5
-      </span>
-    </div>
-  }
-
   legendItems = {
     0: 
     <div>
@@ -11557,8 +11045,8 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Shipwrecker: </i>
       <span>
       While moving, generate 7 stacks of Momentum per 0.25 seconds, granting up to 40 bonus movement
-       speed at 100 stacks. Basic attack consumes all stacks to deal 0−40 (based on Momentum)
-        (+ 0%−100% (based on Momentum) base AD) bonus physical damage on-hit.
+       speed at 100 stacks. Basic attack consumes all stacks to deal 0-40 (based on Momentum)
+        (+ 0%-100% (based on Momentum) base AD) bonus physical damage on-hit.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Unsinkable: </i>
@@ -12844,12 +12332,16 @@ class App extends Component {
       Reduces incoming damage from critical strikes by 30%.
       </span>
     </div>,
-    45:
+    65:
     <div>
       <b className='yellow'>Rapid Firecannon</b>
       <hr></hr>
       <span>
-        35% <img src={attackSpeedIcon}></img> Attack Speed
+        20% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        30 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -12865,13 +12357,13 @@ class App extends Component {
       Moving and basic attacking generates Energize stacks, up to 100.
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Sharpshooter </i>
+      <i className='yellow'>Unique Passive - Sharpshooter: </i>
       <span>
-      When fully Energized, your next basic attack deals 120 bonus magic damage on-hit. Energized attacks gain 
-      35% bonus range, capped at 150.
+      When fully Energized, your next basic attack deals 60 bonus magic damage on-hit. Energized 
+      attacks gain 35% bonus range, capped at 150.
       </span>
     </div>,
-    46:
+    66:
     <div>
       <b className='yellow'>Ravenous Hydra</b>
       <hr></hr>
@@ -12884,17 +12376,26 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        10% <img src={vampIcon} className='smallIcon'></img> Omnivamp
+        12% <img src={lifestealIcon} className='smallIcon'></img> Life Steal
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Cleave: </i>
       <span>
-      Damaging basic attacks and ability damage from abilities deal 60% − 12% (based on distance) AD physical damage 
-      to other enemies near the target. Can only hit each target once per attack or ability, and may only trigger 
-      once every 10 seconds from the same cast.
+      Basic attacks on-hit deal (Melee 40% AD / Ranged 20% AD) physical damage to other enemies 
+      in a 350 radius centered around the target.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Ravenous Crescent: </i>
+      <span>
+      Deal 100% AD physical damage to enemies in a 450 radius in front of you.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        10
       </span>
     </div>,
-    47:
+    67:
     <div>
       <b className='yellow'>Redemption</b>
       <hr></hr>
@@ -12911,14 +12412,14 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        20% <img src={healShieldIcon}></img> Heal and Shield Power
+        15% <img src={healShieldIcon}></img> Heal and Shield Power
       </span>
       <hr></hr>
       <i className='yellow'>Unique Active - Intervention: </i>
       <span>
       Grant sight of the target area for 2.5 seconds. After, allies within the area are healed 
-      for 200 − 400 (based on target's level), while enemy champions within take 10% of target's maximum health 
-      as true damage (5500 range). Can be used while dead.
+      for 200-400 (based on target's level), while enemy champions within take 10% of target's 
+      maximum health as true damage (5500 range).
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -12926,12 +12427,68 @@ class App extends Component {
         90
       </span>
     </div>,
-    48:
+    68:
+    <div>
+      <b className='yellow'>Riftmaker</b>
+      <hr></hr>
+      <span>
+        80 <img src={APIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        15 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        350 <img src={healthIcon}></img> Health
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Void Corruption: </i>
+      <span>
+      For each second in combat with champions, deal 2% increased damage, stacking up to 5 times. 
+      At maximum stacks, gain (Melee 10% / Ranged 6%) omnivamp.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Void Infusion: </i>
+      <span>
+      Gain ability power equal to 2% bonus health.
+      </span>
+    </div>,
+    69:
+    <div>
+      <b className='yellow'>Rod of Ages</b>
+      <hr></hr>
+      <span>
+        50 <img src={APIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        400 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        400 <img src={manaIcon}></img> Mana
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Timeless: </i>
+      <span>
+      This item gains 20 bonus health, 20 bonus mana, and 4 ability power every minute, up to 10 times, 
+      for a maximum of 200 bonus health, 200 bonus mana, and 40 ability power. Upon reaching maximum 
+      stacks, gain a level that preserves your current experience (cap remains at level 18).
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Eternity: </i>
+      <span>
+      Restore mana equal to 7% of pre-mitigation damage taken from champions, and heal for 25% of 
+      mana spent, up to 20 per cast. Toggled abilities can only heal for up to 20 per second.
+      </span>
+    </div>,
+    70:
     <div>
       <b className='yellow'>Runaan's Hurricane</b>
       <hr></hr>
       <span>
-        45% <img src={attackSpeedIcon}></img> Attack Speed
+        40% <img src={attackSpeedIcon}></img> Attack Speed
       </span>
       <br></br>
       <span>
@@ -12942,14 +12499,19 @@ class App extends Component {
         7% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
+      <i className='yellow'>Unique Passive - Peck: </i>
+      <span>
+      Basic attacks deal 30 bonus magic damage on-hit.
+      </span>
+      <hr></hr>
       <i className='yellow'>Unique Passive - Wind's Fury: </i>
       <span>
-      Basic attacks fire additional bolts at up to 2 enemies in front of you, each dealing 40% AD physical damage. 
-      Bolts apply on-hit effects at 100% effectiveness and are affected by critical strike modifiers. The bolts will 
-      target the closest enemies to you that are not the main target.
+      Basic attacks fire additional bolts at up to 2 enemies in front of you, each dealing 40% AD physical 
+      damage. Bolts apply on-hit effects at 100% effectiveness and are affected by critical strike modifiers. 
+      Bolts target the closest enemies to you that are not the main target.
       </span>
     </div>,
-    49:
+    71:
     <div>
       <b className='yellow'>Rylai's Crystal Scepter</b>
       <hr></hr>
@@ -12966,7 +12528,7 @@ class App extends Component {
       Dealing ability damage slows affected units by 30% for 1 second.
       </span>
     </div>,
-    50:
+    72:
     <div>
       <b className='yellow'>Seraph's Embrace</b>
       <hr></hr>
@@ -12975,25 +12537,30 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        250 <img src={healthIcon}></img> Health
+        25 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        860 <img src={manaIcon}></img> Mana
+        1000 <img src={manaIcon}></img> Mana
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Awe: </i>
       <span>
-      Grants ability haste equal to 1.3% bonus mana.
+      Grants ability power equal to 2% bonus mana.
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Empyrean: </i>
+      <i className='yellow'>Unique Passive - Lifeline: </i>
       <span>
-      Heal for 35% of mana spent, up to 25 − 50 (based on level) (+ 10% AP) per cast. Toggle abilities can 
-      heal up to 25 − 50 (based on level) (+ 10% AP) per second.
+      If you would take damage that would reduce you below 30% of your maximum health, you first 
+      gain a shield that absorbs 250 (+20% current mana) damage for 3 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        90
       </span>
     </div>,
-    51:
+    73:
     <div>
       <b className='yellow'>Serpent's Fang</b>
       <hr></hr>
@@ -13002,16 +12569,16 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        12 <img src={arPenIcon}></img> Lethality
+        15 <img src={arPenIcon}></img> Lethality
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Shield Reaver: </i>
       <span>
       Dealing damage to an enemy champion reduces any shields they gain within 3 seconds by (Melee 50% / Ranged 35%), 
-      and if the target was not already afflicted by this effect, reduces all of their active shields by the same amount.
+      and if the target was not already afflicted, reduces all of their active shields by the same amount.
       </span>
     </div>,
-    52:
+    74:
     <div>
       <b className='yellow'>Serylda's Grudge</b>
       <hr></hr>
@@ -13020,94 +12587,146 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        20 <img src={cdrIcon}></img> Ability Haste
+        15 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        30% <img src={arPenIcon}></img> Armor Penetration
+        15 <img src={arPenIcon}></img> Lethality
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Rancor: </i>
+      <span>
+      Gain 20% (+0.11% per 1 Lethality) armor penetration.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Bitter Cold: </i>
       <span>
-      Dealing ability damage slows affected units by 30% for 1 second.
+      Dealing ability damage to an enemy that is at or below 50% maximum health slows by 30% for 1 second.
       </span>
     </div>,
-    53:
+    75:
     <div>
       <b className='yellow'>Shadowflame</b>
       <hr></hr>
       <span>
-        100 <img src={APIcon}></img> Ability Power
+        120 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        200 <img src={healthIcon}></img> Health
+        12 <img src={mPenIcon}></img> Magic Penetration
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Cinderbloom: </i>
       <span>
-      Dealing magic damage to champions ignores 10 − 20 (based on target's current health) of their magic resistance, 
-      increased to maximum value if the they were affected by a shield within the last 5 seconds.
+      Magic damage and true damage critically strike enemies below 35% maximum health for 120% 
+      damage, increased to 130% for damage over time effects and damage dealt by pets.
       </span>
     </div>,
-    54:
+    76:
     <div>
-      <b className='yellow'>Shard of True Ice</b>
+      <b className='yellow'>Shurelya's Battlesong</b>
       <hr></hr>
       <span>
-        40 <img src={APIcon}></img> Ability Power
+        55 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        75 <img src={healthIcon}></img> Health
+        15 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regen.
+        125% <img src={manaRegenIcon}></img> Base Mana Regen.
       </span>
       <br></br>
       <span>
-        3 <img src={goldIcon} style={{width: '20px', height: '15px'}}></img> Gold per 10 seconds
+        8% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Active - Warding: </i>
+      <i className='yellow'>Unique Active - Inspiring Speech: </i>
       <span>
-      Consumes a charge to place a Stealth Ward at the target location (4 charges; 600 range).
+      Grants you and all allies within 1000 units 30% bonus movement speed for 4 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        75 
       </span>
     </div>,
-    55:
+    77:
     <div>
-      <b className='yellow'>Silvermere Dawn</b>
+      <b className='yellow'>Solstice Sleigh</b>
       <hr></hr>
       <span>
-        40 <img src={ADIcon}></img> Attack Damage
+        200 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        75% <img src={healthRegenIcon}></img> Base Health Regen.
+      </span>
+      <br></br>
+      <span>
+        75% <img src={manaRegenIcon}></img> Base Mana Regen.
+      </span>
+      <br></br>
+      <span>
+        5 <img src={goldIcon} style={{width: '20px', height: '15px'}}></img> Gold per 10 seconds
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Ward: </i>
+      <span>
+      Place a Stealth Ward at the target location (4 charges; 600 range).
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Going Sledding: </i>
+      <span>
+      Slowing or immobilizing an enemy champion causes you and the nearest and most wounded allied 
+      champion to gain 25% bonus movement speed decaying over 3 seconds, and 50-230 (based on your level) 
+      bonus health for 3 seconds. This bonus may exceed maximum health.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        30
+      </span>
+    </div>,
+    78:
+    <div>
+      <b className='yellow'>Spear of Shojin</b>
+      <hr></hr>
+      <span>
+        55 <img src={ADIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
         300 <img src={healthIcon}></img> Health
       </span>
-      <br></br>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Dragonforce: </i>
       <span>
-        35 <img src={magicResIcon}></img> Magic Resistance
+      Gain 15 basic ability haste.
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Active - Quicksilver: </i>
+      <i className='yellow'>Unique Passive - Focused Will: </i>
       <span>
-      Removes all crowd control debuffs (except airborne) from your champion and grants 40% tenacity, 40% 
-      slow resist, and ghosting for 3 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-      90
+      Dealing ability damage to an enemy champion grants a stack for 6 seconds, stacking up to 4 times 
+      and up to 1 per cast instance and every second for damage over time abilities. For each stack, your 
+      ability damage and proc damage dealt by abilities gain 3% increased damage.
       </span>
     </div>,
-    56:
+    79:
     <div>
       <b className='yellow'>Spirit Visage</b>
       <hr></hr>
       <span>
         10 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        60 <img src={magicResIcon}></img> Magic Resistance
       </span>
       <br></br>
       <span>
@@ -13117,55 +12736,90 @@ class App extends Component {
       <span>
         100% <img src={healthRegenIcon}></img> Base Health Regen.
       </span>
-      <br></br>
-      <span>
-        40 <img src={magicResIcon}></img> Magic Resistance
-      </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Boundless Vitality: </i>
       <span>
-      Increases all healing and shielding received by 25%.
+      Increases all healing and shielding received and health regeneration by 25%.
       </span>
     </div>,
-    57:
+    80:
     <div>
       <b className='yellow'>Staff of Flowing Water</b>
       <hr></hr>
       <span>
-        50 <img src={APIcon}></img> Ability Power
+        40 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        100% <img src={manaRegenIcon}></img> Base Mana Regen.
+        15 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        10% <img src={healShieldIcon}></img> Heal and Shield Power
+        125% <img src={manaRegenIcon}></img> Base Mana Regen.
+      </span>
+      <br></br>
+      <span>
+        8% <img src={healShieldIcon}></img> Heal and Shield Power
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Rapids: </i>
       <span>
-      Healing or shielding allied champions (excluding yourself) grants you and them 25 − 45 
-      (based on target's level) ability power and 20 ability haste for 4 seconds.
+      Healing or shielding allied champions (excluding yourself) grants you and 
+      them 30 ability power and 10% bonus movement speed for 4 seconds.
       </span>
     </div>,
-    58:
+    81:
+    <div>
+      <b className='yellow'>Statikk Shiv</b>
+      <hr></hr>
+      <span>
+        30% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        50 <img src={ADIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20% <img src={critChanceIcon}></img> Critical Strike Chance
+      </span>
+      <br></br>
+      <span>
+        7% <img src={moveSpeedIcon}></img> Movement Speed
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Energized: </i>
+      <span>
+      Moving and basic attacking generates Energize stacks, up to 100.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Electroshock: </i>
+      <span>
+      When fully Energized, your next basic attack deals 90 bonus magic damage, increased to 150 
+      against minions, and bounces to the closest target within 500 units, up to 6 targets.
+      </span>
+    </div>,
+    82:
     <div>
       <b className='yellow'>Sterak's Gage</b>
       <hr></hr>
       <span>
         400 <img src={healthIcon}></img> Health
       </span>
+      <br></br>
+      <span>
+        20% <img src={tenacityIcon}></img> Tenacity
+      </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - The Claws that Catch: </i>
       <span>
-      Gain 40% base AD as bonus attack damage.
+      Gain 50% base AD as bonus attack damage.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Lifeline: </i>
       <span>
       If you would take damage that would reduce you below 30% of your maximum health, gain a shield equal 
-      to 75% of bonus health that decays over 3.75 seconds.
+      to 80% of bonus health that decays over 4.5 seconds, as well as 10% increased size for 8 seconds.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -13173,12 +12827,12 @@ class App extends Component {
         60
       </span>
     </div>,
-    59:
+    83:
     <div>
       <b className='yellow'>Stormrazor</b>
       <hr></hr>
       <span>
-        40 <img src={ADIcon}></img> Attack Damage
+        60 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -13194,13 +12848,159 @@ class App extends Component {
       Moving and basic attacking generates Energize stacks, up to 100.
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Paralyze: </i>
+      <i className='yellow'>Unique Passive - Bolt: </i>
       <span>
-      When fully Energized, your next basic attack deals 120 bonus magic damage on-hit. Energized effects 
-      slow by 75% for 0.5 seconds.
+      When fully Energized, your next basic attack deals 100 bonus magic damage 
+      on-hit and grants you 45% bonus movement speed for 1.5 seconds.
       </span>
     </div>,
-    60:
+    84:
+    <div>
+      <b className='yellow'>Stormsurge</b>
+      <hr></hr>
+      <span>
+        95 <img src={APIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        10 <img src={mPenIcon}></img> Magic Penetration
+      </span>
+      <br></br>
+      <span>
+        8% <img src={moveSpeedIcon}></img> Movement Speed
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Stormraider: </i>
+      <span>
+      Dealing damage to an enemy champion equal to 35% of their maximum health within 2.5 seconds 
+      inflicts them with Squall and grants you 25% bonus movement speed for 2 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        30 
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Squall: </i>
+      <span>
+      After 2 seconds of having applied Squall, strike the target with lightning, dealing 
+      (Melee 140 / Ranged 105) (+ Melee 20% / Ranged 15% AP) magic damage to them. If the target 
+      dies before being struck, they emit an electric field instantly that shocks all enemy champions 
+      near them, dealing them the same damage and granting you 30 gold.
+      </span>
+    </div>,
+    85:
+    <div>
+      <b className='yellow'>Stridebreaker</b>
+      <hr></hr>
+      <span>
+        50 <img src={ADIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        30% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        450 <img src={healthIcon}></img> Health
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Breaking Shockwave: </i>
+      <span>
+      Deal 80% AD physical damage to enemies in a 450 radius centered around you and slow them by 35% 
+      for 3 seconds. For each champion hit, gain 35% bonus movement speed decaying over 3 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+      15
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Cleave: </i>
+      <span>
+      Basic attacks on-hit deal (Melee 40% AD / Ranged 20% AD) physical damage to 
+      other enemies in a 350 radius centered around the target.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Temper: </i>
+      <span>
+      Dealing physical damage grants you 20 bonus movement speed for 2 seconds.
+      </span>
+    </div>,
+    86:
+    <div>
+      <b className='yellow'>Sundered Sky</b>
+      <hr></hr>
+      <span>
+        45 <img src={ADIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        15 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        450 <img src={healthIcon}></img> Health
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Lightshield Strike: </i>
+      <span>
+      Your next basic attack against a champion is empowered to critically strike for 175% damage 
+      and heal you for 140% base AD (+6% of your missing health). Excess healing beyond maximum 
+      health is converted to bonus health for 6 seconds.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+      6 (per target)
+      </span>
+    </div>,
+    87:
+    <div>
+      <b className='yellow'>Sunfire Aegis</b>
+      <hr></hr>
+      <span>
+        500 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        50 <img src={armorIcon}></img> Armor
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Immolate: </i>
+      <span>
+      Taking or dealing damage activates this passive for 3 seconds. Deal 15 (+1.75% bonus health) magic 
+      damage every second to enemies within 325 (+100% bonus size) units. Damage increases by 25% against 
+      minions and executes minions that would be killed by one more tick of damage. Damaging enemy champions 
+      or epic monsters with this effect grants a stack for 5 seconds that increases subsequent Immolate 
+      damage by 10%, stacking up to 6 times.
+      </span>
+    </div>,
+    88:
+    <div>
+      <b className='yellow'>Terminus</b>
+      <hr></hr>
+      <span>
+        40 <img src={ADIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        30% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Shadow: </i>
+      <span>
+      Basic attacks deal 30 bonus magic damage on-hit.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Juxtaposition: </i>
+      <span>
+      Basic attacks on-hit against champions alternate between Light and Dark hits, each one granting a 
+      bonus for 5 seconds that stacks up to 3 times. Light hits grant 6 / 7 / 8 (based on level) bonus 
+      armor and bonus magic resistance while Dark hits grant 10% armor penetration and magic penetration.
+      </span>
+    </div>,
+    89:
     <div>
       <b className='yellow'>The Collector</b>
       <hr></hr>
@@ -13213,16 +13013,21 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        12 <img src={arPenIcon}></img> Lethality
+        16 <img src={arPenIcon}></img> Lethality
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Death and Taxes: </i>
+      <i className='yellow'>Unique Passive - Death: </i>
       <span>
-      If you deal post-mitigation damage that would leave a champion below 5% of their maximum health, 
-      execute them. Champion kills grant you an additional 25 Gold.
+      If you deal post-mitigation damage that would leave a champion 
+      below 5% of their maximum health, execute them.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Taxes: </i>
+      <span>
+      Killing a champion grants you an additional 25 Gold.
       </span>
     </div>,
-    61:
+    90:
     <div>
       <b className='yellow'>Thornmail</b>
       <hr></hr>
@@ -13231,41 +13036,106 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        60 <img src={armorIcon}></img> Armor
+        70 <img src={armorIcon}></img> Armor
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Thorns: </i>
       <span>
-      When struck by a basic attack on-hit, deal 10 (+ 10% bonus armor) magic damage to the attacker and, if they 
-      are a champion, inflict them with 40% Grievous Wounds for 3 seconds. Immobilizing enemy champions also 
-      inflicts them with 60% Grievous Wounds for 3 seconds.
+      When struck by a basic attack on-hit, deal 10 (+25% bonus armor) magic damage to the attacker and, 
+      if they are a champion, inflict them with Grievous Wounds for 3 seconds.
       </span>
     </div>,
-    62:
+    91:
     <div>
       <b className='yellow'>Titanic Hydra</b>
       <hr></hr>
       <span>
-        30 <img src={ADIcon}></img> Attack Damage
+        50 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        500 <img src={healthIcon}></img> Health
+        550 <img src={healthIcon}></img> Health
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Colossus: </i>
+      <i className='yellow'>Unique Active - Titanic Crescent: </i>
       <span>
-      Gain bonus attack damage equal to 2% of bonus health.
+      Empowers next basic attack within 10 seconds to deal (Melee 4% / Ranged 2%) maximum health 
+      bonus physical damage to the primary target and (Melee 9% / Ranged 4.5%) maximum health 
+      physical damage to secondary targets. Resets basic attack timer.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        10
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Cleave: </i>
       <span>
-      Basic attacks deal (Melee 4 / Ranged 3) (+ (Melee 1.5% / Ranged 1.125%) maximum health) bonus physical damage 
-      to the target and (Melee 40 / Ranged 30) (+ (Melee 3% / Ranged 2.25%) maximum health) physical damage to other 
-      enemies in a cone in the direction of the target.
+      Basic attacks on-hit deal (Melee 1.5% / Ranged 0.75%) maximum health bonus physical damage 
+      to the target and (Melee 3% / Ranged 1.5%) maximum health physical damage to other enemies 
+      in a cone in the direction of the primary target.
       </span>
     </div>,
-    63:
+    92:
+    <div>
+      <b className='yellow'>Trailblazer</b>
+      <hr></hr>
+      <span>
+        200 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        40 <img src={armorIcon}></img> Armor
+      </span>
+      <br></br>
+      <span>
+        5% <img src={moveSpeedIcon}></img> Movement Speed
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Lead the Way: </i>
+      <span>
+      While moving, generate 7 stacks of Momentum every 0.25 seconds, granting up to 20 bonus movement 
+      speed at 100 stacks. At maximum stacks, you leave behind a path that grants 15% of your bonus 
+      movement speed to allied champions within. Basic attacks consume all stacks. If you are melee 
+      and at maximum stacks, your next basic attack slows by 50% for 1 second.
+      </span>
+    </div>,
+    93:
+    <div>
+      <b className='yellow'>Trinity Force</b>
+      <hr></hr>
+      <span>
+        45 <img src={ADIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        20 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        33% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        300 <img src={healthIcon}></img> Health
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Spellblade: </i>
+      <span>
+      After using an ability, your next basic attack within 10 seconds 
+      deals 200% base AD bonus physical damage on-hit.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        1.5
+      </span>
+      <i className='yellow'>Unique Passive - Quicken: </i>
+      <span>
+      Basic attacks on-hit grant 20 bonus movement speed for 2 seconds.
+      </span>
+    </div>,
+    94:
     <div>
       <b className='yellow'>Umbral Glaive</b>
       <hr></hr>
@@ -13278,35 +13148,65 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        10 <img src={arPenIcon}></img> Lethality
+        15 <img src={arPenIcon}></img> Lethality
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Blackout: </i>
       <span>
-      When near an enemy ward or trap, gain Blackout for 8 seconds (400 radius). You disable surrounding stealthed 
-      wards, as well as expose and reveal nearby stealthed wards and traps while Blackout is active.
+      When near an enemy stealthed ward or trap (400 radius), for 8 seconds disable surrounding 
+      stealthed wards, as well as expose and reveal nearby stealthed wards and traps.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-        35
+        50
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive: </i>
       <span>
-      Your basic attacks instantly kill revealed traps and deal 2 bonus true damage to wards.
+      Your basic attacks deal (Melee 2 / Ranged 1) bonus true damage to wards.
       </span>
     </div>,
-    64:
+    95:
+    <div>
+      <b className='yellow'>Unending Despair</b>
+      <hr></hr>
+      <span>
+        10 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        400 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        55 <img src={armorIcon}></img> Armor
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Anguish: </i>
+      <span>
+      Every 7 seconds in combat with champions, deal 30-50 (based on level) (+3% bonus health) magic 
+      damage to enemy champions (650 range) and heal yourself for 250% of the post-mitigation damage dealt.
+      </span>
+    </div>,
+    96:
     <div>
       <b className='yellow'>Vigilant Wardstone</b>
       <hr></hr>
       <span>
-        15 <img src={cdrIcon}></img> Ability Haste
+        20 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        150 <img src={healthIcon}></img> Health
+        250 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        25 <img src={armorIcon}></img> Armor
+      </span>
+      <br></br>
+      <span>
+        30 <img src={magicResIcon}></img> Magic Resistance
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Arcane Cache: </i>
@@ -13318,97 +13218,22 @@ class App extends Component {
       <span>
         Increases Stealth Ward, Totem Ward, and Control Ward caps by 1.
       </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Blessing of Ixtal: </i>
-      <span>
-        Increases bonus attack damage, bonus health, ability power and ability haste by 12%.
-      </span>
     </div>,
-    65:
+    97:
     <div>
       <b className='yellow'>Void Staff</b>
       <hr></hr>
       <span>
-        65 <img src={APIcon}></img> Ability Power
+        80 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        45% <img src={mPenIcon}></img> Magic Penetration
+        40% <img src={mPenIcon}></img> Magic Penetration
       </span>
     </div>,
-    66:
+    98:
     <div>
-      <b className='yellow'>Warmog's Armor</b>
-      <hr></hr>
-      <span>
-        10 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        800 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        200% <img src={healthRegenIcon}></img> Base Health Regen.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Warmog's Heart: </i>
-      <span>
-      If you have at least 1100 bonus health, regenerate 2.5% maximum health every 0.5 seconds if damage has not 
-      been taken in the last 6 seconds (3 seconds for damage from non-champions).
-      </span>
-    </div>,
-    67:
-    <div>
-      <b className='yellow'>Winter's Approach</b>
-      <hr></hr>
-      <span>
-        15 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        350 <img src={healthIcon}></img> Health
-      </span>
-      <br></br>
-      <span>
-        500 <img src={manaIcon}></img> Mana
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Awe: </i>
-      <span>
-      Grants bonus health equal to 8% maximum mana.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Mana Charge: </i>
-      <span>
-      Grants a charge every 8 seconds, up to 4 charges. Consumes a charge on-hit and whenever affecting an enemy or 
-      ally with an ability to grant 3 bonus mana, increased to 6 for champion targets, up to a maximum of 360 bonus mana.
-      </span>
-    </div>,
-    68:
-    <div>
-      <b className='yellow'>Wit's End</b>
-      <hr></hr>
-      <span>
-        40 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        40% <img src={attackSpeedIcon}></img> Attack Speed
-      </span>
-      <br></br>
-      <span>
-        40 <img src={magicResIcon}></img> Magic Resistance
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Fray: </i>
-      <span>
-      Basic attacks deal 15 − 80 (based on level) bonus magic damage and grant 20 bonus movement speed for 2 seconds.
-      </span>
-    </div>,
-    69:
-    <div>
-      <b className='yellow'>Youmuu's Ghostblade</b>
+      <b className='yellow'>Voltaic Cyclosword</b>
       <hr></hr>
       <span>
         55 <img src={ADIcon}></img> Attack Damage
@@ -13422,9 +13247,108 @@ class App extends Component {
         18 <img src={arPenIcon}></img> Lethality
       </span>
       <hr></hr>
+      <i className='yellow'>Unique Passive - Energized: </i>
+      <span>
+      Moving and basic attacking generates Energize stacks, up to 100.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Galvanize: </i>
+      <span>
+      Energized stack generation is increased by 75% for distance from dashes, blinks, and stealth.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Firmament: </i>
+      <span>
+      When fully Energized, next basic attack deals 100 bonus physical damage 
+      on-hit and slows by (Melee 99% / Ranged 20%) for 0.75 seconds.
+      </span>
+    </div>,
+    99:
+    <div>
+      <b className='yellow'>Warmog's Armor</b>
+      <hr></hr>
+      <span>
+        750 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        200% <img src={healthRegenIcon}></img> Base Health Regen.
+      </span>
+      <br></br>
+      <span>
+        5% <img src={moveSpeedIcon}></img> Movement Speed
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Warmog's Heart: </i>
+      <span>
+      If you have at least 1300 bonus health and have not taken damage in the last 6 seconds 
+      (3 seconds for damage from non-champions), regenerate 2.5% maximum health every 0.5 seconds.
+      </span>
+    </div>,
+    100:
+    <div>
+      <b className='yellow'>Winter's Approach</b>
+      <hr></hr>
+      <span>
+        15 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        400 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        500 <img src={manaIcon}></img> Mana
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Awe: </i>
+      <span>
+      Grants bonus health equal to 8% maximum mana.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Manaflow: </i>
+      <span>
+      Grants a charge every 8 seconds, up to 4 charges. Consumes a charge on-hit and whenever 
+      affecting an enemy or ally with an ability to grant 3 bonus mana, increased to 6 for 
+      champion targets, up to a maximum of 360 bonus mana.
+      </span>
+    </div>,
+    101:
+    <div>
+      <b className='yellow'>Wit's End</b>
+      <hr></hr>
+      <span>
+        55% <img src={attackSpeedIcon}></img> Attack Speed
+      </span>
+      <br></br>
+      <span>
+        50 <img src={magicResIcon}></img> Magic Resistance
+      </span>
+      <br></br>
+      <span>
+        20% <img src={tenacityIcon}></img> Tenacity
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Fray: </i>
+      <span>
+      Basic attacks deal 15-80 (based on level) bonus magic damage on-hit.
+      </span>
+    </div>,
+    102:
+    <div>
+      <b className='yellow'>Youmuu's Ghostblade</b>
+      <hr></hr>
+      <span>
+        60 <img src={ADIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        18 <img src={arPenIcon}></img> Lethality
+      </span>
+      <hr></hr>
       <i className='yellow'>Unique Active - Wraith Step: </i>
       <span>
-      Gain 20% bonus movement speed and ghosting for 6 seconds.
+      Gain (Melee 20% / Ranged 15%) bonus movement speed and ghosting for 6 seconds.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -13434,10 +13358,47 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Haunt: </i>
       <span>
-      Gain 40 bonus movement speed while out-of-combat.
+      Gain (Melee 40 / Ranged 20) bonus movement speed while out-of-combat.
       </span>
     </div>,
-    70:
+    103:
+    <div>
+      <b className='yellow'>Zaz'Zak's Realmspike</b>
+      <hr></hr>
+      <span>
+        200 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        75% <img src={healthRegenIcon}></img> Base Health Regen.
+      </span>
+      <br></br>
+      <span>
+        75% <img src={manaRegenIcon}></img> Base Mana Regen.
+      </span>
+      <br></br>
+      <span>
+        5 <img src={goldIcon} style={{width: '20px', height: '15px'}}></img> Gold per 10 seconds
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Active - Ward: </i>
+      <span>
+      Place a Stealth Ward at the target location (4 charges; 600 range).
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Void Explosion: </i>
+      <span>
+      Dealing ability damage to an enemy champion creates an explosion at their location after a 
+      0.5-second delay, dealing 20 (+20% AP) (+4% of each target's maximum health) magic damage 
+      to enemies within the area, capped at 300 against monsters.
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+      8 / 7 / 6 (based on level)
+      </span>
+    </div>,
+    104:
     <div>
       <b className='yellow'>Zeke's Convergence</b>
       <hr></hr>
@@ -13446,7 +13407,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        250 <img src={healthIcon}></img> Health
+        200 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
@@ -13454,47 +13415,36 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        25 <img src={armorIcon}></img> Armor
+        30 <img src={armorIcon}></img> Armor
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Active - Conduit: </i>
+      <i className='yellow'>Unique Passive - Frostfire Tempest: </i>
       <span>
-        Designate an allied champion as the Accomplice, forming a  tether between you and them. Champions can only 
-        be designated as the Accomplice by one Zeke's Convergence at a time.
+      Upon casting your ultimate ability, summon a storm around you for 5 seconds, dealing 12.5 magic 
+      damage every 0.25 seconds to nearby enemies and slowing them by 30%.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-        60
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Convergence: </i>
-      <span>
-        Immobilizing enemy champions marks them for 8 seconds. Your Accomplice's basic attacks and ability hits 
-        against marked enemies fire a missile at them that deals them 30 − 70 (based on level) (+ 7.5% AP) 
-        (+ 1.5% maximum health) bonus magic damage upon arrival.
+        45
       </span>
     </div>,
-    71:
+    105:
     <div>
       <b className='yellow'>Zhonya's Hourglass</b>
       <hr></hr>
       <span>
-        65 <img src={APIcon}></img> Ability Power
+        120 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        10 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        45 <img src={armorIcon}></img> Armor
+        50 <img src={armorIcon}></img> Armor
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Active - Stasis: </i>
+      <i className='yellow'>Unique Active - Time Stop: </i>
       <span>
-      Enter stasis for 2.5 seconds, rendering you untargetable and invulnerable for the duration but also 
-      unable to move, declare basic attacks, cast abilities, use summoner spells, or activate items.
+      Enter stasis for 2.5 seconds, rendering you untargetable and invulnerable for the duration but 
+      also unable to move, basic attack, cast abilities, use summoner spells, or activate items.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -13773,37 +13723,14 @@ class App extends Component {
     this.calculateAbility('Right');
   };
 
-  mythicList = [
-    'Crown of the Shattered Queen', 'Divine Sunderer', 'Duskblade of Draktharr', 'Eclipse', 'Evenshroud',
-    'Everfrost', 'Frostfire Gauntlet', 'Galeforce', 'Goredrinker', 'Hextech Rocketbelt', 'Immortal Shieldbow', 
-    'Imperial Mandate', 'Kraken Slayer', "Liandry's Anguish", "Locket of the Iron Solari", "Luden's Tempest",
-    "Moonstone Renewer", "Night Harvester", "Prowler's Claw", "Riftmaker", "Shurelya's Battlesong", "Stridebreaker",
-    "Sunfire Aegis", "Trinity Force", "Turbo Chemtank"
-  ]
-
-  legendList = [
-    "Abyssal Mask", "Anathema's Chains", "Archangel's Staff", "Ardent Censer", "Axiom Arc", "Banshee's Veil", 
-    "Black Cleaver", "Black Mist Scythe", "Blade of the Ruined King", "Bloodthirster", "Bulwark of the Mountain",
-    "Chempunk Chainsword", "Chemtech Putrifier", "Cosmic Drive", "Dead Man's Plate", "Death's Dance", "Demonic Embrace",
-    "Edge of Night", "Essence Reaver", "Fimbulwinter", "Force of Nature", "Frozen Heart", "Gargoyle Stoneplate",
-    "Guardian Angel", "Guinsoo's Rageblade", "Horizon Focus", "Hullbreaker", "Infinity Edge", "Knight's Vow",
-    "Lich Bane", "Lord Dominik's Regards", "Manamune", "Maw of Malmortius", "Mejai's Soulstealer", "Mercurial Scimitar",
-    "Mikael's Blessing", "Morellonomicon", "Mortal Reminder", "Muramana", "Nashor's Tooth", "Navori Quickblades",
-    "Pauldrons of Whiterock", "Phantom Dancer", "Rabadon's Deathcap", "Randuin's Omen", "Rapid Firecannon",
-    "Ravenous Hydra", "Redemption", "Runaan's Hurricane", "Rylai's Crystal Scepter", "Seraph's Embrace", "Serpent's Fang",
-    "Serylda's Grudge", "Shadowflame", "Shard of True Ice", "Silvermere Dawn", "Spirit Visage", "Staff of Flowing Water",
-    "Sterak's Gage", "Stormrazor", "The Collector", "Thornmail", "Titanic Hydra", "Umbral Glaive", "Vigilant Wardstone",
-    "Void Staff", "Warmog's Armor", "Winter's Approach", "Wit's End", "Youmuu's Ghostblade", "Zeke's Convergence",
-    "Zhonya's Hourglass"
-  ]
-
   onItemSearch = (event, side) => {
     var marginForSide = '46px';
     if (side === 'Right') {
       marginForSide = '-400px'
     };
-    this.setState({[`itemDisplay${side}`]:  this.legendList.map((itemName, i) => {
-      if (itemName.toLowerCase().includes(event.target.value.toLowerCase()) ) {
+     
+    this.setState({[`itemDisplay${side}`]: Object.entries(this.legendItems).map((item, i) => {
+      if (item[1].props.children[0].props.children.toLowerCase().includes(event.target.value.toLowerCase())){
         return (
           <span key={i} style={{display: 'inline-block'}}>
             <img className='itemIcon' style={{border: '1px solid white'}} src={Array.from(this.itemIcons)[i]}
@@ -13814,7 +13741,7 @@ class App extends Component {
           </span>
         )
       }
-    })})
+    })});
   };
 
 
