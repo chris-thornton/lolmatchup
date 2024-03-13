@@ -13,11 +13,11 @@
         "baseDamage": 52,
         "damagePerLvl": 3,
         "baseArmor": 34,
-        "armorPerLvl": 5.2,
+        "armorPerLvl": 5,
         "baseMR": 30,
         "mrPerLvl": 1.3,
-        "attackSpeed": 0.625,
-        "asRatio": 0.625,
+        "attackSpeed": 0.658,
+        "asRatio": 0.658,
         "asPerLvl": 0.02,
         "ranged": true
     },
@@ -27,8 +27,8 @@
             "type":"Magic",
             "system": "single",
             "dmg": 35,
-            "dmgPer5Chimes": 14,
-            "APRatio": 0.3
+            "dmgPer5Chimes": 10,
+            "APRatio": 0.4
             }
         }
     },
@@ -37,9 +37,9 @@
             "type": "Magic",
             "system": "single",
             "dmg": [
-                80, 125, 170, 215, 260
+                80, 120, 160, 200, 240
             ],
-            "APRatio": 0.65
+            "APRatio": 0.8
         },
         "interruptCC": [
             1, 1.2, 1.4, 1.6, 1.8

@@ -11,7 +11,7 @@
             "manaRegenPerLvl": 0.4
         },
         "baseDamage": 55,
-        "damagePerLvl": 3,
+        "damagePerLvl": 2.3,
         "baseArmor": 26,
         "armorPerLvl": 4.2,
         "baseMR": 30,

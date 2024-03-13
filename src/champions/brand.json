@@ -24,9 +24,9 @@
     "passive": {
         "tickDamage": {
             "type": "Magic",
-            "interval": 1.083,
-            "ticks": 3,
-            "enemyMaxHPRatio": 0.00833
+            "interval": 0.25,
+            "ticks": 16,
+            "enemyMaxHPRatio": 0.00125
         },
         "damage": {
             "type":"Magic",
@@ -42,9 +42,9 @@
             "type": "Magic",
             "system": "single",
             "dmg": [
-                80, 110, 140, 170, 200
+                70, 100, 130, 160, 190
             ],
-            "APRatio": 0.55
+            "APRatio": 0.65
         },
         "interruptCC": 1.5,
         "coolDown": [
@@ -73,9 +73,9 @@
             "type": "Magic",
             "system": "single",
             "dmg": [
-                70 , 95 , 120 , 145 , 170
+                60, 90, 120, 150, 180
             ],
-            "APRatio": 0.45
+            "APRatio": 0.6
         },
         "coolDown": [
             12, 11, 10, 9, 8
@@ -86,16 +86,16 @@
             "type":"Magic",
             "system":"minMax",
             "minDmg":[
-                100, 200, 300
+                100, 175, 250
             ],
             "minAPRatio": 0.25,
             "maxDmg": [
-                300, 600, 900
+                300, 525, 750
             ],
             "maxAPRatio": 0.75
         },
         "coolDown": [
-            105, 90, 75
+            110, 100, 90
         ]
     }
 }

@@ -1,87 +1,25 @@
 {
-    "Q": {
-        "damage": {
-            "type": "Magic",
-            "system": "single",
-            "dmg": [
-                75,125,175,225,275
-            ],
-            "maxHPRatio": 0.025
+    "stats": {
+        "baseHP": 610,
+        "hpPerLvl": 112,
+        "baseHPRegen": 8.5,
+        "hpRegenPerLvl": 1,
+        "mana": {
+            "base": 311,
+            "manaPerLvl": 45,
+            "manaBaseRegen": 7,
+            "manaRegenPerLvl": 0.8
         },
-        "coolDown": [
-            10, 9, 8, 7, 6
-        ]
-    },
-    "W": {
-        "bonusArmor": {
-            "armor": [
-                10, 14, 18, 22, 26
-            ],
-            "bonusArmorRatio": 0.36
-        },
-        "bonusMagicResist": {
-            "magicResist": [
-                10, 14, 18, 22, 26
-            ],
-            "bonusMagicResistRatio": 0.36
-        },
-        "allyBonusArmor": {
-            "armor": [
-                10, 14, 18, 22, 26
-            ],
-            "bonusArmorRatio": 0.12
-        },
-        "allyBonusMagicResist": {
-            "magicResist": [
-                10, 14, 18, 22, 26
-            ],
-            "bonusMagicResistRatio": 0.12
-        },
-        "duration": 3,
-        "coolDown": [
-            12,
-            11,
-            10,
-            9,
-            8
-        ]
-    },
-    "E": {
-        "damageRedux": {
-            "type": "all",
-            "reduxRatio": [
-                0.3,
-                0.325,
-                0.35,
-                0.375,
-                0.4
-            ],
-            "duration": [
-                3 , 3.25 , 3.5 , 3.75 , 4
-            ]
-        },
-        "coolDown": [
-            18, 16, 14, 12, 10
-        ]
-    },
-    "R": {
-        "damage": {
-            "type": "Magic",
-            "system":"single",
-            "dmg": [
-                150 , 300 , 450
-            ],
-            "APRatio": 0.6
-        },
-        "coolDown": [
-            140,
-            120,
-            100
-        ],
-        "minInterruptCC": 0.3,
-        "maxInterruptCC": [
-            1, 1.25, 1.5
-        ]
+        "baseDamage": 55,
+        "damagePerLvl": 3.2,
+        "baseArmor": 47,
+        "armorPerLvl": 5.2,
+        "baseMR": 32,
+        "mrPerLvl": 2.05,
+        "attackSpeed": 0.644,
+        "asRatio": 0.644,
+        "asPerLvl": 0.035,
+        "ranged": false
     },
     "passive": {
         "damage": {
@@ -96,7 +34,7 @@
             1.5, 1.5, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75
         ],
         "coolDownByLvl": [
-            8, 8, 8, 8, 8, 8, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6
+            8, 8, 8, 8, 8, 6, 6, 6, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4
         ],
         "autoEmpower": {
             "damage": {
@@ -108,26 +46,78 @@
             }
         }
     },
-    "stats": {
-        "baseHP": 540,
-        "hpPerLvl": 98,
-        "baseHPRegen": 8.5,
-        "hpRegenPerLvl": 1,
-        "mana": {
-            "base": 310.6,
-            "manaPerLvl": 45,
-            "manaBaseRegen": 6,
-            "manaRegenPerLvl": 0.8
+    "Q": {
+        "damage": {
+            "type": "Magic",
+            "system": "single",
+            "dmg": [
+                75,125,175,225,275
+            ],
+            "maxHPRatio": 0.025
         },
-        "baseDamage": 55.376,
-        "damagePerLvl": 3.2,
-        "baseArmor": 47,
-        "armorPerLvl": 4,
-        "baseMR": 32.1,
-        "mrPerLvl": 1.25,
-        "attackSpeed": 0.644,
-        "asRatio": 0.644,
-        "asPerLvl": 0.035,
-        "ranged": false
+        "coolDown": [
+            8, 7.5, 7, 6.5, 6
+        ]
+    },
+    "W": {
+        "bonusArmor": {
+            "armor": [
+                20, 25, 30, 35, 40
+            ],
+            "bonusArmorRatio": 0.36
+        },
+        "bonusMagicResist": {
+            "magicResist": [
+                20, 25, 30, 35, 40
+            ],
+            "bonusMagicResistRatio": 0.36
+        },
+        "allyBonusArmor": {
+            "armor": [
+                20, 25, 30, 35, 40
+            ],
+            "bonusArmorRatio": 0.12
+        },
+        "allyBonusMagicResist": {
+            "magicResist": [
+                20, 25, 30, 35, 40
+            ],
+            "bonusMagicResistRatio": 0.12
+        },
+        "duration": 3,
+        "coolDown": [
+            12,11,10,9,8
+        ]
+    },
+    "E": {
+        "damageRedux": {
+            "type": "all",
+            "reduxRatio": [
+                0.35, 0.4, 0.45, 0.5, 0.55
+            ],
+            "duration": [
+                3, 3.25, 3.5, 3.75, 4
+            ]
+        },
+        "coolDown": [
+            16, 14, 12, 10, 8
+        ]
+    },
+    "R": {
+        "damage": {
+            "type": "Magic",
+            "system":"single",
+            "dmg": [
+                150, 300, 450
+            ],
+            "APRatio": 0.6
+        },
+        "coolDown": [
+            120,100,80
+        ],
+        "minInterruptCC": 0.6,
+        "maxInterruptCC": [
+            1, 1.25, 1.5
+        ]
     }
 }

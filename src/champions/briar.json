@@ -1,9 +1,9 @@
 {
     "stats": {
-        "baseHP": 650,
-        "hpPerLvl": 114,
-        "baseHPRegen": 3,
-        "hpRegenPerLvl": 1,
+        "baseHP": 590,
+        "hpPerLvl": 100,
+        "baseHPRegen": 0,
+        "hpRegenPerLvl": 0,
         "mana": {
             "base": 0,
             "manaPerLvl": 0,
@@ -11,40 +11,77 @@
             "manaRegenPerLvl": 0
         },
         "baseDamage": 60,
-        "damagePerLvl": 5,
-        "baseArmor": 38,
-        "armorPerLvl": 4.45,
+        "damagePerLvl": 3,
+        "baseArmor": 30,
+        "armorPerLvl": 4.2,
         "baseMR": 32,
         "mrPerLvl": 2.05,
-        "attackSpeed": 0.651,
-        "asRatio": 0.651,
-        "asPerLvl": 0.025,
+        "attackSpeed": 0.644,
+        "asRatio": 0.669,
+        "asPerLvl": 0.02,
         "ranged": false
     },
     "passive": {
-        "minCoolDownRefund": 2,
-        "maxCoolDownRefund": 4,
+        "tickDamage": {
+            "type": "Physical",
+            "system": "minMax",
+            "interval": 0.5,
+            "minDmgByLvl": [
+                1,1.24,1.47,1.71,1.94,2.18,2.41,2.65,2.88,
+                3.12,3.35,3.59,3.82,4.06,4.29,4.53,4.76,5
+            ],
+            "minBonusADRatio": 0.05,
+            "maxDmgByLvl": [
+                3,3.71,4.41,5.12,5.82,6.53,7.24,7.94,8.65,
+                9.35,10.06,10.76,11.47,12.18,12.88,13.59,14.29,15
+            ],
+            "maxBonusADRatio": 0.15
+        },
+        "heal": {
+            "targets": "Self",
+            "minDmgRatio": 0.25,
+            "maxDmgRatio": 1.25,
+            "preMitigation": "true"
+        },
+        "passivePermanent": {
+            "maxHealingRatio": 0.4,
+            "maxHealingRatioPerBonusHealth": 0.00025
+        }
+    },
+    "Q": {
+        "autoEmpower": {
+            "damage": {
+                "type": "Magic",
+                "dmg": [
+                    60, 90, 120, 150, 180
+                ],
+                "bonusADRatio": 0.8,
+                "APRatio": 0.6
+            }
+        },
+        "interruptCC": 0.85,
+        "resistRedux": {
+            "type": "both",
+            "duration": 5,
+            "reduxRatio": [
+                0.1, 0.125, 0.15, 0.175, 0.2
+            ]
+        },
+        "coolDown": [
+            13, 12, 11, 10, 9
+        ]
+    },
+    "W": {
         "autoEmpower": {
             "damage": {
                 "type": "Physical",
                 "enemyMaxHPRatioByLvl": [
                     0.04,0.0447,0.0494,0.0541,0.0588,0.0635,0.0682,0.0729,0.0776,
                     0.0824,0.0871,0.0918,0.0965,0.1012,0.1059,0.1106,0.1153,0.12
-                ]
+                ],
+                "canCrit": true
             }
         },
-        "heal": {
-            "targets": "Self",
-            "minDmgRatio": 0.25,
-            "maxDmgRatio": 0.8,
-            "preMitigation": "false"
-        },
-        "coolDownByLvl": [
-            22,21.29,20.59,19.88,19.18,18.47,17.76,17.06,16.35,
-            15.65,14.94,14.24,13.53,12.82,12.12,11.41,10.71,10
-        ]
-    },
-    "Q": {
         "damage": {
             "type": "Physical",
             "system": "3Part",
@@ -93,25 +130,6 @@
                 1.44, 1.62, 1.8, 1.98, 2.16
             ]
           }
-        },
-        "minInterruptCC": 0.25,
-        "maxInterruptCC": 0.75,
-        "coolDown": [
-            14, 12, 10, 8, 6
-        ]
-    },
-    "W": {
-        "damage": {
-            "type": "Magic",
-            "system": "minMax",
-            "minDmg": [
-                30, 40, 50, 60, 70
-            ],
-            "maxDmg": [
-                60, 80, 100, 120, 140
-            ],
-            "minADRatio": 0.4,
-            "maxADRatio": 0.8
         },
         "coolDown": [
             20, 18, 16, 14, 12

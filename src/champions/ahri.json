@@ -1,7 +1,7 @@
 {
     "stats": {
         "baseHP": 590,
-        "hpPerLvl": 96,
+        "hpPerLvl": 104,
         "baseHPRegen": 2.5,
         "hpRegenPerLvl": 0.6,
         "mana": {
@@ -46,14 +46,14 @@
                 "dmg": [
                     40, 65, 90, 115, 140
                 ],
-                "APRatio": 0.45
+                "APRatio": 0.5
             },
             "part2": {
                 "type": "True",
                 "dmg": [
                     40, 65, 90, 115, 140
                 ],
-                "APRatio": 0.45
+                "APRatio": 0.5
             }
         },
         "coolDown": 7
@@ -87,7 +87,7 @@
         "interruptCC": [
             1.2, 1.4, 1.6, 1.8, 2
         ],
-        "coolDown": 14
+        "coolDown": 12
     },
     "R": {
         "damage": {

@@ -12,7 +12,7 @@
         },
         "baseDamage": 62,
         "damagePerLvl": 3.5,
-        "baseArmor": 40,
+        "baseArmor": 37,
         "armorPerLvl": 4.7,
         "baseMR": 32,
         "mrPerLvl": 2.05,
@@ -58,7 +58,7 @@
             "damage": {
                 "type": "Physical",
                 "system":"single",
-                "ADRatio": 1,
+                "ADRatio": 0.8,
                 "APRatio": 0.25,
                 "canCrit": true
             }

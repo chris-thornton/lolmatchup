@@ -1,4 +1,40 @@
 {
+    "stats": {
+        "baseHP": 580,
+        "hpPerLvl": 107,
+        "baseHPRegen": 3.5,
+        "hpRegenPerLvl": 0.55,
+        "mana": {
+            "base": 315,
+            "manaPerLvl": 40,
+            "manaBaseRegen": 7.4,
+            "manaRegenPerLvl": 0.7
+        },
+        "baseDamage": 60,
+        "damagePerLvl": 3.8,
+        "baseArmor": 27,
+        "armorPerLvl": 4.7,
+        "baseMR": 30,
+        "mrPerLvl": 1.3,
+        "attackSpeed": 0.681,
+        "asRatio": 0.568,
+        "asPerLvl": 0.04,
+        "ranged": true
+    },
+    "passive": {
+        "autoEmpower": {
+            "damage": {
+                "type":"Physical",
+                "ADRatioByLvl": [
+                    0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.75, 0.75, 0.75,
+                    0.75, 0.75, 0.75, 1, 1, 1, 1, 1, 1
+                ],
+                "ADRatioPerCritChance": 1.09375,
+                "ADRatioPerCritChanceWithIE": 1.3125,
+                "autoCoolDown": 7
+            }
+        }
+    },
     "Q": {
         "damage": {
             "type": "Physical",
@@ -61,41 +97,5 @@
             75,
             60
         ]
-    },
-    "passive": {
-        "autoEmpower": {
-            "damage": {
-                "type":"Physical",
-                "ADRatioByLvl": [
-                    0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.75, 0.75, 0.75,
-                    0.75, 0.75, 0.75, 1, 1, 1, 1, 1, 1
-                ],
-                "ADRatioPerCritChance": 1.09375,
-                "ADRatioPerCritChanceWithIE": 1.3125,
-                "autoCoolDown": 7
-            }
-        }
-    },
-    "stats": {
-        "baseHP": 510,
-        "hpPerLvl": 93,
-        "baseHPRegen": 3.5,
-        "hpRegenPerLvl": 0.55,
-        "mana": {
-            "base": 313.7,
-            "manaPerLvl": 35,
-            "manaBaseRegen": 7.4,
-            "manaRegenPerLvl": 0.55
-        },
-        "baseDamage": 62,
-        "damagePerLvl": 2.88,
-        "baseArmor": 28,
-        "armorPerLvl": 3.5,
-        "baseMR": 30,
-        "mrPerLvl": 0.5,
-        "attackSpeed": 0.682,
-        "asRatio": 0.568,
-        "asPerLvl": 0.035,
-        "ranged": true
     }
 }

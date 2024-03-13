@@ -2,7 +2,7 @@
     "stats": {
         "baseHP": 550,
         "hpPerLvl": 119,
-        "baseHPRegen": 7,
+        "baseHPRegen": 5,
         "hpRegenPerLvl": 0.75,
         "mana": {
             "base": 320,
