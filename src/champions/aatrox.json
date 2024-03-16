@@ -131,7 +131,7 @@
         ]
     },
     "R": {
-        "bonusStats": {
+        "toggleStats": {
             "ADRatio": [
                 0.2, 0.325, 0.45
             ],

@@ -397,8 +397,44 @@ class App extends Component {
 
   totalStatsLeft = {};
   totalStatsRight = {};
-  bonusStatsLeft = {};
-  bonusStatsRight = {};
+  bonusStatsLeft = {
+    ad: 10.8,
+    as: 0,
+    arm: 0, 
+    mr: 0,
+    hp: 15,
+    hpRegen: 0,
+    ap: 0,
+    cdr: 0,
+    critChance: 0,
+    mana: 0,
+    manaRegen: 0,
+    lethality: 0,
+    arPenRatio: 0,
+    magicPenFlat: 0,
+    magicPenRatio: 0,
+    omni: 0,
+    lifeSteal: 0
+  };
+  bonusStatsRight = {
+    ad: 10.8,
+    as: 0,
+    arm: 0, 
+    mr: 0,
+    hp: 15,
+    hpRegen: 0,
+    ap: 0,
+    cdr: 0,
+    critChance: 0,
+    mana: 0,
+    manaRegen: 0,
+    lethality: 0,
+    arPenRatio: 0,
+    magicPenFlat: 0,
+    magicPenRatio: 0,
+    omni: 0,
+    lifeSteal: 0
+  };
   tfTotalStatsLeft = {};
   tfTotalStatsRight = {};
   itemStatsLeft = {};
@@ -406,24 +442,31 @@ class App extends Component {
 
   manaLeft = 1;
   manaRight = 1;
-  apMultiplierLeft = 1;
+  dcapMultiplierLeft = 1;
   dcapCountLeft = 0;
-  apMultiplierRight = 1;
+  dcapMultiplierRight = 1;
   dcapCountRight = 0;
-  adMultiplierLeft = 1;
+  sterakMultiplierLeft = 1;
   sterakCountLeft = 0;
-  adMultiplierRight = 1;
-  hpMultiplierLeft = 0;
-  winterCountLeft = 0;
-  hpMultiplierRight = 0;
-  winterCountRight = 0;
   sterakCountRight = 0;
+  sterakMultiplierRight = 1;
+  winterMultiplierLeft = 0;
+  winterCountLeft = 0;
+  winterMultiplierRight = 0;
+  winterCountRight = 0;
   muraLeft = 0;
   muraCountLeft = 0;
   muraRight = 0;
   muraCountRight = 0;
+  archangelLeft = 0;
+  archangelCountLeft = 0;
+  seraphCountLeft = 0;
+  archangelRight = 0;
+  archangelCountRight = 0;
+  seraphCountRight = 0;
   ieCountLeft = 0;
   ieCountRight = 0;
+
   appliedStatsLeft = {
     ad: 0,
     as: 0,
@@ -543,27 +586,38 @@ class App extends Component {
     var runeStats = this[`runes${side}`];
     var appliedStats = this[`appliedStats${side}`];
 
+    this[`bonusStats${side}`] = {
+      ...this[`bonusStats${side}`],
+      hp: itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
+        + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`winterMultiplier${side}`]*this[`mana${side}`],
+      as: itemStats.as + runeStats.as + appliedStats.as,
+      arm: itemStats.arm + runeStats.arm + appliedStats.arm,
+      ad: itemStats.ad + runeStats.ad + appliedStats.ad + (itemStats.mana + statsPath.mana["base"] 
+      + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]*this[`mura${side}`]
+        + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1),
+      mr: itemStats.mr + runeStats.mr + appliedStats.mr,
+      mana: itemStats.mana*this[`mana${side}`],
+      manaRegen: (itemStats.manaRegen + appliedStats.manaRegen)*this[`mana${side}`],
+      hpRegen: itemStats.hpRegen + appliedStats.hpRegen
+    }; 
+
     this[`totalStats${side}`] = {
       ...this[`totalStats${side}`],
-      hp: itemStats.hp + runeStats.hp + statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio) + 
-        appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
-        + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`],
+      hp: statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio) + this[`bonusStats${side}`].hp,
       as: statsPath["attackSpeed"] + ((statsPath["asPerLvl"] * champLvlRatio) 
-        + itemStats.as + runeStats.as + appliedStats.as) * statsPath["asRatio"],
-      arm: itemStats.arm + runeStats.arm + appliedStats.arm + statsPath["baseArmor"] 
-        + statsPath["armorPerLvl"] * champLvlRatio,
-      ad: itemStats.ad + runeStats.ad + appliedStats.ad
-        + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`] 
-        + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
-        + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mura${side}`]*this[`mana${side}`],
-      mr: itemStats.mr + runeStats.mr + appliedStats.mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
-      mana: (itemStats.mana + appliedStats.mana + statsPath.mana["base"] 
+        + this[`bonusStats${side}`].as) * statsPath["asRatio"],
+      arm: this[`bonusStats${side}`].arm + statsPath["baseArmor"] + statsPath["armorPerLvl"]*champLvlRatio,
+      ad: this[`bonusStats${side}`].ad + statsPath["baseDamage"] + statsPath["damagePerLvl"]*champLvlRatio,
+      mr: this[`bonusStats${side}`].mr + statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio,
+      mana: (itemStats.mana + statsPath.mana["base"] 
         + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`],
       manaRegen: ((itemStats.manaRegen + appliedStats.manaRegen) * statsPath.mana["manaBaseRegen"]/100 
         + statsPath.mana["manaBaseRegen"] + statsPath.mana["manaRegenPerLvl"] * champLvlRatio)*this[`mana${side}`],
-      hpRegen: itemStats.hpRegen * statsPath["baseHPRegen"]/100 + appliedStats.hpRegen
+      hpRegen: (itemStats.hpRegen + appliedStats.hpRegen) * statsPath["baseHPRegen"]/100
         + statsPath["baseHPRegen"] + statsPath["hpRegenPerLvl"] * champLvlRatio,
-      ap: itemStats.ap + appliedStats.ap + runeStats.ap,
+      ap: ((itemStats.ap + appliedStats.ap + runeStats.ap)*this[`dcapMultiplier${side}`]) + 
+      (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)
+      *this[`mana${side}`]*this[`archangel${side}`],
       arPenRatio: itemStats.arPenRatio + appliedStats.arPenRatio,
       lethality: itemStats.lethality + appliedStats.lethality, 
       lifeSteal: itemStats.lifeSteal + appliedStats.lifeSteal,
@@ -572,20 +626,6 @@ class App extends Component {
       magicPenRatio: itemStats.magicPenRatio + appliedStats.magicPenRatio,
       cdr: itemStats.cdr + appliedStats.cdr + runeStats.cdr,
       critChance: itemStats.critChance + appliedStats.critChance
-    };
-
-    this[`bonusStats${side}`] = {
-      ...this[`bonusStats${side}`],
-      hp: itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
-        + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`],
-      as: (itemStats.as + runeStats.as + appliedStats.as) * statsPath["asRatio"],
-      arm: itemStats.arm + runeStats.arm + appliedStats.arm,
-      ad: itemStats.ad + runeStats.ad + appliedStats.ad + this[`totalStats${side}`].mana * this[`mura${side}`]
-        + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1),
-      mr: itemStats.mr + runeStats.mr + appliedStats.mr,
-      mana: (itemStats.mana + appliedStats.mana)*this[`mana${side}`],
-      manaRegen: (itemStats.manaRegen + appliedStats.manaRegen) * statsPath["manaBaseRegen"]/100 *this[`mana${side}`],
-      hpRegen: itemStats.hpRegen * statsPath["baseHPRegen"]/100 + appliedStats.hpRegen
     };
 
     this.setState(prevState => ({
@@ -624,7 +664,7 @@ class App extends Component {
             + tfPath["asPerLvl"] * champLvlRatio) * tfPath["asRatio"],
           arm: this[`bonusStats${side}`].arm + tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
           ad: this[`bonusStats${side}`].ad + (tfPath["baseDamage"] 
-            + tfPath["damagePerLvl"] * champLvlRatio)*this[`adMultiplier${side}`]
+            + tfPath["damagePerLvl"] * champLvlRatio)*this[`sterakMultiplier${side}`]
             + (this[`bonusStats${side}`].mana + tfPath.mana["base"] 
             + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`mura${side}`]*this[`mana${side}`],
           mr: this[`bonusStats${side}`].mr + tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
@@ -654,7 +694,7 @@ class App extends Component {
             ...prevState[`tfTotalStats${side}`], 
             hp: itemStats.hp + runeStats.hp + tfPath["baseHP"] + (tfPath["hpPerLvl"] * champLvlRatio) + 
             appliedStats.hp + (itemStats.mana + tfPath.mana["base"] + appliedStats.mana
-            + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`hpMultiplier${side}`]*this[`mana${side}`]
+            + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`winterMultiplier${side}`]*this[`mana${side}`]
           }
         }))
       }
@@ -668,8 +708,11 @@ class App extends Component {
     var abilitiesLength = document.getElementsByClassName(`abilityBox${side}`).length;
     for (var i = 0; i < abilitiesLength; i++) {
       var divToEmpty = document.getElementsByClassName(`abilityBox${side}`)[i];
-      while (divToEmpty.firstChild) {
+      /*while (divToEmpty.firstChild) {
         divToEmpty.removeChild(divToEmpty.firstChild);
+      };*/
+      while (divToEmpty.childNodes[1]) {
+        divToEmpty.removeChild(divToEmpty.childNodes[1])
       };
       document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'hidden';
       document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'hidden';
@@ -695,8 +738,8 @@ class App extends Component {
     var bonusAD = this[`bonusStats${side}`].ad;
     var totalAP = this[`totalStats${side}`].ap;
     var totalAS = this[`totalStats${side}`].as;
-    var bonusAS = this[`bonusStats${side}`].as;
-    var bonusASRatio = itemStats.as + appliedStats.as + runeStats.as;
+    var bonusAS = this[`bonusStats${side}`].as * statsPath.asRatio;
+    var bonusASRatio = this[`bonusStats${side}`].as;
     var totalArmor = this[`totalStats${side}`].arm;
     var bonusArmor = this[`bonusStats${side}`].arm;
     var totalMR = this[`totalStats${side}`].mr;
@@ -829,6 +872,16 @@ class App extends Component {
         abilityDiv.appendChild(br)
         var br2 = document.createElement('br');
         abilityDiv.appendChild(br2)
+      };
+      function createBracketDiv() {
+        var bracketDiv = document.createElement('div');
+        bracketDiv.style.borderImage = "linear-gradient(to right, white 2%, rgba(177, 41, 238, 0)3%) 1";
+        bracketDiv.style.borderStyle = "solid";
+        bracketDiv.style.borderWidth = "2px";
+        bracketDiv.style.borderRight = "none";
+        bracketDiv.style.padding = '5px 0 0 8px';
+        abilityDiv.appendChild(bracketDiv);
+        abilityDiv = bracketDiv
       };
       function underLine(string) {
         /*var underL = document.createElement('u');
@@ -1079,12 +1132,12 @@ class App extends Component {
       const applyRatioPer = (statType, perStatType, perQuantityType,
          perQuantityValue, buttonType) => { 
         if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value != 0) {
-          if (buttonType) {
+          /*if (buttonType) {
             document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'visible';
             document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2].style.visibility = 'visible';
           } else {
             document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible';
-          };
+          };*/
           if (!this[`applied${ability}${side}`].statTypes.includes(statType)) {
             this[`applied${ability}${side}`].statTypes.push(statType);
             this[`applied${ability}${side}`][statType] = {}
@@ -1213,6 +1266,9 @@ class App extends Component {
 
           if (champFile[ability]["autoEmpower"]) {
             var damage = champFile[ability]["autoEmpower"]["damage"];
+            if (damage["system"] === "2Part" || damage["system"] === "3Part") {
+              createBracketDiv()
+            };
             prependIcon(attackIcon);
             if (!damage["durationAutos"] && !damage['autoCoolDown']) {
               addBold('Empowered Basic Attack')
@@ -1574,13 +1630,14 @@ class App extends Component {
               for (var i = 1; i < 4; i++) {
                 if (!damage[`part${i}`]) {
                   return;
-                }
+                };
+                singleBreak();
                 var part = damage[`part${i}`];
                 colorPart('Part ' + i);  
 
                 if (part["type"]) {
                   prependType(part["type"]);
-                  addText(part["type"] + " Damage: ");
+                  underLine(part["type"] + " Damage");
                 };
                 if (part["ADRatio"]) {
                   addText(" (" + removeParen(part["ADRatio"]));
@@ -1589,14 +1646,17 @@ class App extends Component {
                 };
                 if (part["trueDmgRatioByLvl"]) {
                   singleBreak();
-                  addText('True Damage Ratio: (' + part["trueDmgRatioByLvl"][0] + " to " + part["trueDmgRatioByLvl"][17]
+                  prependIcon(trueDmgIcon);
+                  underLine('True Damage Ratio')
+                  addText('(' + part["trueDmgRatioByLvl"][0] + " to " + part["trueDmgRatioByLvl"][17]
                   + ", based on lvl. Currently: " + part["trueDmgRatioByLvl"][champLevel] + ')');
                 };
                 if (damage[`part${i+1}`]) {
-                  doubleBreak();
+                  singleBreak();
                 }
               }
               })();
+              abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
             };
             if (damage["system"] === 'infiniteStack') {
               addText(' (stacks infinitely)')
@@ -1616,14 +1676,7 @@ class App extends Component {
           if (champFile[ability]["damage"]) {
             var damage = champFile[ability]["damage"];
             if (damage["system"] === "2Part" || damage["system"] === "3Part") {
-              var bracketDiv = document.createElement('div');
-              bracketDiv.style.borderImage = "linear-gradient(to right, white 2%, rgba(177, 41, 238, 0)3%) 1";
-              bracketDiv.style.borderStyle = "solid";
-              bracketDiv.style.borderWidth = "2px";
-              bracketDiv.style.borderRight = "none";
-              bracketDiv.style.padding = '5px 0 0 8px';
-              abilityDiv.appendChild(bracketDiv);
-              abilityDiv = bracketDiv
+              createBracketDiv();
             };
             if (!damage["type"]) {
               addBold("Damage");
@@ -4088,8 +4141,21 @@ class App extends Component {
             doubleBreak();
           };
 
+          if (champFile[ability]["permanentStats"]) {
+
+          };
+
+          if (champFile[ability]["toggleStats"]) {
+            /*if (document.getElementById(`${this.abilities[i]}${side}Applied`)) {
+              
+            };*/
+            createBracketDiv();
+
+            abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
+          };
+
           if (champFile[ability]["bonusStats"]) {
-            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'hidden';
+            //document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'hidden';
             var path = champFile[ability]["bonusStats"];
             addBold('Bonus Stats');
             if (path["attackDamageByLvl"]) {
@@ -5443,6 +5509,9 @@ class App extends Component {
 
           if (champFile[ability]["autoEmpower"]) {
             var damage = champFile[ability]["autoEmpower"]["damage"];
+            if (damage["system"] === "2Part" || damage["system"] === "3Part") {
+              createBracketDiv()
+            };
             prependIcon(attackIcon);
             if (!damage["durationAutos"] && !damage['autoCoolDown']) {
               addBold('Empowered Basic Attack')
@@ -5785,15 +5854,15 @@ class App extends Component {
                 for (var i = 1; i < 4; i++) {
                   if (!damage[`part${i}`]) {
                     return;
-                  }
-                  var part = damage[`part${i}`];
-                  //underLine('Part '  + i);  
+                  };
+                  singleBreak();
+                  var part = damage[`part${i}`];  
                   colorPart('Part ' + i); 
                   var dmgCount = 0;
 
                   if (part["type"]) {
                     prependType(part['type']);
-                    addText(part['type'] + " Damage: ");
+                    underLine(part['type'] + " Damage");
                   };
                   if (part["ADRatio"]) {
                     dmgCount += arrayCheck(part["ADRatio"]) * totalAD;
@@ -5810,10 +5879,11 @@ class App extends Component {
                     * dmgCount) + ', True: ' + Math.round(part["trueDmgRatioByLvl"][champLevel] * dmgCount));
                   };
                   if (damage[`part${i + 1}`]) {
-                    doubleBreak();
+                    singleBreak();
                   }
                 }
               })();
+              abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
             };
             if (damage["system"] === 'infiniteStack') {
               addText(' (stacks infinitely)')
@@ -5829,6 +5899,9 @@ class App extends Component {
 
           if (champFile[ability]["damage"]) {
             var damage = champFile[ability]["damage"];
+            if (damage['system'] === '2Part' || damage['system'] === '3Part') {
+              createBracketDiv()
+            };
             var totalDmgCount = 0;
             var IEDmgCount = 0;
             var minDmgCount = 0;
@@ -6419,8 +6492,7 @@ class App extends Component {
                   if (!damage[`part${i}`]) {
                     return;
                   }
-                  var part = damage[`part${i}`];
-                  //underLine('Part '  + i);  
+                  var part = damage[`part${i}`];  
                   colorPart('Part ' + i); 
 
                 if (part["type"]) {
@@ -6547,6 +6619,7 @@ class App extends Component {
                 }
               }
               })();
+              abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
             };
             if (damage["storedDmg"]) {
               singleBreak();
@@ -6938,6 +7011,15 @@ class App extends Component {
               prependIcon(vampIcon);
               underLine('Omni Vamp Ratio');
               addText(arrayCheck(path["omniVamp"]))
+            };
+            if (path["minOmniVamp"]) {
+              prependIcon(vampIcon);
+              underLine('Omni Vamp Ratio')
+              colorMin('Min: ');
+              addText(arrayCheck(path["minOmniVamp"]));
+              singleBreak();
+              colorMin('Max: ');
+              addText(arrayCheck(path["maxOmniVamp"]));
             };
           doubleBreak();
           };
@@ -7671,6 +7753,28 @@ class App extends Component {
             doubleBreak();
           };
 
+          if (champFile[ability]["toggleStats"]) {
+            createBracketDiv();
+
+            var path = champFile[ability]["toggleStats"];
+            addBold('Bonus Stats');
+            if (path["ADRatio"]) {
+              applyAbility('ad', 'ratio', path["ADRatio"]);
+              prependIcon(ADIcon);
+              underLine('Attack Damage Ratio');
+              addText(arrayCheck(path["ADRatio"]));
+              singleBreak();
+            };
+            if (path["healingRatio"]) {
+              prependIcon(healIcon);
+              underLine('Increased Healing Ratio');
+              addText(arrayCheck(path["healingRatio"]));
+              singleBreak();
+            };
+            abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
+            singleBreak();
+          };
+
           if (champFile[ability]["bonusStats"]) {
             var path = champFile[ability]["bonusStats"];
             addBold('Bonus Stats');
@@ -8139,7 +8243,7 @@ class App extends Component {
           if (champFile[ability]["bonusOmniVamp"]) {
             var path = champFile[ability]["bonusOmniVamp"];
             prependIcon(vampIcon);
-            addBold('Bonus Omnivamp Ratio');
+            addBold('Bonus Omni Vamp Ratio');
             if (path['vamp']) {
               addText(arrayCheck(path['vamp']));
             };
@@ -13498,11 +13602,16 @@ class App extends Component {
     if (this[`itemCounter${side}`] === 6) {
       return
     };
-    var invenSlot = document.querySelectorAll(`#inven${side} > img`)[this[`itemCounter${side}`]];
-    invenSlot.setAttribute('src', event.target.src);
-    invenSlot.style.cursor = 'pointer';
+    for (i = 0; i < 6; i++) {
+      if (document.querySelectorAll(`#inven${side} > img`)[i].src === blackbg) {
+        var invenSlot = document.querySelectorAll(`#inven${side} > img`)[i];
+        invenSlot.setAttribute('src', event.target.src);
+        invenSlot.style.cursor = 'pointer';
+        this[`inven${side}TT${i+1}`] = this.legendItems[legendIndex];
+        break
+      }
+    };
     this[`itemCounter${side}`]++;
-    this[`inven${side}TT${this[`itemCounter${side}`]}`] = this.legendItems[legendIndex];
 
     var itemStats = this[`itemStats${side}`];
     var champStats = this[`champFile${side}`].stats;
@@ -13511,20 +13620,20 @@ class App extends Component {
       this[`ieCount${side}`]++
     };
     if (itemTitle.includes('Deathcap')) {
-      this[`apMultiplier${side}`] = 1.35
+      this[`dcapMultiplier${side}`] = 1.35
       this[`dcapCount${side}`]++;
     };
     var champLevel = this[`level${side}`] - 1;
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
     if (itemTitle.includes('Sterak')) {
       if (this[`sterakCount${side}`] === 0) {
-        this[`adMultiplier${side}`] = 1.4;
+        this[`sterakMultiplier${side}`] = 1.4;
       };
       this[`sterakCount${side}`]++;
     };
     if (itemTitle.includes('Fimbulwinter') || itemTitle.includes(`Winter's Approach`)) {
       if (this[`winterCount${side}`] === 0) {
-        this[`hpMultiplier${side}`] = 0.08;
+        this[`winterMultiplier${side}`] = 0.08;
       };
       this[`winterCount${side}`]++;
     };
@@ -13533,6 +13642,18 @@ class App extends Component {
         this[`mura${side}`] = 0.025;
       };
       this[`muraCount${side}`]++;
+    };
+    if (itemTitle.includes(`Archangel's Staff`)) {
+      if (this[`archangelCount${side}`] === 0 && this[`seraphCount${side}`] === 0) {
+        this[`archangel${side}`] = 0.01;
+      };
+      this[`archangelCount${side}`]++;
+    };
+    if (itemTitle.includes(`Seraph's Embrace`)) {
+      if (this[`seraphCount${side}`] === 0) {
+        this[`archangel${side}`] = 0.02;
+      };
+      this[`seraphCount${side}`]++;
     };
 
     var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
@@ -13570,7 +13691,7 @@ class App extends Component {
         }
         continue;
       };
-      if (spanText.includes('Mana') && champStats.mana.base) {
+      if (spanText.includes('Mana')) {
         if (!spanText.includes('Regen')) {
           itemStats.mana += statQuantity;
         } else {
@@ -13609,14 +13730,14 @@ class App extends Component {
     };
 
     var adaptAD = itemStats.ad + (champStats["baseDamage"]
-      + champStats["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1);
-    if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`apMultiplier${side}`] > adaptAD) {
+      + champStats["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1);
+    if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`dcapMultiplier${side}`] > adaptAD) {
       var adFromRunes = this[`runes${side}`].ad;
       this[`runes${side}`].ap = adFromRunes/0.6;
       this[`runes${side}`].ad = 0;
       this[`forceType${side}`] = 'ap';
     };
-    if (this[`forceType${side}`] === 'ap' && adaptAD > itemStats.ap*this[`apMultiplier${side}`]) {
+    if (this[`forceType${side}`] === 'ap' && adaptAD > itemStats.ap*this[`dcapMultiplier${side}`]) {
       var apFromRunes = this[`runes${side}`].ap;
       this[`runes${side}`].ad = apFromRunes*0.6;
       this[`runes${side}`].ap = 0;
@@ -13647,19 +13768,19 @@ class App extends Component {
     };
     if (itemTitle.includes('Deathcap')) {
       if (this[`dcapCount${side}`] === 1) {
-        this[`apMultiplier${side}`] = 1;
+        this[`dcapMultiplier${side}`] = 1;
       };
       this[`dcapCount${side}`]--;
     };
     if (itemTitle.includes('Sterak')) {
       if (this[`sterakCount${side}`] === 1) {
-        this[`adMultiplier${side}`] = 1;
+        this[`sterakMultiplier${side}`] = 1;
       };
       this[`sterakCount${side}`]--;
     };
     if (itemTitle.includes('Fimbulwinter') || itemTitle.includes(`Winter's Approach`)) {
       if (this[`winterCount${side}`] === 1) {
-        this[`hpMultiplier${side}`] = 0;
+        this[`winterMultiplier${side}`] = 0;
       };
       this[`winterCount${side}`]--;
     };
@@ -13668,6 +13789,22 @@ class App extends Component {
         this[`mura${side}`] = 0;
       };
       this[`muraCount${side}`]--;
+    };
+    if (itemTitle.includes(`Archangel's Staff`)) {
+      if (this[`archangelCount${side}`] === 1 && this[`seraphCount${side}`] === 0) {
+        this[`archangel${side}`] = 0;
+      };
+      this[`archangelCount${side}`]--;
+    };
+    if (itemTitle.includes(`Seraph's Embrace`)) {
+      if (this[`seraphCount${side}`] === 1) {
+        if (this[`archangel${side}`] !== 0) {
+          this[`archangel${side}`] = 0.01
+        } else {
+          this[`archangel${side}`] = 0
+        }
+      };
+      this[`seraphCount${side}`]--;
     };
 
     var spanArray = Array.from(event.target.nextSibling.getElementsByTagName('span'));
@@ -13705,7 +13842,7 @@ class App extends Component {
         }
         continue;
       };
-      if (spanText.includes('Mana') && champStats.mana.base) {
+      if (spanText.includes('Mana')) {
         if (!spanText.includes('Regen')) {
           itemStats.mana -= statQuantity;
         } else {
@@ -13744,14 +13881,14 @@ class App extends Component {
     };
 
     var adaptAD = itemStats.ad + (champStats["baseDamage"] 
-      + champStats["damagePerLvl"] * champLvlRatio)*(this[`adMultiplier${side}`]-1);
-    if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`apMultiplier${side}`] > adaptAD) {
+      + champStats["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1);
+    if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`dcapMultiplier${side}`] > adaptAD) {
       var adFromRunes = this[`runes${side}`].ad;
       this[`runes${side}`].ap = adFromRunes/0.6;
       this[`runes${side}`].ad = 0;
       this[`forceType${side}`] = 'ap'
     };
-    if (this[`forceType${side}`] === 'ap' && adaptAD > itemStats.ap*this[`apMultiplier${side}`]) {
+    if (this[`forceType${side}`] === 'ap' && adaptAD > itemStats.ap*this[`dcapMultiplier${side}`]) {
       var apFromRunes = this[`runes${side}`].ap;
       this[`runes${side}`].ad = apFromRunes*0.6;
       this[`runes${side}`].ap = 0;
@@ -13773,7 +13910,7 @@ class App extends Component {
       if (item[1].props.children[0].props.children.toLowerCase().includes(event.target.value.toLowerCase())){
         return (
           <span key={i} style={{display: 'inline-block'}}>
-            <img className='itemIcon' style={{border: '1px solid white'}} src={Array.from(this.itemIcons)[i]}
+            <img className='itemIcon hoverScale' style={{border: '1px solid white'}} src={Array.from(this.itemIcons)[i]}
             onClick={(event) => this.onLegendClick(event, side, i)}></img>
             <div className='itemTooltip' style={{marginLeft: marginForSide}}>
               {this.legendItems[i]}
@@ -13859,7 +13996,7 @@ class App extends Component {
     this.setState({itemDisplayLeft: Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
         <span key={i} style={{display: 'inline-block'}} className='itt'>
-          <img className='itemIcon' style={{border: '1px solid white', position: 'relative'}} src={iconSrc}
+          <img className='itemIcon hoverScale' style={{border: '1px solid white', position: 'relative'}} src={iconSrc}
           onClick={(event) => this.onLegendClick(event, 'Left', i)}></img>
           <div className='itemTooltip' style={{marginLeft: '46px'}}>
             {this.legendItems[i]}
@@ -13870,7 +14007,7 @@ class App extends Component {
     this.setState({itemDisplayRight:  Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
         <span key={i} style={{display: 'inline-block'}} className='itt'>
-          <img className='itemIcon' style={{border: '1px solid white', position: 'relative'}} src={iconSrc}
+          <img className='itemIcon hoverScale' style={{border: '1px solid white', position: 'relative'}} src={iconSrc}
           onClick={(event) => this.onLegendClick(event, 'Right', i)}></img>
           <div className='itemTooltip' style={{marginLeft: '-400px'}}>
             {this.legendItems[i]}
@@ -13937,7 +14074,7 @@ class App extends Component {
 
           <div style={{marginTop: '64px'}}></div>
 
-          <div className='flexDisplay'>
+          <div className='flexDisplay' id='runeContainer'>
             <div style={{width: '45vw'}} className='flexDisplay'>
               <div id='ksPathLeft'>
                 <img className='precision' src={this.ksPathIcons[0]}
@@ -14303,7 +14440,8 @@ class App extends Component {
                 <img src={ADIcon} alt='Attack Damage Icon'/>
                 <span>Attack Damage: </span>{Math.round(this.state.totalStatsLeft.ad)}<br />
                 <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-                <span>Attack Speed: </span>{this.state.totalStatsLeft.as.toFixed(3)}<br />
+                <span>Attack Speed: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.as.toFixed(3)
+                : this.bonusStatsLeft.as.toFixed(3)}<br />
                 <img src={critChanceIcon} alt='Crit Chance Icon'/>
                 <span>Crit Chance: </span>{Math.round(this.state.totalStatsLeft.critChance)}%<br />
               </div>
@@ -14336,7 +14474,8 @@ class App extends Component {
                 <img src={ADIcon} alt='Attack Damage Icon'/>
                 <span>Attack Damage: </span>{Math.round(this.state.totalStatsRight.ad)}<br />
                 <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-                <span>Attack Speed: </span>{this.state.totalStatsRight.as.toFixed(3)}<br />
+                <span>Attack Speed: </span>{this.state.champNameRight ? this.state.totalStatsRight.as.toFixed(3)
+                : this.bonusStatsRight.as.toFixed(3)}<br />
                 <img src={critChanceIcon} alt='Crit Chance Icon'/>
                 <span>Crit Chance: </span>{Math.round(this.state.totalStatsRight.critChance)}%<br />
               </div>
@@ -14430,7 +14569,10 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='passiveMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='passiveLeftApplied'>
+                
+              </div>
+              <div className="hiddenLeft abilityBoxLeft">
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='passiveLeftApplied'>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'passive')}>
                     Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'passive')}>
@@ -14439,7 +14581,6 @@ class App extends Component {
                     Apply Maximum Stats</button>
                 </div>
               </div>
-              <div className="hiddenLeft abilityBoxLeft"></div>
 
               <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
@@ -14450,7 +14591,9 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='qMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='QLeftApplied'>
+              </div>
+              <div className="hiddenLeft abilityBoxLeft">
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='QLeftApplied'>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Q')}>
                     Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'Q')}>
@@ -14459,7 +14602,6 @@ class App extends Component {
                     Apply Maximum Stats</button>
                 </div>
               </div>
-              <div className="hiddenLeft abilityBoxLeft"></div>
 
               <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
@@ -14470,16 +14612,17 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='wMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='WLeftApplied'>
-                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'W')}
-                  >Apply Minimum Stats</button>
+              </div>
+              <div className="hiddenLeft abilityBoxLeft">
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='WLeftApplied'>
+                  <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'W')}>
+                    Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'W')}>
                     Apply Stats </button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'W')}>
                     Apply Maximum Stats</button>
                 </div>
               </div>
-              <div className="hiddenLeft abilityBoxLeft"></div>
 
               <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
@@ -14490,7 +14633,9 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='eMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='ELeftApplied'>
+              </div>
+              <div className="hiddenLeft abilityBoxLeft">
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='ELeftApplied'>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'E')}>
                     Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'E')}>
@@ -14499,7 +14644,6 @@ class App extends Component {
                     Apply Maximum Stats</button>
                 </div>
               </div>
-              <div className="hiddenLeft abilityBoxLeft"></div>
 
               <div className="hiddenLeft abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
@@ -14510,9 +14654,9 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='rMargin' src={ this.images[`${this.state.champIndexLeft}`] } alt='Ability icon'/>
                 </div>
-                
               </div>
-              <div style={{textAlign: 'left'}} id='RLeftApplied'>
+              <div className="hiddenLeft abilityBoxLeft" style={{marginBottom: '50px'}}>
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='RLeftApplied'>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'R')}>
                     Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'R')}>
@@ -14520,7 +14664,7 @@ class App extends Component {
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Left', 'R')}>
                     Apply Maximum Stats</button>
                 </div>
-              <div className="hiddenLeft abilityBoxLeft" style={{marginBottom: '50px'}}></div>
+              </div>
             </div>
           
             <div>
@@ -14534,7 +14678,9 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='passiveMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='passiveRightApplied'>
+              </div>
+              <div className="hiddenRight abilityBoxRight">
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='passiveRightApplied'>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'passive')}>
                     Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'passive')}>
@@ -14543,7 +14689,6 @@ class App extends Component {
                     Apply Maximum Stats</button>
                 </div>
               </div>
-              <div className="hiddenRight abilityBoxRight"></div>
 
               <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
@@ -14554,7 +14699,9 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='qMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='QRightApplied'>
+              </div>
+              <div className="hiddenRight abilityBoxRight">
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='QRightApplied'>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Q')}>
                     Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'Q')}>
@@ -14563,7 +14710,6 @@ class App extends Component {
                     Apply Maximum Stats</button>
                 </div>
               </div>
-              <div className="hiddenRight abilityBoxRight"></div>
 
               <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
@@ -14574,7 +14720,9 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='wMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='WRightApplied'>
+              </div>
+              <div className="hiddenRight abilityBoxRight">
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='WRightApplied'>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'W')}>
                     Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'W')}>
@@ -14583,7 +14731,6 @@ class App extends Component {
                     Apply Maximum Stats</button>
                 </div>
               </div>
-              <div className="hiddenRight abilityBoxRight"></div>
 
               <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
@@ -14594,7 +14741,9 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='eMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='ERightApplied'>
+              </div>
+              <div className="hiddenRight abilityBoxRight">
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='ERightApplied'>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'E')}>
                     Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'E')}>
@@ -14603,7 +14752,6 @@ class App extends Component {
                     Apply Maximum Stats</button>
                 </div>
               </div>
-              <div className="hiddenRight abilityBoxRight"></div>
 
               <div className="hiddenRight abilityTitleBox" style={{paddingTop: '5px'}}>
                 <div style={{display: 'inline-block', verticalAlign: 'top'}}>
@@ -14614,7 +14762,9 @@ class App extends Component {
                 <div className="spriteContainer">
                   <img className='rMargin' src={ this.images[`${this.state.champIndexRight}`] } alt='Ability icon'/>
                 </div>
-                <div style={{textAlign: 'left', marginTop: '-5px'}} id='RRightApplied'>
+              </div>
+              <div className="hiddenRight abilityBoxRight" style={{marginBottom: '50px'}}>
+                <div style={{textAlign: 'center', marginTop: '-5px'}} id='RRightApplied'>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'R')}>
                     Apply Minimum Stats</button>
                   <button type='button' onClick={(event) => this.appliedStatsToggle(event, 'Right', 'R')}>
@@ -14623,7 +14773,6 @@ class App extends Component {
                     Apply Maximum Stats</button>
                 </div>
               </div>
-              <div className="hiddenRight abilityBoxRight" style={{marginBottom: '50px'}}></div>
             </div>
           </div>
 

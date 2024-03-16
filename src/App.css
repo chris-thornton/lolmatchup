@@ -45,6 +45,10 @@ div[id$=Applied] button {
   visibility: hidden;
 }
 
+input:hover {
+  box-shadow: 0 0 5px rgb(177, 41, 238);
+}
+
 .abilityTitleBox input {
   margin-top: 5px;
 }
@@ -85,13 +89,18 @@ li + li {
 
 button {
  border-radius: 5px;
- /*border: 2px outset rgb(118, 118, 118);
- border-right-color: rgb(33, 33, 33);
- border-bottom-color: rgb(33, 33, 33);*/
+ border: 3px outset rgb(118, 118, 118);
+ border-left-color: rgb(33, 33, 33);
+ border-top-color: rgb(33, 33, 33);
  /*border: 1px solid rgb(118, 118, 118);
  border-right: 2px solid rgb(33, 33, 33);
  border-bottom: 2px solid rgb(33, 33, 33);*/
- box-shadow: 1px 1px #f9b54a;
+ box-shadow: 1px 1px 3px rgb(6,197,254);
+}
+
+button:hover {
+  border: 3px solid black;
+  box-shadow: none;
 }
 
 #ksPathLeft, #ksPathRight {
@@ -137,6 +146,10 @@ button {
   color: #ffffb9
 }
 
+.hoverScale:hover {
+  transform: scale(1.1);
+}
+
 .statsBox {
   width: 45vw;
   display: flex;
@@ -170,6 +183,10 @@ button {
 
 #transform {
   display: none;
+}
+
+#runeContainer img:hover {
+  transform: scale(1.1);
 }
 
 #ksLeft u, #ksRight u {
@@ -268,12 +285,6 @@ span + img {
   }
 }
 
-/*@media screen and (min-width: 801px) {
-  .inventory > br {
-    display: none;
-  }
-}*/
-
 .runeImgStyle {
   height: 25px;
   width: 25px;
@@ -288,7 +299,6 @@ span + img {
 
 .inventory {
   text-align: center;
-  
   position: relative;
 }
 
@@ -297,6 +307,10 @@ span + img {
   height: 40px;
   border: 3px double white;
   margin-left: 5px;
+}
+
+.inventory > img:hover {
+  transform: scale(1.1);
 }
 
 #itemsLeft, #itemsRight {
@@ -389,9 +403,9 @@ hr {
 }
 
 .abilityBoxLeft, .abilityBoxRight {
-  width: 45vw;
+  width: calc(45vw - 4em);
   border-radius: 4px;
-  padding: 0.5em;
+  padding: 2em;
   margin-top: 1px;
   background: linear-gradient(#003747, #134f61);
   color:white;
