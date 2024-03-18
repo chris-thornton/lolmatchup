@@ -628,6 +628,27 @@ class App extends Component {
       critChance: itemStats.critChance + appliedStats.critChance
     };
 
+    this.abilities.map(x => {
+      this[`applied${x}${side}`].statTypes.map(y => {
+        if (this[`applied${x}${side}`][y].ratio) {
+          if (typeof this[`applied${x}${side}`][y].ratio === 'number') {
+            this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio + 1);
+            this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio + 1);
+          } else if (this[`applied${x}${side}`][y].ratio.length < 10) {
+            this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
+              [document.getElementById(`${x}Rank${side}`).value - 1] + 1);
+            this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
+              [document.getElementById(`${x}Rank${side}`).value - 1] + 1);
+          } else {
+            this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
+            [(this[`level${side}`] - 1)] + 1);
+            this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
+            [(this[`level${side}`] - 1)] + 1);
+          }
+        }
+      })
+    });
+
     this.setState(prevState => ({
       [`totalStats${side}`]: {
         ...prevState[`totalStats${side}`],
@@ -656,21 +677,23 @@ class App extends Component {
       this.setState(prevState => ({
         [`tfTotalStats${side}`]: {
           ...prevState[`tfTotalStats${side}`],
-          manaRegen: (itemStats.manaRegen + appliedStats.manaRegen * tfPath.mana["manaBaseRegen"]/100) 
-            + tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio,
-          hpRegen: (itemStats.hpRegen * tfPath["baseHPRegen"]/100) + appliedStats.hpRegen 
-            + tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"] * champLvlRatio,
+          manaRegen: ((itemStats.manaRegen + appliedStats.manaRegen) * tfPath.mana["manaBaseRegen"]/100
+            + tfPath.mana["manaBaseRegen"] + tfPath.mana["manaRegenPerLvl"] * champLvlRatio)*this[`mana${side}`],
+          hpRegen: (itemStats.hpRegen + appliedStats.hpRegen) * tfPath["baseHPRegen"]/100 
+            + appliedStats.hpRegen + tfPath["baseHPRegen"] + tfPath["hpRegenPerLvl"]*champLvlRatio,
           as: tfPath["attackSpeed"] + (this[`bonusStats${side}`].as 
-            + tfPath["asPerLvl"] * champLvlRatio) * tfPath["asRatio"],
-          arm: this[`bonusStats${side}`].arm + tfPath["baseArmor"] + tfPath["armorPerLvl"] * champLvlRatio,
-          ad: this[`bonusStats${side}`].ad + (tfPath["baseDamage"] 
-            + tfPath["damagePerLvl"] * champLvlRatio)*this[`sterakMultiplier${side}`]
-            + (this[`bonusStats${side}`].mana + tfPath.mana["base"] 
-            + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`mura${side}`]*this[`mana${side}`],
-          mr: this[`bonusStats${side}`].mr + tfPath["baseMR"] + tfPath["mrPerLvl"] * champLvlRatio,
-          mana: (this[`bonusStats${side}`].mana + tfPath.mana["base"] 
-            + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`],
-          ap: itemStats.ap + appliedStats.ap + runeStats.ap,
+            + tfPath["asPerLvl"]*champLvlRatio) * tfPath["asRatio"],
+          arm: this[`bonusStats${side}`].arm + tfPath["baseArmor"] + tfPath["armorPerLvl"]*champLvlRatio,
+          ad: itemStats.ad + runeStats.ad + appliedStats.ad + (tfPath["baseDamage"] 
+            + tfPath["damagePerLvl"]*champLvlRatio)*this[`sterakMultiplier${side}`]
+            + (itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"]*champLvlRatio)
+            *this[`mura${side}`]*this[`mana${side}`],
+          mr: this[`bonusStats${side}`].mr + tfPath["baseMR"] + tfPath["mrPerLvl"]*champLvlRatio,
+          mana: (itemStats.mana + tfPath.mana["base"] 
+            + tfPath.mana["manaPerLvl"]*champLvlRatio)*this[`mana${side}`],
+          ap: ((itemStats.ap + appliedStats.ap + runeStats.ap)*this[`dcapMultiplier${side}`]) + 
+          (itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"]*champLvlRatio)
+          *this[`mana${side}`]*this[`archangel${side}`],
           arPenRatio: itemStats.arPenRatio + appliedStats.arPenRatio,
           lethality: itemStats.lethality + appliedStats.lethality, 
           lifeSteal: itemStats.lifeSteal + appliedStats.lifeSteal,
@@ -685,7 +708,7 @@ class App extends Component {
         this.setState(prevState => ({
           [`tfTotalStats${side}`]: {
             ...prevState[`tfTotalStats${side}`],
-            hp: tfPath["baseHP"] + tfPath["hpPerLvl"] * champLvlRatio
+            hp: tfPath["baseHP"] + tfPath["hpPerLvl"]*champLvlRatio
           }
         }))
       } else {
@@ -714,6 +737,7 @@ class App extends Component {
       while (divToEmpty.childNodes[1]) {
         divToEmpty.removeChild(divToEmpty.childNodes[1])
       };
+      document.getElementById(`${this.abilities[i]}${side}Applied`).style.display = 'none';
       document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'hidden';
       document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'hidden';
       document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2].style.visibility = 'hidden';
@@ -1112,6 +1136,7 @@ class App extends Component {
       };
 
       const applyAbility = (statType, quantityType, quantityValue, buttonType) => {
+        document.getElementById(`${this.abilities[i]}${side}Applied`).style.display = 'block';
         if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value != 0) {
           if (buttonType) {
             document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'visible';
@@ -4146,16 +4171,27 @@ class App extends Component {
           };
 
           if (champFile[ability]["toggleStats"]) {
-            /*if (document.getElementById(`${this.abilities[i]}${side}Applied`)) {
-              
-            };*/
             createBracketDiv();
+            var path = champFile[ability]["toggleStats"];
+            addBold('Bonus Stats');
+            if (path["ADMultiplier"]) {
+              prependIcon(ADIcon);
+              underLine('Attack Damage Multiplier');
+              addText(removeParen(path["ADMultiplier"]));
+              singleBreak();
+            };
+            if (path["healingRatio"]) {
+              prependIcon(healIcon);
+              underLine('Increased Healing Ratio');
+              addText(removeParen(path["healingRatio"]));
+              singleBreak();
+            };
 
             abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
+            singleBreak();
           };
 
           if (champFile[ability]["bonusStats"]) {
-            //document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'hidden';
             var path = champFile[ability]["bonusStats"];
             addBold('Bonus Stats');
             if (path["attackDamageByLvl"]) {
@@ -7758,11 +7794,11 @@ class App extends Component {
 
             var path = champFile[ability]["toggleStats"];
             addBold('Bonus Stats');
-            if (path["ADRatio"]) {
-              applyAbility('ad', 'ratio', path["ADRatio"]);
+            if (path["ADMultiplier"]) {
+              applyAbility('ad', 'ratio', path["ADMultiplier"]);
               prependIcon(ADIcon);
-              underLine('Attack Damage Ratio');
-              addText(arrayCheck(path["ADRatio"]));
+              underLine('Attack Damage Multiplier');
+              addText(arrayCheck(path["ADMultiplier"]));
               singleBreak();
             };
             if (path["healingRatio"]) {
@@ -9034,13 +9070,19 @@ class App extends Component {
         var hr = document.createElement('hr');
         abilityDiv.appendChild(hr);
         if (ability !== 'passive') {
-          var p = document.createElement('p');
-          p.innerText = this.tfChampPair[champName] + ability;
-          abilityDiv.appendChild(p);
+          var bDiv = document.createElement('div');
+          var b = document.createElement('b');
+          b.innerText = this.tfChampPair[champName] + ability;
+          bDiv.style.textAlign = 'center';
+          bDiv.appendChild(b);
+          abilityDiv.appendChild(bDiv);
         } else {
-          var p = document.createElement('p');
-          p.innerText = this.tfChampPair[champName] + 'Passive';
-          abilityDiv.appendChild(p);
+          var bDiv = document.createElement('div');
+          var b = document.createElement('b');
+          b.innerText = this.tfChampPair[champName] + 'Passive';
+          bDiv.style.textAlign = 'center';
+          bDiv.appendChild(b);
+          abilityDiv.appendChild(bDiv);
         };
         var hr2 = document.createElement('hr');
         abilityDiv.appendChild(hr2);
@@ -9866,14 +9908,15 @@ class App extends Component {
           };
           if (this[`applied${ability}${side}`][x].ratio){
             if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
-              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio 
-              * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
+              /*this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio 
+              * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);*/
+
             } else if (this[`applied${ability}${side}`][x].ratio.length < 10) {
-              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[abilityRank] 
-              * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
+              /*this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[abilityRank] 
+              * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);*/
             } else {
-              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[champLevel] 
-              * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
+              /*this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[champLevel] 
+              * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);*/
             }
           };
         });
@@ -9896,7 +9939,7 @@ class App extends Component {
           if (this[`applied${ability}${side}`][x].byLvl){
             newStatValue += this[`applied${ability}${side}`][x].byLvl[champLevel]
           };
-          if (this[`applied${ability}${side}`][x].ratio){
+          /*if (this[`applied${ability}${side}`][x].ratio){
             if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
               newStatValue += this[`applied${ability}${side}`][x].ratio 
               * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
@@ -9907,8 +9950,8 @@ class App extends Component {
               newStatValue += this[`applied${ability}${side}`][x].ratio[champLevel] 
               * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             }
-          };
-          if (this[`applied${ability}${side}`][x].bonusRatio){
+          };*/
+          /*if (this[`applied${ability}${side}`][x].bonusRatio){
             if (typeof this[`applied${ability}${side}`][x].bonusRatio === 'number') {
               newStatValue += this[`applied${ability}${side}`][x].bonusRatio 
               * (this[`runes${side}`][x] + this[`itemStats${side}`][x]);
@@ -9919,7 +9962,7 @@ class App extends Component {
               newStatValue += this[`applied${ability}${side}`][x].ratio[champLevel] 
               * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);
             }
-          };
+          };*/
           if (this[`applied${ability}${side}`][x].ratioPer){
 
           };
@@ -13627,7 +13670,7 @@ class App extends Component {
     var champLvlRatio = champLevel * (0.7025 + 0.0175 * champLevel);
     if (itemTitle.includes('Sterak')) {
       if (this[`sterakCount${side}`] === 0) {
-        this[`sterakMultiplier${side}`] = 1.4;
+        this[`sterakMultiplier${side}`] = 1.5;
       };
       this[`sterakCount${side}`]++;
     };
@@ -13671,7 +13714,7 @@ class App extends Component {
         itemStats.as += statQuantity/100;
         continue;
       };
-      if (spanText.includes('Critical Strike')) {
+      if (spanText.includes('Critical Strike Chance')) {
         itemStats.critChance += statQuantity;
         continue;
       };
@@ -13822,7 +13865,7 @@ class App extends Component {
         itemStats.as -= statQuantity/100;
         continue;
       };
-      if (spanText.includes('Critical Strike')) {
+      if (spanText.includes('Critical Strike Chance')) {
         itemStats.critChance -= statQuantity;
         continue;
       };
@@ -14430,7 +14473,7 @@ class App extends Component {
                 <span>Health: </span>{Math.round(this.state.totalStatsLeft.hp)}<br />
                 <img src={healthRegenIcon} alt='Health Regen Icon'/>
                 <span>Health per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.hpRegen.toFixed(1)
-                : this.state.totalStatsLeft.hpRegen + '%'}<br />
+                : this.bonusStatsLeft.hpRegen + '%'}<br />
                 <img src={armorIcon} alt='Armor Icon'/>
                 <span>Armor: </span>{Math.round(this.state.totalStatsLeft.arm)}<br />
                 <img src={magicResIcon} alt='Magic Resist Icon'/>
@@ -14455,7 +14498,7 @@ class App extends Component {
                 <span>Mana: </span>{Math.round(this.state.totalStatsLeft.mana)}<br />
                 <img src={manaRegenIcon} alt='Mana Regen Icon'/>
                 <span>Mana per 5: </span>{this.state.champNameLeft ? this.state.totalStatsLeft.manaRegen.toFixed(1)
-                : this.state.totalStatsLeft.manaRegen + '%'}
+                : this.bonusStatsLeft.manaRegen + '%'}
               </div>
             </div>
             <div className="statsBox">
@@ -14464,7 +14507,7 @@ class App extends Component {
                 <span>Health: </span>{Math.round(this.state.totalStatsRight.hp)}<br />
                 <img src={healthRegenIcon} alt='Health Regen Icon'/>
                 <span>Health per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.hpRegen.toFixed(1)
-                : this.state.totalStatsRight.hpRegen + '%'}<br />
+                : this.bonusStatsRight.hpRegen + '%'}<br />
                 <img src={armorIcon} alt='Armor Icon'/>
                 <span>Armor: </span>{Math.round(this.state.totalStatsRight.arm)}<br />
                 <img src={magicResIcon} alt='Magic Resist Icon'/>
@@ -14489,12 +14532,12 @@ class App extends Component {
                 <span>Mana: </span>{Math.round(this.state.totalStatsRight.mana)}<br />
                 <img src={manaRegenIcon} alt='Mana Regen Icon'/>
                 <span>Mana per 5: </span>{this.state.champNameRight ? this.state.totalStatsRight.manaRegen.toFixed(1)
-                : this.state.totalStatsRight.manaRegen + '%'}
+                : this.bonusStatsRight.manaRegen + '%'}
               </div>
             </div>
           </div>
           <div id='transform'>
-            <div className="flexDisplay">
+            <div className="flexDisplay" style={{marginBottom: '4px'}}>
               <span className="transformLeft" style={{width: '45vw', textAlign: 'center'}}>
                 <b>{this.tfChampPair[this.state.champNameLeft]} Stats</b>
               </span>
@@ -14502,57 +14545,72 @@ class App extends Component {
                 <b>{this.tfChampPair[this.state.champNameRight]} Stats</b>
               </span>
             </div>
+
             <div className="flexDisplay">
               <div className="statsBox transformLeft">
-                <img src={healthIcon} alt='Health Icon'/>
-                <span>Health: </span>{Math.round(this.state.tfTotalStatsLeft.hp)}<br />
-                <img src={armorIcon} alt='Armor Icon'/>
-                <span>Armor: </span>{Math.round(this.state.tfTotalStatsLeft.arm)}<br />
-                <img src={magicResIcon} alt='Magic Resist Icon'/>
-                <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsLeft.mr)}<br />
-                <img src={ADIcon} alt='Attack Damage Icon'/>
-                <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsLeft.ad)}<br />
-                <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-                <span>Attack Speed: </span>{this.state.tfTotalStatsLeft.as.toFixed(3)}<br />
-                <img src={critChanceIcon} alt='Crit Chance Icon'/>
-                <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsLeft.critChance)}%<br />
-                <img src={manaIcon} alt='Mana Icon'/>
-                <span>Mana: </span>{Math.round(this.state.tfTotalStatsLeft.mana)}<br />
-                <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-                <span>Mana per 5: </span>{this.state.tfTotalStatsLeft.manaRegen.toFixed(1)}<br />
-                <img src={healthRegenIcon} alt='Health Regen Icon'/>
-                <span>Health per 5: </span>{this.state.tfTotalStatsLeft.hpRegen.toFixed(1)}<br />
-                <img src={APIcon} alt='Ability Power Icon'/>
-                <span>Ability Power: </span>{Math.round(this.state.tfTotalStatsLeft.ap)}<br />
-                <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-                <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsLeft.cdr)} / {
-                Math.round(100*(this.state.tfTotalStatsLeft.cdr/(100 + this.state.tfTotalStatsLeft.cdr)))}%
+                <div>
+                  <img src={healthIcon} alt='Health Icon'/>
+                  <span>Health: </span>{Math.round(this.state.tfTotalStatsLeft.hp)}<br />
+                  <img src={healthRegenIcon} alt='Health Regen Icon'/>
+                  <span>Health per 5: </span>{this.state.tfTotalStatsLeft.hpRegen.toFixed(1)}<br />
+                  <img src={armorIcon} alt='Armor Icon'/>
+                  <span>Armor: </span>{Math.round(this.state.tfTotalStatsLeft.arm)}<br />
+                  <img src={magicResIcon} alt='Magic Resist Icon'/>
+                  <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsLeft.mr)}<br />
+                </div>
+                <div>
+                  <img src={ADIcon} alt='Attack Damage Icon'/>
+                  <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsLeft.ad)}<br />
+                  <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
+                  <span>Attack Speed: </span>{this.state.tfTotalStatsLeft.as.toFixed(3)}<br />
+                  <img src={critChanceIcon} alt='Crit Chance Icon'/>
+                  <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsLeft.critChance)}%<br />
+                </div>
+                <div>
+                  <img src={APIcon} alt='Ability Power Icon'/>
+                  <span>Ability Power: </span>{Math.round(this.state.tfTotalStatsLeft.ap)}<br />
+                  <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
+                  <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsLeft.cdr)} / {
+                  Math.round(100*(this.state.tfTotalStatsLeft.cdr/(100 + this.state.tfTotalStatsLeft.cdr)))}%<br />
+                  <img src={manaIcon} alt='Mana Icon'/>
+                  <span>Mana: </span>{Math.round(this.state.tfTotalStatsLeft.mana)}<br />
+                  <img src={manaRegenIcon} alt='Mana Regen Icon'/>
+                  <span>Mana per 5: </span>{this.state.tfTotalStatsLeft.manaRegen.toFixed(1)}<br />
+                </div> 
               </div>
+
               <div className="statsBox transformRight">
-                <img src={healthIcon} alt='Health Icon'/>
-                <span>Health: </span>{Math.round(this.state.tfTotalStatsRight.hp)}<br />
-                <img src={armorIcon} alt='Armor Icon'/>
-                <span>Armor: </span>{Math.round(this.state.tfTotalStatsRight.arm)}<br />
-                <img src={magicResIcon} alt='Magic Resist Icon'/>
-                <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsRight.mr)}<br />
-                <img src={ADIcon} alt='Attack Damage Icon'/>
-                <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsRight.ad)}<br />
-                <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
-                <span>Attack Speed: </span>{this.state.tfTotalStatsRight.as.toFixed(3)}<br />
-                <img src={critChanceIcon} alt='Crit Chance Icon'/>
-                <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsRight.critChance)}%<br />
-                <img src={manaIcon} alt='Mana Icon'/>
-                <span>Mana: </span>{Math.round(this.state.tfTotalStatsRight.mana)}<br />
-                <img src={manaRegenIcon} alt='Mana Regen Icon'/>
-                <span>Mana per 5: </span>{this.state.tfTotalStatsRight.manaRegen.toFixed(1)}<br />
-                <img src={healthRegenIcon} alt='Health Regen Icon'/>
-                <span>Health per 5: </span>{this.state.tfTotalStatsRight.hpRegen.toFixed(1)}<br />
-                <img src={APIcon} alt='Ability Power Icon'/>
-                <span>Ability Power: </span>{Math.round(this.state.tfTotalStatsRight.ap)}<br />
-                <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
-                <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsRight.cdr)} / {
-                Math.round(100*(this.state.tfTotalStatsRight.cdr/(100 + this.state.tfTotalStatsRight.cdr)))}%
+                <div>
+                  <img src={healthIcon} alt='Health Icon'/>
+                  <span>Health: </span>{Math.round(this.state.tfTotalStatsRight.hp)}<br />
+                  <img src={healthRegenIcon} alt='Health Regen Icon'/>
+                  <span>Health per 5: </span>{this.state.tfTotalStatsRight.hpRegen.toFixed(1)}<br />
+                  <img src={armorIcon} alt='Armor Icon'/>
+                  <span>Armor: </span>{Math.round(this.state.tfTotalStatsRight.arm)}<br />
+                  <img src={magicResIcon} alt='Magic Resist Icon'/>
+                  <span>Magic Resist: </span>{Math.round(this.state.tfTotalStatsRight.mr)}<br />
+                </div>
+                <div>
+                  <img src={ADIcon} alt='Attack Damage Icon'/>
+                  <span>Attack Damage: </span>{Math.round(this.state.tfTotalStatsRight.ad)}<br />
+                  <img src={attackSpeedIcon} alt='Attack Speed Icon'/>
+                  <span>Attack Speed: </span>{this.state.tfTotalStatsRight.as.toFixed(3)}<br />
+                  <img src={critChanceIcon} alt='Crit Chance Icon'/>
+                  <span>Crit Chance: </span>{Math.round(this.state.tfTotalStatsRight.critChance)}%<br />
+                </div>
+                <div>
+                  <img src={APIcon} alt='Ability Power Icon'/>
+                  <span>Ability Power: </span>{Math.round(this.state.tfTotalStatsRight.ap)}<br />
+                  <img src={cdrIcon} alt='Cooldown Reduction Icon'/>
+                  <span>Ability Haste: </span>{Math.round(this.state.tfTotalStatsRight.cdr)} / {
+                  Math.round(100*(this.state.tfTotalStatsRight.cdr/(100 + this.state.tfTotalStatsRight.cdr)))}%<br />
+                  <img src={manaIcon} alt='Mana Icon'/>
+                  <span>Mana: </span>{Math.round(this.state.tfTotalStatsRight.mana)}<br />
+                  <img src={manaRegenIcon} alt='Mana Regen Icon'/>
+                  <span>Mana per 5: </span>{this.state.tfTotalStatsRight.manaRegen.toFixed(1)}<br />
+                </div>
               </div>
+
             </div>
           </div>
 

@@ -46,11 +46,11 @@ div[id$=Applied] button {
 }
 
 input:hover {
-  box-shadow: 0 0 5px rgb(177, 41, 238);
+  box-shadow: 0 0 2px rgb(177, 41, 238);
 }
 
 .abilityTitleBox input {
-  margin-top: 5px;
+  border: 2px solid black;
 }
 
 .abilityTitleBox u {
@@ -183,6 +183,7 @@ button:hover {
 
 #transform {
   display: none;
+  margin-top: 8px;
 }
 
 #runeContainer img:hover {
@@ -250,10 +251,6 @@ button:hover {
   border-image-repeat: stretch stretch;
   border-image-source: url("./images/border-image-1.png");
   border-image-width: 5px;
-  /*border-image: linear-gradient(to right, white 2%, rgba(177, 41, 238, 0)3%) 1;
-  border-style: solid;
-  border-width: 5px;
-  border-right: none;*/
 }
 
 .ksStats img {
@@ -421,7 +418,7 @@ hr {
 .abilityBoxLeft hr, .abilityBoxRight hr {
   border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, rgba(255, 255, 185, 1), rgba(255, 255, 255, 0.3), rgba(255, 255, 185, 1));
+  background-image: linear-gradient(to right, rgba(255, 255, 185, 0),  rgba(255, 255, 185, 1) 20%, rgba(255, 255, 185, 1) 80%, rgba(255, 255, 185, 0) 99%);
 }
 
 .abilityBoxLeft b, .abilityBoxRight b {
@@ -446,8 +443,7 @@ hr {
 }
 
 .abilityTitleBox {
-  margin-top: 20px;
-  margin-bottom: -15px;
+  margin-top: 32px;
   text-align: center;
 }
 
@@ -523,8 +519,8 @@ h1 {
   overflow: hidden;
   display: inline-block;
   margin-left: 10px;
-  border: 1px double #ffffb9;
-  border-radius: 10px;
+  border: 1px solid white;
+  border-radius: 2px;
 }
 
 .passiveMargin {
