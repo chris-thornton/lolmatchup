@@ -649,6 +649,18 @@ class App extends Component {
       })
     });
 
+    if (this[`champName${side}`] === 'Yasuo' || this[`champName${side}`] === 'Yone') {
+      this[`totalStats${side}`].critChance *= 2.5;
+      if (this[`totalStats${side}`].critChance > 100) {
+        this[`bonusStats${side}`].ad += (this[`totalStats${side}`].critChance - 100)*0.4;
+        this[`totalStats${side}`].ad += (this[`totalStats${side}`].critChance - 100)*0.4;
+      }
+    };
+
+    if (this[`totalStats${side}`].critChance > 100) {
+      this[`totalStats${side}`].critChance = 100
+    };
+
     this.setState(prevState => ({
       [`totalStats${side}`]: {
         ...prevState[`totalStats${side}`],
@@ -694,14 +706,14 @@ class App extends Component {
           ap: ((itemStats.ap + appliedStats.ap + runeStats.ap)*this[`dcapMultiplier${side}`]) + 
           (itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"]*champLvlRatio)
           *this[`mana${side}`]*this[`archangel${side}`],
-          arPenRatio: itemStats.arPenRatio + appliedStats.arPenRatio,
-          lethality: itemStats.lethality + appliedStats.lethality, 
-          lifeSteal: itemStats.lifeSteal + appliedStats.lifeSteal,
-          omni: itemStats.omni + appliedStats.omni, 
-          magicPenFlat: itemStats.magicPenFlat + appliedStats.magicPenFlat,
-          magicPenRatio: itemStats.magicPenRatio + appliedStats.magicPenRatio,
-          cdr: itemStats.cdr + appliedStats.cdr + runeStats.cdr,
-          critChance: itemStats.critChance + appliedStats.critChance
+          arPenRatio: this[`totalStats${side}`].arPenRatio,
+          lethality: this[`totalStats${side}`].lethality, 
+          lifeSteal: this[`totalStats${side}`].lifeSteal,
+          omni: this[`totalStats${side}`].omni, 
+          magicPenFlat: this[`totalStats${side}`].magicPenFlat,
+          magicPenRatio: this[`totalStats${side}`].magicPenRatio,
+          cdr: this[`totalStats${side}`].cdr,
+          critChance: this[`totalStats${side}`].critChance
         }
       }));
       if (this[`champName${side}`] === 'Kled') {
@@ -2951,12 +2963,13 @@ class App extends Component {
                 addText(path["bonusAttackDamage"]["ADPerStack"] + ' per stack');
               };
               if (path["bonusAttackDamage"]["ADPerOverCrit"]) {
-                var overCrit = 0;
-                if (totalCritChance > 0.5) {
-                  overCrit = (totalCritChance * 2) - 1
+                if (this[`itemStats${side}`].critChance*2.5 > 100) {
+                  addText(Math.round((this[`itemStats${side}`].critChance*2.5 - 100)
+                   * path["bonusAttackDamage"]["ADPerOverCrit"]));
+                } else {
+                  addText('0')
                 }
-                addText(Math.round(overCrit * 100 * path["bonusAttackDamage"]["ADPerOverCrit"]));
-              }
+              };
             };
             if (path["bonusAPPerBonusHP"]) {
               prependIcon(APIcon);
@@ -10156,6 +10169,7 @@ class App extends Component {
       }
     }));
 
+    this.setGlobalStats(side);
     this.calculateAbility('Left');
     this.calculateAbility('Right');
   };

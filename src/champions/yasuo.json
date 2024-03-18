@@ -58,9 +58,9 @@
     },
     "passive": {
         "passivePermanent": {
-            "itemCritChanceMultiplier": 2,
+            "itemCritChanceMultiplier": 2.5,
             "bonusAttackDamage": {
-                "ADPerOverCrit": 0.5
+                "ADPerOverCrit": 0.4
             }
         },
         "auto": {
