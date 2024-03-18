@@ -39,6 +39,7 @@ import healIcon from './staticons/healEffect2.png';
 import ccIcon from './staticons/crowdControl2.png';
 import shieldIcon from './staticons/shield.png';
 import tenacityIcon from './staticons/tenacity.png';
+import tenacitySlowResIcon from './staticons/tenacitySlowRes.png';
 import goldIcon from './staticons/gold.png';
 import trueDmgIcon from './staticons/trueDmg.png';
 import attackIcon from './staticons/attack.png';
@@ -536,22 +537,20 @@ class App extends Component {
     manaRegen: 0
   };
   runesLeft = {
-    ad: 10.8,
+    force: 18,
     as: 0,
-    arm: 0,
-    mr: 0,
-    hp: 15,
-    ap: 0,
-    cdr: 0
+    hp: 65,
+    cdr: 0,
+    tenacity: 0,
+    hpByLvl: 0
   };
   runesRight = {
-    ad: 10.8,
+    force: 18,
     as: 0,
-    arm: 0,
-    mr: 0,
-    hp: 15,
-    ap: 0,
-    cdr: 0
+    hp: 65,
+    cdr: 0,
+    tenacity: 0,
+    hpByLvl: 0
   };
   forceTypeLeft = 'ad';
   forceTypeRight = 'ad';
@@ -14249,11 +14248,11 @@ class App extends Component {
                 <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
                 
                 <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
-                <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune4'/>
-                <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune5'/>
+                <img src={moveSpeedIcon} className='runeImgStyle' alt='Movement Speed Icon' onClick={this.onRuneChange} id='rune4'/>
+                <img src={healthIcon} className='runeImgStyle' alt='Scaling Health Icon' onClick={this.onRuneChange} id='rune5'/>
                 
                 <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
-                <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune7'/>
+                <img src={tenacitySlowResIcon} className='runeImgStyle' alt='Tenacity Slow Res Icon' onClick={this.onRuneChange} id='rune7'/>
                 <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
               </div>
               <div style={{textAlign: 'center', marginBottom: '10px'}}>
@@ -14275,9 +14274,9 @@ class App extends Component {
                   && !this.state.ksHPRatioLeft && !this.state.ksBonusHPRatioLeft)
                 ? this.state.ksArrayLeft[this.levelLeft - 1]
                 : Math.round(this.state.ksArrayLeft[this.levelLeft - 1] + (this.state.ksAPRatioLeft
-                  * this.state.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * (this.runesLeft.ad + this.itemStatsLeft.ad)
-                  + this.state.ksHPRatioLeft * this.state.totalStatsLeft.hp
-                  + this.state.ksBonusHPRatioLeft * (this.runesLeft.hp + this.itemStatsLeft.hp)))
+                  * this.totalStatsLeft.ap + this.state.ksBonusADRatioLeft * this.bonusStatsLeft.ad
+                  + this.state.ksHPRatioLeft * this.totalStatsLeft.hp
+                  + this.state.ksBonusHPRatioLeft * this.bonusStatsLeft.hp))
               }
               <div style={{display: this.state.ksPart2DisplayLeft}}>
                 <br></br>
@@ -14293,9 +14292,9 @@ class App extends Component {
                 {this.state.ksPart2Left.array === '' ? '' : (this.state.ksPart2Left.APRatio 
                 || this.state.ksPart2Left.bonusADRatio || this.state.ksPart2Left.HPRatio)
                 ? Math.round(this.state.ksPart2Left.array[this.levelLeft - 1]
-                + (this.state.ksPart2Left.APRatio * this.state.totalStatsLeft.ap
-                + this.state.ksPart2Left.bonusADRatio * (this.runesLeft.ad + this.itemStatsLeft.ad)
-                + this.state.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio))
+                + (this.state.ksPart2Left.APRatio * this.totalStatsLeft.ap
+                + this.state.ksPart2Left.bonusADRatio * this.bonusStatsLeft.ad
+                + this.totalStatsLeft.hp * this.state.ksPart2Left.HPRatio))
                 : this.state.ksPart2Left.array[this.levelLeft - 1] }
               </div>
               {this.state.ksCDLeft === '' ? '' :
@@ -14308,17 +14307,17 @@ class App extends Component {
 
             <div className='ksStats' id='ksStatsRight'>
               <div className='runeBox' style={{float: 'right'}}>
-                <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune9'/>
-                <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune10'/>
-                <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune11'/>
+                <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
+                <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
+                <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
                 
-                <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune12'/>
-                <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune13'/>
-                <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune14'/>
+                <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
+                <img src={moveSpeedIcon} className='runeImgStyle' alt='Movement Speed Icon' onClick={this.onRuneChange} id='rune4'/>
+                <img src={healthIcon} className='runeImgStyle' alt='Scaling Health Icon' onClick={this.onRuneChange} id='rune5'/>
                 
-                <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune15'/>
-                <img src={armorIcon} className='runeImgStyle' alt='Armor Icon' onClick={this.onRuneChange} id='rune16'/>
-                <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune17'/>
+                <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
+                <img src={tenacitySlowResIcon} className='runeImgStyle' alt='Tenacity Slow Res Icon' onClick={this.onRuneChange} id='rune7'/>
+                <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
               </div>
               <div style={{textAlign: 'center', marginBottom: '10px'}}>
                 <img src={this.ksIcons[this.state.keystoneIDRight.index]}
@@ -14339,9 +14338,9 @@ class App extends Component {
                   && !this.state.ksHPRatioRight && !this.state.ksBonusHPRatioRight)
                  ? this.state.ksArrayRight[this.levelRight - 1]
                 : Math.round(this.state.ksArrayRight[this.levelRight - 1] + (this.state.ksAPRatioRight
-                * this.state.totalStatsRight.ap + this.state.ksBonusADRatioRight * (this.runesRight.ad + this.itemStatsRight.ad)
-                + this.state.ksHPRatioRight * this.state.totalStatsRight.hp
-                + this.state.ksBonusHPRatioRight * (this.runesRight.hp + this.itemStatsRight.hp)))
+                * this.totalStatsRight.ap + this.state.ksBonusADRatioRight * this.bonusStatsRight.ad
+                + this.state.ksHPRatioRight * this.totalStatsRight.hp
+                + this.state.ksBonusHPRatioRight * this.bonusStatsRight.hp))
               }
               <div style={{display: this.state.ksPart2DisplayRight}}>
                 <br></br>
@@ -14358,9 +14357,9 @@ class App extends Component {
                 (this.state.ksPart2Right.APRatio || this.state.ksPart2Right.bonusADRatio 
                   || this.state.ksPart2Right.HPRatio)
                 ? Math.round(this.state.ksPart2Right.array[this.levelRight - 1]
-                + (this.state.ksPart2Right.APRatio * this.state.totalStatsRight.ap
-                + this.state.ksPart2Right.bonusADRatio * (this.runesRight.ad + this.itemStatsRight.ad)
-                + this.state.totalStatsRight.hp * this.state.ksPart2Right.HPRatio))
+                + (this.state.ksPart2Right.APRatio * this.totalStatsRight.ap
+                + this.state.ksPart2Right.bonusADRatio * this.bonusStatsRight.ad
+                + this.totalStatsRight.hp * this.state.ksPart2Right.HPRatio))
                 : this.state.ksPart2Right.array[this.levelRight - 1] }
               </div>
               {this.state.ksCDRight === '' ? '' :
