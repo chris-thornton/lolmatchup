@@ -25,12 +25,6 @@ import critDamageIcon from './staticons/critDamage.png';
 import manaIcon from './staticons/mana.png';
 import APIcon from './staticons/abilityPower.png';
 import cdrIcon from './staticons/cdr.png';
-import forceRing from './staticons/forceRing.png';
-import healthRing from './staticons/healthRing.png';
-import armorRing from './staticons/armorRing.png';
-import magicResRing from './staticons/magicResRing.png';
-import cdrRing from './staticons/cdrRing.png';
-import attackSpeedRing from './staticons/attackSpeedRing.png';
 import healthRegenIcon from './staticons/healthRegen.png';
 import manaRegenIcon from './staticons/manaRegen.png';
 import healShieldIcon from './staticons/healShieldPower.png';
@@ -69,7 +63,7 @@ class App extends Component {
         as: 0,
         arm: 0, 
         mr: 0,
-        hp: 15,
+        hp: 65,
         hpRegen: 0,
         ap: 0,
         cdr: 0,
@@ -88,7 +82,7 @@ class App extends Component {
         as: 0,
         arm: 0, 
         mr: 0,
-        hp: 15,
+        hp: 65,
         hpRegen: 0,
         ap: 0,
         cdr: 0,
@@ -107,7 +101,7 @@ class App extends Component {
         as: 0,
         arm: 0, 
         mr: 0,
-        hp: 15,
+        hp: 65,
         hpRegen: 0,
         ap: 0,
         cdr: 0,
@@ -126,7 +120,7 @@ class App extends Component {
         as: 0,
         arm: 0, 
         mr: 0,
-        hp: 15,
+        hp: 65,
         hpRegen: 0,
         ap: 0,
         cdr: 0,
@@ -218,103 +212,24 @@ class App extends Component {
   };
 
   runeHash = {
-    rune0: {
-      baseSrc: forceIcon,
-      ringSrc: forceRing,
-      stat: ['force', 9]
+    currentShards: {
+      Left: [0, 0, 0],
+      Right: [0, 0, 0]
     },
-    rune1: {
-      baseSrc: attackSpeedIcon,
-      ringSrc: attackSpeedRing,
-      stat: ['as', 0.1]
+    0: {
+      0: ['force', 9],
+      1: ['as', 0.1],
+      2: ['cdr', 8]
     },
-    rune2: {
-      baseSrc: cdrIcon,
-      ringSrc: cdrRing,
-      stat: ['cdr', 8]
+    1: {
+      0: ['force', 9],
+      1: ['force', 0],
+      2: ['hpByLvl', 1]
     },
-    rune3: {
-      baseSrc: forceIcon,
-      ringSrc: forceRing,
-      stat: ['force', 9] 
-    },
-    rune4: {
-      baseSrc: armorIcon,
-      ringSrc: armorRing,
-      stat: ['arm', 6]
-    },
-    rune5: {
-      baseSrc: magicResIcon,
-      ringSrc: magicResRing,
-      stat: ['mr', 8] 
-    },
-    rune6: {
-      baseSrc: healthIcon,
-      ringSrc: healthRing,
-      stat: 
-        ['hp', 
-          15,19.41,23.82,28.24,32.65,37.06,41.47,45.88,50.29,
-          54.71,59.12,63.53,67.94,72.35,76.76,81.18,85.59,90
-        ]
-    },
-    rune7: {
-      baseSrc: armorIcon,
-      ringSrc: armorRing,
-      stat: ['arm', 6]
-    },
-    rune8: {
-      baseSrc: magicResIcon,
-      ringSrc: magicResRing,
-      stat: ['mr', 8]
-    },
-    rune9: {
-      baseSrc: forceIcon,
-      ringSrc: forceRing,
-      stat: ['force', 9]
-    },
-    rune10: {
-      baseSrc: attackSpeedIcon,
-      ringSrc: attackSpeedRing,
-      stat: ['as', 0.1]
-    },
-    rune11: {
-      baseSrc: cdrIcon,
-      ringSrc: cdrRing,
-      stat: ['cdr', 8]
-    },
-    rune12: {
-      baseSrc: forceIcon,
-      ringSrc: forceRing,
-      stat: ['force', 9]
-    },
-    rune13: {
-      baseSrc: armorIcon,
-      ringSrc: armorRing,
-      stat: ['arm', 6]
-    },
-    rune14: {
-      baseSrc: magicResIcon,
-      ringSrc: magicResRing,
-      stat: ['mr', 8]
-    },
-    rune15: {
-      baseSrc: healthIcon,
-      ringSrc: healthRing,
-      stat: 
-        ['hp', 
-          15,19.41,23.82,28.24,32.65,37.06,41.47,45.88,50.29,
-          54.71,59.12,63.53,67.94,72.35,76.76,81.18,85.59,90
-        ]
-    },
-    rune16: {
-      baseSrc: armorIcon,
-      ringSrc: armorRing,
-      stat: ['arm', 6]
-    },
-    rune17: {
-      baseSrc: magicResIcon,
-      ringSrc: magicResRing,
-      stat: ['mr', 8]
+    2: {
+      0: ['hp', 65],
+      1: ['force', 0],
+      2: ['hpByLvl', 1]
     }
   }
 
@@ -403,7 +318,7 @@ class App extends Component {
     as: 0,
     arm: 0, 
     mr: 0,
-    hp: 15,
+    hp: 65,
     hpRegen: 0,
     ap: 0,
     cdr: 0,
@@ -422,7 +337,7 @@ class App extends Component {
     as: 0,
     arm: 0, 
     mr: 0,
-    hp: 15,
+    hp: 65,
     hpRegen: 0,
     ap: 0,
     cdr: 0,
@@ -538,6 +453,8 @@ class App extends Component {
   };
   runesLeft = {
     force: 18,
+    ad: 10.8,
+    ap: 0,
     as: 0,
     hp: 65,
     cdr: 0,
@@ -546,6 +463,8 @@ class App extends Component {
   };
   runesRight = {
     force: 18,
+    ad: 10.8,
+    ap: 0,
     as: 0,
     hp: 65,
     cdr: 0,
@@ -585,16 +504,30 @@ class App extends Component {
     var runeStats = this[`runes${side}`];
     var appliedStats = this[`appliedStats${side}`];
 
+    runeStats.hp += [10, 20, 30, 40, 50, 60, 70, 80, 90,
+    100, 110, 120, 130, 140, 150, 160, 170, 180][(this[`level${side}`] - 1)]*runeStats.hpByLvl;
+    if (((itemStats.ap + appliedStats.ap )*this[`dcapMultiplier${side}`]) + 
+    (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)
+    *this[`mana${side}`]*this[`archangel${side}`] > itemStats.ad + appliedStats.ad + (itemStats.mana 
+    + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]*this[`mura${side}`]
+    + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1)) {
+      runeStats.ap = runeStats.force;
+      runeStats.ad = 0
+    } else {
+      runeStats.ad = runeStats.force*0.6
+      runeStats.ap = 0
+    };
+
     this[`bonusStats${side}`] = {
       ...this[`bonusStats${side}`],
       hp: itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
         + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`winterMultiplier${side}`]*this[`mana${side}`],
       as: itemStats.as + runeStats.as + appliedStats.as,
-      arm: itemStats.arm + runeStats.arm + appliedStats.arm,
+      arm: itemStats.arm + appliedStats.arm,
       ad: itemStats.ad + runeStats.ad + appliedStats.ad + (itemStats.mana + statsPath.mana["base"] 
       + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]*this[`mura${side}`]
         + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1),
-      mr: itemStats.mr + runeStats.mr + appliedStats.mr,
+      mr: itemStats.mr + appliedStats.mr,
       mana: itemStats.mana*this[`mana${side}`],
       manaRegen: (itemStats.manaRegen + appliedStats.manaRegen)*this[`mana${side}`],
       hpRegen: itemStats.hpRegen + appliedStats.hpRegen
@@ -10042,131 +9975,31 @@ class App extends Component {
     this.calculateAbility('Right');
   };
 
-  onRuneChange = (event) => {
-    var runeSrc = event.target.src;
-    var runeName = runeSrc.substring(runeSrc.lastIndexOf('/') + 1, runeSrc.indexOf('.'));
-
-    if (runeName.includes('Ring')) {
+  onRuneChange = (rowIndex, shardIndex, side) => {
+    var shardArray = this.runeHash.currentShards[`${side}`];
+    if (shardArray[`${rowIndex}`] === shardIndex ) {
       return
     };
-    var runeId = event.target.id;
-    event.target.setAttribute('src', this.runeHash[runeId]['ringSrc']);
-    var runeNumber = runeId.substring(4, runeId.length);
+    var rowDiv = document.getElementById(`shardRow${rowIndex}${side}`);
+    rowDiv.children[shardArray[`${rowIndex}`]].style.border = 'none';
+    rowDiv.children[shardArray[`${rowIndex}`]].style.margin = '3px';
+    rowDiv.children[shardIndex].style.border = '2px solid #ffcb5a';
+    rowDiv.children[shardIndex].style.margin = '1px';
+    shardArray[`${rowIndex}`] = shardIndex;
     
-    var side = 'Left';
-    if (runeNumber > 8) {
-      side = 'Right';
+    this[`runes${side}`] = {
+      force: 0,
+      ad: 0,
+      ap: 0,
+      as: 0,
+      hp: 0,
+      cdr: 0,
+      tenacity: 0,
+      hpByLvl: 0
     };
-    var runeStat = this.runeHash[runeId]['stat'][0];
-    var runeValue = this.runeHash[runeId]['stat'][1];
-    var sideASRatio = this[`champFile${side}`].stats.asRatio;
-    if (runeStat === 'force') {
-      if ((this[`itemStats${side}`].ap + this[`appliedStats${side}`].ap) > (this[`itemStats${side}`].ad 
-      + this[`appliedStats${side}`].ad)) {
-        this[`forceType${side}`] = 'ap';
-        runeStat = 'ap';
-        runeValue = 9;
-      } else {
-        this[`forceType${side}`] = 'ad';
-        runeStat = 'ad';
-        runeValue = 5.4;
-      };
-    };
-    var champLevel = this[`level${side}`] - 1;
-    if (runeStat === 'hp') {
-      runeValue = this.runeHash[runeId]['stat'][champLevel+1];
-    };
-
-    this[`runes${side}`][runeStat] += +runeValue;
-
-    if (runeStat === 'as' && this[`champName${side}`] !== '') {
-      runeValue *= sideASRatio;
-    };
-
-    this[`bonusStats${side}`][runeStat] += +runeValue;
-    this[`totalStats${side}`][runeStat] += +runeValue;
-    this.setState(prevState => ({
-      [`totalStats${side}`]: {
-        ...prevState[`totalStats${side}`],
-        [runeStat]: +prevState[`totalStats${side}`][runeStat] + +runeValue
-      }
-    }));
-
-    var prevRuneStat;
-    var prevRuneValue;
-
-    if (runeNumber % 3 === 0) {
-      var nextSib = event.target.nextSibling;
-      var nextNextSib = event.target.nextSibling.nextSibling;
-      if (nextSib.src.includes('Ring')) {
-        nextSib.setAttribute('src', this.runeHash[nextSib.id]['baseSrc']);
-        prevRuneStat = this.runeHash[nextSib.id]['stat'][0];
-        prevRuneValue = this.runeHash[nextSib.id]['stat'][1];
-      } else {
-        nextNextSib.setAttribute('src', this.runeHash[nextNextSib.id]['baseSrc']);
-        prevRuneStat = this.runeHash[nextNextSib.id]['stat'][0];
-        prevRuneValue = this.runeHash[nextNextSib.id]['stat'][1];
-      };
-    };
-
-    if (runeNumber % 3 === 1) {
-      var prevSib = event.target.previousSibling;
-      var nextSib = event.target.nextSibling;
-      if (prevSib.src.includes('Ring')) {
-        prevSib.setAttribute('src', this.runeHash[prevSib.id]['baseSrc']);
-        prevRuneStat = this.runeHash[prevSib.id]['stat'][0];
-        prevRuneValue = this.runeHash[prevSib.id]['stat'][1];
-      } else {
-          nextSib.setAttribute('src', this.runeHash[nextSib.id]['baseSrc']);
-          prevRuneStat = this.runeHash[nextSib.id]['stat'][0];
-          prevRuneValue = this.runeHash[nextSib.id]['stat'][1];
-      }
-    };
-
-    if (runeNumber % 3 === 2) {
-      var prevSib = event.target.previousSibling;
-      var prevPrevSib = event.target.previousSibling.previousSibling;
-      if (prevSib.src.includes('Ring')) {
-        prevSib.setAttribute('src', this.runeHash[prevSib.id]['baseSrc']);
-        prevRuneStat = this.runeHash[prevSib.id]['stat'][0];
-        prevRuneValue = this.runeHash[prevSib.id]['stat'][1];
-      } else {
-          prevPrevSib.setAttribute('src', this.runeHash[prevPrevSib.id]['baseSrc']);
-          prevRuneStat = this.runeHash[prevPrevSib.id]['stat'][0];
-          prevRuneValue = this.runeHash[prevPrevSib.id]['stat'][1];
-      }
-    };
-
-    if (prevRuneStat === 'force') {
-      if ((this[`itemStats${side}`].ap + this[`appliedStats${side}`].ap) 
-      > (this[`itemStats${side}`].ad + this[`appliedStats${side}`]).ad) {
-        this[`forceType${side}`] = 'ap';
-        prevRuneStat = 'ap';
-        prevRuneValue = 9;
-      } else {
-        this[`forceType${side}`] = 'ad';
-        prevRuneStat = 'ad';
-        prevRuneValue = 5.4;
-      };
-    };
-    if (prevRuneStat === 'hp') {
-      prevRuneValue = this.runeHash[prevSib.id]['stat'][champLevel+1];
-    };
-
-    this[`runes${side}`][prevRuneStat] -= +prevRuneValue;
-
-    if (prevRuneStat === 'as' && this[`champName${side}`] !== '') {
-      prevRuneValue *= sideASRatio;
-    };
-    
-    this[`bonusStats${side}`][prevRuneStat] -= +prevRuneValue;
-    this[`totalStats${side}`][prevRuneStat] -= +prevRuneValue;
-    this.setState(prevState => ({
-      [`totalStats${side}`]: {
-        ...prevState[`totalStats${side}`],
-        [prevRuneStat]: +prevState[`totalStats${side}`][prevRuneStat] - +prevRuneValue
-      }
-    }));
+    this[`runes${side}`][this.runeHash[0][shardArray[0]][0]] = this.runeHash[0][shardArray[0]][1];
+    this[`runes${side}`][this.runeHash[1][shardArray[1]][0]] += this.runeHash[1][shardArray[1]][1];
+    this[`runes${side}`][this.runeHash[2][shardArray[2]][0]] += this.runeHash[2][shardArray[2]][1];
 
     this.setGlobalStats(side);
     this.calculateAbility('Left');
@@ -14033,7 +13866,7 @@ class App extends Component {
         as: 0,
         arm: 0, 
         mr: 0,
-        hp: 15,
+        hp: 65,
         hpRegen: 0,
         ap: 0,
         cdr: 0,
@@ -14242,18 +14075,27 @@ class App extends Component {
 
           <div id='runesContainer' className='flexDisplay'>      
             <div className='ksStats' id='ksStatsLeft'>
-              <div className='runeBox' style={{float: 'right'}}>
-                <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
-                <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
-                <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
+              <div className='shardBox' style={{float: 'right'}}>
+                <div id='shardRow0Left'>
+                  <img src={forceIcon} alt='Adaptive Force Icon' onClick={() => this.onRuneChange(0, 0, 'Left')}
+                    style={{border: '2px solid #ffcb5a', margin: '1px'}} />
+                  <img src={attackSpeedIcon} alt='Attack Speed Icon' onClick={() => this.onRuneChange(0, 1, 'Left')}/>
+                  <img src={cdrIcon} alt='Ability Haste Icon' onClick={() => this.onRuneChange(0, 2, 'Left')}/>
+                </div>
                 
-                <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
-                <img src={moveSpeedIcon} className='runeImgStyle' alt='Movement Speed Icon' onClick={this.onRuneChange} id='rune4'/>
-                <img src={healthIcon} className='runeImgStyle' alt='Scaling Health Icon' onClick={this.onRuneChange} id='rune5'/>
+                <div id='shardRow1Left'>
+                  <img src={forceIcon} alt='Adaptive Force Icon' onClick={() => this.onRuneChange(1, 0, 'Left')}
+                    style={{border: '2px solid #ffcb5a', margin: '1px'}} />
+                  <img src={moveSpeedIcon} alt='Movement Speed Icon' onClick={() => this.onRuneChange(1, 1, 'Left')} />
+                  <img src={healthIcon} alt='Scaling Health Icon' onClick={() => this.onRuneChange(1, 2, 'Left')} />
+                </div>
                 
-                <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
-                <img src={tenacitySlowResIcon} className='runeImgStyle' alt='Tenacity Slow Res Icon' onClick={this.onRuneChange} id='rune7'/>
-                <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
+                <div id='shardRow2Left'>
+                  <img src={healthIcon} alt='Health Icon' onClick={() => this.onRuneChange(2, 0, 'Left')}
+                    style={{border: '2px solid #ffcb5a', margin: '1px'}} />
+                  <img src={tenacitySlowResIcon} alt='Tenacity Slow Res Icon' onClick={() => this.onRuneChange(2, 1, 'Left')}/>
+                  <img src={healthIcon} alt='Scaling Health Icon' onClick={() => this.onRuneChange(2, 2, 'Left')} />
+                </div>
               </div>
               <div style={{textAlign: 'center', marginBottom: '10px'}}>
                 <img src={this.ksIcons[this.state.keystoneIDLeft.index]}
@@ -14306,18 +14148,27 @@ class App extends Component {
             </div>
 
             <div className='ksStats' id='ksStatsRight'>
-              <div className='runeBox' style={{float: 'right'}}>
-                <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune0'/>
-                <img src={attackSpeedIcon} className='runeImgStyle' alt='Attack Speed Icon' onClick={this.onRuneChange} id='rune1'/>
-                <img src={cdrIcon} className='runeImgStyle' alt='Ability Haste Icon' onClick={this.onRuneChange} id='rune2'/>
+              <div className='shardBox' style={{float: 'right'}}>
+                <div id='shardRow0Right'>
+                  <img src={forceIcon} alt='Adaptive Force Icon' onClick={() => this.onRuneChange(0, 0, 'Right')}
+                    style={{border: '2px solid #ffcb5a', margin: '1px'}} />
+                  <img src={attackSpeedIcon} alt='Attack Speed Icon' onClick={() => this.onRuneChange(0, 1, 'Right')}/>
+                  <img src={cdrIcon} alt='Ability Haste Icon' onClick={() => this.onRuneChange(0, 2, 'Right')}/>
+                </div>
                 
-                <img src={forceRing} className='runeImgStyle' alt='Adaptive Force Icon' onClick={this.onRuneChange} id='rune3'/>
-                <img src={moveSpeedIcon} className='runeImgStyle' alt='Movement Speed Icon' onClick={this.onRuneChange} id='rune4'/>
-                <img src={healthIcon} className='runeImgStyle' alt='Scaling Health Icon' onClick={this.onRuneChange} id='rune5'/>
+                <div id='shardRow1Right'>
+                  <img src={forceIcon} alt='Adaptive Force Icon' onClick={() => this.onRuneChange(1, 0, 'Right')}
+                    style={{border: '2px solid #ffcb5a', margin: '1px'}} />
+                  <img src={moveSpeedIcon} alt='Movement Speed Icon' onClick={() => this.onRuneChange(1, 1, 'Right')} />
+                  <img src={healthIcon} alt='Scaling Health Icon' onClick={() => this.onRuneChange(1, 2, 'Right')} />
+                </div>
                 
-                <img src={healthRing} className='runeImgStyle' alt='Health Icon' onClick={this.onRuneChange} id='rune6'/>
-                <img src={tenacitySlowResIcon} className='runeImgStyle' alt='Tenacity Slow Res Icon' onClick={this.onRuneChange} id='rune7'/>
-                <img src={magicResIcon} className='runeImgStyle' alt='Magic Resist Icon' onClick={this.onRuneChange} id='rune8'/>
+                <div id='shardRow2Right'>
+                  <img src={healthIcon} alt='Health Icon' onClick={() => this.onRuneChange(2, 0, 'Right')}
+                    style={{border: '2px solid #ffcb5a', margin: '1px'}} />
+                  <img src={tenacitySlowResIcon} alt='Tenacity Slow Res Icon' onClick={() => this.onRuneChange(2, 1, 'Right')}/>
+                  <img src={healthIcon} alt='Scaling Health Icon' onClick={() => this.onRuneChange(2, 2, 'Right')} />
+                </div>
               </div>
               <div style={{textAlign: 'center', marginBottom: '10px'}}>
                 <img src={this.ksIcons[this.state.keystoneIDRight.index]}

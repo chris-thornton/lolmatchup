@@ -103,6 +103,12 @@ button:hover {
   box-shadow: none;
 }
 
+#ksTitleLeft, #ksTitleRight {
+  background: hsl(193, 86%, 4%);
+  padding: 2px 6px 3px 5px;
+  border-radius: 4px;
+}
+
 #ksPathLeft, #ksPathRight {
   height: 26px;
   margin-top: auto;
@@ -263,17 +269,21 @@ span + img {
   padding-bottom: 3px;
 }
 
-.runeBox {
-  width: 99px;
-  height:  95px;
-  text-align: center;
+.shardBox {
   border: 1px solid #ffffff;
   border-right: 0;
   border-top: 0;
 }
 
+.shardBox div {
+  display: flex;
+  justify-content: space-evenly;
+  width: 105px;
+  height: 35px;
+}
+
 @media screen and (max-width: 800px) {
-  .runeBox {
+  .shardBox {
     display: block;
     margin:auto;
   }
@@ -282,16 +292,16 @@ span + img {
   }
 }
 
-.runeImgStyle {
+.shardBox img {
   height: 25px;
   width: 25px;
-  padding: 3px;
   border-radius: 50%;
   cursor: pointer;
+  margin: 3px;
 }
 
-.runeImgStyle:hover{
-	box-shadow: 0px 0px 5px #ffcb5a inset;
+.shardBox img:hover{
+	box-shadow: inset 0px 0px 5px white, 0px 0px 5px white;
 }
 
 .inventory {
