@@ -13790,18 +13790,13 @@ class App extends Component {
   };
 
   onItemSearch = (event, side) => {
-    var marginForSide = '46px';
-    if (side === 'Right') {
-      marginForSide = '-400px'
-    };
-     
     this.setState({[`itemDisplay${side}`]: Object.entries(this.legendItems).map((item, i) => {
       if (item[1].props.children[0].props.children.toLowerCase().includes(event.target.value.toLowerCase())){
         return (
           <span key={i} style={{display: 'inline-block'}}>
             <img className='itemIcon hoverScale' style={{border: '1px solid white'}} src={Array.from(this.itemIcons)[i]}
             onClick={(event) => this.onLegendClick(event, side, i)}></img>
-            <div className='itemTooltip' style={{marginLeft: marginForSide}}>
+            <div className='itemTooltip' style={{left: 'calc(22.5vw - 200px)', top: '195px'}}>
               {this.legendItems[i]}
             </div>
           </span>
@@ -13884,12 +13879,12 @@ class App extends Component {
     this.itemIcons = importAll(require.context('./itemicons/', false, /\.(png|jpe?g|svg)$/));
     this.setState({itemDisplayLeft: Array.from(this.itemIcons).map((iconSrc, i) => {
       return (
-        <span key={i} style={{display: 'inline-block'}} className='itt'>
-          <img className='itemIcon hoverScale' style={{border: '1px solid white', position: 'relative'}} src={iconSrc}
+        <span key={i} className='itt'>
+          <img className='itemIcon hoverScale' style={{border: '1px solid white'}} src={iconSrc}
           onClick={(event) => this.onLegendClick(event, 'Left', i)}></img>
-          <div className='itemTooltip' style={{marginLeft: '46px'}}>
+          <span className='itemTooltip' style={{left: 'calc(22.5vw - 200px)', top: '195px'}}>
             {this.legendItems[i]}
-          </div>
+          </span>
         </span>
       )
     })});
@@ -13898,7 +13893,7 @@ class App extends Component {
         <span key={i} style={{display: 'inline-block'}} className='itt'>
           <img className='itemIcon hoverScale' style={{border: '1px solid white', position: 'relative'}} src={iconSrc}
           onClick={(event) => this.onLegendClick(event, 'Right', i)}></img>
-          <div className='itemTooltip' style={{marginLeft: '-400px'}}>
+          <div className='itemTooltip' style={{left: 'calc(22.5vw - 200px)', top: '195px'}}>
             {this.legendItems[i]}
           </div>
         </span>
@@ -13916,7 +13911,7 @@ class App extends Component {
             <img src={logo} height='80px' alt='Logo'/>
           </div>
           <h2><a href="https://na.leagueoflegends.com/en-us/news/tags/patch-notes" 
-          target='_blank' tabIndex='-1'>Patch v13.18</a></h2>
+          target='_blank' tabIndex='-1'>Patch v14.6</a></h2>
         </header>
 
         {this.state.about ? <About /> : ''}
@@ -14233,28 +14228,28 @@ class App extends Component {
               </div>
               <div className='inventory' id='invenLeft'>
                 <img src={blackbg}  onClick={(event) => this.onInvenClick(event, 'Left', 1)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-120px'}}>
                   {this.invenLeftTT1}
                 </div>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 2)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-120px'}}>
                   {this.invenLeftTT2}
                 </div>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 3)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-120px'}}>
                   {this.invenLeftTT3}
                 </div>
                 <br></br>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 4)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-120px'}}>
                   {this.invenLeftTT4}
                 </div>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 5)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-120px'}}>
                   {this.invenLeftTT5}
                 </div>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Left', 6)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-120px'}}>
                   {this.invenLeftTT6}
                 </div>
               </div>
@@ -14263,28 +14258,28 @@ class App extends Component {
             <div style={{width: '45vw', display: 'flex', justifyContent: 'center'}}>
               <div className='inventory' id='invenRight'>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 1)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-200px'}}>
                   {this.invenRightTT1}
                 </div>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 2)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-200px'}}>
                   {this.invenRightTT2}
                 </div>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 3)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-200px'}}>
                   {this.invenRightTT3}
                 </div>
                 <br></br>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 4)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-200px'}}>
                   {this.invenRightTT4}
                 </div>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 5)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-200px'}}>
                   {this.invenRightTT5}
                 </div>
                 <img src={blackbg} onClick={(event) => this.onInvenClick(event, 'Right', 6)}></img>
-                <div className='itemTooltip' style={{left: '20px'}}>
+                <div className='itemTooltip' style={{left: '-200px'}}>
                   {this.invenRightTT6}
                 </div>
               </div>
@@ -14302,14 +14297,16 @@ class App extends Component {
             <div id='itemsLeft' style={{position: 'relative'}}>
               <div className='itemDisplay'>
                 <div style={{display: 'inline',textWrap: 'balance'}}>
-                {this.state.itemDisplayLeft}</div>
+                  {this.state.itemDisplayLeft}
+                </div>
               </div>
             </div> 
 
             <div id='itemsRight' style={{position: 'relative'}}>
               <div className='itemDisplay'>
                 <div style={{display: 'inline',textWrap: 'balance'}}>
-                {this.state.itemDisplayRight}</div>
+                  {this.state.itemDisplayRight}
+                </div>
               </div>
             </div>
           </div>
