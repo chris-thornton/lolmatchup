@@ -1570,14 +1570,28 @@ class App extends Component {
                 addText(' IE)');
               }
             };
-            if (damage["critADRatioWithIE"]) {
+            if (damage['critADRatio']) {
               singleBreak();
               prependIcon(critChanceIcon);
-              addIE();
-              underLine(' Crit Bonus Dmg with Infinity Edge');
-              addText(damage["critADRatioWithIE"]);
+              underLine('Crit Damage');
+              addText(damage["critADRatio"]);
               colorAD(" AD");
-              addText("ratio");
+              addText('ratio')
+            };
+            if (damage["critADRatioWithIE"]) {
+              if (damage["critADRatio"]) {
+                addText(' (' + damage["critADRatioWithIE"] + ' with ')
+                addIE();
+                addText(' IE)');
+              } else {
+                singleBreak();
+                prependIcon(critChanceIcon);
+                addIE();
+                underLine(' Crit Bonus Dmg with Infinity Edge');
+                addText(damage["critADRatioWithIE"]);
+                colorAD(" AD");
+                addText("ratio");
+              }
             };
             if (damage["duration"]) {
               singleBreak();
@@ -11144,8 +11158,8 @@ class App extends Component {
       <span>
       Gain a Blue Dream Bubble and a Purple Dream Bubble. Granting a heal or shield to an allied
        champion (excluding self) blows both Dream Bubbles to them, empowering them for 3 seconds.
-        The Blue Bubble reduces the next instance of non-minion damage they take by 75−255 (based on
-         user's level) and the Purple Bubble grants them 50−170 (based on user's level) bonus magic
+        The Blue Bubble reduces the next instance of non-minion damage they take by 75-255 (based on
+         user's level) and the Purple Bubble grants them 50-170 (based on user's level) bonus magic
           damage on-hit on their next basic attack.
       </span>
       <br></br>
@@ -11688,7 +11702,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        40% <img src={critDamageIcon}></img> Critical Strike Damage
+        50% <img src={critDamageIcon}></img> Critical Strike Damage
       </span>
     </div>,
     39:
@@ -11888,7 +11902,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        30% <img src={arPenIcon}></img> Armor Penetration
+        35% <img src={arPenIcon}></img> Armor Penetration
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Giant Slayer: </i>
@@ -12145,7 +12159,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        30% <img src={arPenIcon}></img> Armor Penetration
+        35% <img src={arPenIcon}></img> Armor Penetration
       </span>
       <br></br>
       <span>
@@ -12211,7 +12225,7 @@ class App extends Component {
       <b className='yellow'>Navori Quickblades</b>
       <hr></hr>
       <span>
-        60 <img src={ADIcon}></img> Attack Damage
+        65 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -12713,8 +12727,8 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Going Sledding: </i>
       <span>
       Slowing or immobilizing an enemy champion causes you and the nearest and most wounded allied 
-      champion to gain 25% bonus movement speed decaying over 3 seconds, and 50-230 (based on your level) 
-      bonus health for 3 seconds. This bonus may exceed maximum health.
+      champion to gain 20% bonus movement speed decaying over 2.5 seconds, and 50-230 (based on your level) 
+      bonus health for 2.5 seconds. This bonus may exceed maximum health.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -14092,7 +14106,7 @@ class App extends Component {
                   <img src={healthIcon} alt='Scaling Health Icon' onClick={() => this.onRuneChange(2, 2, 'Left')} />
                 </div>
               </div>
-              <div style={{textAlign: 'center', marginBottom: '10px'}}>
+              <div style={{textAlign: 'center', marginBottom: '16px'}}>
                 <img src={this.ksIcons[this.state.keystoneIDLeft.index]}
                 style={{marginRight: '5px'}}></img>
                 <b id='ksTitleLeft' style={{fontSize: '18px', verticalAlign: 'top'}}>
@@ -14165,7 +14179,7 @@ class App extends Component {
                   <img src={healthIcon} alt='Scaling Health Icon' onClick={() => this.onRuneChange(2, 2, 'Right')} />
                 </div>
               </div>
-              <div style={{textAlign: 'center', marginBottom: '10px'}}>
+              <div style={{textAlign: 'center', marginBottom: '16px'}}>
                 <img src={this.ksIcons[this.state.keystoneIDRight.index]}
                 style={{marginRight: '5px'}}></img>
                 <b id='ksTitleRight' style={{fontSize: '18px', verticalAlign: 'top'}}>

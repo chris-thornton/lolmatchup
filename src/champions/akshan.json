@@ -29,8 +29,8 @@
                 "type":"Physical",
                 "ADRatio": 0.5,
                 "canCrit": true,
-                "critDmg": 1.6125,
-                "critDmgWithIE": 1.77
+                "critADRatio": 0.6125,
+                "critADRatioWithIE": 0.7875
             }
         },
         "damage": {
@@ -84,7 +84,7 @@
             "bonusADRatio": 0.175,
             "bonusADRatioPerBonusAttackSpeedRatio": 0.0525,
             "critDmg": 1.575,
-            "critDmgWithIE": 1.98
+            "critDmgWithIE": 2.025
         },
         "coolDown": [
             18, 16.5, 15, 13.5, 12
@@ -104,7 +104,7 @@
             ],
             "maxADRatio": 0.4,
             "bonusDmgRatioPerCritChance": 0.5,
-            "bonusDmgRatioPerCritChanceWithIE": 0.725
+            "bonusDmgRatioPerCritChanceWithIE": 0.75
         },
         "coolDown": [
             100, 85, 70

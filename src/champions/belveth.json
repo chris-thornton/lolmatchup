@@ -45,7 +45,7 @@
             ],
             "ADRatio": 1.1,
             "critDmg": 1.75,
-            "critDmgWithIE": 2.2
+            "critDmgWithIE": 2.25
         },
         "coolDown": 1,
         "staticCoolDown": [

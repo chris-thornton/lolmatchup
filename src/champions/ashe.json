@@ -25,7 +25,7 @@
         "auto": {
             "dmgRatio":1.2,
             "dmgRatioPerCritChance": 0.75,
-            "dmgRatioPerCritChanceWithIE": 1.2
+            "dmgRatioPerCritChanceWithIE": 1.25
         }
     },
     "Q": {
