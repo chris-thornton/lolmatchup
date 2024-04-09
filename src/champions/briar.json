@@ -75,64 +75,22 @@
         "autoEmpower": {
             "damage": {
                 "type": "Physical",
-                "enemyMaxHPRatioByLvl": [
-                    0.04,0.0447,0.0494,0.0541,0.0588,0.0635,0.0682,0.0729,0.0776,
-                    0.0824,0.0871,0.0918,0.0965,0.1012,0.1059,0.1106,0.1153,0.12
+                "dmg": [
+                    5, 20, 35, 50, 65
                 ],
-                "canCrit": true
+                "ADRatio": 0.05,
+                "enemyMissingHPRatio": 0.09,
+                "enemyMissingHPRatioPerBonusADRatio": 0.025
             }
         },
-        "damage": {
-            "type": "Physical",
-            "system": "3Part",
-            "part1": {
-                "system": "minMax",
-                "minDmg": [
-                  10, 25, 40, 55, 70   
-                ],
-                "maxDmg":[
-                    16, 40, 64, 88, 112
-                ],
-                "minADRatio": [
-                  0.60, 0.675, 0.75, 0.825, 0.90
-                ],
-                "maxADRatio": [
-                    0.96, 1.08, 1.2, 1.32, 1.44
-                ]
-            },
-            "part2": {
-              "system": "minMax",
-              "minDmg": [
-                12.5, 31.25, 50, 68.75, 87.5  
-              ],
-              "maxDmg":[
-                  20, 50, 80, 110, 140
-              ],
-              "minADRatio": [
-                0.75, 0.84375, 0.9375, 1.03125, 1.125
-              ],
-              "maxADRatio":[
-                  1.2, 1.35, 1.5, 1.65, 1.8 
-              ]
-          },
-          "part3": {
-            "system": "minMax",
-            "minDmg": [
-              15, 37.5, 60, 82.5, 105  
+        "toggleStats": {
+            "attackSpeed": [
+                0.54, 0.68, 0.82, 0.96, 1.1
             ],
-            "maxDmg":[
-                24, 60, 96, 132, 168
-            ],
-            "minADRatio": [
-              0.90, 1.0125, 1.125, 1.2375, 1.35
-            ],
-            "maxADRatio":[
-                1.44, 1.62, 1.8, 1.98, 2.16
-            ]
-          }
+            "duration": 5
         },
         "coolDown": [
-            20, 18, 16, 14, 12
+            14, 13, 12, 11, 10
         ]
     },
     "E": {

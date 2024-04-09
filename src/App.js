@@ -1101,12 +1101,12 @@ class App extends Component {
       const applyRatioPer = (statType, perStatType, perQuantityType,
          perQuantityValue, buttonType) => { 
         if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value != 0) {
-          /*if (buttonType) {
+          if (buttonType) {
             document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'visible';
             document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2].style.visibility = 'visible';
           } else {
             document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible';
-          };*/
+          };
           if (!this[`applied${ability}${side}`].statTypes.includes(statType)) {
             this[`applied${ability}${side}`].statTypes.push(statType);
             this[`applied${ability}${side}`][statType] = {}
@@ -1126,8 +1126,72 @@ class App extends Component {
        }
       };
 
+      function mapValuesToAAFunctions (path, statType) {
+        var statCounter = 0;
+        if (path['flat']) {
+          applyAbility(statType, 'flat', path['flat'])
+          statCounter += arrayCheck(path['flat'])
+        };
+        if (path['ratio']) {
+          applyAbility(statType, 'ratio', path['ratio'])
+          statCounter += arrayCheck(path['ratio'])
+        };
+        if (path['byLvl']) {
+          applyAbility(statType, 'byLvl', path['byLvl'])
+          statCounter += arrayCheck(path['byLvl'][champLevel])
+        };
+        if (path["APRatio"]) {
+          applyRatioPer(statType, 'ap', 'total', path["APRatio"]);
+          statCounter += arrayCheck(path["APRatio"]) * totalAP;
+        };
+        if (path["ADRatio"]) {
+          applyRatioPer(statType, 'ad', 'total', path["ADRatio"]);
+          statCounter += arrayCheck(path["bonusADRatio"]) * totalAD;
+        };
+        if (path["bonusADRatio"]) {
+          applyRatioPer(statType, 'ad', 'bonus', path["bonusADRatio"])
+          statCounter += arrayCheck(path["bonusADRatio"]) * bonusAD;
+        };
+        addText(Math.round(statCounter));
+      };
+
       if (champFile[ability]) {
         if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value == 0) {
+
+          if (champFile[ability]["permanentStats"]) {
+
+          };
+
+          if (champFile[ability]["toggleStats"]) {
+            createBracketDiv();
+            var path = champFile[ability]["toggleStats"];
+            addBold('Bonus Stats');
+            if (path["attackSpeed"]) {
+              prependIcon(attackSpeedIcon);
+              underLine('Bonus Attack Speed Ratio');
+              addText(removeParen(path["attackSpeed"]));
+              singleBreak();
+            };
+            if (path["ADMultiplier"]) {
+              prependIcon(ADIcon);
+              underLine('Attack Damage Multiplier');
+              addText(removeParen(path["ADMultiplier"]));
+              singleBreak();
+            };
+            if (path["healingRatio"]) {
+              prependIcon(healIcon);
+              underLine('Increased Healing Ratio');
+              addText(removeParen(path["healingRatio"]));
+              singleBreak();
+            };
+            if (path["duration"]) {
+              underLine('Duration');
+              addText(removeParen(path["duration"]))
+            };
+
+            abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
+            singleBreak();
+          };
 
           if (champFile[ability]["text"]) {
             addText(champFile[ability]["text"]);
@@ -4125,31 +4189,6 @@ class App extends Component {
             doubleBreak();
           };
 
-          if (champFile[ability]["permanentStats"]) {
-
-          };
-
-          if (champFile[ability]["toggleStats"]) {
-            createBracketDiv();
-            var path = champFile[ability]["toggleStats"];
-            addBold('Bonus Stats');
-            if (path["ADMultiplier"]) {
-              prependIcon(ADIcon);
-              underLine('Attack Damage Multiplier');
-              addText(removeParen(path["ADMultiplier"]));
-              singleBreak();
-            };
-            if (path["healingRatio"]) {
-              prependIcon(healIcon);
-              underLine('Increased Healing Ratio');
-              addText(removeParen(path["healingRatio"]));
-              singleBreak();
-            };
-
-            abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
-            singleBreak();
-          };
-
           if (champFile[ability]["bonusStats"]) {
             var path = champFile[ability]["bonusStats"];
             addBold('Bonus Stats');
@@ -5497,6 +5536,41 @@ class App extends Component {
 
         if (ability !== 'passive' && document.getElementById(`${ability}Rank${side}`).value > 0 ) {
           /* BEGIN RANK 1-5 SECTION */
+          if (champFile[ability]["toggleStats"]) {
+            createBracketDiv();
+
+            var path = champFile[ability]["toggleStats"];
+            addBold('Bonus Stats');
+            if (path["attackSpeed"]) {
+              prependIcon(attackSpeedIcon);
+              underLine('Bonus Attack Speed Ratio');
+              if (path["attackSpeed"].flat) {
+                applyAbility('as', 'flat', path["attackSpeed"].flat)
+                addText(arrayCheck(path["attackSpeed"].flat))
+              };
+              singleBreak();
+            };
+            if (path["ADMultiplier"]) {
+              applyAbility('ad', 'ratio', path["ADMultiplier"]);
+              prependIcon(ADIcon);
+              underLine('Attack Damage Multiplier');
+              addText(arrayCheck(path["ADMultiplier"]));
+              singleBreak();
+            };
+            if (path["healingRatio"]) {
+              prependIcon(healIcon);
+              underLine('Increased Healing Ratio');
+              addText(arrayCheck(path["healingRatio"]));
+              singleBreak();
+            };
+            if (path["duration"]) {
+              underLine('Duration')
+              addText(arrayCheck(path["duration"]))
+            };
+            abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
+            singleBreak();
+          };
+
           if (champFile[ability]["text"]) {
             addText(champFile[ability]["text"])
             doubleBreak();
@@ -7746,28 +7820,6 @@ class App extends Component {
               addText(arrayCheck(path["maxDuration"]));
             };
             doubleBreak();
-          };
-
-          if (champFile[ability]["toggleStats"]) {
-            createBracketDiv();
-
-            var path = champFile[ability]["toggleStats"];
-            addBold('Bonus Stats');
-            if (path["ADMultiplier"]) {
-              applyAbility('ad', 'ratio', path["ADMultiplier"]);
-              prependIcon(ADIcon);
-              underLine('Attack Damage Multiplier');
-              addText(arrayCheck(path["ADMultiplier"]));
-              singleBreak();
-            };
-            if (path["healingRatio"]) {
-              prependIcon(healIcon);
-              underLine('Increased Healing Ratio');
-              addText(arrayCheck(path["healingRatio"]));
-              singleBreak();
-            };
-            abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
-            singleBreak();
           };
 
           if (champFile[ability]["bonusStats"]) {
@@ -10876,7 +10928,7 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Spellblade: </i>
       <span>
-      After using an ability, your next basic attack within 10 seconds deals 150% base AD bonus
+      After using an ability, your next basic attack within 10 seconds deals 100% base AD bonus
        physical damage on-hit. If the target is a champion, inflict them with Expose Weakness for
         6 seconds, causing them to take (Melee 10% / Ranged 5%) increased damage from all sources.
       </span>
@@ -11680,7 +11732,7 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Coordinated Fire: </i>
       <span>
       Abilities that slow or immobilize enemy champions mark them for 5 seconds. Allied champions that 
-      damage marked enemies consume the mark to deal 12% of the target's current health bonus magic 
+      damage marked enemies consume the mark to deal 10% of the target's current health bonus magic 
       damage and grant you and the triggering ally 25% bonus movement speed for 2 seconds.
       </span>
       <br></br>
@@ -13436,13 +13488,13 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Void Explosion: </i>
       <span>
       Dealing ability damage to an enemy champion creates an explosion at their location after a 
-      0.5-second delay, dealing 20 (+20% AP) (+4% of each target's maximum health) magic damage 
+      0.5-second delay, dealing 10 (+20% AP) (+3% of each target's maximum health) magic damage 
       to enemies within the area, capped at 300 against monsters.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-      8 / 7 / 6 (based on level)
+      10
       </span>
     </div>,
     104:

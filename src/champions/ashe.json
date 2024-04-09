@@ -29,8 +29,10 @@
         }
     },
     "Q": {
-        "bonusAttackSpeed": {
-            "attackSpeed": [0.25, 0.325, 0.4, 0.475, 0.55],
+        "toggleStats": {
+            "attackSpeed": {
+                "flat": [0.25, 0.325, 0.4, 0.475, 0.55]
+            },
             "duration": 6
         },
         "autoEmpower": {
