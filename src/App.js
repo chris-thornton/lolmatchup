@@ -1126,33 +1126,73 @@ class App extends Component {
        }
       };
 
-      function mapValuesToAAFunctions (path, statType) {
+      function mapValuesToAAFunctions (statType, path, toCalc, statText) {
+        if (path['ratio']) {
+          underLine(statText + ' Multiplier')
+        } else {
+          underLine(statText)
+        };
         var statCounter = 0;
         if (path['flat']) {
-          applyAbility(statType, 'flat', path['flat'])
-          statCounter += arrayCheck(path['flat'])
+          if (toCalc) {
+            applyAbility(statType, 'flat', path['flat'])
+            statCounter += arrayCheck(path['flat'])
+          } else {
+            addText(removeParen(path['flat']))
+          }
         };
         if (path['ratio']) {
-          applyAbility(statType, 'ratio', path['ratio'])
-          statCounter += arrayCheck(path['ratio'])
+          if (toCalc) {
+            applyAbility(statType, 'ratio', path['ratio'])
+            statCounter += arrayCheck(path['ratio'])
+          } else {
+            addText(removeParen(path['ratio']))
+          }
         };
         if (path['byLvl']) {
-          applyAbility(statType, 'byLvl', path['byLvl'])
-          statCounter += arrayCheck(path['byLvl'][champLevel])
+          if (toCalc) {
+            applyAbility(statType, 'byLvl', path['byLvl'])
+            statCounter += arrayCheck(path['byLvl'][champLevel])
+          } else {
+            addText(path['byLvl'][0] + ' to ' + path['byLvl'][17] + ', based on lvl. ');
+            underLine('Currently');
+            addText(path['byLvl'][champLevel])
+          }
         };
         if (path["APRatio"]) {
-          applyRatioPer(statType, 'ap', 'total', path["APRatio"]);
-          statCounter += arrayCheck(path["APRatio"]) * totalAP;
+          if (toCalc) {
+            applyRatioPer(statType, 'ap', 'total', path["APRatio"]);
+            statCounter += arrayCheck(path["APRatio"]) * totalAP;
+          } else {
+            addText(' (+' + removeParen(path["APRatio"]));
+            colorAP(' AP');
+            addText("ratio)");
+          }
         };
         if (path["ADRatio"]) {
-          applyRatioPer(statType, 'ad', 'total', path["ADRatio"]);
-          statCounter += arrayCheck(path["bonusADRatio"]) * totalAD;
+          if (toCalc) {
+            applyRatioPer(statType, 'ad', 'total', path["ADRatio"]);
+            statCounter += arrayCheck(path["ADRatio"]) * totalAD;
+          } else {
+            addText(' (+' + removeParen(path["ADRatio"]));
+            colorAD(' AD');
+            addText("ratio)");
+          }
         };
         if (path["bonusADRatio"]) {
-          applyRatioPer(statType, 'ad', 'bonus', path["bonusADRatio"])
-          statCounter += arrayCheck(path["bonusADRatio"]) * bonusAD;
+          if (toCalc) {
+            applyRatioPer(statType, 'ad', 'bonus', path["bonusADRatio"])
+            statCounter += arrayCheck(path["bonusADRatio"]) * bonusAD;
+          } else {
+            addText(' (+' + removeParen(path["bonusADRatio"]));
+            colorAD(' AD');
+            addText("ratio)");
+          }
         };
-        addText(Math.round(statCounter));
+        if (toCalc) {
+          addText(statCounter);
+        };
+        singleBreak()
       };
 
       if (champFile[ability]) {
@@ -1168,9 +1208,10 @@ class App extends Component {
             addBold('Bonus Stats');
             if (path["attackSpeed"]) {
               prependIcon(attackSpeedIcon);
-              underLine('Bonus Attack Speed Ratio');
+              /*underLine('Bonus Attack Speed Ratio');
               addText(removeParen(path["attackSpeed"]));
-              singleBreak();
+              singleBreak();*/
+              mapValuesToAAFunctions('as', path["attackSpeed"], false, "Attack Speed")
             };
             if (path["ADMultiplier"]) {
               prependIcon(ADIcon);
@@ -5543,18 +5584,24 @@ class App extends Component {
             addBold('Bonus Stats');
             if (path["attackSpeed"]) {
               prependIcon(attackSpeedIcon);
-              underLine('Bonus Attack Speed Ratio');
-              if (path["attackSpeed"].flat) {
+              //underLine('Attack Speed Ratio');
+              /*if (path["attackSpeed"].flat) {
                 applyAbility('as', 'flat', path["attackSpeed"].flat)
                 addText(arrayCheck(path["attackSpeed"].flat))
-              };
-              singleBreak();
+              };*/
+              mapValuesToAAFunctions('as', path["attackSpeed"], true, 'Attack Speed');
             };
-            if (path["ADMultiplier"]) {
+            /*if (path["ADMultiplier"]) {
               applyAbility('ad', 'ratio', path["ADMultiplier"]);
               prependIcon(ADIcon);
               underLine('Attack Damage Multiplier');
               addText(arrayCheck(path["ADMultiplier"]));
+              singleBreak();
+            };*/
+            if (path["attackDamage"]) {
+              prependIcon(ADIcon);
+              underLine('Attack Damage Multiplier');
+              mapValuesToAAFunctions('ad', path["attackDamage"]);
               singleBreak();
             };
             if (path["healingRatio"]) {

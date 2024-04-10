@@ -132,9 +132,10 @@
     },
     "R": {
         "toggleStats": {
-            "ADMultiplier": [
-                0.2, 0.325, 0.45
-            ],
+            "attackDamage": {
+                "ratio": [0.2, 0.325, 0.45]
+            },
+            
             "healingRatio": [
                 0.25, 0.35, 0.45
             ],
