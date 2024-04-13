@@ -403,34 +403,54 @@ class App extends Component {
     manaRegen: 0
   };
   appliedpassiveLeft = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedQLeft = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedWLeft = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedELeft = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedRLeft = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedpassiveRight = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedQRight = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedWRight = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedERight = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedRRight = {
-    statTypes: []
+    statTypes: [],
+    minMax: '',
+    isItOn: false
   };
   appliedStatsRight = {
     ad: 0,
@@ -562,7 +582,7 @@ class App extends Component {
 
     this.abilities.map(x => {
       this[`applied${x}${side}`].statTypes.map(y => {
-        if (this[`applied${x}${side}`][y].ratio) {
+        if (this[`applied${x}${side}`][y].ratio && this[`applied${x}${side}`].isItOn) {
           if (typeof this[`applied${x}${side}`][y].ratio === 'number') {
             this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio + 1);
             this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio + 1);
@@ -1083,10 +1103,13 @@ class App extends Component {
         document.getElementById(`${this.abilities[i]}${side}Applied`).style.display = 'block';
         if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value != 0) {
           if (buttonType) {
-            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'visible';
-            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2].style.visibility = 'visible';
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0]
+            .style.visibility = 'visible';
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2]
+            .style.visibility = 'visible';
           } else {
-            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible';
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1]
+            .style.visibility = 'visible';
           };
           if (!this[`applied${ability}${side}`].statTypes.includes(statType)) {
             this[`applied${ability}${side}`].statTypes.push(statType);
@@ -1102,17 +1125,20 @@ class App extends Component {
          perQuantityValue, buttonType) => { 
         if (ability === 'passive' || document.getElementById(`${ability}Rank${side}`).value != 0) {
           if (buttonType) {
-            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0].style.visibility = 'visible';
-            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2].style.visibility = 'visible';
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[0]
+            .style.visibility = 'visible';
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[2]
+            .style.visibility = 'visible';
           } else {
-            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1].style.visibility = 'visible';
+            document.getElementById(`${this.abilities[i]}${side}Applied`).childNodes[1]
+            .style.visibility = 'visible';
           };
           if (!this[`applied${ability}${side}`].statTypes.includes(statType)) {
             this[`applied${ability}${side}`].statTypes.push(statType);
             this[`applied${ability}${side}`][statType] = {}
           };
           if (!this[`applied${ability}${side}`][statType].ratioPer) {
-            this[`applied${ability}${side}`][statType][ratioPer] = {
+            this[`applied${ability}${side}`][statType].ratioPer = {
               perStatTypes: [perStatType],
               perQuantityTypes: [perQuantityType],
               perQuantityValues: [perQuantityValue]
@@ -1139,6 +1165,14 @@ class App extends Component {
             statCounter += arrayCheck(path['flat'])
           } else {
             addText(removeParen(path['flat']))
+          }
+        };
+        if (path["flatMin"]) {
+          if (toCalc) {
+            applyAbility(statType, 'flat', path['flatMin'], 'minMax')
+            statCounter += arrayCheck(path['flatMin'])
+          } else {
+            addText(removeParen(path['flatMin']))
           }
         };
         if (path['ratio']) {
@@ -1185,12 +1219,16 @@ class App extends Component {
             statCounter += arrayCheck(path["bonusADRatio"]) * bonusAD;
           } else {
             addText(' (+' + removeParen(path["bonusADRatio"]));
-            colorAD(' AD');
+            colorAD(' Bonus AD');
             addText("ratio)");
           }
         };
         if (toCalc) {
+          if (statCounter > 3) {
+            addText(Math.round(statCounter))
+          } else {
           addText(statCounter);
+          }
         };
         singleBreak()
       };
@@ -1206,19 +1244,22 @@ class App extends Component {
             createBracketDiv();
             var path = champFile[ability]["toggleStats"];
             addBold('Bonus Stats');
+            if (path["health"]) {
+              prependIcon(healthIcon);
+              mapValuesToAAFunctions('hp', path["health"], false, "Health")
+            };
             if (path["attackSpeed"]) {
               prependIcon(attackSpeedIcon);
-              /*underLine('Bonus Attack Speed Ratio');
-              addText(removeParen(path["attackSpeed"]));
-              singleBreak();*/
               mapValuesToAAFunctions('as', path["attackSpeed"], false, "Attack Speed")
             };
-            if (path["ADMultiplier"]) {
+            if (path["attackDamage"]) {
               prependIcon(ADIcon);
-              underLine('Attack Damage Multiplier');
-              addText(removeParen(path["ADMultiplier"]));
-              singleBreak();
+              mapValuesToAAFunctions('ad', path["attackDamage"], false, "Attack Damage")
             };
+            if (path["omniVamp"]) {
+              prependIcon(vampIcon);
+              mapValuesToAAFunctions('omni', path["omniVamp"], false, "Omnivamp")
+            }
             if (path["healingRatio"]) {
               prependIcon(healIcon);
               underLine('Increased Healing Ratio');
@@ -1227,7 +1268,10 @@ class App extends Component {
             };
             if (path["duration"]) {
               underLine('Duration');
-              addText(removeParen(path["duration"]))
+              addText(removeParen(path["duration"]));
+              if (path["durationExtend"]) {
+                addText(" (extends by " + path["durationExtend"] + ' seconds)')
+              }
             };
 
             abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
@@ -5582,28 +5626,22 @@ class App extends Component {
 
             var path = champFile[ability]["toggleStats"];
             addBold('Bonus Stats');
+            if (path["health"]) {
+              prependIcon(healthIcon);
+              mapValuesToAAFunctions('hp', path["health"], true, "Health")
+            };
             if (path["attackSpeed"]) {
               prependIcon(attackSpeedIcon);
-              //underLine('Attack Speed Ratio');
-              /*if (path["attackSpeed"].flat) {
-                applyAbility('as', 'flat', path["attackSpeed"].flat)
-                addText(arrayCheck(path["attackSpeed"].flat))
-              };*/
               mapValuesToAAFunctions('as', path["attackSpeed"], true, 'Attack Speed');
             };
-            /*if (path["ADMultiplier"]) {
-              applyAbility('ad', 'ratio', path["ADMultiplier"]);
-              prependIcon(ADIcon);
-              underLine('Attack Damage Multiplier');
-              addText(arrayCheck(path["ADMultiplier"]));
-              singleBreak();
-            };*/
             if (path["attackDamage"]) {
               prependIcon(ADIcon);
-              underLine('Attack Damage Multiplier');
-              mapValuesToAAFunctions('ad', path["attackDamage"]);
-              singleBreak();
+              mapValuesToAAFunctions('ad', path["attackDamage"], true, 'Attack Damage');
             };
+            if (path["omniVamp"]) {
+              prependIcon(vampIcon);
+              mapValuesToAAFunctions('omni', path["omniVamp"], true, "Omnivamp")
+            }
             if (path["healingRatio"]) {
               prependIcon(healIcon);
               underLine('Increased Healing Ratio');
@@ -5613,6 +5651,9 @@ class App extends Component {
             if (path["duration"]) {
               underLine('Duration')
               addText(arrayCheck(path["duration"]))
+              if (path["durationExtend"]) {
+                addText(" (extends by " + path["durationExtend"] + ' seconds)')
+              }
             };
             abilityDiv = document.getElementsByClassName(`abilityBox${side}`)[i];
             singleBreak();
@@ -9936,6 +9977,22 @@ class App extends Component {
   };
 
   appliedStatsToggle = (event, side, ability) => {
+    if (event.target.textContent.includes('Min')) {
+      if (this[`applied${ability}${side}`].minMax === 'Max') {
+        this.appliedStatsUpdate(side, ability, 'remove');
+        document.getElementById(`${ability}${side}Applied`).childNodes[2].textContent = 
+        'Apply Maximum Stats'
+      };
+      this[`applied${ability}${side}`].minMax = 'Min'
+    };
+    if (event.target.textContent.includes('Max')) {
+      if (this[`applied${ability}${side}`].minMax === 'Min') {
+        this.appliedStatsUpdate(side, ability, 'remove');
+        document.getElementById(`${ability}${side}Applied`).childNodes[0].textContent = 
+        'Apply Minimum Stats'
+      };
+      this[`applied${ability}${side}`].minMax = 'Max'
+    };
     if (event.target.textContent.includes('Remove')){
       this.appliedStatsUpdate(side, ability, 'remove');
       event.target.textContent = event.target.textContent.replace('Remove', 'Apply')
@@ -9951,25 +10008,26 @@ class App extends Component {
     if (ability !== 'passive'){
       abilityRank = document.getElementById(`${ability}Rank${side}`).value - 1
     };
+    var minMax = this[`applied${ability}${side}`].minMax;
     switch(applyRemoveUpdate) {
       case 'apply':
         this[`applied${ability}${side}`].statTypes.map(x => {
-          if (this[`applied${ability}${side}`][x].flat){
-            if (typeof this[`applied${ability}${side}`][x].flat !== 'number') {
-              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].flat[abilityRank]
+          if (this[`applied${ability}${side}`][x]['flat' + `${minMax}`]){
+            if (typeof this[`applied${ability}${side}`][x]['flat' + `${minMax}`] !== 'number') {
+              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x]['flat' + `${minMax}`][abilityRank]
             } else {
-              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].flat;
+              this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x]['flat' + `${minMax}`];
             }
           };
-          if (this[`applied${ability}${side}`][x].byLvl){
-            this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].byLvl[champLevel]
+          if (this[`applied${ability}${side}`][x]['byLvl' + `${minMax}`]){
+            this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x]['byLvl' + `${minMax}`][champLevel]
           };
-          if (this[`applied${ability}${side}`][x].ratio){
-            if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
+          if (this[`applied${ability}${side}`][x]['ratio' + `${minMax}`]){
+            if (typeof this[`applied${ability}${side}`][x]['ratio' + `${minMax}`] === 'number') {
               /*this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio 
               * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);*/
 
-            } else if (this[`applied${ability}${side}`][x].ratio.length < 10) {
+            } else if (this[`applied${ability}${side}`][x]['ratio' + `${minMax}`].length < 10) {
               /*this[`appliedStats${side}`][x] += this[`applied${ability}${side}`][x].ratio[abilityRank] 
               * (this[`totalStats${side}`][x] - this[`appliedStats${side}`][x]);*/
             } else {
@@ -9978,24 +10036,27 @@ class App extends Component {
             }
           };
         });
+        this[`applied${ability}${side}`].isItOn = true;
         break;
       case 'remove':
+        this[`applied${ability}${side}`].minMax = '';
         this[`applied${ability}${side}`].statTypes.map(x => {
           this[`appliedStats${side}`][x] = 0
         });
+        this[`applied${ability}${side}`].isItOn = false;
         break;
       case 'update':
         this[`applied${ability}${side}`].statTypes.map(x => {
           var newStatValue = 0;
-          if (this[`applied${ability}${side}`][x].flat){
-            if (typeof this[`applied${ability}${side}`][x].flat !== 'number') {
-              newStatValue += this[`applied${ability}${side}`][x].flat[abilityRank]
+          if (this[`applied${ability}${side}`][x]['flat' + `${minMax}`]){
+            if (typeof this[`applied${ability}${side}`][x]['flat' + `${minMax}`] !== 'number') {
+              newStatValue += this[`applied${ability}${side}`][x]['flat' + `${minMax}`][abilityRank]
             } else {
-              newStatValue += this[`applied${ability}${side}`][x].flat;
+              newStatValue += this[`applied${ability}${side}`][x]['flat' + `${minMax}`];
             }
           };
-          if (this[`applied${ability}${side}`][x].byLvl){
-            newStatValue += this[`applied${ability}${side}`][x].byLvl[champLevel]
+          if (this[`applied${ability}${side}`][x]['byLvl' + `${minMax}`]){
+            newStatValue += this[`applied${ability}${side}`][x]['byLvl' + `${minMax}`][champLevel]
           };
           /*if (this[`applied${ability}${side}`][x].ratio){
             if (typeof this[`applied${ability}${side}`][x].ratio === 'number') {
@@ -10022,7 +10083,7 @@ class App extends Component {
             }
           };*/
           if (this[`applied${ability}${side}`][x].ratioPer){
-
+            
           };
           this[`appliedStats${side}`][x] = newStatValue;
         });

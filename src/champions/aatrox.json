@@ -118,13 +118,11 @@
         ]
     },
     "E": {
-        "passivePermanent": {
-            "minOmniVamp": [
-                0.18, 0.195, 0.21, 0.225, 0.24
-            ],
-            "maxOmniVamp": [
-                0.2, 0.24, 0.28, 0.32, 0.36
-            ]
+        "toggleStats": {
+            "omniVamp": {
+                "flatMin": [0.18, 0.195, 0.21, 0.225, 0.24],
+                "flatMax": [0.2, 0.24, 0.28, 0.32, 0.36]
+            }
         },
         "coolDown": [
             9, 8, 7, 6, 5
@@ -135,7 +133,6 @@
             "attackDamage": {
                 "ratio": [0.2, 0.325, 0.45]
             },
-            
             "healingRatio": [
                 0.25, 0.35, 0.45
             ],

@@ -127,26 +127,18 @@
             "bonusADRatio": 1.2,
             "APRatio": 0.9
         },
-        "bonusHealth": {
-            "duration": 60,
-            "health": [
-                100, 150, 200
-            ],
-            "APRatio": 0.9,
-            "bonusADRatio": 1.2
-        },
-        "bonusAttackSpeed": {
-            "totalAttackSpeed": [
-                0.1, 0.15, 0.2
-            ],
-            "duration": 60
-        },
         "toggleStats": {
             "health": {
                 "flat": [100, 150, 200],
                 "APRatio": 0.9,
                 "bonusADRatio": 1.2
-            }
+            },
+            "attackSpeed": {
+                "ratio": [
+                    0.1, 0.15, 0.2
+                ]
+            },
+            "duration": 60
         }
     }
 }
