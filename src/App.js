@@ -522,7 +522,7 @@ class App extends Component {
     var champLvlRatio = (this[`level${side}`] - 1) * (0.7025 + 0.0175 * (this[`level${side}`] - 1));
     var itemStats = this[`itemStats${side}`];
     var runeStats = this[`runes${side}`];
-    var appliedStats = this[`appliedStats${side}`];
+    var appliedStats = Object.assign({}, this[`appliedStats${side}`]);
 
     runeStats.hp += [10, 20, 30, 40, 50, 60, 70, 80, 90,
     100, 110, 120, 130, 140, 150, 160, 170, 180][(this[`level${side}`] - 1)]*runeStats.hpByLvl;
@@ -537,6 +537,42 @@ class App extends Component {
       runeStats.ad = runeStats.force*0.6
       runeStats.ap = 0
     };
+
+    this.abilities.map(x => {
+      if (this[`applied${x}${side}`].isItOn) {
+        this[`applied${x}${side}`].statTypes.map(y => {
+          if (this[`applied${x}${side}`][y].ratioPer) {
+            this[`applied${x}${side}`][y].ratioPer.perStatTypes.map((z, i) => {
+              if (z === 'hp') {
+                appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * (itemStats.hp
+                  + runeStats.hp + appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
+                + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`winterMultiplier${side}`]*this[`mana${side}`])
+                if (this[`applied${x}${side}`][y].ratioPer.perQuantityTypes[i] !== 'bonus') {
+                  appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
+                  (statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio))
+                }
+              };
+              if (z === 'ap') {
+                appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
+                (((itemStats.ap + appliedStats.ap + runeStats.ap)*this[`dcapMultiplier${side}`]) + 
+                (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)
+                *this[`mana${side}`]*this[`archangel${side}`])
+              };
+              if (z === 'ad') {
+                appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
+                (itemStats.ad + runeStats.ad + appliedStats.ad + (itemStats.mana + statsPath.mana["base"] 
+                + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]*this[`mura${side}`]
+                + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1))
+                if (this[`applied${x}${side}`][y].ratioPer.perQuantityTypes[i] !== 'bonus') {
+                  appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
+                  (statsPath["baseDamage"] + statsPath["damagePerLvl"]*champLvlRatio)
+                }
+              }
+            })
+          }
+        })
+      }
+    });
 
     this[`bonusStats${side}`] = {
       ...this[`bonusStats${side}`],
@@ -581,24 +617,26 @@ class App extends Component {
     };
 
     this.abilities.map(x => {
-      this[`applied${x}${side}`].statTypes.map(y => {
-        if (this[`applied${x}${side}`][y].ratio && this[`applied${x}${side}`].isItOn) {
-          if (typeof this[`applied${x}${side}`][y].ratio === 'number') {
-            this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio + 1);
-            this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio + 1);
-          } else if (this[`applied${x}${side}`][y].ratio.length < 10) {
-            this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
-              [document.getElementById(`${x}Rank${side}`).value - 1] + 1);
-            this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
-              [document.getElementById(`${x}Rank${side}`).value - 1] + 1);
-          } else {
-            this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
-            [(this[`level${side}`] - 1)] + 1);
-            this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
-            [(this[`level${side}`] - 1)] + 1);
-          }
-        }
-      })
+      if (this[`applied${x}${side}`].isItOn) {
+        this[`applied${x}${side}`].statTypes.map(y => {
+          if (this[`applied${x}${side}`][y].ratio) {
+            if (typeof this[`applied${x}${side}`][y].ratio === 'number') {
+              this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio + 1);
+              this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio + 1);
+            } else if (this[`applied${x}${side}`][y].ratio.length < 10) {
+              this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
+                [document.getElementById(`${x}Rank${side}`).value - 1] + 1);
+              this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
+                [document.getElementById(`${x}Rank${side}`).value - 1] + 1);
+            } else {
+              this[`bonusStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
+              [(this[`level${side}`] - 1)] + 1);
+              this[`totalStats${side}`][y] *= (this[`applied${x}${side}`][y].ratio
+              [(this[`level${side}`] - 1)] + 1);
+            }
+          };
+        })
+      }
     });
 
     if (this[`champName${side}`] === 'Yasuo' || this[`champName${side}`] === 'Yone') {
