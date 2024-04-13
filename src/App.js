@@ -567,6 +567,22 @@ class App extends Component {
                   appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
                   (statsPath["baseDamage"] + statsPath["damagePerLvl"]*champLvlRatio)
                 }
+              };
+              if (z === 'arm') {
+                appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] *
+                itemStats.arm;
+                if (this[`applied${x}${side}`][y].ratioPer.perQuantityTypes[i] !== 'bonus') {
+                  appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
+                  (statsPath["baseArmor"] + statsPath["armorPerLvl"]*champLvlRatio)
+                }
+              };
+              if (z === 'mr') {
+                appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] *
+                itemStats.mr;
+                if (this[`applied${x}${side}`][y].ratioPer.perQuantityTypes[i] !== 'bonus') {
+                  appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
+                  (statsPath["baseMR"] + statsPath["mrPerLvl"] * champLvlRatio)
+                }
               }
             })
           }
@@ -769,7 +785,7 @@ class App extends Component {
     var totalArmor = this[`totalStats${side}`].arm;
     var bonusArmor = this[`bonusStats${side}`].arm;
     var totalMR = this[`totalStats${side}`].mr;
-    var bonusMR = this[`bonusStats${side}`].ad;
+    var bonusMR = this[`bonusStats${side}`].mr;
     var totalHP = this[`totalStats${side}`].hp;
     if (champName === 'Kled') {
       totalHP += champFile['statsTransform']['baseHP'] + champFile['statsTransform']['hpPerLvl'] * champLvlRatio
@@ -1261,6 +1277,26 @@ class App extends Component {
             addText("ratio)");
           }
         };
+        if (path["bonusArmorRatio"]) {
+          if (toCalc) {
+            applyRatioPer(statType, 'arm', 'bonus', path["bonusArmorRatio"])
+            statCounter += arrayCheck(path["bonusArmorRatio"]) * itemStats.arm;
+          } else {
+            addText(' (+' + removeParen(path["bonusArmorRatio"]));
+            colorArmor(' Bonus Armor');
+            addText("ratio)");
+          }
+        };
+        if (path["bonusMagicResistRatio"]) {
+          if (toCalc) {
+            applyRatioPer(statType, 'mr', 'bonus', path["bonusMagicResistRatio"])
+            statCounter += arrayCheck(path["bonusMagicResistRatio"]) * itemStats.mr;
+          } else {
+            addText(' (+' + removeParen(path["bonusMagicResistRatio"]));
+            colorMR(' Bonus Magic Resist');
+            addText("ratio)");
+          }
+        };
         if (toCalc) {
           if (statCounter > 3) {
             addText(Math.round(statCounter))
@@ -1293,6 +1329,14 @@ class App extends Component {
             if (path["attackDamage"]) {
               prependIcon(ADIcon);
               mapValuesToAAFunctions('ad', path["attackDamage"], false, "Attack Damage")
+            };
+            if (path["armor"]) {
+              prependIcon(armorIcon);
+              mapValuesToAAFunctions('arm', path["armor"], false, "Armor")
+            };
+            if (path["magicResist"]) {
+              prependIcon(magicResIcon);
+              mapValuesToAAFunctions('mr', path["magicResist"], false, "Magic Resist")
             };
             if (path["omniVamp"]) {
               prependIcon(vampIcon);
@@ -5676,6 +5720,14 @@ class App extends Component {
               prependIcon(ADIcon);
               mapValuesToAAFunctions('ad', path["attackDamage"], true, 'Attack Damage');
             };
+            if (path["armor"]) {
+              prependIcon(armorIcon);
+              mapValuesToAAFunctions('arm', path["armor"], true, "Armor")
+            };
+            if (path["magicResist"]) {
+              prependIcon(magicResIcon);
+              mapValuesToAAFunctions('mr', path["magicResist"], true, "Magic Resist")
+            };
             if (path["omniVamp"]) {
               prependIcon(vampIcon);
               mapValuesToAAFunctions('omni', path["omniVamp"], true, "Omnivamp")
@@ -8285,7 +8337,7 @@ class App extends Component {
               armorCounter += arrayCheck(path["armorRatio"]) * totalArmor;
             };
             if (path["bonusArmorRatio"]) {
-              armorCounter += arrayCheck(path["bonusArmorRatio"]) * bonusArmor;
+              armorCounter += arrayCheck(path["bonusArmorRatio"]) * itemStats.arm;
             };
             if (armorCounter !== 0) {
               addText(Math.round(armorCounter));
@@ -8326,7 +8378,7 @@ class App extends Component {
               mrCounter += arrayCheck(path["magicResistRatio"]) * totalMR;
             };
             if (path["bonusMagicResistRatio"]) {
-              mrCounter += arrayCheck(path["bonusMagicResistRatio"]) * bonusMR;
+              mrCounter += arrayCheck(path["bonusMagicResistRatio"]) * itemStats.mr;
             };
             addText(Math.round(mrCounter));
             doubleBreak();

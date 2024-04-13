@@ -60,17 +60,20 @@
         ]
     },
     "W": {
-        "bonusArmor": {
-            "armor": [
-                20, 25, 30, 35, 40
-            ],
-            "bonusArmorRatio": 0.36
-        },
-        "bonusMagicResist": {
-            "magicResist": [
-                20, 25, 30, 35, 40
-            ],
-            "bonusMagicResistRatio": 0.36
+        "toggleStats": {
+            "armor": {
+                "flat": [
+                    20, 25, 30, 35, 40
+                ],
+                "bonusArmorRatio": 0.36
+            },
+            "magicResist": {
+                "flat": [
+                    20, 25, 30, 35, 40
+                ],
+                "bonusMagicResistRatio": 0.36
+            },
+            "duration": 3
         },
         "allyBonusArmor": {
             "armor": [
