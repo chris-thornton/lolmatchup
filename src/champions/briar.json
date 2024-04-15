@@ -52,9 +52,7 @@
         "autoEmpower": {
             "damage": {
                 "type": "Magic",
-                "dmg": [
-                    60, 90, 120, 150, 180
-                ],
+                "dmg": [60, 90, 120, 150, 180],
                 "bonusADRatio": 0.8,
                 "APRatio": 0.6
             }
@@ -63,62 +61,81 @@
         "resistRedux": {
             "type": "both",
             "duration": 5,
-            "reduxRatio": [
-                0.1, 0.125, 0.15, 0.175, 0.2
-            ]
+            "reduxRatio": [0.1, 0.125, 0.15, 0.175, 0.2]
         },
-        "coolDown": [
-            13, 12, 11, 10, 9
-        ]
+        "coolDown": [13, 12, 11, 10, 9]
     },
     "W": {
+        "toggleStats": {
+            "attackSpeed": {
+                "flat": [0.54, 0.68, 0.82, 0.96, 1.1]
+            },
+            "duration": 5
+        },
         "autoEmpower": {
             "damage": {
                 "type": "Physical",
-                "dmg": [
-                    5, 20, 35, 50, 65
-                ],
+                "dmg": [5, 20, 35, 50, 65],
                 "ADRatio": 0.05,
                 "enemyMissingHPRatio": 0.09,
-                "enemyMissingHPRatioPerBonusADRatio": 0.025
+                "enemyMissingHPRatioPer100BonusAD": 0.025
             }
         },
-        "toggleStats": {
-            "attackSpeed": [
-                0.54, 0.68, 0.82, 0.96, 1.1
-            ],
-            "duration": 5
+        "heal": {
+            "targets": "Self",
+            "maxHPRatio": 0.05,
+            "dmgRatio": [0.24, 0.28, 0.32, 0.36, 0.4],
+            "preMitigation": "false"
         },
-        "coolDown": [
-            14, 13, 12, 11, 10
-        ]
+        "coolDown": [14, 13, 12, 11, 10]
     },
     "E": {
-        "passivePermanent": {
-            "minOmniVamp": [
-                0.18, 0.195, 0.21, 0.225, 0.24
-            ],
-            "maxOmniVamp": [
-                0.2, 0.24, 0.28, 0.32, 0.36
-            ]
+        "heal": {
+            "targets": "Self",
+            "maxHPRatio": [0.1, 0.115, 0.13, 0.145, 0.16],
+            "duration": 1
+       },
+       "damageRedux": {
+            "type": "all",
+            "reduxRatio": 0.35,
+            "duration": 1
         },
-        "coolDown": [
-            9, 8, 7, 6, 5
-        ]
+        "damage": {
+            "type": "Magic",
+            "system":"minMax",
+            "minDmg": [80, 115, 150, 185, 220],
+            "minBonusADRatio": 1,
+            "minAPRatio": 1,
+            "maxDmg": [220, 330, 440, 550, 660],
+            "maxBonusADRatio": 3.4,
+            "maxAPRatio": 3.4
+        },
+        "interruptCC": 2,
+        "coolDown": 16
     },
     "R": {
-        "bonusStats": {
-            "ADRatio": [
-                0.2, 0.325, 0.45
-            ],
-            "healingRatio": [
-                0.25, 0.35, 0.45
-            ],
-            "duration": 10,
-            "durationExtend": 5
+        "damage": {
+            "type": "Magic",
+            "dmg": [150, 250, 350],
+            "bonusADRatio": 0.5,
+            "APRatio": 1.2
         },
-        "coolDown": [
-            120, 100, 80
-        ]
+        "toggleStats": {
+            "attackSpeed": {
+                "flat": [0.54, 0.68, 0.82, 0.96, 1.1]
+            },
+            "armor": {
+                "ADRatio": 0.2
+            },
+            "magicResist": {
+                "ADRatio": 0.2
+            },
+            "lifeSteal": {
+                "flat": [0.1, 0.15, 0.2]
+            },
+            "duration": 5
+        },
+        "interruptCC": 1.5,
+        "coolDown": [120, 100, 80]
     }
 }

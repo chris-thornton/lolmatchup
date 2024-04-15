@@ -1338,10 +1338,14 @@ class App extends Component {
               prependIcon(magicResIcon);
               mapValuesToAAFunctions('mr', path["magicResist"], false, "Magic Resist")
             };
+            if (path["lifeSteal"]) {
+              prependIcon(lifestealIcon);
+              mapValuesToAAFunctions('lifeSteal', path["lifeSteal"], false, "Life Steal")
+            };
             if (path["omniVamp"]) {
               prependIcon(vampIcon);
               mapValuesToAAFunctions('omni', path["omniVamp"], false, "Omnivamp")
-            }
+            };
             if (path["healingRatio"]) {
               prependIcon(healIcon);
               underLine('Increased Healing Ratio');
@@ -1601,6 +1605,13 @@ class App extends Component {
               colorHP(" Enemy Missing HP");
               addText("ratio per ");
               colorAP('100 AP');
+              addText(')');
+            };
+            if (damage["enemyMissingHPRatioPer100BonusAD"]) {
+              addText(" (+" + removeParen(damage["enemyMissingHPRatioPer100BonusAD"]));
+              colorHP(" Enemy Missing HP");
+              addText("ratio per ");
+              colorAD('100 Bonus AD');
               addText(')');
             };
             if (damage["enemyMissingHPRatioByLvl"]) {
@@ -5728,6 +5739,10 @@ class App extends Component {
               prependIcon(magicResIcon);
               mapValuesToAAFunctions('mr', path["magicResist"], true, "Magic Resist")
             };
+            if (path["lifeSteal"]) {
+              prependIcon(lifestealIcon);
+              mapValuesToAAFunctions('lifeSteal', path["lifeSteal"], true, "Life Steal")
+            };
             if (path["omniVamp"]) {
               prependIcon(vampIcon);
               mapValuesToAAFunctions('omni', path["omniVamp"], true, "Omnivamp")
@@ -5902,6 +5917,9 @@ class App extends Component {
             };
             if (damage["enemyMissingHPRatioPer100AP"]) {
               missHPCounter += arrayCheck(damage["enemyMissingHPRatioPer100AP"]) * totalAP/100;
+            };
+            if (damage["enemyMissingHPRatioPer100BonusAD"]) {
+              missHPCounter += arrayCheck(damage["enemyMissingHPRatioPer100BonusAD"]) * bonusAD/100;
             };
             if (missHPCounter !== 0) {
               addText(" (+" + lengthCheck(missHPCounter));
