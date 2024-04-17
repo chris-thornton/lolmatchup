@@ -1,4 +1,38 @@
 {
+    "stats": {
+        "baseHP": 670,
+        "hpPerLvl": 99,
+        "baseHPRegen": 8.5,
+        "hpRegenPerLvl": 0.8,
+        "mana": {
+            "base": 339,
+            "manaPerLvl": 52,
+            "manaBaseRegen": 8.15,
+            "manaRegenPerLvl": 0.75
+        },
+        "baseDamage": 68,
+        "damagePerLvl": 3.8,
+        "baseArmor": 35,
+        "armorPerLvl": 5,
+        "baseMR": 32,
+        "mrPerLvl": 2.05,
+        "attackSpeed": 0.644,
+        "asRatio": 0.644,
+        "asPerLvl": 0.025,
+        "ranged": false
+    },
+    "passive": {
+        "shield": {
+            "type": "Adaptive",
+            "targets": "Self",
+            "maxHPRatio": 0.2,
+            "duration": 2
+        },
+        "staticCoolDownByLvl": [
+            18, 18, 18, 18, 18, 18, 14, 14, 14, 
+            14, 14, 14, 10, 10, 10, 10, 10, 10 
+        ]
+    },
     "Q": {
         "autoEmpower": {
             "damage": {
@@ -6,15 +40,11 @@
                 "system": "2Part",
                 "part1": {
                     "type": "Physical",
-                    "ADRatio": [
-                        0.2, 0.25, 0.3, 0.35, 0.4
-                    ]
+                    "ADRatio": [0.2, 0.25, 0.3, 0.35, 0.4]
                 },
                 "part2": {
                     "type": "Mixed",
-                    "ADRatio": [
-                        0.4, 0.5, 0.6, 0.7, 0.8
-                    ],
+                    "ADRatio": [0.4, 0.5, 0.6, 0.7, 0.8],
                     "trueDmgRatioByLvl": [
                         0.4,0.44,0.48,0.52,0.56,0.6,0.64,0.68,0.72,
                         0.76,0.8,0.84,0.88,0.92,0.96,1,1,1
@@ -23,40 +53,30 @@
                 }
             }
         },
-        "coolDown": [
-            9, 8.25, 7.5, 6.75, 6
-        ]
+        "coolDown": [9, 8, 7, 6, 5]
     },
     "W": {
         "damage": {
             "type": "Physical",
-            "system": "minMax",
-            "minDmg": [
-                70, 100, 130, 160, 190
-            ],
-            "maxDmg": [
-                70, 100, 130, 160, 190
-            ],
-            "minBonusADRatio": 0.6,
-            "maxBonusADRatio": 0.6,
-            "minEnemyMaxHPRatio": 0,
-            "maxEnemyMaxHPRatio": [
-                0.06, 0.065, 0.07, 0.075, 0.08
-            ],
-            "minEnemyMaxHPRatioPer100BonusAD": 0,
-            "maxEnemyMaxHPRatioPer100BonusAD": 0.033
+            "system": "2Part",
+            "part1": {
+                "dmg": [70, 100, 130, 160, 190],
+                "bonusADRatio": 0.6
+            },
+            "part2": {
+                "enemyMaxHPRatio": [0.06, 0.065, 0.07, 0.075, 0.08],
+                "enemyMaxHPRatioPer100BonusAD": 0.025
+            }
         },
         "heal": {
             "targets": "Self",
             "enemyMaxHPRatio": [
                 0.06, 0.065, 0.07, 0.075, 0.08
             ],
-            "enemyMaxHPRatioPer100BonusAD": 0.033
+            "enemyMaxHPRatioPer100BonusAD": 0.025
             
         },
-        "coolDown": [
-            15, 13.5, 12, 10.5, 9
-        ]
+        "coolDown": [17, 15.5, 14, 12.5, 11]
     },
     "E": {
         "bonusAttackSpeed": {
@@ -100,39 +120,5 @@
             115,
             90
         ]
-    },
-    "passive": {
-        "shield": {
-            "type": "Adaptive",
-            "targets": "Self",
-            "maxHPRatio": 0.2,
-            "duration": 2
-        },
-        "staticCoolDownByLvl": [
-            16, 16, 16, 16, 16, 16, 13, 13, 13, 
-            13, 13, 13, 10, 10, 10, 10, 10, 10 
-        ]
-    },
-    "stats": {
-        "baseHP": 575.6,
-        "hpPerLvl": 85,
-        "baseHPRegen": 8.5,
-        "hpRegenPerLvl": 0.8,
-        "mana": {
-            "base": 338.8,
-            "manaPerLvl": 52,
-            "manaBaseRegen": 8.15,
-            "manaRegenPerLvl": 0.75
-        },
-        "baseDamage": 68,
-        "damagePerLvl": 3.5,
-        "baseArmor": 35,
-        "armorPerLvl": 3.8,
-        "baseMR": 32.1,
-        "mrPerLvl": 1.25,
-        "attackSpeed": 0.644,
-        "asRatio": 0.644,
-        "asPerLvl": 0.025,
-        "ranged": false
     }
 }

@@ -26,76 +26,53 @@
             "damage": {
                 "type":"Physical",
                 "ADRatioByLvl": [
-                    0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.75, 0.75, 0.75,
-                    0.75, 0.75, 0.75, 1, 1, 1, 1, 1, 1
+                    0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.9, 0.9, 0.9,
+                    0.9, 0.9, 0.9, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2
                 ],
-                "ADRatioPerCritChance": 1.09375,
-                "ADRatioPerCritChanceWithIE": 1.3125,
-                "autoCoolDown": 7
+                "ADRatioPerCritChance": 1.4875,
+                "ADRatioPerCritChanceWithIE": 1.9125,
+                "autoCoolDown": 6
             }
         }
     },
     "Q": {
         "damage": {
             "type": "Physical",
-            "system": "single",
-            "dmg": [
-                50, 90, 130, 170, 210
-            ],
-            "ADRatio": [
-                1.3, 1.4, 1.5, 1.6, 1.7
-            ],
-            "additionalTargetDmgRatio": 0.6
+            "system": "minMax",
+            "minDmg": [25, 45, 65, 85, 105],
+            "maxDmg": [50, 90, 130, 170, 210],
+            "minADRatio": [0.625, 0.725, 0.825, 0.925, 1.025],
+            "maxADRatio": [1.25, 1.45, 1.65, 1.85, 2.05]
         },
-        "coolDown": [
-            10, 9, 8, 7, 6
-        ]
+        "coolDown": [10, 9, 8, 7, 6]
     },
     "W": {
         "damage": {
             "type": "Physical",
             "system": "single",
-            "dmg": [
-                60, 105, 150, 195, 240
-            ],
-            "bonusADRatio": [
-                0.4, 0.55, 0.7, 0.85, 1
-            ]
+            "dmg": [40, 85, 130, 175, 220],
+            "bonusADRatio": [0.4, 0.5, 0.6, 0.7, 0.8]
         },
-        "maxTraps": [
-            3, 3, 4, 4, 5
-        ],
-        "recharge": [
-            30, 25.5, 21, 16.5, 12
-        ]
+        "maxTraps": [3, 3, 4, 4, 5],
+        "recharge": [30, 24, 19, 15, 12]
     },
     "E": {
         "damage": {
             "type": "Magic",
             "system": "single",
-            "dmg": [
-                70 , 110 , 150 , 190 , 230
-            ],
+            "dmg": [80 , 130 , 180 , 230 , 280],
             "APRatio": 0.8
         },
-        "coolDown": [
-            16, 14.5, 13, 11.5, 10
-        ],
-        "procPassive": true
+        "coolDown": [16, 14, 12, 10, 8]
     },
     "R": {
         "damage": {
             "type": "Physical",
             "system": "single",
-            "dmg": [
-                300 , 525 , 750
-            ],
-            "bonusADRatio": 2
+            "dmg": [300, 500, 700],
+            "bonusADRatio": 1.7,
+            "bonusDmgRatioPerCritChance": 0.005
         },
-        "coolDown": [
-            90,
-            75,
-            60
-        ]
+        "coolDown": 90
     }
 }
