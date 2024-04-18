@@ -1337,13 +1337,15 @@ class App extends Component {
             addText(path["dmgByERank"][ERank] + '] ');
           };
           [["APRatio", colorAP, ' AP'], ["ADRatio", colorAD, ' AD'], 
+          ["dmgPerLethality", colorArPen, ' Lethality'],
           ["bonusADRatio", colorAD, " Bonus AD"],["maxHPRatio", colorHP, ' Max HP'], 
           ["bonusHPRatio", colorHP, ' Bonus HP'], ["enemyMaxHPRatio", colorHP, " Enemy Max HP"],
           ["armorRatio", colorArmor, " Armor"], ["bonusArmorRatio", colorArmor, " Bonus Armor"],
-          ["magicResistRatio", colorMR, " Magic Resist"], ["bonusMagicResistRatio", 
+          ["magicResistRatio", colorMR, " Magic Resist"], ["bonusMRRatio", 
           colorMR, " Bonus Magic Resist"], ["enemyCurrentHPRatio", colorHP, " Enemy Current HP"],
           ["enemyMissingHPRatio", colorHP, " Enemy Missing HP"],
-          ["bonusManaRatio", colorMana, " Bonus Mana"]].map(x => {
+          ["enemyBonusHPRatio", colorHP, " Enemy Bonus HP"],
+          ["bonusManaRatio", colorMana, " Bonus Mana"],["maxManaRatio", colorMana, " Max Mana"]].map(x => {
             if (path[x[0]]) {
               addText(" (+" + removeParen(path[x[0]]));
               x[1](x[2]);
@@ -1353,10 +1355,12 @@ class App extends Component {
           [["enemyMaxHPRatioPer100AD", ' Enemy Max HP', colorAD, '100 AD'],
           ["enemyMaxHPRatioPer100BonusAD", ' Enemy Max HP', colorAD, '100 Bonus AD'],
           ["enemyMaxHPRatioPer100AP", ' Enemy Max HP', colorAP, '100 AP'],
-          ["enemyMissingHPRatioPer100AP", ' Enemy Missing HP', colorAP, '100 AP'],
+          ["enemyMissingHPRatioPer100AD", ' Enemy Missing HP', colorAD, '100 AD'],
           ["enemyMissingHPRatioPer100BonusAD", ' Enemy Missing HP', colorAD, '100 Bonus AD'],
-          ["enemyCurrentHPRatioPer100AP", ' Enemy Current HP', colorAP, '100 AP'],
-          ["enemyCurrentHPRatioPer100AD", ' Enemy Current HP', colorAD, '100 AD']].map(x => {
+          ["enemyMissingHPRatioPer100AP", ' Enemy Missing HP', colorAP, '100 AP'],
+          ["enemyCurrentHPRatioPer100AD", ' Enemy Current HP', colorAD, '100 AD'],
+          ["enemyCurrentHPRatioPer100BonusAD", ' Enemy Current HP', colorAD, '100 Bonus AD'],
+          ["enemyCurrentHPRatioPer100AP", ' Enemy Current HP', colorAP, '100 AP']].map(x => {
             if (path[x[0]]) {
               addText(" (+" + removeParen(path[x[0]]));
               colorHP(x[1]); 
@@ -1437,6 +1441,55 @@ class App extends Component {
               };
             }
           };
+          if (path["bonusDmgRatioPerCritChance"]) {
+            singleBreak();
+            underLine('Bonus Damage Ratio');
+            addText(path["bonusDmgRatioPerCritChance"] + ' per');
+            colorCrit(" Crit Chance");
+            if (path["dmgRatioPerStack"]) {
+              addText(' (' + path["dmgRatioPerStack"] + ' per stack)');
+            }
+          };
+          if (path["canCrit"]) {
+            addText(', can crit.');
+          };
+          if (path["executeDmgRatio"]) {
+            singleBreak();
+            underLine('Execute Damage Ratio');
+            addText(path["executeDmgRatio"]);
+          };
+          if (path["critDmg"]) {
+            singleBreak();
+            prependIcon(critChanceIcon);
+            underLine('Crit Damage Ratio');
+            addText(path["critDmg"]);
+            if (path["critDmgWithIE"]) {
+              addText(' (' + path["critDmgWithIE"] + ' with ');
+              addIE();
+              addText(' IE)');
+            }
+          };
+          if (path["critADRatio"]) {
+            singleBreak();
+            underLine('Crit AD Ratio');
+            addText(path["critADRatio"]);
+            if (path["critADRatioWithIE"]) {
+              addText(' (' + path["critADRatioWithIE"] + ' with ');
+              addIE();
+              addText(' IE)');
+            }
+          };
+          if (path["asPerBonusAS"]) {
+            singleBreak();
+            prependIcon(attackSpeedIcon);
+            underLine('Wolf Bonus Attack Speed per Kindred Bonus Attack Speed');
+            addText(path["asPerBonusAS"]);
+          };
+          if (path["dmgRatioByRRank"]) {
+            singleBreak();
+            underLine('Damage Ratio by R Rank');
+            removeSpace(path["dmgRatioByRRank"]);
+          };
           if (path["dmgPer5Chimes"]) {
             addText(" (+" + path["dmgPer5Chimes"] + ' per 5 chimes)');
           };
@@ -1479,15 +1532,18 @@ class App extends Component {
             colorOrchid('Total Damage Ratio');
             removeSpace(path[`${prefix}TotalDmgRatio`]);
           };
-          [[`${prefix}APRatio`, colorAP, ' AP'], [`${prefix}ADRatio`, colorAD, ' AD'], 
+          [[`${prefix}APRatio`, colorAP, ' AP'], [`${prefix}ADRatio`, colorAD, ' AD'],
+          [`${prefix}DmgPerLethality`, colorArPen, ' Lethality'], 
           [`${prefix}BonusADRatio`, colorAD, " Bonus AD"], [`${prefix}MaxHPRatio`, colorHP, ' Max HP'],
           [[`${prefix}BonusHPRatio`, colorHP, ' Bonus HP']], [`${prefix}EnemyMaxHPRatio`, colorHP, 
           " Enemy Max HP"], [`${prefix}ArmorRatio`, colorArmor, " Armor"], 
           [`${prefix}BonusArmorRatio`, colorArmor, " Bonus Armor"],
-          [`${prefix}MagicResistRatio`, colorMR, " Magic Resist"], [`${prefix}BonusMagicResistRatio`, 
+          [`${prefix}MagicResistRatio`, colorMR, " Magic Resist"], [`${prefix}BonusMRRatio`, 
           colorMR, " Bonus Magic Resist"], [`${prefix}EnemyCurrentHPRatio`, colorHP, " Enemy Current HP"],
           [`${prefix}EnemyMissingHPRatio`, colorHP, " Enemy Missing HP"],
-          [`${prefix}BonusManaRatio`, colorMana, " Bonus Mana"]].map(x => {
+          [`${prefix}EnemyBonusHPRatio`, colorHP, " Enemy Bonus HP"],
+          [`${prefix}BonusManaRatio`, colorMana, " Bonus Mana"],
+          [`${prefix}MaxManaRatio`, colorMana, " Max Mana"]].map(x => {
             if (path[x[0]]) {
               addText(" (+" + removeParen(path[x[0]]));
               x[1](x[2]);
@@ -1497,10 +1553,12 @@ class App extends Component {
           [[`${prefix}EnemyMaxHPRatioPer100AD`, ' Enemy Max HP', colorAD, '100 AD'],
           [`${prefix}EnemyMaxHPRatioPer100BonusAD`, ' Enemy Max HP', colorAD, '100 Bonus AD'],
           [`${prefix}EnemyMaxHPRatioPer100AP`, ' Enemy Max HP', colorAP, '100 AP'],
-          [`${prefix}EnemyMissingHPRatioPer100AP`, ' Enemy Missing HP', colorAP, '100 AP'],
+          [`${prefix}EnemyMissingHPRatioPer100AD`, ' Enemy Missing HP', colorAD, '100 AD'],
           [`${prefix}EnemyMissingHPRatioPer100BonusAD`, ' Enemy Missing HP', colorAD, '100 Bonus AD'],
-          [`${prefix}EnemyCurrentHPRatioPer100AP`, ' Enemy Current HP', colorAP, '100 AP'],
-          [`${prefix}EnemyCurrentHPRatioPer100AD`, ' Enemy Current HP', colorAD, '100 AD']].map(x => {
+          [`${prefix}EnemyMissingHPRatioPer100AP`, ' Enemy Missing HP', colorAP, '100 AP'],
+          [`${prefix}EnemyCurrentHPRatioPer100AD`, ' Enemy Current HP', colorAD, '100 AD'],
+          [`${prefix}EnemyCurrentHPRatioPer100BonusAD`, ' Enemy Current HP', colorAD, '100 Bonus AD'],
+          [`${prefix}EnemyCurrentHPRatioPer100AP`, ' Enemy Current HP', colorAP, '100 AP']].map(x => {
             if (path[x[0]]) {
               addText(" (+" + removeParen(path[x[0]]));
               colorHP(x[1]); 
@@ -1581,6 +1639,49 @@ class App extends Component {
                 addText(' IE)');
               };
             }
+          };
+          if (path[`${prefix}BonusDmgRatioPerCritChance`]) {
+            singleBreak();
+            underLine('Bonus Damage Ratio');
+            addText(path[`${prefix}BonusDmgRatioPerCritChance`] + ' per');
+            colorCrit(" Crit Chance");
+            if (path[`${prefix}DmgRatioPerStack`]) {
+              addText(' (' + path[`${prefix}DmgRatioPerStack`] + ' per stack)');
+            }
+          };
+          if (path["canCrit"]) {
+            addText(', can crit.');
+          };
+          if (path["executeDmgRatio"]) {
+            singleBreak();
+            underLine('Execute Damage Ratio');
+            addText(path["executeDmgRatio"]);
+          };
+          if (path["critDmg"]) {
+            singleBreak();
+            prependIcon(critChanceIcon);
+            underLine('Crit Damage Ratio');
+            addText(path["critDmg"]);
+            if (path["critDmgWithIE"]) {
+              addText(' (' + path["critDmgWithIE"] + ' with ');
+              addIE();
+              addText(' IE)');
+            }
+          };
+          if (path[`${prefix}CritADRatio`]) {
+            singleBreak();
+            underLine('Crit AD Ratio');
+            addText(path[`${prefix}CritADRatio`]);
+            if (path[`${prefix}CritADRatioWithIE`]) {
+              addText(' (' + path[`${prefix}CritADRatioWithIE`] + ' with ');
+              addIE();
+              addText(' IE)');
+            }
+          };
+          if (path[`${prefix}DmgRatioByRRank`]) {
+            singleBreak();
+            underLine('Damage Ratio by R Rank');
+            removeSpace(path[`${prefix}DmgRatioByRRank`]);
           };
           if (path[`${prefix}DmgPerStack`]) {
             addText(" (+" + path[`${prefix}DmgPerStack`] + ' per stack)');
@@ -1918,217 +2019,8 @@ class App extends Component {
               prependType(damage["type"]);
               addBold(damage['type'] + " Damage")
             };
-            /*if (damage["dmg"]) {
-              removeSpace(damage["dmg"]);
-            };
-            if (damage["dmgByLvl"]) {
-              if (damage["dmg"]) {
-                addText(' [+')
-              } else {
-                addText('[')
-              }
-              addText(damage["dmgByLvl"][0] + " to " + damage["dmgByLvl"][17] + ", based on lvl. ");
-              underLine("Currently");
-              addText(damage["dmgByLvl"][champLevel] + '] ');
-            };
-            if (damage["totalDmgRatio"]) {
-              colorOrchid('Total Damage Ratio');
-              removeSpace(damage["totalDmgRatio"]);
-            };
-            if (damage["dmgByWRank"]) {
-              var path = damage["dmgByWRank"];
-              addText('[+' + path[0] + " to " + path[4] + " Damage, based on W rank. ");
-              underLine("Currently");
-              addText(path[WRank] + '] ');
-            };
-            if (damage["APRatio"]) {
-              addText(" (+" + removeParen(damage["APRatio"]));
-              colorAP(" AP");
-              addText("ratio)");
-            };
-            if (damage["APRatioByLvl"]) {
-              addText(' (+' + damage["APRatioByLvl"][0] + " to " + damage["APRatioByLvl"][17]);
-              colorAP(" AP");
-              addText("ratio, based on lvl. ");
-              underLine("Currently");
-              addText(damage["APRatioByLvl"][champLevel] + ') ')
-            };
-            if (damage["ADRatio"]) {
-              addText(" (+" + removeParen(damage["ADRatio"]));
-              colorAD(" AD");
-              addText("ratio)");
-            };
-            if (damage["bonusADRatio"]) {
-              addText(" (+" + removeParen(damage["bonusADRatio"]));
-              colorAD(" Bonus AD");
-              addText("ratio)");
-            };
-            if (damage["bonusManaRatio"]) {
-              addText(" (+" + damage["bonusManaRatio"]);
-              colorMana(" Bonus Mana");
-              addText("ratio)");
-            };
-            if (damage["enemyMaxHPRatio"]) {
-              addText(" (+" + removeParen(damage["enemyMaxHPRatio"]));
-              colorHP(" Enemy Max HP");
-              addText("ratio)");
-            };
-            if (damage["enemyMaxHPRatioByLvl"]) {
-              addText('(' + damage["enemyMaxHPRatioByLvl"][0] + " to " 
-              + damage["enemyMaxHPRatioByLvl"][17]);
-              colorHP(" Enemy Max HP");
-              addText("ratio, based on lvl. ");
-              underLine("Currently");
-              addText(damage["enemyMaxHPRatioByLvl"][champLevel] + ') ');
-            };
-            if (damage["enemyMaxHPRatioPer100AP"]) {
-              addText(' (+' + damage["enemyMaxHPRatioPer100AP"]);
-              colorHP(" Enemy Max HP");
-              addText("ratio per");
-              colorAP(' 100 AP');
-              addText(')');
-            };
-            if (damage["enemyMaxHPRatioPer100BonusAD"]) {
-              addText(' (+' + damage["enemyMaxHPRatioPer100BonusAD"]);
-              colorHP(" Enemy Max HP");
-              addText("ratio per");
-              colorAD(' 100 Bonus AD');
-              addText(')');
-            };
-            if (damage["enemyMaxHPRatioPerStack"]) {
-              addText(" (+" + removeParen(damage["enemyMaxHPRatioPerStack"]));
-              colorHP(' Enemy Max HP');
-              addText("ratio per stack)");
-            };
-            if (damage["bonusHPRatio"]) {
-              addText(" (+" + removeParen(damage["bonusHPRatio"]));
-              colorHP(" Bonus HP");
-              addText("ratio)");
-            };
-            if (damage["maxHPRatio"]) {
-              addText(" (+" + removeParen(damage["maxHPRatio"]));
-              colorHP(" Max HP");
-              addText("ratio)");
-            };
-            if (damage["enemyCurrentHPRatio"]) {
-              addText(" (+" + removeParen(damage["enemyCurrentHPRatio"]));
-              colorHP(" Enemy Current HP");
-              addText("ratio)");
-            };
-            if (damage["enemyCurrentHPRatioPerStack"]) {
-              addText(' (+' + damage["enemyCurrentHPRatioPerStack"]);
-              colorHP(" Enemy Current HP");
-              addText("ratio per stack)");
-            };
-            if (damage["enemyCurrentHPRatioPer100AP"]) {
-              addText(" (+" + removeParen(damage["enemyCurrentHPRatioPer100AP"]));
-              colorHP(" Enemy Current HP");
-              addText("ratio per");
-              colorAP(' 100 AP');
-              addText(')');
-            };
-            if (damage["enemyCurrentHPRatioPer100AD"]) {
-              addText(" (+" + removeParen(damage["enemyCurrentHPRatioPer100AD"]));
-              colorHP(" Enemy Current HP");
-              addText("ratio per");
-              colorAD(' 100 AD');
-              addText(')');
-            };
-            if (damage["enemyMissingHPRatio"]) {
-              addText(" (+" + removeParen(damage["enemyMissingHPRatio"]));
-              colorHP(" Enemy Missing HP");
-              addText("ratio)");
-            };
-            if (damage["enemyMissingHPRatioPer100AP"]) {
-              addText(" (+" + removeParen(damage["enemyMissingHPRatioPer100AP"]));
-              colorHP(" Enemy Missing HP");
-              addText("ratio per");
-              colorAP(' 100 AP');
-              addText(')');
-            };
-            if (damage["enemyMissingHPRatioPerStack"]) {
-              addText(' (+' + damage["enemyMissingHPRatioPerStack"]);
-              colorHP(" Enemy Missing HP");
-              addText("ratio per stack)");
-            };*/
-            if (damage["armorRatio"]) {
-              addText(" (+" + removeParen(damage["armorRatio"]));
-              colorArmor(" Armor");
-              addText("ratio)");
-            };
-            if (damage["bonusArmorRatio"]) {
-              addText(" (+" + removeParen(damage["bonusArmorRatio"]));
-              colorArmor(" Bonus Armor");
-              addText("ratio)");
-            };
-            if (damage["bonusMRRatio"]) {
-              addText(" (+" + removeParen(damage["bonusMRRatio"]));
-              colorMR(" Bonus Magic Resist");
-              addText("ratio)");
-            };
-            if (damage["bonusMoveSpeedRatioByLvl"]) {
-              addText(' (+' + damage["bonusMoveSpeedRatioByLvl"][0] + " to " 
-              + damage["bonusMoveSpeedRatioByLvl"][17] + " Bonus Move Speed")
-              prependIcon(moveSpeedIcon);
-              addText("ratio, based on lvl. ");
-              underLine('Currently');
-              addText(damage["bonusMoveSpeedRatioByLvl"][champLevel] + ") ");
-            };
-            if (damage["dmgPerLethality"]) {
-              addText(" (+" + damage["dmgPerLethality"])
-              colorArPen(" Lethality");
-              addText("ratio)");
-            };
-            if (damage["bonusDmgRatioPerCritChance"]) {
-              singleBreak();
-              underLine('Bonus Damage Ratio');
-              addText(damage["bonusDmgRatioPerCritChance"] + ' per');
-              colorCrit(" Crit Chance");
-              if (damage["dmgRatioPerStack"]) {
-                addText(' (' + damage["dmgRatioPerStack"] + ' per stack)');
-              }
-            };
 
-            if (damage["canCrit"]) {
-              addText(', can crit.');
-            };
-            if (damage["executeDmgRatio"]) {
-              singleBreak();
-              underLine('Execute Damage Ratio');
-              addText(damage["executeDmgRatio"]);
-            };
-            if (damage["critDmg"]) {
-              singleBreak();
-              prependIcon(critChanceIcon);
-              underLine('Crit Damage Ratio');
-              addText(damage["critDmg"]);
-              if (damage["critDmgWithIE"]) {
-                addText(' (' + damage["critDmgWithIE"] + ' with ');
-                addIE();
-                addText(' IE)');
-              }
-            };
-            if (damage["critADRatio"]) {
-              singleBreak();
-              underLine('Crit AD Ratio');
-              addText(damage["critADRatio"]);
-              if (damage["critADRatioWithIE"]) {
-                addText(' (' + damage["critADRatioWithIE"] + ' with ');
-                addIE();
-                addText(' IE)');
-              }
-            };
-            if (damage["asPerBonusAS"]) {
-              singleBreak();
-              prependIcon(attackSpeedIcon);
-              underLine('Wolf Bonus Attack Speed per Kindred Bonus Attack Speed');
-              addText(damage["asPerBonusAS"]);
-            };
-            if (damage["dmgRatioByRRank"]) {
-              singleBreak();
-              underLine('Damage Ratio by R Rank');
-              removeSpace(damage["dmgRatioByRRank"]);
-            };
+            listOrCalcValues(damage);
 
             if (damage["system"] === "min" ) {
               singleBreak();
@@ -2145,86 +2037,8 @@ class App extends Component {
 
             if (damage["system"] === "minMax" ) {
               colorMin('Min: ');
-              if (damage["minDmg"]) {
-                //addText(removeSpace(damage["minDmg"]));
-                removeSpace(damage["minDmg"]);
-              };
-              if (damage["minDmgByLvl"]) {
-                addText(' [+' + damage["minDmgByLvl"][0] + " to " + damage["minDmgByLvl"][17] + ", based on lvl. ");
-                underLine("Currently");
-                addText(damage["minDmgByLvl"][champLevel] + '] ');
-              };
-              if (damage["minAPRatio"]) {
-                addText(" (+" + removeParen(damage["minAPRatio"]));
-                colorAP(" AP");
-                addText("ratio)");
-              };
-              if (damage["minADRatio"]) {
-                addText(" (+" + removeParen(damage["minADRatio"]));
-                colorAD(" AD");
-                addText("ratio)");
-              };
-              if (damage["minBonusADRatio"]) {
-                addText(" (+" + removeParen(damage["minBonusADRatio"]));
-                colorAD(" Bonus AD");
-                addText("ratio)");
-              };
-              if (damage["minMaxManaRatio"]) {
-                addText(" (+" + removeParen(damage["minMaxManaRatio"]));
-                colorMana(" Max Mana");
-                addText("ratio)");
-              };
-              if (damage["minBonusHPRatio"]) {
-                addText(" (+" + damage["minBonusHPRatio"]);
-                colorHP(" Bonus HP");
-                addText("ratio)");
-              };
-              if (damage["minMaxHPRatio"]) {
-                addText(" (+" + damage["minMaxHPRatio"]);
-                colorHP(" Max HP");
-                addText("ratio)");
-              };
-              if (damage["minEnemyMaxHPRatio"]) {
-                addText(" (+" + removeParen(damage["minEnemyMaxHPRatio"]));
-                colorHP(" Enemy Max HP");
-                addText("ratio)");
-              };
-              if (damage["minEnemyMaxHPRatioPer100BonusAD"]) {
-                addText(" (+" + removeParen(damage["minEnemyMaxHPRatioPer100BonusAD"]));
-                colorHP(" Enemy Max HP");
-                addText("ratio per");
-                colorAD(' 100 Bonus AD');
-                addText(')');
-              };
-              if (damage["minEnemyMaxHPRatioPer100AP"]) {
-                addText(" (+" + removeParen(damage["minEnemyMaxHPRatioPer100AP"]));
-                colorHP(" Enemy Max HP");
-                addText("ratio per");
-                colorAP(' 100 AP');
-                addText(')');
-              };
-              if (damage["minEnemyBonusHPRatio"]) {
-                addText(" (+" + removeParen(damage["minEnemyBonusHPRatio"]));
-                colorHP(" Enemy Bonus HP");
-                addText("ratio)");
-              };
-              if (damage["minEnemyCurrentHPRatio"]) {
-                addText(" (+" + removeParen(damage["minEnemyCurrentHPRatio"]));
-                colorHP(" Enemy Current HP");
-                addText("ratio)");
-              };
-              if (damage["minEnemyCurrentHPRatioPer100AP"]) {
-                addText(" (+" + removeParen(damage["minEnemyCurrentHPRatioPer100AP"]));
-                colorHP(" Enemy Current HP");
-                addText("ratio per");
-                colorAP(' 100 AP');
-                addText(')');
-              };
-              if (damage["minEnemyMissingHPRatio"]) {
-                addText(" (+" + removeParen(damage["minEnemyMissingHPRatio"]));
-                colorHP(" Enemy Missing HP");
-                addText("ratio)");
-              };
+
+              minMaxListOrCalcValues(damage, 'min');
 
               singleBreak();
 
