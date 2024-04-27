@@ -1,97 +1,80 @@
 {
+    "stats": {
+        "baseHP": 644,
+        "hpPerLvl": 94,
+        "baseHPRegen": 9,
+        "hpRegenPerLvl": 0.85,
+        "mana": {
+            "base": 270,
+            "manaPerLvl": 60,
+            "manaBaseRegen": 7.2,
+            "manaRegenPerLvl": 0.45
+        },
+        "baseDamage": 69,
+        "damagePerLvl": 4.2,
+        "baseArmor": 38,
+        "armorPerLvl": 5,
+        "baseMR": 32,
+        "mrPerLvl": 2.05,
+        "attackSpeed": 0.625,
+        "asRatio": 0.625,
+        "asPerLvl": 0.0144,
+        "ranged": false
+    },
+    "passive": {
+        "heal": {
+            "targets": "Self",
+            "healByLvl": [
+                18,20,22,24,26,28,30,32,34,
+                36,38,40,42,44,46,48,50,52
+            ]
+        }
+    },
     "Q": {
         "damage": {
             "type": "Magic",
             "system": "single",
-            "dmg": [
-                80, 135, 190, 245, 300
-            ],
+            "dmg": [80, 140, 200, 260, 320],
             "APRatio": 1
         },
         "interruptCC": 1,
-        "coolDown": 7
+        "coolDown": 6
     },
     "W": {
         "damage": {
             "type": "Magic",
             "system": "single",
-            "dmg": [
-                75, 125, 175, 225, 275
-            ],
+            "dmg": [80, 135, 190, 245, 300],
             "APRatio": 0.7
         },
-        "coolDown": [
-            13, 12, 11, 10, 9
-        ]
+        "silence": [1.6, 1.7, 1.8, 1.9, 2],
+        "coolDown": [11, 10.5, 10, 9.5, 9]
     },
     "E": {
         "autoEmpower": {
             "damage": {
                 "type": "Magic",
                 "system": "single",
-                "dmg": [
-                    22, 37, 52, 67, 82
-                ],
+                "dmg": [22, 37, 52, 67, 82],
                 "APRatio": 0.3,
                 "enemyMaxHPRatio": 0.03,
                 "enemyMaxHPRatioPerStack": 0.005,
                 "durationAutos": 3
             }
         },
-        "coolDown": [
-            8, 7, 6, 5, 4
-        ]
+        "coolDown": [8, 7, 6, 5, 4]
     },
     "R": {
         "damage": {
             "type": "True",
             "system": "single",
-            "dmg": [
-                300, 475, 650
-            ],
+            "dmg": [300, 475, 650],
             "APRatio": 0.5,
             "bonusHPRatio": 0.1
         },
-        "coolDown": 80,
+        "coolDown": [80, 70, 60],
         "bonusHealth": {
-            "healthPerStack": [
-                80, 120, 160
-            ]
+            "healthPerStack": [80, 120, 160]
         }
-    },
-    "passive": {
-            "heal": {
-                "targets": "Self",
-                "healByLvl": [
-                    20,23,26,29,32,35,38,41,44,47,50,53,56,59,62,65,68,71
-                ],
-                "manaByLvl": [
-                    3.5,3.75,4,4.25,4.5,4.75,5,5.25,5.5,
-                    5.75,6,6.25,6.5,6.75,7,7.25,7.5,7.75
-                ],
-                "system": "onKill"
-            }
-    },
-    "stats": {
-        "baseHP": 574.4,
-        "hpPerLvl": 80,
-        "baseHPRegen": 9,
-        "hpRegenPerLvl": 0.85,
-        "mana": {
-            "base": 272.2,
-            "manaPerLvl": 60,
-            "manaBaseRegen": 7.206,
-            "manaRegenPerLvl": 0.45
-        },
-        "baseDamage": 69,
-        "damagePerLvl": 4.2,
-        "baseArmor": 38,
-        "armorPerLvl": 3.5,
-        "baseMR": 32.1,
-        "mrPerLvl": 1.25,
-        "attackSpeed": 0.625,
-        "asRatio": 0.625,
-        "asPerLvl": 0.0144,
-        "ranged": false
     }
 }

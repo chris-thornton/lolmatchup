@@ -1,74 +1,7 @@
 {
-    "Q": {
-        "tickDamage": {
-            "type": "Magic",
-            "interval": 1,
-            "ticks": 3,
-            "dmg": [
-                25, 36.67, 48.33, 60, 71.67
-            ],
-            "APRatio": 0.3
-        },
-        "coolDown": 3.5
-    },
-    "W": {
-        "tickDamage": {
-            "type": "Magic",
-            "interval": 1,
-            "ticks": 5,
-            "dmg": [
-                20, 25, 30, 35, 40
-            ],
-            "APRatio": 0.15
-        },
-        "coolDown": [
-            24, 22, 20, 18, 16
-        ]
-    },
-    "E": {
-        "damage": {
-            "type": "Magic",
-            "system": "2Part",
-            "part1": {
-                "dmgByLvl": [
-                    52,56,60,64,68,72,76,80,84,88,92,96,100,104,108,112,116,120
-                ],
-                "APRatio": 0.1
-            },
-            "part2": {
-                "dmg": [
-                    10, 30, 50, 70, 90
-                ],
-                "APRatio": 0.6
-            }
-        },
-        "heal": {
-            "targets": "Self",
-            "APRatio": [
-                0.12, 0.14, 0.16, 0.18, 0.2
-            ] 
-        },
-        "coolDown": 0.75
-    },
-    "R": {
-        "damage": {
-            "type":"Magic",
-            "system":"single",
-            "dmg":[
-                150, 250, 350
-            ],
-            "APRatio": 0.5
-        },
-        "coolDown": [
-            120,
-            100,
-            80
-        ],
-        "interruptCC": 2
-    },
     "stats": {
-        "baseHP": 560,
-        "hpPerLvl": 90,
+        "baseHP": 630,
+        "hpPerLvl": 104,
         "baseHPRegen": 5.5,
         "hpRegenPerLvl": 0.5,
         "mana": {
@@ -80,12 +13,64 @@
         "baseDamage": 53,
         "damagePerLvl": 3,
         "baseArmor": 18,
-        "armorPerLvl": 3.5,
+        "armorPerLvl": 4.7,
         "baseMR": 32,
-        "mrPerLvl": 0.5,
+        "mrPerLvl": 1.3,
         "attackSpeed": 0.647,
         "asRatio": 0.647,
         "asPerLvl": 0.015,
         "ranged": true
+    },
+    "Q": {
+        "tickDamage": {
+            "type": "Magic",
+            "interval": 1,
+            "ticks": 3,
+            "dmg": [25, 36.67, 48.33, 60, 71.67],
+            "APRatio": 0.3
+        },
+        "coolDown": 3.5
+    },
+    "W": {
+        "tickDamage": {
+            "type": "Magic",
+            "interval": 1,
+            "ticks": 5,
+            "dmg": [20, 25, 30, 35, 40],
+            "APRatio": 0.15
+        },
+        "coolDown": [24, 22, 20, 18, 16]
+    },
+    "E": {
+        "damage": {
+            "type": "Magic",
+            "system": "2Part",
+            "part1": {
+                "dmgByLvl": [
+                    52,56,60,64,68,72,76,80,84,
+                    88,92,96,100,104,108,112,116,120
+                ],
+                "APRatio": 0.1
+            },
+            "part2": {
+                "dmg": [20, 40, 60, 80, 100],
+                "APRatio": 0.6
+            }
+        },
+        "heal": {
+            "targets": "Self",
+            "APRatio": [0.1, 0.115, 0.13, 0.145, 0.16] 
+        },
+        "coolDown": 0.75
+    },
+    "R": {
+        "damage": {
+            "type":"Magic",
+            "system":"single",
+            "dmg":[150, 250, 350],
+            "APRatio": 0.5
+        },
+        "coolDown": [120,100,80],
+        "interruptCC": 2
     }
 }

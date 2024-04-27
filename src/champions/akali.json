@@ -1,6 +1,6 @@
 {
     "stats": {
-        "baseHP": 570,
+        "baseHP": 600,
         "hpPerLvl": 119,
         "baseHPRegen": 9,
         "hpRegenPerLvl": 0.9,

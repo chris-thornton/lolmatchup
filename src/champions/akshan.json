@@ -103,8 +103,10 @@
                 80, 100, 120
             ],
             "maxADRatio": 0.4,
-            "bonusDmgRatioPerCritChance": 0.5,
-            "bonusDmgRatioPerCritChanceWithIE": 0.75
+            "minBonusDmgRatioPerCritChance": 0.005,
+            "minBonusDmgRatioPerCritChanceWithIE": 0.0075,
+            "maxBonusDmgRatioPerCritChance": 0.005,
+            "maxBonusDmgRatioPerCritChanceWithIE": 0.0075
         },
         "coolDown": [
             100, 85, 70

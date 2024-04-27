@@ -1,11 +1,35 @@
 {
+    "stats": {
+        "baseHP": 610,
+        "hpPerLvl": 103,
+        "baseHPRegen": 5.5,
+        "hpRegenPerLvl": 0.55,
+        "mana": {
+            "base": 350,
+            "manaPerLvl": 54,
+            "manaBaseRegen": 7.4,
+            "manaRegenPerLvl": 0.55
+        },
+        "baseDamage": 61,
+        "damagePerLvl": 2.5,
+        "baseArmor": 28,
+        "armorPerLvl": 4.7,
+        "baseMR": 30,
+        "mrPerLvl": 1.3,
+        "attackSpeed": 0.638,
+        "asRatio": 0.638,
+        "asPerLvl": 0.023,
+        "ranged": true
+    },
+    "passive": {
+            "text": "Corki's basic attacks deal 80% AD magic and 20% AD physical damage.",
+            "staticCoolDown": 300
+    },
     "Q": {
         "damage": {
             "type": "Magic",
             "system": "single",
-            "dmg": [
-                75, 120, 165, 210, 255
-            ],
+            "dmg": [75, 120, 165, 210, 255],
             "bonusADRatio": 0.7,
             "APRatio": 0.5
         },
@@ -15,23 +39,19 @@
         "tickDamage": {
             "type": "Magic",
             "interval": 0.25,
-            "ticks": 8,
-            "dmg": [
-                15, 22.5, 30, 37.5, 45
-            ],
-            "APRatio": 0.1
+            "ticks": 10,
+            "dmg": [15, 22.5, 30, 37.5, 45],
+            "APRatio": 0.15
         },
-        "coolDown": [
-            20, 19, 18, 17, 16
-        ],
+        "coolDown": [20, 18, 16, 14, 12],
         "specialDelivery": {
             "tickDamage": {
                 "type":"Magic",
                 "interval":0.25,
                 "ticks": 28,
                 "dmgByLvl": [
-                    7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 8.75, 10, 11.25, 12.5,
-                     13.75, 15, 16.25, 17.5, 20, 22.5, 25
+                    7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 8.75, 10, 
+                    11.25, 12.5, 13.75, 15, 16.25, 17.5, 20, 22.5, 25
                 ],
                 "bonusADRatio": 0.5,
                 "APRatio": 0.06
@@ -39,24 +59,29 @@
         }
     },
     "E": {
-        "tickDamage": {
-            "type": "Half Physical, Half Magic",
-            "interval": 0.25,
-            "ticks": 16,
-            "dmg": [
-                7.5, 10.625, 13.75, 16.875, 20
-            ],
-            "bonusADRatio": 0.1
+        "damage": {
+            "type":"Mixed",
+            "system": "2Part",
+            "part1": {
+                "type": "Physical",
+                "interval": 0.25,
+                "ticks": 16,
+                "dmg": [3.75, 5.3125, 6.875, 8.4375, 10],
+                "bonusADRatio": 0.075
+            },
+            "part2": {
+                "type": "Magic",
+                "interval": 0.25,
+                "ticks": 16,
+                "dmg": [3.75, 5.3125, 6.875, 8.4375, 10],
+                "bonusADRatio": 0.075
+            }
         },
         "resistRedux": {
             "type": "both",
             "system": "minMax",
-            "minResistRedux": [
-                1, 1.375, 1.75, 2.125, 2.5
-            ],
-            "maxResistRedux": [
-                8, 11, 14, 17, 20
-            ],
+            "minResistRedux": [1, 1.375, 1.75, 2.125, 2.5],
+            "maxResistRedux": [8, 11, 14, 17, 20],
             "duration": 6
         },
         "coolDown": 16
@@ -64,42 +89,15 @@
     "R": {
         "damage": {
             "type": "Magic",
-            "system": "single",
-            "dmg": [
-                90, 125, 160
-            ],
-            "APRatio": 0.2,
-            "ADRatio": [
-                0.15, 0.45, 0.75
-            ],
-            "empowerRatio": 2
+            "system": "minMax",
+            "minDmg": [80, 115, 150],
+            "minAPRatio": 0.12,
+            "minADRatio": [0.25, 0.5, 0.75],
+            "maxDmg": [160, 230, 300],
+            "maxAPRatio": 0.24,
+            "maxADRatio": [0.5, 1, 1.5]
         },
-        "staticCoolDown": 2,
-        "maxCharges": 7
-    },
-    "passive": {
-            "text": "Corki's auto attacks deal 20% physical and 80% magic damage."
-    },
-    "stats": {
-        "baseHP": 518,
-        "hpPerLvl": 87,
-        "baseHPRegen": 5.5,
-        "hpRegenPerLvl": 0.55,
-        "mana": {
-            "base": 350.16,
-            "manaPerLvl": 54,
-            "manaBaseRegen": 7.424,
-            "manaRegenPerLvl": 0.55
-        },
-        "baseDamage": 55,
-        "damagePerLvl": 2.5,
-        "baseArmor": 28,
-        "armorPerLvl": 3.5,
-        "baseMR": 30,
-        "mrPerLvl": 0.5,
-        "attackSpeed": 0.638,
-        "asRatio": 0.638,
-        "asPerLvl": 0.023,
-        "ranged": true
+        "coolDown": 2,
+        "recharge": [12, 11, 10]
     }
 }

@@ -1,4 +1,51 @@
 {
+    "stats": {
+        "baseHP": 640,
+        "hpPerLvl": 109,
+        "baseHPRegen": 6.5,
+        "hpRegenPerLvl": 0.85,
+        "mana": {
+            "base": 375,
+            "manaPerLvl": 25,
+            "manaBaseRegen": 8,
+            "manaRegenPerLvl": 0.8
+        },
+        "baseDamage": 57,
+        "damagePerLvl": 3,
+        "baseArmor": 31,
+        "armorPerLvl": 4.3,
+        "baseMR": 32,
+        "mrPerLvl": 2.05,
+        "attackSpeed": 0.625,
+        "asRatio": 0.694,
+        "asPerLvl": 0.02,
+        "ranged": false
+    },
+    "passive": {
+        "toggleStats": {
+            "attackSpeed": {
+                "byLvlMin": [
+                    0.15,0.1618,0.1735,0.1853,0.1971,0.2088,0.2206,0.2324,0.2441,
+                    0.2559,0.2676,0.2794,0.2912,0.3029,0.3147,0.3265,0.3382,0.35
+                ],
+                "byLvlMax": [
+                    0.45,0.4853,0.5206,0.5559,0.5912,0.6265,0.6618,0.6971,0.7324,
+                    0.7676,0.8029,0.8382,0.8735,0.9088,0.9441,0.9794,1.0147,1.05
+                ]
+            }
+        },
+        "autoEmpower": {
+            "damage": {
+                "type": "Magic",
+                "dmgByLvl": [
+                    20, 25, 30, 35, 40, 55, 65, 75, 85,
+                    95, 120, 135, 150, 165, 180, 210, 230, 250
+                ],
+                "APRatio": 0.4,
+                "autoCoolDown": 3
+            }
+        }
+    },
     "Q": {
         "damage": {
             "type": "Magic",
@@ -74,50 +121,5 @@
         "coolDown": [
             100, 90, 80
         ]
-    },
-    "passive": {
-            "passivePermanent": {
-                "minBonusAttackSpeedByLvl": [
-                    0.1, 0.1, 0.15, 0.15, 0.15, 0.2, 0.2, 0.2, 0.25,
-                    0.25, 0.25, 0.3, 0.3, 0.3, 0.35, 0.35, 0.35, 0.4
-                ],
-                "maxBonusAttackSpeedByLvl": [
-                    0.3, 0.3, 0.45, 0.45, 0.45, 0.6, 0.6, 0.6, 0.75,
-                    0.75, 0.75, 0.9, 0.9, 0.9, 1.05, 1.05, 1.05, 1.2
-                ]
-            },
-            "autoEmpower": {
-                "damage": {
-                    "type": "Magic",
-                    "dmgByLvl": [
-                        20, 25, 30, 35, 40, 55, 65, 75, 85,
-                        95, 120, 135, 150, 165, 180, 210, 230, 250
-                    ],
-                    "APRatio": 0.4,
-                    "autoCoolDown": 3
-                }
-            }
-    },
-    "stats": {
-        "baseHP": 570,
-        "hpPerLvl": 95,
-        "baseHPRegen": 7.5,
-        "hpRegenPerLvl": 0.85,
-        "mana": {
-            "base": 375,
-            "manaPerLvl": 25,
-            "manaBaseRegen": 8,
-            "manaRegenPerLvl": 0.8
-        },
-        "baseDamage": 57,
-        "damagePerLvl": 3,
-        "baseArmor": 31,
-        "armorPerLvl": 3.6,
-        "baseMR": 32.1,
-        "mrPerLvl": 1.25,
-        "attackSpeed": 0.625,
-        "asRatio": 0.625,
-        "asPerLvl": 0.0225,
-        "ranged": false
     }
 }

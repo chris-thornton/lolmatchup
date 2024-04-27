@@ -73,52 +73,36 @@
             "enemyMaxHPRatio": [
                 0.06, 0.065, 0.07, 0.075, 0.08
             ],
-            "enemyMaxHPRatioPer100BonusAD": 0.025
-            
+            "enemyMaxHPRatioPer100BonusAD": 0.025,
+            "preMitigation": false  
         },
         "coolDown": [17, 15.5, 14, 12.5, 11]
     },
     "E": {
-        "bonusAttackSpeed": {
+        "toggleStats": {
             "duration": 5,
-            "attackSpeed": [
-                0.4, 0.45, 0.5, 0.55, 0.6
-            ]
+            "attackSpeed": { 
+                "flat": [0.4, 0.45, 0.5, 0.55, 0.6]
+            }
         },
         "damage": {
             "type": "Physical",
             "system": "single",
-            "dmg": [
-                60, 95, 130, 165, 200
-            ],
-            "bonusADRatio": 0.75
+            "dmg": [60, 90, 120, 150, 180],
+            "bonusADRatio": 0.9
         },
         "interruptCC": 0.75,
-        "coolDown": [
-            16, 14.5, 13, 11.5, 10
-        ]
+        "coolDown": [16, 15, 14, 13, 12]
     },
     "R": {
         "autoEmpower": {
             "damage": {
                 "type": "Magic",
-                "dmg": [
-                    5,
-                    10,
-                    15
-                ],
-                "enemyCurrentHPRatio": [
-                    0.04, 0.06, 0.08
-                ]
+                "dmg": [20, 30, 40],
+                "enemyCurrentHPRatio": [0.04, 0.06, 0.08]
             }
         },
-        "duration": [
-            2.5, 3.25, 4
-        ],
-        "coolDown": [
-            140,
-            115,
-            90
-        ]
+        "duration": [2.5, 3.25, 4],
+        "coolDown": [140, 115, 90]
     }
 }

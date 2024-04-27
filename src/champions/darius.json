@@ -1,68 +1,25 @@
 {
-    "Q": {
-        "damage": {
-            "type": "Physical",
-            "system": "minMax",
-            "minDmg": [
-                17.5, 28, 38.5, 49, 59.5
-            ],
-            "maxDmg": [
-                50, 80, 110, 140, 170
-            ],
-            "minADRatio": [
-                0.35, 0.385, 0.42, 0.455, 0.49
-            ],
-            "maxADRatio": [
-                1, 1.1, 1.2, 1.3, 1.4
-            ]
+    "stats": {
+        "baseHP": 652,
+        "hpPerLvl": 114,
+        "baseHPRegen": 10,
+        "hpRegenPerLvl": 0.95,
+        "mana": {
+            "base": 263,
+            "manaPerLvl": 58,
+            "manaBaseRegen": 6.6,
+            "manaRegenPerLvl": 0.35
         },
-        "heal": {
-            "targets": "Self",
-            "system":"minMax",
-            "minMissingHPRatio": 0.15,
-            "maxMissingHPRatio": 0.45
-        },
-        "coolDown": [
-            9, 8, 7, 6, 5
-        ]
-    },
-    "W": {
-        "autoEmpower": {
-            "damage": {
-                "type": "Physical",
-                "system":"single",
-                "ADRatio": [
-                    0.40,0.45,0.50,0.55,0.60
-                ]
-            }     
-        },
-        "coolDown": [
-            7, 6.5, 6, 5.5, 5
-        ]
-    },
-    "E": {
-        "passivePermanent": {
-            "armorPenRatio": [
-                0.15, 0.2, 0.25, 0.3, 0.35
-            ]
-        }
-    },
-    "R": {
-        "damage": {
-            "type": "True",
-            "system": "minMax",
-            "minDmg": [
-                100, 200, 300
-            ],
-            "maxDmg": [
-                200, 400, 600
-            ],
-            "minBonusADRatio": 0.75,
-            "maxBonusADRatio": 1.5
-        },
-        "coolDown": [
-            120, 100, 80
-        ]
+        "baseDamage": 64,
+        "damagePerLvl": 5,
+        "baseArmor": 39,
+        "armorPerLvl": 5.2,
+        "baseMR": 32,
+        "mrPerLvl": 2.05,
+        "attackSpeed": 0.625,
+        "asRatio": 0.625,
+        "asPerLvl": 0.01,
+        "ranged": false
     },
     "passive": {
         "damage": {
@@ -80,34 +37,61 @@
             "minBonusADRatio": 0.3,
             "maxBonusADRatio": 1.5
         },
-        "bonusStats": {
-            "attackDamageByLvl": [
-                30,35,40,45,50,55,60,65,70,75,
-                85,95,105,130,155,180,205,230
-            ],
+        "toggleStats": {
+            "attackDamage": {
+                "byLvl": [
+                    30,35,40,45,50,55,60,65,70,
+                    75,85,95,105,130,155,180,205,230
+                ]
+            },
             "duration": 5 
         }
     },
-    "stats": {
-        "baseHP": 582.24,
-        "hpPerLvl": 100,
-        "baseHPRegen": 10,
-        "hpRegenPerLvl": 0.95,
-        "mana": {
-            "base": 263,
-            "manaPerLvl": 57.5,
-            "manaBaseRegen": 6.6,
-            "manaRegenPerLvl": 0.35
+    "Q": {
+        "damage": {
+            "type": "Physical",
+            "system": "minMax",
+            "minDmg": [17.5, 28, 38.5, 49, 59.5],
+            "maxDmg": [50, 80, 110, 140, 170],
+            "minADRatio": [0.35, 0.385, 0.42, 0.455, 0.49],
+            "maxADRatio": [1, 1.1, 1.2, 1.3, 1.4]
         },
-        "baseDamage": 64,
-        "damagePerLvl": 5,
-        "baseArmor": 39,
-        "armorPerLvl": 4,
-        "baseMR": 32.1,
-        "mrPerLvl": 1.25,
-        "attackSpeed": 0.625,
-        "asRatio": 0.625,
-        "asPerLvl": 0.01,
-        "ranged": false
+        "heal": {
+            "targets": "Self",
+            "system":"minMax",
+            "minMissingHPRatio": 0.15,
+            "maxMissingHPRatio": 0.45
+        },
+        "coolDown": [9, 8, 7, 6, 5]
+    },
+    "W": {
+        "autoEmpower": {
+            "damage": {
+                "type": "Physical",
+                "system":"single",
+                "ADRatio": [0.4,0.45,0.5,0.55,0.6],
+                "canCrit": true
+            }     
+        },
+        "coolDown": 5
+    },
+    "E": {
+        "toggleStats": {
+            "armorPenRatio": {
+                "flat": [0.2, 0.25, 0.3, 0.35, 0.4]
+            }
+        },
+        "coolDown": [24, 21.5, 19, 16.5, 14]
+    },
+    "R": {
+        "damage": {
+            "type": "True",
+            "system": "minMax",
+            "minDmg": [125, 250, 375],
+            "maxDmg": [250, 500, 750],
+            "minBonusADRatio": 0.75,
+            "maxBonusADRatio": 1.5
+        },
+        "coolDown": [120, 100, 80]
     }
 }
