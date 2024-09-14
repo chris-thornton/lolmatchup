@@ -38,10 +38,10 @@
             "damage": {
                 "type": "Magic",
                 "dmgByLvl": [
-                    20, 25, 30, 35, 40, 55, 65, 75, 85,
-                    95, 120, 135, 150, 165, 180, 210, 230, 250
+                    20,25,30,35,40,45,55,65,75,
+                    85,95,110,125,140,155,170,195,220
                 ],
-                "APRatio": 0.4,
+                "APRatio": 0.5,
                 "autoCoolDown": 3
             }
         }
@@ -50,76 +50,52 @@
         "damage": {
             "type": "Magic",
             "system": "single",
-            "dmg": [
-                60, 95, 130, 165, 200
-            ],
+            "dmg": [60, 95, 130, 165, 200],
             "APRatio": 0.7
         },
-        "coolDown": [
-            8, 7.5, 7, 6.5, 6
-        ]
+        "coolDown": [8, 7.5, 7, 6.5, 6]
     },
     "W": {
         "damage": {
             "type": "Magic",
             "system": "minMax",
-            "minDmg": [
-                18,30,42,54,66
-            ],
-            "maxDmg": [
-                54, 90, 126, 162, 198
-            ],
-            "minAPRatio": 0.15,
-            "maxAPRatio": 0.45
+            "minDmg": [18,30,42,54,66],
+            "maxDmg": [54, 90, 126, 162, 198],
+            "minAPRatio": 0.18,
+            "maxAPRatio": 0.54
         },
         "shield": {
             "system":"minMax",
             "type": "all",
             "targets": "Self",
             "duration": 5,
-            "minShield": [
-                30, 45, 60, 75, 90
-            ],
+            "minShield": [45, 60, 75, 90, 105],
             "minAPRatio": 0.3,
-            "minBonusHPRatio": 0.1,
-            "maxShield": [
-                60, 90, 120, 150, 180
-            ],
+            "minBonusHPRatio": 0.09,
+            "maxShield": [90, 120, 150, 180, 210],
             "maxAPRatio": 0.6,
-            "maxBonusHPRatio": 0.2
+            "maxBonusHPRatio": 0.18
         },
-        "coolDown": [
-            15, 13.5, 12, 10.5, 9
-        ]
+        "coolDown": [15, 13.5, 12, 10.5, 9]
     },
     "E": {
         "damage": {
             "type": "Magic",
             "system": "single",
-            "dmg": [
-                40, 60, 80, 100, 120
-            ],
-            "APRatio": 0.4
+            "dmg": [50, 70, 90, 110, 130],
+            "APRatio": 0.6
         },
-        "coolDown": [
-            22, 20, 18, 16, 14
-        ]
+        "coolDown": [22, 20, 18, 16, 14]
     },
     "R": {
         "damage": {
             "type": "Magic",
             "system": "minMax",
-            "minDmg": [
-                200, 300, 400
-            ],
-            "maxDmg": [
-                340, 540, 740
-            ],
+            "minDmg": [200, 300, 400],
+            "maxDmg": [340, 540, 740],
             "minAPRatio": 0.6,
             "maxAPRatio": 1.2
         },
-        "coolDown": [
-            100, 90, 80
-        ]
+        "coolDown": [100, 90, 80]
     }
 }

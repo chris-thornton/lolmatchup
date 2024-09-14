@@ -366,6 +366,10 @@ class App extends Component {
   sterakCountLeft = 0;
   sterakCountRight = 0;
   sterakMultiplierRight = 1;
+  overlordCountLeft = 0;
+  overlordMultiplierLeft = 0;
+  overlordCountRight = 0;
+  overlordMultiplierRight = 0;
   winterMultiplierLeft = 0;
   winterCountLeft = 0;
   winterMultiplierRight = 0;
@@ -526,10 +530,13 @@ class App extends Component {
 
     runeStats.hp += [10, 20, 30, 40, 50, 60, 70, 80, 90,
     100, 110, 120, 130, 140, 150, 160, 170, 180][(this[`level${side}`] - 1)]*runeStats.hpByLvl;
+
     if (((itemStats.ap + appliedStats.ap )*this[`dcapMultiplier${side}`]) + 
     (itemStats.mana + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)
     *this[`mana${side}`]*this[`archangel${side}`] > itemStats.ad + appliedStats.ad + (itemStats.mana 
     + statsPath.mana["base"] + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]*this[`mura${side}`]
+    + (itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + appliedStats.mana)
+    *this[`winterMultiplier${side}`]*this[`mana${side}`])*this[`overlordMultiplier${side}`]
     + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1)) {
       runeStats.ap = runeStats.force;
       runeStats.ad = 0
@@ -545,8 +552,8 @@ class App extends Component {
             this[`applied${x}${side}`][y].ratioPer.perStatTypes.map((z, i) => {
               if (z === 'hp') {
                 appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * (itemStats.hp
-                  + runeStats.hp + appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
-                + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`winterMultiplier${side}`]*this[`mana${side}`])
+                  + runeStats.hp + appliedStats.hp + (itemStats.mana + appliedStats.mana)
+                  *this[`winterMultiplier${side}`]*this[`mana${side}`])
                 if (this[`applied${x}${side}`][y].ratioPer.perQuantityTypes[i] !== 'bonus') {
                   appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
                   (statsPath["baseHP"] + (statsPath["hpPerLvl"] * champLvlRatio))
@@ -562,6 +569,8 @@ class App extends Component {
                 appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
                 (itemStats.ad + runeStats.ad + appliedStats.ad + (itemStats.mana + statsPath.mana["base"] 
                 + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]*this[`mura${side}`]
+                + (itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + appliedStats.mana)
+                *this[`winterMultiplier${side}`]*this[`mana${side}`])*(this[`overlordMultiplier${side}`])
                 + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1))
                 if (this[`applied${x}${side}`][y].ratioPer.perQuantityTypes[i] !== 'bonus') {
                   appliedStats[y] += this[`applied${x}${side}`][y].ratioPer.perQuantityValues[i] * 
@@ -592,12 +601,14 @@ class App extends Component {
 
     this[`bonusStats${side}`] = {
       ...this[`bonusStats${side}`],
-      hp: itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + statsPath.mana["base"] + appliedStats.mana
-        + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`winterMultiplier${side}`]*this[`mana${side}`],
+      hp: itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + appliedStats.mana)
+      *this[`winterMultiplier${side}`]*this[`mana${side}`],
       as: itemStats.as + runeStats.as + appliedStats.as,
       arm: itemStats.arm + appliedStats.arm,
       ad: itemStats.ad + runeStats.ad + appliedStats.ad + (itemStats.mana + statsPath.mana["base"] 
       + statsPath.mana["manaPerLvl"] * champLvlRatio)*this[`mana${side}`]*this[`mura${side}`]
+      +(itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + appliedStats.mana)
+      *this[`winterMultiplier${side}`]*this[`mana${side}`])*this[`overlordMultiplier${side}`]
         + (statsPath["baseDamage"] + statsPath["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1),
       mr: itemStats.mr + appliedStats.mr,
       mana: itemStats.mana*this[`mana${side}`],
@@ -702,7 +713,9 @@ class App extends Component {
           as: tfPath["attackSpeed"] + (this[`bonusStats${side}`].as 
             + tfPath["asPerLvl"]*champLvlRatio) * tfPath["asRatio"],
           arm: this[`bonusStats${side}`].arm + tfPath["baseArmor"] + tfPath["armorPerLvl"]*champLvlRatio,
-          ad: itemStats.ad + runeStats.ad + appliedStats.ad + (tfPath["baseDamage"] 
+          ad: itemStats.ad + runeStats.ad + appliedStats.ad + (tfPath["baseDamage"]
+            + (itemStats.hp + runeStats.hp + appliedStats.hp + (itemStats.mana + appliedStats.mana)
+            *this[`winterMultiplier${side}`]*this[`mana${side}`])*this[`overlordMultiplier${side}`] 
             + tfPath["damagePerLvl"]*champLvlRatio)*this[`sterakMultiplier${side}`]
             + (itemStats.mana + tfPath.mana["base"] + tfPath.mana["manaPerLvl"]*champLvlRatio)
             *this[`mura${side}`]*this[`mana${side}`],
@@ -734,8 +747,7 @@ class App extends Component {
           [`tfTotalStats${side}`]: {
             ...prevState[`tfTotalStats${side}`], 
             hp: itemStats.hp + runeStats.hp + tfPath["baseHP"] + (tfPath["hpPerLvl"] * champLvlRatio) + 
-            appliedStats.hp + (itemStats.mana + tfPath.mana["base"] + appliedStats.mana
-            + tfPath.mana["manaPerLvl"] * champLvlRatio)*this[`winterMultiplier${side}`]*this[`mana${side}`]
+            appliedStats.hp + (itemStats.mana + appliedStats.mana)*this[`winterMultiplier${side}`]*this[`mana${side}`]
           }
         }))
       }
@@ -2127,7 +2139,7 @@ class App extends Component {
                   addText("ratio)");
                 };
                 if (damage["medBonusADRatio"]) {
-                  addText(" (+" + removeParen(damage["medBonusADRatio"]) + " Bonus AD Ratio)");
+                  addText(" (+" + removeParen(damage["medBonusADRatio"]));
                   colorAD(" Bonus AD");
                   addText("ratio)");
                 };
@@ -10249,48 +10261,16 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        60 <img src={magicResIcon}></img> Magic Resistance
+        50 <img src={magicResIcon}></img> Magic Resistance
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Unmake: </i>
       <span>
-      Reduce enemy champion  magic resistance by 5 (+ 1.2% bonus health) (min: 8.6, max: 25).
-      Gain 9 bonus magic resistance per cursed enemy.
+      Enemy champions within 700 units of you become cursed, reducing their magic 
+      resistance by 30%. Gain 10 bonus magic resistance per cursed enemy.
       </span>
     </div>,
     1:
-    <div>
-      <b className='yellow'>Anathema's Chains</b>
-      <hr></hr>
-      <span>
-        20 <img src={cdrIcon}></img> Ability Haste
-      </span>
-      <br></br>
-      <span>
-        650 <img src={healthIcon}></img> Health
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Active - Vow: </i>
-      <span>
-      Designate the target enemy champion as your Nemesis and gain 1 stack of Vendetta every 2 seconds over 60 seconds.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        90 (Cannot be cast for 15 seconds while in combat with champions and having a Nemesis)
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Vendetta: </i>
-      <span>
-      Take 1% reduced damage per stack of Vendetta from your Nemesis, up to 30% reduced damage.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Vengeance: </i>
-      <span>
-      At maximum stacks, your Nemesis has 20% reduced tenacity while they are within 700 units of you.
-      </span>
-    </div>,
-    2:
     <div>
       <b className='yellow'>Archangel's Staff</b>
       <hr></hr>
@@ -10317,7 +10297,7 @@ class App extends Component {
         a charge and grants 5 bonus mana, increased to 10 if it's a champion, up to a maximum of 360 bonus mana.
       </span>
     </div>,
-    3:
+    2:
     <div>
       <b className='yellow'>Ardent Censer</b>
       <hr></hr>
@@ -10343,7 +10323,7 @@ class App extends Component {
       bonus attack speed and 20 bonus magic damage on-hit on basic attacks for 6 seconds.
       </span>
     </div>,
-    4:
+    3:
     <div>
       <b className='yellow'>Axiom Arc</b>
       <hr></hr>
@@ -10365,7 +10345,7 @@ class App extends Component {
       10% (+ 0.3% per 1 lethality) of your ultimate's total cooldown.
       </span>
     </div>,
-    5:
+    4:
     <div>
       <b className='yellow'>Banshee's Veil</b>
       <hr></hr>
@@ -10387,7 +10367,7 @@ class App extends Component {
         30 (restarts upon taking damage from champions)
       </span>
     </div>,
-    6:
+    5:
     <div>
       <b className='yellow'>Black Cleaver</b>
       <hr></hr>
@@ -10405,8 +10385,8 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Carve: </i>
       <span>
-      Dealing physical damage to an enemy champion applies a stack of Carve for 6 seconds, stacking up to 5 times.
-        Each stack reduces the target's armor by 5%, up to 25%.
+      Dealing physical damage to an enemy champion applies a stack of Carve for 6 seconds, 
+      stacking up to 5 times. Each stack reduces the target's armor by 6%, up to 30%.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Fervor: </i>
@@ -10414,12 +10394,40 @@ class App extends Component {
       Dealing physical damage grants 20 bonus movement speed for 2 seconds.
       </span>
     </div>,
+    6:
+    <div>
+      <b className='yellow'>Blackfire Torch</b>
+      <hr></hr>
+      <span>
+        90 <img src={APIcon}></img> Ability Power
+      </span>
+      <br></br>
+      <span>
+        25 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        600 <img src={manaIcon}></img> Mana
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Baleful Blaze: </i>
+      <span>
+      Dealing ability damage burns enemies, dealing 7.5 (+ 1.5% AP) magic damage every 0.5 seconds 
+      over 3 seconds, for a total of 45 (+ 9% AP). Each tick deals 10 bonus damage against monsters.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Blackfire: </i>
+      <span>
+      For each champion, epic monster, and large monster afflicted with Baleful Blaze's burn, 
+      increase your ability power by 4%.
+      </span>
+    </div>,
     7:
     <div>
       <b className='yellow'>Blade of the Ruined King</b>
       <hr></hr>
       <span>
-        40 <img src={ADIcon}></img> Attack Damage
+        50 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -10427,18 +10435,19 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        8% <img src={lifestealIcon}></img> Life Steal
+        10% <img src={lifestealIcon}></img> Life Steal
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Mist's Edge: </i>
       <span>
-      Basic attacks deal (Melee 12% / Ranged 9%) of the target's current health bonus 
+      Basic attacks deal (Melee 10% / Ranged 6%) of the target's current health bonus 
       physical damage on-hit, with a minimum of 15 against all units.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Clawing Shadows: </i>
       <span>
-      Next basic attack on-hit against an enemy champion slows by (Melee 30% / Ranged 15%) for 1 second.
+      Basic attacks on-hit against enemy champions apply a stack for 6 seconds, stacking up 
+      to 3 times. The third stack consumes them all to slow the target by 30% for 1 second.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -10488,20 +10497,17 @@ class App extends Component {
       <b className='yellow'>Bloodthirster</b>
       <hr></hr>
       <span>
-        55 <img src={ADIcon}></img> Attack Damage
+        80 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
-      </span>
-      <br></br>
-      <span>
-        18% <img src={lifestealIcon}></img> Life Steal
+        15% <img src={lifestealIcon}></img> Life Steal
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Engorge: </i>
+      <i className='yellow'>Unique Passive - Ichorshield: </i>
       <span>
-      While above 70% maximum health, gain 10−40 (based on level) bonus attack damage.
+      Convert the healing received from life steal in excess of maximum health into a shield 
+      for up to 165 - 315 (based on level), which lasts until destroyed.
       </span>
     </div>,
     10:
@@ -10562,7 +10568,7 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Blessing of the Mountain: </i>
       <span>
       Reduce incoming champion damage by (Melee 35% / Ranged 25%) for 2 seconds after taking damage from
-       a champion. Then unleash a shockwave around you that slows nearby enemies by 60% for 2 seconds.
+       a champion. Then unleash a shockwave around you that slows nearby enemies by 50% for 1.5 seconds.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -10604,7 +10610,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        250 <img src={healthIcon}></img> Health
+        350 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
@@ -10613,7 +10619,7 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Spelldance: </i>
       <span>
-      Dealing ability damage to an enemy champion grants you 25−60 (based on level) bonus
+      Dealing ability damage to an enemy champion grants you 40-60 (based on level) bonus
        movement speed for 2 seconds.
       </span>
     </div>,
@@ -10649,25 +10655,20 @@ class App extends Component {
       <b className='yellow'>Dawncore</b>
       <hr></hr>
       <span>
-        40 <img src={APIcon}></img> Ability Power
+        60 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        20 <img src={cdrIcon}></img> Ability Haste
+        16% <img src={healShieldIcon}></img> Heal and Shield Power
       </span>
       <br></br>
       <span>
-        150% <img src={manaRegenIcon}></img> Base Mana Regen.
+        100% <img src={manaRegenIcon}></img> Base Mana Regen.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - First Light: </i>
       <span>
-      Gain 3% heal and shield power and 5 ability power for every additional 100% base mana regeneration.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Radiance: </i>
-      <span>
-      Gain 18 summoner spell haste.
+      Gain 2% heal and shield power and 10 AP for every additional 100% base mana regeneration.
       </span>
     </div>,
     16:
@@ -10703,7 +10704,7 @@ class App extends Component {
       <b className='yellow'>Death's Dance</b>
       <hr></hr>
       <span>
-        55 <img src={ADIcon}></img> Attack Damage
+        60 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -10711,7 +10712,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        40 <img src={armorIcon}></img> Armor
+        50 <img src={armorIcon}></img> Armor
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Ignore Pain: </i>
@@ -10723,7 +10724,7 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Defy: </i>
       <span>
       If an enemy champion dies within 3 seconds of you damaging them, remove Ignore Pain's remaining
-       stored damage and heal for 50% bonus AD over 2 seconds.
+       stored damage and heal for 75% bonus AD over 2 seconds.
       </span>
     </div>,
     18:
@@ -10787,9 +10788,9 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Soul Siphon: </i>
       <span>
-      Damaging an enemy champion with a basic attack or ability damage grants a Soul Shard, up to 3.
+      Damaging an enemy champion with a basic attack or ability damage grants a Soul Shard, up to 2.
        Healing or shielding an allied champion (excluding self) consumes all Soul Shards to heal them
-        for 40 per shard and deal 45 magic damage per shard to the nearest enemy champion within 1100 units of the ally.
+        for 75 per shard and deal 60 magic damage per shard to the nearest enemy champion within 1100 units of the ally.
       </span>
     </div>,
     20:
@@ -10807,8 +10808,8 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Ever Rising Moon: </i>
       <span>
       Hitting an enemy champion with 2 separate attacks or abilities within 2 seconds deals bonus physical
-       damage equal to (Melee 8% / Ranged 4%) of target's maximum health and grants you a shield for
-        (Melee 160 / Ranged 80) (+ (Melee 40% / Ranged 20%) bonus AD) for 2 seconds.
+       damage equal to (Melee 6% / Ranged 4%) of target's maximum health and grants you a shield for
+        (Melee 160 / Ranged 80) (+ Melee 40% / Ranged 20% bonus AD) for 2 seconds.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -10847,26 +10848,20 @@ class App extends Component {
       <b className='yellow'>Essence Reaver</b>
       <hr></hr>
       <span>
-        60 <img src={ADIcon}></img> Attack Damage
+        70 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        20 <img src={cdrIcon}></img> Ability Haste
+        25 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Spellblade: </i>
+      <i className='yellow'>Unique Passive - Essence Drain: </i>
       <span>
-      After using an ability, your next basic attack within 10 seconds deals 140% base AD (+ 20% bonus AD)
-        bonus physical damage on-hit and restores mana equal to 40% of that amount.
-      </span>
-      <br></br>
-      <i className='yellow'>Cooldown: </i>
-      <span>
-        1.5
+      Basic attacks on-hit restore 15 (+ 10% bonus AD) mana.
       </span>
     </div>,
     23:
@@ -10910,7 +10905,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        400 <img src={healthIcon}></img> Health
+        550 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
@@ -10919,12 +10914,12 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Awe: </i>
       <span>
-      Grants bonus health equal to 8% maximum mana.
+      Grants bonus health equal to 15% bonus mana.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Everlasting: </i>
       <span>
-      Immobilizing, or slowing (melee only), an enemy champion grants a 100−180 
+      Immobilizing, or slowing (melee only), an enemy champion grants a 100-180 
       (based on level) (+ 4.5% current mana) shield for 3 seconds. Shield increases by 80% if
        within 1200 units of 2+ enemy champions.
       </span>
@@ -11080,7 +11075,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        300 <img src={healthIcon}></img> Health
+        400 <img src={healthIcon}></img> Health
       </span>
       <hr></hr>
       <i className='yellow'>Unique Active - Supersonic: </i>
@@ -11099,11 +11094,15 @@ class App extends Component {
       <b className='yellow'>Hollow Radiance</b>
       <hr></hr>
       <span>
-        600 <img src={healthIcon}></img> Health
+        450 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
         40 <img src={magicResIcon}></img> Magic Resistance
+      </span>
+      <br></br>
+      <span>
+        10 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
@@ -11236,21 +11235,17 @@ class App extends Component {
       <b className='yellow'>Immortal Shieldbow</b>
       <hr></hr>
       <span>
-        50 <img src={ADIcon}></img> Attack Damage
+        55 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
-      </span>
-      <br></br>
-      <span>
-        12% <img src={lifestealIcon}></img> Life Steal
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Lifeline: </i>
       <span>
       If you would take damage that would reduce you below 30% of your maximum health, you first gain 
-      a shield that absorbs 320−530 (based on level) damage for 3 seconds.
+      a shield that absorbs (Melee 400-700 / Ranged 320-560) (based on level) damage for 3 seconds.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -11291,15 +11286,15 @@ class App extends Component {
       <b className='yellow'>Infinity Edge</b>
       <hr></hr>
       <span>
-        65 <img src={ADIcon}></img> Attack Damage
+        80 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <br></br>
       <span>
-        50% <img src={critDamageIcon}></img> Critical Strike Damage
+        40% <img src={critDamageIcon}></img> Critical Strike Damage
       </span>
     </div>,
     39:
@@ -11351,15 +11346,19 @@ class App extends Component {
       <b className='yellow'>Knight's Vow</b>
       <hr></hr>
       <span>
-        15 <img src={cdrIcon}></img> Ability Haste
+        10 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        300 <img src={healthIcon}></img> Health
+        200 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
-        45 <img src={armorIcon}></img> Armor
+        40 <img src={armorIcon}></img> Armor
+      </span>
+      <br></br>
+      <span>
+        100% <img src={healthRegenIcon}></img> Base Health Regen.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Active - Pledge: </i>
@@ -11375,10 +11374,9 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Sacrifice: </i>
       <span>
-      While your Worthy ally is nearby and you are above 30% of your maximum health, redirect 10% of the
-        pre-mitigation physical and magic damage they take to you as true damage and heal for 10% of the damage
-        dealt by your Worthy ally to champions. If they are below 30% maximum health, the damage redirection
-          is increased to 20%.
+      While your Worthy ally is within 1250 range and you are above 30% of your maximum health, 
+      redirect 12% of the pre-mitigation physical and magic damage they take to you as the respective 
+      damage type and heal for 10% of the post-mitigation damage dealt by your Worthy ally to champions.
       </span>
     </div>,
     42:
@@ -11386,22 +11384,21 @@ class App extends Component {
       <b className='yellow'>Kraken Slayer</b>
       <hr></hr>
       <span>
-        40 <img src={ADIcon}></img> Attack Damage
+        50 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        35% <img src={attackSpeedIcon}></img> Attack Speed
+        40% <img src={attackSpeedIcon}></img> Attack Speed
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        5% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Bring it Down: </i>
       <span>
-      Every third basic attack deals 140−310 (based on level) bonus physical damage on-hit. Stacks 
-      last 3 seconds. Consuming stacks on the same target within 6 seconds increases the damage 
-      by 50%, up to 100% for a maximum of 280−620 (based on level) bonus physical damage.
+      Every third basic attack deals (Melee 140-310 / Ranged 112-248) (based on level) bonus physical 
+      damage on-hit, increased by up to 50% based on target's missing health. Stacks last 3 seconds.
       </span>
     </div>,
     43:
@@ -11491,21 +11488,15 @@ class App extends Component {
       <b className='yellow'>Lord Dominik's Regards</b>
       <hr></hr>
       <span>
-        40 <img src={ADIcon}></img> Attack Damage
+        45 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <br></br>
       <span>
         35% <img src={arPenIcon}></img> Armor Penetration
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Giant Slayer: </i>
-      <span>
-      Deal 0%-15% (based on maximum health difference) bonus physical damage against 
-      enemy champions with greater maximum health than you.
       </span>
     </div>,
     47:
@@ -11513,30 +11504,30 @@ class App extends Component {
       <b className='yellow'>Luden's Companion</b>
       <hr></hr>
       <span>
-        95 <img src={APIcon}></img> Ability Power
+        100 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        25 <img src={cdrIcon}></img> Ability Haste
+        20 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
         600 <img src={manaIcon}></img> Mana
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Load: </i>
-      <span>
-      Gain a Shot Charge stack every 3 seconds, up to a maximum of 6.
-      </span>
-      <hr></hr>
       <i className='yellow'>Unique Passive - Fire: </i>
       <span>
-      Dealing ability damage to an enemy consumes all Shot Charges to deal 45 (+4% AP) bonus magic 
+      Dealing ability damage to an enemy consumes all 6 Shot Charges to deal 60 (+4% AP) bonus magic 
       damage to them and, for each charge consumed beyond the first, an additional enemy within 
       600 units of them, firing an orb at each secondary target that impacts after 0.528 seconds. 
       If the number of additional targets fired at is less than the number of charges consumed, 
-      deal an additional 15.75-78.75 (based on remaining Shot Charges) (+1.4%-7% AP) magic damage 
-      to the primary target, for a total of 60.75-123.75 (+5.4%-11% AP).
+      deal an additional 30-150 (based on remaining Shot Charges) (+2%-10% AP) magic damage 
+      to the primary target, for a total of 90-210 (+6%-14% AP).
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+      12
       </span>
     </div>,
     48:
@@ -11606,23 +11597,27 @@ class App extends Component {
       <b className='yellow'>Maw of Malmortius</b>
       <hr></hr>
       <span>
-        65 <img src={ADIcon}></img> Attack Damage
+        70 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        50 <img src={magicResIcon}></img> Magic Resistance
+        15 <img src={cdrIcon}></img> Ability Haste
+      </span>
+      <br></br>
+      <span>
+        40 <img src={magicResIcon}></img> Magic Resistance
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Lifeline: </i>
       <span>
       If you would take magic damage that would reduce you below 30% of your maximum health, you first 
       gain a shield that absorbs (Melee 200 / Ranged 150) (+ Melee 225% / Ranged 168.75% bonus AD) 
-      magic damage for 2.5 seconds. Grants 12% life steal while in-combat.
+      magic damage for 3 seconds. Grants 10% omnivamp until end of combat.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-      90
+        90
       </span>
     </div>,
     51:
@@ -11653,7 +11648,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        10% <img src={lifestealIcon}></img> Life Steal
       </span>
       <br></br>
       <span>
@@ -11752,7 +11747,7 @@ class App extends Component {
       <b className='yellow'>Mortal Reminder</b>
       <hr></hr>
       <span>
-        40 <img src={ADIcon}></img> Attack Damage
+        35 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
@@ -11760,7 +11755,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Grievous Wounds: </i>
@@ -11819,29 +11814,23 @@ class App extends Component {
     </div>,
     59:
     <div>
-      <b className='yellow'>Navori Quickblades</b>
+      <b className='yellow'>Navori Flickerblade</b>
       <hr></hr>
       <span>
-        65 <img src={ADIcon}></img> Attack Damage
+        40% <img src={attackSpeedIcon}></img> Attack Speed
       </span>
       <br></br>
       <span>
-        15 <img src={cdrIcon}></img> Ability Haste
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        7% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Transcendence: </i>
       <span>
-      Basic attacks on-attack reduce the remaining cooldowns of your basic abilities by 12%.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Impermanence: </i>
-      <span>
-      Your ability damage and proc damage dealt by abilities is increased by 0%-20% 
-      (based on critical strike chance).
+      Basic attacks on-attack reduce the remaining cooldowns of your basic abilities by 15%.
       </span>
     </div>,
     60:
@@ -11862,42 +11851,60 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Preparation: </i>
       <span>
-      After being out-of-combat with enemy champions for 8 seconds, gain 5-10 (based on level) lethality. 
-      This bonus remains for 3 seconds after dealing damage to an enemy champion.
+      After being out-of-combat with enemy champions for 8 seconds, gain (Melee 5-10 / Ranged 3-6) (based 
+      on level) lethality. This bonus remains for 3 seconds after dealing damage to an enemy champion.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Extraction: </i>
       <span>
-      Damaging an enemy champion within 3 seconds of takedown grants you 150 bonus 
+      Damaging an enemy champion within 3 seconds of takedown grants you 200 bonus 
       movement speed that decays over 1.5 seconds.
       </span>
     </div>,
     61:
     <div>
+      <b className='yellow'>Overlord's Bloodmail</b>
+      <hr></hr>
+      <span>
+        500 <img src={healthIcon}></img> Health
+      </span>
+      <br></br>
+      <span>
+        40 <img src={ADIcon}></img> Attack Damage
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Tyranny: </i>
+      <span>
+      Gain 2% of bonus health as bonus attack damage.
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Retribution: </i>
+      <span>
+      Gain 0% - 10% (based on missing health) bonus attack damage.
+      </span>
+    </div>,
+    62:
+    <div>
       <b className='yellow'>Phantom Dancer</b>
       <hr></hr>
       <span>
-        20 <img src={ADIcon}></img> Attack Damage
+        60% <img src={attackSpeedIcon}></img> Attack Speed
       </span>
       <br></br>
       <span>
-        30% <img src={attackSpeedIcon}></img> Attack Speed
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
-      </span>
-      <br></br>
-      <span>
-        10% <img src={moveSpeedIcon}></img> Movement Speed
+        12% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Spectral Waltz: </i>
       <span>
-      Basic attacks on-attack grant ghosting and 7% bonus attack speed, up to 5 stacks.
+      Become permanently ghosted.
       </span>
     </div>,
-    62:
+    63:
     <div>
       <b className='yellow'>Profane Hydra</b>
       <hr></hr>
@@ -11930,7 +11937,7 @@ class App extends Component {
         10
       </span>
     </div>,
-    63:
+    64:
     <div>
       <b className='yellow'>Rabadon's Deathcap</b>
       <hr></hr>
@@ -11943,32 +11950,26 @@ class App extends Component {
       Increase your ability power by 35%.
       </span>
     </div>,
-    64:
+    65:
     <div>
       <b className='yellow'>Randuin's Omen</b>
       <hr></hr>
       <span>
-        400 <img src={healthIcon}></img> Health
+        350 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
-        55 <img src={armorIcon}></img> Armor
+        75 <img src={armorIcon}></img> Armor
       </span>
       <hr></hr>
       <i className='yellow'>Unique Active - Humility: </i>
       <span>
-      Unleash a 500 range shockwave around you that slows nearby enemies by 55% for 2 seconds.
+      Unleash a 500 range shockwave around you that slows nearby enemies by 70% for 2 seconds.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-        60
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Rock Solid: </i>
-      <span>
-      Every first incoming instance of post-mitigation basic damage per cast instance is 
-      reduced by 5 (+3.5 per 1000 maximum health), maximum 20% reduction each.
+        90
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Critical Resilience: </i>
@@ -11976,20 +11977,16 @@ class App extends Component {
       Reduces incoming damage from critical strikes by 30%.
       </span>
     </div>,
-    65:
+    66:
     <div>
       <b className='yellow'>Rapid Firecannon</b>
       <hr></hr>
       <span>
-        20% <img src={attackSpeedIcon}></img> Attack Speed
+        35% <img src={attackSpeedIcon}></img> Attack Speed
       </span>
       <br></br>
       <span>
-        30 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <br></br>
       <span>
@@ -12007,7 +12004,7 @@ class App extends Component {
       attacks gain 35% bonus range, capped at 150.
       </span>
     </div>,
-    66:
+    67:
     <div>
       <b className='yellow'>Ravenous Hydra</b>
       <hr></hr>
@@ -12039,7 +12036,7 @@ class App extends Component {
         10
       </span>
     </div>,
-    67:
+    68:
     <div>
       <b className='yellow'>Redemption</b>
       <hr></hr>
@@ -12071,7 +12068,7 @@ class App extends Component {
         90
       </span>
     </div>,
-    68:
+    69:
     <div>
       <b className='yellow'>Riftmaker</b>
       <hr></hr>
@@ -12098,7 +12095,7 @@ class App extends Component {
       Gain ability power equal to 2% bonus health.
       </span>
     </div>,
-    69:
+    70:
     <div>
       <b className='yellow'>Rod of Ages</b>
       <hr></hr>
@@ -12127,7 +12124,7 @@ class App extends Component {
       mana spent, up to 20 per cast. Toggled abilities can only heal for up to 20 per second.
       </span>
     </div>,
-    70:
+    71:
     <div>
       <b className='yellow'>Runaan's Hurricane</b>
       <hr></hr>
@@ -12136,26 +12133,21 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <br></br>
       <span>
         7% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Peck: </i>
-      <span>
-      Basic attacks deal 30 bonus magic damage on-hit.
-      </span>
-      <hr></hr>
       <i className='yellow'>Unique Passive - Wind's Fury: </i>
       <span>
-      Basic attacks fire additional bolts at up to 2 enemies in front of you, each dealing 40% AD physical 
+      Basic attacks fire additional bolts at up to 2 enemies in front of you, each dealing 55% AD physical 
       damage. Bolts apply on-hit effects at 100% effectiveness and are affected by critical strike modifiers. 
       Bolts target the closest enemies to you that are not the main target.
       </span>
     </div>,
-    71:
+    72:
     <div>
       <b className='yellow'>Rylai's Crystal Scepter</b>
       <hr></hr>
@@ -12172,7 +12164,7 @@ class App extends Component {
       Dealing ability damage slows affected units by 30% for 1 second.
       </span>
     </div>,
-    72:
+    73:
     <div>
       <b className='yellow'>Seraph's Embrace</b>
       <hr></hr>
@@ -12204,7 +12196,7 @@ class App extends Component {
         90
       </span>
     </div>,
-    73:
+    74:
     <div>
       <b className='yellow'>Serpent's Fang</b>
       <hr></hr>
@@ -12222,7 +12214,7 @@ class App extends Component {
       and if the target was not already afflicted, reduces all of their active shields by the same amount.
       </span>
     </div>,
-    74:
+    75:
     <div>
       <b className='yellow'>Serylda's Grudge</b>
       <hr></hr>
@@ -12248,30 +12240,30 @@ class App extends Component {
       Dealing ability damage to an enemy that is at or below 50% maximum health slows by 30% for 1 second.
       </span>
     </div>,
-    75:
+    76:
     <div>
       <b className='yellow'>Shadowflame</b>
       <hr></hr>
       <span>
-        120 <img src={APIcon}></img> Ability Power
+        115 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
-        12 <img src={mPenIcon}></img> Magic Penetration
+        15 <img src={mPenIcon}></img> Magic Penetration
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Cinderbloom: </i>
       <span>
-      Magic damage and true damage critically strike enemies below 35% maximum health for 120% 
-      damage, increased to 130% for damage over time effects and damage dealt by pets.
+      Magic damage and true damage critically strike enemies below 40% maximum health for 120% 
+      damage, increased to 125% for damage over time effects and damage dealt by pets.
       </span>
     </div>,
-    76:
+    77:
     <div>
       <b className='yellow'>Shurelya's Battlesong</b>
       <hr></hr>
       <span>
-        55 <img src={APIcon}></img> Ability Power
+        50 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -12283,7 +12275,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        8% <img src={moveSpeedIcon}></img> Movement Speed
+        5% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
       <i className='yellow'>Unique Active - Inspiring Speech: </i>
@@ -12296,7 +12288,7 @@ class App extends Component {
         75 
       </span>
     </div>,
-    77:
+    78:
     <div>
       <b className='yellow'>Solstice Sleigh</b>
       <hr></hr>
@@ -12333,7 +12325,7 @@ class App extends Component {
         30
       </span>
     </div>,
-    78:
+    79:
     <div>
       <b className='yellow'>Spear of Shojin</b>
       <hr></hr>
@@ -12361,7 +12353,7 @@ class App extends Component {
       ability damage and proc damage dealt by abilities gain 3% increased damage.
       </span>
     </div>,
-    79:
+    80:
     <div>
       <b className='yellow'>Spirit Visage</b>
       <hr></hr>
@@ -12386,7 +12378,7 @@ class App extends Component {
       Increases all healing and shielding received and health regeneration by 25%.
       </span>
     </div>,
-    80:
+    81:
     <div>
       <b className='yellow'>Staff of Flowing Water</b>
       <hr></hr>
@@ -12412,38 +12404,41 @@ class App extends Component {
       them 30 ability power and 10% bonus movement speed for 4 seconds.
       </span>
     </div>,
-    81:
+    82:
     <div>
       <b className='yellow'>Statikk Shiv</b>
       <hr></hr>
       <span>
-        30% <img src={attackSpeedIcon}></img> Attack Speed
+        55 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        50 <img src={ADIcon}></img> Attack Damage
+        45% <img src={attackSpeedIcon}></img> Attack Speed
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
-      </span>
-      <br></br>
-      <span>
-        7% <img src={moveSpeedIcon}></img> Movement Speed
+        5% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
-      <i className='yellow'>Unique Passive - Energized: </i>
+      <i className='yellow'>Unique Passive - Electrospark: </i>
       <span>
-      Moving and basic attacking generates Energize stacks, up to 100.
+      Upon killing a minion or monster, unleash an electric spark at the location of their death 
+      which chains to the closest target within 500 units, up to 6 targets, dealing 120 magic damage to each. 
+      </span>
+      <br></br>
+      <i className='yellow'>Cooldown: </i>
+      <span>
+        3
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Electroshock: </i>
       <span>
-      When fully Energized, your next basic attack deals 90 bonus magic damage, increased to 150 
-      against minions, and bounces to the closest target within 500 units, up to 6 targets.
+      Scoring a takedown against an enemy champion unleashes a lightning shock at the location of their 
+      death which chains to the closest target within 650 units, repeating from the new one to strike 
+      each subseqeuent target, dealing 270 magic damage to each.
       </span>
     </div>,
-    82:
+    83:
     <div>
       <b className='yellow'>Sterak's Gage</b>
       <hr></hr>
@@ -12468,34 +12463,7 @@ class App extends Component {
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-        60
-      </span>
-    </div>,
-    83:
-    <div>
-      <b className='yellow'>Stormrazor</b>
-      <hr></hr>
-      <span>
-        60 <img src={ADIcon}></img> Attack Damage
-      </span>
-      <br></br>
-      <span>
-        15% <img src={attackSpeedIcon}></img> Attack Speed
-      </span>
-      <br></br>
-      <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Energized: </i>
-      <span>
-      Moving and basic attacking generates Energize stacks, up to 100.
-      </span>
-      <hr></hr>
-      <i className='yellow'>Unique Passive - Bolt: </i>
-      <span>
-      When fully Energized, your next basic attack deals 100 bonus magic damage 
-      on-hit and grants you 45% bonus movement speed for 1.5 seconds.
+        90
       </span>
     </div>,
     84:
@@ -12507,17 +12475,17 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        10 <img src={mPenIcon}></img> Magic Penetration
+        15 <img src={mPenIcon}></img> Magic Penetration
       </span>
       <br></br>
       <span>
-        8% <img src={moveSpeedIcon}></img> Movement Speed
+        5% <img src={moveSpeedIcon}></img> Movement Speed
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Stormraider: </i>
       <span>
-      Dealing damage to an enemy champion equal to 35% of their maximum health within 2.5 seconds 
-      inflicts them with Squall and grants you 25% bonus movement speed for 2 seconds.
+      Dealing damage to an enemy champion equal to 25% of their maximum health within 2.5 seconds 
+      inflicts them with Squall and grants you 35% bonus movement speed for 2 seconds.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
@@ -12528,8 +12496,8 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Squall: </i>
       <span>
       After 2 seconds of having applied Squall, strike the target with lightning, dealing 
-      (Melee 140 / Ranged 105) (+ Melee 20% / Ranged 15% AP) magic damage to them. If the target 
-      dies before being struck, they emit an electric field instantly that shocks all enemy champions 
+      140 (+20% AP) magic damage to them. If the target dies before being struck, they emit an 
+      electric field instantly that shocks all enemy champions 
       near them, dealing them the same damage and granting you 30 gold.
       </span>
     </div>,
@@ -12590,13 +12558,13 @@ class App extends Component {
       <i className='yellow'>Unique Passive - Lightshield Strike: </i>
       <span>
       Your next basic attack against a champion is empowered to critically strike for 175% damage 
-      and heal you for 140% base AD (+6% of your missing health). Excess healing beyond maximum 
-      health is converted to bonus health for 6 seconds.
+      and heal you for (Melee 120% / Ranged 60% base AD) (+6% of your missing health). Excess healing 
+      beyond maximum health is converted to bonus health for 8 seconds.
       </span>
       <br></br>
       <i className='yellow'>Cooldown: </i>
       <span>
-      6 (per target)
+      8 (per target)
       </span>
     </div>,
     87:
@@ -12604,11 +12572,15 @@ class App extends Component {
       <b className='yellow'>Sunfire Aegis</b>
       <hr></hr>
       <span>
-        500 <img src={healthIcon}></img> Health
+        350 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
         50 <img src={armorIcon}></img> Armor
+      </span>
+      <br></br>
+      <span>
+        10 <img src={cdrIcon}></img> Ability Haste
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Immolate: </i>
@@ -12617,7 +12589,7 @@ class App extends Component {
       damage every second to enemies within 325 (+100% bonus size) units. Damage increases by 25% against 
       minions and executes minions that would be killed by one more tick of damage. Damaging enemy champions 
       or epic monsters with this effect grants a stack for 5 seconds that increases subsequent Immolate 
-      damage by 10%, stacking up to 6 times.
+      damage by 10%, stacking up to 60%.
       </span>
     </div>,
     88:
@@ -12625,11 +12597,11 @@ class App extends Component {
       <b className='yellow'>Terminus</b>
       <hr></hr>
       <span>
-        40 <img src={ADIcon}></img> Attack Damage
+        35 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        30% <img src={attackSpeedIcon}></img> Attack Speed
+        35% <img src={attackSpeedIcon}></img> Attack Speed
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Shadow: </i>
@@ -12649,15 +12621,15 @@ class App extends Component {
       <b className='yellow'>The Collector</b>
       <hr></hr>
       <span>
-        55 <img src={ADIcon}></img> Attack Damage
+        60 <img src={ADIcon}></img> Attack Damage
       </span>
       <br></br>
       <span>
-        20% <img src={critChanceIcon}></img> Critical Strike Chance
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
       </span>
       <br></br>
       <span>
-        16 <img src={arPenIcon}></img> Lethality
+        12 <img src={arPenIcon}></img> Lethality
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Death: </i>
@@ -12829,7 +12801,7 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Anguish: </i>
       <span>
-      Every 7 seconds in combat with champions, deal 30-50 (based on level) (+3% bonus health) magic 
+      Every 5 seconds in combat with champions, deal 30-50 (based on level) (+3% bonus health) magic 
       damage to enemy champions (650 range) and heal yourself for 250% of the post-mitigation damage dealt.
       </span>
     </div>,
@@ -12868,7 +12840,7 @@ class App extends Component {
       <b className='yellow'>Void Staff</b>
       <hr></hr>
       <span>
-        80 <img src={APIcon}></img> Ability Power
+        95 <img src={APIcon}></img> Ability Power
       </span>
       <br></br>
       <span>
@@ -12912,11 +12884,11 @@ class App extends Component {
       <b className='yellow'>Warmog's Armor</b>
       <hr></hr>
       <span>
-        750 <img src={healthIcon}></img> Health
+        1000 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
-        200% <img src={healthRegenIcon}></img> Base Health Regen.
+        100% <img src={healthRegenIcon}></img> Base Health Regen.
       </span>
       <br></br>
       <span>
@@ -12925,8 +12897,9 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Warmog's Heart: </i>
       <span>
-      If you have at least 1300 bonus health and have not taken damage in the last 6 seconds 
-      (3 seconds for damage from non-champions), regenerate 2.5% maximum health every 0.5 seconds.
+      If you have at least 1500 bonus health and have not taken damage in the last 6 seconds 
+      (3 seconds for damage from non-champions), regenerate 2.5% maximum health every 0.5 
+      seconds and gain 5% bonus movement speed.
       </span>
     </div>,
     100:
@@ -12938,7 +12911,7 @@ class App extends Component {
       </span>
       <br></br>
       <span>
-        400 <img src={healthIcon}></img> Health
+        550 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
@@ -12947,7 +12920,7 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Awe: </i>
       <span>
-      Grants bonus health equal to 8% maximum mana.
+      Grants bonus health equal to 15% bonus mana.
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Manaflow: </i>
@@ -12975,7 +12948,7 @@ class App extends Component {
       <hr></hr>
       <i className='yellow'>Unique Passive - Fray: </i>
       <span>
-      Basic attacks deal 15-80 (based on level) bonus magic damage on-hit.
+      Basic attacks deal 40-80 (based on level) bonus magic damage on-hit.
       </span>
     </div>,
     102:
@@ -13006,6 +12979,25 @@ class App extends Component {
       </span>
     </div>,
     103:
+    <div>
+      <b className='yellow'>Yun Tal Wildarrows</b>
+      <hr></hr>
+      <span>
+        65 <img src={ADIcon}></img> Attack Damage
+      </span>
+      <br></br>
+      <span>
+        25% <img src={critChanceIcon}></img> Critical Strike Chance
+      </span>
+      <hr></hr>
+      <i className='yellow'>Unique Passive - Serrated Edge: </i>
+      <span>
+      Basic damage that critically strikes on-hit inflicts a bleed on the target, causing them to 
+      take 8.75% AD bonus physical damage every 0.5 seconds over 2 seconds. Subsequent 
+      applications of the bleed can stack, but do not refresh the duration of the previous bleed.
+      </span>
+    </div>,
+    104:
     <div>
       <b className='yellow'>Zaz'Zak's Realmspike</b>
       <hr></hr>
@@ -13042,24 +13034,24 @@ class App extends Component {
       10
       </span>
     </div>,
-    104:
+    105:
     <div>
       <b className='yellow'>Zeke's Convergence</b>
       <hr></hr>
       <span>
-        20 <img src={cdrIcon}></img> Ability Haste
+        10 <img src={cdrIcon}></img> Ability Haste
       </span>
       <br></br>
       <span>
-        200 <img src={healthIcon}></img> Health
+        300 <img src={healthIcon}></img> Health
       </span>
       <br></br>
       <span>
-        250 <img src={manaIcon}></img> Mana
+        25 <img src={armorIcon}></img> Armor
       </span>
       <br></br>
       <span>
-        30 <img src={armorIcon}></img> Armor
+        25 <img src={magicResIcon}></img> Magic Resistance
       </span>
       <hr></hr>
       <i className='yellow'>Unique Passive - Frostfire Tempest: </i>
@@ -13073,7 +13065,7 @@ class App extends Component {
         45
       </span>
     </div>,
-    105:
+    106:
     <div>
       <b className='yellow'>Zhonya's Hourglass</b>
       <hr></hr>
@@ -13131,9 +13123,15 @@ class App extends Component {
       };
       this[`sterakCount${side}`]++;
     };
+    if (itemTitle === `Overlord's Bloodmail`) {
+      if (this[`overlordCount${side}`] === 0) {
+        this[`overlordMultiplier${side}`] = 0.02;
+      };
+      this[`overlordCount${side}`]++;
+    };
     if (itemTitle.includes('Fimbulwinter') || itemTitle.includes(`Winter's Approach`)) {
       if (this[`winterCount${side}`] === 0) {
-        this[`winterMultiplier${side}`] = 0.08;
+        this[`winterMultiplier${side}`] = 0.15;
       };
       this[`winterCount${side}`]++;
     };
@@ -13229,7 +13227,7 @@ class App extends Component {
       };
     };
 
-    var adaptAD = itemStats.ad + (champStats["baseDamage"]
+    /*var adaptAD = itemStats.ad + (champStats["baseDamage"]
       + champStats["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1);
     if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`dcapMultiplier${side}`] > adaptAD) {
       var adFromRunes = this[`runes${side}`].ad;
@@ -13242,7 +13240,7 @@ class App extends Component {
       this[`runes${side}`].ad = apFromRunes*0.6;
       this[`runes${side}`].ap = 0;
       this[`forceType${side}`] = 'ad'
-    };
+    };*/
 
     this.setGlobalStats(side);
     this.calculateAbility('Left');
@@ -13277,6 +13275,12 @@ class App extends Component {
         this[`sterakMultiplier${side}`] = 1;
       };
       this[`sterakCount${side}`]--;
+    };
+    if (itemTitle === `Overlord's Bloodmail`) {
+      if (this[`overlordCount${side}`] === 1) {
+        this[`overlordMultiplier${side}`] = 0;
+      };
+      this[`overlordCount${side}`]--;
     };
     if (itemTitle.includes('Fimbulwinter') || itemTitle.includes(`Winter's Approach`)) {
       if (this[`winterCount${side}`] === 1) {
@@ -13380,7 +13384,7 @@ class App extends Component {
       };
     };
 
-    var adaptAD = itemStats.ad + (champStats["baseDamage"] 
+    /*var adaptAD = itemStats.ad + (champStats["baseDamage"] 
       + champStats["damagePerLvl"] * champLvlRatio)*(this[`sterakMultiplier${side}`]-1);
     if (this[`forceType${side}`] === 'ad' && itemStats.ap*this[`dcapMultiplier${side}`] > adaptAD) {
       var adFromRunes = this[`runes${side}`].ad;
@@ -13393,7 +13397,7 @@ class App extends Component {
       this[`runes${side}`].ad = apFromRunes*0.6;
       this[`runes${side}`].ap = 0;
       this[`forceType${side}`] = 'ad'
-    };
+    };*/
 
     this.setGlobalStats(side);
     this.calculateAbility('Left');
